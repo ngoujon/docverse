@@ -106,7 +106,7 @@ export default function DocumentPanel({ documents, onUpload, onIngestUrl, onDele
             onChange={(e) => setUrlInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleUrlSubmit()}
             placeholder="Coller un lien (https://...)"
-            className="min-w-0 flex-1 rounded-lg border border-surface-border bg-surface-2 px-2.5 py-1.5 text-xs text-slate-100 outline-none focus:border-accent"
+            className="min-w-0 flex-1 rounded-lg border border-surface-border bg-surface-2 px-2.5 py-1.5 text-xs text-slate-100 placeholder:text-slate-500 outline-none focus:border-accent"
           />
           <button
             onClick={handleUrlSubmit}

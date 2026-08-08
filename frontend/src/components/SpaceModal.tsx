@@ -59,7 +59,7 @@ export default function SpaceModal({ open, initial, onClose, onSubmit }: Props) 
               onChange={(e) => setName(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
               placeholder="Ex : Veille juridique, Projet client X..."
-              className="w-full rounded-lg border border-surface-border bg-surface-1 px-3 py-2 text-sm text-slate-100 outline-none focus:border-accent"
+              className="w-full rounded-lg border border-surface-border bg-surface-1 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500 outline-none focus:border-accent"
             />
           </div>
           <div>

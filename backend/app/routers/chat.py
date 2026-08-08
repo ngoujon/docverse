@@ -51,11 +51,15 @@ async def chat(
 
     db.commit()
 
+    # Extract plain values while the request-scoped session is still open:
+    # the ORM objects themselves become unusable once this session is
+    # closed (which happens before the streaming generator below runs).
+    user_msg_id = user_msg.id
     space_id = space.id
     space_name = space.name
 
     async def event_stream():
-        yield _sse({"type": "user_message_id", "id": user_msg.id})
+        yield _sse({"type": "user_message_id", "id": user_msg_id})
         full_text = ""
         sources: list[dict] = []
         try:

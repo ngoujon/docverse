@@ -121,7 +121,7 @@ export default function ChatWindow({
             }}
             rows={1}
             placeholder="Ecrivez votre message... (Entree pour envoyer, Maj+Entree pour un saut de ligne)"
-            className="max-h-40 flex-1 resize-none bg-transparent text-sm text-slate-100 placeholder:text-slate-600 outline-none"
+            className="max-h-40 flex-1 resize-none bg-transparent text-sm text-slate-100 placeholder:text-slate-500 outline-none"
           />
           <button
             onClick={handleSend}
