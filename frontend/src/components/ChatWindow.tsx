@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Send, Globe, PanelRight, Sparkles, Menu, Loader2 } from "lucide-react";
 import clsx from "clsx";
 import type { Conversation, Message, Space } from "../types";
@@ -31,6 +32,7 @@ export default function ChatWindow({
   docPanelOpen,
   onOpenMobileNav,
 }: Props) {
+  const { t } = useTranslation();
   const [input, setInput] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -63,7 +65,7 @@ export default function ChatWindow({
           </button>
         )}
         <Sparkles size={28} />
-        <p className="text-sm">Selectionnez ou creez une conversation pour commencer.</p>
+        <p className="text-sm">{t("app.chat.selectConversation")}</p>
       </div>
     );
   }
@@ -80,13 +82,13 @@ export default function ChatWindow({
           </button>
           <div className="min-w-0">
             <h1 className="truncate text-sm font-semibold text-slate-900">{conversation.title}</h1>
-            <p className="truncate text-[11px] text-slate-500">Espace : {space.name}</p>
+            <p className="truncate text-[11px] text-slate-500">{t("app.chat.space", { name: space.name })}</p>
           </div>
         </div>
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <button
             onClick={() => onToggleWebSearch(!webSearch)}
-            title="Completer les reponses avec une recherche web"
+            title={t("app.chat.webSearchTitle")}
             className={clsx(
               "flex items-center gap-1.5 rounded-full border px-2.5 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-wider transition-colors sm:px-3",
               webSearch
@@ -95,11 +97,11 @@ export default function ChatWindow({
             )}
           >
             <Globe size={13} />
-            <span className="hidden sm:inline">Recherche web</span>
+            <span className="hidden sm:inline">{t("app.chat.webSearch")}</span>
           </button>
           <button
             onClick={onToggleDocPanel}
-            title="Documents de l'espace"
+            title={t("app.chat.documentsTitle")}
             className={clsx(
               "rounded-lg border border-surface-border p-2 text-slate-500 hover:border-slate-400 hover:text-slate-700",
               docPanelOpen && "border-accent text-accent"
@@ -114,8 +116,7 @@ export default function ChatWindow({
         {messages.length === 0 && (
           <div className="mx-auto mt-10 max-w-sm text-center text-sm text-slate-500">
             <Sparkles size={22} className="mx-auto mb-2 text-slate-300" />
-            Posez une question sur les documents de cet espace. Activez la
-            recherche web pour completer avec des sources en ligne.
+            {t("app.chat.emptyHint")}
           </div>
         )}
         {messages.map((m) => (
@@ -124,9 +125,9 @@ export default function ChatWindow({
         {streaming && queuedPosition !== null && queuedPosition !== undefined && (
           <div className="mx-auto flex w-fit items-center gap-2 rounded-full border border-surface-border bg-surface-2 px-3 py-1.5 text-xs text-slate-500">
             <Loader2 size={13} className="animate-spin" />
-            En file d'attente
-            {queuedPosition > 1 ? ` (${queuedPosition - 1} devant vous)` : ""} - le serveur
-            traite une requete a la fois
+            {t("app.chat.queued")}
+            {queuedPosition > 1 ? t("app.chat.queuedPosition", { count: queuedPosition - 1 }) : ""}
+            {t("app.chat.queuedSuffix")}
           </div>
         )}
       </div>
@@ -148,7 +149,7 @@ export default function ChatWindow({
               }
             }}
             rows={1}
-            placeholder="Ecrivez votre message..."
+            placeholder={t("app.chat.placeholder")}
             className="max-h-40 flex-1 resize-none bg-transparent text-sm text-slate-900 placeholder:text-slate-400 outline-none"
           />
           <button

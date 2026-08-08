@@ -1,0 +1,194 @@
+{
+  "common": {
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "confirm": "Confirmer"
+  },
+  "nav": {
+    "features": "Fonctionnalites",
+    "howItWorks": "Comment ca marche",
+    "contact": "Contact",
+    "launchApp": "Lancer l'app"
+  },
+  "hero": {
+    "badges": ["100% Local", "Open Source", "Gratuit", "Sans compte"],
+    "title1": "Discutez avec vos documents,",
+    "title2": "en local, sans compte.",
+    "subtitle": "Deposez vos PDF, images et liens dans des espaces cloisonnes, et interrogez-les avec une IA qui tourne entierement sur votre serveur - via Ollama, sans API cloud ni tracking.",
+    "ctaTry": "Essayer maintenant",
+    "ctaDiscover": "Decouvrir"
+  },
+  "features": {
+    "eyebrow": "Fonctionnalites",
+    "title": "Tout ce qu'il faut, rien de superflu",
+    "items": [
+      {
+        "title": "Espaces cloisonnes",
+        "desc": "Chaque espace de travail garde ses documents et conversations pour lui - rien n'est partage entre espaces. Protegez-en un par mot de passe et partagez-le en un clic."
+      },
+      {
+        "title": "Tous vos formats",
+        "desc": "PDF, images, pages web, DOCX, TXT, Markdown : deposez-les par glisser-deposer, ils sont indexes automatiquement."
+      },
+      {
+        "title": "Vision par IA",
+        "desc": "Les scans et photos sont lus par un modele multimodal : le contenu des images devient interrogeable comme du texte."
+      },
+      {
+        "title": "Recherche web locale",
+        "desc": "Completez les reponses avec le web via un moteur de recherche auto-heberge, sans traceurs ni cle API."
+      },
+      {
+        "title": "File d'attente intelligente",
+        "desc": "Les requetes IA sont traitees une par une : meme sur un petit serveur, l'application reste stable a plusieurs utilisateurs."
+      },
+      {
+        "title": "100% local et prive",
+        "desc": "Aucune donnee n'est envoyee a une API cloud tierce. Tout tourne sur votre propre serveur, avec Ollama."
+      }
+    ]
+  },
+  "steps": {
+    "eyebrow": "Comment ca marche",
+    "title": "Trois etapes, zero friction",
+    "items": [
+      { "title": "Creez un espace", "desc": "Nommez-le, choisissez une couleur, ajoutez un mot de passe si vous voulez le garder prive." },
+      { "title": "Deposez vos documents", "desc": "Glissez-deposez PDF, images ou liens web. L'IA les lit et les indexe en arriere-plan." },
+      { "title": "Discutez", "desc": "Posez vos questions, obtenez des reponses sourcees dans vos documents (et le web si besoin)." }
+    ]
+  },
+  "opensource": {
+    "title": "Projet libre, gratuit, et local par design",
+    "desc": "Pas de compte, pas d'abonnement, pas de collecte de donnees pour entrainer un modele. Vous hebergez, vous controlez.",
+    "cta": "Commencer gratuitement"
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Une question ? Ecrivez-nous",
+    "subtitle": "Bug, idee de fonctionnalite, retour d'experience : tout est bienvenu.",
+    "name": "Nom",
+    "namePlaceholder": "Votre nom",
+    "email": "Email",
+    "emailPlaceholder": "vous@exemple.com",
+    "message": "Message",
+    "messagePlaceholder": "Une question, une idee, un bug ?",
+    "send": "Envoyer le message",
+    "sending": "Envoi...",
+    "sentTitle": "Message envoye !",
+    "sentDesc": "On vous repond des que possible.",
+    "genericError": "Une erreur est survenue"
+  },
+  "footer": {
+    "tagline": "Fait avec {{heart}} - projet libre et gratuit",
+    "privacy": "Confidentialite",
+    "launchApp": "Lancer l'app"
+  },
+  "privacy": {
+    "back": "Retour a l'accueil",
+    "eyebrow": "Confidentialite",
+    "title": "Cookies et donnees personnelles",
+    "subtitle": "Ce projet est concu pour etre local et prive par defaut. Voici, simplement, ce qui est stocke et pourquoi.",
+    "sections": [
+      {
+        "title": "Cookies",
+        "body": "Ce site n'utilise aucun cookie de suivi ni de mesure d'audience, et aucun cookie tiers/publicitaire. Aucun bandeau de consentement n'est donc necessaire : il n'y a rien a consentir."
+      },
+      {
+        "title": "Stockage local (localStorage)",
+        "body": "Lorsque vous deverrouillez un espace de travail protege par mot de passe, un jeton d'acces temporaire est enregistre dans le stockage local de votre navigateur (localStorage), uniquement pour eviter de ressaisir le mot de passe a chaque page. Il n'est jamais transmis a un tiers et expire automatiquement. Vous pouvez l'effacer a tout moment en videant les donnees du site dans votre navigateur."
+      },
+      {
+        "title": "Vos documents et conversations",
+        "body": "Les documents que vous deposez, leur contenu indexe et vos conversations restent stockes uniquement sur le serveur qui heberge cette instance (base de donnees et base vectorielle locales). Rien n'est envoye a un service d'IA cloud tiers : le traitement (lecture, indexation, generation des reponses) est effectue localement via Ollama."
+      },
+      {
+        "title": "Formulaire de contact",
+        "body": "Si vous utilisez le formulaire de contact, votre nom, votre email et votre message sont conserves afin de pouvoir vous repondre. Ces informations ne sont ni revendues ni partagees avec des tiers, et ne servent a aucune prospection commerciale."
+      }
+    ],
+    "footnote": "Cette page decrit le fonctionnement du logiciel tel que fourni. L'organisation qui heberge cette instance reste responsable du traitement des donnees qu'elle collecte via ce site."
+  },
+  "app": {
+    "spaceRail": {
+      "newSpace": "Nouvel espace",
+      "ollamaConnected": "Ollama connecte",
+      "ollamaUnreachable": "Ollama injoignable",
+      "checking": "Verification..."
+    },
+    "sidebar": {
+      "editSpace": "Modifier l'espace",
+      "deleteSpace": "Supprimer l'espace",
+      "newConversation": "Nouvelle conversation",
+      "noConversations": "Aucune conversation pour l'instant.",
+      "shareTitle": "Copier le lien de partage de cet espace",
+      "justNow": "a l'instant",
+      "minutesAgo": "il y a {{count}} min",
+      "hoursAgo": "il y a {{count}} h",
+      "daysAgo": "il y a {{count}} j"
+    },
+    "chat": {
+      "selectConversation": "Selectionnez ou creez une conversation pour commencer.",
+      "space": "Espace : {{name}}",
+      "webSearchTitle": "Completer les reponses avec une recherche web",
+      "webSearch": "Recherche web",
+      "documentsTitle": "Documents de l'espace",
+      "emptyHint": "Posez une question sur les documents de cet espace. Activez la recherche web pour completer avec des sources en ligne.",
+      "queued": "En file d'attente",
+      "queuedPosition": " ({{count}} devant vous)",
+      "queuedSuffix": " - le serveur traite une requete a la fois",
+      "placeholder": "Ecrivez votre message...",
+      "errorGeneric": "Une erreur est survenue pendant la generation ({{error}}). Verifiez qu'Ollama est bien demarre et que les modeles sont telecharges.",
+      "connectionError": "Erreur de connexion au serveur."
+    },
+    "documents": {
+      "title": "Documents de l'espace",
+      "subtitle": "Ajoutez des fichiers ou des liens que le chatbot pourra consulter.",
+      "dropActive": "Deposez les fichiers ici",
+      "dropIdle": "Glissez-deposez ou cliquez",
+      "supportedFormats": "PDF, images, DOCX, TXT, Markdown",
+      "urlPlaceholder": "Coller un lien (https://...)",
+      "empty": "Aucun document pour l'instant.",
+      "statusReady": "{{count}} extraits",
+      "statusPending": "En attente",
+      "statusProcessing": "Analyse en cours...",
+      "statusError": "Erreur"
+    },
+    "spaceModal": {
+      "editTitle": "Modifier l'espace",
+      "createTitle": "Nouvel espace de travail",
+      "name": "Nom",
+      "namePlaceholder": "Ex : Veille juridique, Projet client X...",
+      "description": "Description (optionnel)",
+      "descriptionPlaceholder": "A quoi sert cet espace ?",
+      "color": "Couleur",
+      "password": "Mot de passe (optionnel)",
+      "passwordPlaceholderKeep": "Laisser vide pour ne pas changer",
+      "passwordPlaceholderNew": "Laisser vide pour un espace ouvert a tous",
+      "removePassword": "Retirer le mot de passe (rendre l'espace ouvert a tous)",
+      "helper": "Toute personne avec le mot de passe (ou le lien de partage, une fois deverrouille) pourra consulter et utiliser cet espace.",
+      "save": "Enregistrer",
+      "create": "Creer l'espace"
+    },
+    "passwordPrompt": {
+      "title": "Espace protege",
+      "body": "L'espace « {{name}} » est protege par un mot de passe. Saisissez-le pour y acceder.",
+      "placeholder": "Mot de passe",
+      "verifying": "Verification...",
+      "unlock": "Deverrouiller"
+    },
+    "confirmDeleteSpace": {
+      "title": "Supprimer cet espace ?",
+      "message": "Tous les documents, conversations et messages associes seront definitivement supprimes."
+    },
+    "confirmDeleteConversation": {
+      "title": "Supprimer cette conversation ?",
+      "message": "Cette action est irreversible."
+    },
+    "workspace": {
+      "locked": "Cet espace est protege par un mot de passe.",
+      "createFirstSpace": "Creez votre premier espace de travail pour commencer.",
+      "newSpace": "Nouvel espace"
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDropzone } from "react-dropzone";
 import {
   UploadCloud,
@@ -43,8 +44,8 @@ function StatusIcon({ status }: { status: DocumentItem["status"] }) {
 
 function formatSize(bytes: number): string {
   if (!bytes) return "";
-  if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} Ko`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} Mo`;
+  if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
 export default function DocumentPanel({
@@ -54,6 +55,7 @@ export default function DocumentPanel({
   onDelete,
   onClose,
 }: Props) {
+  const { t } = useTranslation();
   const [urlInput, setUrlInput] = useState("");
 
   const onDrop = useCallback(
@@ -85,10 +87,8 @@ export default function DocumentPanel({
     <aside className="flex h-full w-[85vw] max-w-[320px] shrink-0 flex-col border-l border-surface-border bg-surface-1 sm:w-[320px]">
       <div className="flex items-start justify-between gap-2 border-b border-surface-border p-4">
         <div>
-          <h2 className="text-sm font-semibold text-slate-900">Documents de l'espace</h2>
-          <p className="mt-0.5 text-xs text-slate-500">
-            Ajoutez des fichiers ou des liens que le chatbot pourra consulter.
-          </p>
+          <h2 className="text-sm font-semibold text-slate-900">{t("app.documents.title")}</h2>
+          <p className="mt-0.5 text-xs text-slate-500">{t("app.documents.subtitle")}</p>
         </div>
         {onClose && (
           <button
@@ -113,9 +113,9 @@ export default function DocumentPanel({
           <input {...getInputProps()} />
           <UploadCloud size={22} className={isDragActive ? "text-accent" : "text-slate-500"} />
           <p className="text-xs text-slate-500">
-            {isDragActive ? "Deposez les fichiers ici" : "Glissez-deposez ou cliquez"}
+            {isDragActive ? t("app.documents.dropActive") : t("app.documents.dropIdle")}
           </p>
-          <p className="text-[10px] text-slate-500">PDF, images, DOCX, TXT, Markdown</p>
+          <p className="text-[10px] text-slate-500">{t("app.documents.supportedFormats")}</p>
         </div>
 
         <div className="mt-2.5 flex items-center gap-1.5">
@@ -123,7 +123,7 @@ export default function DocumentPanel({
             value={urlInput}
             onChange={(e) => setUrlInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleUrlSubmit()}
-            placeholder="Coller un lien (https://...)"
+            placeholder={t("app.documents.urlPlaceholder")}
             className="min-w-0 flex-1 rounded-lg border border-surface-border bg-surface-2 px-2.5 py-1.5 text-xs text-slate-900 placeholder:text-slate-400 outline-none focus:border-accent"
           />
           <button
@@ -138,7 +138,7 @@ export default function DocumentPanel({
 
       <div className="flex-1 overflow-y-auto px-3 pb-3">
         {documents.length === 0 && (
-          <p className="mt-6 text-center text-xs text-slate-600">Aucun document pour l'instant.</p>
+          <p className="mt-6 text-center text-xs text-slate-600">{t("app.documents.empty")}</p>
         )}
         <div className="space-y-1.5">
           {documents.map((doc) => {
@@ -156,10 +156,11 @@ export default function DocumentPanel({
                     <div className="mt-0.5 flex items-center gap-1.5 text-[10px] text-slate-500">
                       <StatusIcon status={doc.status} />
                       <span>
-                        {doc.status === "ready" && `${doc.chunk_count} extraits`}
-                        {doc.status === "pending" && "En attente"}
-                        {doc.status === "processing" && "Analyse en cours..."}
-                        {doc.status === "error" && "Erreur"}
+                        {doc.status === "ready" &&
+                          t("app.documents.statusReady", { count: doc.chunk_count })}
+                        {doc.status === "pending" && t("app.documents.statusPending")}
+                        {doc.status === "processing" && t("app.documents.statusProcessing")}
+                        {doc.status === "error" && t("app.documents.statusError")}
                       </span>
                       {doc.size_bytes > 0 && <span>· {formatSize(doc.size_bytes)}</span>}
                     </div>

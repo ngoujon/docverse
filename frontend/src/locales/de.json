@@ -1,0 +1,194 @@
+{
+  "common": {
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Loschen",
+    "confirm": "Bestatigen"
+  },
+  "nav": {
+    "features": "Funktionen",
+    "howItWorks": "So funktioniert's",
+    "contact": "Kontakt",
+    "launchApp": "App starten"
+  },
+  "hero": {
+    "badges": ["100% Lokal", "Open Source", "Kostenlos", "Ohne Konto"],
+    "title1": "Unterhalten Sie sich mit Ihren Dokumenten,",
+    "title2": "lokal, ohne Konto.",
+    "subtitle": "Laden Sie PDFs, Bilder und Links in abgeschottete Bereiche und befragen Sie sie mit einer KI, die vollstandig auf Ihrem eigenen Server lauft - via Ollama, ohne Cloud-API, ohne Tracking.",
+    "ctaTry": "Jetzt testen",
+    "ctaDiscover": "Entdecken"
+  },
+  "features": {
+    "eyebrow": "Funktionen",
+    "title": "Alles, was Sie brauchen, nichts Uberflussiges",
+    "items": [
+      {
+        "title": "Abgeschottete Bereiche",
+        "desc": "Jeder Arbeitsbereich behalt seine Dokumente und Unterhaltungen fur sich - nichts wird zwischen Bereichen geteilt. Schutzen Sie einen mit einem Passwort und teilen Sie ihn mit einem Klick."
+      },
+      {
+        "title": "Alle Formate",
+        "desc": "PDF, Bilder, Webseiten, DOCX, TXT, Markdown: per Drag & Drop hinzufugen, automatisch indexiert."
+      },
+      {
+        "title": "KI-Bilderkennung",
+        "desc": "Scans und Fotos werden von einem multimodalen Modell gelesen: Der Inhalt Ihrer Bilder wird wie Text durchsuchbar."
+      },
+      {
+        "title": "Lokale Websuche",
+        "desc": "Erganzen Sie Antworten mit dem Web uber eine selbst gehostete Suchmaschine, ohne Tracker, ohne API-Schlussel."
+      },
+      {
+        "title": "Intelligente Warteschlange",
+        "desc": "KI-Anfragen werden nacheinander verarbeitet: Auch auf einem kleinen Server bleibt die App bei mehreren Nutzern stabil."
+      },
+      {
+        "title": "100% lokal und privat",
+        "desc": "Es werden keine Daten an eine Cloud-API Dritter gesendet. Alles lauft auf Ihrem eigenen Server, mit Ollama."
+      }
+    ]
+  },
+  "steps": {
+    "eyebrow": "So funktioniert's",
+    "title": "Drei Schritte, keine Huerden",
+    "items": [
+      { "title": "Bereich erstellen", "desc": "Benennen Sie ihn, wahlen Sie eine Farbe, fugen Sie ein Passwort hinzu, wenn Sie ihn privat halten wollen." },
+      { "title": "Dokumente hinzufugen", "desc": "PDFs, Bilder oder Weblinks per Drag & Drop hinzufugen. Die KI liest und indexiert sie im Hintergrund." },
+      { "title": "Unterhalten", "desc": "Stellen Sie Ihre Fragen, erhalten Sie Antworten mit Quellenangaben aus Ihren Dokumenten (und dem Web, falls notig)." }
+    ]
+  },
+  "opensource": {
+    "title": "Frei, offen und lokal by design",
+    "desc": "Kein Konto, kein Abo, keine Datensammlung zum Trainieren eines Modells. Sie hosten, Sie kontrollieren.",
+    "cta": "Kostenlos starten"
+  },
+  "contact": {
+    "eyebrow": "Kontakt",
+    "title": "Eine Frage? Schreiben Sie uns",
+    "subtitle": "Fehler, Funktionsideen, Feedback: alles willkommen.",
+    "name": "Name",
+    "namePlaceholder": "Ihr Name",
+    "email": "E-Mail",
+    "emailPlaceholder": "sie@beispiel.de",
+    "message": "Nachricht",
+    "messagePlaceholder": "Eine Frage, eine Idee, ein Fehler?",
+    "send": "Nachricht senden",
+    "sending": "Senden...",
+    "sentTitle": "Nachricht gesendet!",
+    "sentDesc": "Wir antworten Ihnen so schnell wie moglich.",
+    "genericError": "Ein Fehler ist aufgetreten"
+  },
+  "footer": {
+    "tagline": "Erstellt mit {{heart}} - freies und kostenloses Projekt",
+    "privacy": "Datenschutz",
+    "launchApp": "App starten"
+  },
+  "privacy": {
+    "back": "Zuruck zur Startseite",
+    "eyebrow": "Datenschutz",
+    "title": "Cookies und personenbezogene Daten",
+    "subtitle": "Dieses Projekt ist standardmassig lokal und privat konzipiert. Hier ist, einfach erklart, was gespeichert wird und warum.",
+    "sections": [
+      {
+        "title": "Cookies",
+        "body": "Diese Website verwendet keine Tracking- oder Analyse-Cookies und keine Cookies von Drittanbietern/Werbetreibenden. Ein Einwilligungsbanner ist daher nicht erforderlich: Es gibt nichts, dem zugestimmt werden musste."
+      },
+      {
+        "title": "Lokaler Speicher (localStorage)",
+        "body": "Wenn Sie einen passwortgeschutzten Arbeitsbereich entsperren, wird ein temporarer Zugriffstoken im lokalen Speicher Ihres Browsers (localStorage) gespeichert - nur damit Sie das Passwort nicht auf jeder Seite erneut eingeben mussen. Er wird niemals an Dritte ubertragen und lauft automatisch ab. Sie konnen ihn jederzeit loschen, indem Sie die Websitedaten in Ihrem Browser leeren."
+      },
+      {
+        "title": "Ihre Dokumente und Unterhaltungen",
+        "body": "Die von Ihnen hochgeladenen Dokumente, ihr indexierter Inhalt und Ihre Unterhaltungen werden ausschliesslich auf dem Server gespeichert, der diese Instanz hostet (lokale Datenbank und Vektordatenbank). Es wird nichts an einen Cloud-KI-Dienst Dritter gesendet: Die Verarbeitung (Lesen, Indexieren, Antwortgenerierung) erfolgt lokal uber Ollama."
+      },
+      {
+        "title": "Kontaktformular",
+        "body": "Wenn Sie das Kontaktformular verwenden, werden Ihr Name, Ihre E-Mail-Adresse und Ihre Nachricht gespeichert, damit wir Ihnen antworten konnen. Diese Informationen werden weder weiterverkauft noch an Dritte weitergegeben und nicht fur Werbezwecke genutzt."
+      }
+    ],
+    "footnote": "Diese Seite beschreibt die Funktionsweise der Software im Auslieferungszustand. Die Organisation, die diese Instanz hostet, bleibt fur die uber diese Website erhobenen Daten verantwortlich."
+  },
+  "app": {
+    "spaceRail": {
+      "newSpace": "Neuer Bereich",
+      "ollamaConnected": "Ollama verbunden",
+      "ollamaUnreachable": "Ollama nicht erreichbar",
+      "checking": "Uberprufung..."
+    },
+    "sidebar": {
+      "editSpace": "Bereich bearbeiten",
+      "deleteSpace": "Bereich loschen",
+      "newConversation": "Neue Unterhaltung",
+      "noConversations": "Noch keine Unterhaltungen.",
+      "shareTitle": "Freigabelink dieses Bereichs kopieren",
+      "justNow": "gerade eben",
+      "minutesAgo": "vor {{count}} Min.",
+      "hoursAgo": "vor {{count}} Std.",
+      "daysAgo": "vor {{count}} T."
+    },
+    "chat": {
+      "selectConversation": "Wahlen oder erstellen Sie eine Unterhaltung, um zu beginnen.",
+      "space": "Bereich: {{name}}",
+      "webSearchTitle": "Antworten mit einer Websuche erganzen",
+      "webSearch": "Websuche",
+      "documentsTitle": "Dokumente des Bereichs",
+      "emptyHint": "Stellen Sie eine Frage zu den Dokumenten dieses Bereichs. Aktivieren Sie die Websuche, um Antworten mit Online-Quellen zu erganzen.",
+      "queued": "In Warteschlange",
+      "queuedPosition": " ({{count}} vor Ihnen)",
+      "queuedSuffix": " - der Server verarbeitet jeweils eine Anfrage",
+      "placeholder": "Nachricht eingeben...",
+      "errorGeneric": "Bei der Antworterstellung ist ein Fehler aufgetreten ({{error}}). Uberprufen Sie, ob Ollama lauft und die Modelle heruntergeladen sind.",
+      "connectionError": "Verbindungsfehler zum Server."
+    },
+    "documents": {
+      "title": "Dokumente des Bereichs",
+      "subtitle": "Fugen Sie Dateien oder Links hinzu, die der Chatbot einsehen kann.",
+      "dropActive": "Dateien hier ablegen",
+      "dropIdle": "Per Drag & Drop hinzufugen oder klicken",
+      "supportedFormats": "PDF, Bilder, DOCX, TXT, Markdown",
+      "urlPlaceholder": "Link einfugen (https://...)",
+      "empty": "Noch keine Dokumente.",
+      "statusReady": "{{count}} Abschnitte",
+      "statusPending": "Ausstehend",
+      "statusProcessing": "Analyse lauft...",
+      "statusError": "Fehler"
+    },
+    "spaceModal": {
+      "editTitle": "Bereich bearbeiten",
+      "createTitle": "Neuer Arbeitsbereich",
+      "name": "Name",
+      "namePlaceholder": "Z. B.: Rechtsuberwachung, Projekt Kunde X...",
+      "description": "Beschreibung (optional)",
+      "descriptionPlaceholder": "Wofur dient dieser Bereich?",
+      "color": "Farbe",
+      "password": "Passwort (optional)",
+      "passwordPlaceholderKeep": "Leer lassen, um es nicht zu andern",
+      "passwordPlaceholderNew": "Leer lassen fur einen offentlich zuganglichen Bereich",
+      "removePassword": "Passwort entfernen (Bereich fur alle offnen)",
+      "helper": "Jeder mit dem Passwort (oder dem Freigabelink, nach dem Entsperren) kann diesen Bereich einsehen und nutzen.",
+      "save": "Speichern",
+      "create": "Bereich erstellen"
+    },
+    "passwordPrompt": {
+      "title": "Geschutzter Bereich",
+      "body": "Der Bereich „{{name}}“ ist passwortgeschutzt. Geben Sie das Passwort ein, um darauf zuzugreifen.",
+      "placeholder": "Passwort",
+      "verifying": "Uberprufung...",
+      "unlock": "Entsperren"
+    },
+    "confirmDeleteSpace": {
+      "title": "Diesen Bereich loschen?",
+      "message": "Alle zugehorigen Dokumente, Unterhaltungen und Nachrichten werden endgultig geloscht."
+    },
+    "confirmDeleteConversation": {
+      "title": "Diese Unterhaltung loschen?",
+      "message": "Diese Aktion kann nicht ruckgangig gemacht werden."
+    },
+    "workspace": {
+      "locked": "Dieser Bereich ist passwortgeschutzt.",
+      "createFirstSpace": "Erstellen Sie Ihren ersten Arbeitsbereich, um loszulegen.",
+      "newSpace": "Neuer Bereich"
+    }
+  }
+}

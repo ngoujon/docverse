@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { X, Eye, EyeOff, Lock } from "lucide-react";
 import type { Space } from "../types";
 
@@ -28,6 +29,7 @@ interface Props {
 }
 
 export default function SpaceModal({ open, initial, onClose, onSubmit }: Props) {
+  const { t } = useTranslation();
   const [name, setName] = useState(initial?.name ?? "");
   const [description, setDescription] = useState(initial?.description ?? "");
   const [color, setColor] = useState(initial?.color ?? COLORS[0]);
@@ -64,7 +66,7 @@ export default function SpaceModal({ open, initial, onClose, onSubmit }: Props) 
       >
         <div className="flex items-center justify-between">
           <h3 className="text-sm font-semibold text-slate-900">
-            {isEdit ? "Modifier l'espace" : "Nouvel espace de travail"}
+            {isEdit ? t("app.spaceModal.editTitle") : t("app.spaceModal.createTitle")}
           </h3>
           <button onClick={onClose} className="text-slate-500 hover:text-slate-700">
             <X size={18} />
@@ -73,30 +75,30 @@ export default function SpaceModal({ open, initial, onClose, onSubmit }: Props) 
 
         <div className="mt-4 space-y-3">
           <div>
-            <label className="mb-1 block text-xs font-medium text-slate-600">Nom</label>
+            <label className="mb-1 block text-xs font-medium text-slate-600">{t("app.spaceModal.name")}</label>
             <input
               autoFocus
               value={name}
               onChange={(e) => setName(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
-              placeholder="Ex : Veille juridique, Projet client X..."
+              placeholder={t("app.spaceModal.namePlaceholder")}
               className="w-full rounded-lg border border-surface-border bg-surface-1 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-accent"
             />
           </div>
           <div>
             <label className="mb-1 block text-xs font-medium text-slate-600">
-              Description (optionnel)
+              {t("app.spaceModal.description")}
             </label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={2}
-              placeholder="A quoi sert cet espace ?"
+              placeholder={t("app.spaceModal.descriptionPlaceholder")}
               className="w-full resize-none rounded-lg border border-surface-border bg-surface-1 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-accent"
             />
           </div>
           <div>
-            <label className="mb-1 block text-xs font-medium text-slate-600">Couleur</label>
+            <label className="mb-1 block text-xs font-medium text-slate-600">{t("app.spaceModal.color")}</label>
             <div className="flex gap-2">
               {COLORS.map((c) => (
                 <button
@@ -115,7 +117,7 @@ export default function SpaceModal({ open, initial, onClose, onSubmit }: Props) 
           <div>
             <label className="mb-1 flex items-center gap-1.5 text-xs font-medium text-slate-600">
               <Lock size={12} />
-              Mot de passe (optionnel)
+              {t("app.spaceModal.password")}
             </label>
             <div className="relative">
               <input
@@ -125,8 +127,8 @@ export default function SpaceModal({ open, initial, onClose, onSubmit }: Props) 
                 disabled={isEdit && removePassword}
                 placeholder={
                   isEdit && hadPassword
-                    ? "Laisser vide pour ne pas changer"
-                    : "Laisser vide pour un espace ouvert a tous"
+                    ? t("app.spaceModal.passwordPlaceholderKeep")
+                    : t("app.spaceModal.passwordPlaceholderNew")
                 }
                 className="w-full rounded-lg border border-surface-border bg-surface-1 px-3 py-2 pr-9 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-accent disabled:opacity-40"
               />
@@ -147,14 +149,10 @@ export default function SpaceModal({ open, initial, onClose, onSubmit }: Props) 
                   onChange={(e) => setRemovePassword(e.target.checked)}
                   className="accent-accent"
                 />
-                Retirer le mot de passe (rendre l'espace ouvert a tous)
+                {t("app.spaceModal.removePassword")}
               </label>
             )}
-            <p className="mt-1 text-[11px] text-slate-600">
-              Toute personne avec le mot de passe (ou le lien de partage,
-              une fois deverrouille) pourra consulter et utiliser cet
-              espace.
-            </p>
+            <p className="mt-1 text-[11px] text-slate-600">{t("app.spaceModal.helper")}</p>
           </div>
         </div>
 
@@ -163,14 +161,14 @@ export default function SpaceModal({ open, initial, onClose, onSubmit }: Props) 
             onClick={onClose}
             className="rounded-lg px-3 py-1.5 text-sm text-slate-700 hover:bg-surface-3"
           >
-            Annuler
+            {t("common.cancel")}
           </button>
           <button
             onClick={handleSubmit}
             disabled={!name.trim()}
             className="rounded-lg bg-accent px-3 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-white shadow-neon-light hover:bg-accent-hover disabled:opacity-40 disabled:shadow-none"
           >
-            {isEdit ? "Enregistrer" : "Creer l'espace"}
+            {isEdit ? t("app.spaceModal.save") : t("app.spaceModal.create")}
           </button>
         </div>
       </div>

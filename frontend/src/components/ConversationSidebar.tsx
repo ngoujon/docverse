@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import type { TFunction } from "i18next";
 import {
   Plus,
   MessageSquare,
@@ -23,15 +25,15 @@ interface Props {
   onDeleteSpace: () => void;
 }
 
-function relativeTime(iso: string): string {
+function relativeTime(iso: string, t: TFunction): string {
   const diffMs = Date.now() - new Date(iso + "Z").getTime();
   const mins = Math.floor(diffMs / 60000);
-  if (mins < 1) return "a l'instant";
-  if (mins < 60) return `il y a ${mins} min`;
+  if (mins < 1) return t("app.sidebar.justNow");
+  if (mins < 60) return t("app.sidebar.minutesAgo", { count: mins });
   const hours = Math.floor(mins / 60);
-  if (hours < 24) return `il y a ${hours} h`;
+  if (hours < 24) return t("app.sidebar.hoursAgo", { count: hours });
   const days = Math.floor(hours / 24);
-  return `il y a ${days} j`;
+  return t("app.sidebar.daysAgo", { count: days });
 }
 
 export default function ConversationSidebar({
@@ -44,6 +46,7 @@ export default function ConversationSidebar({
   onEditSpace,
   onDeleteSpace,
 }: Props) {
+  const { t } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -52,7 +55,7 @@ export default function ConversationSidebar({
     try {
       await navigator.clipboard.writeText(url);
     } catch {
-      window.prompt("Copiez ce lien :", url);
+      window.prompt("URL:", url);
     }
     setCopied(true);
     setTimeout(() => setCopied(false), 1800);
@@ -76,7 +79,7 @@ export default function ConversationSidebar({
           <div className="flex shrink-0 items-center gap-1">
             <button
               onClick={handleShare}
-              title="Copier le lien de partage de cet espace"
+              title={t("app.sidebar.shareTitle")}
               className="rounded-lg p-1.5 text-slate-500 hover:bg-surface-3 hover:text-slate-700"
             >
               {copied ? <Check size={15} className="text-emerald-500" /> : <Share2 size={15} />}
@@ -99,7 +102,7 @@ export default function ConversationSidebar({
                       }}
                       className="flex w-full items-center gap-2 px-3 py-2 text-left text-xs text-slate-700 hover:bg-surface-3"
                     >
-                      <Pencil size={13} /> Modifier l'espace
+                      <Pencil size={13} /> {t("app.sidebar.editSpace")}
                     </button>
                     <button
                       onClick={() => {
@@ -108,7 +111,7 @@ export default function ConversationSidebar({
                       }}
                       className="flex w-full items-center gap-2 px-3 py-2 text-left text-xs text-red-600 hover:bg-surface-3"
                     >
-                      <Trash2 size={13} /> Supprimer l'espace
+                      <Trash2 size={13} /> {t("app.sidebar.deleteSpace")}
                     </button>
                   </div>
                 </>
@@ -121,14 +124,14 @@ export default function ConversationSidebar({
           onClick={onCreate}
           className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-lg bg-accent px-3 py-2 font-mono text-[11px] font-semibold uppercase tracking-wider text-white shadow-neon-light hover:bg-accent-hover"
         >
-          <Plus size={14} /> Nouvelle conversation
+          <Plus size={14} /> {t("app.sidebar.newConversation")}
         </button>
       </div>
 
       <div className="flex-1 overflow-y-auto p-2">
         {conversations.length === 0 && (
           <p className="mt-6 px-3 text-center text-xs text-slate-600">
-            Aucune conversation pour l'instant.
+            {t("app.sidebar.noConversations")}
           </p>
         )}
         {conversations.map((c) => (
@@ -143,7 +146,7 @@ export default function ConversationSidebar({
             <MessageSquare size={14} className="mt-0.5 shrink-0 text-slate-500" />
             <div className="min-w-0 flex-1">
               <p className="truncate text-xs font-medium text-slate-800">{c.title}</p>
-              <p className="text-[11px] text-slate-500">{relativeTime(c.updated_at)}</p>
+              <p className="text-[11px] text-slate-500">{relativeTime(c.updated_at, t)}</p>
             </div>
             <span
               onClick={(e) => {

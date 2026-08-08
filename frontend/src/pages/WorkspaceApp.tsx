@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { api, streamChat, UnauthorizedError } from "../api/client";
 import { getSpaceToken, setSpaceToken, clearSpaceToken } from "../api/spaceTokens";
 import type { Conversation, DocumentItem, HealthStatus, Message, Space } from "../types";
@@ -12,6 +13,7 @@ import ConfirmDialog from "../components/ConfirmDialog";
 import PasswordPrompt from "../components/PasswordPrompt";
 
 export default function WorkspaceApp() {
+  const { t } = useTranslation();
   const { spaceId: routeSpaceId } = useParams();
   const navigate = useNavigate();
 
@@ -275,7 +277,7 @@ export default function WorkspaceApp() {
       setMessages((prev) =>
         prev.map((m) =>
           m.id === tempAssistantId
-            ? { ...m, content: m.content || "*Erreur de connexion au serveur.*" }
+            ? { ...m, content: m.content || `*${t("app.chat.connectionError")}*` }
             : m
         )
       );
@@ -357,7 +359,7 @@ export default function WorkspaceApp() {
       {activeSpace ? (
         locked ? (
           <div className="flex flex-1 flex-col items-center justify-center gap-3 px-4 text-center text-slate-500">
-            <p className="text-sm">Cet espace est protege par un mot de passe.</p>
+            <p className="text-sm">{t("app.workspace.locked")}</p>
           </div>
         ) : (
           <>
@@ -396,12 +398,12 @@ export default function WorkspaceApp() {
         )
       ) : (
         <div className="flex flex-1 flex-col items-center justify-center gap-4 px-4 text-center text-slate-500">
-          <p className="text-sm">Creez votre premier espace de travail pour commencer.</p>
+          <p className="text-sm">{t("app.workspace.createFirstSpace")}</p>
           <button
             onClick={() => setSpaceModal({ open: true, editing: null })}
             className="rounded-lg bg-accent px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider text-white shadow-neon-light hover:bg-accent-hover"
           >
-            Nouvel espace
+            {t("app.workspace.newSpace")}
           </button>
         </div>
       )}
@@ -427,18 +429,18 @@ export default function WorkspaceApp() {
 
       <ConfirmDialog
         open={!!deleteSpaceId}
-        title="Supprimer cet espace ?"
-        message="Tous les documents, conversations et messages associes seront definitivement supprimes."
-        confirmLabel="Supprimer"
+        title={t("app.confirmDeleteSpace.title")}
+        message={t("app.confirmDeleteSpace.message")}
+        confirmLabel={t("common.delete")}
         onConfirm={handleDeleteSpace}
         onCancel={() => setDeleteSpaceId(null)}
       />
 
       <ConfirmDialog
         open={!!deleteConvId}
-        title="Supprimer cette conversation ?"
-        message="Cette action est irreversible."
-        confirmLabel="Supprimer"
+        title={t("app.confirmDeleteConversation.title")}
+        message={t("app.confirmDeleteConversation.message")}
+        confirmLabel={t("common.delete")}
         onConfirm={handleDeleteConversation}
         onCancel={() => setDeleteConvId(null)}
       />

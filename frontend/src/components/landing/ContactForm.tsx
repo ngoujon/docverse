@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Send, CheckCircle2, AlertCircle } from "lucide-react";
 import { api } from "../../api/client";
 
 export default function ContactForm() {
+  const { t } = useTranslation();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -23,7 +25,7 @@ export default function ContactForm() {
       setMessage("");
     } catch (err) {
       setStatus("error");
-      setError(err instanceof Error ? err.message : "Une erreur est survenue");
+      setError(err instanceof Error ? err.message : t("contact.genericError"));
     }
   };
 
@@ -31,8 +33,8 @@ export default function ContactForm() {
     return (
       <div className="flex flex-col items-center gap-3 rounded-2xl border border-retro-cyan/30 bg-retro-panel/60 px-6 py-10 text-center">
         <CheckCircle2 size={32} className="text-retro-cyan" />
-        <p className="font-mono text-sm text-slate-200">Message envoye !</p>
-        <p className="text-xs text-slate-400">On vous repond des que possible.</p>
+        <p className="font-mono text-sm text-slate-200">{t("contact.sentTitle")}</p>
+        <p className="text-xs text-slate-400">{t("contact.sentDesc")}</p>
       </div>
     );
   }
@@ -53,26 +55,26 @@ export default function ContactForm() {
       <div className="grid gap-3 sm:grid-cols-2">
         <div>
           <label className="mb-1 block font-mono text-[11px] uppercase tracking-wider text-retro-cyan/80">
-            Nom
+            {t("contact.name")}
           </label>
           <input
             required
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Votre nom"
+            placeholder={t("contact.namePlaceholder")}
             className="w-full rounded-lg border border-retro-border bg-retro-bg/60 px-3 py-2.5 text-sm text-slate-100 placeholder:text-slate-600 outline-none focus:border-retro-cyan focus:shadow-neon"
           />
         </div>
         <div>
           <label className="mb-1 block font-mono text-[11px] uppercase tracking-wider text-retro-cyan/80">
-            Email
+            {t("contact.email")}
           </label>
           <input
             required
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="vous@exemple.com"
+            placeholder={t("contact.emailPlaceholder")}
             className="w-full rounded-lg border border-retro-border bg-retro-bg/60 px-3 py-2.5 text-sm text-slate-100 placeholder:text-slate-600 outline-none focus:border-retro-cyan focus:shadow-neon"
           />
         </div>
@@ -80,14 +82,14 @@ export default function ContactForm() {
 
       <div>
         <label className="mb-1 block font-mono text-[11px] uppercase tracking-wider text-retro-cyan/80">
-          Message
+          {t("contact.message")}
         </label>
         <textarea
           required
           rows={4}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="Une question, une idee, un bug ?"
+          placeholder={t("contact.messagePlaceholder")}
           className="w-full resize-none rounded-lg border border-retro-border bg-retro-bg/60 px-3 py-2.5 text-sm text-slate-100 placeholder:text-slate-600 outline-none focus:border-retro-cyan focus:shadow-neon"
         />
       </div>
@@ -104,7 +106,7 @@ export default function ContactForm() {
         className="group flex w-full items-center justify-center gap-2 rounded-lg border border-retro-pink bg-retro-pink/10 px-4 py-2.5 font-mono text-xs uppercase tracking-wider text-retro-pink transition hover:bg-retro-pink hover:text-white hover:shadow-neon disabled:opacity-50 sm:w-auto sm:px-6"
       >
         <Send size={14} />
-        {status === "sending" ? "Envoi..." : "Envoyer le message"}
+        {status === "sending" ? t("contact.sending") : t("contact.send")}
       </button>
     </form>
   );

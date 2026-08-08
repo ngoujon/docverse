@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   Menu,
   X,
@@ -16,78 +17,40 @@ import {
 } from "lucide-react";
 import NeoGrid from "../components/landing/NeoGrid";
 import ContactForm from "../components/landing/ContactForm";
+import LanguageSwitcher from "../components/LanguageSwitcher";
 
-const NAV_LINKS = [
-  { label: "Fonctionnalites", href: "#fonctionnalites" },
-  { label: "Comment ca marche", href: "#comment-ca-marche" },
-  { label: "Contact", href: "#contact" },
+const FEATURE_ICONS = [FolderLock, FileStack, ScanEye, Globe2, Gauge, ShieldCheck];
+const FEATURE_COLORS = [
+  { color: "text-retro-pink", border: "hover:border-retro-pink" },
+  { color: "text-retro-cyan", border: "hover:border-retro-cyan" },
+  { color: "text-retro-orange", border: "hover:border-retro-orange" },
+  { color: "text-retro-yellow", border: "hover:border-retro-yellow" },
+  { color: "text-retro-purple", border: "hover:border-retro-purple" },
+  { color: "text-retro-cyan", border: "hover:border-retro-cyan" },
 ];
 
-const FEATURES = [
-  {
-    icon: FolderLock,
-    title: "Espaces cloisonnes",
-    desc: "Chaque espace de travail garde ses documents et conversations pour lui - rien n'est partage entre espaces. Protegez-en un par mot de passe et partagez-le en un clic.",
-    color: "text-retro-pink",
-    border: "hover:border-retro-pink",
-  },
-  {
-    icon: FileStack,
-    title: "Tous vos formats",
-    desc: "PDF, images, pages web, DOCX, TXT, Markdown : deposez-les par glisser-deposer, ils sont indexes automatiquement.",
-    color: "text-retro-cyan",
-    border: "hover:border-retro-cyan",
-  },
-  {
-    icon: ScanEye,
-    title: "Vision par IA",
-    desc: "Les scans et photos sont lus par un modele multimodal : le contenu des images devient interrogeable comme du texte.",
-    color: "text-retro-orange",
-    border: "hover:border-retro-orange",
-  },
-  {
-    icon: Globe2,
-    title: "Recherche web locale",
-    desc: "Completez les reponses avec le web via un moteur de recherche auto-heberge, sans traceurs ni cle API.",
-    color: "text-retro-yellow",
-    border: "hover:border-retro-yellow",
-  },
-  {
-    icon: Gauge,
-    title: "File d'attente intelligente",
-    desc: "Les requetes IA sont traitees une par une : meme sur un petit serveur, l'application reste stable a plusieurs utilisateurs.",
-    color: "text-retro-purple",
-    border: "hover:border-retro-purple",
-  },
-  {
-    icon: ShieldCheck,
-    title: "100% local et prive",
-    desc: "Aucune donnee n'est envoyee a une API cloud tierce. Tout tourne sur votre propre serveur, avec Ollama.",
-    color: "text-retro-cyan",
-    border: "hover:border-retro-cyan",
-  },
-];
+interface FeatureItem {
+  title: string;
+  desc: string;
+}
 
-const STEPS = [
-  {
-    n: "01",
-    title: "Creez un espace",
-    desc: "Nommez-le, choisissez une couleur, ajoutez un mot de passe si vous voulez le garder prive.",
-  },
-  {
-    n: "02",
-    title: "Deposez vos documents",
-    desc: "Glissez-deposez PDF, images ou liens web. L'IA les lit et les indexe en arriere-plan.",
-  },
-  {
-    n: "03",
-    title: "Discutez",
-    desc: "Posez vos questions, obtenez des reponses sourcees dans vos documents (et le web si besoin).",
-  },
-];
+interface StepItem {
+  title: string;
+  desc: string;
+}
 
 export default function LandingPage() {
+  const { t } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const navLinks = [
+    { label: t("nav.features"), href: "#fonctionnalites" },
+    { label: t("nav.howItWorks"), href: "#comment-ca-marche" },
+    { label: t("nav.contact"), href: "#contact" },
+  ];
+  const features = t("features.items", { returnObjects: true }) as FeatureItem[];
+  const steps = t("steps.items", { returnObjects: true }) as StepItem[];
+  const badges = t("hero.badges", { returnObjects: true }) as string[];
 
   return (
     <div className="min-h-screen bg-retro-bg font-sans text-slate-200">
@@ -102,7 +65,7 @@ export default function LandingPage() {
           </a>
 
           <nav className="hidden items-center gap-6 md:flex">
-            {NAV_LINKS.map((l) => (
+            {navLinks.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
@@ -111,26 +74,27 @@ export default function LandingPage() {
                 {l.label}
               </a>
             ))}
+            <LanguageSwitcher variant="dark" />
             <Link
               to="/app"
               className="flex items-center gap-1.5 rounded-lg border border-retro-pink bg-retro-pink/10 px-4 py-2 font-mono text-xs uppercase tracking-wider text-retro-pink transition hover:bg-retro-pink hover:text-white hover:shadow-neon"
             >
-              Lancer l'app <ArrowRight size={13} />
+              {t("nav.launchApp")} <ArrowRight size={13} />
             </Link>
           </nav>
 
-          <button
-            onClick={() => setMobileMenuOpen((v) => !v)}
-            className="text-slate-300 md:hidden"
-          >
-            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          <div className="flex items-center gap-3 md:hidden">
+            <LanguageSwitcher variant="dark" />
+            <button onClick={() => setMobileMenuOpen((v) => !v)} className="text-slate-300">
+              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
         </div>
 
         {mobileMenuOpen && (
           <div className="border-t border-retro-border/60 bg-retro-bg px-4 py-3 md:hidden">
             <div className="flex flex-col gap-3">
-              {NAV_LINKS.map((l) => (
+              {navLinks.map((l) => (
                 <a
                   key={l.href}
                   href={l.href}
@@ -144,7 +108,7 @@ export default function LandingPage() {
                 to="/app"
                 className="flex items-center justify-center gap-1.5 rounded-lg border border-retro-pink bg-retro-pink/10 px-4 py-2 font-mono text-xs uppercase tracking-wider text-retro-pink"
               >
-                Lancer l'app <ArrowRight size={13} />
+                {t("nav.launchApp")} <ArrowRight size={13} />
               </Link>
             </div>
           </div>
@@ -165,7 +129,7 @@ export default function LandingPage() {
 
         <div className="relative mx-auto max-w-3xl text-center">
           <div className="mb-5 inline-flex flex-wrap items-center justify-center gap-2">
-            {["100% Local", "Open Source", "Gratuit", "Sans compte"].map((b) => (
+            {badges.map((b) => (
               <span
                 key={b}
                 className="rounded-full border border-retro-border bg-retro-panel/60 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-retro-cyan"
@@ -180,16 +144,14 @@ export default function LandingPage() {
               className="bg-gradient-to-r from-retro-pink via-retro-purple to-retro-cyan bg-clip-text text-transparent"
               style={{ textShadow: "0 0 40px rgba(255,43,214,0.25)" }}
             >
-              Discutez avec vos documents,
+              {t("hero.title1")}
             </span>
             <br />
-            <span className="text-slate-100">en local, sans compte.</span>
+            <span className="text-slate-100">{t("hero.title2")}</span>
           </h1>
 
           <p className="mx-auto mt-5 max-w-xl text-sm text-slate-400 sm:text-base">
-            Deposez vos PDF, images et liens dans des espaces cloisonnes, et
-            interrogez-les avec une IA qui tourne entierement sur votre
-            serveur - via Ollama, sans API cloud ni tracking.
+            {t("hero.subtitle")}
           </p>
 
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -197,13 +159,13 @@ export default function LandingPage() {
               to="/app"
               className="flex w-full items-center justify-center gap-2 rounded-lg border border-retro-pink bg-retro-pink px-6 py-3 font-mono text-xs uppercase tracking-wider text-white shadow-neon transition hover:bg-retro-pink/90 sm:w-auto"
             >
-              Essayer maintenant <ArrowRight size={14} />
+              {t("hero.ctaTry")} <ArrowRight size={14} />
             </Link>
             <a
               href="#fonctionnalites"
               className="flex w-full items-center justify-center gap-2 rounded-lg border border-retro-border px-6 py-3 font-mono text-xs uppercase tracking-wider text-slate-300 transition hover:border-retro-cyan hover:text-retro-cyan sm:w-auto"
             >
-              Decouvrir
+              {t("hero.ctaDiscover")}
             </a>
           </div>
         </div>
@@ -214,24 +176,28 @@ export default function LandingPage() {
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-xl text-center">
             <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-retro-pink">
-              Fonctionnalites
+              {t("features.eyebrow")}
             </p>
             <h2 className="mt-2 text-2xl font-bold text-slate-100 sm:text-3xl">
-              Tout ce qu'il faut, rien de superflu
+              {t("features.title")}
             </h2>
           </div>
 
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {FEATURES.map((f) => (
-              <div
-                key={f.title}
-                className={`rounded-2xl border border-retro-border bg-retro-panel/40 p-5 transition-colors ${f.border}`}
-              >
-                <f.icon size={22} className={f.color} />
-                <h3 className="mt-3 text-sm font-semibold text-slate-100">{f.title}</h3>
-                <p className="mt-1.5 text-xs leading-relaxed text-slate-400">{f.desc}</p>
-              </div>
-            ))}
+            {features.map((f, i) => {
+              const Icon = FEATURE_ICONS[i];
+              const style = FEATURE_COLORS[i];
+              return (
+                <div
+                  key={f.title}
+                  className={`rounded-2xl border border-retro-border bg-retro-panel/40 p-5 transition-colors ${style.border}`}
+                >
+                  <Icon size={22} className={style.color} />
+                  <h3 className="mt-3 text-sm font-semibold text-slate-100">{f.title}</h3>
+                  <p className="mt-1.5 text-xs leading-relaxed text-slate-400">{f.desc}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -241,17 +207,19 @@ export default function LandingPage() {
         <div className="mx-auto max-w-5xl">
           <div className="mx-auto max-w-xl text-center">
             <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-retro-cyan">
-              Comment ca marche
+              {t("steps.eyebrow")}
             </p>
             <h2 className="mt-2 text-2xl font-bold text-slate-100 sm:text-3xl">
-              Trois etapes, zero friction
+              {t("steps.title")}
             </h2>
           </div>
 
           <div className="mt-12 grid gap-6 sm:grid-cols-3">
-            {STEPS.map((s) => (
-              <div key={s.n} className="relative rounded-2xl border border-retro-border bg-retro-panel/40 p-5">
-                <span className="font-mono text-3xl font-bold text-retro-border">{s.n}</span>
+            {steps.map((s, i) => (
+              <div key={s.title} className="relative rounded-2xl border border-retro-border bg-retro-panel/40 p-5">
+                <span className="font-mono text-3xl font-bold text-retro-border">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
                 <h3 className="mt-2 text-sm font-semibold text-slate-100">{s.title}</h3>
                 <p className="mt-1.5 text-xs leading-relaxed text-slate-400">{s.desc}</p>
               </div>
@@ -265,17 +233,14 @@ export default function LandingPage() {
         <div className="mx-auto flex max-w-4xl flex-col items-center gap-4 rounded-2xl border border-retro-border bg-gradient-to-br from-retro-panel to-retro-bg2 p-8 text-center sm:p-12">
           <Github size={28} className="text-slate-300" />
           <h2 className="text-xl font-bold text-slate-100 sm:text-2xl">
-            Projet libre, gratuit, et local par design
+            {t("opensource.title")}
           </h2>
-          <p className="max-w-lg text-sm text-slate-400">
-            Pas de compte, pas d'abonnement, pas de collecte de donnees pour
-            entrainer un modele. Vous hebergez, vous controlez.
-          </p>
+          <p className="max-w-lg text-sm text-slate-400">{t("opensource.desc")}</p>
           <Link
             to="/app"
             className="mt-2 flex items-center gap-2 rounded-lg border border-retro-cyan bg-retro-cyan/10 px-6 py-3 font-mono text-xs uppercase tracking-wider text-retro-cyan transition hover:bg-retro-cyan hover:text-retro-bg"
           >
-            Commencer gratuitement <ArrowRight size={14} />
+            {t("opensource.cta")} <ArrowRight size={14} />
           </Link>
         </div>
       </section>
@@ -285,15 +250,12 @@ export default function LandingPage() {
         <div className="mx-auto max-w-2xl">
           <div className="text-center">
             <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-retro-pink">
-              Contact
+              {t("contact.eyebrow")}
             </p>
             <h2 className="mt-2 text-2xl font-bold text-slate-100 sm:text-3xl">
-              Une question ? Ecrivez-nous
+              {t("contact.title")}
             </h2>
-            <p className="mt-2 text-sm text-slate-400">
-              Bug, idee de fonctionnalite, retour d'experience : tout est
-              bienvenu.
-            </p>
+            <p className="mt-2 text-sm text-slate-400">{t("contact.subtitle")}</p>
           </div>
 
           <div className="mt-8 rounded-2xl border border-retro-border bg-retro-panel/40 p-5 sm:p-8">
@@ -306,20 +268,21 @@ export default function LandingPage() {
       <footer className="border-t border-retro-border/60 px-4 py-8 sm:px-6">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
           <p className="flex items-center gap-1.5 font-mono text-[11px] text-slate-500">
-            Fait avec <Heart size={11} className="text-retro-pink" /> - projet libre et gratuit
+            {t("footer.tagline", { heart: "" })}
+            <Heart size={11} className="text-retro-pink" />
           </p>
           <div className="flex items-center gap-4">
             <Link
               to="/confidentialite"
               className="font-mono text-[11px] uppercase tracking-wider text-slate-500 hover:text-retro-cyan"
             >
-              Confidentialite
+              {t("footer.privacy")}
             </Link>
             <Link
               to="/app"
               className="font-mono text-[11px] uppercase tracking-wider text-slate-500 hover:text-retro-cyan"
             >
-              Lancer l'app
+              {t("footer.launchApp")}
             </Link>
           </div>
         </div>

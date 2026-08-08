@@ -1,6 +1,8 @@
+import { useTranslation } from "react-i18next";
 import { Plus, Layers, Lock } from "lucide-react";
 import clsx from "clsx";
 import type { Space, HealthStatus } from "../types";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 interface Props {
   spaces: Space[];
@@ -20,6 +22,7 @@ function initials(name: string): string {
 }
 
 export default function SpaceRail({ spaces, activeSpaceId, onSelect, onCreate, health }: Props) {
+  const { t } = useTranslation();
   return (
     <aside className="flex w-[76px] shrink-0 flex-col items-center border-r border-surface-border bg-surface-1 py-4">
       <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-xl bg-accent/20 text-accent">
@@ -54,23 +57,25 @@ export default function SpaceRail({ spaces, activeSpaceId, onSelect, onCreate, h
 
         <button
           onClick={onCreate}
-          title="Nouvel espace"
+          title={t("app.spaceRail.newSpace")}
           className="flex h-11 w-11 items-center justify-center rounded-2xl border border-dashed border-surface-border text-slate-500 hover:border-accent hover:text-accent"
         >
           <Plus size={18} />
         </button>
       </div>
 
+      <LanguageSwitcher variant="light" />
+
       <div
         title={
           health
             ? health.ollama_reachable
-              ? "Ollama connecte"
-              : "Ollama injoignable"
-            : "Verification..."
+              ? t("app.spaceRail.ollamaConnected")
+              : t("app.spaceRail.ollamaUnreachable")
+            : t("app.spaceRail.checking")
         }
         className={clsx(
-          "h-2.5 w-2.5 rounded-full",
+          "mt-3 h-2.5 w-2.5 rounded-full",
           !health
             ? "bg-slate-600 animate-pulse2"
             : health.ollama_reachable
