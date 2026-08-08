@@ -1,0 +1,1 @@
+\n# Python\n__pycache__/\n*.pyc\n.venv/\nbackend/data/\n\n# Node\nnode_modules/\nfrontend/dist/\n\n# Env\n.env\n\n# OS\n.DS_Store\n\n# IDE\n.vscode/\n.idea/\n
