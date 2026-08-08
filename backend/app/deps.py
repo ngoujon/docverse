@@ -11,9 +11,17 @@ SPACE_TOKEN_HEADER = "X-Space-Token"
 
 
 def client_ip(request: Request) -> str:
+    # X-Real-IP is set by our nginx config from $remote_addr, overwriting
+    # anything the client sent - it can't be spoofed by the caller.
+    real_ip = request.headers.get("x-real-ip")
+    if real_ip:
+        return real_ip.strip()
+    # X-Forwarded-For is only appended to by nginx ($proxy_add_x_forwarded_for),
+    # not replaced, so a client can prepend arbitrary values - the real
+    # client IP is always the last entry, never the first.
     forwarded = request.headers.get("x-forwarded-for")
     if forwarded:
-        return forwarded.split(",")[0].strip()
+        return forwarded.split(",")[-1].strip()
     return request.client.host if request.client else "unknown"
 
 

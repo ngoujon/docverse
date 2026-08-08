@@ -18,6 +18,7 @@ import {
 import NeoGrid from "../components/landing/NeoGrid";
 import ContactForm from "../components/landing/ContactForm";
 import LanguageSwitcher from "../components/LanguageSwitcher";
+import { usePageTitle } from "../hooks/usePageTitle";
 
 const FEATURE_ICONS = [FolderLock, FileStack, ScanEye, Globe2, Gauge, ShieldCheck];
 const FEATURE_COLORS = [
@@ -42,6 +43,8 @@ interface StepItem {
 export default function LandingPage() {
   const { t } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  usePageTitle(`Open RAG - ${t("hero.title1")} ${t("hero.title2")}`);
 
   const navLinks = [
     { label: t("nav.features"), href: "#fonctionnalites" },

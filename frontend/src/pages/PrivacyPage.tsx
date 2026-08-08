@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, Cookie, Database, Mail, ShieldCheck } from "lucide-react";
+import { usePageTitle } from "../hooks/usePageTitle";
 
 const SECTION_ICONS = [Cookie, Database, ShieldCheck, Mail];
 
@@ -12,6 +13,8 @@ interface PrivacySection {
 export default function PrivacyPage() {
   const { t } = useTranslation();
   const sections = t("privacy.sections", { returnObjects: true }) as PrivacySection[];
+
+  usePageTitle(`${t("privacy.title")} - Open RAG`);
 
   return (
     <div className="min-h-screen bg-retro-bg px-4 py-12 font-sans text-slate-200 sm:px-6">

@@ -25,9 +25,15 @@ externe payante.
 - **Recherche web optionnelle** (bouton par conversation) : complete le
   contexte avec des resultats d'un moteur de recherche local (SearXNG),
   sans tracking et sans cle API.
-- **Interface sombre, ergonomique et responsive** (mobile/tablette/desktop),
-  avec zones de glisser-deposer pour l'ajout de documents, statut de
-  traitement en temps reel, reponses en streaming (mot a mot).
+- **Interface claire (neo-retro), ergonomique et responsive**
+  (mobile/tablette/desktop), avec zones de glisser-deposer pour l'ajout de
+  documents, statut de traitement en temps reel, reponses en streaming
+  (mot a mot).
+- **Multilingue** : francais (par defaut), anglais, allemand, espagnol,
+  portugais, italien. Detection automatique de la langue du navigateur,
+  avec selecteur manuel (memorise). Note : les messages d'erreur renvoyes
+  par le backend (ex. "mot de passe incorrect") restent en francais pour
+  le moment.
 - **Espaces proteges par mot de passe (optionnel)** : a la creation d'un
   espace, definissez un mot de passe (saisie masquable) pour le reserver
   aux personnes qui le connaissent ; partagez-le en un clic (bouton
@@ -176,6 +182,30 @@ modeste (2 vCPU type Hostinger KVM 2) :
 - Pensez a definir `SECRET_KEY` dans `.env` en production (sinon une cle
   temporaire est generee a chaque redemarrage et les acces aux espaces
   proteges doivent etre ressaisis).
+- **Protection SSRF** sur l'ingestion de liens et la recherche web : avant
+  toute requete sortante, l'adresse IP resolue du lien est verifiee et les
+  plages privees/loopback/link-local (ex. `169.254.169.254`, `localhost`,
+  les services Docker internes) sont bloquees, y compris a travers les
+  redirections HTTP.
+- **Ports internes non exposes publiquement en production**
+  (`docker-compose.prod.yml`) : Ollama (11434, sans authentification native)
+  et l'API backend (8000, debug) sont lies a `127.0.0.1` par defaut - seul
+  le frontend (Nginx) est cense etre expose sur Internet.
+- Le limiteur de debit identifie le vrai client via l'en-tete `X-Real-IP`
+  positionne par Nginx (non falsifiable par l'appelant), pas via
+  `X-Forwarded-For` seul qui peut etre manipule.
+
+## SEO
+
+La page d'accueil et la page confidentialite portent des balises meta
+(titre, description, Open Graph, donnees structurees JSON-LD) et un
+`robots.txt`/`sitemap.xml` (`frontend/public/`). **Avant un vrai
+deploiement**, remplacez `REPLACE_WITH_YOUR_DOMAIN` dans
+`frontend/public/sitemap.xml` par votre nom de domaine reel, et completez
+`og:url` dans `frontend/index.html` si besoin. L'application etant une
+SPA (rendu cote client), son referencement par des robots qui n'executent
+pas JavaScript reste limite ; un rendu cote serveur (SSR/prerendering)
+serait necessaire pour aller plus loin, ce qui depasse le cadre actuel.
 
 ## Developpement sans Docker (optionnel)
 

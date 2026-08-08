@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { usePageTitle } from "../hooks/usePageTitle";
 import { api, streamChat, UnauthorizedError } from "../api/client";
 import { getSpaceToken, setSpaceToken, clearSpaceToken } from "../api/spaceTokens";
 import type { Conversation, DocumentItem, HealthStatus, Message, Space } from "../types";
@@ -47,6 +48,14 @@ export default function WorkspaceApp() {
 
   const activeSpace = spaces.find((s) => s.id === activeSpaceId) || null;
   const activeConversation = conversations.find((c) => c.id === activeConversationId) || null;
+
+  usePageTitle(
+    activeConversation
+      ? `${activeConversation.title} - ${activeSpace?.name ?? ""} - Open RAG`
+      : activeSpace
+      ? `${activeSpace.name} - Open RAG`
+      : "Open RAG"
+  );
 
   const selectSpace = (id: string) => {
     const space = spaces.find((s) => s.id === id);

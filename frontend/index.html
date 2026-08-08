@@ -3,7 +3,59 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Open RAG</title>
+    <meta name="theme-color" content="#0b0714" />
+
+    <title>Open RAG - Chattez avec vos documents, en local et sans compte</title>
+    <meta
+      name="description"
+      content="Application open source et gratuite pour discuter avec vos PDF, images et pages web via une IA locale (Ollama). Espaces cloisonnes, mots de passe optionnels, recherche web integree, aucune donnee envoyee dans le cloud."
+    />
+    <meta name="robots" content="index, follow" />
+
+    <!--
+      TODO avant mise en production : remplacez REPLACE_WITH_YOUR_DOMAIN par
+      votre nom de domaine reel dans og:url, twitter:image (si ajoutee) et
+      dans public/sitemap.xml. Ces valeurs sont laissees vides/relatives ici
+      pour ne pas publier une URL inventee.
+    -->
+    <link rel="canonical" href="/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Open RAG" />
+    <meta property="og:title" content="Open RAG - Chattez avec vos documents, en local et sans compte" />
+    <meta
+      property="og:description"
+      content="Deposez vos PDF, images et liens dans des espaces cloisonnes, et interrogez-les avec une IA qui tourne entierement sur votre serveur - via Ollama, sans API cloud ni tracking."
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Open RAG - Chattez avec vos documents, en local et sans compte" />
+    <meta
+      name="twitter:description"
+      content="Application open source et gratuite pour discuter avec vos documents via une IA 100% locale, sans compte requis."
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Open RAG",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any (self-hosted via Docker)",
+        "description": "Application open source et gratuite de RAG (Retrieval-Augmented Generation) auto-hebergee : discutez avec vos documents (PDF, images, pages web) via une IA locale propulsee par Ollama, sans compte ni service cloud tiers.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "EUR"
+        },
+        "featureList": [
+          "Espaces de travail cloisonnes et proteges par mot de passe",
+          "Ingestion de PDF, images, pages web, DOCX, TXT, Markdown",
+          "Lecture d'images et de scans par IA de vision",
+          "Recherche web locale via un moteur auto-heberge",
+          "File d'attente pour un fonctionnement stable a plusieurs utilisateurs",
+          "Aucune donnee envoyee a une API cloud tierce"
+        ]
+      }
+    </script>
   </head>
   <body class="bg-surface-0 text-slate-900">
     <div id="root"></div>

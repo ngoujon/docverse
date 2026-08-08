@@ -85,10 +85,19 @@ async def upload_document(
     except ValueError as exc:
         raise HTTPException(400, str(exc))
 
-    content = await file.read()
     max_bytes = settings.max_upload_mb * 1024 * 1024
-    if len(content) > max_bytes:
-        raise HTTPException(400, f"Fichier trop volumineux (max {settings.max_upload_mb} Mo)")
+    chunk_size = 1024 * 1024
+    chunks: list[bytes] = []
+    total = 0
+    while True:
+        chunk = await file.read(chunk_size)
+        if not chunk:
+            break
+        total += len(chunk)
+        if total > max_bytes:
+            raise HTTPException(400, f"Fichier trop volumineux (max {settings.max_upload_mb} Mo)")
+        chunks.append(chunk)
+    content = b"".join(chunks)
 
     doc = models_db.Document(
         space_id=space.id,

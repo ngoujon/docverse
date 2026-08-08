@@ -1,5 +1,9 @@
+import asyncio
 import base64
+import ipaddress
+import socket
 from pathlib import Path
+from urllib.parse import urlparse
 
 import fitz  # PyMuPDF
 import httpx
@@ -72,20 +76,70 @@ def extract_text_from_txt(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore")
 
 
+class UnsafeUrlError(ValueError):
+    pass
+
+
+def _is_public_ip(ip_str: str) -> bool:
+    ip = ipaddress.ip_address(ip_str)
+    return not (
+        ip.is_private
+        or ip.is_loopback
+        or ip.is_link_local
+        or ip.is_multicast
+        or ip.is_reserved
+        or ip.is_unspecified
+    )
+
+
+async def _assert_public_url(url: str) -> None:
+    """Blocks requests to internal/cloud-metadata/loopback addresses so the
+    URL-ingestion and web-search features can't be used for SSRF (e.g.
+    pointing at http://169.254.169.254/, http://ollama:11434, localhost...).
+    Resolves the hostname ourselves rather than trusting the string, since
+    that's also what actually gets connected to."""
+    parsed = urlparse(url)
+    if parsed.scheme not in ("http", "https"):
+        raise UnsafeUrlError("Seuls les liens http(s) sont autorises")
+    if not parsed.hostname:
+        raise UnsafeUrlError("URL invalide")
+
+    loop = asyncio.get_running_loop()
+    try:
+        infos = await loop.getaddrinfo(parsed.hostname, None)
+    except socket.gaierror:
+        raise UnsafeUrlError("Impossible de resoudre ce nom de domaine")
+
+    if not infos or not all(_is_public_ip(info[4][0]) for info in infos):
+        raise UnsafeUrlError("Cette adresse n'est pas autorisee")
+
+
 async def extract_text_from_url(url: str) -> tuple[str, str]:
     """Returns (title, text)."""
+    current_url = url
     async with httpx.AsyncClient(
-        timeout=30.0, follow_redirects=True, headers={"User-Agent": "Mozilla/5.0"}
+        timeout=30.0, follow_redirects=False, headers={"User-Agent": "Mozilla/5.0"}
     ) as client:
-        r = await client.get(url)
-        r.raise_for_status()
-        html = r.text
+        for _ in range(5):
+            await _assert_public_url(current_url)
+            r = await client.get(current_url)
+            if r.is_redirect:
+                next_url = r.headers.get("location")
+                if not next_url:
+                    r.raise_for_status()
+                current_url = str(httpx.URL(current_url).join(next_url))
+                continue
+            r.raise_for_status()
+            html = r.text
+            break
+        else:
+            raise UnsafeUrlError("Trop de redirections")
 
     extracted = trafilatura.extract(
         html, include_comments=False, include_tables=True, favor_recall=True
     )
     metadata = trafilatura.extract_metadata(html)
-    title = (metadata.title if metadata and metadata.title else url) or url
+    title = (metadata.title if metadata and metadata.title else current_url) or current_url
     return title, (extracted or "").strip()
 
 

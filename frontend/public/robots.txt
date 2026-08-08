@@ -1,0 +1,11 @@
+# Open RAG - robots.txt
+# The marketing pages (/, /confidentialite) are public and meant to be
+# indexed. The app itself (/app/...) is a private workspace tool with no
+# unique per-URL content worth indexing, so it's excluded.
+
+User-agent: *
+Allow: /
+Disallow: /app
+Disallow: /app/
+
+Sitemap: /sitemap.xml
