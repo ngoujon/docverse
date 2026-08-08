@@ -1,4 +1,4 @@
-import { Plus, Layers } from "lucide-react";
+import { Plus, Layers, Lock } from "lucide-react";
 import clsx from "clsx";
 import type { Space, HealthStatus } from "../types";
 
@@ -44,6 +44,11 @@ export default function SpaceRail({ spaces, activeSpaceId, onSelect, onCreate, h
             }}
           >
             {initials(s.name) || "?"}
+            {s.has_password && (
+              <span className="absolute -bottom-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full border border-surface-1 bg-surface-3 text-slate-600">
+                <Lock size={9} />
+              </span>
+            )}
           </button>
         ))}
 

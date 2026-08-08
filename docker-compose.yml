@@ -67,6 +67,10 @@ services:
       - OLLAMA_EMBED_MODEL=${OLLAMA_EMBED_MODEL:-nomic-embed-text}
       - SEARXNG_BASE_URL=http://searxng:8080
       - MAX_UPLOAD_MB=${MAX_UPLOAD_MB:-50}
+      - OLLAMA_MAX_CONCURRENCY=${OLLAMA_MAX_CONCURRENCY:-1}
+      - SECRET_KEY=${SECRET_KEY:-}
+      - SPACE_TOKEN_TTL_HOURS=${SPACE_TOKEN_TTL_HOURS:-24}
+      - CORS_ORIGINS=${CORS_ORIGINS:-*}
     volumes:
       - app_data:/app/data
       # Bind-mount the source so backend code edits are picked up live by

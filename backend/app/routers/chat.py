@@ -2,13 +2,14 @@ import json
 import logging
 from datetime import datetime
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 
 from .. import models_db, schemas
 from ..database import get_db, SessionLocal
-from ..services import ollama_client, rag
+from ..deps import require_conversation_access, client_ip
+from ..services import ollama_client, queue_manager, rag, rate_limiter
 
 logger = logging.getLogger("open-rag.chat")
 router = APIRouter(prefix="/api", tags=["chat"])
@@ -22,11 +23,15 @@ def _sse(event: dict) -> str:
 
 @router.post("/conversations/{conversation_id}/chat")
 async def chat(
-    conversation_id: str, payload: schemas.ChatRequest, db: Session = Depends(get_db)
+    payload: schemas.ChatRequest,
+    request: Request,
+    conv: models_db.Conversation = Depends(require_conversation_access),
+    db: Session = Depends(get_db),
 ):
-    conv = db.get(models_db.Conversation, conversation_id)
-    if not conv:
-        raise HTTPException(404, "Conversation introuvable")
+    if not rate_limiter.chat_limiter.allow(client_ip(request)):
+        raise HTTPException(429, "Trop de messages envoyes, patientez un instant")
+
+    conversation_id = conv.id
     space = db.get(models_db.Space, conv.space_id)
     if not space:
         raise HTTPException(404, "Espace introuvable")
@@ -60,6 +65,9 @@ async def chat(
 
     async def event_stream():
         yield _sse({"type": "user_message_id", "id": user_msg_id})
+        if queue_manager.is_busy():
+            waiting = await queue_manager.waiting_count()
+            yield _sse({"type": "queued", "position": waiting + 1})
         full_text = ""
         sources: list[dict] = []
         try:

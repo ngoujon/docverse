@@ -16,7 +16,7 @@ export default function MessageBubble({ message }: { message: Message }) {
       <div
         className={clsx(
           "mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full",
-          isUser ? "bg-accent/20 text-accent" : "bg-surface-3 text-slate-400"
+          isUser ? "bg-accent/20 text-accent" : "bg-surface-3 text-slate-500"
         )}
       >
         {isUser ? <User size={14} /> : <Bot size={14} />}
@@ -28,7 +28,7 @@ export default function MessageBubble({ message }: { message: Message }) {
             "markdown-body rounded-2xl px-4 py-2.5 text-[13.5px] leading-relaxed",
             isUser
               ? "bg-accent text-white rounded-tr-sm"
-              : "bg-surface-2 text-slate-200 rounded-tl-sm border border-surface-border"
+              : "bg-surface-2 text-slate-800 rounded-tl-sm border border-surface-border"
           )}
         >
           {isUser ? (
@@ -70,7 +70,7 @@ export default function MessageBubble({ message }: { message: Message }) {
                 rel="noreferrer"
                 title={s.label}
                 className={clsx(
-                  "flex max-w-[220px] items-center gap-1 rounded-full border border-surface-border bg-surface-1 px-2 py-1 text-[11px] text-slate-400",
+                  "flex max-w-[220px] items-center gap-1 rounded-full border border-surface-border bg-surface-1 px-2 py-1 text-[11px] text-slate-500",
                   s.type === "web" && "hover:border-accent hover:text-accent"
                 )}
               >

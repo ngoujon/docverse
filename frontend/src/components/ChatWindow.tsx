@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Send, Globe, PanelRight, Sparkles } from "lucide-react";
+import { Send, Globe, PanelRight, Sparkles, Menu, Loader2 } from "lucide-react";
 import clsx from "clsx";
 import type { Conversation, Message, Space } from "../types";
 import MessageBubble from "./MessageBubble";
@@ -9,11 +9,13 @@ interface Props {
   conversation: Conversation | null;
   messages: Message[];
   streaming: boolean;
+  queuedPosition?: number | null;
   onSend: (text: string) => void;
   webSearch: boolean;
   onToggleWebSearch: (v: boolean) => void;
   onToggleDocPanel: () => void;
   docPanelOpen: boolean;
+  onOpenMobileNav?: () => void;
 }
 
 export default function ChatWindow({
@@ -21,11 +23,13 @@ export default function ChatWindow({
   conversation,
   messages,
   streaming,
+  queuedPosition,
   onSend,
   webSearch,
   onToggleWebSearch,
   onToggleDocPanel,
   docPanelOpen,
+  onOpenMobileNav,
 }: Props) {
   const [input, setInput] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -49,7 +53,15 @@ export default function ChatWindow({
 
   if (!conversation) {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center gap-3 text-slate-600">
+      <div className="flex flex-1 flex-col items-center justify-center gap-3 px-4 text-center text-slate-600">
+        {onOpenMobileNav && (
+          <button
+            onClick={onOpenMobileNav}
+            className="absolute left-3 top-3 rounded-lg border border-surface-border p-2 text-slate-500 md:hidden"
+          >
+            <Menu size={16} />
+          </button>
+        )}
         <Sparkles size={28} />
         <p className="text-sm">Selectionnez ou creez une conversation pour commencer.</p>
       </div>
@@ -57,31 +69,39 @@ export default function ChatWindow({
   }
 
   return (
-    <div className="flex min-w-0 flex-1 flex-col">
-      <div className="flex items-center justify-between border-b border-surface-border px-5 py-3">
-        <div className="min-w-0">
-          <h1 className="truncate text-sm font-semibold text-slate-100">{conversation.title}</h1>
-          <p className="text-[11px] text-slate-500">Espace : {space.name}</p>
+    <div className="relative flex min-w-0 flex-1 flex-col">
+      <div className="flex items-center justify-between gap-2 border-b border-surface-border px-3 py-3 md:px-5">
+        <div className="flex min-w-0 items-center gap-2">
+          <button
+            onClick={onOpenMobileNav}
+            className="shrink-0 rounded-lg border border-surface-border p-1.5 text-slate-500 hover:text-slate-700 md:hidden"
+          >
+            <Menu size={16} />
+          </button>
+          <div className="min-w-0">
+            <h1 className="truncate text-sm font-semibold text-slate-900">{conversation.title}</h1>
+            <p className="truncate text-[11px] text-slate-500">Espace : {space.name}</p>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <button
             onClick={() => onToggleWebSearch(!webSearch)}
             title="Completer les reponses avec une recherche web"
             className={clsx(
-              "flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors",
+              "flex items-center gap-1.5 rounded-full border px-2.5 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-wider transition-colors sm:px-3",
               webSearch
-                ? "border-accent bg-accent/15 text-accent"
-                : "border-surface-border text-slate-400 hover:border-slate-600"
+                ? "border-accent bg-accent/10 text-accent shadow-neon-light"
+                : "border-surface-border text-slate-500 hover:border-slate-400"
             )}
           >
             <Globe size={13} />
-            Recherche web
+            <span className="hidden sm:inline">Recherche web</span>
           </button>
           <button
             onClick={onToggleDocPanel}
             title="Documents de l'espace"
             className={clsx(
-              "rounded-lg border border-surface-border p-2 text-slate-400 hover:border-slate-600 hover:text-slate-200",
+              "rounded-lg border border-surface-border p-2 text-slate-500 hover:border-slate-400 hover:text-slate-700",
               docPanelOpen && "border-accent text-accent"
             )}
           >
@@ -90,10 +110,10 @@ export default function ChatWindow({
         </div>
       </div>
 
-      <div ref={scrollRef} className="flex-1 space-y-4 overflow-y-auto px-4 py-5">
+      <div ref={scrollRef} className="flex-1 space-y-4 overflow-y-auto px-3 py-5 sm:px-4">
         {messages.length === 0 && (
-          <div className="mx-auto mt-10 max-w-sm text-center text-sm text-slate-600">
-            <Sparkles size={22} className="mx-auto mb-2 text-slate-700" />
+          <div className="mx-auto mt-10 max-w-sm text-center text-sm text-slate-500">
+            <Sparkles size={22} className="mx-auto mb-2 text-slate-300" />
             Posez une question sur les documents de cet espace. Activez la
             recherche web pour completer avec des sources en ligne.
           </div>
@@ -101,9 +121,17 @@ export default function ChatWindow({
         {messages.map((m) => (
           <MessageBubble key={m.id} message={m} />
         ))}
+        {streaming && queuedPosition !== null && queuedPosition !== undefined && (
+          <div className="mx-auto flex w-fit items-center gap-2 rounded-full border border-surface-border bg-surface-2 px-3 py-1.5 text-xs text-slate-500">
+            <Loader2 size={13} className="animate-spin" />
+            En file d'attente
+            {queuedPosition > 1 ? ` (${queuedPosition - 1} devant vous)` : ""} - le serveur
+            traite une requete a la fois
+          </div>
+        )}
       </div>
 
-      <div className="border-t border-surface-border p-3">
+      <div className="border-t border-surface-border p-2.5 sm:p-3">
         <div className="flex items-end gap-2 rounded-xl border border-surface-border bg-surface-1 px-3 py-2 focus-within:border-accent">
           <textarea
             ref={textareaRef}
@@ -120,8 +148,8 @@ export default function ChatWindow({
               }
             }}
             rows={1}
-            placeholder="Ecrivez votre message... (Entree pour envoyer, Maj+Entree pour un saut de ligne)"
-            className="max-h-40 flex-1 resize-none bg-transparent text-sm text-slate-100 placeholder:text-slate-500 outline-none"
+            placeholder="Ecrivez votre message..."
+            className="max-h-40 flex-1 resize-none bg-transparent text-sm text-slate-900 placeholder:text-slate-400 outline-none"
           />
           <button
             onClick={handleSend}

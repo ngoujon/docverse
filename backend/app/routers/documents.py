@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 from .. import models_db, schemas
 from ..config import UPLOAD_DIR, settings
 from ..database import get_db, SessionLocal
+from ..deps import require_space_access, require_document_access
 from ..services import document_processor, ollama_client, vectorstore
 from ..utils.chunking import split_text
 
@@ -14,13 +15,12 @@ router = APIRouter(prefix="/api", tags=["documents"])
 
 
 @router.get("/spaces/{space_id}/documents", response_model=list[schemas.DocumentOut])
-def list_documents(space_id: str, db: Session = Depends(get_db)):
-    space = db.get(models_db.Space, space_id)
-    if not space:
-        raise HTTPException(404, "Espace introuvable")
+def list_documents(
+    space: models_db.Space = Depends(require_space_access), db: Session = Depends(get_db)
+):
     docs = (
         db.query(models_db.Document)
-        .filter(models_db.Document.space_id == space_id)
+        .filter(models_db.Document.space_id == space.id)
         .order_by(models_db.Document.created_at.desc())
         .all()
     )
@@ -75,15 +75,11 @@ async def _ingest(document_id: str) -> None:
 
 @router.post("/spaces/{space_id}/documents/upload", response_model=schemas.DocumentOut)
 async def upload_document(
-    space_id: str,
     background_tasks: BackgroundTasks,
     file: UploadFile = File(...),
+    space: models_db.Space = Depends(require_space_access),
     db: Session = Depends(get_db),
 ):
-    space = db.get(models_db.Space, space_id)
-    if not space:
-        raise HTTPException(404, "Espace introuvable")
-
     try:
         doc_type = document_processor.guess_doc_type(file.filename)
     except ValueError as exc:
@@ -95,7 +91,7 @@ async def upload_document(
         raise HTTPException(400, f"Fichier trop volumineux (max {settings.max_upload_mb} Mo)")
 
     doc = models_db.Document(
-        space_id=space_id,
+        space_id=space.id,
         name=file.filename,
         doc_type=doc_type,
         status="pending",
@@ -105,9 +101,9 @@ async def upload_document(
     db.commit()
     db.refresh(doc)
 
-    space_dir = UPLOAD_DIR / space_id
+    space_dir = UPLOAD_DIR / space.id
     space_dir.mkdir(parents=True, exist_ok=True)
-    relative_path = f"{space_id}/{doc.id}_{file.filename}"
+    relative_path = f"{space.id}/{doc.id}_{file.filename}"
     (UPLOAD_DIR / relative_path).write_bytes(content)
     doc.file_path = relative_path
     db.commit()
@@ -119,17 +115,13 @@ async def upload_document(
 
 @router.post("/spaces/{space_id}/documents/url", response_model=schemas.DocumentOut)
 def ingest_url(
-    space_id: str,
     payload: schemas.UrlIngestRequest,
     background_tasks: BackgroundTasks,
+    space: models_db.Space = Depends(require_space_access),
     db: Session = Depends(get_db),
 ):
-    space = db.get(models_db.Space, space_id)
-    if not space:
-        raise HTTPException(404, "Espace introuvable")
-
     doc = models_db.Document(
-        space_id=space_id,
+        space_id=space.id,
         name=payload.url,
         doc_type="url",
         source_url=payload.url,
@@ -144,11 +136,10 @@ def ingest_url(
 
 
 @router.delete("/documents/{document_id}")
-def delete_document(document_id: str, db: Session = Depends(get_db)):
-    doc = db.get(models_db.Document, document_id)
-    if not doc:
-        raise HTTPException(404, "Document introuvable")
-
+def delete_document(
+    doc: models_db.Document = Depends(require_document_access),
+    db: Session = Depends(get_db),
+):
     vectorstore.delete_document(doc.space_id, doc.id)
     if doc.file_path:
         path = UPLOAD_DIR / doc.file_path

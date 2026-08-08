@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { X } from "lucide-react";
+import { X, Eye, EyeOff, Lock } from "lucide-react";
 import type { Space } from "../types";
 
 const COLORS = [
@@ -13,23 +13,44 @@ const COLORS = [
   "#3b82f6",
 ];
 
+export interface SpaceFormData {
+  name: string;
+  description: string;
+  color: string;
+  password?: string;
+}
+
 interface Props {
   open: boolean;
   initial?: Space | null;
   onClose: () => void;
-  onSubmit: (data: { name: string; description: string; color: string }) => void;
+  onSubmit: (data: SpaceFormData) => void;
 }
 
 export default function SpaceModal({ open, initial, onClose, onSubmit }: Props) {
   const [name, setName] = useState(initial?.name ?? "");
   const [description, setDescription] = useState(initial?.description ?? "");
   const [color, setColor] = useState(initial?.color ?? COLORS[0]);
+  const [password, setPassword] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [removePassword, setRemovePassword] = useState(false);
 
   if (!open) return null;
 
+  const isEdit = !!initial;
+  const hadPassword = !!initial?.has_password;
+
   const handleSubmit = () => {
     if (!name.trim()) return;
-    onSubmit({ name: name.trim(), description: description.trim(), color });
+    const data: SpaceFormData = { name: name.trim(), description: description.trim(), color };
+    if (!isEdit) {
+      if (password) data.password = password;
+    } else if (removePassword) {
+      data.password = "";
+    } else if (password) {
+      data.password = password;
+    }
+    onSubmit(data);
   };
 
   return (
@@ -42,28 +63,28 @@ export default function SpaceModal({ open, initial, onClose, onSubmit }: Props) 
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-slate-100">
-            {initial ? "Modifier l'espace" : "Nouvel espace de travail"}
+          <h3 className="text-sm font-semibold text-slate-900">
+            {isEdit ? "Modifier l'espace" : "Nouvel espace de travail"}
           </h3>
-          <button onClick={onClose} className="text-slate-500 hover:text-slate-300">
+          <button onClick={onClose} className="text-slate-500 hover:text-slate-700">
             <X size={18} />
           </button>
         </div>
 
         <div className="mt-4 space-y-3">
           <div>
-            <label className="mb-1 block text-xs font-medium text-slate-400">Nom</label>
+            <label className="mb-1 block text-xs font-medium text-slate-600">Nom</label>
             <input
               autoFocus
               value={name}
               onChange={(e) => setName(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
               placeholder="Ex : Veille juridique, Projet client X..."
-              className="w-full rounded-lg border border-surface-border bg-surface-1 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500 outline-none focus:border-accent"
+              className="w-full rounded-lg border border-surface-border bg-surface-1 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-accent"
             />
           </div>
           <div>
-            <label className="mb-1 block text-xs font-medium text-slate-400">
+            <label className="mb-1 block text-xs font-medium text-slate-600">
               Description (optionnel)
             </label>
             <textarea
@@ -71,11 +92,11 @@ export default function SpaceModal({ open, initial, onClose, onSubmit }: Props) 
               onChange={(e) => setDescription(e.target.value)}
               rows={2}
               placeholder="A quoi sert cet espace ?"
-              className="w-full resize-none rounded-lg border border-surface-border bg-surface-1 px-3 py-2 text-sm text-slate-100 outline-none focus:border-accent"
+              className="w-full resize-none rounded-lg border border-surface-border bg-surface-1 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-accent"
             />
           </div>
           <div>
-            <label className="mb-1 block text-xs font-medium text-slate-400">Couleur</label>
+            <label className="mb-1 block text-xs font-medium text-slate-600">Couleur</label>
             <div className="flex gap-2">
               {COLORS.map((c) => (
                 <button
@@ -90,21 +111,66 @@ export default function SpaceModal({ open, initial, onClose, onSubmit }: Props) 
               ))}
             </div>
           </div>
+
+          <div>
+            <label className="mb-1 flex items-center gap-1.5 text-xs font-medium text-slate-600">
+              <Lock size={12} />
+              Mot de passe (optionnel)
+            </label>
+            <div className="relative">
+              <input
+                type={passwordVisible ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                disabled={isEdit && removePassword}
+                placeholder={
+                  isEdit && hadPassword
+                    ? "Laisser vide pour ne pas changer"
+                    : "Laisser vide pour un espace ouvert a tous"
+                }
+                className="w-full rounded-lg border border-surface-border bg-surface-1 px-3 py-2 pr-9 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-accent disabled:opacity-40"
+              />
+              <button
+                type="button"
+                onClick={() => setPasswordVisible((v) => !v)}
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-700"
+                tabIndex={-1}
+              >
+                {passwordVisible ? <EyeOff size={15} /> : <Eye size={15} />}
+              </button>
+            </div>
+            {isEdit && hadPassword && (
+              <label className="mt-1.5 flex items-center gap-1.5 text-xs text-slate-500">
+                <input
+                  type="checkbox"
+                  checked={removePassword}
+                  onChange={(e) => setRemovePassword(e.target.checked)}
+                  className="accent-accent"
+                />
+                Retirer le mot de passe (rendre l'espace ouvert a tous)
+              </label>
+            )}
+            <p className="mt-1 text-[11px] text-slate-600">
+              Toute personne avec le mot de passe (ou le lien de partage,
+              une fois deverrouille) pourra consulter et utiliser cet
+              espace.
+            </p>
+          </div>
         </div>
 
         <div className="mt-5 flex justify-end gap-2">
           <button
             onClick={onClose}
-            className="rounded-lg px-3 py-1.5 text-sm text-slate-300 hover:bg-surface-3"
+            className="rounded-lg px-3 py-1.5 text-sm text-slate-700 hover:bg-surface-3"
           >
             Annuler
           </button>
           <button
             onClick={handleSubmit}
             disabled={!name.trim()}
-            className="rounded-lg bg-accent px-3 py-1.5 text-sm font-medium text-white hover:bg-accent-hover disabled:opacity-40"
+            className="rounded-lg bg-accent px-3 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-white shadow-neon-light hover:bg-accent-hover disabled:opacity-40 disabled:shadow-none"
           >
-            {initial ? "Enregistrer" : "Creer l'espace"}
+            {isEdit ? "Enregistrer" : "Creer l'espace"}
           </button>
         </div>
       </div>

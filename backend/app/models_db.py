@@ -18,6 +18,7 @@ class Space(Base):
     name = Column(String, nullable=False)
     description = Column(Text, default="")
     color = Column(String, default="#6366f1")
+    password_hash = Column(String, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     conversations = relationship(
@@ -79,3 +80,13 @@ class Document(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
     space = relationship("Space", back_populates="documents")
+
+
+class ContactMessage(Base):
+    __tablename__ = "contact_messages"
+
+    id = Column(String, primary_key=True, default=gen_id)
+    name = Column(String, nullable=False)
+    email = Column(String, nullable=False)
+    message = Column(Text, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)

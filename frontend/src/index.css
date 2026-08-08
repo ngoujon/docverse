@@ -24,11 +24,11 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #454c5e;
+  background: #cbd1db;
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #565f75;
+  background: #b0b8c4;
 }
 
 .markdown-body p {
@@ -46,14 +46,14 @@ body {
   margin-bottom: 0.2em;
 }
 .markdown-body code {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(15, 23, 42, 0.06);
   padding: 0.1em 0.35em;
   border-radius: 4px;
   font-size: 0.85em;
 }
 .markdown-body pre {
-  background: #171a21;
-  border: 1px solid #454c5e;
+  background: #f1f2f5;
+  border: 1px solid #dfe2e8;
   padding: 0.75em;
   border-radius: 8px;
   overflow-x: auto;
@@ -64,24 +64,24 @@ body {
   padding: 0;
 }
 .markdown-body a {
-  color: #818cf8;
+  color: #4f46e5;
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 .markdown-body strong {
-  color: #f8fafc;
+  color: #0f172a;
 }
 .markdown-body h1,
 .markdown-body h2,
 .markdown-body h3 {
   font-weight: 600;
   margin: 0.8em 0 0.4em 0;
-  color: #f8fafc;
+  color: #0f172a;
 }
 .markdown-body blockquote {
-  border-left: 3px solid #363f52;
+  border-left: 3px solid #cbd1db;
   padding-left: 0.8em;
-  color: #94a3b8;
+  color: #64748b;
   margin: 0.6em 0;
 }
 .markdown-body table {
@@ -91,7 +91,7 @@ body {
 }
 .markdown-body th,
 .markdown-body td {
-  border: 1px solid #454c5e;
+  border: 1px solid #dfe2e8;
   padding: 0.35em 0.6em;
   text-align: left;
 }
@@ -104,8 +104,8 @@ body {
   height: 1.1em;
   padding: 0 0.3em;
   border-radius: 999px;
-  background: #6366f133;
-  color: #a5b4fc;
+  background: #6366f11a;
+  color: #4338ca;
   font-size: 0.7em;
   font-weight: 600;
   margin: 0 1px;

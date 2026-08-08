@@ -3,9 +3,12 @@ export interface Space {
   name: string;
   description: string;
   color: string;
+  has_password: boolean;
   created_at: string;
   document_count: number;
   conversation_count: number;
+  // Only present right after creating/unlocking a password-protected space.
+  access_token?: string | null;
 }
 
 export interface Conversation {

@@ -25,11 +25,23 @@ externe payante.
 - **Recherche web optionnelle** (bouton par conversation) : complete le
   contexte avec des resultats d'un moteur de recherche local (SearXNG),
   sans tracking et sans cle API.
-- **Interface sombre, ergonomique**, avec zones de glisser-deposer pour
-  l'ajout de documents, statut de traitement en temps reel, reponses en
-  streaming (mot a mot).
+- **Interface sombre, ergonomique et responsive** (mobile/tablette/desktop),
+  avec zones de glisser-deposer pour l'ajout de documents, statut de
+  traitement en temps reel, reponses en streaming (mot a mot).
+- **Espaces proteges par mot de passe (optionnel)** : a la creation d'un
+  espace, definissez un mot de passe (saisie masquable) pour le reserver
+  aux personnes qui le connaissent ; partagez-le en un clic (bouton
+  "partager", copie le lien dans le presse-papiers). Sans mot de passe, un
+  espace reste ouvert a tous - il n'y a pas de compte utilisateur.
+- **File d'attente pour les requetes IA** : toutes les requetes a Ollama
+  (chat, embeddings, vision) sont traitees une par une par defaut, pour
+  rester stable meme sur un petit serveur avec plusieurs utilisateurs en
+  meme temps (voir `OLLAMA_MAX_CONCURRENCY`).
+- **Page d'accueil de presentation** (design neo-retro) avec formulaire de
+  contact.
 - **100% local** : aucun appel a une API cloud, tout tourne dans vos
-  conteneurs Docker.
+  conteneurs Docker. Aucun compte requis, aucun cookie de tracking (voir
+  la page "Confidentialite" dans l'app).
 
 ## Architecture
 
@@ -83,7 +95,8 @@ docker compose logs -f ollama-pull
 
 Une fois le telechargement termine, l'application est disponible sur :
 
-- **Interface web** : http://localhost:3000
+- **Page d'accueil** : http://localhost:3000
+- **Application (espaces/chat)** : http://localhost:3000/app
 - **API backend** (debug) : http://localhost:8000/api/health
 
 Ce `docker compose up` initial (avec `--build`) est le seul rebuild
@@ -122,17 +135,47 @@ lecture d'images utilisent le modele configure au moment de l'appel).
 
 ## Utilisation
 
-1. Creez un **espace de travail** (bouton `+` dans la colonne de gauche) :
-   nom, description, couleur.
-2. Dans le panneau **Documents** (a droite), glissez-deposez vos fichiers
+1. Depuis la page d'accueil, cliquez sur **Lancer l'application** (ou allez
+   directement sur `/app`) - aucun compte n'est necessaire.
+2. Creez un **espace de travail** (bouton `+` dans la colonne de gauche) :
+   nom, description, couleur, et un **mot de passe optionnel** si vous
+   voulez le reserver a certaines personnes.
+3. Dans le panneau **Documents** (a droite), glissez-deposez vos fichiers
    ou collez un lien web. Le statut passe de *en attente* → *analyse en
    cours* → *pret* (ou *erreur* avec le detail au survol).
-3. Creez une **conversation** dans cet espace et posez vos questions. Les
+4. Creez une **conversation** dans cet espace et posez vos questions. Les
    reponses citent les extraits de documents utilises.
-4. Activez **Recherche web** en haut de la conversation pour completer les
+5. Activez **Recherche web** en haut de la conversation pour completer les
    reponses avec des sources en ligne (recherchees via SearXNG, en local).
-5. Creez d'autres espaces pour des sujets differents : leurs documents et
+6. Utilisez le bouton **partager** dans l'en-tete de l'espace pour copier
+   un lien direct (`/app/<id-espace>`) ; si l'espace a un mot de passe, la
+   personne qui ouvre le lien devra le saisir avant d'y acceder.
+7. Creez d'autres espaces pour des sujets differents : leurs documents et
    conversations restent totalement isoles les uns des autres.
+
+## Charge et securite (important pour un petit serveur)
+
+Cette application est prevue pour tourner correctement meme sur un VPS
+modeste (2 vCPU type Hostinger KVM 2) :
+
+- **File d'attente Ollama** (`OLLAMA_MAX_CONCURRENCY`, defaut `1`) : toutes
+  les requetes IA (chat, recherche, vision) passent par une file globale
+  cote backend. Si plusieurs personnes utilisent l'app en meme temps, elles
+  sont traitees les unes apres les autres au lieu de saturer le serveur ;
+  l'utilisateur voit un indicateur "en file d'attente" pendant l'attente.
+  N'augmentez cette valeur que si votre machine a vraiment la RAM/le GPU
+  pour plusieurs inferences simultanees.
+- **Limitation de debit** sur le formulaire de contact, les tentatives de
+  mot de passe d'espace, et l'envoi de messages, pour limiter les abus.
+- **Mots de passe d'espace** stockes uniquement sous forme hachee
+  (bcrypt) ; l'acces est ensuite verifie via un jeton signe (JWT) a duree
+  limitee (`SPACE_TOKEN_TTL_HOURS`), jamais via le mot de passe en clair.
+- **En-tetes de securite** (X-Content-Type-Options, X-Frame-Options,
+  Referrer-Policy, Permissions-Policy) et CORS restreint via
+  `CORS_ORIGINS` (mettez votre nom de domaine en production).
+- Pensez a definir `SECRET_KEY` dans `.env` en production (sinon une cle
+  temporaire est generee a chaque redemarrage et les acces aux espaces
+  proteges doivent etre ressaisis).
 
 ## Developpement sans Docker (optionnel)
 
@@ -166,6 +209,14 @@ VITE_API_PROXY_TARGET=http://localhost:8000 npm run dev
 - **Reponses lentes / CPU a 100%** : normal sans GPU avec de gros modeles ;
   essayez un modele de chat plus petit (`qwen2.5:7b-instruct` par ex.).
 - **Recherche web sans resultat** : verifiez `docker compose logs searxng`.
+- **"Mot de passe requis" alors que je viens de le definir** : le jeton
+  d'acces est stocke dans le navigateur (localStorage) ; si vous changez de
+  navigateur/appareil ou videz les donnees du site, vous devrez le
+  ressaisir. Idem si le backend a redemarre sans `SECRET_KEY` fixe dans
+  `.env`.
+- **"En file d'attente" reste affiche longtemps** : normal si plusieurs
+  personnes discutent en meme temps sur un serveur a `OLLAMA_MAX_CONCURRENCY=1`
+  - les requetes sont traitees dans l'ordre d'arrivee.
 - **`ollama-pull` reste affiche comme "Exited" dans `docker compose ps`** :
   c'est normal, ce n'est pas un serveur mais une tache ponctuelle (elle
   telecharge les modeles puis se termine avec succes). Verifiez juste
