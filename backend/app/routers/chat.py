@@ -1,5 +1,6 @@
 import json
 import logging
+from datetime import datetime
 
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import StreamingResponse
@@ -88,8 +89,6 @@ async def chat(
             save_db.add(assistant_msg)
             conv_row = save_db.get(models_db.Conversation, conversation_id)
             if conv_row:
-                from datetime import datetime
-
                 conv_row.updated_at = datetime.utcnow()
             save_db.commit()
             save_db.refresh(assistant_msg)
