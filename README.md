@@ -34,7 +34,7 @@ externe payante.
 ## Architecture
 
 ```
-frontend (React + Vite, servi par Nginx)
+frontend (React + Vite)
    │  /api  → proxy
    ▼
 backend (FastAPI)
@@ -44,6 +44,18 @@ backend (FastAPI)
    └── SearXNG           → recherche web locale (optionnelle)
 ```
 
+Deux variantes de la stack sont fournies :
+
+- **`docker-compose.yml`** (par defaut) : mode **developpement**, avec
+  rechargement a chaud. Le frontend tourne avec le serveur de dev Vite
+  (port **3000**) et le backend avec `uvicorn --reload` : le code source
+  est monte en volume, donc modifier un fichier dans `frontend/src` ou
+  `backend/app` se repercute immediatement dans le navigateur, **sans
+  rebuild ni redemarrage de conteneur**.
+- **`docker-compose.prod.yml`** : mode **production**, frontend compile et
+  servi par Nginx (port 8080 par defaut), sans montage de code ni outillage
+  de dev. A utiliser pour un vrai deploiement (VPS, etc.).
+
 ## Prerequis
 
 - Docker et Docker Compose
@@ -51,7 +63,7 @@ backend (FastAPI)
 - Idealement un GPU (NVIDIA) pour des reponses rapides, mais fonctionne
   aussi sur CPU (plus lent)
 
-## Demarrage
+## Demarrage (developpement, avec hot-reload)
 
 ```bash
 cp .env.example .env
@@ -71,8 +83,25 @@ docker compose logs -f ollama-pull
 
 Une fois le telechargement termine, l'application est disponible sur :
 
-- **Interface web** : http://localhost:8080
+- **Interface web** : http://localhost:3000
 - **API backend** (debug) : http://localhost:8000/api/health
+
+Ce `docker compose up` initial (avec `--build`) est le seul rebuild
+necessaire : ensuite, tant que vous ne touchez pas a `requirements.txt` ou
+`package.json`, les modifications de code (frontend comme backend) sont
+prises en compte automatiquement grace au montage de volume + hot-reload,
+il suffit de recharger la page.
+
+## Deploiement (production)
+
+```bash
+cp .env.example .env
+docker compose -f docker-compose.prod.yml up -d --build
+```
+
+Interface disponible sur http://localhost:8080 (ou `FRONTEND_PORT`). Cette
+variante compile le frontend une bonne fois pour toutes (image Nginx) : il
+faut relancer `--build` a chaque changement de code.
 
 ## Choix des modeles
 
@@ -105,7 +134,7 @@ lecture d'images utilisent le modele configure au moment de l'appel).
 5. Creez d'autres espaces pour des sujets differents : leurs documents et
    conversations restent totalement isoles les uns des autres.
 
-## Developpement (sans Docker)
+## Developpement sans Docker (optionnel)
 
 Backend :
 
@@ -137,6 +166,17 @@ VITE_API_PROXY_TARGET=http://localhost:8000 npm run dev
 - **Reponses lentes / CPU a 100%** : normal sans GPU avec de gros modeles ;
   essayez un modele de chat plus petit (`qwen2.5:7b-instruct` par ex.).
 - **Recherche web sans resultat** : verifiez `docker compose logs searxng`.
+- **`ollama-pull` reste affiche comme "Exited" dans `docker compose ps`** :
+  c'est normal, ce n'est pas un serveur mais une tache ponctuelle (elle
+  telecharge les modeles puis se termine avec succes). Verifiez juste
+  qu'elle s'est bien terminee sans erreur : `docker compose logs ollama-pull`.
+- **Mes changements de code n'apparaissent pas** : en mode developpement
+  (`docker compose.yml`), aucun rebuild n'est necessaire — verifiez que
+  vous etes bien sur http://localhost:3000 (et pas 8080, qui correspond au
+  mode production) et que le conteneur `frontend` tourne
+  (`docker compose logs -f frontend` doit montrer Vite pret). Si vous avez
+  lance le mode production (`docker-compose.prod.yml`), il faut relancer
+  `--build` a chaque changement puisque le frontend y est compile en dur.
 
 ## Confidentialite
 

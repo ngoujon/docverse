@@ -69,17 +69,29 @@ services:
       - MAX_UPLOAD_MB=${MAX_UPLOAD_MB:-50}
     volumes:
       - app_data:/app/data
+      # Bind-mount the source so backend code edits are picked up live by
+      # --reload below, without rebuilding the image.
+      - ./backend/app:/app/app
     ports:
       - "${BACKEND_PORT:-8000}:8000"
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
     restart: unless-stopped
     depends_on:
       - backend
+    environment:
+      - VITE_API_PROXY_TARGET=http://backend:8000
+    volumes:
+      - ./frontend:/app
+      - frontend_node_modules:/app/node_modules
     ports:
-      - "${FRONTEND_PORT:-8080}:80"
+      - "${FRONTEND_PORT:-3000}:3000"
 
 volumes:
   ollama_data:
   app_data:
+  frontend_node_modules:

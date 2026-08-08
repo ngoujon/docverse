@@ -24,11 +24,11 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a3141;
+  background: #454c5e;
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #363f52;
+  background: #565f75;
 }
 
 .markdown-body p {
@@ -52,8 +52,8 @@ body {
   font-size: 0.85em;
 }
 .markdown-body pre {
-  background: #0b0d12;
-  border: 1px solid #2a3141;
+  background: #171a21;
+  border: 1px solid #454c5e;
   padding: 0.75em;
   border-radius: 8px;
   overflow-x: auto;
@@ -91,7 +91,7 @@ body {
 }
 .markdown-body th,
 .markdown-body td {
-  border: 1px solid #2a3141;
+  border: 1px solid #454c5e;
   padding: 0.35em 0.6em;
   text-align: left;
 }
