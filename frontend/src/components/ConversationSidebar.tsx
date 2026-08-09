@@ -68,26 +68,26 @@ export default function ConversationSidebar({
           <div className="min-w-0">
             <div className="flex items-center gap-1.5">
               {space.has_password && (
-                <Lock size={12} className="shrink-0 text-slate-500" />
+                <Lock size={12} className="shrink-0 text-slate-500 dark:text-slate-400" />
               )}
-              <h2 className="truncate text-sm font-semibold text-slate-900">{space.name}</h2>
+              <h2 className="truncate text-sm font-semibold text-slate-900 dark:text-slate-100">{space.name}</h2>
             </div>
             {space.description && (
-              <p className="mt-0.5 line-clamp-2 text-xs text-slate-500">{space.description}</p>
+              <p className="mt-0.5 line-clamp-2 text-xs text-slate-500 dark:text-slate-400">{space.description}</p>
             )}
           </div>
           <div className="flex shrink-0 items-center gap-1">
             <button
               onClick={handleShare}
               title={t("app.sidebar.shareTitle")}
-              className="rounded-lg p-1.5 text-slate-500 hover:bg-surface-3 hover:text-slate-700"
+              className="rounded-lg p-1.5 text-slate-500 dark:text-slate-400 hover:bg-surface-3 hover:text-slate-700 dark:hover:text-slate-200"
             >
               {copied ? <Check size={15} className="text-emerald-500" /> : <Share2 size={15} />}
             </button>
             <div className="relative">
               <button
                 onClick={() => setMenuOpen((v) => !v)}
-                className="rounded-lg p-1.5 text-slate-500 hover:bg-surface-3 hover:text-slate-700"
+                className="rounded-lg p-1.5 text-slate-500 dark:text-slate-400 hover:bg-surface-3 hover:text-slate-700 dark:hover:text-slate-200"
               >
                 <Settings size={15} />
               </button>
@@ -100,7 +100,7 @@ export default function ConversationSidebar({
                         setMenuOpen(false);
                         onEditSpace();
                       }}
-                      className="flex w-full items-center gap-2 px-3 py-2 text-left text-xs text-slate-700 hover:bg-surface-3"
+                      className="flex w-full items-center gap-2 px-3 py-2 text-left text-xs text-slate-700 dark:text-slate-300 hover:bg-surface-3"
                     >
                       <Pencil size={13} /> {t("app.sidebar.editSpace")}
                     </button>
@@ -130,7 +130,7 @@ export default function ConversationSidebar({
 
       <div className="flex-1 overflow-y-auto p-2">
         {conversations.length === 0 && (
-          <p className="mt-6 px-3 text-center text-xs text-slate-600">
+          <p className="mt-6 px-3 text-center text-xs text-slate-600 dark:text-slate-400">
             {t("app.sidebar.noConversations")}
           </p>
         )}
@@ -143,17 +143,17 @@ export default function ConversationSidebar({
               activeConversationId === c.id ? "bg-surface-3" : "hover:bg-surface-2"
             )}
           >
-            <MessageSquare size={14} className="mt-0.5 shrink-0 text-slate-500" />
+            <MessageSquare size={14} className="mt-0.5 shrink-0 text-slate-500 dark:text-slate-400" />
             <div className="min-w-0 flex-1">
-              <p className="truncate text-xs font-medium text-slate-800">{c.title}</p>
-              <p className="text-[11px] text-slate-500">{relativeTime(c.updated_at, t)}</p>
+              <p className="truncate text-xs font-medium text-slate-800 dark:text-slate-200">{c.title}</p>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">{relativeTime(c.updated_at, t)}</p>
             </div>
             <span
               onClick={(e) => {
                 e.stopPropagation();
                 onDelete(c.id);
               }}
-              className="mt-0.5 shrink-0 rounded p-0.5 text-slate-500 opacity-0 hover:text-red-500 group-hover:opacity-100"
+              className="mt-0.5 shrink-0 rounded p-0.5 text-slate-500 dark:text-slate-400 opacity-0 hover:text-red-500 group-hover:opacity-100"
             >
               <Trash2 size={13} />
             </span>

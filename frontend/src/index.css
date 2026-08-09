@@ -2,6 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --surface-0: 247 244 251;
+  --surface-1: 255 255 255;
+  --surface-2: 248 242 252;
+  --surface-3: 239 227 247;
+  --surface-4: 225 205 240;
+  --surface-border: 230 218 243;
+  --accent: 139 47 214;
+  --accent-hover: 116 34 189;
+}
+
+.dark {
+  --surface-0: 17 15 24;
+  --surface-1: 24 21 32;
+  --surface-2: 30 26 40;
+  --surface-3: 40 35 53;
+  --surface-4: 54 47 70;
+  --surface-border: 50 44 66;
+  --accent: 167 105 240;
+  --accent-hover: 182 128 245;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -110,4 +132,39 @@ body {
   font-weight: 600;
   margin: 0 1px;
   vertical-align: middle;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #3a3548;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #4a445c;
+}
+.dark .markdown-body code {
+  background: rgba(255, 255, 255, 0.08);
+}
+.dark .markdown-body pre {
+  background: #14121c;
+  border-color: #322c40;
+}
+.dark .markdown-body a {
+  color: #b794f6;
+}
+.dark .markdown-body strong,
+.dark .markdown-body h1,
+.dark .markdown-body h2,
+.dark .markdown-body h3 {
+  color: #f5f3f7;
+}
+.dark .markdown-body blockquote {
+  border-left-color: #3a3548;
+  color: #a8a2b8;
+}
+.dark .markdown-body th,
+.dark .markdown-body td {
+  border-color: #322c40;
+}
+.dark .cite-badge {
+  background: #a769f033;
+  color: #d9c5f7;
 }

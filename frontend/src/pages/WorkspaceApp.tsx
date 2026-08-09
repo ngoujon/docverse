@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { usePageTitle } from "../hooks/usePageTitle";
+import { useTheme } from "../hooks/useTheme";
 import { api, streamChat, UnauthorizedError } from "../api/client";
 import { getSpaceToken, setSpaceToken, clearSpaceToken } from "../api/spaceTokens";
 import type { Conversation, DocumentItem, HealthStatus, Message, Space } from "../types";
@@ -17,6 +18,7 @@ export default function WorkspaceApp() {
   const { t } = useTranslation();
   const { spaceId: routeSpaceId } = useParams();
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
 
   const [spaces, setSpaces] = useState<Space[]>([]);
   const [activeSpaceId, setActiveSpaceId] = useState<string | null>(null);
@@ -346,6 +348,8 @@ export default function WorkspaceApp() {
           onSelect={selectSpace}
           onCreate={() => setSpaceModal({ open: true, editing: null })}
           health={health}
+          theme={theme}
+          onToggleTheme={toggleTheme}
         />
 
         {activeSpace && (
@@ -367,7 +371,7 @@ export default function WorkspaceApp() {
 
       {activeSpace ? (
         locked ? (
-          <div className="flex flex-1 flex-col items-center justify-center gap-3 px-4 text-center text-slate-500">
+          <div className="flex flex-1 flex-col items-center justify-center gap-3 px-4 text-center text-slate-500 dark:text-slate-400">
             <p className="text-sm">{t("app.workspace.locked")}</p>
           </div>
         ) : (
@@ -406,7 +410,7 @@ export default function WorkspaceApp() {
           </>
         )
       ) : (
-        <div className="flex flex-1 flex-col items-center justify-center gap-4 px-4 text-center text-slate-500">
+        <div className="flex flex-1 flex-col items-center justify-center gap-4 px-4 text-center text-slate-500 dark:text-slate-400">
           <p className="text-sm">{t("app.workspace.createFirstSpace")}</p>
           <button
             onClick={() => setSpaceModal({ open: true, editing: null })}

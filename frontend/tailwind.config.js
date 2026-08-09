@@ -5,29 +5,32 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Driven by CSS variables (see index.css :root / .dark) so the app
+        // can switch light/dark at runtime without touching every class.
         surface: {
-          0: "#f7f4fb",
-          1: "#ffffff",
-          2: "#f8f2fc",
-          3: "#efe3f7",
-          4: "#e1cdf0",
-          border: "#e6daf3",
+          0: "rgb(var(--surface-0) / <alpha-value>)",
+          1: "rgb(var(--surface-1) / <alpha-value>)",
+          2: "rgb(var(--surface-2) / <alpha-value>)",
+          3: "rgb(var(--surface-3) / <alpha-value>)",
+          4: "rgb(var(--surface-4) / <alpha-value>)",
+          border: "rgb(var(--surface-border) / <alpha-value>)",
         },
         accent: {
-          DEFAULT: "#8b2fd6",
-          hover: "#7422bd",
-          soft: "#8b2fd61a",
+          DEFAULT: "rgb(var(--accent) / <alpha-value>)",
+          hover: "rgb(var(--accent-hover) / <alpha-value>)",
+          soft: "rgb(var(--accent) / 0.1)",
         },
+        // Landing/privacy pages only - always light, not theme-toggled.
         retro: {
-          bg: "#0b0714",
-          bg2: "#160c2e",
-          panel: "#1c1033",
-          border: "#3d2a66",
-          pink: "#ff2bd6",
-          cyan: "#00f0ff",
-          orange: "#ff8a3d",
-          yellow: "#ffd400",
-          purple: "#a855f7",
+          bg: "#fbf9ff",
+          bg2: "#f3edff",
+          panel: "#ffffff",
+          border: "#e5daf7",
+          pink: "#e01cc0",
+          cyan: "#0891a8",
+          orange: "#e06a1f",
+          yellow: "#b8860b",
+          purple: "#8b2fd6",
         },
       },
       fontFamily: {

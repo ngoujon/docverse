@@ -30,12 +30,12 @@ export default function ConfirmDialog({
         className="w-full max-w-sm rounded-xl border border-surface-border bg-surface-2 p-5 shadow-panel"
         onClick={(e) => e.stopPropagation()}
       >
-        <h3 className="text-sm font-semibold text-slate-900">{title}</h3>
-        <p className="mt-2 text-sm text-slate-500">{message}</p>
+        <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{title}</h3>
+        <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">{message}</p>
         <div className="mt-5 flex justify-end gap-2">
           <button
             onClick={onCancel}
-            className="rounded-lg px-3 py-1.5 text-sm text-slate-700 hover:bg-surface-3"
+            className="rounded-lg px-3 py-1.5 text-sm text-slate-700 dark:text-slate-300 hover:bg-surface-3"
           >
             {t("common.cancel")}
           </button>

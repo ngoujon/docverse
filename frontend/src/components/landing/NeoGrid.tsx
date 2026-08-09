@@ -8,7 +8,7 @@ export default function NeoGrid() {
         className="absolute inset-0 animate-grid-scroll"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(0,240,255,0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(255,43,214,0.25) 1px, transparent 1px)",
+            "linear-gradient(rgba(8,145,168,0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(224,28,192,0.25) 1px, transparent 1px)",
           backgroundSize: "64px 64px",
           transform: "perspective(300px) rotateX(60deg) scale(2)",
           transformOrigin: "bottom",

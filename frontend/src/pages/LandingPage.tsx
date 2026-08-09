@@ -56,13 +56,13 @@ export default function LandingPage() {
   const badges = t("hero.badges", { returnObjects: true }) as string[];
 
   return (
-    <div className="min-h-screen bg-retro-bg font-sans text-slate-200">
+    <div className="min-h-screen bg-retro-bg font-sans text-slate-800">
       {/* Nav */}
       <header className="sticky top-0 z-50 border-b border-retro-border/60 bg-retro-bg/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
           <a href="#top" className="flex items-center gap-2">
             <Sparkles size={20} className="text-retro-pink" />
-            <span className="font-mono text-sm font-bold tracking-widest text-slate-100">
+            <span className="font-mono text-sm font-bold tracking-widest text-slate-900">
               OPEN<span className="text-retro-cyan">::</span>RAG
             </span>
           </a>
@@ -72,7 +72,7 @@ export default function LandingPage() {
               <a
                 key={l.href}
                 href={l.href}
-                className="font-mono text-xs uppercase tracking-wider text-slate-400 transition hover:text-retro-cyan"
+                className="font-mono text-xs uppercase tracking-wider text-slate-600 transition hover:text-retro-cyan"
               >
                 {l.label}
               </a>
@@ -88,7 +88,7 @@ export default function LandingPage() {
 
           <div className="flex items-center gap-3 md:hidden">
             <LanguageSwitcher variant="dark" />
-            <button onClick={() => setMobileMenuOpen((v) => !v)} className="text-slate-300">
+            <button onClick={() => setMobileMenuOpen((v) => !v)} className="text-slate-700">
               {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
@@ -102,7 +102,7 @@ export default function LandingPage() {
                   key={l.href}
                   href={l.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="font-mono text-xs uppercase tracking-wider text-slate-400"
+                  className="font-mono text-xs uppercase tracking-wider text-slate-600"
                 >
                   {l.label}
                 </a>
@@ -150,10 +150,10 @@ export default function LandingPage() {
               {t("hero.title1")}
             </span>
             <br />
-            <span className="text-slate-100">{t("hero.title2")}</span>
+            <span className="text-slate-900">{t("hero.title2")}</span>
           </h1>
 
-          <p className="mx-auto mt-5 max-w-xl text-sm text-slate-400 sm:text-base">
+          <p className="mx-auto mt-5 max-w-xl text-sm text-slate-600 sm:text-base">
             {t("hero.subtitle")}
           </p>
 
@@ -166,7 +166,7 @@ export default function LandingPage() {
             </Link>
             <a
               href="#fonctionnalites"
-              className="flex w-full items-center justify-center gap-2 rounded-lg border border-retro-border px-6 py-3 font-mono text-xs uppercase tracking-wider text-slate-300 transition hover:border-retro-cyan hover:text-retro-cyan sm:w-auto"
+              className="flex w-full items-center justify-center gap-2 rounded-lg border border-retro-border px-6 py-3 font-mono text-xs uppercase tracking-wider text-slate-700 transition hover:border-retro-cyan hover:text-retro-cyan sm:w-auto"
             >
               {t("hero.ctaDiscover")}
             </a>
@@ -181,7 +181,7 @@ export default function LandingPage() {
             <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-retro-pink">
               {t("features.eyebrow")}
             </p>
-            <h2 className="mt-2 text-2xl font-bold text-slate-100 sm:text-3xl">
+            <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
               {t("features.title")}
             </h2>
           </div>
@@ -196,8 +196,8 @@ export default function LandingPage() {
                   className={`rounded-2xl border border-retro-border bg-retro-panel/40 p-5 transition-colors ${style.border}`}
                 >
                   <Icon size={22} className={style.color} />
-                  <h3 className="mt-3 text-sm font-semibold text-slate-100">{f.title}</h3>
-                  <p className="mt-1.5 text-xs leading-relaxed text-slate-400">{f.desc}</p>
+                  <h3 className="mt-3 text-sm font-semibold text-slate-900">{f.title}</h3>
+                  <p className="mt-1.5 text-xs leading-relaxed text-slate-600">{f.desc}</p>
                 </div>
               );
             })}
@@ -212,7 +212,7 @@ export default function LandingPage() {
             <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-retro-cyan">
               {t("steps.eyebrow")}
             </p>
-            <h2 className="mt-2 text-2xl font-bold text-slate-100 sm:text-3xl">
+            <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
               {t("steps.title")}
             </h2>
           </div>
@@ -223,8 +223,8 @@ export default function LandingPage() {
                 <span className="font-mono text-3xl font-bold text-retro-border">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <h3 className="mt-2 text-sm font-semibold text-slate-100">{s.title}</h3>
-                <p className="mt-1.5 text-xs leading-relaxed text-slate-400">{s.desc}</p>
+                <h3 className="mt-2 text-sm font-semibold text-slate-900">{s.title}</h3>
+                <p className="mt-1.5 text-xs leading-relaxed text-slate-600">{s.desc}</p>
               </div>
             ))}
           </div>
@@ -234,11 +234,11 @@ export default function LandingPage() {
       {/* Open source callout */}
       <section className="border-t border-retro-border/60 px-4 py-20 sm:px-6">
         <div className="mx-auto flex max-w-4xl flex-col items-center gap-4 rounded-2xl border border-retro-border bg-gradient-to-br from-retro-panel to-retro-bg2 p-8 text-center sm:p-12">
-          <Github size={28} className="text-slate-300" />
-          <h2 className="text-xl font-bold text-slate-100 sm:text-2xl">
+          <Github size={28} className="text-slate-700" />
+          <h2 className="text-xl font-bold text-slate-900 sm:text-2xl">
             {t("opensource.title")}
           </h2>
-          <p className="max-w-lg text-sm text-slate-400">{t("opensource.desc")}</p>
+          <p className="max-w-lg text-sm text-slate-600">{t("opensource.desc")}</p>
           <Link
             to="/app"
             className="mt-2 flex items-center gap-2 rounded-lg border border-retro-cyan bg-retro-cyan/10 px-6 py-3 font-mono text-xs uppercase tracking-wider text-retro-cyan transition hover:bg-retro-cyan hover:text-retro-bg"
@@ -255,10 +255,10 @@ export default function LandingPage() {
             <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-retro-pink">
               {t("contact.eyebrow")}
             </p>
-            <h2 className="mt-2 text-2xl font-bold text-slate-100 sm:text-3xl">
+            <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
               {t("contact.title")}
             </h2>
-            <p className="mt-2 text-sm text-slate-400">{t("contact.subtitle")}</p>
+            <p className="mt-2 text-sm text-slate-600">{t("contact.subtitle")}</p>
           </div>
 
           <div className="mt-8 rounded-2xl border border-retro-border bg-retro-panel/40 p-5 sm:p-8">
@@ -270,20 +270,20 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="border-t border-retro-border/60 px-4 py-8 sm:px-6">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
-          <p className="flex items-center gap-1.5 font-mono text-[11px] text-slate-500">
+          <p className="flex items-center gap-1.5 font-mono text-[11px] text-slate-600">
             {t("footer.tagline", { heart: "" })}
             <Heart size={11} className="text-retro-pink" />
           </p>
           <div className="flex items-center gap-4">
             <Link
               to="/confidentialite"
-              className="font-mono text-[11px] uppercase tracking-wider text-slate-500 hover:text-retro-cyan"
+              className="font-mono text-[11px] uppercase tracking-wider text-slate-600 hover:text-retro-cyan"
             >
               {t("footer.privacy")}
             </Link>
             <Link
               to="/app"
-              className="font-mono text-[11px] uppercase tracking-wider text-slate-500 hover:text-retro-cyan"
+              className="font-mono text-[11px] uppercase tracking-wider text-slate-600 hover:text-retro-cyan"
             >
               {t("footer.launchApp")}
             </Link>

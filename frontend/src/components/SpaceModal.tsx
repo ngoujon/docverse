@@ -65,28 +65,28 @@ export default function SpaceModal({ open, initial, onClose, onSubmit }: Props) 
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-slate-900">
+          <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
             {isEdit ? t("app.spaceModal.editTitle") : t("app.spaceModal.createTitle")}
           </h3>
-          <button onClick={onClose} className="text-slate-500 hover:text-slate-700">
+          <button onClick={onClose} className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200">
             <X size={18} />
           </button>
         </div>
 
         <div className="mt-4 space-y-3">
           <div>
-            <label className="mb-1 block text-xs font-medium text-slate-600">{t("app.spaceModal.name")}</label>
+            <label className="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-400">{t("app.spaceModal.name")}</label>
             <input
               autoFocus
               value={name}
               onChange={(e) => setName(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
               placeholder={t("app.spaceModal.namePlaceholder")}
-              className="w-full rounded-lg border border-surface-border bg-surface-1 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-accent"
+              className="w-full rounded-lg border border-surface-border bg-surface-1 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none focus:border-accent"
             />
           </div>
           <div>
-            <label className="mb-1 block text-xs font-medium text-slate-600">
+            <label className="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-400">
               {t("app.spaceModal.description")}
             </label>
             <textarea
@@ -94,11 +94,11 @@ export default function SpaceModal({ open, initial, onClose, onSubmit }: Props) 
               onChange={(e) => setDescription(e.target.value)}
               rows={2}
               placeholder={t("app.spaceModal.descriptionPlaceholder")}
-              className="w-full resize-none rounded-lg border border-surface-border bg-surface-1 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-accent"
+              className="w-full resize-none rounded-lg border border-surface-border bg-surface-1 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none focus:border-accent"
             />
           </div>
           <div>
-            <label className="mb-1 block text-xs font-medium text-slate-600">{t("app.spaceModal.color")}</label>
+            <label className="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-400">{t("app.spaceModal.color")}</label>
             <div className="flex gap-2">
               {COLORS.map((c) => (
                 <button
@@ -115,7 +115,7 @@ export default function SpaceModal({ open, initial, onClose, onSubmit }: Props) 
           </div>
 
           <div>
-            <label className="mb-1 flex items-center gap-1.5 text-xs font-medium text-slate-600">
+            <label className="mb-1 flex items-center gap-1.5 text-xs font-medium text-slate-600 dark:text-slate-400">
               <Lock size={12} />
               {t("app.spaceModal.password")}
             </label>
@@ -130,19 +130,19 @@ export default function SpaceModal({ open, initial, onClose, onSubmit }: Props) 
                     ? t("app.spaceModal.passwordPlaceholderKeep")
                     : t("app.spaceModal.passwordPlaceholderNew")
                 }
-                className="w-full rounded-lg border border-surface-border bg-surface-1 px-3 py-2 pr-9 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-accent disabled:opacity-40"
+                className="w-full rounded-lg border border-surface-border bg-surface-1 px-3 py-2 pr-9 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none focus:border-accent disabled:opacity-40"
               />
               <button
                 type="button"
                 onClick={() => setPasswordVisible((v) => !v)}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-700"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
                 tabIndex={-1}
               >
                 {passwordVisible ? <EyeOff size={15} /> : <Eye size={15} />}
               </button>
             </div>
             {isEdit && hadPassword && (
-              <label className="mt-1.5 flex items-center gap-1.5 text-xs text-slate-500">
+              <label className="mt-1.5 flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
                 <input
                   type="checkbox"
                   checked={removePassword}
@@ -152,14 +152,14 @@ export default function SpaceModal({ open, initial, onClose, onSubmit }: Props) 
                 {t("app.spaceModal.removePassword")}
               </label>
             )}
-            <p className="mt-1 text-[11px] text-slate-600">{t("app.spaceModal.helper")}</p>
+            <p className="mt-1 text-[11px] text-slate-600 dark:text-slate-400">{t("app.spaceModal.helper")}</p>
           </div>
         </div>
 
         <div className="mt-5 flex justify-end gap-2">
           <button
             onClick={onClose}
-            className="rounded-lg px-3 py-1.5 text-sm text-slate-700 hover:bg-surface-3"
+            className="rounded-lg px-3 py-1.5 text-sm text-slate-700 dark:text-slate-300 hover:bg-surface-3"
           >
             {t("common.cancel")}
           </button>
