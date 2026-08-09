@@ -50,7 +50,6 @@ async def chat(
     )
     db.add(user_msg)
 
-    conv.web_search_enabled = payload.web_search
     if is_first_message:
         conv.title = user_message[:60] + ("…" if len(user_message) > 60 else "")
 
@@ -70,48 +69,61 @@ async def chat(
             yield _sse({"type": "queued", "position": waiting + 1})
         full_text = ""
         sources: list[dict] = []
-        try:
-            context_block, sources = await rag.gather_context(
-                space_id, user_message, payload.web_search
-            )
-            messages = rag.build_llm_messages(
-                space_name, history, context_block, user_message
-            )
-            async for token in ollama_client.chat_stream(messages):
-                full_text += token
-                yield _sse({"type": "token", "content": token})
-        except Exception as exc:  # noqa: BLE001
-            logger.exception("Erreur pendant la generation de la reponse")
-            error_text = (
-                "\n\n*Une erreur est survenue pendant la generation "
-                f"({exc}). Verifiez qu'Ollama est bien demarre et que les "
-                "modeles sont telecharges.*"
-            )
-            full_text += error_text
-            yield _sse({"type": "token", "content": error_text})
+        saved_id: str | None = None
+        saved = False
 
-        save_db = SessionLocal()
+        def persist() -> str | None:
+            # Called both on normal completion and from the outer `finally`
+            # (which also runs if the client disconnects mid-stream, e.g. a
+            # tab closed or reloaded before generation finished) so a
+            # partial-or-full answer is never silently lost.
+            nonlocal saved, saved_id
+            if saved or not full_text.strip():
+                return saved_id
+            saved = True
+            save_db = SessionLocal()
+            try:
+                assistant_msg = models_db.Message(
+                    conversation_id=conversation_id,
+                    role="assistant",
+                    content=full_text,
+                    sources_json=json.dumps(sources, ensure_ascii=False),
+                )
+                save_db.add(assistant_msg)
+                conv_row = save_db.get(models_db.Conversation, conversation_id)
+                if conv_row:
+                    conv_row.updated_at = datetime.utcnow()
+                save_db.commit()
+                save_db.refresh(assistant_msg)
+                saved_id = assistant_msg.id
+                return saved_id
+            finally:
+                save_db.close()
+
         try:
-            assistant_msg = models_db.Message(
-                conversation_id=conversation_id,
-                role="assistant",
-                content=full_text,
-                sources_json=json.dumps(sources, ensure_ascii=False),
-            )
-            save_db.add(assistant_msg)
-            conv_row = save_db.get(models_db.Conversation, conversation_id)
-            if conv_row:
-                conv_row.updated_at = datetime.utcnow()
-            save_db.commit()
-            save_db.refresh(assistant_msg)
-            yield _sse(
-                {
-                    "type": "done",
-                    "message_id": assistant_msg.id,
-                    "sources": sources,
-                }
-            )
+            try:
+                context_block, sources = await rag.gather_context(space_id, user_message)
+                messages = rag.build_llm_messages(
+                    space_name, history, context_block, user_message
+                )
+                async for token in ollama_client.chat_stream(messages):
+                    full_text += token
+                    yield _sse({"type": "token", "content": token})
+            except Exception as exc:  # noqa: BLE001
+                logger.exception("Erreur pendant la generation de la reponse")
+                error_text = (
+                    "\n\n*Une erreur est survenue pendant la generation "
+                    f"({exc}). Verifiez qu'Ollama est bien demarre et que les "
+                    "modeles sont telecharges.*"
+                )
+                full_text += error_text
+                yield _sse({"type": "token", "content": error_text})
+
+            message_id = persist()
+            yield _sse({"type": "done", "message_id": message_id, "sources": sources})
         finally:
-            save_db.close()
+            # No-op if `persist()` above already ran; saves whatever was
+            # generated so far if we get here via cancellation instead.
+            persist()
 
     return StreamingResponse(event_stream(), media_type="text/event-stream")

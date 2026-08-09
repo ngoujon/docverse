@@ -130,10 +130,8 @@
     "chat": {
       "selectConversation": "Select or create a conversation to get started.",
       "space": "Space: {{name}}",
-      "webSearchTitle": "Complete answers with a web search",
-      "webSearch": "Web search",
       "documentsTitle": "Space documents",
-      "emptyHint": "Ask a question about this space's documents. Turn on web search to complete answers with online sources.",
+      "emptyHint": "Ask a question about this space's documents. A web search runs automatically when needed.",
       "queued": "In queue",
       "queuedPosition": " ({{count}} ahead of you)",
       "queuedSuffix": " - the server processes one request at a time",

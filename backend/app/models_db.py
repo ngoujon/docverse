@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import Column, String, DateTime, ForeignKey, Text, Integer, Boolean
+from sqlalchemy import Column, String, DateTime, ForeignKey, Text, Integer
 from sqlalchemy.orm import relationship
 
 from .database import Base
@@ -35,7 +35,6 @@ class Conversation(Base):
     id = Column(String, primary_key=True, default=gen_id)
     space_id = Column(String, ForeignKey("spaces.id"), nullable=False, index=True)
     title = Column(String, default="Nouvelle conversation")
-    web_search_enabled = Column(Boolean, default=False)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 

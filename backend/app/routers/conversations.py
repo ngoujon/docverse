@@ -67,8 +67,6 @@ def update_conversation(
 ):
     if payload.title is not None:
         conv.title = payload.title
-    if payload.web_search_enabled is not None:
-        conv.web_search_enabled = payload.web_search_enabled
     db.commit()
     db.refresh(conv)
     return conv

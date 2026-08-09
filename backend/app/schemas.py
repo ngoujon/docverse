@@ -49,14 +49,12 @@ class ConversationCreate(BaseModel):
 
 class ConversationUpdate(BaseModel):
     title: Optional[str] = None
-    web_search_enabled: Optional[bool] = None
 
 
 class ConversationOut(BaseModel):
     id: str
     space_id: str
     title: str
-    web_search_enabled: bool
     created_at: datetime
     updated_at: datetime
 
@@ -78,7 +76,6 @@ class MessageOut(BaseModel):
 
 class ChatRequest(BaseModel):
     message: str
-    web_search: bool = False
 
 
 class DocumentOut(BaseModel):

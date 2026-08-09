@@ -130,10 +130,8 @@
     "chat": {
       "selectConversation": "Selectionnez ou creez une conversation pour commencer.",
       "space": "Espace : {{name}}",
-      "webSearchTitle": "Completer les reponses avec une recherche web",
-      "webSearch": "Recherche web",
       "documentsTitle": "Documents de l'espace",
-      "emptyHint": "Posez une question sur les documents de cet espace. Activez la recherche web pour completer avec des sources en ligne.",
+      "emptyHint": "Posez une question sur les documents de cet espace. Une recherche web est lancee automatiquement si necessaire.",
       "queued": "En file d'attente",
       "queuedPosition": " ({{count}} devant vous)",
       "queuedSuffix": " - le serveur traite une requete a la fois",

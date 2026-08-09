@@ -39,8 +39,11 @@ _SYSTEM_PROMPT_TEMPLATE = (
     "n'est fournie, dis clairement que l'information n'est pas presente "
     "dans les documents de l'espace, puis reponds avec tes connaissances "
     "generales en le precisant explicitement.\n"
-    "- Distingue dans ta reponse ce qui vient des documents de l'espace et "
-    "ce qui vient du web si les deux sont presents.\n"
+    "- Si des extraits marques (web: ...) sont presents dans le CONTEXTE, "
+    "precise explicitement dans ta reponse que cette information a ete "
+    "trouvee via une recherche internet automatique, en dehors des "
+    "documents fournis dans cet espace - ne la presente jamais comme si "
+    "elle venait des documents de l'espace.\n"
     "- Reponds dans la langue de l'utilisateur, de maniere claire et "
     "structuree (listes, markdown si utile)."
 )
@@ -52,14 +55,12 @@ async def retrieve_document_context(space_id: str, query: str) -> list[dict]:
     return results
 
 
-async def gather_context(
-    space_id: str, query: str, web_search_enabled: bool
-) -> tuple[str, list[dict]]:
+async def gather_context(space_id: str, query: str) -> tuple[str, list[dict]]:
     """Builds a numbered context block and a parallel list of source
     descriptors used for citations in the UI."""
     doc_results = await retrieve_document_context(space_id, query)
 
-    do_web_search = web_search_enabled or await _should_auto_search_web(query)
+    do_web_search = await _should_auto_search_web(query)
     web_results = await websearch.search_web(query) if do_web_search else []
 
     sources: list[dict] = []

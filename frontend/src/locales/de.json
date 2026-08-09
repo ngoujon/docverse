@@ -130,10 +130,8 @@
     "chat": {
       "selectConversation": "Wahlen oder erstellen Sie eine Unterhaltung, um zu beginnen.",
       "space": "Bereich: {{name}}",
-      "webSearchTitle": "Antworten mit einer Websuche erganzen",
-      "webSearch": "Websuche",
       "documentsTitle": "Dokumente des Bereichs",
-      "emptyHint": "Stellen Sie eine Frage zu den Dokumenten dieses Bereichs. Aktivieren Sie die Websuche, um Antworten mit Online-Quellen zu erganzen.",
+      "emptyHint": "Stellen Sie eine Frage zu den Dokumenten dieses Bereichs. Bei Bedarf wird automatisch eine Websuche durchgefuhrt.",
       "queued": "In Warteschlange",
       "queuedPosition": " ({{count}} vor Ihnen)",
       "queuedSuffix": " - der Server verarbeitet jeweils eine Anfrage",

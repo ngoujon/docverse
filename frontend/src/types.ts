@@ -15,7 +15,6 @@ export interface Conversation {
   id: string;
   space_id: string;
   title: string;
-  web_search_enabled: boolean;
   created_at: string;
   updated_at: string;
 }

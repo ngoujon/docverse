@@ -87,7 +87,7 @@ export const api = {
   updateConversation: (
     id: string,
     spaceId: string,
-    patch: Partial<Pick<Conversation, "title" | "web_search_enabled">>
+    patch: Partial<Pick<Conversation, "title">>
   ) =>
     request<Conversation>(
       `/conversations/${id}`,
@@ -139,7 +139,6 @@ export async function streamChat(
   conversationId: string,
   spaceId: string,
   message: string,
-  webSearch: boolean,
   onEvent: (event: StreamEvent) => void,
   signal?: AbortSignal
 ): Promise<void> {
@@ -149,7 +148,7 @@ export async function streamChat(
       "Content-Type": "application/json",
       ...authHeaders(spaceId),
     },
-    body: JSON.stringify({ message, web_search: webSearch }),
+    body: JSON.stringify({ message }),
     signal,
   });
   if (res.status === 401) throw new UnauthorizedError();

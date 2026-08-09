@@ -219,14 +219,6 @@ export default function WorkspaceApp() {
     setDeleteConvId(null);
   };
 
-  const handleToggleWebSearch = async (v: boolean) => {
-    if (!activeConversation || !activeSpaceId) return;
-    const updated = await api.updateConversation(activeConversation.id, activeSpaceId, {
-      web_search_enabled: v,
-    });
-    setConversations((prev) => prev.map((c) => (c.id === updated.id ? updated : c)));
-  };
-
   // ---- Chat ----
   const handleSend = async (text: string) => {
     if (!activeConversationId || !activeSpaceId) return;
@@ -245,14 +237,12 @@ export default function WorkspaceApp() {
     setQueuedPosition(null);
     const controller = new AbortController();
     abortRef.current = controller;
-    const webSearch = activeConversation?.web_search_enabled ?? false;
 
     try {
       await streamChat(
         activeConversationId,
         activeSpaceId,
         text,
-        webSearch,
         (event) => {
           if (event.type === "user_message_id" && event.id) {
             setMessages((prev) =>
@@ -383,8 +373,6 @@ export default function WorkspaceApp() {
               streaming={streaming}
               queuedPosition={queuedPosition}
               onSend={handleSend}
-              webSearch={activeConversation?.web_search_enabled ?? false}
-              onToggleWebSearch={handleToggleWebSearch}
               onToggleDocPanel={() => setDocPanelOpen((v) => !v)}
               docPanelOpen={docPanelOpen}
               onOpenMobileNav={() => setMobileNavOpen(true)}

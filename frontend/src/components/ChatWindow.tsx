@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Send, Globe, PanelRight, Sparkles, Menu, Loader2 } from "lucide-react";
+import { Send, PanelRight, Sparkles, Menu, Loader2 } from "lucide-react";
 import clsx from "clsx";
 import type { Conversation, Message, Space } from "../types";
 import MessageBubble from "./MessageBubble";
@@ -12,8 +12,6 @@ interface Props {
   streaming: boolean;
   queuedPosition?: number | null;
   onSend: (text: string) => void;
-  webSearch: boolean;
-  onToggleWebSearch: (v: boolean) => void;
   onToggleDocPanel: () => void;
   docPanelOpen: boolean;
   onOpenMobileNav?: () => void;
@@ -26,8 +24,6 @@ export default function ChatWindow({
   streaming,
   queuedPosition,
   onSend,
-  webSearch,
-  onToggleWebSearch,
   onToggleDocPanel,
   docPanelOpen,
   onOpenMobileNav,
@@ -86,19 +82,6 @@ export default function ChatWindow({
           </div>
         </div>
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
-          <button
-            onClick={() => onToggleWebSearch(!webSearch)}
-            title={t("app.chat.webSearchTitle")}
-            className={clsx(
-              "flex items-center gap-1.5 rounded-full border px-2.5 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-wider transition-colors sm:px-3",
-              webSearch
-                ? "border-accent bg-accent/10 text-accent shadow-neon-light"
-                : "border-surface-border text-slate-500 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-600"
-            )}
-          >
-            <Globe size={13} />
-            <span className="hidden sm:inline">{t("app.chat.webSearch")}</span>
-          </button>
           <button
             onClick={onToggleDocPanel}
             title={t("app.chat.documentsTitle")}
