@@ -1,6 +1,30 @@
 from . import ollama_client, vectorstore, websearch
 from ..config import settings
 
+_WEB_SEARCH_CLASSIFIER_PROMPT = (
+    "Cette question porte-t-elle sur une information changeante ou "
+    "actuelle (meteo, actualite, prix, sport, evenement recent, "
+    "horaires...) qu'il faut verifier sur internet plutot que dans des "
+    "documents personnels ? Reponds uniquement par OUI ou NON.\n\n"
+    "Question : {query}"
+)
+
+
+async def _should_auto_search_web(query: str) -> bool:
+    """Lightweight classification call asking the chat model whether this
+    query needs live web data. Used when the user hasn't manually enabled
+    web search, so the assistant still has the reflex to search when it
+    matters. Fails closed (no search) on any error."""
+    try:
+        answer = await ollama_client.chat(
+            [{"role": "user", "content": _WEB_SEARCH_CLASSIFIER_PROMPT.format(query=query)}],
+            temperature=0,
+        )
+    except Exception:
+        return False
+    return answer.strip().upper().startswith("OUI")
+
+
 _SYSTEM_PROMPT_TEMPLATE = (
     "Tu es l'assistant de l'espace de travail « {space_name} ». "
     "Tu aides l'utilisateur en t'appuyant en priorite sur les documents "
@@ -34,7 +58,9 @@ async def gather_context(
     """Builds a numbered context block and a parallel list of source
     descriptors used for citations in the UI."""
     doc_results = await retrieve_document_context(space_id, query)
-    web_results = await websearch.search_web(query) if web_search_enabled else []
+
+    do_web_search = web_search_enabled or await _should_auto_search_web(query)
+    web_results = await websearch.search_web(query) if do_web_search else []
 
     sources: list[dict] = []
     context_lines: list[str] = []
