@@ -21,9 +21,15 @@ def verify_password(password: str, password_hash: str) -> bool:
         return False
 
 
-def issue_user_token(user_id: str, role: str) -> str:
+def issue_user_token(user_id: str, role: str, token_version: int) -> str:
     expires_at = datetime.now(timezone.utc) + timedelta(days=settings.user_token_ttl_days)
-    payload = {"sub": user_id, "role": role, "purpose": "session", "exp": expires_at}
+    payload = {
+        "sub": user_id,
+        "role": role,
+        "tv": token_version,
+        "purpose": "session",
+        "exp": expires_at,
+    }
     return jwt.encode(payload, settings.secret_key, algorithm=_ALGORITHM)
 
 

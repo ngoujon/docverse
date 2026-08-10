@@ -9,9 +9,11 @@ DATA_DIR = Path(os.environ.get("DATA_DIR", "/app/data"))
 UPLOAD_DIR = DATA_DIR / "uploads"
 CHROMA_DIR = DATA_DIR / "chroma"
 DB_PATH = DATA_DIR / "app.db"
+BACKUP_DIR = DATA_DIR / "backups"
 
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 CHROMA_DIR.mkdir(parents=True, exist_ok=True)
+BACKUP_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def _parse_origins(raw: str) -> list[str]:
@@ -97,10 +99,28 @@ class Settings:
 settings = Settings()
 
 if not settings.secret_key:
-    settings.secret_key = secrets.token_hex(32)
+    # Falling back to a fresh random key on every restart used to mean
+    # every session and password-reset link silently died on deploy/
+    # restart if the operator forgot to set SECRET_KEY. Persisting the
+    # generated key to disk (created once, reused after) keeps that
+    # forgiving for a single-instance self-hosted deployment - still
+    # weaker than a real SECRET_KEY set in .env (this file is as
+    # sensitive as that env var and lives inside the data volume), which
+    # is why this stays a fallback, not the primary path.
+    _key_file = DATA_DIR / ".secret_key"
+    if _key_file.exists():
+        settings.secret_key = _key_file.read_text().strip()
+    else:
+        settings.secret_key = secrets.token_hex(32)
+        _key_file.write_text(settings.secret_key)
+        try:
+            _key_file.chmod(0o600)
+        except OSError:
+            pass
     logger.warning(
-        "SECRET_KEY non definie : une cle ephemere a ete generee. Les "
-        "sessions utilisateur et les liens de reinitialisation de mot de "
-        "passe seront invalides apres chaque redemarrage du backend. "
-        "Definissez SECRET_KEY dans .env pour la production."
+        "SECRET_KEY non definie dans l'environnement : une cle a ete "
+        "generee et sauvegardee dans %s pour survivre aux redemarrages. "
+        "Definissez SECRET_KEY dans .env pour la production (plus robuste "
+        "qu'un fichier sur le volume de donnees).",
+        _key_file,
     )

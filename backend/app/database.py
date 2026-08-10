@@ -49,3 +49,20 @@ def ensure_schema() -> None:
                 conn.execute(
                     text(f"ALTER TABLE {table.name} ADD COLUMN {column.name} {col_type}")
                 )
+                # ALTER TABLE ADD COLUMN leaves existing rows NULL - the
+                # model's `default=` is only applied on INSERT by
+                # SQLAlchemy, not retroactively. Backfill it here for any
+                # column with a plain scalar default, so a NOT NULL /
+                # boolean-checked column (e.g. users.is_active) doesn't
+                # come back NULL for rows that predate the migration.
+                if column.default is not None and not callable(column.default.arg):
+                    default_value = column.default.arg
+                    if isinstance(default_value, bool):
+                        default_value = 1 if default_value else 0
+                    conn.execute(
+                        text(
+                            f"UPDATE {table.name} SET {column.name} = :val "
+                            f"WHERE {column.name} IS NULL"
+                        ),
+                        {"val": default_value},
+                    )

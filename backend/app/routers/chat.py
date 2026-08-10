@@ -1,3 +1,4 @@
+import asyncio
 import json
 import logging
 from datetime import datetime
@@ -9,7 +10,7 @@ from sqlalchemy.orm import Session
 from .. import models_db, schemas
 from ..database import get_db, SessionLocal
 from ..deps import ConversationAccess, require_conversation_access, client_ip
-from ..services import ollama_client, queue_manager, rag, rate_limiter
+from ..services import backup, ollama_client, queue_manager, rag, rate_limiter
 
 logger = logging.getLogger("open-rag.chat")
 router = APIRouter(prefix="/api", tags=["chat"])
@@ -99,6 +100,13 @@ async def chat(
                 save_db.commit()
                 save_db.refresh(assistant_msg)
                 saved_id = assistant_msg.id
+                # Fire-and-forget: opportunistic daily snapshot, throttled
+                # and pruned inside backup.maybe_snapshot itself. Runs in a
+                # thread so the (blocking) file/DB work never stalls the
+                # response stream.
+                asyncio.get_event_loop().run_in_executor(
+                    None, backup.maybe_snapshot, space_id
+                )
                 return saved_id
             finally:
                 save_db.close()

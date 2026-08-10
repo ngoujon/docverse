@@ -1,12 +1,14 @@
+import shutil
+
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from .. import models_db, schemas
-from ..config import settings
+from ..config import UPLOAD_DIR, settings
 from ..database import get_db
 from ..deps import client_ip, get_current_user
-from ..services import auth, captcha, email_templates, mail_service, rate_limiter
+from ..services import auth, backup, captcha, email_templates, mail_service, rate_limiter, vectorstore
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
@@ -41,7 +43,12 @@ def register(
     subject, html, text = email_templates.welcome_email(user.display_name)
     background_tasks.add_task(mail_service.send_email, user.email, subject, html, text)
 
-    token = auth.issue_user_token(user.id, user.role)
+    verify_token = auth.issue_purpose_token(user.id, "email_verify", ttl_minutes=60 * 48)
+    verify_url = f"{settings.frontend_base_url}/verify-email?token={verify_token}"
+    subject, html, text = email_templates.verify_email_email(verify_url)
+    background_tasks.add_task(mail_service.send_email, user.email, subject, html, text)
+
+    token = auth.issue_user_token(user.id, user.role, user.token_version)
     return schemas.AuthResponse(access_token=token, user=user)
 
 
@@ -54,9 +61,24 @@ def login(payload: schemas.LoginRequest, request: Request, db: Session = Depends
     user = db.query(models_db.User).filter_by(email=email).first()
     if not user or not auth.verify_password(payload.password, user.password_hash):
         raise HTTPException(401, "Email ou mot de passe incorrect")
+    if not user.is_active:
+        raise HTTPException(403, "Ce compte a ete desactive")
 
-    token = auth.issue_user_token(user.id, user.role)
+    token = auth.issue_user_token(user.id, user.role, user.token_version)
     return schemas.AuthResponse(access_token=token, user=user)
+
+
+@router.post("/logout-everywhere", response_model=schemas.LogoutEverywhereResponse)
+def logout_everywhere(
+    user: models_db.User = Depends(get_current_user), db: Session = Depends(get_db)
+):
+    """Invalidates every session token issued before now, on every device -
+    including the one making this request, which gets a fresh replacement
+    token back so it isn't immediately logged out too."""
+    user.token_version += 1
+    db.commit()
+    token = auth.issue_user_token(user.id, user.role, user.token_version)
+    return schemas.LogoutEverywhereResponse(access_token=token)
 
 
 @router.get("/me", response_model=schemas.UserOut)
@@ -116,6 +138,19 @@ def me_stats(user: models_db.User = Depends(get_current_user), db: Session = Dep
     )
 
 
+@router.get("/verify-email")
+def verify_email(token: str, db: Session = Depends(get_db)):
+    user_id = auth.verify_purpose_token(token, "email_verify")
+    if not user_id:
+        raise HTTPException(400, "Lien de confirmation invalide ou expire")
+    user = db.get(models_db.User, user_id)
+    if not user:
+        raise HTTPException(400, "Lien de confirmation invalide ou expire")
+    user.email_verified = True
+    db.commit()
+    return {"ok": True}
+
+
 @router.post("/forgot-password")
 def forgot_password(
     payload: schemas.ForgotPasswordRequest,
@@ -149,5 +184,98 @@ def reset_password(payload: schemas.ResetPasswordRequest, db: Session = Depends(
     ):
         raise HTTPException(400, "Lien de reinitialisation invalide, expire ou deja utilise")
     user.password_hash = auth.hash_password(payload.password)
+    # A password reset is exactly the moment an attacker's still-valid
+    # session (if the password leaked) should stop working too.
+    user.token_version += 1
     db.commit()
     return {"ok": True}
+
+
+@router.delete("/me")
+def delete_account(
+    payload: schemas.DeleteAccountRequest,
+    user: models_db.User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    if not auth.verify_password(payload.password, user.password_hash):
+        raise HTTPException(401, "Mot de passe incorrect")
+    if user.role == "admin":
+        remaining_admins = (
+            db.query(models_db.User)
+            .filter(models_db.User.role == "admin", models_db.User.id != user.id)
+            .filter(models_db.User.is_active.is_(True))
+            .count()
+        )
+        if remaining_admins == 0:
+            raise HTTPException(
+                400,
+                "Impossible de supprimer le dernier compte administrateur actif de l'instance",
+            )
+
+    owned_spaces = db.query(models_db.Space).filter_by(owner_id=user.id).all()
+    for space in owned_spaces:
+        space_id = space.id
+        db.delete(space)
+        db.commit()
+        vectorstore.delete_space(space_id)
+        backup.delete_all_snapshots(space_id)
+        space_dir = UPLOAD_DIR / space_id
+        if space_dir.exists():
+            shutil.rmtree(space_dir, ignore_errors=True)
+
+    db.query(models_db.SpaceMember).filter_by(user_id=user.id).delete()
+    db.delete(user)
+    db.commit()
+    return {"ok": True}
+
+
+@router.get("/me/export")
+def export_account_data(
+    user: models_db.User = Depends(get_current_user), db: Session = Depends(get_db)
+):
+    owned = db.query(models_db.Space).filter_by(owner_id=user.id).all()
+    member_rows = db.query(models_db.SpaceMember).filter_by(user_id=user.id).all()
+    member_spaces = [db.get(models_db.Space, m.space_id) for m in member_rows]
+
+    def space_export(space: models_db.Space, role: str) -> dict:
+        conversations = (
+            db.query(models_db.Conversation).filter_by(space_id=space.id).all()
+        )
+        return {
+            "id": space.id,
+            "name": space.name,
+            "description": space.description,
+            "my_role": role,
+            "created_at": space.created_at.isoformat() if space.created_at else None,
+            "conversations": [
+                {
+                    "id": c.id,
+                    "title": c.title,
+                    "created_at": c.created_at.isoformat() if c.created_at else None,
+                    "messages": [
+                        {"role": m.role, "content": m.content, "created_at": m.created_at.isoformat() if m.created_at else None}
+                        for m in c.messages
+                    ],
+                }
+                for c in conversations
+            ],
+            "documents": [
+                {"name": d.name, "doc_type": d.doc_type, "created_at": d.created_at.isoformat() if d.created_at else None}
+                for d in db.query(models_db.Document).filter_by(space_id=space.id).all()
+            ],
+        }
+
+    return {
+        "account": {
+            "email": user.email,
+            "display_name": user.display_name,
+            "role": user.role,
+            "created_at": user.created_at.isoformat() if user.created_at else None,
+        },
+        "owned_spaces": [space_export(s, "owner") for s in owned],
+        "member_spaces": [
+            space_export(s, next(m.role for m in member_rows if m.space_id == s.id))
+            for s in member_spaces
+            if s
+        ],
+    }

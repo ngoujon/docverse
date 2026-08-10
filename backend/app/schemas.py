@@ -24,6 +24,8 @@ class UserOut(BaseModel):
     email: str
     display_name: str
     role: str
+    is_active: bool
+    email_verified: bool
     created_at: datetime
 
     class Config:
@@ -37,6 +39,14 @@ class AuthResponse(BaseModel):
 
 class ForgotPasswordRequest(BaseModel):
     email: EmailStr
+
+
+class DeleteAccountRequest(BaseModel):
+    password: str
+
+
+class LogoutEverywhereResponse(BaseModel):
+    access_token: str
 
 
 class ResetPasswordRequest(BaseModel):
@@ -144,6 +154,23 @@ class VectorGraphOut(BaseModel):
     nodes: list[VectorGraphNode]
     edges: list[VectorGraphEdge]
     truncated: bool
+
+
+class AdminUpdateUserRequest(BaseModel):
+    role: Optional[str] = Field(default=None, pattern="^(admin|user)$")
+    is_active: Optional[bool] = None
+
+
+class SpaceSnapshotOut(BaseModel):
+    id: str
+    space_id: str
+    created_at: datetime
+    size_bytes: int
+    conversation_count: int
+    document_count: int
+
+    class Config:
+        from_attributes = True
 
 
 class AdminStatsOut(BaseModel):

@@ -7,7 +7,7 @@ from .. import models_db, schemas
 from ..config import UPLOAD_DIR, settings
 from ..database import get_db, SessionLocal
 from ..deps import DocumentAccess, SpaceAccess, require_space_access, require_document_access
-from ..services import document_processor, ollama_client, vectorstore
+from ..services import backup, document_processor, ollama_client, vectorstore
 from ..utils.chunking import split_text
 
 logger = logging.getLogger("open-rag.documents")
@@ -64,6 +64,9 @@ async def _ingest(document_id: str) -> None:
             doc.preview = text[:400]
             doc.error_message = None
             db.commit()
+            # Already running in a background task, so a blocking snapshot
+            # call here doesn't stall any request/response.
+            backup.maybe_snapshot(doc.space_id)
         except Exception as exc:  # noqa: BLE001
             logger.exception("Echec de l'ingestion du document %s", document_id)
             doc.status = "error"

@@ -9,7 +9,7 @@ from .. import models_db, schemas
 from ..config import UPLOAD_DIR
 from ..database import get_db
 from ..deps import SpaceAccess, get_current_user, require_space_access, require_space_owner
-from ..services import vector_graph, vectorstore
+from ..services import backup, vector_graph, vectorstore
 
 router = APIRouter(prefix="/api/spaces", tags=["spaces"])
 
@@ -154,6 +154,7 @@ def delete_space(
     db.commit()
 
     vectorstore.delete_space(space_id)
+    backup.delete_all_snapshots(space_id)
     space_upload_dir = UPLOAD_DIR / space_id
     if space_upload_dir.exists():
         shutil.rmtree(space_upload_dir, ignore_errors=True)

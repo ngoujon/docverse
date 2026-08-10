@@ -88,6 +88,23 @@ def welcome_email(display_name: str) -> tuple[str, str, str]:
     return subject, _layout("Votre compte Open RAG est pret", body), text
 
 
+def verify_email_email(verify_url: str) -> tuple[str, str, str]:
+    subject = "Confirmez votre adresse email - Open RAG"
+    body = f"""
+      <h1 style="margin:0 0 12px;font-size:22px;color:{_INK};">Confirmez votre email</h1>
+      <p style="margin:0 0 4px;font-size:14px;line-height:1.6;color:{_INK};">
+        Cliquez sur le bouton ci-dessous pour confirmer que cette adresse vous
+        appartient bien.
+      </p>
+      {_button(verify_url, "Confirmer mon email")}
+      <p style="margin:0;font-size:12px;line-height:1.6;color:{_MUTED};">
+        Si vous n'etes pas a l'origine de la creation de ce compte, ignorez cet email.
+      </p>
+    """
+    text = f"Confirmez votre email Open RAG : {verify_url}"
+    return subject, _layout("Confirmez votre email Open RAG", body), text
+
+
 def newsletter_confirm_email(confirm_url: str, unsubscribe_url: str) -> tuple[str, str, str]:
     subject = "Confirmez votre inscription a la newsletter"
     body = f"""

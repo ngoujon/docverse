@@ -19,6 +19,14 @@ class User(Base):
     password_hash = Column(String, nullable=False)
     display_name = Column(String, default="")
     role = Column(String, nullable=False, default="user")  # admin | user
+    is_active = Column(Boolean, nullable=False, default=True)
+    email_verified = Column(Boolean, nullable=False, default=False)
+    # Bumped on password change / explicit "log out everywhere" - embedded in
+    # session JWTs so previously issued tokens stop working immediately
+    # instead of staying valid until their natural expiry.
+    token_version = Column(Integer, nullable=False, default=0)
+    totp_secret = Column(String, nullable=True)
+    totp_enabled = Column(Boolean, nullable=False, default=False)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     owned_spaces = relationship("Space", back_populates="owner")
@@ -144,6 +152,22 @@ class ContactMessage(Base):
     email = Column(String, nullable=False)
     message = Column(Text, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
+
+
+class SpaceSnapshot(Base):
+    """A point-in-time backup of one space (its SQL rows, vector store, and
+    uploaded files), so an admin can restore it after a mistake or data
+    problem without affecting any other space. See services/backup.py."""
+
+    __tablename__ = "space_snapshots"
+
+    id = Column(String, primary_key=True, default=gen_id)
+    space_id = Column(String, ForeignKey("spaces.id"), nullable=False, index=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    size_bytes = Column(Integer, default=0)
+    conversation_count = Column(Integer, default=0)
+    document_count = Column(Integer, default=0)
+    path = Column(String, nullable=False)
 
 
 class NewsletterSubscriber(Base):

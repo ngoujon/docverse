@@ -36,7 +36,15 @@ def get_current_user_optional(
     payload = auth.verify_user_token(authorization[7:].strip())
     if not payload:
         return None
-    return db.get(models_db.User, payload.get("sub"))
+    user = db.get(models_db.User, payload.get("sub"))
+    if not user or not user.is_active:
+        return None
+    # Lets a password change or an explicit "log out everywhere" invalidate
+    # every outstanding session token immediately, instead of waiting out
+    # their natural expiry.
+    if payload.get("tv") != user.token_version:
+        return None
+    return user
 
 
 def get_current_user(
