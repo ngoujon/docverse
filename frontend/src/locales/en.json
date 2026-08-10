@@ -683,6 +683,10 @@
       "title": "Delete this conversation?",
       "message": "This action cannot be undone."
     },
+    "confirmDeleteDocument": {
+      "title": "Delete this document?",
+      "message": "The document and its indexed content will be permanently removed from this space."
+    },
     "workspace": {
       "createFirstSpace": "Create your first workspace to get started.",
       "newSpace": "New space"

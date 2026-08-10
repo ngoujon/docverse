@@ -683,6 +683,10 @@
       "title": "Diese Unterhaltung loschen?",
       "message": "Diese Aktion kann nicht ruckgangig gemacht werden."
     },
+    "confirmDeleteDocument": {
+      "title": "Dieses Dokument loschen?",
+      "message": "Das Dokument und sein indexierter Inhalt werden endgultig aus diesem Bereich entfernt."
+    },
     "workspace": {
       "createFirstSpace": "Erstellen Sie Ihren ersten Arbeitsbereich, um loszulegen.",
       "newSpace": "Neuer Bereich"

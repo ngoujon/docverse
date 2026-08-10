@@ -683,6 +683,10 @@
       "title": "Supprimer cette conversation ?",
       "message": "Cette action est irreversible."
     },
+    "confirmDeleteDocument": {
+      "title": "Supprimer ce document ?",
+      "message": "Le document et son contenu indexe seront definitivement supprimes de cet espace."
+    },
     "workspace": {
       "createFirstSpace": "Creez votre premier espace de travail pour commencer.",
       "newSpace": "Nouvel espace"

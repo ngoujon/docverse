@@ -48,6 +48,7 @@ export default function WorkspaceApp() {
   const [vectorGraphOpen, setVectorGraphOpen] = useState(false);
   const [deleteSpaceId, setDeleteSpaceId] = useState<string | null>(null);
   const [deleteConvId, setDeleteConvId] = useState<string | null>(null);
+  const [deleteDocId, setDeleteDocId] = useState<string | null>(null);
 
   const abortRef = useRef<AbortController | null>(null);
   const didInitFromRoute = useRef(false);
@@ -294,10 +295,11 @@ export default function WorkspaceApp() {
     }
   };
 
-  const handleDeleteDocument = async (id: string) => {
-    if (!activeSpaceId) return;
-    await api.deleteDocument(id, shareToken);
-    setDocuments((prev) => prev.filter((d) => d.id !== id));
+  const handleDeleteDocument = async () => {
+    if (!deleteDocId || !activeSpaceId) return;
+    await api.deleteDocument(deleteDocId, shareToken);
+    setDocuments((prev) => prev.filter((d) => d.id !== deleteDocId));
+    setDeleteDocId(null);
   };
 
   if (shareMode && loadError) {
@@ -384,7 +386,7 @@ export default function WorkspaceApp() {
                   documents={documents}
                   onUpload={handleUpload}
                   onIngestUrl={handleIngestUrl}
-                  onDelete={handleDeleteDocument}
+                  onDelete={setDeleteDocId}
                   onClose={() => setDocPanelOpen(false)}
                   readOnly={!canWrite}
                 />
@@ -444,6 +446,15 @@ export default function WorkspaceApp() {
         confirmLabel={t("common.delete")}
         onConfirm={handleDeleteConversation}
         onCancel={() => setDeleteConvId(null)}
+      />
+
+      <ConfirmDialog
+        open={!!deleteDocId}
+        title={t("app.confirmDeleteDocument.title")}
+        message={t("app.confirmDeleteDocument.message")}
+        confirmLabel={t("common.delete")}
+        onConfirm={handleDeleteDocument}
+        onCancel={() => setDeleteDocId(null)}
       />
     </div>
   );

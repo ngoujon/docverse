@@ -683,6 +683,10 @@
       "title": "Eliminar esta conversa?",
       "message": "Esta acao nao pode ser desfeita."
     },
+    "confirmDeleteDocument": {
+      "title": "Eliminar este documento?",
+      "message": "O documento e o seu conteudo indexado serao removidos definitivamente deste espaco."
+    },
     "workspace": {
       "createFirstSpace": "Crie o seu primeiro espaco de trabalho para comecar.",
       "newSpace": "Novo espaco"
