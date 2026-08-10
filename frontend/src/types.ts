@@ -135,13 +135,16 @@ export interface SpaceStats {
   conversation_count: number;
   message_count: number;
   storage_bytes: number;
+  storage_limit_bytes?: number | null;
   member_count: number;
+  member_limit?: number | null;
   active_share_links: number;
   last_activity_at?: string | null;
 }
 
 export interface MeStats {
   owned_spaces: number;
+  space_limit?: number | null;
   member_spaces: number;
   document_count: number;
   conversation_count: number;

@@ -693,6 +693,7 @@
       "unnamedLink": "Unnamed link",
       "revoked": "Revoked",
       "copy": "Copy",
+      "storageTitle": "Storage used",
       "membersTitle": "Members",
       "membersHelp": "Add a user who already has an account as a collaborator on this space.",
       "emailPlaceholder": "email@example.com",

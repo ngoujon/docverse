@@ -69,7 +69,13 @@ export default function DashboardPage() {
 
         {stats && (
           <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-            <StatCard icon={<Folders size={14} />} label={t("dashboard.kpi.owned")} value={stats.owned_spaces} />
+            <StatCard
+              icon={<Folders size={14} />}
+              label={t("dashboard.kpi.owned")}
+              value={stats.owned_spaces}
+              used={stats.owned_spaces}
+              limit={stats.space_limit}
+            />
             <StatCard icon={<Users2 size={14} />} label={t("dashboard.kpi.shared")} value={stats.member_spaces} />
             <StatCard icon={<Files size={14} />} label={t("dashboard.kpi.documents")} value={stats.document_count} />
             <StatCard

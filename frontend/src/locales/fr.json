@@ -693,6 +693,7 @@
       "unnamedLink": "Lien sans nom",
       "revoked": "Revoque",
       "copy": "Copier",
+      "storageTitle": "Stockage utilise",
       "membersTitle": "Membres",
       "membersHelp": "Ajoutez un utilisateur ayant deja un compte comme collaborateur sur cet espace.",
       "emailPlaceholder": "email@exemple.com",

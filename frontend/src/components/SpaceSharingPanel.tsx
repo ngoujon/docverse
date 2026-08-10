@@ -4,7 +4,8 @@ import { Check, Copy, Eye, Pencil, Plus, Trash2, UserPlus, X } from "lucide-reac
 import clsx from "clsx";
 import { api } from "../api/client";
 import { useEscapeToClose } from "../hooks/useEscapeToClose";
-import type { Space, ShareLink, SpaceMember } from "../types";
+import { formatBytes } from "../utils/format";
+import type { Space, ShareLink, SpaceMember, SpaceStats } from "../types";
 
 interface Props {
   open: boolean;
@@ -31,6 +32,7 @@ export default function SpaceSharingPanel({ open, space, onClose }: Props) {
   const { t } = useTranslation();
   const [members, setMembers] = useState<SpaceMember[]>([]);
   const [links, setLinks] = useState<ShareLink[]>([]);
+  const [stats, setStats] = useState<SpaceStats | null>(null);
   const [loading, setLoading] = useState(false);
 
   const [memberEmail, setMemberEmail] = useState("");
@@ -44,10 +46,11 @@ export default function SpaceSharingPanel({ open, space, onClose }: Props) {
   useEffect(() => {
     if (!open || !space) return;
     setLoading(true);
-    Promise.all([api.listMembers(space.id), api.listShareLinks(space.id)])
-      .then(([m, l]) => {
+    Promise.all([api.listMembers(space.id), api.listShareLinks(space.id), api.spaceStats(space.id)])
+      .then(([m, l, s]) => {
         setMembers(m);
         setLinks(l);
+        setStats(s);
       })
       .finally(() => setLoading(false));
   }, [open, space]);
@@ -63,6 +66,7 @@ export default function SpaceSharingPanel({ open, space, onClose }: Props) {
       const member = await api.addMember(space.id, memberEmail.trim(), memberRole);
       setMembers((prev) => [...prev.filter((m) => m.id !== member.id), member]);
       setMemberEmail("");
+      api.spaceStats(space.id).then(setStats);
     } catch (err) {
       setMemberError(err instanceof Error ? err.message : "Erreur");
     }
@@ -71,6 +75,7 @@ export default function SpaceSharingPanel({ open, space, onClose }: Props) {
   const handleRemoveMember = async (id: string) => {
     await api.removeMember(space.id, id);
     setMembers((prev) => prev.filter((m) => m.id !== id));
+    api.spaceStats(space.id).then(setStats);
   };
 
   const handleCreateLink = async () => {
@@ -126,6 +131,31 @@ export default function SpaceSharingPanel({ open, space, onClose }: Props) {
           <p className="mt-6 text-center text-xs text-slate-500 dark:text-slate-400">{t("common.loading")}</p>
         ) : (
           <>
+            {stats && (
+              <div className="mt-4 rounded-lg border border-surface-border bg-surface-1 px-3 py-2.5">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-mono text-[11px] uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    {t("app.sharing.storageTitle")}
+                  </span>
+                  <span className="font-mono text-[11px] text-slate-600 dark:text-slate-300">
+                    {formatBytes(stats.storage_bytes)}
+                    {stats.storage_limit_bytes != null && ` / ${formatBytes(stats.storage_limit_bytes)}`}
+                  </span>
+                </div>
+                {stats.storage_limit_bytes != null && (
+                  <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-surface-3">
+                    <div
+                      className={clsx(
+                        "h-full rounded-full",
+                        stats.storage_bytes / stats.storage_limit_bytes >= 0.9 ? "bg-amber-500" : "bg-accent"
+                      )}
+                      style={{ width: `${Math.min(1, stats.storage_bytes / stats.storage_limit_bytes) * 100}%` }}
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* Share links */}
             <section className="mt-5">
               <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
@@ -199,10 +229,28 @@ export default function SpaceSharingPanel({ open, space, onClose }: Props) {
 
             {/* Members */}
             <section className="mt-6">
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                {t("app.sharing.membersTitle")}
-              </h4>
+              <div className="flex items-center justify-between gap-2">
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  {t("app.sharing.membersTitle")}
+                </h4>
+                {stats?.member_limit != null && (
+                  <span className="font-mono text-[11px] text-slate-500 dark:text-slate-400">
+                    {stats.member_count} / {stats.member_limit}
+                  </span>
+                )}
+              </div>
               <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">{t("app.sharing.membersHelp")}</p>
+              {stats?.member_limit != null && (
+                <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-surface-3">
+                  <div
+                    className={clsx(
+                      "h-full rounded-full",
+                      stats.member_count / stats.member_limit >= 0.9 ? "bg-amber-500" : "bg-accent"
+                    )}
+                    style={{ width: `${Math.min(1, stats.member_count / stats.member_limit) * 100}%` }}
+                  />
+                </div>
+              )}
 
               <div className="mt-2 flex flex-wrap items-center gap-2">
                 <input
