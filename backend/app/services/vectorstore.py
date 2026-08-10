@@ -1,7 +1,11 @@
+import logging
+
 import chromadb
 from chromadb.config import Settings as ChromaSettings
 
 from ..config import CHROMA_DIR
+
+logger = logging.getLogger("open-rag.vectorstore")
 
 _client = chromadb.PersistentClient(
     path=str(CHROMA_DIR), settings=ChromaSettings(anonymized_telemetry=False)
@@ -71,11 +75,14 @@ def delete_document(space_id: str, doc_id: str) -> None:
     try:
         collection.delete(where={"doc_id": doc_id})
     except Exception:
-        pass
+        # Best-effort: the SQL row is the source of truth and is deleted
+        # regardless, but a real Chroma failure (not just "already gone")
+        # should still be visible in the logs instead of vanishing.
+        logger.exception("Echec de la suppression du document %s (espace %s) dans Chroma", doc_id, space_id)
 
 
 def delete_space(space_id: str) -> None:
     try:
         _client.delete_collection(_collection_name(space_id))
     except Exception:
-        pass
+        logger.exception("Echec de la suppression de la collection Chroma pour l'espace %s", space_id)
