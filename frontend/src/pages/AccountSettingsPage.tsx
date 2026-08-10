@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   BadgeCheck,
   BadgeX,
+  CreditCard,
   Download,
   KeyRound,
+  Loader2,
   LogOut,
   ShieldCheck,
   ShieldOff,
@@ -39,6 +41,9 @@ export default function AccountSettingsPage() {
   const [showDisableForm, setShowDisableForm] = useState(false);
 
   const [exportBusy, setExportBusy] = useState(false);
+
+  const [billingBusy, setBillingBusy] = useState(false);
+  const [billingError, setBillingError] = useState<string | null>(null);
 
   const [deletePassword, setDeletePassword] = useState("");
   const [deleteError, setDeleteError] = useState<string | null>(null);
@@ -96,6 +101,18 @@ export default function AccountSettingsPage() {
     }
   };
 
+  const handleManageBilling = async () => {
+    setBillingBusy(true);
+    setBillingError(null);
+    try {
+      const { url } = await api.billingPortal();
+      window.location.href = url;
+    } catch (err) {
+      setBillingError(err instanceof Error ? err.message : t("auth.account.billingError"));
+      setBillingBusy(false);
+    }
+  };
+
   const handleExport = async () => {
     setExportBusy(true);
     try {
@@ -150,6 +167,42 @@ export default function AccountSettingsPage() {
               </>
             )}
           </div>
+        </div>
+
+        <h2 className="mt-8 font-mono text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          {t("auth.account.billingTitle")}
+        </h2>
+
+        <div className="mt-3 rounded-xl border border-surface-border bg-surface-1 p-5">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <CreditCard size={15} className="text-slate-500 dark:text-slate-400" />
+              <div>
+                <p className="text-sm text-slate-800 dark:text-slate-200">{t("auth.account.billingCurrentPlan")}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  {t(`auth.account.planNames.${user.plan}`)}
+                </p>
+              </div>
+            </div>
+            {user.plan === "decouverte" ? (
+              <Link
+                to="/tarifs"
+                className="rounded-lg bg-accent px-3 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-white hover:bg-accent-hover"
+              >
+                {t("auth.account.billingUpgrade")}
+              </Link>
+            ) : (
+              <button
+                onClick={handleManageBilling}
+                disabled={billingBusy}
+                className="flex items-center gap-1.5 rounded-lg border border-surface-border px-3 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-surface-3 disabled:opacity-40"
+              >
+                {billingBusy && <Loader2 size={12} className="animate-spin" />}
+                {t("auth.account.billingManage")}
+              </button>
+            )}
+          </div>
+          {billingError && <p className="mt-2 text-xs text-red-500">{billingError}</p>}
         </div>
 
         <h2 className="mt-8 font-mono text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">

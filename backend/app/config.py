@@ -104,6 +104,18 @@ class Settings:
     apple_oauth_key_id: str = os.environ.get("APPLE_OAUTH_KEY_ID", "")
     apple_oauth_private_key: str = os.environ.get("APPLE_OAUTH_PRIVATE_KEY", "")
 
+    # --- Billing (Stripe) --------------------------------------------------
+    # Checkout/portal routes 503 instead of crashing when these are unset,
+    # so the app still runs fine without billing configured (e.g. local dev).
+    stripe_secret_key: str = os.environ.get("STRIPE_SECRET_KEY", "")
+    stripe_publishable_key: str = os.environ.get("STRIPE_PUBLISHABLE_KEY", "")
+    stripe_webhook_secret: str = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
+    # Recurring Stripe Price ids - one per paid plan. Entreprise is sur
+    # devis (sales-assisted), not self-serve, so it has none; Decouverte is
+    # free and never touches Stripe.
+    stripe_price_particulier: str = os.environ.get("STRIPE_PRICE_PARTICULIER", "")
+    stripe_price_pro: str = os.environ.get("STRIPE_PRICE_PRO", "")
+
     # Where the backend's own OAuth callback routes live - used to build the
     # redirect_uri sent to each provider, which must exactly match what's
     # registered there.
@@ -168,3 +180,18 @@ DEFAULT_PLAN = "decouverte"
 
 def plan_quota(plan: str, key: str) -> int | None:
     return PLAN_QUOTAS.get(plan, PLAN_QUOTAS[DEFAULT_PLAN]).get(key)
+
+
+# Self-serve paid plans only - Decouverte is free (no Stripe involved) and
+# Entreprise is sales-assisted (sur devis, no Stripe Price of its own).
+PLAN_PRICE_IDS: dict[str, str] = {
+    "particulier": settings.stripe_price_particulier,
+    "pro": settings.stripe_price_pro,
+}
+
+
+def plan_for_price_id(price_id: str) -> str | None:
+    for plan, pid in PLAN_PRICE_IDS.items():
+        if pid and pid == price_id:
+            return plan
+    return None

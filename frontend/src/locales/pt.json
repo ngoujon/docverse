@@ -243,7 +243,18 @@
       "deleteAccountConfirm": "Introduza a sua palavra-passe para confirmar a eliminacao.",
       "exportData": "Exportar os meus dados",
       "emailVerified": "Email verificado",
-      "emailNotVerified": "Email nao verificado"
+      "emailNotVerified": "Email nao verificado",
+      "billingTitle": "Subscricao",
+      "billingCurrentPlan": "Plano atual",
+      "billingManage": "Gerir subscricao",
+      "billingUpgrade": "Ver precos",
+      "billingError": "Nao foi possivel abrir a gestao da subscricao.",
+      "planNames": {
+        "decouverte": "Descoberta",
+        "particulier": "Particular",
+        "pro": "Pro",
+        "entreprise": "Empresa"
+      }
     },
     "verify": {
       "title": "Verificacao de email",

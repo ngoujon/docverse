@@ -243,7 +243,18 @@
       "deleteAccountConfirm": "Introduce tu contrasena para confirmar la eliminacion.",
       "exportData": "Exportar mis datos",
       "emailVerified": "Correo verificado",
-      "emailNotVerified": "Correo no verificado"
+      "emailNotVerified": "Correo no verificado",
+      "billingTitle": "Suscripcion",
+      "billingCurrentPlan": "Plan actual",
+      "billingManage": "Gestionar suscripcion",
+      "billingUpgrade": "Ver precios",
+      "billingError": "No se pudo abrir la gestion de la suscripcion.",
+      "planNames": {
+        "decouverte": "Descubrimiento",
+        "particulier": "Particular",
+        "pro": "Pro",
+        "entreprise": "Empresa"
+      }
     },
     "verify": {
       "title": "Verificacion de correo",

@@ -31,6 +31,12 @@ class User(Base):
     # Not yet tied to real billing (no Stripe integration), but the quotas
     # it drives are already enforced.
     plan = Column(String, nullable=False, default="decouverte")
+    # Set once the user has gone through Stripe Checkout at least once -
+    # reused across plan changes so we're not creating a new Stripe
+    # customer every time. Both stay null for accounts on the free plan
+    # that never subscribed.
+    stripe_customer_id = Column(String, nullable=True)
+    stripe_subscription_id = Column(String, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     owned_spaces = relationship("Space", back_populates="owner")

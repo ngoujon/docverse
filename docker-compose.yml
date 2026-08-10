@@ -100,6 +100,11 @@ services:
       - APPLE_OAUTH_TEAM_ID=${APPLE_OAUTH_TEAM_ID:-}
       - APPLE_OAUTH_KEY_ID=${APPLE_OAUTH_KEY_ID:-}
       - APPLE_OAUTH_PRIVATE_KEY=${APPLE_OAUTH_PRIVATE_KEY:-}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY:-}
+      - STRIPE_PUBLISHABLE_KEY=${STRIPE_PUBLISHABLE_KEY:-}
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET:-}
+      - STRIPE_PRICE_PARTICULIER=${STRIPE_PRICE_PARTICULIER:-}
+      - STRIPE_PRICE_PRO=${STRIPE_PRICE_PRO:-}
     volumes:
       - app_data:/app/data
       # Bind-mount the source so backend code edits are picked up live by

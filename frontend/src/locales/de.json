@@ -243,7 +243,18 @@
       "deleteAccountConfirm": "Geben Sie Ihr Passwort ein, um die Loschung zu bestatigen.",
       "exportData": "Meine Daten exportieren",
       "emailVerified": "E-Mail bestatigt",
-      "emailNotVerified": "E-Mail nicht bestatigt"
+      "emailNotVerified": "E-Mail nicht bestatigt",
+      "billingTitle": "Abonnement",
+      "billingCurrentPlan": "Aktuelle Stufe",
+      "billingManage": "Abonnement verwalten",
+      "billingUpgrade": "Preise ansehen",
+      "billingError": "Die Abonnementverwaltung konnte gerade nicht geoffnet werden.",
+      "planNames": {
+        "decouverte": "Entdecken",
+        "particulier": "Privat",
+        "pro": "Pro",
+        "entreprise": "Enterprise"
+      }
     },
     "verify": {
       "title": "E-Mail-Bestatigung",

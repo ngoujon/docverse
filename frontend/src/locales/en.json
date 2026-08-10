@@ -243,7 +243,18 @@
       "deleteAccountConfirm": "Enter your password to confirm deletion.",
       "exportData": "Export my data",
       "emailVerified": "Email verified",
-      "emailNotVerified": "Email not verified"
+      "emailNotVerified": "Email not verified",
+      "billingTitle": "Subscription",
+      "billingCurrentPlan": "Current plan",
+      "billingManage": "Manage subscription",
+      "billingUpgrade": "See pricing",
+      "billingError": "Couldn't open subscription management right now.",
+      "planNames": {
+        "decouverte": "Discovery",
+        "particulier": "Individual",
+        "pro": "Pro",
+        "entreprise": "Enterprise"
+      }
     },
     "verify": {
       "title": "Email verification",

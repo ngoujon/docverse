@@ -132,6 +132,14 @@ export const api = {
   oauthLoginUrl: (provider: "google" | "apple", next: string) =>
     `${BASE}/auth/oauth/${provider}/login?next=${encodeURIComponent(next)}`,
 
+  // --- Billing (Stripe) -------------------------------------------------
+  billingCheckout: (plan: "particulier" | "pro") =>
+    request<{ url: string }>("/billing/checkout", {
+      method: "POST",
+      body: JSON.stringify({ plan }),
+    }),
+  billingPortal: () => request<{ url: string }>("/billing/portal", { method: "POST" }),
+
   // --- Captcha --------------------------------------------------------
   captchaChallenge: () => request<CaptchaChallenge>("/captcha/challenge"),
 

@@ -1,7 +1,10 @@
-import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, ArrowRight, Check } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Loader2 } from "lucide-react";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { useAuth } from "../hooks/useAuth";
+import { api } from "../api/client";
 
 interface PricingTier {
   name: string;
@@ -13,16 +16,50 @@ interface PricingTier {
 }
 
 const TIER_ACCENTS = ["text-slate-600", "text-retro-cyan", "text-retro-pink", "text-retro-purple"];
+const PAID_PLAN_KEYS: (("particulier" | "pro") | null)[] = [null, "particulier", "pro", null];
 
 export default function PricingPage() {
   const { t } = useTranslation();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const tiers = t("pricing.tiers", { returnObjects: true }) as PricingTier[];
+  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const autoTriggered = useRef(false);
 
   usePageMeta({
     title: `${t("pricing.title")} - Open RAG`,
     description: t("pricing.subtitle"),
     canonicalPath: "/tarifs",
   });
+
+  const startCheckout = async (plan: "particulier" | "pro") => {
+    if (!user) {
+      navigate("/register", { state: { from: `/tarifs?plan=${plan}` } });
+      return;
+    }
+    setError(null);
+    setLoadingPlan(plan);
+    try {
+      const { url } = await api.billingCheckout(plan);
+      window.location.href = url;
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Erreur");
+      setLoadingPlan(null);
+    }
+  };
+
+  useEffect(() => {
+    const requestedPlan = searchParams.get("plan");
+    if (!requestedPlan || !user || autoTriggered.current) return;
+    if (requestedPlan === "particulier" || requestedPlan === "pro") {
+      autoTriggered.current = true;
+      setSearchParams({}, { replace: true });
+      startCheckout(requestedPlan);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, searchParams]);
 
   return (
     <div className="min-h-screen bg-retro-bg px-4 py-12 font-sans text-slate-800 sm:px-6">
@@ -45,6 +82,8 @@ export default function PricingPage() {
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {tiers.map((tier, i) => {
             const isPro = i === 2;
+            const planKey = PAID_PLAN_KEYS[i];
+            const isLoading = loadingPlan === planKey;
             return (
               <div
                 key={tier.name}
@@ -84,20 +123,33 @@ export default function PricingPage() {
                   ))}
                 </ul>
 
-                <Link
-                  to={i === 3 ? "/#contact" : "/register"}
-                  className={`mt-6 flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 font-mono text-xs uppercase tracking-wider transition ${
-                    isPro
-                      ? "border border-retro-pink bg-retro-pink text-white hover:bg-retro-pink/90"
-                      : "border border-retro-border text-slate-700 hover:border-retro-cyan hover:text-retro-cyan"
-                  }`}
-                >
-                  {tier.cta} <ArrowRight size={13} />
-                </Link>
+                {planKey ? (
+                  <button
+                    onClick={() => startCheckout(planKey)}
+                    disabled={isLoading}
+                    className={`mt-6 flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 font-mono text-xs uppercase tracking-wider transition disabled:opacity-60 ${
+                      isPro
+                        ? "border border-retro-pink bg-retro-pink text-white hover:bg-retro-pink/90"
+                        : "border border-retro-border text-slate-700 hover:border-retro-cyan hover:text-retro-cyan"
+                    }`}
+                  >
+                    {isLoading ? <Loader2 size={13} className="animate-spin" /> : <ArrowRight size={13} />}
+                    {tier.cta}
+                  </button>
+                ) : (
+                  <Link
+                    to={i === 3 ? "/#contact" : user ? "/dashboard" : "/register"}
+                    className="mt-6 flex items-center justify-center gap-2 rounded-lg border border-retro-border px-4 py-2.5 font-mono text-xs uppercase tracking-wider text-slate-700 transition hover:border-retro-cyan hover:text-retro-cyan"
+                  >
+                    {tier.cta} <ArrowRight size={13} />
+                  </Link>
+                )}
               </div>
             );
           })}
         </div>
+
+        {error && <p className="mt-4 text-center text-xs text-red-500">{error}</p>}
 
         <p className="mt-8 text-center text-[11px] text-slate-500">{t("pricing.billingNote")}</p>
 
