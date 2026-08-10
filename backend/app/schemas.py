@@ -4,20 +4,58 @@ from typing import Optional, Any
 from pydantic import BaseModel, EmailStr, Field
 
 
+# --- Auth -------------------------------------------------------------
+
+class RegisterRequest(BaseModel):
+    email: EmailStr
+    password: str = Field(min_length=8, max_length=200)
+    display_name: str = Field(default="", max_length=120)
+    captcha_salt: str
+    captcha_nonce: int
+
+
+class LoginRequest(BaseModel):
+    email: EmailStr
+    password: str
+
+
+class UserOut(BaseModel):
+    id: str
+    email: str
+    display_name: str
+    role: str
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
+class AuthResponse(BaseModel):
+    access_token: str
+    user: UserOut
+
+
+class ForgotPasswordRequest(BaseModel):
+    email: EmailStr
+
+
+class ResetPasswordRequest(BaseModel):
+    token: str
+    password: str = Field(min_length=8, max_length=200)
+
+
+# --- Spaces -------------------------------------------------------------
+
 class SpaceCreate(BaseModel):
     name: str
     description: str = ""
     color: str = "#6366f1"
-    password: Optional[str] = Field(default=None, max_length=200)
 
 
 class SpaceUpdate(BaseModel):
     name: Optional[str] = None
     description: Optional[str] = None
     color: Optional[str] = None
-    # Pass an empty string to remove the current password; omit the field
-    # to leave it unchanged; pass a value to set/replace it.
-    password: Optional[str] = Field(default=None, max_length=200)
 
 
 class SpaceOut(BaseModel):
@@ -25,22 +63,79 @@ class SpaceOut(BaseModel):
     name: str
     description: str
     color: str
-    has_password: bool = False
+    owner_id: str
+    my_role: str = "viewer"  # owner | editor | viewer, resolved per-request
     created_at: datetime
     document_count: int = 0
     conversation_count: int = 0
-    access_token: Optional[str] = None
 
     class Config:
         from_attributes = True
 
 
-class SpaceUnlockRequest(BaseModel):
-    password: str
+class SpaceMemberCreate(BaseModel):
+    email: EmailStr
+    role: str = Field(default="viewer", pattern="^(editor|viewer)$")
 
 
-class SpaceUnlockResponse(BaseModel):
-    access_token: str
+class SpaceMemberOut(BaseModel):
+    id: str
+    user_id: str
+    email: str
+    display_name: str
+    role: str
+    created_at: datetime
+
+
+class ShareLinkCreate(BaseModel):
+    role: str = Field(default="viewer", pattern="^(editor|viewer)$")
+    label: str = Field(default="", max_length=120)
+    expires_in_days: Optional[int] = Field(default=None, ge=1, le=365)
+
+
+class ShareLinkOut(BaseModel):
+    id: str
+    space_id: str
+    role: str
+    label: str
+    created_at: datetime
+    expires_at: Optional[datetime] = None
+    revoked: bool = False
+
+    class Config:
+        from_attributes = True
+
+
+class SpaceStatsOut(BaseModel):
+    space_id: str
+    document_count: int
+    conversation_count: int
+    message_count: int
+    storage_bytes: int
+    member_count: int
+    active_share_links: int
+    last_activity_at: Optional[datetime] = None
+
+
+class MeStatsOut(BaseModel):
+    owned_spaces: int
+    member_spaces: int
+    document_count: int
+    conversation_count: int
+    message_count: int
+    storage_bytes: int
+
+
+class AdminStatsOut(BaseModel):
+    users: int
+    spaces: int
+    documents: int
+    conversations: int
+    messages: int
+    storage_bytes: int
+    newsletter_subscribers: int
+    new_users_7d: int
+    new_spaces_7d: int
 
 
 class ConversationCreate(BaseModel):
@@ -105,3 +200,16 @@ class ContactCreate(BaseModel):
     message: str = Field(min_length=1, max_length=5000)
     # Honeypot: real users never fill this hidden field; bots often do.
     website: str = Field(default="", max_length=200)
+    captcha_salt: str
+    captcha_nonce: int
+
+
+class CaptchaChallengeOut(BaseModel):
+    salt: str
+    difficulty: int
+
+
+class NewsletterSubscribeRequest(BaseModel):
+    email: EmailStr
+    captcha_salt: str
+    captcha_nonce: int

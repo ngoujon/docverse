@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from .. import models_db, schemas
 from ..database import get_db
 from ..deps import client_ip
-from ..services import rate_limiter
+from ..services import captcha, rate_limiter
 
 logger = logging.getLogger("open-rag.contact")
 router = APIRouter(prefix="/api", tags=["contact"])
@@ -21,6 +21,9 @@ def submit_contact(payload: schemas.ContactCreate, request: Request, db: Session
 
     if not rate_limiter.contact_form_limiter.allow(client_ip(request)):
         raise HTTPException(429, "Trop de messages envoyes, reessayez plus tard")
+
+    if not captcha.verify_solution(payload.captcha_salt, payload.captcha_nonce):
+        raise HTTPException(400, "Verification anti-robot invalide ou expiree")
 
     msg = models_db.ContactMessage(
         name=payload.name.strip(),

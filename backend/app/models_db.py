@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import Column, String, DateTime, ForeignKey, Text, Integer
+from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import relationship
 
 from .database import Base
@@ -11,6 +11,19 @@ def gen_id() -> str:
     return uuid.uuid4().hex
 
 
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(String, primary_key=True, default=gen_id)
+    email = Column(String, nullable=False, unique=True, index=True)
+    password_hash = Column(String, nullable=False)
+    display_name = Column(String, default="")
+    role = Column(String, nullable=False, default="user")  # admin | user
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    owned_spaces = relationship("Space", back_populates="owner")
+
+
 class Space(Base):
     __tablename__ = "spaces"
 
@@ -18,15 +31,57 @@ class Space(Base):
     name = Column(String, nullable=False)
     description = Column(Text, default="")
     color = Column(String, default="#6366f1")
-    password_hash = Column(String, nullable=True)
+    owner_id = Column(String, ForeignKey("users.id"), nullable=False, index=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
+    owner = relationship("User", back_populates="owned_spaces")
     conversations = relationship(
         "Conversation", back_populates="space", cascade="all, delete-orphan"
     )
     documents = relationship(
         "Document", back_populates="space", cascade="all, delete-orphan"
     )
+    members = relationship(
+        "SpaceMember", back_populates="space", cascade="all, delete-orphan"
+    )
+    share_links = relationship(
+        "ShareLink", back_populates="space", cascade="all, delete-orphan"
+    )
+
+
+class SpaceMember(Base):
+    """An account-holding collaborator on a workspace, distinct from the
+    owner (tracked on Space.owner_id, never duplicated here)."""
+
+    __tablename__ = "space_members"
+
+    id = Column(String, primary_key=True, default=gen_id)
+    space_id = Column(String, ForeignKey("spaces.id"), nullable=False, index=True)
+    user_id = Column(String, ForeignKey("users.id"), nullable=False, index=True)
+    role = Column(String, nullable=False, default="viewer")  # editor | viewer
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    space = relationship("Space", back_populates="members")
+    user = relationship("User")
+
+
+class ShareLink(Base):
+    """An unguessable capability token (the row id itself) that grants
+    anonymous visitors a fixed role on one space, replacing the old
+    space-password mechanism."""
+
+    __tablename__ = "share_links"
+
+    id = Column(String, primary_key=True, default=gen_id)
+    space_id = Column(String, ForeignKey("spaces.id"), nullable=False, index=True)
+    role = Column(String, nullable=False, default="viewer")  # editor | viewer
+    label = Column(String, default="")
+    created_by = Column(String, ForeignKey("users.id"), nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    expires_at = Column(DateTime, nullable=True)
+    revoked = Column(Boolean, default=False)
+
+    space = relationship("Space", back_populates="share_links")
 
 
 class Conversation(Base):
@@ -89,3 +144,13 @@ class ContactMessage(Base):
     email = Column(String, nullable=False)
     message = Column(Text, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
+
+
+class NewsletterSubscriber(Base):
+    __tablename__ = "newsletter_subscribers"
+
+    id = Column(String, primary_key=True, default=gen_id)
+    email = Column(String, nullable=False, unique=True, index=True)
+    confirmed = Column(Boolean, default=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    confirmed_at = Column(DateTime, nullable=True)

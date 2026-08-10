@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from .. import models_db, schemas
 from ..config import UPLOAD_DIR, settings
 from ..database import get_db, SessionLocal
-from ..deps import require_space_access, require_document_access
+from ..deps import DocumentAccess, SpaceAccess, require_space_access, require_document_access
 from ..services import document_processor, ollama_client, vectorstore
 from ..utils.chunking import split_text
 
@@ -16,11 +16,11 @@ router = APIRouter(prefix="/api", tags=["documents"])
 
 @router.get("/spaces/{space_id}/documents", response_model=list[schemas.DocumentOut])
 def list_documents(
-    space: models_db.Space = Depends(require_space_access), db: Session = Depends(get_db)
+    access: SpaceAccess = Depends(require_space_access), db: Session = Depends(get_db)
 ):
     docs = (
         db.query(models_db.Document)
-        .filter(models_db.Document.space_id == space.id)
+        .filter(models_db.Document.space_id == access.space.id)
         .order_by(models_db.Document.created_at.desc())
         .all()
     )
@@ -77,9 +77,12 @@ async def _ingest(document_id: str) -> None:
 async def upload_document(
     background_tasks: BackgroundTasks,
     file: UploadFile = File(...),
-    space: models_db.Space = Depends(require_space_access),
+    access: SpaceAccess = Depends(require_space_access),
     db: Session = Depends(get_db),
 ):
+    if not access.can_write:
+        raise HTTPException(403, "Acces en lecture seule a cet espace")
+    space = access.space
     try:
         doc_type = document_processor.guess_doc_type(file.filename)
     except ValueError as exc:
@@ -126,11 +129,13 @@ async def upload_document(
 def ingest_url(
     payload: schemas.UrlIngestRequest,
     background_tasks: BackgroundTasks,
-    space: models_db.Space = Depends(require_space_access),
+    access: SpaceAccess = Depends(require_space_access),
     db: Session = Depends(get_db),
 ):
+    if not access.can_write:
+        raise HTTPException(403, "Acces en lecture seule a cet espace")
     doc = models_db.Document(
-        space_id=space.id,
+        space_id=access.space.id,
         name=payload.url,
         doc_type="url",
         source_url=payload.url,
@@ -146,9 +151,12 @@ def ingest_url(
 
 @router.delete("/documents/{document_id}")
 def delete_document(
-    doc: models_db.Document = Depends(require_document_access),
+    access: DocumentAccess = Depends(require_document_access),
     db: Session = Depends(get_db),
 ):
+    if not access.can_write:
+        raise HTTPException(403, "Acces en lecture seule a cet espace")
+    doc = access.document
     vectorstore.delete_document(doc.space_id, doc.id)
     if doc.file_path:
         path = UPLOAD_DIR / doc.file_path

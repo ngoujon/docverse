@@ -1,3 +1,5 @@
+from dataclasses import dataclass
+from datetime import datetime
 from typing import Optional
 
 from fastapi import Depends, Header, HTTPException, Request
@@ -5,9 +7,9 @@ from sqlalchemy.orm import Session
 
 from . import models_db
 from .database import get_db
-from .services import space_auth
+from .services import auth
 
-SPACE_TOKEN_HEADER = "X-Space-Token"
+SHARE_TOKEN_HEADER = "X-Share-Token"
 
 
 def client_ip(request: Request) -> str:
@@ -25,48 +27,147 @@ def client_ip(request: Request) -> str:
     return request.client.host if request.client else "unknown"
 
 
-def _check_token(space: models_db.Space, token: Optional[str]) -> None:
-    if not space.password_hash:
-        return
-    if not token or not space_auth.verify_token(space.id, token):
-        raise HTTPException(401, "Mot de passe requis pour cet espace")
+def get_current_user_optional(
+    authorization: Optional[str] = Header(default=None),
+    db: Session = Depends(get_db),
+) -> Optional[models_db.User]:
+    if not authorization or not authorization.lower().startswith("bearer "):
+        return None
+    payload = auth.verify_user_token(authorization[7:].strip())
+    if not payload:
+        return None
+    return db.get(models_db.User, payload.get("sub"))
+
+
+def get_current_user(
+    user: Optional[models_db.User] = Depends(get_current_user_optional),
+) -> models_db.User:
+    if not user:
+        raise HTTPException(401, "Authentification requise")
+    return user
+
+
+def require_admin(user: models_db.User = Depends(get_current_user)) -> models_db.User:
+    if user.role != "admin":
+        raise HTTPException(403, "Reserve aux administrateurs")
+    return user
+
+
+@dataclass
+class SpaceAccess:
+    space: models_db.Space
+    role: str  # "owner" | "editor" | "viewer"
+    user: Optional[models_db.User]
+
+    @property
+    def can_write(self) -> bool:
+        return self.role in ("owner", "editor")
+
+    @property
+    def is_owner(self) -> bool:
+        return self.role == "owner"
+
+
+def _resolve_role(
+    space: models_db.Space,
+    user: Optional[models_db.User],
+    share_token: Optional[str],
+    db: Session,
+) -> SpaceAccess:
+    if user:
+        if space.owner_id == user.id:
+            return SpaceAccess(space, "owner", user)
+        member = (
+            db.query(models_db.SpaceMember)
+            .filter_by(space_id=space.id, user_id=user.id)
+            .first()
+        )
+        if member:
+            return SpaceAccess(space, member.role, user)
+        if user.role == "admin":
+            # Admins can see any space from the admin dashboard, but that
+            # doesn't imply edit rights over content they don't own or
+            # aren't a member of.
+            return SpaceAccess(space, "viewer", user)
+    if share_token:
+        link = db.get(models_db.ShareLink, share_token)
+        if (
+            link
+            and link.space_id == space.id
+            and not link.revoked
+            and (not link.expires_at or link.expires_at > datetime.utcnow())
+        ):
+            return SpaceAccess(space, link.role, None)
+    raise HTTPException(401, "Acces non autorise a cet espace")
 
 
 def require_space_access(
     space_id: str,
-    x_space_token: Optional[str] = Header(default=None, alias=SPACE_TOKEN_HEADER),
+    x_share_token: Optional[str] = Header(default=None, alias=SHARE_TOKEN_HEADER),
+    user: Optional[models_db.User] = Depends(get_current_user_optional),
     db: Session = Depends(get_db),
-) -> models_db.Space:
+) -> SpaceAccess:
     space = db.get(models_db.Space, space_id)
     if not space:
         raise HTTPException(404, "Espace introuvable")
-    _check_token(space, x_space_token)
-    return space
+    return _resolve_role(space, user, x_share_token, db)
+
+
+def require_space_owner(access: SpaceAccess = Depends(require_space_access)) -> SpaceAccess:
+    if not access.is_owner:
+        raise HTTPException(403, "Reserve au proprietaire de l'espace")
+    return access
+
+
+@dataclass
+class ConversationAccess:
+    conversation: models_db.Conversation
+    role: str
+    user: Optional[models_db.User]
+
+    @property
+    def can_write(self) -> bool:
+        return self.role in ("owner", "editor")
 
 
 def require_conversation_access(
     conversation_id: str,
-    x_space_token: Optional[str] = Header(default=None, alias=SPACE_TOKEN_HEADER),
+    x_share_token: Optional[str] = Header(default=None, alias=SHARE_TOKEN_HEADER),
+    user: Optional[models_db.User] = Depends(get_current_user_optional),
     db: Session = Depends(get_db),
-) -> models_db.Conversation:
+) -> ConversationAccess:
     conv = db.get(models_db.Conversation, conversation_id)
     if not conv:
         raise HTTPException(404, "Conversation introuvable")
     space = db.get(models_db.Space, conv.space_id)
-    if space:
-        _check_token(space, x_space_token)
-    return conv
+    if not space:
+        raise HTTPException(404, "Espace introuvable")
+    access = _resolve_role(space, user, x_share_token, db)
+    return ConversationAccess(conv, access.role, access.user)
+
+
+@dataclass
+class DocumentAccess:
+    document: models_db.Document
+    role: str
+    user: Optional[models_db.User]
+
+    @property
+    def can_write(self) -> bool:
+        return self.role in ("owner", "editor")
 
 
 def require_document_access(
     document_id: str,
-    x_space_token: Optional[str] = Header(default=None, alias=SPACE_TOKEN_HEADER),
+    x_share_token: Optional[str] = Header(default=None, alias=SHARE_TOKEN_HEADER),
+    user: Optional[models_db.User] = Depends(get_current_user_optional),
     db: Session = Depends(get_db),
-) -> models_db.Document:
+) -> DocumentAccess:
     doc = db.get(models_db.Document, document_id)
     if not doc:
         raise HTTPException(404, "Document introuvable")
     space = db.get(models_db.Space, doc.space_id)
-    if space:
-        _check_token(space, x_space_token)
-    return doc
+    if not space:
+        raise HTTPException(404, "Espace introuvable")
+    access = _resolve_role(space, user, x_share_token, db)
+    return DocumentAccess(doc, access.role, access.user)

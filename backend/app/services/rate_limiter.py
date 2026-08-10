@@ -27,9 +27,15 @@ class RateLimiter:
 # beyond that we're looking at brute-forcing.
 space_unlock_limiter = RateLimiter(max_requests=10, window_seconds=300)
 
-# Deters contact-form spam/bots without needing a CAPTCHA.
+# The self-hosted PoW captcha (services/captcha.py) already raises the cost
+# of scripted abuse; this is a second, cheap backstop.
 contact_form_limiter = RateLimiter(max_requests=5, window_seconds=3600)
 
 # Generic per-IP chat throttle so one user can't monopolize the single
 # Ollama worker on a small VPS.
 chat_limiter = RateLimiter(max_requests=20, window_seconds=60)
+
+# Account creation and login attempts, per IP.
+register_limiter = RateLimiter(max_requests=10, window_seconds=3600)
+login_limiter = RateLimiter(max_requests=10, window_seconds=300)
+password_reset_limiter = RateLimiter(max_requests=5, window_seconds=3600)

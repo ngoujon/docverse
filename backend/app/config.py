@@ -41,13 +41,43 @@ class Settings:
 
     cors_origins: list[str] = _parse_origins(os.environ.get("CORS_ORIGINS", "*"))
 
-    # Signs the short-lived access tokens issued when someone unlocks a
-    # password-protected workspace. Set a stable, random value in .env for
-    # production so tokens survive backend restarts.
+    # Signs user session tokens and short-lived purpose tokens (password
+    # reset, newsletter confirmation). Set a stable, random value in .env
+    # for production so tokens survive backend restarts.
     secret_key: str = os.environ.get("SECRET_KEY", "")
-    space_token_ttl_hours: int = int(os.environ.get("SPACE_TOKEN_TTL_HOURS", "24"))
+    user_token_ttl_days: int = int(os.environ.get("USER_TOKEN_TTL_DAYS", "30"))
 
     contact_email: str = os.environ.get("CONTACT_EMAIL", "")
+
+    # Used to build absolute links in emails (password reset, newsletter
+    # confirmation) since the backend doesn't know its own public URL.
+    frontend_base_url: str = os.environ.get("FRONTEND_BASE_URL", "http://localhost:3000")
+
+    # --- LLM provider ---------------------------------------------------
+    # "ollama" today; "mistral" once MISTRAL_API_KEY is provided and this
+    # is flipped. See services/llm_provider.py.
+    llm_provider: str = os.environ.get("LLM_PROVIDER", "ollama")
+    mistral_api_key: str = os.environ.get("MISTRAL_API_KEY", "")
+    mistral_base_url: str = os.environ.get("MISTRAL_BASE_URL", "https://api.mistral.ai")
+    mistral_chat_model: str = os.environ.get("MISTRAL_CHAT_MODEL", "mistral-large-latest")
+    mistral_vision_model: str = os.environ.get("MISTRAL_VISION_MODEL", "pixtral-large-latest")
+    mistral_embed_model: str = os.environ.get("MISTRAL_EMBED_MODEL", "mistral-embed")
+
+    # --- Outbound email ---------------------------------------------------
+    # Left empty until real SMTP credentials are provided; mail_service
+    # falls back to logging the email instead of sending it.
+    smtp_host: str = os.environ.get("SMTP_HOST", "")
+    smtp_port: int = int(os.environ.get("SMTP_PORT", "587"))
+    smtp_user: str = os.environ.get("SMTP_USER", "")
+    smtp_password: str = os.environ.get("SMTP_PASSWORD", "")
+    smtp_use_tls: bool = os.environ.get("SMTP_USE_TLS", "true").lower() != "false"
+    smtp_from: str = os.environ.get("SMTP_FROM", "Open RAG <no-reply@open-rag.local>")
+
+    # --- Self-hosted proof-of-work captcha -------------------------------
+    # Number of leading hex-zero characters required in the solved hash.
+    # 5 is ~1M attempts on average - a few hundred ms in a browser tab,
+    # expensive enough to deter naive scripted abuse at scale.
+    captcha_difficulty: int = int(os.environ.get("CAPTCHA_DIFFICULTY", "5"))
 
 
 settings = Settings()
@@ -55,8 +85,8 @@ settings = Settings()
 if not settings.secret_key:
     settings.secret_key = secrets.token_hex(32)
     logger.warning(
-        "SECRET_KEY non definie : une cle ephemere a ete generee. Les acces "
-        "aux espaces proteges par mot de passe seront invalides apres "
-        "chaque redemarrage du backend. Definissez SECRET_KEY dans .env "
-        "pour la production."
+        "SECRET_KEY non definie : une cle ephemere a ete generee. Les "
+        "sessions utilisateur et les liens de reinitialisation de mot de "
+        "passe seront invalides apres chaque redemarrage du backend. "
+        "Definissez SECRET_KEY dans .env pour la production."
     )

@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 
 from .. import models_db, schemas
 from ..database import get_db, SessionLocal
-from ..deps import require_conversation_access, client_ip
+from ..deps import ConversationAccess, require_conversation_access, client_ip
 from ..services import ollama_client, queue_manager, rag, rate_limiter
 
 logger = logging.getLogger("open-rag.chat")
@@ -25,12 +25,15 @@ def _sse(event: dict) -> str:
 async def chat(
     payload: schemas.ChatRequest,
     request: Request,
-    conv: models_db.Conversation = Depends(require_conversation_access),
+    access: ConversationAccess = Depends(require_conversation_access),
     db: Session = Depends(get_db),
 ):
+    if not access.can_write:
+        raise HTTPException(403, "Acces en lecture seule a cet espace")
     if not rate_limiter.chat_limiter.allow(client_ip(request)):
         raise HTTPException(429, "Trop de messages envoyes, patientez un instant")
 
+    conv = access.conversation
     conversation_id = conv.id
     space = db.get(models_db.Space, conv.space_id)
     if not space:
