@@ -163,9 +163,14 @@
       {
         "title": "Contact form",
         "body": "If you use the contact form, your name, email and message are kept so we can reply to you. This information is never resold or shared with third parties, and is never used for marketing outreach."
+      },
+      {
+        "title": "Your rights (GDPR)",
+        "body": "Export your data: from My Account, download a file with all of your data in one click. Delete your account: from My Account (danger zone), immediate and permanent deletion of your account and workspaces. Newsletter: every email includes a one-click unsubscribe link, no login required. For any other request (rectification, objection), use the contact form."
       }
     ],
-    "footnote": "This page describes how the software works as provided. The organization hosting this instance remains responsible for the data it collects through this site."
+    "footnote": "This page describes how the software works as provided. The organization hosting this instance remains responsible for the data it collects through this site.",
+    "rightsLinkCta": "Manage my data in My Account"
   },
   "terms": {
     "back": "Back to home",

@@ -163,9 +163,14 @@
       {
         "title": "Formulaire de contact",
         "body": "Si vous utilisez le formulaire de contact, votre nom, votre email et votre message sont conserves afin de pouvoir vous repondre. Ces informations ne sont ni revendues ni partagees avec des tiers, et ne servent a aucune prospection commerciale."
+      },
+      {
+        "title": "Vos droits (RGPD)",
+        "body": "Exporter vos donnees : depuis Mon compte, telechargez un fichier contenant l'integralite de vos donnees en un clic. Supprimer votre compte : depuis Mon compte (zone dangereuse), suppression immediate et definitive de votre compte et de vos espaces. Newsletter : chaque email envoye contient un lien de desabonnement en un clic, sans avoir besoin de vous connecter. Pour toute autre demande (rectification, opposition), utilisez le formulaire de contact."
       }
     ],
-    "footnote": "Cette page decrit le fonctionnement du logiciel tel que fourni. L'organisation qui heberge cette instance reste responsable du traitement des donnees qu'elle collecte via ce site."
+    "footnote": "Cette page decrit le fonctionnement du logiciel tel que fourni. L'organisation qui heberge cette instance reste responsable du traitement des donnees qu'elle collecte via ce site.",
+    "rightsLinkCta": "Gerer mes donnees dans Mon compte"
   },
   "terms": {
     "back": "Retour a l'accueil",

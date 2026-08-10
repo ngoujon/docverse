@@ -163,9 +163,14 @@
       {
         "title": "Kontaktformular",
         "body": "Wenn Sie das Kontaktformular verwenden, werden Ihr Name, Ihre E-Mail-Adresse und Ihre Nachricht gespeichert, damit wir Ihnen antworten konnen. Diese Informationen werden weder weiterverkauft noch an Dritte weitergegeben und nicht fur Werbezwecke genutzt."
+      },
+      {
+        "title": "Ihre Rechte (DSGVO)",
+        "body": "Daten exportieren: Laden Sie in Mein Konto mit einem Klick eine Datei mit allen Ihren Daten herunter. Konto loschen: In Mein Konto (Gefahrenzone) konnen Sie Ihr Konto und Ihre Arbeitsbereiche sofort und endgultig loschen. Newsletter: Jede E-Mail enthalt einen Ein-Klick-Abmeldelink, ohne dass eine Anmeldung erforderlich ist. Fur alle anderen Anliegen (Berichtigung, Widerspruch) nutzen Sie das Kontaktformular."
       }
     ],
-    "footnote": "Diese Seite beschreibt die Funktionsweise der Software im Auslieferungszustand. Die Organisation, die diese Instanz hostet, bleibt fur die uber diese Website erhobenen Daten verantwortlich."
+    "footnote": "Diese Seite beschreibt die Funktionsweise der Software im Auslieferungszustand. Die Organisation, die diese Instanz hostet, bleibt fur die uber diese Website erhobenen Daten verantwortlich.",
+    "rightsLinkCta": "Meine Daten in Mein Konto verwalten"
   },
   "terms": {
     "back": "Zuruck zur Startseite",

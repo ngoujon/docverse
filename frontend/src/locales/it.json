@@ -163,9 +163,14 @@
       {
         "title": "Modulo di contatto",
         "body": "Se utilizzi il modulo di contatto, il tuo nome, la tua email e il tuo messaggio vengono conservati per poterti rispondere. Queste informazioni non vengono mai rivendute ne condivise con terzi, ne utilizzate per scopi commerciali."
+      },
+      {
+        "title": "I tuoi diritti (GDPR)",
+        "body": "Esporta i tuoi dati: da Il mio account, scarica un file con tutti i tuoi dati in un clic. Elimina il tuo account: da Il mio account (zona pericolosa), eliminazione immediata e definitiva del tuo account e dei tuoi spazi. Newsletter: ogni email include un link di disiscrizione in un clic, senza bisogno di accedere. Per qualsiasi altra richiesta (rettifica, opposizione), utilizza il modulo di contatto."
       }
     ],
-    "footnote": "Questa pagina descrive il funzionamento del software cosi come fornito. L'organizzazione che ospita questa istanza rimane responsabile del trattamento dei dati che raccoglie tramite questo sito."
+    "footnote": "Questa pagina descrive il funzionamento del software cosi come fornito. L'organizzazione che ospita questa istanza rimane responsabile del trattamento dei dati che raccoglie tramite questo sito.",
+    "rightsLinkCta": "Gestisci i miei dati in Il mio account"
   },
   "terms": {
     "back": "Torna alla home",

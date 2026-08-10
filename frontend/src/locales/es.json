@@ -163,9 +163,14 @@
       {
         "title": "Formulario de contacto",
         "body": "Si utilizas el formulario de contacto, se conservan tu nombre, correo electronico y mensaje para poder responderte. Esta informacion no se revende ni se comparte con terceros, ni se utiliza con fines comerciales."
+      },
+      {
+        "title": "Tus derechos (RGPD)",
+        "body": "Exportar tus datos: desde Mi cuenta, descarga un archivo con todos tus datos en un clic. Eliminar tu cuenta: desde Mi cuenta (zona de peligro), eliminacion inmediata y definitiva de tu cuenta y tus espacios. Newsletter: cada email incluye un enlace de baja en un clic, sin necesidad de iniciar sesion. Para cualquier otra solicitud (rectificacion, oposicion), utiliza el formulario de contacto."
       }
     ],
-    "footnote": "Esta pagina describe el funcionamiento del software tal como se proporciona. La organizacion que aloja esta instancia sigue siendo responsable del tratamiento de los datos que recopila a traves de este sitio."
+    "footnote": "Esta pagina describe el funcionamiento del software tal como se proporciona. La organizacion que aloja esta instancia sigue siendo responsable del tratamiento de los datos que recopila a traves de este sitio.",
+    "rightsLinkCta": "Gestionar mis datos en Mi cuenta"
   },
   "terms": {
     "back": "Volver al inicio",

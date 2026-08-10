@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, Cookie, Database, Mail, ShieldCheck } from "lucide-react";
+import { ArrowLeft, Cookie, Database, Mail, ShieldCheck, UserCheck } from "lucide-react";
 import { usePageMeta } from "../hooks/usePageMeta";
 
-const SECTION_ICONS = [Cookie, Database, ShieldCheck, Mail];
+const SECTION_ICONS = [Cookie, Database, ShieldCheck, Mail, UserCheck];
 
 interface PrivacySection {
   title: string;
@@ -55,6 +55,13 @@ export default function PrivacyPage() {
             );
           })}
         </div>
+
+        <Link
+          to="/account"
+          className="mt-6 inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-retro-cyan hover:underline"
+        >
+          {t("privacy.rightsLinkCta")} <ArrowLeft size={12} className="rotate-180" />
+        </Link>
 
         <p className="mt-10 text-xs text-slate-500">{t("privacy.footnote")}</p>
       </div>
