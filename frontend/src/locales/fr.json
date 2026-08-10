@@ -87,6 +87,7 @@
     "tagline": "Fait avec {{heart}} - local et prive par design",
     "privacy": "Confidentialite",
     "terms": "CGU",
+    "legal": "Mentions legales",
     "pricing": "Tarifs",
     "launchApp": "Lancer l'app"
   },
@@ -94,7 +95,7 @@
     "eyebrow": "Tarifs",
     "title": "Un palier pour chaque usage",
     "subtitle": "Trois chiffres a retenir par palier : espaces de travail, membres par espace, stockage par espace. Pas de compteur de messages a surveiller.",
-    "billingNote": "Prix HT, sans engagement - resiliable a tout moment.",
+    "billingNote": "Sans engagement - resiliable a tout moment.",
     "popular": "Le plus choisi",
     "tiers": [
       {
@@ -211,6 +212,34 @@
       {
         "title": "10. Droit applicable et contact",
         "body": "Ces conditions sont regies par le droit francais. Pour toute question, utilisez le formulaire de contact du site."
+      }
+    ]
+  },
+  "legal": {
+    "back": "Retour a l'accueil",
+    "eyebrow": "Mentions legales",
+    "title": "Mentions legales",
+    "subtitle": "Informations relatives a l'editeur du site, conformement a la loi pour la confiance dans l'economie numerique.",
+    "sections": [
+      {
+        "title": "Editeur du site",
+        "body": "[editeur], entrepreneur individuel exercant sous le nom commercial \"[credit]\".\nSIREN : [immatriculation] - SIRET : [immatriculation]\nCode APE : [APE] (Programmation informatique)\nTVA intracommunautaire : [TVA]\nImmatricule au RNE le [date] - RCS [ville]\nSiege social : [adresse], [CP] [ville], France"
+      },
+      {
+        "title": "Directeur de la publication",
+        "body": "[editeur]."
+      },
+      {
+        "title": "Hebergement",
+        "body": "Ce site et l'application sont heberges par Hostinger International Ltd., 61 Lordou Vironos Street, 6023 Larnaca, Chypre (hostinger.com)."
+      },
+      {
+        "title": "Propriete intellectuelle",
+        "body": "L'ensemble des elements de ce site (textes, logo, code source, interface) est protege au titre du droit d'auteur. Toute reproduction sans autorisation prealable est interdite, sauf mention contraire pour les composants explicitement publies sous licence libre."
+      },
+      {
+        "title": "Contact et litiges",
+        "body": "Pour toute question, utilisez le formulaire de contact du site. En cas de litige, une solution amiable sera recherchee avant toute action judiciaire ; a defaut, les tribunaux francais competents seront seuls saisis."
       }
     ]
   },

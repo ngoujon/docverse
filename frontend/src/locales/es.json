@@ -87,6 +87,7 @@
     "tagline": "Hecho con {{heart}} - local y privado por diseno",
     "privacy": "Privacidad",
     "terms": "Condiciones",
+    "legal": "Aviso legal",
     "pricing": "Precios",
     "launchApp": "Abrir la app"
   },
@@ -94,7 +95,7 @@
     "eyebrow": "Precios",
     "title": "Un plan para cada uso",
     "subtitle": "Tres cifras a recordar por plan: espacios de trabajo, miembros por espacio, almacenamiento por espacio. Sin contador de mensajes que vigilar.",
-    "billingNote": "Precios sin IVA, sin permanencia - cancela cuando quieras.",
+    "billingNote": "Sin permanencia - cancela cuando quieras.",
     "popular": "El mas elegido",
     "tiers": [
       {
@@ -211,6 +212,34 @@
       {
         "title": "10. Legislacion aplicable y contacto",
         "body": "Estas condiciones se rigen por el derecho frances. Para cualquier pregunta, utiliza el formulario de contacto del sitio."
+      }
+    ]
+  },
+  "legal": {
+    "back": "Volver al inicio",
+    "eyebrow": "Aviso legal",
+    "title": "Aviso Legal",
+    "subtitle": "Informacion sobre el editor del sitio, conforme a la legislacion francesa.",
+    "sections": [
+      {
+        "title": "Editor del sitio",
+        "body": "[editeur], empresario individual (entrepreneur individuel) que opera bajo el nombre comercial \"[credit]\".\nSIREN: [immatriculation] - SIRET: [immatriculation]\nCodigo APE: [APE] (Programacion informatica)\nIVA intracomunitario: [TVA]\nRegistrado en el RNE el [date] - RCS [ville]\nDomicilio social: [adresse], [CP] [ville], Francia"
+      },
+      {
+        "title": "Director de la publicacion",
+        "body": "[editeur]."
+      },
+      {
+        "title": "Alojamiento",
+        "body": "Este sitio y la aplicacion estan alojados por Hostinger International Ltd., 61 Lordou Vironos Street, 6023 Larnaca, Chipre (hostinger.com)."
+      },
+      {
+        "title": "Propiedad intelectual",
+        "body": "Todos los elementos de este sitio (textos, logotipo, codigo fuente, interfaz) estan protegidos por derechos de autor. Queda prohibida su reproduccion sin autorizacion previa, salvo para los componentes publicados explicitamente bajo licencia libre."
+      },
+      {
+        "title": "Contacto y litigios",
+        "body": "Para cualquier pregunta, utiliza el formulario de contacto del sitio. En caso de litigio, se buscara una solucion amistosa antes de cualquier accion judicial; en su defecto, seran competentes exclusivamente los tribunales franceses."
       }
     ]
   },

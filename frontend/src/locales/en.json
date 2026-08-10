@@ -87,6 +87,7 @@
     "tagline": "Made with {{heart}} - local and private by design",
     "privacy": "Privacy",
     "terms": "Terms",
+    "legal": "Legal notice",
     "pricing": "Pricing",
     "launchApp": "Launch app"
   },
@@ -94,7 +95,7 @@
     "eyebrow": "Pricing",
     "title": "A tier for every use case",
     "subtitle": "Three numbers to remember per tier: workspaces, members per space, storage per space. No message counter to watch.",
-    "billingNote": "Prices excl. VAT, no commitment - cancel anytime.",
+    "billingNote": "No commitment - cancel anytime.",
     "popular": "Most popular",
     "tiers": [
       {
@@ -211,6 +212,34 @@
       {
         "title": "10. Governing law and contact",
         "body": "These terms are governed by French law. For any question, use the site's contact form."
+      }
+    ]
+  },
+  "legal": {
+    "back": "Back to home",
+    "eyebrow": "Legal notice",
+    "title": "Legal Notice",
+    "subtitle": "Information about the site's publisher, as required under French law.",
+    "sections": [
+      {
+        "title": "Site publisher",
+        "body": "[editeur], sole trader (entrepreneur individuel) operating under the trade name \"[credit]\".\nSIREN: [immatriculation] - SIRET: [immatriculation]\nAPE code: [APE] (Computer programming)\nIntra-community VAT: [TVA]\nRegistered with the RNE on [date] - RCS [ville]\nRegistered address: [adresse], [CP] [ville], France"
+      },
+      {
+        "title": "Publication director",
+        "body": "[editeur]."
+      },
+      {
+        "title": "Hosting",
+        "body": "This site and application are hosted by Hostinger International Ltd., 61 Lordou Vironos Street, 6023 Larnaca, Cyprus (hostinger.com)."
+      },
+      {
+        "title": "Intellectual property",
+        "body": "All elements of this site (text, logo, source code, interface) are protected by copyright. Any reproduction without prior authorization is prohibited, except for components explicitly published under an open-source license."
+      },
+      {
+        "title": "Contact and disputes",
+        "body": "For any question, use the site's contact form. In case of a dispute, an amicable resolution will be sought before any legal action; failing that, the competent French courts will have sole jurisdiction."
       }
     ]
   },

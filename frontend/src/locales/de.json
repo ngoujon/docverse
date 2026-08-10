@@ -87,6 +87,7 @@
     "tagline": "Erstellt mit {{heart}} - lokal und privat by design",
     "privacy": "Datenschutz",
     "terms": "AGB",
+    "legal": "Impressum",
     "pricing": "Preise",
     "launchApp": "App starten"
   },
@@ -94,7 +95,7 @@
     "eyebrow": "Preise",
     "title": "Fur jeden Bedarf die passende Stufe",
     "subtitle": "Drei Zahlen pro Stufe, die man sich merken muss: Arbeitsbereiche, Mitglieder pro Bereich, Speicher pro Bereich. Kein Nachrichtenzahler zum Uberwachen.",
-    "billingNote": "Preise zzgl. MwSt., keine Mindestlaufzeit - jederzeit kundbar.",
+    "billingNote": "Keine Mindestlaufzeit - jederzeit kundbar.",
     "popular": "Am beliebtesten",
     "tiers": [
       {
@@ -211,6 +212,34 @@
       {
         "title": "10. Anwendbares Recht und Kontakt",
         "body": "Diese Bedingungen unterliegen franzosischem Recht. Fur Fragen nutzen Sie bitte das Kontaktformular der Website."
+      }
+    ]
+  },
+  "legal": {
+    "back": "Zuruck zur Startseite",
+    "eyebrow": "Impressum",
+    "title": "Impressum",
+    "subtitle": "Angaben zum Betreiber dieser Website gemass franzosischem Recht.",
+    "sections": [
+      {
+        "title": "Betreiber der Website",
+        "body": "[editeur], Einzelunternehmer (entrepreneur individuel), tatig unter dem Handelsnamen \"[credit]\".\nSIREN: [immatriculation] - SIRET: [immatriculation]\nAPE-Code: [APE] (Softwareentwicklung)\nUSt-IdNr.: [TVA]\nEingetragen im RNE am [date] - RCS [ville]\nSitz: [adresse], [CP] [ville], Frankreich"
+      },
+      {
+        "title": "Verantwortlicher fur die Veroffentlichung",
+        "body": "[editeur]."
+      },
+      {
+        "title": "Hosting",
+        "body": "Diese Website und die Anwendung werden gehostet von Hostinger International Ltd., 61 Lordou Vironos Street, 6023 Larnaca, Zypern (hostinger.com)."
+      },
+      {
+        "title": "Geistiges Eigentum",
+        "body": "Alle Elemente dieser Website (Texte, Logo, Quellcode, Oberflache) sind urheberrechtlich geschutzt. Jede Vervielfaltigung ohne vorherige Genehmigung ist untersagt, ausser fur Komponenten, die ausdrucklich unter einer Open-Source-Lizenz veroffentlicht wurden."
+      },
+      {
+        "title": "Kontakt und Streitigkeiten",
+        "body": "Fur Fragen nutzen Sie bitte das Kontaktformular der Website. Im Streitfall wird vor jedem gerichtlichen Vorgehen eine gutliche Einigung angestrebt; andernfalls sind ausschliesslich die zustandigen franzosischen Gerichte zustandig."
       }
     ]
   },

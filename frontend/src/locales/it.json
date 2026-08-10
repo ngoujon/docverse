@@ -87,6 +87,7 @@
     "tagline": "Realizzato con {{heart}} - locale e privato by design",
     "privacy": "Privacy",
     "terms": "Termini",
+    "legal": "Note legali",
     "pricing": "Prezzi",
     "launchApp": "Avvia l'app"
   },
@@ -94,7 +95,7 @@
     "eyebrow": "Prezzi",
     "title": "Un piano per ogni esigenza",
     "subtitle": "Tre numeri da ricordare per piano: spazi di lavoro, membri per spazio, spazio di archiviazione per spazio. Nessun contatore di messaggi da tenere d'occhio.",
-    "billingNote": "Prezzi IVA esclusa, senza vincoli - annullabile in qualsiasi momento.",
+    "billingNote": "Senza vincoli - annullabile in qualsiasi momento.",
     "popular": "Il piu scelto",
     "tiers": [
       {
@@ -211,6 +212,34 @@
       {
         "title": "10. Legge applicabile e contatti",
         "body": "Questi termini sono disciplinati dal diritto francese. Per qualsiasi domanda, utilizza il modulo di contatto del sito."
+      }
+    ]
+  },
+  "legal": {
+    "back": "Torna alla home",
+    "eyebrow": "Note legali",
+    "title": "Note Legali",
+    "subtitle": "Informazioni sull'editore del sito, in conformita con la legge francese.",
+    "sections": [
+      {
+        "title": "Editore del sito",
+        "body": "[editeur], imprenditore individuale (entrepreneur individuel), operante con il nome commerciale \"[credit]\".\nSIREN: [immatriculation] - SIRET: [immatriculation]\nCodice APE: [APE] (Programmazione informatica)\nPartita IVA intracomunitaria: [TVA]\nIscritto al RNE il [date] - RCS [ville]\nSede legale: [adresse], [CP] [ville], Francia"
+      },
+      {
+        "title": "Direttore della pubblicazione",
+        "body": "[editeur]."
+      },
+      {
+        "title": "Hosting",
+        "body": "Questo sito e l'applicazione sono ospitati da Hostinger International Ltd., 61 Lordou Vironos Street, 6023 Larnaca, Cipro (hostinger.com)."
+      },
+      {
+        "title": "Proprieta intellettuale",
+        "body": "Tutti gli elementi di questo sito (testi, logo, codice sorgente, interfaccia) sono protetti dal diritto d'autore. Qualsiasi riproduzione senza autorizzazione preventiva e vietata, salvo per i componenti esplicitamente pubblicati con licenza open-source."
+      },
+      {
+        "title": "Contatti e controversie",
+        "body": "Per qualsiasi domanda, utilizza il modulo di contatto del sito. In caso di controversia, si cerchera una soluzione amichevole prima di qualsiasi azione legale; in mancanza di accordo, saranno competenti in via esclusiva i tribunali francesi."
       }
     ]
   },
