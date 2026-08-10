@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional, Any, Literal
 
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr, Field, field_validator
 
 
 # --- Auth -------------------------------------------------------------
@@ -285,11 +285,22 @@ class UrlIngestRequest(BaseModel):
 class ContactCreate(BaseModel):
     name: str = Field(min_length=1, max_length=120)
     email: EmailStr
+    subject: str = Field(min_length=1, max_length=200)
+    phone: str = Field(default="", max_length=40)
+    company: str = Field(default="", max_length=200)
     message: str = Field(min_length=1, max_length=5000)
+    consent: bool
     # Honeypot: real users never fill this hidden field; bots often do.
     website: str = Field(default="", max_length=200)
     captcha_salt: str
     captcha_nonce: int
+
+    @field_validator("consent")
+    @classmethod
+    def consent_must_be_true(cls, v: bool) -> bool:
+        if not v:
+            raise ValueError("Le consentement RGPD est requis")
+        return v
 
 
 class CaptchaChallengeOut(BaseModel):

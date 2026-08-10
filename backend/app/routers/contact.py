@@ -28,7 +28,11 @@ def submit_contact(payload: schemas.ContactCreate, request: Request, db: Session
     msg = models_db.ContactMessage(
         name=payload.name.strip(),
         email=payload.email,
+        subject=payload.subject.strip(),
+        phone=payload.phone.strip(),
+        company=payload.company.strip(),
         message=payload.message.strip(),
+        consent_given=payload.consent,
     )
     db.add(msg)
     db.commit()

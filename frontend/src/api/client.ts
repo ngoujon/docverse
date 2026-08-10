@@ -260,17 +260,23 @@ export const api = {
   deleteDocument: (id: string, shareToken?: string) =>
     request(`/documents/${id}`, { method: "DELETE" }, shareToken),
 
-  submitContact: (
-    name: string,
-    email: string,
-    message: string,
-    website: string,
-    captcha: CaptchaSolution
-  ) =>
-    request("/contact", {
+  submitContact: (data: {
+    name: string;
+    email: string;
+    subject: string;
+    phone: string;
+    company: string;
+    message: string;
+    consent: boolean;
+    website: string;
+    captcha: CaptchaSolution;
+  }) => {
+    const { captcha, ...rest } = data;
+    return request("/contact", {
       method: "POST",
-      body: JSON.stringify({ name, email, message, website, ...captcha }),
-    }),
+      body: JSON.stringify({ ...rest, ...captcha }),
+    });
+  },
 };
 
 export interface StreamEvent {

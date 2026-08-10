@@ -160,7 +160,14 @@ class ContactMessage(Base):
     id = Column(String, primary_key=True, default=gen_id)
     name = Column(String, nullable=False)
     email = Column(String, nullable=False)
+    subject = Column(String, nullable=True)
+    phone = Column(String, nullable=True)
+    company = Column(String, nullable=True)
     message = Column(Text, nullable=False)
+    # Recorded proof of RGPD consent at submission time - the form requires
+    # this checkbox, but we keep the value (rather than just gating on it)
+    # in case we ever need to demonstrate consent was actually collected.
+    consent_given = Column(Boolean, nullable=False, default=False)
     created_at = Column(DateTime, default=datetime.utcnow)
 
 
