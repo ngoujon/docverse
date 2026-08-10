@@ -16,12 +16,12 @@
     "launchApp": "App starten"
   },
   "hero": {
-    "badges": ["100% Lokal", "Open Source", "Kostenlos testen", "Teilen nach Rolle"],
+    "badges": ["100% Lokal", "Ab 9€/Monat", "Kostenlose Stufe", "Teilen nach Rolle"],
     "title1": "Unterhalten Sie sich mit Ihren Dokumenten,",
     "title2": "lokal, im Team.",
     "subtitle": "Laden Sie PDFs, Bilder und Links in abgeschottete Bereiche und befragen Sie sie mit einer KI, die vollstandig auf Ihrem eigenen Server lauft - via Ollama, ohne Cloud-API, ohne Tracking.",
     "ctaTry": "Jetzt testen",
-    "ctaDiscover": "Entdecken"
+    "ctaDiscover": "Preise ansehen"
   },
   "features": {
     "eyebrow": "Funktionen",
@@ -62,10 +62,10 @@
       { "title": "Unterhalten und teilen", "desc": "Stellen Sie Ihre Fragen, erhalten Sie Antworten mit Quellenangaben, und laden Sie andere per Freigabelink mit der gewahlten Rolle ein." }
     ]
   },
-  "opensource": {
-    "title": "Lokal by design, Sie behalten die Kontrolle",
-    "desc": "Keine Datensammlung zum Trainieren eines Modells, kein Tracking. Sie hosten, Sie kontrollieren - mit einer kostenlosen Stufe zum unverbindlichen Start.",
-    "cta": "Kostenlos starten"
+  "pricingTeaser": {
+    "title": "Fur jeden Bedarf die passende Stufe",
+    "desc": "Von der kostenlosen Entdecken-Stufe bis zum individuellen Enterprise-Angebot: wahlen Sie nach Arbeitsbereichen, Mitgliedern und Speicherbedarf.",
+    "cta": "Preise ansehen"
   },
   "contact": {
     "eyebrow": "Kontakt",

@@ -16,12 +16,12 @@
     "launchApp": "Avvia l'app"
   },
   "hero": {
-    "badges": ["100% Locale", "Open Source", "Prova gratuita", "Condivisione per ruolo"],
+    "badges": ["100% Locale", "Da 9€/mese", "Piano gratuito", "Condivisione per ruolo"],
     "title1": "Chatta con i tuoi documenti,",
     "title2": "in locale, in team.",
     "subtitle": "Carica i tuoi PDF, immagini e link in spazi isolati, e interrogali con un'IA che gira interamente sul tuo server - via Ollama, senza API cloud ne tracciamento.",
     "ctaTry": "Prova ora",
-    "ctaDiscover": "Scopri di piu"
+    "ctaDiscover": "Vedi i prezzi"
   },
   "features": {
     "eyebrow": "Funzionalita",
@@ -62,10 +62,10 @@
       { "title": "Chatta e condividi", "desc": "Fai le tue domande, ottieni risposte con fonti, e invita altre persone tramite un link di condivisione con il ruolo scelto." }
     ]
   },
-  "opensource": {
-    "title": "Locale by design, mantieni il controllo",
-    "desc": "Nessuna raccolta dati per addestrare un modello, nessun tracciamento. Tu lo ospiti, tu lo controlli - con un piano gratuito per iniziare senza impegno.",
-    "cta": "Inizia gratis"
+  "pricingTeaser": {
+    "title": "Un piano per ogni esigenza",
+    "desc": "Dal piano Scoperta gratuito a un preventivo aziendale su misura: scegli in base a spazi, membri e archiviazione di cui hai bisogno.",
+    "cta": "Vedi i prezzi"
   },
   "contact": {
     "eyebrow": "Contatto",

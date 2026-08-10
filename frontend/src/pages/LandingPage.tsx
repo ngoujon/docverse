@@ -12,7 +12,7 @@ import {
   Gauge,
   ShieldCheck,
   Sparkles,
-  Github,
+  Tag,
   Heart,
 } from "lucide-react";
 import NeoGrid from "../components/landing/NeoGrid";
@@ -211,12 +211,12 @@ export default function LandingPage() {
               >
                 {t("hero.ctaTry")} <ArrowRight size={14} />
               </Link>
-              <a
-                href="#fonctionnalites"
+              <Link
+                to="/tarifs"
                 className="flex w-full items-center justify-center gap-2 rounded-lg border border-retro-border px-6 py-3 font-mono text-xs uppercase tracking-wider text-slate-700 transition hover:border-retro-cyan hover:text-retro-cyan sm:w-auto"
               >
                 {t("hero.ctaDiscover")}
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -275,18 +275,18 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Open source + newsletter */}
+      {/* Pricing teaser + newsletter */}
       <section className="border-t border-retro-border/60 px-4 py-20 sm:px-6">
         <div className="mx-auto grid max-w-5xl gap-6 lg:grid-cols-2">
           <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border border-retro-border bg-gradient-to-br from-retro-panel to-retro-bg2 p-8 text-center sm:p-10">
-            <Github size={26} className="text-slate-700" />
-            <h2 className="text-xl font-bold text-slate-900">{t("opensource.title")}</h2>
-            <p className="max-w-sm text-sm text-slate-600">{t("opensource.desc")}</p>
+            <Tag size={26} className="text-retro-pink" />
+            <h2 className="text-xl font-bold text-slate-900">{t("pricingTeaser.title")}</h2>
+            <p className="max-w-sm text-sm text-slate-600">{t("pricingTeaser.desc")}</p>
             <Link
-              to="/register"
+              to="/tarifs"
               className="mt-1 flex items-center gap-2 rounded-lg border border-retro-cyan bg-retro-cyan/10 px-6 py-3 font-mono text-xs uppercase tracking-wider text-retro-cyan transition hover:bg-retro-cyan hover:text-retro-bg"
             >
-              {t("opensource.cta")} <ArrowRight size={14} />
+              {t("pricingTeaser.cta")} <ArrowRight size={14} />
             </Link>
           </div>
 

@@ -16,12 +16,12 @@
     "launchApp": "Launch app"
   },
   "hero": {
-    "badges": ["100% Local", "Open Source", "Free trial", "Role-based sharing"],
+    "badges": ["100% Local", "From €9/mo", "Free tier", "Role-based sharing"],
     "title1": "Chat with your documents,",
     "title2": "locally, as a team.",
     "subtitle": "Drop your PDFs, images and links into isolated spaces, and query them with an AI that runs entirely on your own server - via Ollama, no cloud API, no tracking.",
     "ctaTry": "Try it now",
-    "ctaDiscover": "Discover"
+    "ctaDiscover": "See pricing"
   },
   "features": {
     "eyebrow": "Features",
@@ -62,10 +62,10 @@
       { "title": "Chat and share", "desc": "Ask your questions, get sourced answers, and invite others via a share link with the role of your choice." }
     ]
   },
-  "opensource": {
-    "title": "Local by design, you stay in control",
-    "desc": "No data collected to train a model, no tracking. You host it, you control it - with a free tier to get started without commitment.",
-    "cta": "Get started for free"
+  "pricingTeaser": {
+    "title": "A tier for every use case",
+    "desc": "From a free discovery tier to a custom enterprise quote: pick based on how many workspaces, members, and storage you need.",
+    "cta": "See pricing"
   },
   "contact": {
     "eyebrow": "Contact",
