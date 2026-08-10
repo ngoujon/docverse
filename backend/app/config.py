@@ -25,6 +25,20 @@ class Settings:
     vision_model: str = os.environ.get("OLLAMA_VISION_MODEL", "llava:7b")
     embed_model: str = os.environ.get("OLLAMA_EMBED_MODEL", "nomic-embed-text")
 
+    # Ollama Cloud (https://ollama.com/models) speaks the same /api/chat
+    # protocol as local Ollama, just hosted, auth'd with a bearer key, and
+    # without an /api/embeddings route - so when a key is present, chat and
+    # vision transparently switch to it for more reactive responses while
+    # embeddings (used for retrieval) always stay on the local instance.
+    ollama_cloud_api_key: str = os.environ.get("OLLAMA_CLOUD_API_KEY", "")
+    ollama_cloud_base_url: str = os.environ.get("OLLAMA_CLOUD_BASE_URL", "https://ollama.com")
+    ollama_cloud_chat_model: str = os.environ.get("OLLAMA_CLOUD_CHAT_MODEL", "gpt-oss:20b")
+    ollama_cloud_vision_model: str = os.environ.get("OLLAMA_CLOUD_VISION_MODEL", "qwen3.5")
+
+    @property
+    def use_ollama_cloud(self) -> bool:
+        return bool(self.ollama_cloud_api_key)
+
     # Requests to Ollama (chat, embeddings, vision) are serialized through a
     # queue so a small, CPU-only VPS doesn't get overwhelmed by concurrent
     # users. Only raise this if Ollama actually has the RAM/GPU headroom to

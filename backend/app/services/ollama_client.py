@@ -1,3 +1,4 @@
+import contextlib
 import json
 from typing import AsyncGenerator, Optional
 
@@ -9,7 +10,35 @@ from . import queue_manager
 _TIMEOUT = httpx.Timeout(300.0, connect=10.0)
 
 
+def _chat_base_url() -> str:
+    return settings.ollama_cloud_base_url if settings.use_ollama_cloud else settings.ollama_base_url
+
+
+def _chat_headers() -> dict:
+    if settings.use_ollama_cloud:
+        return {"Authorization": f"Bearer {settings.ollama_cloud_api_key}"}
+    return {}
+
+
+@contextlib.asynccontextmanager
+async def _maybe_queue():
+    # The local single-worker queue exists to protect a small, CPU-only
+    # Ollama instance from concurrent overload. Ollama Cloud manages its
+    # own capacity, so cloud chat/vision calls skip it entirely - that's
+    # the whole point of switching (more reactive, not serialized behind
+    # whatever else is running locally). Embeddings always go through it
+    # since they always hit the local instance regardless of provider.
+    if settings.use_ollama_cloud:
+        yield
+    else:
+        async with queue_manager.queue_slot():
+            yield
+
+
 async def list_models() -> list[str]:
+    """Always queries the LOCAL Ollama instance - used to check which
+    models are pulled there (embeddings always run locally; chat/vision
+    only run locally when Ollama Cloud isn't configured)."""
     async with httpx.AsyncClient(timeout=_TIMEOUT) as client:
         r = await client.get(f"{settings.ollama_base_url}/api/tags")
         r.raise_for_status()
@@ -35,11 +64,12 @@ async def chat(
     model: Optional[str] = None,
     temperature: float = 0.3,
 ) -> str:
-    model = model or settings.chat_model
-    async with queue_manager.queue_slot():
+    model = model or (settings.ollama_cloud_chat_model if settings.use_ollama_cloud else settings.chat_model)
+    async with _maybe_queue():
         async with httpx.AsyncClient(timeout=_TIMEOUT) as client:
             r = await client.post(
-                f"{settings.ollama_base_url}/api/chat",
+                f"{_chat_base_url()}/api/chat",
+                headers=_chat_headers(),
                 json={
                     "model": model,
                     "messages": messages,
@@ -57,12 +87,13 @@ async def chat_stream(
     model: Optional[str] = None,
     temperature: float = 0.3,
 ) -> AsyncGenerator[str, None]:
-    model = model or settings.chat_model
-    async with queue_manager.queue_slot():
+    model = model or (settings.ollama_cloud_chat_model if settings.use_ollama_cloud else settings.chat_model)
+    async with _maybe_queue():
         async with httpx.AsyncClient(timeout=_TIMEOUT) as client:
             async with client.stream(
                 "POST",
-                f"{settings.ollama_base_url}/api/chat",
+                f"{_chat_base_url()}/api/chat",
+                headers=_chat_headers(),
                 json={
                     "model": model,
                     "messages": messages,
@@ -92,11 +123,12 @@ async def describe_image(
 ) -> str:
     """Send an image to the vision model and get back a rich text
     transcription/description (used for OCR-like indexing)."""
-    model = model or settings.vision_model
-    async with queue_manager.queue_slot():
+    model = model or (settings.ollama_cloud_vision_model if settings.use_ollama_cloud else settings.vision_model)
+    async with _maybe_queue():
         async with httpx.AsyncClient(timeout=_TIMEOUT) as client:
             r = await client.post(
-                f"{settings.ollama_base_url}/api/chat",
+                f"{_chat_base_url()}/api/chat",
+                headers=_chat_headers(),
                 json={
                     "model": model,
                     "stream": False,

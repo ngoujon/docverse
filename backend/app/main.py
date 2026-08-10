@@ -85,6 +85,9 @@ app.include_router(contact.router)
 
 @app.get("/api/health")
 async def health():
+    # This always probes the LOCAL Ollama instance, since embeddings run
+    # there regardless of provider, and chat/vision do too when Ollama
+    # Cloud isn't configured.
     ollama_ok = True
     models: list[str] = []
     try:
@@ -95,11 +98,16 @@ async def health():
     def has(model: str) -> bool:
         return any(m.split(":")[0] == model.split(":")[0] for m in models)
 
+    using_cloud = settings.use_ollama_cloud
     return {
         "status": "ok",
         "ollama_reachable": ollama_ok,
         "models_available": models,
-        "chat_model_ready": has(settings.chat_model),
-        "vision_model_ready": has(settings.vision_model),
+        "chat_provider": "ollama_cloud" if using_cloud else "ollama_local",
+        "vision_provider": "ollama_cloud" if using_cloud else "ollama_local",
+        # Cloud-hosted models are assumed available (ollama.com manages
+        # that); only local pulls need this readiness check.
+        "chat_model_ready": True if using_cloud else has(settings.chat_model),
+        "vision_model_ready": True if using_cloud else has(settings.vision_model),
         "embed_model_ready": has(settings.embed_model),
     }
