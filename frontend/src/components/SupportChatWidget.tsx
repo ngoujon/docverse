@@ -113,7 +113,7 @@ export default function SupportChatWidget() {
           </div>
 
           <div className="border-t border-retro-border bg-retro-bg2 p-2.5 sm:rounded-b-xl">
-            <div className="flex items-end gap-2 rounded-lg border border-retro-border bg-white px-2.5 py-1.5">
+            <div className="flex items-center gap-2 rounded-lg border border-retro-border bg-white px-2.5 py-2">
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
@@ -125,7 +125,7 @@ export default function SupportChatWidget() {
                 }}
                 rows={1}
                 placeholder={t("support.placeholder")}
-                className="max-h-24 flex-1 resize-none bg-transparent text-xs text-slate-800 placeholder:text-slate-400 outline-none"
+                className="block max-h-24 flex-1 resize-none bg-transparent text-xs leading-5 text-slate-800 placeholder:text-slate-400 outline-none"
               />
               <button
                 onClick={handleSend}

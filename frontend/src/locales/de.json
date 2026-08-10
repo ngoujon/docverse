@@ -5,7 +5,8 @@
     "delete": "Loschen",
     "confirm": "Bestatigen",
     "loading": "Wird geladen...",
-    "close": "Schliessen"
+    "close": "Schliessen",
+    "backHome": "Zuruck zur Startseite"
   },
   "nav": {
     "features": "Funktionen",

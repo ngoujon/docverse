@@ -5,7 +5,8 @@
     "delete": "Supprimer",
     "confirm": "Confirmer",
     "loading": "Chargement...",
-    "close": "Fermer"
+    "close": "Fermer",
+    "backHome": "Retour a l'accueil"
   },
   "nav": {
     "features": "Fonctionnalites",

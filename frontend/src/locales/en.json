@@ -5,7 +5,8 @@
     "delete": "Delete",
     "confirm": "Confirm",
     "loading": "Loading...",
-    "close": "Close"
+    "close": "Close",
+    "backHome": "Back to home"
   },
   "nav": {
     "features": "Features",

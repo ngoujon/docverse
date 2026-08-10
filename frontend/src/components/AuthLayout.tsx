@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { Sparkles } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { ArrowLeft, Sparkles } from "lucide-react";
 import { useTheme } from "../hooks/useTheme";
 import ThemeToggle from "./ThemeToggle";
 
@@ -15,10 +16,17 @@ export default function AuthLayout({
   children: ReactNode;
   footer?: ReactNode;
 }) {
+  const { t } = useTranslation();
   const { theme, toggleTheme } = useTheme();
 
   return (
     <div className="flex min-h-[100dvh] w-full items-center justify-center bg-surface-0 px-4 py-10">
+      <Link
+        to="/"
+        className="absolute left-4 top-4 flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-slate-500 hover:text-accent dark:text-slate-400"
+      >
+        <ArrowLeft size={14} /> {t("common.backHome")}
+      </Link>
       <div className="absolute right-4 top-4">
         <ThemeToggle theme={theme} onToggle={toggleTheme} />
       </div>
