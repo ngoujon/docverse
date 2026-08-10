@@ -184,7 +184,7 @@ export default function DemoPage() {
           <p className="mx-auto mt-2 max-w-md text-sm text-slate-600">{t("demoPage.ctaText")}</p>
           <Link
             to="/register"
-            className="mt-5 inline-flex items-center gap-2 rounded-lg border border-retro-pink bg-retro-pink px-6 py-3 font-mono text-xs uppercase tracking-wider text-white shadow-neon transition hover:bg-retro-pink/90"
+            className="mt-5 inline-flex items-center gap-2 rounded-lg border border-retro-pink bg-retro-pink px-6 py-3 font-mono text-xs uppercase tracking-wider text-white shadow-neon-light transition hover:bg-retro-pink/90"
           >
             {t("demoPage.ctaButton")} <ArrowRight size={14} />
           </Link>

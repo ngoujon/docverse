@@ -109,7 +109,7 @@ export default function LandingPage() {
             {user ? (
               <Link
                 to="/dashboard"
-                className="flex items-center gap-1.5 rounded-lg border border-retro-pink bg-retro-pink/10 px-4 py-2 font-mono text-xs uppercase tracking-wider text-retro-pink transition hover:bg-retro-pink hover:text-white hover:shadow-neon"
+                className="flex items-center gap-1.5 rounded-lg border border-retro-pink bg-retro-pink/10 px-4 py-2 font-mono text-xs uppercase tracking-wider text-retro-pink transition hover:bg-retro-pink hover:text-white hover:shadow-neon-light"
               >
                 {t("nav.launchApp")} <ArrowRight size={13} />
               </Link>
@@ -123,7 +123,7 @@ export default function LandingPage() {
                 </Link>
                 <Link
                   to="/login"
-                  className="flex items-center gap-1.5 rounded-lg border border-retro-pink bg-retro-pink/10 px-4 py-2 font-mono text-xs uppercase tracking-wider text-retro-pink transition hover:bg-retro-pink hover:text-white hover:shadow-neon"
+                  className="flex items-center gap-1.5 rounded-lg border border-retro-pink bg-retro-pink/10 px-4 py-2 font-mono text-xs uppercase tracking-wider text-retro-pink transition hover:bg-retro-pink hover:text-white hover:shadow-neon-light"
                 >
                   {t("auth.login.title")} <ArrowRight size={13} />
                 </Link>
@@ -254,7 +254,7 @@ export default function LandingPage() {
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-start">
               <Link
                 to="/register"
-                className="flex w-full items-center justify-center gap-2 rounded-lg border border-retro-pink bg-retro-pink px-6 py-3 font-mono text-xs uppercase tracking-wider text-white shadow-neon transition hover:bg-retro-pink/90 sm:w-auto"
+                className="flex w-full items-center justify-center gap-2 rounded-lg border border-retro-pink bg-retro-pink px-6 py-3 font-mono text-xs uppercase tracking-wider text-white shadow-neon-light transition hover:bg-retro-pink/90 sm:w-auto"
               >
                 {t("hero.ctaTry")} <ArrowRight size={14} />
               </Link>

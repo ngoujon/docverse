@@ -87,7 +87,7 @@ export default function ContactForm() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder={t("contact.namePlaceholder")}
-            className="w-full rounded-lg border border-retro-border bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-retro-cyan focus:shadow-neon"
+            className="w-full rounded-lg border border-retro-border bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-retro-cyan focus:shadow-neon-light"
           />
         </div>
         <div>
@@ -100,7 +100,7 @@ export default function ContactForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder={t("contact.emailPlaceholder")}
-            className="w-full rounded-lg border border-retro-border bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-retro-cyan focus:shadow-neon"
+            className="w-full rounded-lg border border-retro-border bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-retro-cyan focus:shadow-neon-light"
           />
         </div>
       </div>
@@ -114,7 +114,7 @@ export default function ContactForm() {
           value={subject}
           onChange={(e) => setSubject(e.target.value)}
           placeholder={t("contact.subjectPlaceholder")}
-          className="w-full rounded-lg border border-retro-border bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-retro-cyan focus:shadow-neon"
+          className="w-full rounded-lg border border-retro-border bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-retro-cyan focus:shadow-neon-light"
         />
       </div>
 
@@ -128,7 +128,7 @@ export default function ContactForm() {
             value={company}
             onChange={(e) => setCompany(e.target.value)}
             placeholder={t("contact.companyPlaceholder")}
-            className="w-full rounded-lg border border-retro-border bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-retro-cyan focus:shadow-neon"
+            className="w-full rounded-lg border border-retro-border bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-retro-cyan focus:shadow-neon-light"
           />
         </div>
         <div>
@@ -141,7 +141,7 @@ export default function ContactForm() {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             placeholder={t("contact.phonePlaceholder")}
-            className="w-full rounded-lg border border-retro-border bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-retro-cyan focus:shadow-neon"
+            className="w-full rounded-lg border border-retro-border bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-retro-cyan focus:shadow-neon-light"
           />
         </div>
       </div>
@@ -156,7 +156,7 @@ export default function ContactForm() {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder={t("contact.messagePlaceholder")}
-          className="w-full resize-none rounded-lg border border-retro-border bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-retro-cyan focus:shadow-neon"
+          className="w-full resize-none rounded-lg border border-retro-border bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-retro-cyan focus:shadow-neon-light"
         />
       </div>
 
@@ -185,7 +185,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === "sending" || !canSubmit}
-        className="group flex w-full items-center justify-center gap-2 rounded-lg border border-retro-pink bg-retro-pink/10 px-4 py-2.5 font-mono text-xs uppercase tracking-wider text-retro-pink transition hover:bg-retro-pink hover:text-white hover:shadow-neon disabled:opacity-50 sm:w-auto sm:px-6"
+        className="group flex w-full items-center justify-center gap-2 rounded-lg border border-retro-pink bg-retro-pink/10 px-4 py-2.5 font-mono text-xs uppercase tracking-wider text-retro-pink transition hover:bg-retro-pink hover:text-white hover:shadow-neon-light disabled:opacity-50 sm:w-auto sm:px-6"
       >
         <Send size={14} />
         {status === "sending" ? t("contact.sending") : t("contact.send")}

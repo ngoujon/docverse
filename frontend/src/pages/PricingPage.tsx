@@ -89,7 +89,7 @@ export default function PricingPage() {
                 key={tier.name}
                 className={`relative flex flex-col rounded-2xl border p-6 ${
                   isRecommended
-                    ? "border-retro-pink bg-retro-panel/60 shadow-neon"
+                    ? "border-retro-pink bg-retro-panel/60 shadow-neon-light"
                     : "border-retro-border bg-retro-panel/40"
                 }`}
               >
