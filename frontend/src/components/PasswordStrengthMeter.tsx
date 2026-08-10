@@ -3,7 +3,7 @@ import clsx from "clsx";
 
 const COMMON_PATTERNS = /^(password|motdepasse|azerty|qwerty|123456|11111111|00000000)/i;
 
-function scorePassword(pw: string): number {
+export function scorePassword(pw: string): number {
   if (!pw) return 0;
   let score = 0;
   if (pw.length >= 8) score++;
