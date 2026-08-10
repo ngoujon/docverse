@@ -11,6 +11,7 @@
   "nav": {
     "features": "Fonctionnalites",
     "howItWorks": "Comment ca marche",
+    "demo": "Demo",
     "pricing": "Tarifs",
     "contact": "Contact",
     "launchApp": "Lancer l'app"
@@ -141,6 +142,43 @@
     "answer": "D'apres le contrat [1], la duree est de 12 mois avec reconduction tacite. Le preavis de resiliation est de 30 jours.",
     "source": "contrat_fournisseur.pdf",
     "typing": "en train d'ecrire..."
+  },
+  "demoPage": {
+    "back": "Retour a l'accueil",
+    "eyebrow": "Demonstration",
+    "title": "Essayez sans creer de compte",
+    "subtitle": "Un espace simule avec des documents types. Cliquez sur une question pour voir comment l'IA repond avec des sources.",
+    "banner": "Ceci est une simulation avec des reponses pre-ecrites - aucun document n'est vraiment analyse ici.",
+    "documentsTitle": "Documents de l'espace",
+    "documents": [
+      { "name": "rapport_activite_2025.pdf", "type": "pdf" },
+      { "name": "facture_fournisseur_scan.jpg", "type": "image" },
+      { "name": "notes_reunion.md", "type": "text" },
+      { "name": "exemple-clients.com", "type": "web" }
+    ],
+    "suggestions": [
+      {
+        "question": "Quel est le chiffre d'affaires 2025 ?",
+        "answer": "D'apres le rapport d'activite [1], le chiffre d'affaires 2025 s'eleve a 1,2 M€, en hausse de 18% par rapport a 2024.",
+        "sourceIndex": 0
+      },
+      {
+        "question": "Resume les points cles de la reunion.",
+        "answer": "D'apres les notes de reunion [2], trois decisions ont ete prises : ouverture d'un palier Pro, migration vers Stripe, et lancement prevu en septembre.",
+        "sourceIndex": 2
+      },
+      {
+        "question": "Que dit la facture du fournisseur ?",
+        "answer": "Selon la facture scannee [3], le montant total est de 4 320 € TTC, payable sous 30 jours.",
+        "sourceIndex": 1
+      }
+    ],
+    "inputPlaceholder": "Essayez une des questions suggerees ci-dessous",
+    "typing": "en train d'ecrire...",
+    "ctaTitle": "Convaincu ?",
+    "ctaText": "Creez votre compte pour deposer vos propres documents et obtenir de vraies reponses.",
+    "ctaButton": "Creer mon compte gratuitement",
+    "resetLabel": "Recommencer"
   },
   "privacy": {
     "back": "Retour a l'accueil",

@@ -11,6 +11,7 @@
   "nav": {
     "features": "Funktionen",
     "howItWorks": "So funktioniert's",
+    "demo": "Demo",
     "pricing": "Preise",
     "contact": "Kontakt",
     "launchApp": "App starten"
@@ -141,6 +142,43 @@
     "answer": "Laut Vertrag [1] betragt die Laufzeit 12 Monate mit automatischer Verlangerung. Die Kundigungsfrist betragt 30 Tage.",
     "source": "lieferantenvertrag.pdf",
     "typing": "tippt..."
+  },
+  "demoPage": {
+    "back": "Zuruck zur Startseite",
+    "eyebrow": "Demo",
+    "title": "Testen Sie es ohne Konto",
+    "subtitle": "Ein simulierter Arbeitsbereich mit Beispieldokumenten. Klicken Sie auf eine Frage, um zu sehen, wie die KI mit Quellen antwortet.",
+    "banner": "Dies ist eine Simulation mit vorgeschriebenen Antworten - hier wird kein Dokument wirklich analysiert.",
+    "documentsTitle": "Dokumente des Bereichs",
+    "documents": [
+      { "name": "jahresbericht_2025.pdf", "type": "pdf" },
+      { "name": "lieferantenrechnung_scan.jpg", "type": "image" },
+      { "name": "besprechungsnotizen.md", "type": "text" },
+      { "name": "beispiel-kunden.com", "type": "web" }
+    ],
+    "suggestions": [
+      {
+        "question": "Wie hoch war der Umsatz 2025?",
+        "answer": "Laut Jahresbericht [1] erreichte der Umsatz 2025 1,2 Mio. €, ein Plus von 18% gegenuber 2024.",
+        "sourceIndex": 0
+      },
+      {
+        "question": "Fasse die wichtigsten Punkte der Besprechung zusammen.",
+        "answer": "Laut den Besprechungsnotizen [2] wurden drei Entscheidungen getroffen: Einfuhrung einer Pro-Stufe, Umstieg auf Stripe und geplanter Start im September.",
+        "sourceIndex": 2
+      },
+      {
+        "question": "Was steht auf der Lieferantenrechnung?",
+        "answer": "Laut der gescannten Rechnung [3] betragt der Gesamtbetrag 4.320 € inkl. MwSt., zahlbar innerhalb von 30 Tagen.",
+        "sourceIndex": 1
+      }
+    ],
+    "inputPlaceholder": "Probieren Sie unten eine der vorgeschlagenen Fragen aus",
+    "typing": "tippt...",
+    "ctaTitle": "Uberzeugt?",
+    "ctaText": "Erstellen Sie Ihr Konto, um Ihre eigenen Dokumente hochzuladen und echte Antworten zu erhalten.",
+    "ctaButton": "Kostenloses Konto erstellen",
+    "resetLabel": "Zurucksetzen"
   },
   "privacy": {
     "back": "Zuruck zur Startseite",

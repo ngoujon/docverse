@@ -11,6 +11,7 @@
   "nav": {
     "features": "Funciones",
     "howItWorks": "Como funciona",
+    "demo": "Demo",
     "pricing": "Precios",
     "contact": "Contacto",
     "launchApp": "Abrir la app"
@@ -141,6 +142,43 @@
     "answer": "Segun el contrato [1], la duracion es de 12 meses con renovacion automatica. El plazo de preaviso de rescision es de 30 dias.",
     "source": "contrato_proveedor.pdf",
     "typing": "escribiendo..."
+  },
+  "demoPage": {
+    "back": "Volver al inicio",
+    "eyebrow": "Demostracion",
+    "title": "Pruebalo sin crear una cuenta",
+    "subtitle": "Un espacio simulado con documentos de ejemplo. Haz clic en una pregunta para ver como responde la IA con fuentes.",
+    "banner": "Esto es una simulacion con respuestas preescritas - ningun documento se analiza realmente aqui.",
+    "documentsTitle": "Documentos del espacio",
+    "documents": [
+      { "name": "informe_actividad_2025.pdf", "type": "pdf" },
+      { "name": "factura_proveedor_escaneada.jpg", "type": "image" },
+      { "name": "notas_reunion.md", "type": "text" },
+      { "name": "ejemplo-clientes.com", "type": "web" }
+    ],
+    "suggestions": [
+      {
+        "question": "¿Cual fue la facturacion de 2025?",
+        "answer": "Segun el informe de actividad [1], la facturacion 2025 alcanzo 1,2 M€, un 18% mas que en 2024.",
+        "sourceIndex": 0
+      },
+      {
+        "question": "Resume los puntos clave de la reunion.",
+        "answer": "Segun las notas de la reunion [2], se tomaron tres decisiones: lanzar un plan Pro, migrar a Stripe, y un lanzamiento previsto para septiembre.",
+        "sourceIndex": 2
+      },
+      {
+        "question": "¿Que dice la factura del proveedor?",
+        "answer": "Segun la factura escaneada [3], el importe total es de 4.320 € con impuestos incluidos, pagadero en 30 dias.",
+        "sourceIndex": 1
+      }
+    ],
+    "inputPlaceholder": "Prueba una de las preguntas sugeridas abajo",
+    "typing": "escribiendo...",
+    "ctaTitle": "¿Convencido?",
+    "ctaText": "Crea tu cuenta para subir tus propios documentos y obtener respuestas reales.",
+    "ctaButton": "Crear mi cuenta gratis",
+    "resetLabel": "Reiniciar"
   },
   "privacy": {
     "back": "Volver al inicio",

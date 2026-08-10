@@ -11,6 +11,7 @@
   "nav": {
     "features": "Funzionalita",
     "howItWorks": "Come funziona",
+    "demo": "Demo",
     "pricing": "Prezzi",
     "contact": "Contatto",
     "launchApp": "Avvia l'app"
@@ -141,6 +142,43 @@
     "answer": "Secondo il contratto [1], la durata e di 12 mesi con rinnovo automatico. Il preavviso di recesso e di 30 giorni.",
     "source": "contratto_fornitore.pdf",
     "typing": "sta scrivendo..."
+  },
+  "demoPage": {
+    "back": "Torna alla home",
+    "eyebrow": "Demo",
+    "title": "Provalo senza creare un account",
+    "subtitle": "Uno spazio simulato con documenti di esempio. Clicca su una domanda per vedere come l'IA risponde con le fonti.",
+    "banner": "Questa e una simulazione con risposte pre-scritte - nessun documento viene realmente analizzato qui.",
+    "documentsTitle": "Documenti dello spazio",
+    "documents": [
+      { "name": "rapporto_attivita_2025.pdf", "type": "pdf" },
+      { "name": "fattura_fornitore_scan.jpg", "type": "image" },
+      { "name": "note_riunione.md", "type": "text" },
+      { "name": "esempio-clienti.com", "type": "web" }
+    ],
+    "suggestions": [
+      {
+        "question": "Qual e stato il fatturato 2025?",
+        "answer": "Secondo il rapporto di attivita [1], il fatturato 2025 ha raggiunto 1,2 M€, in crescita del 18% rispetto al 2024.",
+        "sourceIndex": 0
+      },
+      {
+        "question": "Riassumi i punti chiave della riunione.",
+        "answer": "Secondo le note della riunione [2], sono state prese tre decisioni: apertura di un piano Pro, migrazione a Stripe e lancio previsto a settembre.",
+        "sourceIndex": 2
+      },
+      {
+        "question": "Cosa dice la fattura del fornitore?",
+        "answer": "Secondo la fattura scansionata [3], l'importo totale e di 4.320 € IVA inclusa, pagabile entro 30 giorni.",
+        "sourceIndex": 1
+      }
+    ],
+    "inputPlaceholder": "Prova una delle domande suggerite qui sotto",
+    "typing": "sta scrivendo...",
+    "ctaTitle": "Convinto?",
+    "ctaText": "Crea il tuo account per caricare i tuoi documenti e ottenere risposte reali.",
+    "ctaButton": "Crea il mio account gratuito",
+    "resetLabel": "Ricomincia"
   },
   "privacy": {
     "back": "Torna alla home",

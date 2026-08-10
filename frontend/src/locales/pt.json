@@ -11,6 +11,7 @@
   "nav": {
     "features": "Funcionalidades",
     "howItWorks": "Como funciona",
+    "demo": "Demo",
     "pricing": "Precos",
     "contact": "Contacto",
     "launchApp": "Abrir a app"
@@ -141,6 +142,43 @@
     "answer": "De acordo com o contrato [1], a duracao e de 12 meses com renovacao automatica. O prazo de aviso previo de rescisao e de 30 dias.",
     "source": "contrato_fornecedor.pdf",
     "typing": "a escrever..."
+  },
+  "demoPage": {
+    "back": "Voltar ao inicio",
+    "eyebrow": "Demonstracao",
+    "title": "Experimente sem criar conta",
+    "subtitle": "Um espaco simulado com documentos de exemplo. Clique numa pergunta para ver como a IA responde com fontes.",
+    "banner": "Isto e uma simulacao com respostas pre-escritas - nenhum documento e realmente analisado aqui.",
+    "documentsTitle": "Documentos do espaco",
+    "documents": [
+      { "name": "relatorio_atividade_2025.pdf", "type": "pdf" },
+      { "name": "fatura_fornecedor_digitalizada.jpg", "type": "image" },
+      { "name": "notas_reuniao.md", "type": "text" },
+      { "name": "exemplo-clientes.com", "type": "web" }
+    ],
+    "suggestions": [
+      {
+        "question": "Qual foi a faturacao de 2025?",
+        "answer": "De acordo com o relatorio de atividade [1], a faturacao de 2025 atingiu 1,2 M€, um aumento de 18% face a 2024.",
+        "sourceIndex": 0
+      },
+      {
+        "question": "Resuma os pontos-chave da reuniao.",
+        "answer": "De acordo com as notas da reuniao [2], foram tomadas tres decisoes: lancamento de um plano Pro, migracao para a Stripe, e lancamento previsto para setembro.",
+        "sourceIndex": 2
+      },
+      {
+        "question": "O que diz a fatura do fornecedor?",
+        "answer": "Segundo a fatura digitalizada [3], o valor total e de 4320 € com impostos incluidos, pagavel em 30 dias.",
+        "sourceIndex": 1
+      }
+    ],
+    "inputPlaceholder": "Experimente uma das perguntas sugeridas abaixo",
+    "typing": "a escrever...",
+    "ctaTitle": "Convencido?",
+    "ctaText": "Crie a sua conta para carregar os seus proprios documentos e obter respostas reais.",
+    "ctaButton": "Criar a minha conta gratuita",
+    "resetLabel": "Recomecar"
   },
   "privacy": {
     "back": "Voltar ao inicio",

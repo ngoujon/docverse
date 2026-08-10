@@ -11,6 +11,7 @@
   "nav": {
     "features": "Features",
     "howItWorks": "How it works",
+    "demo": "Demo",
     "pricing": "Pricing",
     "contact": "Contact",
     "launchApp": "Launch app"
@@ -141,6 +142,43 @@
     "answer": "According to the contract [1], the term is 12 months with automatic renewal. The termination notice period is 30 days.",
     "source": "vendor_contract.pdf",
     "typing": "typing..."
+  },
+  "demoPage": {
+    "back": "Back to home",
+    "eyebrow": "Demo",
+    "title": "Try it without creating an account",
+    "subtitle": "A simulated workspace with sample documents. Click a question to see how the AI answers with sources.",
+    "banner": "This is a simulation with pre-written answers - no document is actually being analyzed here.",
+    "documentsTitle": "Workspace documents",
+    "documents": [
+      { "name": "annual_report_2025.pdf", "type": "pdf" },
+      { "name": "vendor_invoice_scan.jpg", "type": "image" },
+      { "name": "meeting_notes.md", "type": "text" },
+      { "name": "example-clients.com", "type": "web" }
+    ],
+    "suggestions": [
+      {
+        "question": "What was the 2025 revenue?",
+        "answer": "According to the annual report [1], 2025 revenue reached €1.2M, up 18% from 2024.",
+        "sourceIndex": 0
+      },
+      {
+        "question": "Summarize the meeting's key points.",
+        "answer": "According to the meeting notes [2], three decisions were made: launching a Pro tier, migrating to Stripe, and a planned September launch.",
+        "sourceIndex": 2
+      },
+      {
+        "question": "What does the vendor invoice say?",
+        "answer": "According to the scanned invoice [3], the total amount is €4,320 incl. tax, payable within 30 days.",
+        "sourceIndex": 1
+      }
+    ],
+    "inputPlaceholder": "Try one of the suggested questions below",
+    "typing": "typing...",
+    "ctaTitle": "Convinced?",
+    "ctaText": "Create your account to upload your own documents and get real answers.",
+    "ctaButton": "Create my free account",
+    "resetLabel": "Reset"
   },
   "privacy": {
     "back": "Back to home",

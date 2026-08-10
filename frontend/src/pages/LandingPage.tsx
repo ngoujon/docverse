@@ -87,6 +87,12 @@ export default function LandingPage() {
               </a>
             ))}
             <Link
+              to="/demo"
+              className="font-mono text-xs uppercase tracking-wider text-slate-600 transition hover:text-retro-cyan"
+            >
+              {t("nav.demo")}
+            </Link>
+            <Link
               to="/tarifs"
               className="font-mono text-xs uppercase tracking-wider text-slate-600 transition hover:text-retro-cyan"
             >
@@ -134,6 +140,13 @@ export default function LandingPage() {
                   {l.label}
                 </a>
               ))}
+              <Link
+                to="/demo"
+                onClick={() => setMobileMenuOpen(false)}
+                className="font-mono text-xs uppercase tracking-wider text-slate-600"
+              >
+                {t("nav.demo")}
+              </Link>
               <Link
                 to="/tarifs"
                 onClick={() => setMobileMenuOpen(false)}
@@ -220,7 +233,9 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <ChatMockup />
+          <Link to="/demo" className="block transition hover:-translate-y-0.5">
+            <ChatMockup />
+          </Link>
         </div>
       </section>
 
