@@ -3,7 +3,8 @@
     "cancel": "Annuler",
     "save": "Enregistrer",
     "delete": "Supprimer",
-    "confirm": "Confirmer"
+    "confirm": "Confirmer",
+    "loading": "Chargement..."
   },
   "nav": {
     "features": "Fonctionnalites",
@@ -12,9 +13,9 @@
     "launchApp": "Lancer l'app"
   },
   "hero": {
-    "badges": ["100% Local", "Open Source", "Gratuit", "Sans compte"],
+    "badges": ["100% Local", "Open Source", "Gratuit", "Partage sans compte"],
     "title1": "Discutez avec vos documents,",
-    "title2": "en local, sans compte.",
+    "title2": "en local, en equipe.",
     "subtitle": "Deposez vos PDF, images et liens dans des espaces cloisonnes, et interrogez-les avec une IA qui tourne entierement sur votre serveur - via Ollama, sans API cloud ni tracking.",
     "ctaTry": "Essayer maintenant",
     "ctaDiscover": "Decouvrir"
@@ -25,7 +26,7 @@
     "items": [
       {
         "title": "Espaces cloisonnes",
-        "desc": "Chaque espace de travail garde ses documents et conversations pour lui - rien n'est partage entre espaces. Protegez-en un par mot de passe et partagez-le en un clic."
+        "desc": "Chaque espace de travail garde ses documents et conversations pour lui - rien n'est partage entre espaces. Partagez-le avec un lien en lecture seule ou lecture/ecriture, en un clic."
       },
       {
         "title": "Tous vos formats",
@@ -37,7 +38,7 @@
       },
       {
         "title": "Recherche web locale",
-        "desc": "Completez les reponses avec le web via un moteur de recherche auto-heberge, sans traceurs ni cle API."
+        "desc": "L'IA detecte seule quand une question a besoin d'informations recentes et complete ses reponses via un moteur de recherche auto-heberge, sans traceurs ni cle API."
       },
       {
         "title": "File d'attente intelligente",
@@ -53,14 +54,14 @@
     "eyebrow": "Comment ca marche",
     "title": "Trois etapes, zero friction",
     "items": [
-      { "title": "Creez un espace", "desc": "Nommez-le, choisissez une couleur, ajoutez un mot de passe si vous voulez le garder prive." },
+      { "title": "Creez un compte et un espace", "desc": "Inscription gratuite, puis nommez votre espace et choisissez une couleur." },
       { "title": "Deposez vos documents", "desc": "Glissez-deposez PDF, images ou liens web. L'IA les lit et les indexe en arriere-plan." },
-      { "title": "Discutez", "desc": "Posez vos questions, obtenez des reponses sourcees dans vos documents (et le web si besoin)." }
+      { "title": "Discutez et partagez", "desc": "Posez vos questions, obtenez des reponses sourcees, et invitez d'autres personnes via un lien de partage - avec ou sans compte." }
     ]
   },
   "opensource": {
     "title": "Projet libre, gratuit, et local par design",
-    "desc": "Pas de compte, pas d'abonnement, pas de collecte de donnees pour entrainer un modele. Vous hebergez, vous controlez.",
+    "desc": "Comptes gratuits, aucun abonnement, aucune collecte de donnees pour entrainer un modele. Vous hebergez, vous controlez.",
     "cta": "Commencer gratuitement"
   },
   "contact": {
@@ -96,11 +97,11 @@
       },
       {
         "title": "Stockage local (localStorage)",
-        "body": "Lorsque vous deverrouillez un espace de travail protege par mot de passe, un jeton d'acces temporaire est enregistre dans le stockage local de votre navigateur (localStorage), uniquement pour eviter de ressaisir le mot de passe a chaque page. Il n'est jamais transmis a un tiers et expire automatiquement. Vous pouvez l'effacer a tout moment en videant les donnees du site dans votre navigateur."
+        "body": "Votre session (une fois connecte) et les liens de partage que vous utilisez sont enregistres dans le stockage local de votre navigateur (localStorage), uniquement pour eviter de vous reconnecter a chaque page. Ils ne sont jamais transmis a un tiers. Vous pouvez les effacer a tout moment en videant les donnees du site dans votre navigateur."
       },
       {
-        "title": "Vos documents et conversations",
-        "body": "Les documents que vous deposez, leur contenu indexe et vos conversations restent stockes uniquement sur le serveur qui heberge cette instance (base de donnees et base vectorielle locales). Rien n'est envoye a un service d'IA cloud tiers : le traitement (lecture, indexation, generation des reponses) est effectue localement via Ollama."
+        "title": "Compte et donnees d'espace",
+        "body": "Votre email et votre mot de passe (chiffre) sont necessaires pour creer un compte. Les documents que vous deposez, leur contenu indexe et vos conversations restent stockes uniquement sur le serveur qui heberge cette instance (base de donnees et base vectorielle locales). Rien n'est envoye a un service d'IA cloud tiers sans configuration explicite : le traitement (lecture, indexation, generation des reponses) est effectue localement via Ollama, ou via le fournisseur cloud que l'administrateur de l'instance a choisi de configurer."
       },
       {
         "title": "Formulaire de contact",
@@ -108,6 +109,126 @@
       }
     ],
     "footnote": "Cette page decrit le fonctionnement du logiciel tel que fourni. L'organisation qui heberge cette instance reste responsable du traitement des donnees qu'elle collecte via ce site."
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Mot de passe",
+    "displayName": "Nom affiche (optionnel)",
+    "strength": {
+      "veryWeak": "Tres faible",
+      "weak": "Faible",
+      "medium": "Moyen",
+      "strong": "Fort",
+      "veryStrong": "Tres fort"
+    },
+    "login": {
+      "title": "Connexion",
+      "subtitle": "Accedez a vos espaces de travail.",
+      "forgot": "Mot de passe oublie ?",
+      "noAccount": "Pas encore de compte ?",
+      "registerLink": "Creer un compte",
+      "submit": "Se connecter",
+      "submitting": "Connexion..."
+    },
+    "register": {
+      "title": "Creer un compte",
+      "subtitle": "Gratuit, en quelques secondes.",
+      "hasAccount": "Deja un compte ?",
+      "loginLink": "Se connecter",
+      "passwordHint": "8 caracteres minimum.",
+      "submit": "Creer mon compte",
+      "submitting": "Creation..."
+    },
+    "forgot": {
+      "title": "Mot de passe oublie",
+      "subtitle": "On vous envoie un lien de reinitialisation par email.",
+      "sent": "Si un compte existe avec cet email, un lien de reinitialisation vient d'etre envoye.",
+      "backToLogin": "Retour a la connexion",
+      "submit": "Envoyer le lien",
+      "submitting": "Envoi..."
+    },
+    "reset": {
+      "title": "Nouveau mot de passe",
+      "subtitle": "Choisissez un nouveau mot de passe.",
+      "missingToken": "Lien de reinitialisation invalide.",
+      "newPassword": "Nouveau mot de passe",
+      "success": "Votre mot de passe a ete mis a jour.",
+      "goToLogin": "Se connecter",
+      "submit": "Reinitialiser le mot de passe",
+      "submitting": "Enregistrement..."
+    }
+  },
+  "captcha": {
+    "loading": "Chargement de la verification...",
+    "solving": "Verification anti-robot en cours...",
+    "ready": "Verification reussie",
+    "error": "Verification indisponible, reessayez"
+  },
+  "newsletter": {
+    "backHome": "Retour a l'accueil",
+    "confirm": {
+      "title": "Confirmation newsletter",
+      "success": "Votre inscription a la newsletter est confirmee.",
+      "error": "Lien de confirmation invalide ou expire."
+    },
+    "unsubscribe": {
+      "title": "Desinscription newsletter",
+      "success": "Vous avez ete desinscrit de la newsletter.",
+      "error": "Lien de desinscription invalide."
+    },
+    "signup": {
+      "placeholder": "vous@exemple.com",
+      "submit": "S'inscrire",
+      "done": "Merci ! Verifiez vos emails pour confirmer.",
+      "error": "Une erreur est survenue, reessayez."
+    }
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "greeting": "Bonjour, {{name}}",
+    "nav": {
+      "workspace": "Mes espaces",
+      "admin": "Administration",
+      "logout": "Se deconnecter"
+    },
+    "kpi": {
+      "owned": "Espaces possedes",
+      "shared": "Partages avec moi",
+      "documents": "Documents",
+      "conversations": "Conversations",
+      "messages": "Messages",
+      "storage": "Stockage"
+    },
+    "mySpaces": "Mes espaces de travail",
+    "newSpace": "Nouvel espace",
+    "noSpaces": "Vous n'avez pas encore d'espace de travail.",
+    "spaceCounts": "{{docs}} documents · {{convs}} conversations"
+  },
+  "admin": {
+    "title": "Administration",
+    "kpi": {
+      "users": "Utilisateurs",
+      "spaces": "Espaces",
+      "documents": "Documents",
+      "messages": "Messages",
+      "storage": "Stockage",
+      "newsletter": "Abonnes newsletter",
+      "newUsers7d": "Nouveaux comptes (7j)",
+      "newSpaces7d": "Nouveaux espaces (7j)"
+    },
+    "tabs": {
+      "users": "Utilisateurs",
+      "spaces": "Espaces"
+    },
+    "table": {
+      "email": "Email",
+      "displayName": "Nom",
+      "role": "Role",
+      "createdAt": "Cree le",
+      "name": "Nom",
+      "documents": "Documents",
+      "conversations": "Conversations"
+    }
   },
   "app": {
     "spaceRail": {
@@ -121,7 +242,8 @@
       "deleteSpace": "Supprimer l'espace",
       "newConversation": "Nouvelle conversation",
       "noConversations": "Aucune conversation pour l'instant.",
-      "shareTitle": "Copier le lien de partage de cet espace",
+      "shareTitle": "Partage et membres",
+      "readOnly": "Lecture seule",
       "justNow": "a l'instant",
       "minutesAgo": "il y a {{count}} min",
       "hoursAgo": "il y a {{count}} h",
@@ -136,6 +258,7 @@
       "queuedPosition": " ({{count}} devant vous)",
       "queuedSuffix": " - le serveur traite une requete a la fois",
       "placeholder": "Ecrivez votre message...",
+      "readOnly": "Acces en lecture seule - vous ne pouvez pas ecrire dans cet espace.",
       "errorGeneric": "Une erreur est survenue pendant la generation ({{error}}). Verifiez qu'Ollama est bien demarre et que les modeles sont telecharges.",
       "connectionError": "Erreur de connexion au serveur."
     },
@@ -160,20 +283,27 @@
       "description": "Description (optionnel)",
       "descriptionPlaceholder": "A quoi sert cet espace ?",
       "color": "Couleur",
-      "password": "Mot de passe (optionnel)",
-      "passwordPlaceholderKeep": "Laisser vide pour ne pas changer",
-      "passwordPlaceholderNew": "Laisser vide pour un espace ouvert a tous",
-      "removePassword": "Retirer le mot de passe (rendre l'espace ouvert a tous)",
-      "helper": "Toute personne avec le mot de passe (ou le lien de partage, une fois deverrouille) pourra consulter et utiliser cet espace.",
       "save": "Enregistrer",
       "create": "Creer l'espace"
     },
-    "passwordPrompt": {
-      "title": "Espace protege",
-      "body": "L'espace « {{name}} » est protege par un mot de passe. Saisissez-le pour y acceder.",
-      "placeholder": "Mot de passe",
-      "verifying": "Verification...",
-      "unlock": "Deverrouiller"
+    "sharing": {
+      "title": "Partage - {{name}}",
+      "owner": "Proprietaire",
+      "editor": "Editeur",
+      "viewer": "Lecteur",
+      "linksTitle": "Liens de partage",
+      "linksHelp": "Un lien de partage donne acces a cet espace, avec le role choisi, sans compte requis.",
+      "labelPlaceholder": "Nom du lien (optionnel)",
+      "createLink": "Creer",
+      "noLinks": "Aucun lien de partage pour l'instant.",
+      "unnamedLink": "Lien sans nom",
+      "revoked": "Revoque",
+      "copy": "Copier",
+      "membersTitle": "Membres",
+      "membersHelp": "Ajoutez un utilisateur ayant deja un compte comme collaborateur sur cet espace.",
+      "emailPlaceholder": "email@exemple.com",
+      "addMember": "Ajouter",
+      "noMembers": "Aucun membre pour l'instant."
     },
     "confirmDeleteSpace": {
       "title": "Supprimer cet espace ?",
@@ -184,9 +314,11 @@
       "message": "Cette action est irreversible."
     },
     "workspace": {
-      "locked": "Cet espace est protege par un mot de passe.",
       "createFirstSpace": "Creez votre premier espace de travail pour commencer.",
       "newSpace": "Nouvel espace"
+    },
+    "share": {
+      "invalid": "Ce lien de partage est invalide, revoque ou expire."
     }
   }
 }

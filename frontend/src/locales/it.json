@@ -3,7 +3,8 @@
     "cancel": "Annulla",
     "save": "Salva",
     "delete": "Elimina",
-    "confirm": "Conferma"
+    "confirm": "Conferma",
+    "loading": "Caricamento..."
   },
   "nav": {
     "features": "Funzionalita",
@@ -12,9 +13,9 @@
     "launchApp": "Avvia l'app"
   },
   "hero": {
-    "badges": ["100% Locale", "Open Source", "Gratuito", "Senza account"],
+    "badges": ["100% Locale", "Open Source", "Gratuito", "Condivisione senza account"],
     "title1": "Chatta con i tuoi documenti,",
-    "title2": "in locale, senza account.",
+    "title2": "in locale, in team.",
     "subtitle": "Carica i tuoi PDF, immagini e link in spazi isolati, e interrogali con un'IA che gira interamente sul tuo server - via Ollama, senza API cloud ne tracciamento.",
     "ctaTry": "Prova ora",
     "ctaDiscover": "Scopri di piu"
@@ -25,7 +26,7 @@
     "items": [
       {
         "title": "Spazi isolati",
-        "desc": "Ogni spazio di lavoro conserva i propri documenti e conversazioni solo per se - niente viene condiviso tra spazi. Proteggine uno con una password e condividilo con un clic."
+        "desc": "Ogni spazio di lavoro conserva i propri documenti e conversazioni solo per se - niente viene condiviso tra spazi. Condividilo con un link di sola lettura o lettura/scrittura, con un clic."
       },
       {
         "title": "Tutti i formati",
@@ -37,7 +38,7 @@
       },
       {
         "title": "Ricerca web locale",
-        "desc": "Completa le risposte con il web tramite un motore di ricerca self-hosted, senza tracker ne chiave API."
+        "desc": "L'IA capisce da sola quando una domanda richiede informazioni recenti e completa le risposte tramite un motore di ricerca self-hosted, senza tracker ne chiave API."
       },
       {
         "title": "Coda di richieste intelligente",
@@ -53,14 +54,14 @@
     "eyebrow": "Come funziona",
     "title": "Tre passaggi, zero attriti",
     "items": [
-      { "title": "Crea uno spazio", "desc": "Dagli un nome, scegli un colore, aggiungi una password se vuoi tenerlo privato." },
+      { "title": "Crea un account e uno spazio", "desc": "Registrazione gratuita, poi dai un nome al tuo spazio e scegli un colore." },
       { "title": "Carica i tuoi documenti", "desc": "Trascina e rilascia PDF, immagini o link web. L'IA li legge e li indicizza in background." },
-      { "title": "Chatta", "desc": "Fai le tue domande, ottieni risposte con fonti dai tuoi documenti (e dal web se necessario)." }
+      { "title": "Chatta e condividi", "desc": "Fai le tue domande, ottieni risposte con fonti, e invita altre persone tramite un link di condivisione - con o senza account." }
     ]
   },
   "opensource": {
     "title": "Progetto libero, gratuito e locale by design",
-    "desc": "Nessun account, nessun abbonamento, nessuna raccolta dati per addestrare un modello. Tu lo ospiti, tu lo controlli.",
+    "desc": "Account gratuiti, nessun abbonamento, nessuna raccolta dati per addestrare un modello. Tu lo ospiti, tu lo controlli.",
     "cta": "Inizia gratis"
   },
   "contact": {
@@ -96,11 +97,11 @@
       },
       {
         "title": "Archiviazione locale (localStorage)",
-        "body": "Quando sblocchi uno spazio di lavoro protetto da password, un token di accesso temporaneo viene salvato nell'archiviazione locale del tuo browser (localStorage), solo per evitare di reinserire la password a ogni pagina. Non viene mai trasmesso a terzi e scade automaticamente. Puoi cancellarlo in qualsiasi momento svuotando i dati del sito nel tuo browser."
+        "body": "La tua sessione (una volta effettuato l'accesso) e i link di condivisione che utilizzi vengono salvati nell'archiviazione locale del tuo browser (localStorage), solo per evitare di accedere di nuovo a ogni pagina. Non vengono mai trasmessi a terzi. Puoi cancellarli in qualsiasi momento svuotando i dati del sito nel tuo browser."
       },
       {
-        "title": "I tuoi documenti e conversazioni",
-        "body": "I documenti che carichi, il loro contenuto indicizzato e le tue conversazioni restano memorizzati solo sul server che ospita questa istanza (database e database vettoriale locali). Nulla viene inviato a un servizio IA cloud di terzi: l'elaborazione (lettura, indicizzazione, generazione delle risposte) avviene localmente tramite Ollama."
+        "title": "Account e dati dello spazio",
+        "body": "La tua email e la tua password (cifrata) sono necessarie per creare un account. I documenti che carichi, il loro contenuto indicizzato e le tue conversazioni restano memorizzati solo sul server che ospita questa istanza (database e database vettoriale locali). Senza configurazione esplicita, nulla viene inviato a un servizio IA cloud di terzi: l'elaborazione (lettura, indicizzazione, generazione delle risposte) avviene localmente tramite Ollama, oppure tramite il fornitore cloud che l'amministratore di questa istanza ha scelto di configurare."
       },
       {
         "title": "Modulo di contatto",
@@ -108,6 +109,126 @@
       }
     ],
     "footnote": "Questa pagina descrive il funzionamento del software cosi come fornito. L'organizzazione che ospita questa istanza rimane responsabile del trattamento dei dati che raccoglie tramite questo sito."
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "displayName": "Nome visualizzato (opzionale)",
+    "strength": {
+      "veryWeak": "Molto debole",
+      "weak": "Debole",
+      "medium": "Media",
+      "strong": "Forte",
+      "veryStrong": "Molto forte"
+    },
+    "login": {
+      "title": "Accedi",
+      "subtitle": "Accedi ai tuoi spazi di lavoro.",
+      "forgot": "Password dimenticata?",
+      "noAccount": "Non hai ancora un account?",
+      "registerLink": "Crea un account",
+      "submit": "Accedi",
+      "submitting": "Accesso in corso..."
+    },
+    "register": {
+      "title": "Crea un account",
+      "subtitle": "Gratuito, in pochi secondi.",
+      "hasAccount": "Hai gia un account?",
+      "loginLink": "Accedi",
+      "passwordHint": "Almeno 8 caratteri.",
+      "submit": "Crea il mio account",
+      "submitting": "Creazione..."
+    },
+    "forgot": {
+      "title": "Password dimenticata",
+      "subtitle": "Ti inviamo un link di reimpostazione via email.",
+      "sent": "Se esiste un account con questa email, un link di reimpostazione e stato appena inviato.",
+      "backToLogin": "Torna all'accesso",
+      "submit": "Invia link",
+      "submitting": "Invio..."
+    },
+    "reset": {
+      "title": "Nuova password",
+      "subtitle": "Scegli una nuova password.",
+      "missingToken": "Link di reimpostazione non valido.",
+      "newPassword": "Nuova password",
+      "success": "La tua password e stata aggiornata.",
+      "goToLogin": "Accedi",
+      "submit": "Reimposta password",
+      "submitting": "Salvataggio..."
+    }
+  },
+  "captcha": {
+    "loading": "Caricamento verifica...",
+    "solving": "Verifica anti-robot in corso...",
+    "ready": "Verifica superata",
+    "error": "Verifica non disponibile, riprova"
+  },
+  "newsletter": {
+    "backHome": "Torna alla home",
+    "confirm": {
+      "title": "Conferma newsletter",
+      "success": "La tua iscrizione alla newsletter e confermata.",
+      "error": "Link di conferma non valido o scaduto."
+    },
+    "unsubscribe": {
+      "title": "Annulla iscrizione",
+      "success": "Sei stato disiscritto dalla newsletter.",
+      "error": "Link di annullamento non valido."
+    },
+    "signup": {
+      "placeholder": "tu@esempio.com",
+      "submit": "Iscriviti",
+      "done": "Grazie! Controlla la tua email per confermare.",
+      "error": "Si e verificato un errore, riprova."
+    }
+  },
+  "dashboard": {
+    "title": "Pannello",
+    "greeting": "Ciao, {{name}}",
+    "nav": {
+      "workspace": "I miei spazi",
+      "admin": "Amministrazione",
+      "logout": "Esci"
+    },
+    "kpi": {
+      "owned": "Spazi posseduti",
+      "shared": "Condivisi con me",
+      "documents": "Documenti",
+      "conversations": "Conversazioni",
+      "messages": "Messaggi",
+      "storage": "Archiviazione"
+    },
+    "mySpaces": "I miei spazi di lavoro",
+    "newSpace": "Nuovo spazio",
+    "noSpaces": "Non hai ancora nessuno spazio di lavoro.",
+    "spaceCounts": "{{docs}} documenti · {{convs}} conversazioni"
+  },
+  "admin": {
+    "title": "Amministrazione",
+    "kpi": {
+      "users": "Utenti",
+      "spaces": "Spazi",
+      "documents": "Documenti",
+      "messages": "Messaggi",
+      "storage": "Archiviazione",
+      "newsletter": "Iscritti newsletter",
+      "newUsers7d": "Nuovi account (7g)",
+      "newSpaces7d": "Nuovi spazi (7g)"
+    },
+    "tabs": {
+      "users": "Utenti",
+      "spaces": "Spazi"
+    },
+    "table": {
+      "email": "Email",
+      "displayName": "Nome",
+      "role": "Ruolo",
+      "createdAt": "Creato",
+      "name": "Nome",
+      "documents": "Documenti",
+      "conversations": "Conversazioni"
+    }
   },
   "app": {
     "spaceRail": {
@@ -121,7 +242,8 @@
       "deleteSpace": "Elimina spazio",
       "newConversation": "Nuova conversazione",
       "noConversations": "Ancora nessuna conversazione.",
-      "shareTitle": "Copia il link di condivisione di questo spazio",
+      "shareTitle": "Condivisione e membri",
+      "readOnly": "Sola lettura",
       "justNow": "proprio ora",
       "minutesAgo": "{{count}} min fa",
       "hoursAgo": "{{count}} h fa",
@@ -136,6 +258,7 @@
       "queuedPosition": " ({{count}} davanti a te)",
       "queuedSuffix": " - il server elabora una richiesta alla volta",
       "placeholder": "Scrivi il tuo messaggio...",
+      "readOnly": "Accesso in sola lettura - non puoi scrivere in questo spazio.",
       "errorGeneric": "Si e verificato un errore durante la generazione della risposta ({{error}}). Verifica che Ollama sia avviato e che i modelli siano scaricati.",
       "connectionError": "Errore di connessione al server."
     },
@@ -160,20 +283,27 @@
       "description": "Descrizione (opzionale)",
       "descriptionPlaceholder": "A cosa serve questo spazio?",
       "color": "Colore",
-      "password": "Password (opzionale)",
-      "passwordPlaceholderKeep": "Lascia vuoto per non modificarla",
-      "passwordPlaceholderNew": "Lascia vuoto per uno spazio aperto a tutti",
-      "removePassword": "Rimuovi la password (apri lo spazio a tutti)",
-      "helper": "Chiunque abbia la password (o il link di condivisione, una volta sbloccato) potra consultare e usare questo spazio.",
       "save": "Salva",
       "create": "Crea spazio"
     },
-    "passwordPrompt": {
-      "title": "Spazio protetto",
-      "body": "Lo spazio «{{name}}» e protetto da password. Inseriscila per accedervi.",
-      "placeholder": "Password",
-      "verifying": "Verifica in corso...",
-      "unlock": "Sblocca"
+    "sharing": {
+      "title": "Condivisione - {{name}}",
+      "owner": "Proprietario",
+      "editor": "Editor",
+      "viewer": "Lettore",
+      "linksTitle": "Link di condivisione",
+      "linksHelp": "Un link di condivisione da accesso a questo spazio, con il ruolo scelto, senza bisogno di account.",
+      "labelPlaceholder": "Nome del link (opzionale)",
+      "createLink": "Crea",
+      "noLinks": "Ancora nessun link di condivisione.",
+      "unnamedLink": "Link senza nome",
+      "revoked": "Revocato",
+      "copy": "Copia",
+      "membersTitle": "Membri",
+      "membersHelp": "Aggiungi un utente che ha gia un account come collaboratore su questo spazio.",
+      "emailPlaceholder": "email@esempio.com",
+      "addMember": "Aggiungi",
+      "noMembers": "Ancora nessun membro."
     },
     "confirmDeleteSpace": {
       "title": "Eliminare questo spazio?",
@@ -184,9 +314,11 @@
       "message": "Questa azione non puo essere annullata."
     },
     "workspace": {
-      "locked": "Questo spazio e protetto da password.",
       "createFirstSpace": "Crea il tuo primo spazio di lavoro per iniziare.",
       "newSpace": "Nuovo spazio"
+    },
+    "share": {
+      "invalid": "Questo link di condivisione non e valido, e stato revocato o e scaduto."
     }
   }
 }

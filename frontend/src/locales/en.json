@@ -3,7 +3,8 @@
     "cancel": "Cancel",
     "save": "Save",
     "delete": "Delete",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "loading": "Loading..."
   },
   "nav": {
     "features": "Features",
@@ -12,9 +13,9 @@
     "launchApp": "Launch app"
   },
   "hero": {
-    "badges": ["100% Local", "Open Source", "Free", "No account"],
+    "badges": ["100% Local", "Open Source", "Free", "Share without an account"],
     "title1": "Chat with your documents,",
-    "title2": "locally, no account needed.",
+    "title2": "locally, as a team.",
     "subtitle": "Drop your PDFs, images and links into isolated spaces, and query them with an AI that runs entirely on your own server - via Ollama, no cloud API, no tracking.",
     "ctaTry": "Try it now",
     "ctaDiscover": "Discover"
@@ -25,7 +26,7 @@
     "items": [
       {
         "title": "Isolated spaces",
-        "desc": "Each workspace keeps its documents and conversations to itself - nothing is shared between spaces. Protect one with a password and share it in one click."
+        "desc": "Each workspace keeps its documents and conversations to itself - nothing is shared between spaces. Share one with a read-only or read-write link, in one click."
       },
       {
         "title": "Every format",
@@ -37,7 +38,7 @@
       },
       {
         "title": "Local web search",
-        "desc": "Complete answers with the web via a self-hosted search engine, no trackers, no API key."
+        "desc": "The AI detects on its own when a question needs up-to-date information and completes its answers via a self-hosted search engine, no trackers, no API key."
       },
       {
         "title": "Smart request queue",
@@ -53,14 +54,14 @@
     "eyebrow": "How it works",
     "title": "Three steps, zero friction",
     "items": [
-      { "title": "Create a space", "desc": "Name it, pick a color, add a password if you want to keep it private." },
+      { "title": "Create an account and a space", "desc": "Free sign-up, then name your space and pick a color." },
       { "title": "Drop your documents", "desc": "Drag and drop PDFs, images or web links. The AI reads and indexes them in the background." },
-      { "title": "Chat", "desc": "Ask your questions, get answers sourced from your documents (and the web if needed)." }
+      { "title": "Chat and share", "desc": "Ask your questions, get sourced answers, and invite others via a share link - with or without an account." }
     ]
   },
   "opensource": {
     "title": "Free, open, and local by design",
-    "desc": "No account, no subscription, no data collected to train a model. You host it, you control it.",
+    "desc": "Free accounts, no subscription, no data collected to train a model. You host it, you control it.",
     "cta": "Get started for free"
   },
   "contact": {
@@ -96,11 +97,11 @@
       },
       {
         "title": "Local storage (localStorage)",
-        "body": "When you unlock a password-protected workspace, a temporary access token is saved in your browser's local storage (localStorage), solely to avoid re-entering the password on every page. It is never sent to a third party and expires automatically. You can clear it at any time by clearing this site's data in your browser."
+        "body": "Your session (once logged in) and any share links you use are saved in your browser's local storage (localStorage), solely to avoid logging in again on every page. They are never sent to a third party. You can clear them at any time by clearing this site's data in your browser."
       },
       {
-        "title": "Your documents and conversations",
-        "body": "The documents you upload, their indexed content, and your conversations are stored only on the server hosting this instance (local database and vector store). Nothing is sent to a third-party cloud AI service: processing (reading, indexing, generating answers) happens locally via Ollama."
+        "title": "Account and workspace data",
+        "body": "Your email and (encrypted) password are required to create an account. The documents you upload, their indexed content, and your conversations are stored only on the server hosting this instance (local database and vector store). Nothing is sent to a third-party cloud AI service without explicit configuration: processing (reading, indexing, generating answers) happens locally via Ollama, or via whichever cloud provider this instance's administrator chose to configure."
       },
       {
         "title": "Contact form",
@@ -108,6 +109,126 @@
       }
     ],
     "footnote": "This page describes how the software works as provided. The organization hosting this instance remains responsible for the data it collects through this site."
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "displayName": "Display name (optional)",
+    "strength": {
+      "veryWeak": "Very weak",
+      "weak": "Weak",
+      "medium": "Medium",
+      "strong": "Strong",
+      "veryStrong": "Very strong"
+    },
+    "login": {
+      "title": "Log in",
+      "subtitle": "Access your workspaces.",
+      "forgot": "Forgot password?",
+      "noAccount": "No account yet?",
+      "registerLink": "Create an account",
+      "submit": "Log in",
+      "submitting": "Logging in..."
+    },
+    "register": {
+      "title": "Create an account",
+      "subtitle": "Free, takes a few seconds.",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Log in",
+      "passwordHint": "At least 8 characters.",
+      "submit": "Create my account",
+      "submitting": "Creating..."
+    },
+    "forgot": {
+      "title": "Forgot password",
+      "subtitle": "We'll email you a reset link.",
+      "sent": "If an account exists with that email, a reset link was just sent.",
+      "backToLogin": "Back to login",
+      "submit": "Send reset link",
+      "submitting": "Sending..."
+    },
+    "reset": {
+      "title": "New password",
+      "subtitle": "Choose a new password.",
+      "missingToken": "Invalid reset link.",
+      "newPassword": "New password",
+      "success": "Your password has been updated.",
+      "goToLogin": "Log in",
+      "submit": "Reset password",
+      "submitting": "Saving..."
+    }
+  },
+  "captcha": {
+    "loading": "Loading verification...",
+    "solving": "Running anti-bot verification...",
+    "ready": "Verification passed",
+    "error": "Verification unavailable, please retry"
+  },
+  "newsletter": {
+    "backHome": "Back to home",
+    "confirm": {
+      "title": "Newsletter confirmation",
+      "success": "Your newsletter subscription is confirmed.",
+      "error": "Invalid or expired confirmation link."
+    },
+    "unsubscribe": {
+      "title": "Newsletter unsubscribe",
+      "success": "You've been unsubscribed from the newsletter.",
+      "error": "Invalid unsubscribe link."
+    },
+    "signup": {
+      "placeholder": "you@example.com",
+      "submit": "Subscribe",
+      "done": "Thanks! Check your email to confirm.",
+      "error": "Something went wrong, please retry."
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "greeting": "Hello, {{name}}",
+    "nav": {
+      "workspace": "My spaces",
+      "admin": "Admin",
+      "logout": "Log out"
+    },
+    "kpi": {
+      "owned": "Owned spaces",
+      "shared": "Shared with me",
+      "documents": "Documents",
+      "conversations": "Conversations",
+      "messages": "Messages",
+      "storage": "Storage"
+    },
+    "mySpaces": "My workspaces",
+    "newSpace": "New space",
+    "noSpaces": "You don't have any workspace yet.",
+    "spaceCounts": "{{docs}} documents · {{convs}} conversations"
+  },
+  "admin": {
+    "title": "Admin",
+    "kpi": {
+      "users": "Users",
+      "spaces": "Spaces",
+      "documents": "Documents",
+      "messages": "Messages",
+      "storage": "Storage",
+      "newsletter": "Newsletter subscribers",
+      "newUsers7d": "New accounts (7d)",
+      "newSpaces7d": "New spaces (7d)"
+    },
+    "tabs": {
+      "users": "Users",
+      "spaces": "Spaces"
+    },
+    "table": {
+      "email": "Email",
+      "displayName": "Name",
+      "role": "Role",
+      "createdAt": "Created",
+      "name": "Name",
+      "documents": "Documents",
+      "conversations": "Conversations"
+    }
   },
   "app": {
     "spaceRail": {
@@ -121,7 +242,8 @@
       "deleteSpace": "Delete space",
       "newConversation": "New conversation",
       "noConversations": "No conversations yet.",
-      "shareTitle": "Copy this space's share link",
+      "shareTitle": "Sharing and members",
+      "readOnly": "Read only",
       "justNow": "just now",
       "minutesAgo": "{{count}} min ago",
       "hoursAgo": "{{count}} h ago",
@@ -136,6 +258,7 @@
       "queuedPosition": " ({{count}} ahead of you)",
       "queuedSuffix": " - the server processes one request at a time",
       "placeholder": "Type your message...",
+      "readOnly": "Read-only access - you can't write in this space.",
       "errorGeneric": "An error occurred while generating the response ({{error}}). Check that Ollama is running and the models are downloaded.",
       "connectionError": "Connection error with the server."
     },
@@ -160,20 +283,27 @@
       "description": "Description (optional)",
       "descriptionPlaceholder": "What is this space for?",
       "color": "Color",
-      "password": "Password (optional)",
-      "passwordPlaceholderKeep": "Leave empty to keep unchanged",
-      "passwordPlaceholderNew": "Leave empty for a space open to everyone",
-      "removePassword": "Remove password (open the space to everyone)",
-      "helper": "Anyone with the password (or the share link, once unlocked) will be able to view and use this space.",
       "save": "Save",
       "create": "Create space"
     },
-    "passwordPrompt": {
-      "title": "Protected space",
-      "body": "The space \"{{name}}\" is password-protected. Enter the password to access it.",
-      "placeholder": "Password",
-      "verifying": "Checking...",
-      "unlock": "Unlock"
+    "sharing": {
+      "title": "Sharing - {{name}}",
+      "owner": "Owner",
+      "editor": "Editor",
+      "viewer": "Viewer",
+      "linksTitle": "Share links",
+      "linksHelp": "A share link grants access to this space, with the chosen role, no account required.",
+      "labelPlaceholder": "Link name (optional)",
+      "createLink": "Create",
+      "noLinks": "No share links yet.",
+      "unnamedLink": "Unnamed link",
+      "revoked": "Revoked",
+      "copy": "Copy",
+      "membersTitle": "Members",
+      "membersHelp": "Add a user who already has an account as a collaborator on this space.",
+      "emailPlaceholder": "email@example.com",
+      "addMember": "Add",
+      "noMembers": "No members yet."
     },
     "confirmDeleteSpace": {
       "title": "Delete this space?",
@@ -184,9 +314,11 @@
       "message": "This action cannot be undone."
     },
     "workspace": {
-      "locked": "This space is password-protected.",
       "createFirstSpace": "Create your first workspace to get started.",
       "newSpace": "New space"
+    },
+    "share": {
+      "invalid": "This share link is invalid, revoked, or expired."
     }
   }
 }

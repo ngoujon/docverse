@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { X, Eye, EyeOff, Lock } from "lucide-react";
+import { X } from "lucide-react";
 import type { Space } from "../types";
 
 const COLORS = [
@@ -18,7 +18,6 @@ export interface SpaceFormData {
   name: string;
   description: string;
   color: string;
-  password?: string;
 }
 
 interface Props {
@@ -33,26 +32,14 @@ export default function SpaceModal({ open, initial, onClose, onSubmit }: Props) 
   const [name, setName] = useState(initial?.name ?? "");
   const [description, setDescription] = useState(initial?.description ?? "");
   const [color, setColor] = useState(initial?.color ?? COLORS[0]);
-  const [password, setPassword] = useState("");
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const [removePassword, setRemovePassword] = useState(false);
 
   if (!open) return null;
 
   const isEdit = !!initial;
-  const hadPassword = !!initial?.has_password;
 
   const handleSubmit = () => {
     if (!name.trim()) return;
-    const data: SpaceFormData = { name: name.trim(), description: description.trim(), color };
-    if (!isEdit) {
-      if (password) data.password = password;
-    } else if (removePassword) {
-      data.password = "";
-    } else if (password) {
-      data.password = password;
-    }
-    onSubmit(data);
+    onSubmit({ name: name.trim(), description: description.trim(), color });
   };
 
   return (
@@ -112,47 +99,6 @@ export default function SpaceModal({ open, initial, onClose, onSubmit }: Props) 
                 />
               ))}
             </div>
-          </div>
-
-          <div>
-            <label className="mb-1 flex items-center gap-1.5 text-xs font-medium text-slate-600 dark:text-slate-400">
-              <Lock size={12} />
-              {t("app.spaceModal.password")}
-            </label>
-            <div className="relative">
-              <input
-                type={passwordVisible ? "text" : "password"}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                disabled={isEdit && removePassword}
-                placeholder={
-                  isEdit && hadPassword
-                    ? t("app.spaceModal.passwordPlaceholderKeep")
-                    : t("app.spaceModal.passwordPlaceholderNew")
-                }
-                className="w-full rounded-lg border border-surface-border bg-surface-1 px-3 py-2 pr-9 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none focus:border-accent disabled:opacity-40"
-              />
-              <button
-                type="button"
-                onClick={() => setPasswordVisible((v) => !v)}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
-                tabIndex={-1}
-              >
-                {passwordVisible ? <EyeOff size={15} /> : <Eye size={15} />}
-              </button>
-            </div>
-            {isEdit && hadPassword && (
-              <label className="mt-1.5 flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
-                <input
-                  type="checkbox"
-                  checked={removePassword}
-                  onChange={(e) => setRemovePassword(e.target.checked)}
-                  className="accent-accent"
-                />
-                {t("app.spaceModal.removePassword")}
-              </label>
-            )}
-            <p className="mt-1 text-[11px] text-slate-600 dark:text-slate-400">{t("app.spaceModal.helper")}</p>
           </div>
         </div>
 

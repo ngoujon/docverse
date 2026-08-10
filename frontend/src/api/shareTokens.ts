@@ -1,4 +1,9 @@
-const STORAGE_KEY = "open-rag:space-tokens";
+// Share-link tokens (X-Share-Token) let an anonymous visitor access one
+// space at a role fixed by whoever generated the link - replaces the old
+// per-space password/unlock-token flow entirely. Keyed by space id so a
+// visitor who followed links to several shared spaces keeps access to all
+// of them.
+const STORAGE_KEY = "open-rag:share-tokens";
 
 function readAll(): Record<string, string> {
   try {
@@ -17,17 +22,17 @@ function writeAll(tokens: Record<string, string>) {
   }
 }
 
-export function getSpaceToken(spaceId: string): string | null {
+export function getShareToken(spaceId: string): string | null {
   return readAll()[spaceId] ?? null;
 }
 
-export function setSpaceToken(spaceId: string, token: string) {
+export function setShareToken(spaceId: string, token: string) {
   const tokens = readAll();
   tokens[spaceId] = token;
   writeAll(tokens);
 }
 
-export function clearSpaceToken(spaceId: string) {
+export function clearShareToken(spaceId: string) {
   const tokens = readAll();
   delete tokens[spaceId];
   writeAll(tokens);

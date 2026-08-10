@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Send, PanelRight, Sparkles, Menu, Loader2 } from "lucide-react";
+import { Send, PanelRight, Sparkles, Menu, Loader2, Eye } from "lucide-react";
 import clsx from "clsx";
 import type { Conversation, Message, Space } from "../types";
 import MessageBubble from "./MessageBubble";
@@ -15,6 +15,7 @@ interface Props {
   onToggleDocPanel: () => void;
   docPanelOpen: boolean;
   onOpenMobileNav?: () => void;
+  readOnly?: boolean;
 }
 
 export default function ChatWindow({
@@ -27,6 +28,7 @@ export default function ChatWindow({
   onToggleDocPanel,
   docPanelOpen,
   onOpenMobileNav,
+  readOnly,
 }: Props) {
   const { t } = useTranslation();
   const [input, setInput] = useState("");
@@ -116,33 +118,39 @@ export default function ChatWindow({
       </div>
 
       <div className="border-t border-surface-border p-2.5 sm:p-3">
-        <div className="flex items-end gap-2 rounded-xl border border-surface-border bg-surface-1 px-3 py-2 focus-within:border-accent">
-          <textarea
-            ref={textareaRef}
-            value={input}
-            onChange={(e) => {
-              setInput(e.target.value);
-              e.target.style.height = "auto";
-              e.target.style.height = `${Math.min(e.target.scrollHeight, 160)}px`;
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault();
-                handleSend();
-              }
-            }}
-            rows={1}
-            placeholder={t("app.chat.placeholder")}
-            className="max-h-40 flex-1 resize-none bg-transparent text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none"
-          />
-          <button
-            onClick={handleSend}
-            disabled={!input.trim() || streaming}
-            className="mb-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent text-white transition hover:bg-accent-hover disabled:opacity-30"
-          >
-            <Send size={15} />
-          </button>
-        </div>
+        {readOnly ? (
+          <div className="flex items-center justify-center gap-2 rounded-xl border border-surface-border bg-surface-1 px-3 py-3 text-xs text-slate-500 dark:text-slate-400">
+            <Eye size={14} /> {t("app.chat.readOnly")}
+          </div>
+        ) : (
+          <div className="flex items-end gap-2 rounded-xl border border-surface-border bg-surface-1 px-3 py-2 focus-within:border-accent">
+            <textarea
+              ref={textareaRef}
+              value={input}
+              onChange={(e) => {
+                setInput(e.target.value);
+                e.target.style.height = "auto";
+                e.target.style.height = `${Math.min(e.target.scrollHeight, 160)}px`;
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSend();
+                }
+              }}
+              rows={1}
+              placeholder={t("app.chat.placeholder")}
+              className="max-h-40 flex-1 resize-none bg-transparent text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none"
+            />
+            <button
+              onClick={handleSend}
+              disabled={!input.trim() || streaming}
+              className="mb-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent text-white transition hover:bg-accent-hover disabled:opacity-30"
+            >
+              <Send size={15} />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

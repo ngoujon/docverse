@@ -3,28 +3,29 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { useTheme } from "../hooks/useTheme";
-import { api, streamChat, UnauthorizedError } from "../api/client";
-import { getSpaceToken, setSpaceToken, clearSpaceToken } from "../api/spaceTokens";
+import { useAuth } from "../hooks/useAuth";
+import { api, streamChat } from "../api/client";
 import type { Conversation, DocumentItem, HealthStatus, Message, Space } from "../types";
 import SpaceRail from "../components/SpaceRail";
 import ConversationSidebar from "../components/ConversationSidebar";
 import ChatWindow from "../components/ChatWindow";
 import DocumentPanel from "../components/DocumentPanel";
 import SpaceModal, { type SpaceFormData } from "../components/SpaceModal";
+import SpaceSharingPanel from "../components/SpaceSharingPanel";
 import ConfirmDialog from "../components/ConfirmDialog";
-import PasswordPrompt from "../components/PasswordPrompt";
 
 export default function WorkspaceApp() {
   const { t } = useTranslation();
-  const { spaceId: routeSpaceId } = useParams();
+  const { spaceId: routeSpaceId, shareToken } = useParams();
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
+  const { user, loading: authLoading } = useAuth();
+
+  const shareMode = !!shareToken;
 
   const [spaces, setSpaces] = useState<Space[]>([]);
   const [activeSpaceId, setActiveSpaceId] = useState<string | null>(null);
-  const [locked, setLocked] = useState(false);
-  const [unlockError, setUnlockError] = useState<string | null>(null);
-  const [unlocking, setUnlocking] = useState(false);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [activeConversationId, setActiveConversationId] = useState<string | null>(null);
@@ -42,6 +43,7 @@ export default function WorkspaceApp() {
     open: false,
     editing: null,
   });
+  const [sharingOpen, setSharingOpen] = useState(false);
   const [deleteSpaceId, setDeleteSpaceId] = useState<string | null>(null);
   const [deleteConvId, setDeleteConvId] = useState<string | null>(null);
 
@@ -50,6 +52,8 @@ export default function WorkspaceApp() {
 
   const activeSpace = spaces.find((s) => s.id === activeSpaceId) || null;
   const activeConversation = conversations.find((c) => c.id === activeConversationId) || null;
+  const canWrite = activeSpace ? activeSpace.my_role !== "viewer" : false;
+  const isOwner = activeSpace?.my_role === "owner";
 
   usePageTitle(
     activeConversation
@@ -60,121 +64,103 @@ export default function WorkspaceApp() {
   );
 
   const selectSpace = (id: string) => {
-    const space = spaces.find((s) => s.id === id);
-    if (!space) return;
+    if (!spaces.some((s) => s.id === id)) return;
     setActiveSpaceId(id);
     setMobileNavOpen(false);
-    setUnlockError(null);
-    if (space.has_password && !getSpaceToken(id)) {
-      setLocked(true);
-    } else {
-      setLocked(false);
-    }
   };
 
-  const handleUnauthorized = (spaceId: string) => {
-    clearSpaceToken(spaceId);
-    setLocked(true);
-  };
-
-  // Initial load
+  // Authenticated mode requires a logged-in user.
   useEffect(() => {
+    if (!shareMode && !authLoading && !user) {
+      navigate("/login", { replace: true });
+    }
+  }, [shareMode, authLoading, user, navigate]);
+
+  // Resolve the space(s) to show: either "my spaces" (authenticated) or the
+  // single space a share link points to (share mode).
+  useEffect(() => {
+    if (shareMode) {
+      if (!shareToken) return;
+      api
+        .getSpaceByShareToken(shareToken)
+        .then((space) => {
+          setSpaces([space]);
+          setActiveSpaceId(space.id);
+        })
+        .catch(() => setLoadError(t("app.share.invalid")));
+      return;
+    }
+    if (!user) return;
     api.listSpaces().then((list) => {
       setSpaces(list);
       if (didInitFromRoute.current) return;
       didInitFromRoute.current = true;
-      const target = routeSpaceId && list.some((s) => s.id === routeSpaceId)
-        ? routeSpaceId
-        : list[0]?.id;
-      if (target) {
-        const space = list.find((s) => s.id === target)!;
-        setActiveSpaceId(target);
-        setLocked(!!space.has_password && !getSpaceToken(target));
-      }
+      const target = routeSpaceId && list.some((s) => s.id === routeSpaceId) ? routeSpaceId : list[0]?.id;
+      if (target) setActiveSpaceId(target);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shareMode, shareToken, user]);
+
+  useEffect(() => {
     const checkHealth = () => api.health().then(setHealth).catch(() => setHealth(null));
     checkHealth();
     const t = setInterval(checkHealth, 15000);
     return () => clearInterval(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Load conversations + documents when active space changes (and unlocked)
+  // Load conversations + documents when active space changes
   useEffect(() => {
-    if (!activeSpaceId || locked) {
+    if (!activeSpaceId) {
       setConversations([]);
       setDocuments([]);
       setActiveConversationId(null);
       return;
     }
     api
-      .listConversations(activeSpaceId)
+      .listConversations(activeSpaceId, shareToken)
       .then((list) => {
         setConversations(list);
         setActiveConversationId(list.length ? list[0].id : null);
       })
-      .catch((err) => {
-        if (err instanceof UnauthorizedError) handleUnauthorized(activeSpaceId);
-      });
+      .catch(() => {});
     api
-      .listDocuments(activeSpaceId)
+      .listDocuments(activeSpaceId, shareToken)
       .then(setDocuments)
-      .catch((err) => {
-        if (err instanceof UnauthorizedError) handleUnauthorized(activeSpaceId);
-      });
+      .catch(() => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeSpaceId, locked]);
+  }, [activeSpaceId]);
 
   // Load messages when active conversation changes
   useEffect(() => {
-    if (!activeConversationId || !activeSpaceId) {
+    if (!activeConversationId) {
       setMessages([]);
       return;
     }
-    api.listMessages(activeConversationId, activeSpaceId).then(setMessages);
+    api.listMessages(activeConversationId, shareToken).then(setMessages);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeConversationId]);
 
   // Poll document processing status
   useEffect(() => {
-    if (!activeSpaceId || locked) return;
-    const hasPending = documents.some(
-      (d) => d.status === "pending" || d.status === "processing"
-    );
+    if (!activeSpaceId) return;
+    const hasPending = documents.some((d) => d.status === "pending" || d.status === "processing");
     if (!hasPending) return;
     const t = setInterval(() => {
-      api.listDocuments(activeSpaceId).then(setDocuments).catch(() => {});
+      api.listDocuments(activeSpaceId, shareToken).then(setDocuments).catch(() => {});
     }, 3000);
     return () => clearInterval(t);
-  }, [activeSpaceId, documents, locked]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeSpaceId, documents]);
 
   const refreshConversations = (spaceId: string) => {
-    api.listConversations(spaceId).then(setConversations).catch(() => {});
-  };
-
-  // ---- Unlock ----
-  const handleUnlockSubmit = async (password: string) => {
-    if (!activeSpaceId) return;
-    setUnlocking(true);
-    setUnlockError(null);
-    try {
-      const { access_token } = await api.unlockSpace(activeSpaceId, password);
-      setSpaceToken(activeSpaceId, access_token);
-      setLocked(false);
-    } catch (err) {
-      setUnlockError(err instanceof Error ? err.message : "Erreur");
-    } finally {
-      setUnlocking(false);
-    }
+    api.listConversations(spaceId, shareToken).then(setConversations).catch(() => {});
   };
 
   // ---- Spaces ----
   const handleCreateSpace = async (data: SpaceFormData) => {
-    const space = await api.createSpace(data.name, data.description, data.color, data.password);
-    if (space.access_token) setSpaceToken(space.id, space.access_token);
+    const space = await api.createSpace(data.name, data.description, data.color);
     setSpaces((prev) => [space, ...prev]);
     setActiveSpaceId(space.id);
-    setLocked(false);
     setSpaceModal({ open: false, editing: null });
     navigate(`/app/${space.id}`, { replace: true });
   };
@@ -189,13 +175,10 @@ export default function WorkspaceApp() {
   const handleDeleteSpace = async () => {
     if (!deleteSpaceId) return;
     await api.deleteSpace(deleteSpaceId);
-    clearSpaceToken(deleteSpaceId);
     const remaining = spaces.filter((s) => s.id !== deleteSpaceId);
     setSpaces(remaining);
     if (activeSpaceId === deleteSpaceId) {
-      const next = remaining[0]?.id ?? null;
-      setActiveSpaceId(next);
-      setLocked(next ? !!remaining[0].has_password && !getSpaceToken(next) : false);
+      setActiveSpaceId(remaining[0]?.id ?? null);
     }
     setDeleteSpaceId(null);
   };
@@ -203,14 +186,14 @@ export default function WorkspaceApp() {
   // ---- Conversations ----
   const handleCreateConversation = async () => {
     if (!activeSpaceId) return;
-    const conv = await api.createConversation(activeSpaceId);
+    const conv = await api.createConversation(activeSpaceId, shareToken);
     setConversations((prev) => [conv, ...prev]);
     setActiveConversationId(conv.id);
   };
 
   const handleDeleteConversation = async () => {
     if (!deleteConvId || !activeSpaceId) return;
-    await api.deleteConversation(deleteConvId, activeSpaceId);
+    await api.deleteConversation(deleteConvId, shareToken);
     const remaining = conversations.filter((c) => c.id !== deleteConvId);
     setConversations(remaining);
     if (activeConversationId === deleteConvId) {
@@ -241,7 +224,6 @@ export default function WorkspaceApp() {
     try {
       await streamChat(
         activeConversationId,
-        activeSpaceId,
         text,
         (event) => {
           if (event.type === "user_message_id" && event.id) {
@@ -269,12 +251,10 @@ export default function WorkspaceApp() {
             if (activeSpaceId) refreshConversations(activeSpaceId);
           }
         },
+        shareToken,
         controller.signal
       );
     } catch (err) {
-      if (err instanceof UnauthorizedError) {
-        handleUnauthorized(activeSpaceId);
-      }
       setMessages((prev) =>
         prev.map((m) =>
           m.id === tempAssistantId
@@ -293,7 +273,7 @@ export default function WorkspaceApp() {
     if (!activeSpaceId) return;
     for (const file of files) {
       try {
-        const doc = await api.uploadDocument(activeSpaceId, file);
+        const doc = await api.uploadDocument(activeSpaceId, file, shareToken);
         setDocuments((prev) => [doc, ...prev]);
       } catch (err) {
         console.error("Echec de l'upload", err);
@@ -304,7 +284,7 @@ export default function WorkspaceApp() {
   const handleIngestUrl = async (url: string) => {
     if (!activeSpaceId) return;
     try {
-      const doc = await api.ingestUrl(activeSpaceId, url);
+      const doc = await api.ingestUrl(activeSpaceId, url, shareToken);
       setDocuments((prev) => [doc, ...prev]);
     } catch (err) {
       console.error("Echec de l'ingestion de l'URL", err);
@@ -313,9 +293,21 @@ export default function WorkspaceApp() {
 
   const handleDeleteDocument = async (id: string) => {
     if (!activeSpaceId) return;
-    await api.deleteDocument(id, activeSpaceId);
+    await api.deleteDocument(id, shareToken);
     setDocuments((prev) => prev.filter((d) => d.id !== id));
   };
+
+  if (shareMode && loadError) {
+    return (
+      <div className="flex h-[100dvh] w-screen flex-col items-center justify-center gap-2 bg-surface-0 px-4 text-center">
+        <p className="text-sm text-slate-600 dark:text-slate-400">{loadError}</p>
+      </div>
+    );
+  }
+
+  if (!shareMode && (authLoading || !user)) {
+    return <div className="h-[100dvh] w-screen bg-surface-0" />;
+  }
 
   return (
     <div className="flex h-[100dvh] w-screen overflow-hidden bg-surface-0">
@@ -332,15 +324,17 @@ export default function WorkspaceApp() {
           mobileNavOpen ? "translate-x-0" : ""
         }`}
       >
-        <SpaceRail
-          spaces={spaces}
-          activeSpaceId={activeSpaceId}
-          onSelect={selectSpace}
-          onCreate={() => setSpaceModal({ open: true, editing: null })}
-          health={health}
-          theme={theme}
-          onToggleTheme={toggleTheme}
-        />
+        {!shareMode && (
+          <SpaceRail
+            spaces={spaces}
+            activeSpaceId={activeSpaceId}
+            onSelect={selectSpace}
+            onCreate={() => setSpaceModal({ open: true, editing: null })}
+            health={health}
+            theme={theme}
+            onToggleTheme={toggleTheme}
+          />
+        )}
 
         {activeSpace && (
           <ConversationSidebar
@@ -355,57 +349,56 @@ export default function WorkspaceApp() {
             onDelete={setDeleteConvId}
             onEditSpace={() => setSpaceModal({ open: true, editing: activeSpace })}
             onDeleteSpace={() => setDeleteSpaceId(activeSpace.id)}
+            onOpenSharing={() => setSharingOpen(true)}
           />
         )}
       </div>
 
       {activeSpace ? (
-        locked ? (
-          <div className="flex flex-1 flex-col items-center justify-center gap-3 px-4 text-center text-slate-500 dark:text-slate-400">
-            <p className="text-sm">{t("app.workspace.locked")}</p>
-          </div>
-        ) : (
-          <>
-            <ChatWindow
-              space={activeSpace}
-              conversation={activeConversation}
-              messages={messages}
-              streaming={streaming}
-              queuedPosition={queuedPosition}
-              onSend={handleSend}
-              onToggleDocPanel={() => setDocPanelOpen((v) => !v)}
-              docPanelOpen={docPanelOpen}
-              onOpenMobileNav={() => setMobileNavOpen(true)}
-            />
+        <>
+          <ChatWindow
+            space={activeSpace}
+            conversation={activeConversation}
+            messages={messages}
+            streaming={streaming}
+            queuedPosition={queuedPosition}
+            onSend={handleSend}
+            onToggleDocPanel={() => setDocPanelOpen((v) => !v)}
+            docPanelOpen={docPanelOpen}
+            onOpenMobileNav={() => setMobileNavOpen(true)}
+            readOnly={!canWrite}
+          />
 
-            {docPanelOpen && (
-              <>
-                <div
-                  className="fixed inset-0 z-30 bg-black/60 lg:hidden"
-                  onClick={() => setDocPanelOpen(false)}
+          {docPanelOpen && (
+            <>
+              <div
+                className="fixed inset-0 z-30 bg-black/60 lg:hidden"
+                onClick={() => setDocPanelOpen(false)}
+              />
+              <div className="fixed inset-y-0 right-0 z-40 lg:static lg:z-auto">
+                <DocumentPanel
+                  documents={documents}
+                  onUpload={handleUpload}
+                  onIngestUrl={handleIngestUrl}
+                  onDelete={handleDeleteDocument}
+                  onClose={() => setDocPanelOpen(false)}
+                  readOnly={!canWrite}
                 />
-                <div className="fixed inset-y-0 right-0 z-40 lg:static lg:z-auto">
-                  <DocumentPanel
-                    documents={documents}
-                    onUpload={handleUpload}
-                    onIngestUrl={handleIngestUrl}
-                    onDelete={handleDeleteDocument}
-                    onClose={() => setDocPanelOpen(false)}
-                  />
-                </div>
-              </>
-            )}
-          </>
-        )
+              </div>
+            </>
+          )}
+        </>
       ) : (
         <div className="flex flex-1 flex-col items-center justify-center gap-4 px-4 text-center text-slate-500 dark:text-slate-400">
           <p className="text-sm">{t("app.workspace.createFirstSpace")}</p>
-          <button
-            onClick={() => setSpaceModal({ open: true, editing: null })}
-            className="rounded-lg bg-accent px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider text-white shadow-neon-light hover:bg-accent-hover"
-          >
-            {t("app.workspace.newSpace")}
-          </button>
+          {!shareMode && (
+            <button
+              onClick={() => setSpaceModal({ open: true, editing: null })}
+              className="rounded-lg bg-accent px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider text-white shadow-neon-light hover:bg-accent-hover"
+            >
+              {t("app.workspace.newSpace")}
+            </button>
+          )}
         </div>
       )}
 
@@ -416,16 +409,10 @@ export default function WorkspaceApp() {
         onSubmit={spaceModal.editing ? handleUpdateSpace : handleCreateSpace}
       />
 
-      <PasswordPrompt
-        open={locked && !!activeSpace}
-        spaceName={activeSpace?.name ?? ""}
-        error={unlockError}
-        submitting={unlocking}
-        onSubmit={handleUnlockSubmit}
-        onCancel={() => {
-          setLocked(false);
-          setActiveSpaceId(null);
-        }}
+      <SpaceSharingPanel
+        open={sharingOpen && isOwner}
+        space={activeSpace}
+        onClose={() => setSharingOpen(false)}
       />
 
       <ConfirmDialog

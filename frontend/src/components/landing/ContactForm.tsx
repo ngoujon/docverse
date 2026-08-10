@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Send, CheckCircle2, AlertCircle } from "lucide-react";
 import { api } from "../../api/client";
+import Captcha from "../Captcha";
+import type { CaptchaSolution } from "../../types";
 
 export default function ContactForm() {
   const { t } = useTranslation();
@@ -9,16 +11,18 @@ export default function ContactForm() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [website, setWebsite] = useState(""); // honeypot
+  const [captcha, setCaptcha] = useState<CaptchaSolution | null>(null);
+  const [captchaKey, setCaptchaKey] = useState(0);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || !email.trim() || !message.trim()) return;
+    if (!name.trim() || !email.trim() || !message.trim() || !captcha) return;
     setStatus("sending");
     setError(null);
     try {
-      await api.submitContact(name.trim(), email.trim(), message.trim(), website);
+      await api.submitContact(name.trim(), email.trim(), message.trim(), website, captcha);
       setStatus("sent");
       setName("");
       setEmail("");
@@ -26,6 +30,7 @@ export default function ContactForm() {
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : t("contact.genericError"));
+      setCaptchaKey((k) => k + 1);
     }
   };
 
@@ -94,6 +99,8 @@ export default function ContactForm() {
         />
       </div>
 
+      <Captcha key={captchaKey} onReady={setCaptcha} />
+
       {status === "error" && (
         <p className="flex items-center gap-1.5 text-xs text-red-600">
           <AlertCircle size={13} /> {error}
@@ -102,7 +109,7 @@ export default function ContactForm() {
 
       <button
         type="submit"
-        disabled={status === "sending"}
+        disabled={status === "sending" || !captcha}
         className="group flex w-full items-center justify-center gap-2 rounded-lg border border-retro-pink bg-retro-pink/10 px-4 py-2.5 font-mono text-xs uppercase tracking-wider text-retro-pink transition hover:bg-retro-pink hover:text-white hover:shadow-neon disabled:opacity-50 sm:w-auto sm:px-6"
       >
         <Send size={14} />

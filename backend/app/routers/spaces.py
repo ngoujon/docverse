@@ -67,6 +67,24 @@ def create_space(
     return _to_out(space, "owner")
 
 
+@router.get("/by-share/{token}", response_model=schemas.SpaceOut)
+def get_space_by_share_token(token: str, db: Session = Depends(get_db)):
+    """Resolves a share link to its space - the frontend's /share/:token
+    route only has the token, not the space id, so this is how it finds
+    out which space to load before making any further scoped requests."""
+    link = db.get(models_db.ShareLink, token)
+    if (
+        not link
+        or link.revoked
+        or (link.expires_at and link.expires_at <= datetime.utcnow())
+    ):
+        raise HTTPException(404, "Lien de partage introuvable ou expire")
+    space = db.get(models_db.Space, link.space_id)
+    if not space:
+        raise HTTPException(404, "Espace introuvable")
+    return _to_out(space, link.role)
+
+
 @router.get("/{space_id}", response_model=schemas.SpaceOut)
 def get_space(access: SpaceAccess = Depends(require_space_access)):
     return _to_out(access.space, access.role)

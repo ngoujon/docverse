@@ -3,7 +3,8 @@
     "cancel": "Cancelar",
     "save": "Guardar",
     "delete": "Eliminar",
-    "confirm": "Confirmar"
+    "confirm": "Confirmar",
+    "loading": "Cargando..."
   },
   "nav": {
     "features": "Funciones",
@@ -12,9 +13,9 @@
     "launchApp": "Abrir la app"
   },
   "hero": {
-    "badges": ["100% Local", "Codigo abierto", "Gratis", "Sin cuenta"],
+    "badges": ["100% Local", "Codigo abierto", "Gratis", "Compartir sin cuenta"],
     "title1": "Conversa con tus documentos,",
-    "title2": "en local, sin cuenta.",
+    "title2": "en local, en equipo.",
     "subtitle": "Sube tus PDF, imagenes y enlaces a espacios aislados, y consultalos con una IA que se ejecuta enteramente en tu propio servidor - via Ollama, sin API en la nube ni rastreo.",
     "ctaTry": "Probar ahora",
     "ctaDiscover": "Descubrir"
@@ -25,7 +26,7 @@
     "items": [
       {
         "title": "Espacios aislados",
-        "desc": "Cada espacio de trabajo conserva sus documentos y conversaciones para si mismo - nada se comparte entre espacios. Protege uno con contrasena y compartelo con un clic."
+        "desc": "Cada espacio de trabajo conserva sus documentos y conversaciones para si mismo - nada se comparte entre espacios. Compartelo con un enlace de solo lectura o lectura/escritura, con un clic."
       },
       {
         "title": "Todos tus formatos",
@@ -37,7 +38,7 @@
       },
       {
         "title": "Busqueda web local",
-        "desc": "Completa las respuestas con la web mediante un motor de busqueda autoalojado, sin rastreadores ni clave API."
+        "desc": "La IA detecta por si sola cuando una pregunta necesita informacion reciente y completa sus respuestas mediante un motor de busqueda autoalojado, sin rastreadores ni clave API."
       },
       {
         "title": "Cola de solicitudes inteligente",
@@ -53,14 +54,14 @@
     "eyebrow": "Como funciona",
     "title": "Tres pasos, sin fricciones",
     "items": [
-      { "title": "Crea un espacio", "desc": "Nombralo, elige un color, anade una contrasena si quieres mantenerlo privado." },
+      { "title": "Crea una cuenta y un espacio", "desc": "Registro gratuito, luego nombra tu espacio y elige un color." },
       { "title": "Sube tus documentos", "desc": "Arrastra y suelta PDF, imagenes o enlaces web. La IA los lee y los indexa en segundo plano." },
-      { "title": "Conversa", "desc": "Haz tus preguntas, obten respuestas con fuentes de tus documentos (y la web si es necesario)." }
+      { "title": "Conversa y comparte", "desc": "Haz tus preguntas, obten respuestas con fuentes, e invita a otras personas mediante un enlace de invitacion - con o sin cuenta." }
     ]
   },
   "opensource": {
     "title": "Proyecto libre, gratuito y local por diseno",
-    "desc": "Sin cuenta, sin suscripcion, sin recopilacion de datos para entrenar un modelo. Tu lo alojas, tu lo controlas.",
+    "desc": "Cuentas gratuitas, sin suscripcion, sin recopilacion de datos para entrenar un modelo. Tu lo alojas, tu lo controlas.",
     "cta": "Empezar gratis"
   },
   "contact": {
@@ -96,11 +97,11 @@
       },
       {
         "title": "Almacenamiento local (localStorage)",
-        "body": "Al desbloquear un espacio de trabajo protegido con contrasena, se guarda un token de acceso temporal en el almacenamiento local de tu navegador (localStorage), unicamente para evitar volver a introducir la contrasena en cada pagina. Nunca se transmite a terceros y caduca automaticamente. Puedes borrarlo en cualquier momento eliminando los datos de este sitio en tu navegador."
+        "body": "Tu sesion (una vez conectado) y los enlaces de invitacion que utilices se guardan en el almacenamiento local de tu navegador (localStorage), unicamente para evitar volver a iniciar sesion en cada pagina. Nunca se transmiten a terceros. Puedes borrarlos en cualquier momento eliminando los datos de este sitio en tu navegador."
       },
       {
-        "title": "Tus documentos y conversaciones",
-        "body": "Los documentos que subes, su contenido indexado y tus conversaciones se almacenan unicamente en el servidor que aloja esta instancia (base de datos y base vectorial locales). Nada se envia a un servicio de IA en la nube de terceros: el procesamiento (lectura, indexacion, generacion de respuestas) se realiza localmente mediante Ollama."
+        "title": "Cuenta y datos del espacio",
+        "body": "Tu correo electronico y tu contrasena (cifrada) son necesarios para crear una cuenta. Los documentos que subes, su contenido indexado y tus conversaciones se almacenan unicamente en el servidor que aloja esta instancia (base de datos y base vectorial locales). Nada se envia a un servicio de IA en la nube de terceros sin configuracion explicita: el procesamiento (lectura, indexacion, generacion de respuestas) se realiza localmente mediante Ollama, o mediante el proveedor en la nube que el administrador de esta instancia haya decidido configurar."
       },
       {
         "title": "Formulario de contacto",
@@ -108,6 +109,126 @@
       }
     ],
     "footnote": "Esta pagina describe el funcionamiento del software tal como se proporciona. La organizacion que aloja esta instancia sigue siendo responsable del tratamiento de los datos que recopila a traves de este sitio."
+  },
+  "auth": {
+    "email": "Correo electronico",
+    "password": "Contrasena",
+    "displayName": "Nombre visible (opcional)",
+    "strength": {
+      "veryWeak": "Muy debil",
+      "weak": "Debil",
+      "medium": "Media",
+      "strong": "Fuerte",
+      "veryStrong": "Muy fuerte"
+    },
+    "login": {
+      "title": "Iniciar sesion",
+      "subtitle": "Accede a tus espacios de trabajo.",
+      "forgot": "¿Olvidaste tu contrasena?",
+      "noAccount": "¿Aun no tienes cuenta?",
+      "registerLink": "Crear una cuenta",
+      "submit": "Iniciar sesion",
+      "submitting": "Iniciando sesion..."
+    },
+    "register": {
+      "title": "Crear una cuenta",
+      "subtitle": "Gratis, en unos segundos.",
+      "hasAccount": "¿Ya tienes cuenta?",
+      "loginLink": "Iniciar sesion",
+      "passwordHint": "Minimo 8 caracteres.",
+      "submit": "Crear mi cuenta",
+      "submitting": "Creando..."
+    },
+    "forgot": {
+      "title": "Contrasena olvidada",
+      "subtitle": "Te enviamos un enlace de restablecimiento por correo.",
+      "sent": "Si existe una cuenta con ese correo, se acaba de enviar un enlace de restablecimiento.",
+      "backToLogin": "Volver al inicio de sesion",
+      "submit": "Enviar enlace",
+      "submitting": "Enviando..."
+    },
+    "reset": {
+      "title": "Nueva contrasena",
+      "subtitle": "Elige una nueva contrasena.",
+      "missingToken": "Enlace de restablecimiento invalido.",
+      "newPassword": "Nueva contrasena",
+      "success": "Tu contrasena se ha actualizado.",
+      "goToLogin": "Iniciar sesion",
+      "submit": "Restablecer contrasena",
+      "submitting": "Guardando..."
+    }
+  },
+  "captcha": {
+    "loading": "Cargando verificacion...",
+    "solving": "Verificacion antibots en curso...",
+    "ready": "Verificacion superada",
+    "error": "Verificacion no disponible, reintenta"
+  },
+  "newsletter": {
+    "backHome": "Volver al inicio",
+    "confirm": {
+      "title": "Confirmacion de la newsletter",
+      "success": "Tu suscripcion a la newsletter esta confirmada.",
+      "error": "Enlace de confirmacion invalido o caducado."
+    },
+    "unsubscribe": {
+      "title": "Cancelar suscripcion",
+      "success": "Se ha cancelado tu suscripcion a la newsletter.",
+      "error": "Enlace de cancelacion invalido."
+    },
+    "signup": {
+      "placeholder": "tu@ejemplo.com",
+      "submit": "Suscribirse",
+      "done": "¡Gracias! Revisa tu correo para confirmar.",
+      "error": "Ocurrio un error, intentalo de nuevo."
+    }
+  },
+  "dashboard": {
+    "title": "Panel",
+    "greeting": "Hola, {{name}}",
+    "nav": {
+      "workspace": "Mis espacios",
+      "admin": "Administracion",
+      "logout": "Cerrar sesion"
+    },
+    "kpi": {
+      "owned": "Espacios propios",
+      "shared": "Compartidos conmigo",
+      "documents": "Documentos",
+      "conversations": "Conversaciones",
+      "messages": "Mensajes",
+      "storage": "Almacenamiento"
+    },
+    "mySpaces": "Mis espacios de trabajo",
+    "newSpace": "Nuevo espacio",
+    "noSpaces": "Aun no tienes ningun espacio de trabajo.",
+    "spaceCounts": "{{docs}} documentos · {{convs}} conversaciones"
+  },
+  "admin": {
+    "title": "Administracion",
+    "kpi": {
+      "users": "Usuarios",
+      "spaces": "Espacios",
+      "documents": "Documentos",
+      "messages": "Mensajes",
+      "storage": "Almacenamiento",
+      "newsletter": "Suscriptores newsletter",
+      "newUsers7d": "Cuentas nuevas (7d)",
+      "newSpaces7d": "Espacios nuevos (7d)"
+    },
+    "tabs": {
+      "users": "Usuarios",
+      "spaces": "Espacios"
+    },
+    "table": {
+      "email": "Correo",
+      "displayName": "Nombre",
+      "role": "Rol",
+      "createdAt": "Creado",
+      "name": "Nombre",
+      "documents": "Documentos",
+      "conversations": "Conversaciones"
+    }
   },
   "app": {
     "spaceRail": {
@@ -121,7 +242,8 @@
       "deleteSpace": "Eliminar espacio",
       "newConversation": "Nueva conversacion",
       "noConversations": "Aun no hay conversaciones.",
-      "shareTitle": "Copiar el enlace para compartir este espacio",
+      "shareTitle": "Compartir y miembros",
+      "readOnly": "Solo lectura",
       "justNow": "ahora mismo",
       "minutesAgo": "hace {{count}} min",
       "hoursAgo": "hace {{count}} h",
@@ -136,6 +258,7 @@
       "queuedPosition": " ({{count}} delante de ti)",
       "queuedSuffix": " - el servidor procesa una solicitud a la vez",
       "placeholder": "Escribe tu mensaje...",
+      "readOnly": "Acceso de solo lectura - no puedes escribir en este espacio.",
       "errorGeneric": "Se produjo un error al generar la respuesta ({{error}}). Comprueba que Ollama este en ejecucion y que los modelos esten descargados.",
       "connectionError": "Error de conexion con el servidor."
     },
@@ -160,20 +283,27 @@
       "description": "Descripcion (opcional)",
       "descriptionPlaceholder": "¿Para que sirve este espacio?",
       "color": "Color",
-      "password": "Contrasena (opcional)",
-      "passwordPlaceholderKeep": "Dejar vacio para no cambiarla",
-      "passwordPlaceholderNew": "Dejar vacio para un espacio abierto a todos",
-      "removePassword": "Quitar la contrasena (abrir el espacio a todos)",
-      "helper": "Cualquiera con la contrasena (o el enlace de invitacion, una vez desbloqueado) podra ver y usar este espacio.",
       "save": "Guardar",
       "create": "Crear espacio"
     },
-    "passwordPrompt": {
-      "title": "Espacio protegido",
-      "body": "El espacio «{{name}}» esta protegido con contrasena. Introducela para acceder.",
-      "placeholder": "Contrasena",
-      "verifying": "Comprobando...",
-      "unlock": "Desbloquear"
+    "sharing": {
+      "title": "Compartir - {{name}}",
+      "owner": "Propietario",
+      "editor": "Editor",
+      "viewer": "Lector",
+      "linksTitle": "Enlaces de invitacion",
+      "linksHelp": "Un enlace de invitacion da acceso a este espacio, con el rol elegido, sin necesidad de cuenta.",
+      "labelPlaceholder": "Nombre del enlace (opcional)",
+      "createLink": "Crear",
+      "noLinks": "Aun no hay enlaces de invitacion.",
+      "unnamedLink": "Enlace sin nombre",
+      "revoked": "Revocado",
+      "copy": "Copiar",
+      "membersTitle": "Miembros",
+      "membersHelp": "Anade a un usuario que ya tenga una cuenta como colaborador en este espacio.",
+      "emailPlaceholder": "correo@ejemplo.com",
+      "addMember": "Anadir",
+      "noMembers": "Aun no hay miembros."
     },
     "confirmDeleteSpace": {
       "title": "¿Eliminar este espacio?",
@@ -184,9 +314,11 @@
       "message": "Esta accion no se puede deshacer."
     },
     "workspace": {
-      "locked": "Este espacio esta protegido con contrasena.",
       "createFirstSpace": "Crea tu primer espacio de trabajo para empezar.",
       "newSpace": "Nuevo espacio"
+    },
+    "share": {
+      "invalid": "Este enlace de invitacion no es valido, fue revocado o ha caducado."
     }
   }
 }

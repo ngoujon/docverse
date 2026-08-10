@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Plus, Layers, Lock } from "lucide-react";
+import { Plus, Layers } from "lucide-react";
 import clsx from "clsx";
 import type { Space, HealthStatus } from "../types";
 import LanguageSwitcher from "./LanguageSwitcher";
@@ -58,11 +58,6 @@ export default function SpaceRail({
             }}
           >
             {initials(s.name) || "?"}
-            {s.has_password && (
-              <span className="absolute -bottom-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full border border-surface-1 bg-surface-3 text-slate-600 dark:text-slate-300">
-                <Lock size={9} />
-              </span>
-            )}
           </button>
         ))}
 

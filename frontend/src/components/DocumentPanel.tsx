@@ -23,6 +23,7 @@ interface Props {
   onIngestUrl: (url: string) => void;
   onDelete: (id: string) => void;
   onClose?: () => void;
+  readOnly?: boolean;
 }
 
 const ICONS: Record<DocumentItem["doc_type"], any> = {
@@ -54,6 +55,7 @@ export default function DocumentPanel({
   onIngestUrl,
   onDelete,
   onClose,
+  readOnly,
 }: Props) {
   const { t } = useTranslation();
   const [urlInput, setUrlInput] = useState("");
@@ -100,6 +102,7 @@ export default function DocumentPanel({
         )}
       </div>
 
+      {!readOnly && (
       <div className="p-3">
         <div
           {...getRootProps()}
@@ -135,6 +138,7 @@ export default function DocumentPanel({
           </button>
         </div>
       </div>
+      )}
 
       <div className="flex-1 overflow-y-auto px-3 pb-3">
         {documents.length === 0 && (
@@ -165,12 +169,14 @@ export default function DocumentPanel({
                       {doc.size_bytes > 0 && <span>· {formatSize(doc.size_bytes)}</span>}
                     </div>
                   </div>
-                  <button
-                    onClick={() => onDelete(doc.id)}
-                    className="shrink-0 rounded p-1 text-slate-500 dark:text-slate-400 opacity-0 hover:text-red-500 group-hover:opacity-100"
-                  >
-                    <Trash2 size={13} />
-                  </button>
+                  {!readOnly && (
+                    <button
+                      onClick={() => onDelete(doc.id)}
+                      className="shrink-0 rounded p-1 text-slate-500 dark:text-slate-400 opacity-0 hover:text-red-500 group-hover:opacity-100"
+                    >
+                      <Trash2 size={13} />
+                    </button>
+                  )}
                 </div>
               </div>
             );

@@ -3,7 +3,8 @@
     "cancel": "Abbrechen",
     "save": "Speichern",
     "delete": "Loschen",
-    "confirm": "Bestatigen"
+    "confirm": "Bestatigen",
+    "loading": "Wird geladen..."
   },
   "nav": {
     "features": "Funktionen",
@@ -12,9 +13,9 @@
     "launchApp": "App starten"
   },
   "hero": {
-    "badges": ["100% Lokal", "Open Source", "Kostenlos", "Ohne Konto"],
+    "badges": ["100% Lokal", "Open Source", "Kostenlos", "Teilen ohne Konto"],
     "title1": "Unterhalten Sie sich mit Ihren Dokumenten,",
-    "title2": "lokal, ohne Konto.",
+    "title2": "lokal, im Team.",
     "subtitle": "Laden Sie PDFs, Bilder und Links in abgeschottete Bereiche und befragen Sie sie mit einer KI, die vollstandig auf Ihrem eigenen Server lauft - via Ollama, ohne Cloud-API, ohne Tracking.",
     "ctaTry": "Jetzt testen",
     "ctaDiscover": "Entdecken"
@@ -25,7 +26,7 @@
     "items": [
       {
         "title": "Abgeschottete Bereiche",
-        "desc": "Jeder Arbeitsbereich behalt seine Dokumente und Unterhaltungen fur sich - nichts wird zwischen Bereichen geteilt. Schutzen Sie einen mit einem Passwort und teilen Sie ihn mit einem Klick."
+        "desc": "Jeder Arbeitsbereich behalt seine Dokumente und Unterhaltungen fur sich - nichts wird zwischen Bereichen geteilt. Teilen Sie ihn mit einem Nur-Lese- oder Lese-/Schreiblink, mit einem Klick."
       },
       {
         "title": "Alle Formate",
@@ -37,7 +38,7 @@
       },
       {
         "title": "Lokale Websuche",
-        "desc": "Erganzen Sie Antworten mit dem Web uber eine selbst gehostete Suchmaschine, ohne Tracker, ohne API-Schlussel."
+        "desc": "Die KI erkennt selbststandig, wann eine Frage aktuelle Informationen benotigt, und erganzt ihre Antworten uber eine selbst gehostete Suchmaschine, ohne Tracker, ohne API-Schlussel."
       },
       {
         "title": "Intelligente Warteschlange",
@@ -53,14 +54,14 @@
     "eyebrow": "So funktioniert's",
     "title": "Drei Schritte, keine Huerden",
     "items": [
-      { "title": "Bereich erstellen", "desc": "Benennen Sie ihn, wahlen Sie eine Farbe, fugen Sie ein Passwort hinzu, wenn Sie ihn privat halten wollen." },
+      { "title": "Konto und Bereich erstellen", "desc": "Kostenlose Registrierung, dann benennen Sie Ihren Bereich und wahlen eine Farbe." },
       { "title": "Dokumente hinzufugen", "desc": "PDFs, Bilder oder Weblinks per Drag & Drop hinzufugen. Die KI liest und indexiert sie im Hintergrund." },
-      { "title": "Unterhalten", "desc": "Stellen Sie Ihre Fragen, erhalten Sie Antworten mit Quellenangaben aus Ihren Dokumenten (und dem Web, falls notig)." }
+      { "title": "Unterhalten und teilen", "desc": "Stellen Sie Ihre Fragen, erhalten Sie Antworten mit Quellenangaben, und laden Sie andere per Freigabelink ein - mit oder ohne Konto." }
     ]
   },
   "opensource": {
     "title": "Frei, offen und lokal by design",
-    "desc": "Kein Konto, kein Abo, keine Datensammlung zum Trainieren eines Modells. Sie hosten, Sie kontrollieren.",
+    "desc": "Kostenlose Konten, kein Abo, keine Datensammlung zum Trainieren eines Modells. Sie hosten, Sie kontrollieren.",
     "cta": "Kostenlos starten"
   },
   "contact": {
@@ -96,11 +97,11 @@
       },
       {
         "title": "Lokaler Speicher (localStorage)",
-        "body": "Wenn Sie einen passwortgeschutzten Arbeitsbereich entsperren, wird ein temporarer Zugriffstoken im lokalen Speicher Ihres Browsers (localStorage) gespeichert - nur damit Sie das Passwort nicht auf jeder Seite erneut eingeben mussen. Er wird niemals an Dritte ubertragen und lauft automatisch ab. Sie konnen ihn jederzeit loschen, indem Sie die Websitedaten in Ihrem Browser leeren."
+        "body": "Ihre Sitzung (nach der Anmeldung) und alle von Ihnen verwendeten Freigabelinks werden im lokalen Speicher Ihres Browsers (localStorage) gespeichert - nur damit Sie sich nicht auf jeder Seite erneut anmelden mussen. Sie werden niemals an Dritte ubertragen. Sie konnen sie jederzeit loschen, indem Sie die Websitedaten in Ihrem Browser leeren."
       },
       {
-        "title": "Ihre Dokumente und Unterhaltungen",
-        "body": "Die von Ihnen hochgeladenen Dokumente, ihr indexierter Inhalt und Ihre Unterhaltungen werden ausschliesslich auf dem Server gespeichert, der diese Instanz hostet (lokale Datenbank und Vektordatenbank). Es wird nichts an einen Cloud-KI-Dienst Dritter gesendet: Die Verarbeitung (Lesen, Indexieren, Antwortgenerierung) erfolgt lokal uber Ollama."
+        "title": "Konto- und Bereichsdaten",
+        "body": "Ihre E-Mail-Adresse und Ihr (verschlusseltes) Passwort werden fur die Kontoerstellung benotigt. Die von Ihnen hochgeladenen Dokumente, ihr indexierter Inhalt und Ihre Unterhaltungen werden ausschliesslich auf dem Server gespeichert, der diese Instanz hostet (lokale Datenbank und Vektordatenbank). Ohne ausdruckliche Konfiguration wird nichts an einen Cloud-KI-Dienst Dritter gesendet: Die Verarbeitung (Lesen, Indexieren, Antwortgenerierung) erfolgt lokal uber Ollama oder uber den Cloud-Anbieter, den der Administrator dieser Instanz konfiguriert hat."
       },
       {
         "title": "Kontaktformular",
@@ -108,6 +109,126 @@
       }
     ],
     "footnote": "Diese Seite beschreibt die Funktionsweise der Software im Auslieferungszustand. Die Organisation, die diese Instanz hostet, bleibt fur die uber diese Website erhobenen Daten verantwortlich."
+  },
+  "auth": {
+    "email": "E-Mail",
+    "password": "Passwort",
+    "displayName": "Anzeigename (optional)",
+    "strength": {
+      "veryWeak": "Sehr schwach",
+      "weak": "Schwach",
+      "medium": "Mittel",
+      "strong": "Stark",
+      "veryStrong": "Sehr stark"
+    },
+    "login": {
+      "title": "Anmelden",
+      "subtitle": "Greifen Sie auf Ihre Arbeitsbereiche zu.",
+      "forgot": "Passwort vergessen?",
+      "noAccount": "Noch kein Konto?",
+      "registerLink": "Konto erstellen",
+      "submit": "Anmelden",
+      "submitting": "Anmeldung..."
+    },
+    "register": {
+      "title": "Konto erstellen",
+      "subtitle": "Kostenlos, in wenigen Sekunden.",
+      "hasAccount": "Bereits ein Konto?",
+      "loginLink": "Anmelden",
+      "passwordHint": "Mindestens 8 Zeichen.",
+      "submit": "Konto erstellen",
+      "submitting": "Wird erstellt..."
+    },
+    "forgot": {
+      "title": "Passwort vergessen",
+      "subtitle": "Wir senden Ihnen einen Link zum Zurucksetzen per E-Mail.",
+      "sent": "Falls ein Konto mit dieser E-Mail existiert, wurde soeben ein Link zum Zurucksetzen gesendet.",
+      "backToLogin": "Zuruck zur Anmeldung",
+      "submit": "Link senden",
+      "submitting": "Wird gesendet..."
+    },
+    "reset": {
+      "title": "Neues Passwort",
+      "subtitle": "Wahlen Sie ein neues Passwort.",
+      "missingToken": "Ungultiger Link zum Zurucksetzen.",
+      "newPassword": "Neues Passwort",
+      "success": "Ihr Passwort wurde aktualisiert.",
+      "goToLogin": "Anmelden",
+      "submit": "Passwort zurucksetzen",
+      "submitting": "Wird gespeichert..."
+    }
+  },
+  "captcha": {
+    "loading": "Verifizierung wird geladen...",
+    "solving": "Anti-Bot-Verifizierung lauft...",
+    "ready": "Verifizierung erfolgreich",
+    "error": "Verifizierung nicht verfugbar, bitte erneut versuchen"
+  },
+  "newsletter": {
+    "backHome": "Zuruck zur Startseite",
+    "confirm": {
+      "title": "Newsletter-Bestatigung",
+      "success": "Ihre Newsletter-Anmeldung ist bestatigt.",
+      "error": "Ungultiger oder abgelaufener Bestatigungslink."
+    },
+    "unsubscribe": {
+      "title": "Newsletter abbestellen",
+      "success": "Sie wurden vom Newsletter abgemeldet.",
+      "error": "Ungultiger Abmeldelink."
+    },
+    "signup": {
+      "placeholder": "sie@beispiel.de",
+      "submit": "Anmelden",
+      "done": "Danke! Bestatigen Sie per E-Mail.",
+      "error": "Ein Fehler ist aufgetreten, bitte erneut versuchen."
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "greeting": "Hallo, {{name}}",
+    "nav": {
+      "workspace": "Meine Bereiche",
+      "admin": "Verwaltung",
+      "logout": "Abmelden"
+    },
+    "kpi": {
+      "owned": "Eigene Bereiche",
+      "shared": "Mit mir geteilt",
+      "documents": "Dokumente",
+      "conversations": "Unterhaltungen",
+      "messages": "Nachrichten",
+      "storage": "Speicher"
+    },
+    "mySpaces": "Meine Arbeitsbereiche",
+    "newSpace": "Neuer Bereich",
+    "noSpaces": "Sie haben noch keinen Arbeitsbereich.",
+    "spaceCounts": "{{docs}} Dokumente · {{convs}} Unterhaltungen"
+  },
+  "admin": {
+    "title": "Verwaltung",
+    "kpi": {
+      "users": "Nutzer",
+      "spaces": "Bereiche",
+      "documents": "Dokumente",
+      "messages": "Nachrichten",
+      "storage": "Speicher",
+      "newsletter": "Newsletter-Abonnenten",
+      "newUsers7d": "Neue Konten (7T)",
+      "newSpaces7d": "Neue Bereiche (7T)"
+    },
+    "tabs": {
+      "users": "Nutzer",
+      "spaces": "Bereiche"
+    },
+    "table": {
+      "email": "E-Mail",
+      "displayName": "Name",
+      "role": "Rolle",
+      "createdAt": "Erstellt",
+      "name": "Name",
+      "documents": "Dokumente",
+      "conversations": "Unterhaltungen"
+    }
   },
   "app": {
     "spaceRail": {
@@ -121,7 +242,8 @@
       "deleteSpace": "Bereich loschen",
       "newConversation": "Neue Unterhaltung",
       "noConversations": "Noch keine Unterhaltungen.",
-      "shareTitle": "Freigabelink dieses Bereichs kopieren",
+      "shareTitle": "Freigabe und Mitglieder",
+      "readOnly": "Nur Lesezugriff",
       "justNow": "gerade eben",
       "minutesAgo": "vor {{count}} Min.",
       "hoursAgo": "vor {{count}} Std.",
@@ -136,6 +258,7 @@
       "queuedPosition": " ({{count}} vor Ihnen)",
       "queuedSuffix": " - der Server verarbeitet jeweils eine Anfrage",
       "placeholder": "Nachricht eingeben...",
+      "readOnly": "Nur Lesezugriff - Sie konnen in diesem Bereich nicht schreiben.",
       "errorGeneric": "Bei der Antworterstellung ist ein Fehler aufgetreten ({{error}}). Uberprufen Sie, ob Ollama lauft und die Modelle heruntergeladen sind.",
       "connectionError": "Verbindungsfehler zum Server."
     },
@@ -160,20 +283,27 @@
       "description": "Beschreibung (optional)",
       "descriptionPlaceholder": "Wofur dient dieser Bereich?",
       "color": "Farbe",
-      "password": "Passwort (optional)",
-      "passwordPlaceholderKeep": "Leer lassen, um es nicht zu andern",
-      "passwordPlaceholderNew": "Leer lassen fur einen offentlich zuganglichen Bereich",
-      "removePassword": "Passwort entfernen (Bereich fur alle offnen)",
-      "helper": "Jeder mit dem Passwort (oder dem Freigabelink, nach dem Entsperren) kann diesen Bereich einsehen und nutzen.",
       "save": "Speichern",
       "create": "Bereich erstellen"
     },
-    "passwordPrompt": {
-      "title": "Geschutzter Bereich",
-      "body": "Der Bereich „{{name}}“ ist passwortgeschutzt. Geben Sie das Passwort ein, um darauf zuzugreifen.",
-      "placeholder": "Passwort",
-      "verifying": "Uberprufung...",
-      "unlock": "Entsperren"
+    "sharing": {
+      "title": "Freigabe - {{name}}",
+      "owner": "Inhaber",
+      "editor": "Bearbeiter",
+      "viewer": "Betrachter",
+      "linksTitle": "Freigabelinks",
+      "linksHelp": "Ein Freigabelink gewahrt Zugriff auf diesen Bereich, mit der gewahlten Rolle, ohne Konto.",
+      "labelPlaceholder": "Name des Links (optional)",
+      "createLink": "Erstellen",
+      "noLinks": "Noch keine Freigabelinks.",
+      "unnamedLink": "Unbenannter Link",
+      "revoked": "Widerrufen",
+      "copy": "Kopieren",
+      "membersTitle": "Mitglieder",
+      "membersHelp": "Fugen Sie einen Nutzer mit vorhandenem Konto als Mitarbeiter fur diesen Bereich hinzu.",
+      "emailPlaceholder": "email@beispiel.de",
+      "addMember": "Hinzufugen",
+      "noMembers": "Noch keine Mitglieder."
     },
     "confirmDeleteSpace": {
       "title": "Diesen Bereich loschen?",
@@ -184,9 +314,11 @@
       "message": "Diese Aktion kann nicht ruckgangig gemacht werden."
     },
     "workspace": {
-      "locked": "Dieser Bereich ist passwortgeschutzt.",
       "createFirstSpace": "Erstellen Sie Ihren ersten Arbeitsbereich, um loszulegen.",
       "newSpace": "Neuer Bereich"
+    },
+    "share": {
+      "invalid": "Dieser Freigabelink ist ungultig, widerrufen oder abgelaufen."
     }
   }
 }
