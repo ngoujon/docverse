@@ -162,6 +162,35 @@
       "goToLogin": "Log in",
       "submit": "Reset password",
       "submitting": "Saving..."
+    },
+    "twofa": {
+      "title": "Two-factor verification",
+      "subtitle": "Enter the 6-digit code from your authenticator app.",
+      "hint": "Authenticator app (Google Authenticator, Authy...)",
+      "submit": "Verify",
+      "verifying": "Verifying..."
+    },
+    "account": {
+      "title": "My account",
+      "security": "Security",
+      "logoutEverywhere": "Log out everywhere",
+      "logoutEverywhereDone": "Logged out on all devices.",
+      "twofaTitle": "Two-factor verification (2FA)",
+      "twofaEnabled": "Enabled",
+      "twofaDisabled": "Disabled",
+      "twofaEnable": "Enable",
+      "twofaDisable": "Disable",
+      "twofaSetupHint": "Scan this code with your authenticator app, or enter the key manually.",
+      "twofaCodePlaceholder": "6-digit code",
+      "twofaConfirm": "Confirm activation",
+      "twofaDisablePasswordHint": "Enter your password to disable 2FA.",
+      "dangerZone": "Danger zone",
+      "deleteAccount": "Delete my account",
+      "deleteAccountWarning": "This is irreversible: your account and every space you own will be permanently deleted.",
+      "deleteAccountConfirm": "Enter your password to confirm deletion.",
+      "exportData": "Export my data",
+      "emailVerified": "Email verified",
+      "emailNotVerified": "Email not verified"
     }
   },
   "captcha": {
@@ -235,7 +264,37 @@
       "createdAt": "Created",
       "name": "Name",
       "documents": "Documents",
-      "conversations": "Conversations"
+      "conversations": "Conversations",
+      "status": "Status",
+      "owner": "Owner",
+      "actions": "Actions"
+    },
+    "status": {
+      "active": "Active",
+      "disabled": "Disabled"
+    },
+    "actions": {
+      "view": "View",
+      "promote": "Promote to admin",
+      "demote": "Remove admin",
+      "disable": "Disable",
+      "enable": "Re-enable",
+      "delete": "Delete",
+      "snapshots": "Backups",
+      "loadMore": "Load more",
+      "confirmDeleteUserTitle": "Delete this account?",
+      "confirmDeleteUserMessage": "The account and every space it owns will be permanently deleted.",
+      "confirmDeleteSpaceTitle": "Delete this space?",
+      "confirmDeleteSpaceMessage": "All associated documents, conversations and backups will be permanently deleted."
+    },
+    "snapshots": {
+      "title": "Backups - {{name}}",
+      "createNow": "Create a backup now",
+      "restore": "Restore",
+      "confirmRestoreTitle": "Restore this backup?",
+      "confirmRestoreMessage": "The space's current content (conversations, documents) will be replaced with this backup's.",
+      "empty": "No backups yet. An automatic backup is created at most once a day, whenever there's activity.",
+      "retention": "Kept for a rolling 7 days"
     }
   },
   "app": {

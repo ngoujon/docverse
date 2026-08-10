@@ -162,6 +162,35 @@
       "goToLogin": "Iniciar sessao",
       "submit": "Repor palavra-passe",
       "submitting": "A guardar..."
+    },
+    "twofa": {
+      "title": "Verificacao em duas etapas",
+      "subtitle": "Introduza o codigo de 6 digitos da sua aplicacao de autenticacao.",
+      "hint": "Aplicacao de autenticacao (Google Authenticator, Authy...)",
+      "submit": "Verificar",
+      "verifying": "A verificar..."
+    },
+    "account": {
+      "title": "A minha conta",
+      "security": "Seguranca",
+      "logoutEverywhere": "Terminar sessao em todo o lado",
+      "logoutEverywhereDone": "Sessao terminada em todos os dispositivos.",
+      "twofaTitle": "Verificacao em duas etapas (2FA)",
+      "twofaEnabled": "Ativada",
+      "twofaDisabled": "Desativada",
+      "twofaEnable": "Ativar",
+      "twofaDisable": "Desativar",
+      "twofaSetupHint": "Digitalize este codigo com a sua aplicacao de autenticacao, ou introduza a chave manualmente.",
+      "twofaCodePlaceholder": "Codigo de 6 digitos",
+      "twofaConfirm": "Confirmar ativacao",
+      "twofaDisablePasswordHint": "Introduza a sua palavra-passe para desativar a 2FA.",
+      "dangerZone": "Zona de perigo",
+      "deleteAccount": "Eliminar a minha conta",
+      "deleteAccountWarning": "Esta acao e irreversivel: a sua conta e todos os espacos dos quais e proprietario serao eliminados permanentemente.",
+      "deleteAccountConfirm": "Introduza a sua palavra-passe para confirmar a eliminacao.",
+      "exportData": "Exportar os meus dados",
+      "emailVerified": "Email verificado",
+      "emailNotVerified": "Email nao verificado"
     }
   },
   "captcha": {
@@ -235,7 +264,37 @@
       "createdAt": "Criado",
       "name": "Nome",
       "documents": "Documentos",
-      "conversations": "Conversas"
+      "conversations": "Conversas",
+      "status": "Estado",
+      "owner": "Proprietario",
+      "actions": "Acoes"
+    },
+    "status": {
+      "active": "Ativo",
+      "disabled": "Desativado"
+    },
+    "actions": {
+      "view": "Ver",
+      "promote": "Promover a admin",
+      "demote": "Remover admin",
+      "disable": "Desativar",
+      "enable": "Reativar",
+      "delete": "Eliminar",
+      "snapshots": "Copias de seguranca",
+      "loadMore": "Carregar mais",
+      "confirmDeleteUserTitle": "Eliminar esta conta?",
+      "confirmDeleteUserMessage": "A conta e todos os espacos dos quais e proprietaria serao eliminados permanentemente.",
+      "confirmDeleteSpaceTitle": "Eliminar este espaco?",
+      "confirmDeleteSpaceMessage": "Todos os documentos, conversas e copias de seguranca associados serao eliminados permanentemente."
+    },
+    "snapshots": {
+      "title": "Copias de seguranca - {{name}}",
+      "createNow": "Criar uma copia de seguranca agora",
+      "restore": "Restaurar",
+      "confirmRestoreTitle": "Restaurar esta copia de seguranca?",
+      "confirmRestoreMessage": "O conteudo atual do espaco (conversas, documentos) sera substituido pelo desta copia de seguranca.",
+      "empty": "Ainda sem copias de seguranca. E criada automaticamente uma copia no maximo uma vez por dia, assim que ha atividade.",
+      "retention": "Mantidas durante 7 dias deslizantes"
     }
   },
   "app": {

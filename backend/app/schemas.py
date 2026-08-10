@@ -26,6 +26,7 @@ class UserOut(BaseModel):
     role: str
     is_active: bool
     email_verified: bool
+    totp_enabled: bool
     created_at: datetime
 
     class Config:
@@ -35,6 +36,31 @@ class UserOut(BaseModel):
 class AuthResponse(BaseModel):
     access_token: str
     user: UserOut
+
+
+class LoginResponse(BaseModel):
+    access_token: Optional[str] = None
+    user: Optional[UserOut] = None
+    requires_2fa: bool = False
+    pending_token: Optional[str] = None
+
+
+class TwoFactorVerifyRequest(BaseModel):
+    pending_token: str
+    code: str
+
+
+class TwoFactorSetupResponse(BaseModel):
+    secret: str
+    provisioning_uri: str
+
+
+class TwoFactorEnableRequest(BaseModel):
+    code: str
+
+
+class TwoFactorDisableRequest(BaseModel):
+    password: str
 
 
 class ForgotPasswordRequest(BaseModel):
@@ -171,6 +197,20 @@ class SpaceSnapshotOut(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class PaginatedUsers(BaseModel):
+    items: list[UserOut]
+    total: int
+    limit: int
+    offset: int
+
+
+class PaginatedSpaces(BaseModel):
+    items: list[SpaceOut]
+    total: int
+    limit: int
+    offset: int
 
 
 class AdminStatsOut(BaseModel):

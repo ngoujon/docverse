@@ -89,6 +89,12 @@ class Settings:
     smtp_use_tls: bool = os.environ.get("SMTP_USE_TLS", "true").lower() != "false"
     smtp_from: str = os.environ.get("SMTP_FROM", "Open RAG <no-reply@open-rag.local>")
 
+    # --- Abuse limits -----------------------------------------------------
+    # A compromised or malicious account shouldn't be able to spam an
+    # unbounded number of spaces or share links.
+    max_spaces_per_user: int = int(os.environ.get("MAX_SPACES_PER_USER", "50"))
+    max_share_links_per_space: int = int(os.environ.get("MAX_SHARE_LINKS_PER_SPACE", "20"))
+
     # --- Self-hosted proof-of-work captcha -------------------------------
     # Number of leading hex-zero characters required in the solved hash.
     # 5 is ~1M attempts on average - a few hundred ms in a browser tab,

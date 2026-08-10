@@ -8,7 +8,7 @@ from .. import models_db, schemas
 from ..config import UPLOAD_DIR, settings
 from ..database import get_db
 from ..deps import client_ip, get_current_user
-from ..services import auth, backup, captcha, email_templates, mail_service, rate_limiter, vectorstore
+from ..services import auth, backup, captcha, email_templates, mail_service, rate_limiter, twofa, vectorstore
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
@@ -52,7 +52,7 @@ def register(
     return schemas.AuthResponse(access_token=token, user=user)
 
 
-@router.post("/login", response_model=schemas.AuthResponse)
+@router.post("/login", response_model=schemas.LoginResponse)
 def login(payload: schemas.LoginRequest, request: Request, db: Session = Depends(get_db)):
     if not rate_limiter.login_limiter.allow(client_ip(request)):
         raise HTTPException(429, "Trop de tentatives, reessayez plus tard")
@@ -64,8 +64,72 @@ def login(payload: schemas.LoginRequest, request: Request, db: Session = Depends
     if not user.is_active:
         raise HTTPException(403, "Ce compte a ete desactive")
 
+    if user.totp_enabled:
+        pending_token = auth.issue_purpose_token(user.id, "2fa_pending", ttl_minutes=5)
+        return schemas.LoginResponse(requires_2fa=True, pending_token=pending_token)
+
+    token = auth.issue_user_token(user.id, user.role, user.token_version)
+    return schemas.LoginResponse(access_token=token, user=user)
+
+
+@router.post("/2fa/verify", response_model=schemas.AuthResponse)
+def verify_login_2fa(
+    payload: schemas.TwoFactorVerifyRequest,
+    request: Request,
+    db: Session = Depends(get_db),
+):
+    if not rate_limiter.login_limiter.allow(client_ip(request)):
+        raise HTTPException(429, "Trop de tentatives, reessayez plus tard")
+    user_id = auth.verify_purpose_token(payload.pending_token, "2fa_pending")
+    user = db.get(models_db.User, user_id) if user_id else None
+    if not user or not user.totp_enabled:
+        raise HTTPException(400, "Session de connexion invalide ou expiree, reconnectez-vous")
+    if not twofa.verify_code(user.totp_secret, payload.code):
+        raise HTTPException(401, "Code de verification incorrect")
+
     token = auth.issue_user_token(user.id, user.role, user.token_version)
     return schemas.AuthResponse(access_token=token, user=user)
+
+
+@router.post("/2fa/setup", response_model=schemas.TwoFactorSetupResponse)
+def setup_2fa(user: models_db.User = Depends(get_current_user), db: Session = Depends(get_db)):
+    if user.totp_enabled:
+        raise HTTPException(400, "La verification en deux etapes est deja activee")
+    secret = twofa.generate_secret()
+    user.totp_secret = secret  # not enabled until confirmed via /2fa/enable
+    db.commit()
+    return schemas.TwoFactorSetupResponse(
+        secret=secret, provisioning_uri=twofa.provisioning_uri(secret, user.email)
+    )
+
+
+@router.post("/2fa/enable")
+def enable_2fa(
+    payload: schemas.TwoFactorEnableRequest,
+    user: models_db.User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    if not user.totp_secret:
+        raise HTTPException(400, "Lancez d'abord la configuration (/2fa/setup)")
+    if not twofa.verify_code(user.totp_secret, payload.code):
+        raise HTTPException(401, "Code de verification incorrect")
+    user.totp_enabled = True
+    db.commit()
+    return {"ok": True}
+
+
+@router.post("/2fa/disable")
+def disable_2fa(
+    payload: schemas.TwoFactorDisableRequest,
+    user: models_db.User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    if not auth.verify_password(payload.password, user.password_hash):
+        raise HTTPException(401, "Mot de passe incorrect")
+    user.totp_enabled = False
+    user.totp_secret = None
+    db.commit()
+    return {"ok": True}
 
 
 @router.post("/logout-everywhere", response_model=schemas.LogoutEverywhereResponse)

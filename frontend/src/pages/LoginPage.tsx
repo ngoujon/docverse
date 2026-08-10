@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, ShieldCheck } from "lucide-react";
 import { useAuth } from "../hooks/useAuth";
 import AuthLayout from "../components/AuthLayout";
 import { usePageTitle } from "../hooks/usePageTitle";
 
 export default function LoginPage() {
   const { t } = useTranslation();
-  const { login } = useAuth();
+  const { login, verify2fa } = useAuth();
   const navigate = useNavigate();
   usePageTitle(`${t("auth.login.title")} - Open RAG`);
 
@@ -18,12 +18,33 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
+  const [pendingToken, setPendingToken] = useState<string | null>(null);
+  const [code, setCode] = useState("");
+
   const handleSubmit = async () => {
     if (!email || !password || submitting) return;
     setSubmitting(true);
     setError(null);
     try {
-      await login(email, password);
+      const result = await login(email, password);
+      if (result.requires2fa && result.pendingToken) {
+        setPendingToken(result.pendingToken);
+      } else {
+        navigate("/dashboard");
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Erreur");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleVerify2fa = async () => {
+    if (!pendingToken || code.length < 6 || submitting) return;
+    setSubmitting(true);
+    setError(null);
+    try {
+      await verify2fa(pendingToken, code);
       navigate("/dashboard");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erreur");
@@ -31,6 +52,37 @@ export default function LoginPage() {
       setSubmitting(false);
     }
   };
+
+  if (pendingToken) {
+    return (
+      <AuthLayout title={t("auth.twofa.title")} subtitle={t("auth.twofa.subtitle")}>
+        <div className="space-y-3">
+          <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+            <ShieldCheck size={16} />
+            <span className="text-xs">{t("auth.twofa.hint")}</span>
+          </div>
+          <input
+            autoFocus
+            inputMode="numeric"
+            maxLength={6}
+            value={code}
+            onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}
+            onKeyDown={(e) => e.key === "Enter" && handleVerify2fa()}
+            placeholder="000000"
+            className="w-full rounded-lg border border-surface-border bg-surface-1 px-3 py-2 text-center font-mono text-lg tracking-[0.4em] text-slate-900 dark:text-slate-100 outline-none focus:border-accent"
+          />
+          {error && <p className="text-xs text-red-500">{error}</p>}
+          <button
+            onClick={handleVerify2fa}
+            disabled={code.length < 6 || submitting}
+            className="w-full rounded-lg bg-accent px-3 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-white shadow-neon-light hover:bg-accent-hover disabled:opacity-40 disabled:shadow-none"
+          >
+            {submitting ? t("auth.twofa.verifying") : t("auth.twofa.submit")}
+          </button>
+        </div>
+      </AuthLayout>
+    );
+  }
 
   return (
     <AuthLayout

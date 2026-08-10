@@ -162,6 +162,35 @@
       "goToLogin": "Anmelden",
       "submit": "Passwort zurucksetzen",
       "submitting": "Wird gespeichert..."
+    },
+    "twofa": {
+      "title": "Zwei-Faktor-Verifizierung",
+      "subtitle": "Geben Sie den 6-stelligen Code Ihrer Authentifizierungs-App ein.",
+      "hint": "Authentifizierungs-App (Google Authenticator, Authy...)",
+      "submit": "Verifizieren",
+      "verifying": "Verifizierung..."
+    },
+    "account": {
+      "title": "Mein Konto",
+      "security": "Sicherheit",
+      "logoutEverywhere": "Uberall abmelden",
+      "logoutEverywhereDone": "Auf allen Geraten abgemeldet.",
+      "twofaTitle": "Zwei-Faktor-Verifizierung (2FA)",
+      "twofaEnabled": "Aktiviert",
+      "twofaDisabled": "Deaktiviert",
+      "twofaEnable": "Aktivieren",
+      "twofaDisable": "Deaktivieren",
+      "twofaSetupHint": "Scannen Sie diesen Code mit Ihrer Authentifizierungs-App oder geben Sie den Schlussel manuell ein.",
+      "twofaCodePlaceholder": "6-stelliger Code",
+      "twofaConfirm": "Aktivierung bestatigen",
+      "twofaDisablePasswordHint": "Geben Sie Ihr Passwort ein, um 2FA zu deaktivieren.",
+      "dangerZone": "Gefahrenzone",
+      "deleteAccount": "Mein Konto loschen",
+      "deleteAccountWarning": "Diese Aktion ist unwiderruflich: Ihr Konto und alle Bereiche, deren Inhaber Sie sind, werden endgultig geloscht.",
+      "deleteAccountConfirm": "Geben Sie Ihr Passwort ein, um die Loschung zu bestatigen.",
+      "exportData": "Meine Daten exportieren",
+      "emailVerified": "E-Mail bestatigt",
+      "emailNotVerified": "E-Mail nicht bestatigt"
     }
   },
   "captcha": {
@@ -235,7 +264,37 @@
       "createdAt": "Erstellt",
       "name": "Name",
       "documents": "Dokumente",
-      "conversations": "Unterhaltungen"
+      "conversations": "Unterhaltungen",
+      "status": "Status",
+      "owner": "Inhaber",
+      "actions": "Aktionen"
+    },
+    "status": {
+      "active": "Aktiv",
+      "disabled": "Deaktiviert"
+    },
+    "actions": {
+      "view": "Ansehen",
+      "promote": "Zu Admin befordern",
+      "demote": "Admin entfernen",
+      "disable": "Deaktivieren",
+      "enable": "Reaktivieren",
+      "delete": "Loschen",
+      "snapshots": "Backups",
+      "loadMore": "Mehr laden",
+      "confirmDeleteUserTitle": "Dieses Konto loschen?",
+      "confirmDeleteUserMessage": "Das Konto und alle Bereiche, deren Inhaber es ist, werden endgultig geloscht.",
+      "confirmDeleteSpaceTitle": "Diesen Bereich loschen?",
+      "confirmDeleteSpaceMessage": "Alle zugehorigen Dokumente, Unterhaltungen und Backups werden endgultig geloscht."
+    },
+    "snapshots": {
+      "title": "Backups - {{name}}",
+      "createNow": "Jetzt ein Backup erstellen",
+      "restore": "Wiederherstellen",
+      "confirmRestoreTitle": "Dieses Backup wiederherstellen?",
+      "confirmRestoreMessage": "Der aktuelle Inhalt des Bereichs (Unterhaltungen, Dokumente) wird durch den dieses Backups ersetzt.",
+      "empty": "Noch keine Backups. Ein automatisches Backup wird hochstens einmal pro Tag erstellt, sobald Aktivitat stattfindet.",
+      "retention": "7 Tage rollierend aufbewahrt"
     }
   },
   "app": {

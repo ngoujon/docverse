@@ -6,12 +6,16 @@ import type {
   Conversation,
   DocumentItem,
   HealthStatus,
+  LoginResponse,
   MeStats,
   Message,
+  Paginated,
   ShareLink,
   Space,
   SpaceMember,
+  SpaceSnapshot,
   SpaceStats,
+  TwoFactorSetup,
   User,
   VectorGraph,
 } from "../types";
@@ -82,12 +86,38 @@ export const api = {
       body: JSON.stringify({ email, password, display_name: displayName, ...captcha }),
     }),
   login: (email: string, password: string) =>
-    request<AuthResponse>("/auth/login", {
+    request<LoginResponse>("/auth/login", {
       method: "POST",
       body: JSON.stringify({ email, password }),
     }),
+  verify2fa: (pendingToken: string, code: string) =>
+    request<AuthResponse>("/auth/2fa/verify", {
+      method: "POST",
+      body: JSON.stringify({ pending_token: pendingToken, code }),
+    }),
+  setup2fa: () => request<TwoFactorSetup>("/auth/2fa/setup", { method: "POST" }),
+  enable2fa: (code: string) =>
+    request<{ ok: boolean }>("/auth/2fa/enable", {
+      method: "POST",
+      body: JSON.stringify({ code }),
+    }),
+  disable2fa: (password: string) =>
+    request<{ ok: boolean }>("/auth/2fa/disable", {
+      method: "POST",
+      body: JSON.stringify({ password }),
+    }),
+  logoutEverywhere: () =>
+    request<{ access_token: string }>("/auth/logout-everywhere", { method: "POST" }),
   me: () => request<User>("/auth/me"),
   meStats: () => request<MeStats>("/auth/me/stats"),
+  deleteAccount: (password: string) =>
+    request<{ ok: boolean }>("/auth/me", {
+      method: "DELETE",
+      body: JSON.stringify({ password }),
+    }),
+  exportAccount: () => request<unknown>("/auth/me/export"),
+  verifyEmail: (token: string) =>
+    request<{ ok: boolean }>(`/auth/verify-email?token=${encodeURIComponent(token)}`),
   forgotPassword: (email: string) =>
     request<{ ok: boolean }>("/auth/forgot-password", {
       method: "POST",
@@ -114,9 +144,23 @@ export const api = {
     request<{ ok: boolean }>(`/newsletter/unsubscribe?token=${encodeURIComponent(token)}`),
 
   // --- Admin ------------------------------------------------------------
-  adminUsers: () => request<User[]>("/admin/users"),
-  adminSpaces: () => request<Space[]>("/admin/spaces"),
+  adminUsers: (limit = 50, offset = 0) =>
+    request<Paginated<User>>(`/admin/users?limit=${limit}&offset=${offset}`),
+  adminSpaces: (limit = 50, offset = 0) =>
+    request<Paginated<Space>>(`/admin/spaces?limit=${limit}&offset=${offset}`),
   adminStats: () => request<AdminStats>("/admin/stats"),
+  adminUpdateUser: (userId: string, patch: { role?: "admin" | "user"; is_active?: boolean }) =>
+    request<User>(`/admin/users/${userId}`, { method: "PATCH", body: JSON.stringify(patch) }),
+  adminDeleteUser: (userId: string) => request(`/admin/users/${userId}`, { method: "DELETE" }),
+  adminDeleteSpace: (spaceId: string) => request(`/admin/spaces/${spaceId}`, { method: "DELETE" }),
+  adminListSnapshots: (spaceId: string) =>
+    request<SpaceSnapshot[]>(`/admin/spaces/${spaceId}/snapshots`),
+  adminCreateSnapshot: (spaceId: string) =>
+    request<SpaceSnapshot>(`/admin/spaces/${spaceId}/snapshots`, { method: "POST" }),
+  adminRestoreSnapshot: (spaceId: string, snapshotId: string) =>
+    request<{ ok: boolean }>(`/admin/spaces/${spaceId}/snapshots/${snapshotId}/restore`, {
+      method: "POST",
+    }),
 
   // --- Spaces -------------------------------------------------------
   listSpaces: () => request<Space[]>("/spaces"),

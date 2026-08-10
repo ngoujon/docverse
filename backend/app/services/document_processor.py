@@ -178,3 +178,37 @@ def guess_doc_type(filename: str) -> str:
     if ext in (".txt", ".csv", ".json", ".log"):
         return "txt"
     raise ValueError(f"Extension de fichier non supportee: {ext}")
+
+
+_IMAGE_SIGNATURES = (
+    b"\x89PNG\r\n\x1a\n",  # PNG
+    b"\xff\xd8\xff",  # JPEG
+    b"GIF87a",
+    b"GIF89a",
+    b"BM",  # BMP
+    b"RIFF",  # WEBP (RIFF....WEBP - checking the RIFF prefix is enough here)
+)
+
+
+def content_matches_type(doc_type: str, content: bytes) -> bool:
+    """Sniffs the actual file bytes instead of trusting the extension
+    alone - a renamed executable or script uploaded as "report.pdf"
+    should be rejected before it ever reaches disk or gets processed."""
+    if doc_type == "pdf":
+        return content.startswith(b"%PDF-")
+    if doc_type == "docx":
+        return content.startswith(b"PK\x03\x04")  # docx is a zip archive
+    if doc_type == "image":
+        return content.startswith(_IMAGE_SIGNATURES)
+    if doc_type in ("txt", "md"):
+        sample = content[:8192]
+        if b"\x00" in sample:
+            return False
+        for encoding in ("utf-8", "latin-1"):
+            try:
+                sample.decode(encoding)
+                return True
+            except UnicodeDecodeError:
+                continue
+        return False
+    return True

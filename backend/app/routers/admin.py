@@ -1,7 +1,7 @@
 import shutil
 from datetime import datetime, timedelta
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
@@ -14,11 +14,17 @@ from ..services import backup, vectorstore
 router = APIRouter(prefix="/api/admin", tags=["admin"])
 
 
-@router.get("/users", response_model=list[schemas.UserOut])
+@router.get("/users", response_model=schemas.PaginatedUsers)
 def list_users(
-    _: models_db.User = Depends(require_admin), db: Session = Depends(get_db)
+    limit: int = Query(50, ge=1, le=200),
+    offset: int = Query(0, ge=0),
+    _: models_db.User = Depends(require_admin),
+    db: Session = Depends(get_db),
 ):
-    return db.query(models_db.User).order_by(models_db.User.created_at.desc()).all()
+    q = db.query(models_db.User).order_by(models_db.User.created_at.desc())
+    total = q.count()
+    items = q.offset(offset).limit(limit).all()
+    return schemas.PaginatedUsers(items=items, total=total, limit=limit, offset=offset)
 
 
 def _active_admin_count(db: Session, exclude_user_id: str | None = None) -> int:
@@ -96,12 +102,17 @@ def delete_user(
     return {"ok": True}
 
 
-@router.get("/spaces", response_model=list[schemas.SpaceOut])
+@router.get("/spaces", response_model=schemas.PaginatedSpaces)
 def list_all_spaces(
-    _: models_db.User = Depends(require_admin), db: Session = Depends(get_db)
+    limit: int = Query(50, ge=1, le=200),
+    offset: int = Query(0, ge=0),
+    _: models_db.User = Depends(require_admin),
+    db: Session = Depends(get_db),
 ):
-    spaces = db.query(models_db.Space).order_by(models_db.Space.created_at.desc()).all()
-    return [
+    q = db.query(models_db.Space).order_by(models_db.Space.created_at.desc())
+    total = q.count()
+    spaces = q.offset(offset).limit(limit).all()
+    items = [
         schemas.SpaceOut(
             id=s.id,
             name=s.name,
@@ -115,6 +126,7 @@ def list_all_spaces(
         )
         for s in spaces
     ]
+    return schemas.PaginatedSpaces(items=items, total=total, limit=limit, offset=offset)
 
 
 @router.delete("/spaces/{space_id}")

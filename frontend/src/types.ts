@@ -68,12 +68,43 @@ export interface User {
   email: string;
   display_name: string;
   role: "admin" | "user";
+  is_active: boolean;
+  email_verified: boolean;
+  totp_enabled: boolean;
   created_at: string;
 }
 
 export interface AuthResponse {
   access_token: string;
   user: User;
+}
+
+export interface LoginResponse {
+  access_token: string | null;
+  user: User | null;
+  requires_2fa: boolean;
+  pending_token: string | null;
+}
+
+export interface TwoFactorSetup {
+  secret: string;
+  provisioning_uri: string;
+}
+
+export interface Paginated<T> {
+  items: T[];
+  total: number;
+  limit: number;
+  offset: number;
+}
+
+export interface SpaceSnapshot {
+  id: string;
+  space_id: string;
+  created_at: string;
+  size_bytes: number;
+  conversation_count: number;
+  document_count: number;
 }
 
 export interface SpaceMember {

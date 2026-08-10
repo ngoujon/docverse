@@ -1,3 +1,5 @@
+import re
+
 from . import ollama_client, vectorstore, websearch
 from ..config import settings
 
@@ -9,12 +11,26 @@ _WEB_SEARCH_CLASSIFIER_PROMPT = (
     "Question : {query}"
 )
 
+# Very short greetings/acknowledgements obviously never need a web search -
+# skipping the LLM classifier call for these is a free latency win with no
+# risk of missing a real case, since anything even slightly ambiguous still
+# falls through to the classifier below.
+_OBVIOUSLY_NO_SEARCH_RE = re.compile(
+    r"^\s*(bonjour|salut|coucou|hello+|hi|hey|yo|merci|thanks?( you)?|"
+    r"ok|okay|d'accord|super|parfait|cool|bien|bye|au revoir|a bientot)"
+    r"\s*[!.,?]*\s*$",
+    re.IGNORECASE,
+)
+
 
 async def _should_auto_search_web(query: str) -> bool:
     """Lightweight classification call asking the chat model whether this
     query needs live web data. Used when the user hasn't manually enabled
     web search, so the assistant still has the reflex to search when it
     matters. Fails closed (no search) on any error."""
+    stripped = query.strip()
+    if len(stripped) < 3 or _OBVIOUSLY_NO_SEARCH_RE.match(stripped):
+        return False
     try:
         answer = await ollama_client.chat(
             [{"role": "user", "content": _WEB_SEARCH_CLASSIFIER_PROMPT.format(query=query)}],

@@ -6,7 +6,7 @@ from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from .. import models_db, schemas
-from ..config import UPLOAD_DIR
+from ..config import UPLOAD_DIR, settings
 from ..database import get_db
 from ..deps import SpaceAccess, get_current_user, require_space_access, require_space_owner
 from ..services import backup, vector_graph, vectorstore
@@ -55,6 +55,11 @@ def create_space(
     user: models_db.User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
+    owned_count = db.query(models_db.Space).filter_by(owner_id=user.id).count()
+    if owned_count >= settings.max_spaces_per_user:
+        raise HTTPException(
+            400, f"Limite de {settings.max_spaces_per_user} espaces par compte atteinte"
+        )
     space = models_db.Space(
         name=payload.name.strip() or "Espace sans nom",
         description=payload.description,
@@ -243,6 +248,16 @@ def create_share_link(
     access: SpaceAccess = Depends(require_space_owner),
     db: Session = Depends(get_db),
 ):
+    active_count = (
+        db.query(models_db.ShareLink)
+        .filter_by(space_id=access.space.id, revoked=False)
+        .count()
+    )
+    if active_count >= settings.max_share_links_per_space:
+        raise HTTPException(
+            400,
+            f"Limite de {settings.max_share_links_per_space} liens de partage actifs par espace atteinte",
+        )
     expires_at = (
         datetime.utcnow() + timedelta(days=payload.expires_in_days)
         if payload.expires_in_days

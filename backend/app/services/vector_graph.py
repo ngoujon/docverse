@@ -62,7 +62,16 @@ def build_graph(space_id: str) -> dict:
         return {"nodes": [], "edges": [], "truncated": False}
 
     embeddings = np.array(embeddings_raw, dtype=np.float64)
-    coords = _project_2d(embeddings)
+    # The Chroma collection is configured for cosine similarity (see
+    # vectorstore.get_collection), so L2-normalizing before PCA makes the
+    # 2D layout reflect *that* similarity space (direction only) instead
+    # of raw-vector Euclidean distance, which can disagree with it -
+    # otherwise the picture wouldn't actually match how retrieval sees
+    # the same chunks as close or far apart.
+    norms = np.linalg.norm(embeddings, axis=1, keepdims=True)
+    norms[norms == 0] = 1
+    normalized_embeddings = embeddings / norms
+    coords = _project_2d(normalized_embeddings)
     edges = _knn_edges(embeddings, ids, _NEIGHBORS_PER_NODE)
 
     nodes = [

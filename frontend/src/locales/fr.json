@@ -162,6 +162,35 @@
       "goToLogin": "Se connecter",
       "submit": "Reinitialiser le mot de passe",
       "submitting": "Enregistrement..."
+    },
+    "twofa": {
+      "title": "Verification en deux etapes",
+      "subtitle": "Entrez le code a 6 chiffres de votre application d'authentification.",
+      "hint": "Application d'authentification (Google Authenticator, Authy...)",
+      "submit": "Verifier",
+      "verifying": "Verification..."
+    },
+    "account": {
+      "title": "Mon compte",
+      "security": "Securite",
+      "logoutEverywhere": "Se deconnecter partout",
+      "logoutEverywhereDone": "Deconnecte de tous les appareils.",
+      "twofaTitle": "Verification en deux etapes (2FA)",
+      "twofaEnabled": "Activee",
+      "twofaDisabled": "Desactivee",
+      "twofaEnable": "Activer",
+      "twofaDisable": "Desactiver",
+      "twofaSetupHint": "Scannez ce code avec votre application d'authentification, ou saisissez la cle manuellement.",
+      "twofaCodePlaceholder": "Code a 6 chiffres",
+      "twofaConfirm": "Confirmer l'activation",
+      "twofaDisablePasswordHint": "Entrez votre mot de passe pour desactiver la 2FA.",
+      "dangerZone": "Zone dangereuse",
+      "deleteAccount": "Supprimer mon compte",
+      "deleteAccountWarning": "Cette action est irreversible : votre compte et tous les espaces dont vous etes proprietaire seront definitivement supprimes.",
+      "deleteAccountConfirm": "Entrez votre mot de passe pour confirmer la suppression.",
+      "exportData": "Exporter mes donnees",
+      "emailVerified": "Email verifie",
+      "emailNotVerified": "Email non verifie"
     }
   },
   "captcha": {
@@ -235,7 +264,37 @@
       "createdAt": "Cree le",
       "name": "Nom",
       "documents": "Documents",
-      "conversations": "Conversations"
+      "conversations": "Conversations",
+      "status": "Statut",
+      "owner": "Proprietaire",
+      "actions": "Actions"
+    },
+    "status": {
+      "active": "Actif",
+      "disabled": "Desactive"
+    },
+    "actions": {
+      "view": "Consulter",
+      "promote": "Promouvoir admin",
+      "demote": "Retirer admin",
+      "disable": "Desactiver",
+      "enable": "Reactiver",
+      "delete": "Supprimer",
+      "snapshots": "Sauvegardes",
+      "loadMore": "Charger plus",
+      "confirmDeleteUserTitle": "Supprimer ce compte ?",
+      "confirmDeleteUserMessage": "Le compte et tous les espaces dont il est proprietaire seront definitivement supprimes.",
+      "confirmDeleteSpaceTitle": "Supprimer cet espace ?",
+      "confirmDeleteSpaceMessage": "Tous les documents, conversations et sauvegardes associes seront definitivement supprimes."
+    },
+    "snapshots": {
+      "title": "Sauvegardes - {{name}}",
+      "createNow": "Creer une sauvegarde maintenant",
+      "restore": "Restaurer",
+      "confirmRestoreTitle": "Restaurer cette sauvegarde ?",
+      "confirmRestoreMessage": "Le contenu actuel de l'espace (conversations, documents) sera remplace par celui de cette sauvegarde.",
+      "empty": "Aucune sauvegarde pour l'instant. Une sauvegarde automatique est creee au maximum une fois par jour, des qu'il y a de l'activite.",
+      "retention": "Conservees 7 jours glissants"
     }
   },
   "app": {

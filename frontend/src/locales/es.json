@@ -162,6 +162,35 @@
       "goToLogin": "Iniciar sesion",
       "submit": "Restablecer contrasena",
       "submitting": "Guardando..."
+    },
+    "twofa": {
+      "title": "Verificacion en dos pasos",
+      "subtitle": "Introduce el codigo de 6 digitos de tu aplicacion de autenticacion.",
+      "hint": "Aplicacion de autenticacion (Google Authenticator, Authy...)",
+      "submit": "Verificar",
+      "verifying": "Verificando..."
+    },
+    "account": {
+      "title": "Mi cuenta",
+      "security": "Seguridad",
+      "logoutEverywhere": "Cerrar sesion en todas partes",
+      "logoutEverywhereDone": "Sesion cerrada en todos los dispositivos.",
+      "twofaTitle": "Verificacion en dos pasos (2FA)",
+      "twofaEnabled": "Activada",
+      "twofaDisabled": "Desactivada",
+      "twofaEnable": "Activar",
+      "twofaDisable": "Desactivar",
+      "twofaSetupHint": "Escanea este codigo con tu aplicacion de autenticacion, o introduce la clave manualmente.",
+      "twofaCodePlaceholder": "Codigo de 6 digitos",
+      "twofaConfirm": "Confirmar activacion",
+      "twofaDisablePasswordHint": "Introduce tu contrasena para desactivar la 2FA.",
+      "dangerZone": "Zona de peligro",
+      "deleteAccount": "Eliminar mi cuenta",
+      "deleteAccountWarning": "Esta accion es irreversible: tu cuenta y todos los espacios de los que eres propietario se eliminaran permanentemente.",
+      "deleteAccountConfirm": "Introduce tu contrasena para confirmar la eliminacion.",
+      "exportData": "Exportar mis datos",
+      "emailVerified": "Correo verificado",
+      "emailNotVerified": "Correo no verificado"
     }
   },
   "captcha": {
@@ -235,7 +264,37 @@
       "createdAt": "Creado",
       "name": "Nombre",
       "documents": "Documentos",
-      "conversations": "Conversaciones"
+      "conversations": "Conversaciones",
+      "status": "Estado",
+      "owner": "Propietario",
+      "actions": "Acciones"
+    },
+    "status": {
+      "active": "Activo",
+      "disabled": "Desactivado"
+    },
+    "actions": {
+      "view": "Ver",
+      "promote": "Promover a admin",
+      "demote": "Quitar admin",
+      "disable": "Desactivar",
+      "enable": "Reactivar",
+      "delete": "Eliminar",
+      "snapshots": "Copias de seguridad",
+      "loadMore": "Cargar mas",
+      "confirmDeleteUserTitle": "¿Eliminar esta cuenta?",
+      "confirmDeleteUserMessage": "La cuenta y todos los espacios de los que es propietaria se eliminaran permanentemente.",
+      "confirmDeleteSpaceTitle": "¿Eliminar este espacio?",
+      "confirmDeleteSpaceMessage": "Todos los documentos, conversaciones y copias de seguridad asociados se eliminaran permanentemente."
+    },
+    "snapshots": {
+      "title": "Copias de seguridad - {{name}}",
+      "createNow": "Crear una copia de seguridad ahora",
+      "restore": "Restaurar",
+      "confirmRestoreTitle": "¿Restaurar esta copia de seguridad?",
+      "confirmRestoreMessage": "El contenido actual del espacio (conversaciones, documentos) se sustituira por el de esta copia de seguridad.",
+      "empty": "Aun no hay copias de seguridad. Se crea una automaticamente como maximo una vez al dia, en cuanto hay actividad.",
+      "retention": "Se conservan durante 7 dias moviles"
     }
   },
   "app": {

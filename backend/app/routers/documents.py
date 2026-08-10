@@ -105,6 +105,11 @@ async def upload_document(
         chunks.append(chunk)
     content = b"".join(chunks)
 
+    if not document_processor.content_matches_type(doc_type, content):
+        raise HTTPException(
+            400, "Le contenu du fichier ne correspond pas a son extension"
+        )
+
     doc = models_db.Document(
         space_id=space.id,
         name=file.filename,

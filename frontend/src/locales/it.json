@@ -162,6 +162,35 @@
       "goToLogin": "Accedi",
       "submit": "Reimposta password",
       "submitting": "Salvataggio..."
+    },
+    "twofa": {
+      "title": "Verifica in due passaggi",
+      "subtitle": "Inserisci il codice a 6 cifre dalla tua app di autenticazione.",
+      "hint": "App di autenticazione (Google Authenticator, Authy...)",
+      "submit": "Verifica",
+      "verifying": "Verifica in corso..."
+    },
+    "account": {
+      "title": "Il mio account",
+      "security": "Sicurezza",
+      "logoutEverywhere": "Esci ovunque",
+      "logoutEverywhereDone": "Disconnesso da tutti i dispositivi.",
+      "twofaTitle": "Verifica in due passaggi (2FA)",
+      "twofaEnabled": "Attivata",
+      "twofaDisabled": "Disattivata",
+      "twofaEnable": "Attiva",
+      "twofaDisable": "Disattiva",
+      "twofaSetupHint": "Scansiona questo codice con la tua app di autenticazione, oppure inserisci la chiave manualmente.",
+      "twofaCodePlaceholder": "Codice a 6 cifre",
+      "twofaConfirm": "Conferma attivazione",
+      "twofaDisablePasswordHint": "Inserisci la tua password per disattivare la 2FA.",
+      "dangerZone": "Zona pericolosa",
+      "deleteAccount": "Elimina il mio account",
+      "deleteAccountWarning": "Questa azione e irreversibile: il tuo account e tutti gli spazi di cui sei proprietario verranno eliminati definitivamente.",
+      "deleteAccountConfirm": "Inserisci la tua password per confermare l'eliminazione.",
+      "exportData": "Esporta i miei dati",
+      "emailVerified": "Email verificata",
+      "emailNotVerified": "Email non verificata"
     }
   },
   "captcha": {
@@ -235,7 +264,37 @@
       "createdAt": "Creato",
       "name": "Nome",
       "documents": "Documenti",
-      "conversations": "Conversazioni"
+      "conversations": "Conversazioni",
+      "status": "Stato",
+      "owner": "Proprietario",
+      "actions": "Azioni"
+    },
+    "status": {
+      "active": "Attivo",
+      "disabled": "Disattivato"
+    },
+    "actions": {
+      "view": "Visualizza",
+      "promote": "Promuovi ad admin",
+      "demote": "Rimuovi admin",
+      "disable": "Disattiva",
+      "enable": "Riattiva",
+      "delete": "Elimina",
+      "snapshots": "Backup",
+      "loadMore": "Carica altri",
+      "confirmDeleteUserTitle": "Eliminare questo account?",
+      "confirmDeleteUserMessage": "L'account e tutti gli spazi di cui e proprietario verranno eliminati definitivamente.",
+      "confirmDeleteSpaceTitle": "Eliminare questo spazio?",
+      "confirmDeleteSpaceMessage": "Tutti i documenti, le conversazioni e i backup associati verranno eliminati definitivamente."
+    },
+    "snapshots": {
+      "title": "Backup - {{name}}",
+      "createNow": "Crea un backup ora",
+      "restore": "Ripristina",
+      "confirmRestoreTitle": "Ripristinare questo backup?",
+      "confirmRestoreMessage": "Il contenuto attuale dello spazio (conversazioni, documenti) verra sostituito con quello di questo backup.",
+      "empty": "Ancora nessun backup. Un backup automatico viene creato al massimo una volta al giorno, non appena c'e attivita.",
+      "retention": "Conservati per 7 giorni mobili"
     }
   },
   "app": {
