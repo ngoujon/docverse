@@ -3,10 +3,39 @@
 Application web auto-hebergee (Docker) pour discuter avec une IA locale
 (Ollama) a propos de vos propres documents : PDF, images (scans, photos),
 pages web, DOCX, TXT/Markdown. L'IA peut aussi completer ses reponses avec
-une recherche web via un moteur local (SearXNG), sans dependre d'aucune API
-externe payante.
+une recherche web via un moteur local (SearXNG). Le moteur d'IA reste
+100% local (Ollama, dans vos propres conteneurs Docker) par defaut, avec
+une bascule optionnelle vers Ollama Cloud pour des reponses plus rapides.
+
+A l'origine un outil local et gratuit, Open RAG est desormais pense comme
+un produit avec des comptes utilisateur et une tarification par palier
+(voir `TODO.md` et le plan d'affaires pour le detail) : chaque personne a
+un compte, chaque espace de travail appartient a un palier d'abonnement
+qui determine ses limites (nombre d'espaces, membres par espace, stockage).
 
 ## Fonctionnalites
+
+### Comptes et acces
+
+- **Comptes utilisateur obligatoires** : inscription email/mot de passe
+  (avec captcha "preuve de travail" auto-heberge et verification d'email),
+  connexion, mot de passe oublie, authentification a deux facteurs (2FA)
+  optionnelle. Un lien de partage ne dispense plus d'avoir un compte -
+  meme un visiteur invite doit se connecter ou en creer un.
+- **Connexion Google (SSO)** en plus de l'email/mot de passe - le bouton
+  n'apparait que si le fournisseur est reellement configure. Le code pour
+  Sign in with Apple est pret mais reste inactif tant que l'app n'a pas de
+  nom de domaine HTTPS et de compte Apple Developer payant ; Microsoft a
+  ete retire (aucun tenant Azure disponible pour l'instant).
+- **Paliers d'abonnement** (Decouverte / Particulier / Pro / Entreprise) :
+  chaque palier limite le nombre d'espaces de travail possedes et le
+  nombre de membres par espace (voir `PLAN_QUOTAS` dans
+  `backend/app/config.py`). L'integration de paiement (Stripe) est en
+  cours de mise en place.
+- **RGPD** : export et suppression de compte en libre-service,
+  desabonnement newsletter en un clic, page confidentialite dediee.
+
+### Espaces de travail et documents
 
 - **Espaces de travail** cloisonnes : chaque espace a ses propres documents
   et ses propres conversations. Aucune donnee n'est partagee entre espaces.
@@ -25,29 +54,28 @@ externe payante.
 - **Recherche web optionnelle** (bouton par conversation) : complete le
   contexte avec des resultats d'un moteur de recherche local (SearXNG),
   sans tracking et sans cle API.
+- **Partage par role** : un lien de partage donne acces a un espace en
+  lecture seule ou en edition, mais uniquement a une personne connectee -
+  le nombre de membres par espace reste limite par le palier du proprietaire.
+
+### Interface
+
 - **Interface claire (neo-retro), ergonomique et responsive**
   (mobile/tablette/desktop), avec zones de glisser-deposer pour l'ajout de
   documents, statut de traitement en temps reel, reponses en streaming
-  (mot a mot).
+  avec un effet de fondu mot a mot (chat de l'app comme assistant d'aide
+  de la page d'accueil).
 - **Multilingue** : francais (par defaut), anglais, allemand, espagnol,
   portugais, italien. Detection automatique de la langue du navigateur,
-  avec selecteur manuel (memorise). Note : les messages d'erreur renvoyes
-  par le backend (ex. "mot de passe incorrect") restent en francais pour
-  le moment.
-- **Espaces proteges par mot de passe (optionnel)** : a la creation d'un
-  espace, definissez un mot de passe (saisie masquable) pour le reserver
-  aux personnes qui le connaissent ; partagez-le en un clic (bouton
-  "partager", copie le lien dans le presse-papiers). Sans mot de passe, un
-  espace reste ouvert a tous - il n'y a pas de compte utilisateur.
+  avec selecteur manuel (memorise).
+- **Theme clair/sombre** avec bascule reelle (pas seulement suivre l'OS).
 - **File d'attente pour les requetes IA** : toutes les requetes a Ollama
   (chat, embeddings, vision) sont traitees une par une par defaut, pour
   rester stable meme sur un petit serveur avec plusieurs utilisateurs en
   meme temps (voir `OLLAMA_MAX_CONCURRENCY`).
-- **Page d'accueil de presentation** (design neo-retro) avec formulaire de
-  contact.
-- **100% local** : aucun appel a une API cloud, tout tourne dans vos
-  conteneurs Docker. Aucun compte requis, aucun cookie de tracking (voir
-  la page "Confidentialite" dans l'app).
+- **Site marketing** (page d'accueil neo-retro, FAQ, formulaire de
+  contact, assistant conversationnel d'aide) distinct de l'application
+  elle-meme.
 
 ## Architecture
 
@@ -141,11 +169,12 @@ lecture d'images utilisent le modele configure au moment de l'appel).
 
 ## Utilisation
 
-1. Depuis la page d'accueil, cliquez sur **Lancer l'application** (ou allez
-   directement sur `/app`) - aucun compte n'est necessaire.
+1. Depuis la page d'accueil, **creez un compte** (ou connectez-vous avec
+   Google) puis cliquez sur **Lancer l'application** (ou allez directement
+   sur `/app`).
 2. Creez un **espace de travail** (bouton `+` dans la colonne de gauche) :
-   nom, description, couleur, et un **mot de passe optionnel** si vous
-   voulez le reserver a certaines personnes.
+   nom, description, couleur. Le nombre d'espaces que vous pouvez creer et
+   le nombre de membres par espace dependent de votre palier d'abonnement.
 3. Dans le panneau **Documents** (a droite), glissez-deposez vos fichiers
    ou collez un lien web. Le statut passe de *en attente* → *analyse en
    cours* → *pret* (ou *erreur* avec le detail au survol).
@@ -153,9 +182,9 @@ lecture d'images utilisent le modele configure au moment de l'appel).
    reponses citent les extraits de documents utilises.
 5. Activez **Recherche web** en haut de la conversation pour completer les
    reponses avec des sources en ligne (recherchees via SearXNG, en local).
-6. Utilisez le bouton **partager** dans l'en-tete de l'espace pour copier
-   un lien direct (`/app/<id-espace>`) ; si l'espace a un mot de passe, la
-   personne qui ouvre le lien devra le saisir avant d'y acceder.
+6. Utilisez le bouton **partager** dans l'en-tete de l'espace pour generer
+   un lien donnant acces en lecture seule ou en edition ; la personne qui
+   ouvre le lien doit etre connectee (ou creer un compte) pour y acceder.
 7. Creez d'autres espaces pour des sujets differents : leurs documents et
    conversations restent totalement isoles les uns des autres.
 
@@ -171,17 +200,17 @@ modeste (2 vCPU type Hostinger KVM 2) :
   l'utilisateur voit un indicateur "en file d'attente" pendant l'attente.
   N'augmentez cette valeur que si votre machine a vraiment la RAM/le GPU
   pour plusieurs inferences simultanees.
-- **Limitation de debit** sur le formulaire de contact, les tentatives de
-  mot de passe d'espace, et l'envoi de messages, pour limiter les abus.
-- **Mots de passe d'espace** stockes uniquement sous forme hachee
-  (bcrypt) ; l'acces est ensuite verifie via un jeton signe (JWT) a duree
-  limitee (`SPACE_TOKEN_TTL_HOURS`), jamais via le mot de passe en clair.
+- **Limitation de debit** sur le formulaire de contact, la connexion, et
+  l'envoi de messages, pour limiter les abus.
+- **Mots de passe utilisateur** stockes uniquement sous forme hachee
+  (bcrypt) ; l'acces est ensuite verifie via un jeton de session signe
+  (JWT), jamais via le mot de passe en clair.
 - **En-tetes de securite** (X-Content-Type-Options, X-Frame-Options,
   Referrer-Policy, Permissions-Policy) et CORS restreint via
   `CORS_ORIGINS` (mettez votre nom de domaine en production).
 - Pensez a definir `SECRET_KEY` dans `.env` en production (sinon une cle
-  temporaire est generee a chaque redemarrage et les acces aux espaces
-  proteges doivent etre ressaisis).
+  temporaire est generee a chaque redemarrage et toutes les sessions sont
+  invalidees).
 - **Protection SSRF** sur l'ingestion de liens et la recherche web : avant
   toute requete sortante, l'adresse IP resolue du lien est verifiee et les
   plages privees/loopback/link-local (ex. `169.254.169.254`, `localhost`,
@@ -307,11 +336,11 @@ VITE_API_PROXY_TARGET=http://localhost:8000 npm run dev
 - **Reponses lentes / CPU a 100%** : normal sans GPU avec de gros modeles ;
   essayez un modele de chat plus petit (`qwen2.5:7b-instruct` par ex.).
 - **Recherche web sans resultat** : verifiez `docker compose logs searxng`.
-- **"Mot de passe requis" alors que je viens de le definir** : le jeton
-  d'acces est stocke dans le navigateur (localStorage) ; si vous changez de
-  navigateur/appareil ou videz les donnees du site, vous devrez le
-  ressaisir. Idem si le backend a redemarre sans `SECRET_KEY` fixe dans
-  `.env`.
+- **Deconnecte de facon inattendue** : le jeton de session est stocke dans
+  le navigateur (localStorage) ; si vous changez de navigateur/appareil ou
+  videz les donnees du site, vous devrez vous reconnecter. Idem si le
+  backend a redemarre sans `SECRET_KEY` fixe dans `.env` (une cle
+  temporaire est alors regeneree, invalidant toutes les sessions).
 - **"En file d'attente" reste affiche longtemps** : normal si plusieurs
   personnes discutent en meme temps sur un serveur a `OLLAMA_MAX_CONCURRENCY=1`
   - les requetes sont traitees dans l'ordre d'arrivee.
@@ -329,7 +358,11 @@ VITE_API_PROXY_TARGET=http://localhost:8000 npm run dev
 
 ## Confidentialite
 
-Toutes les donnees (documents, embeddings, conversations) restent dans les
-volumes Docker locaux (`app_data`, `ollama_data`). Aucune information
-n'est envoyee a un service tiers, y compris pour la recherche web (SearXNG
-est auto-heberge).
+Les documents, embeddings et conversations restent dans les volumes Docker
+locaux (`app_data`, `ollama_data`) et la recherche web est auto-hebergee
+(SearXNG, sans tracking). La connexion SSO (Google) et le paiement
+(Stripe, en cours d'integration) sont les deux seuls appels a des services
+tiers, et uniquement pour ce qui les concerne directement (identite,
+facturation) - jamais pour le contenu des documents ou des conversations.
+Voir la page "Confidentialite" de l'application pour le detail RGPD
+(export et suppression de compte, desabonnement newsletter).
