@@ -195,6 +195,74 @@ modeste (2 vCPU type Hostinger KVM 2) :
   positionne par Nginx (non falsifiable par l'appelant), pas via
   `X-Forwarded-For` seul qui peut etre manipule.
 
+## Sauvegardes et restauration
+
+Deux niveaux de sauvegarde coexistent :
+
+### 1. Sauvegardes automatiques par espace (integrees a l'app)
+
+Chaque espace de travail a son propre historique de sauvegardes, gere par
+`backend/app/services/backup.py` :
+
+- **Declenchement opportuniste** : une sauvegarde est creee automatiquement
+  des qu'il y a de l'activite dans un espace (message envoye, document
+  ingere), mais **au maximum une fois par jour** par espace, pour ne pas
+  multiplier les copies inutilement.
+- **Contenu** : toutes les lignes SQL de l'espace (conversations, messages,
+  documents) au format JSON, plus un dump de sa collection ChromaDB
+  (embeddings + metadonnees) et les fichiers uploades associes.
+- **Retention glissante de 7 jours** : a chaque nouvelle sauvegarde, celles
+  de plus de 7 jours pour cet espace sont supprimees automatiquement
+  (`_prune()`), pour eviter que le volume de donnees ne grossisse sans
+  limite sur un petit serveur.
+- **Restauration** : reservee aux administrateurs de l'instance, depuis le
+  dashboard admin (`/admin` -> onglet Espaces -> icone historique). Une
+  restauration remplace integralement le contenu actuel de l'espace
+  (conversations, documents, vecteurs) par celui de la sauvegarde
+  selectionnee ; l'operation est irreversible (une confirmation est
+  demandee). Un admin peut aussi declencher une sauvegarde manuelle
+  immediate ("Creer une sauvegarde maintenant") avant une operation
+  risquee.
+- **Suppression d'espace** : toutes les sauvegardes associees sont
+  supprimees en meme temps que l'espace (pas de retention orpheline).
+
+Ce systeme protege contre les erreurs applicatives ou humaines (mauvaise
+manipulation, document corrompu, suppression accidentelle de conversations)
+mais **ne remplace pas** une sauvegarde du volume Docker lui-meme : si le
+disque du serveur est perdu, il faut la sauvegarde niveau infrastructure
+ci-dessous.
+
+### 2. Sauvegarde du volume Docker (niveau infrastructure)
+
+Toutes les donnees (SQLite, ChromaDB, fichiers uploades, y compris les
+sauvegardes par espace ci-dessus) vivent dans le volume Docker nomme
+`app_data`, monte sur `/data` dans le conteneur backend. Pour une
+sauvegarde complete independante de l'application (a planifier en cron sur
+le serveur hote) :
+
+```bash
+# Sauvegarde (l'app peut rester en marche : SQLite gere les lectures
+# concurrentes, mais pour une coherence stricte, un arret bref est plus sur)
+docker run --rm \
+  -v open-rag_app_data:/data:ro \
+  -v "$(pwd)/backups":/backup \
+  alpine tar czf /backup/open-rag-data-$(date +%Y%m%d-%H%M%S).tar.gz -C /data .
+
+# Restauration (ecrase les donnees actuelles du volume - a faire conteneurs arretes)
+docker compose down
+docker run --rm \
+  -v open-rag_app_data:/data \
+  -v "$(pwd)/backups":/backup \
+  alpine sh -c "rm -rf /data/* && tar xzf /backup/open-rag-data-XXXXXXXX-XXXXXX.tar.gz -C /data"
+docker compose up -d
+```
+
+Adaptez `open-rag_app_data` au nom reel du volume (`docker volume ls`) si
+le projet n'est pas dans un dossier nomme `open-rag`. Conservez ces
+archives hors du serveur (stockage objet, autre machine) : une sauvegarde
+qui vit sur le meme disque que les donnees d'origine ne protege pas contre
+une panne disque.
+
 ## SEO
 
 La page d'accueil et la page confidentialite portent des balises meta
