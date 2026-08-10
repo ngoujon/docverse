@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Eye, EyeOff, ShieldCheck } from "lucide-react";
 import { useAuth } from "../hooks/useAuth";
@@ -10,6 +10,8 @@ export default function LoginPage() {
   const { t } = useTranslation();
   const { login, verify2fa } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const redirectTo = (location.state as { from?: string } | null)?.from || "/dashboard";
   usePageTitle(`${t("auth.login.title")} - Open RAG`);
 
   const [email, setEmail] = useState("");
@@ -30,7 +32,7 @@ export default function LoginPage() {
       if (result.requires2fa && result.pendingToken) {
         setPendingToken(result.pendingToken);
       } else {
-        navigate("/dashboard");
+        navigate(redirectTo);
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erreur");
@@ -45,7 +47,7 @@ export default function LoginPage() {
     setError(null);
     try {
       await verify2fa(pendingToken, code);
-      navigate("/dashboard");
+      navigate(redirectTo);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erreur");
     } finally {
@@ -91,7 +93,7 @@ export default function LoginPage() {
       footer={
         <>
           {t("auth.login.noAccount")}{" "}
-          <Link to="/register" className="font-medium text-accent hover:underline">
+          <Link to="/register" state={location.state} className="font-medium text-accent hover:underline">
             {t("auth.login.registerLink")}
           </Link>
         </>

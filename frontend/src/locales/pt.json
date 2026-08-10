@@ -15,7 +15,7 @@
     "launchApp": "Abrir a app"
   },
   "hero": {
-    "badges": ["100% Local", "Codigo aberto", "Gratuito", "Partilha sem conta"],
+    "badges": ["100% Local", "Codigo aberto", "Gratuito", "Partilha por funcao"],
     "title1": "Converse com os seus documentos,",
     "title2": "em local, em equipa.",
     "subtitle": "Carregue os seus PDF, imagens e links em espacos isolados, e consulte-os com uma IA que corre inteiramente no seu proprio servidor - via Ollama, sem API na nuvem nem rastreio.",
@@ -58,7 +58,7 @@
     "items": [
       { "title": "Crie uma conta e um espaco", "desc": "Registo gratuito, depois de-lhe um nome e escolha uma cor." },
       { "title": "Carregue os seus documentos", "desc": "Arraste e largue PDF, imagens ou links da web. A IA le-os e indexa-os em segundo plano." },
-      { "title": "Converse e partilhe", "desc": "Faca as suas perguntas, obtenha respostas com fontes, e convide outras pessoas atraves de um link de partilha - com ou sem conta." }
+      { "title": "Converse e partilhe", "desc": "Faca as suas perguntas, obtenha respostas com fontes, e convide outras pessoas atraves de um link de partilha com a funcao escolhida." }
     ]
   },
   "opensource": {
@@ -232,7 +232,7 @@
       },
       {
         "question": "Preciso de uma conta para a utilizar?",
-        "answer": "Para criar um espaco de trabalho, sim, e necessaria uma conta gratuita. No entanto, os convidados que recebem um link de partilha podem consultar ou contribuir para um espaco sem criar conta."
+        "answer": "Sim, e necessaria uma conta gratuita para usar o Open RAG, incluindo para abrir um link de partilha. E isso que permite a cada espaco saber exatamente quem acedeu e com que funcao."
       },
       {
         "question": "O que e um espaco de trabalho?",
@@ -244,7 +244,7 @@
       },
       {
         "question": "Como funcionam os links de partilha?",
-        "answer": "A partir de um espaco de que e proprietario, gere um link com a funcao de leitor ou editor. Qualquer pessoa que abra esse link acede ao espaco com essa funcao, sem necessidade de criar conta. Pode revogar um link a qualquer momento."
+        "answer": "A partir de um espaco de que e proprietario, gere um link com a funcao de leitor ou editor. Qualquer pessoa autenticada que abra esse link acede ao espaco com essa funcao - quem ainda nao tem conta e convidado a criar uma gratuitamente primeiro. Pode revogar um link a qualquer momento."
       },
       {
         "question": "Que formatos de documentos sao aceites?",
@@ -436,7 +436,7 @@
       "editor": "Editor",
       "viewer": "Leitor",
       "linksTitle": "Links de partilha",
-      "linksHelp": "Um link de partilha da acesso a este espaco, com a funcao escolhida, sem necessidade de conta.",
+      "linksHelp": "Um link de partilha da acesso a este espaco, com a funcao escolhida, a qualquer pessoa autenticada que o abra.",
       "labelPlaceholder": "Nome do link (opcional)",
       "createLink": "Criar",
       "noLinks": "Ainda sem links de partilha.",

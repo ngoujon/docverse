@@ -42,13 +42,30 @@ def test_other_user_without_membership_cannot_see_space(client):
     assert res.status_code == 401
 
 
-def test_viewer_share_link_is_read_only(client):
+def share_headers(token: str, share_id: str) -> dict:
+    return {**auth_headers(token), "X-Share-Token": share_id}
+
+
+def test_anonymous_share_link_access_is_rejected(client):
+    """A share link alone is no longer enough - the visitor must also be
+    signed in, so the space owner's plan quota (members per space) means
+    something and every access is attributable to a real account."""
     owner = register_user(client, "owner@example.com")
     space = create_space(client, owner["access_token"])
     link = create_share_link(client, owner["access_token"], space["id"], "viewer")
 
-    # viewer can read
     res = client.get(f"/api/spaces/{space['id']}", headers={"X-Share-Token": link["id"]})
+    assert res.status_code == 401
+
+
+def test_viewer_share_link_is_read_only(client):
+    owner = register_user(client, "owner@example.com")
+    visitor = register_user(client, "visitor@example.com")
+    space = create_space(client, owner["access_token"])
+    link = create_share_link(client, owner["access_token"], space["id"], "viewer")
+
+    # signed-in viewer can read
+    res = client.get(f"/api/spaces/{space['id']}", headers=share_headers(visitor["access_token"], link["id"]))
     assert res.status_code == 200
     assert res.json()["my_role"] == "viewer"
 
@@ -56,35 +73,41 @@ def test_viewer_share_link_is_read_only(client):
     res = client.post(
         f"/api/spaces/{space['id']}/conversations",
         json={"title": "Hello"},
-        headers={"X-Share-Token": link["id"]},
+        headers=share_headers(visitor["access_token"], link["id"]),
     )
     assert res.status_code == 403
 
 
 def test_editor_share_link_can_write(client):
     owner = register_user(client, "owner@example.com")
+    visitor = register_user(client, "visitor@example.com")
     space = create_space(client, owner["access_token"])
     link = create_share_link(client, owner["access_token"], space["id"], "editor")
 
     res = client.post(
         f"/api/spaces/{space['id']}/conversations",
         json={"title": "Hello"},
-        headers={"X-Share-Token": link["id"]},
+        headers=share_headers(visitor["access_token"], link["id"]),
     )
     assert res.status_code == 200
 
 
 def test_revoked_share_link_is_rejected(client):
     owner = register_user(client, "owner@example.com")
+    visitor = register_user(client, "visitor@example.com")
     space = create_space(client, owner["access_token"])
     link = create_share_link(client, owner["access_token"], space["id"], "viewer")
+
+    # a signed-in visitor works before revocation
+    res = client.get(f"/api/spaces/{space['id']}", headers=share_headers(visitor["access_token"], link["id"]))
+    assert res.status_code == 200
 
     revoke = client.delete(
         f"/api/spaces/{space['id']}/share-links/{link['id']}", headers=auth_headers(owner["access_token"])
     )
     assert revoke.status_code == 200
 
-    res = client.get(f"/api/spaces/{space['id']}", headers={"X-Share-Token": link["id"]})
+    res = client.get(f"/api/spaces/{space['id']}", headers=share_headers(visitor["access_token"], link["id"]))
     assert res.status_code == 401
 
 

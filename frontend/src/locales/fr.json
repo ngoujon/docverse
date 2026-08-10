@@ -15,7 +15,7 @@
     "launchApp": "Lancer l'app"
   },
   "hero": {
-    "badges": ["100% Local", "Open Source", "Gratuit", "Partage sans compte"],
+    "badges": ["100% Local", "Open Source", "Gratuit", "Partage par role"],
     "title1": "Discutez avec vos documents,",
     "title2": "en local, en equipe.",
     "subtitle": "Deposez vos PDF, images et liens dans des espaces cloisonnes, et interrogez-les avec une IA qui tourne entierement sur votre serveur - via Ollama, sans API cloud ni tracking.",
@@ -58,7 +58,7 @@
     "items": [
       { "title": "Creez un compte et un espace", "desc": "Inscription gratuite, puis nommez votre espace et choisissez une couleur." },
       { "title": "Deposez vos documents", "desc": "Glissez-deposez PDF, images ou liens web. L'IA les lit et les indexe en arriere-plan." },
-      { "title": "Discutez et partagez", "desc": "Posez vos questions, obtenez des reponses sourcees, et invitez d'autres personnes via un lien de partage - avec ou sans compte." }
+      { "title": "Discutez et partagez", "desc": "Posez vos questions, obtenez des reponses sourcees, et invitez d'autres personnes via un lien de partage avec le role de votre choix." }
     ]
   },
   "opensource": {
@@ -232,7 +232,7 @@
       },
       {
         "question": "Ai-je besoin d'un compte pour l'utiliser ?",
-        "answer": "Pour creer un espace de travail, oui, un compte gratuit est necessaire. En revanche, les invites qui recoivent un lien de partage peuvent consulter ou contribuer a un espace sans creer de compte."
+        "answer": "Oui, un compte gratuit est necessaire pour utiliser Open RAG, y compris pour ouvrir un lien de partage. C'est ce qui permet a chaque espace de savoir precisement qui y a accede et avec quel role."
       },
       {
         "question": "Qu'est-ce qu'un espace de travail ?",
@@ -244,7 +244,7 @@
       },
       {
         "question": "Comment fonctionnent les liens de partage ?",
-        "answer": "Depuis un espace dont vous etes proprietaire, generez un lien avec le role lecteur ou editeur. Toute personne qui ouvre ce lien accede a l'espace avec ce role, sans avoir besoin de creer de compte. Vous pouvez revoquer un lien a tout moment."
+        "answer": "Depuis un espace dont vous etes proprietaire, generez un lien avec le role lecteur ou editeur. Toute personne connectee qui ouvre ce lien accede a l'espace avec ce role - si elle n'a pas encore de compte, elle est invitee a en creer un gratuitement d'abord. Vous pouvez revoquer un lien a tout moment."
       },
       {
         "question": "Quels formats de documents sont acceptes ?",
@@ -436,7 +436,7 @@
       "editor": "Editeur",
       "viewer": "Lecteur",
       "linksTitle": "Liens de partage",
-      "linksHelp": "Un lien de partage donne acces a cet espace, avec le role choisi, sans compte requis.",
+      "linksHelp": "Un lien de partage donne acces a cet espace, avec le role choisi, a toute personne connectee qui l'ouvre.",
       "labelPlaceholder": "Nom du lien (optionnel)",
       "createLink": "Creer",
       "noLinks": "Aucun lien de partage pour l'instant.",

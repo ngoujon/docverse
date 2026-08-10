@@ -92,21 +92,26 @@ def _resolve_role(
         )
         if member:
             return SpaceAccess(space, member.role, user)
+        # A share link grants a role, but only to a signed-in visitor - an
+        # anonymous seat doesn't count against the owner's plan quota
+        # (config.PLAN_QUOTAS) and would make member limits meaningless.
+        # The visitor's own account is what's checked here, not the space
+        # owner's, so anyone with an account can follow a share link.
+        if share_token:
+            link = db.get(models_db.ShareLink, share_token)
+            if (
+                link
+                and link.space_id == space.id
+                and not link.revoked
+                and (not link.expires_at or link.expires_at > datetime.utcnow())
+            ):
+                return SpaceAccess(space, link.role, user)
         if user.role == "admin":
             # Admins can see any space from the admin dashboard, but that
             # doesn't imply edit rights over content they don't own or
             # aren't a member of.
             return SpaceAccess(space, "viewer", user)
-    if share_token:
-        link = db.get(models_db.ShareLink, share_token)
-        if (
-            link
-            and link.space_id == space.id
-            and not link.revoked
-            and (not link.expires_at or link.expires_at > datetime.utcnow())
-        ):
-            return SpaceAccess(space, link.role, None)
-    raise HTTPException(401, "Acces non autorise a cet espace")
+    raise HTTPException(401, "Acces non autorise a cet espace - connectez-vous pour utiliser ce lien de partage")
 
 
 def require_space_access(

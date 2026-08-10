@@ -15,7 +15,7 @@
     "launchApp": "Avvia l'app"
   },
   "hero": {
-    "badges": ["100% Locale", "Open Source", "Gratuito", "Condivisione senza account"],
+    "badges": ["100% Locale", "Open Source", "Gratuito", "Condivisione per ruolo"],
     "title1": "Chatta con i tuoi documenti,",
     "title2": "in locale, in team.",
     "subtitle": "Carica i tuoi PDF, immagini e link in spazi isolati, e interrogali con un'IA che gira interamente sul tuo server - via Ollama, senza API cloud ne tracciamento.",
@@ -58,7 +58,7 @@
     "items": [
       { "title": "Crea un account e uno spazio", "desc": "Registrazione gratuita, poi dai un nome al tuo spazio e scegli un colore." },
       { "title": "Carica i tuoi documenti", "desc": "Trascina e rilascia PDF, immagini o link web. L'IA li legge e li indicizza in background." },
-      { "title": "Chatta e condividi", "desc": "Fai le tue domande, ottieni risposte con fonti, e invita altre persone tramite un link di condivisione - con o senza account." }
+      { "title": "Chatta e condividi", "desc": "Fai le tue domande, ottieni risposte con fonti, e invita altre persone tramite un link di condivisione con il ruolo scelto." }
     ]
   },
   "opensource": {
@@ -232,7 +232,7 @@
       },
       {
         "question": "Serve un account per usarla?",
-        "answer": "Per creare uno spazio di lavoro, si, serve un account gratuito. Gli invitati che ricevono un link di condivisione, invece, possono consultare o contribuire a uno spazio senza creare un account."
+        "answer": "Si, serve un account gratuito per usare Open RAG, anche per aprire un link di condivisione. E questo che permette a ogni spazio di sapere esattamente chi vi ha avuto accesso e con quale ruolo."
       },
       {
         "question": "Cos'e uno spazio di lavoro?",
@@ -244,7 +244,7 @@
       },
       {
         "question": "Come funzionano i link di condivisione?",
-        "answer": "Da uno spazio di cui sei proprietario, genera un link con il ruolo lettore o editor. Chiunque apra quel link accede allo spazio con quel ruolo, senza bisogno di creare un account. Puoi revocare un link in qualsiasi momento."
+        "answer": "Da uno spazio di cui sei proprietario, genera un link con il ruolo lettore o editor. Chiunque sia autenticato e apra quel link accede allo spazio con quel ruolo - chi non ha ancora un account viene invitato a crearne uno gratis prima. Puoi revocare un link in qualsiasi momento."
       },
       {
         "question": "Quali formati di documenti sono supportati?",
@@ -436,7 +436,7 @@
       "editor": "Editor",
       "viewer": "Lettore",
       "linksTitle": "Link di condivisione",
-      "linksHelp": "Un link di condivisione da accesso a questo spazio, con il ruolo scelto, senza bisogno di account.",
+      "linksHelp": "Un link di condivisione da accesso a questo spazio, con il ruolo scelto, a chiunque sia autenticato e lo apra.",
       "labelPlaceholder": "Nome del link (opzionale)",
       "createLink": "Crea",
       "noLinks": "Ancora nessun link di condivisione.",

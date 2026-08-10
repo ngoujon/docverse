@@ -15,7 +15,7 @@
     "launchApp": "Abrir la app"
   },
   "hero": {
-    "badges": ["100% Local", "Codigo abierto", "Gratis", "Compartir sin cuenta"],
+    "badges": ["100% Local", "Codigo abierto", "Gratis", "Compartir por rol"],
     "title1": "Conversa con tus documentos,",
     "title2": "en local, en equipo.",
     "subtitle": "Sube tus PDF, imagenes y enlaces a espacios aislados, y consultalos con una IA que se ejecuta enteramente en tu propio servidor - via Ollama, sin API en la nube ni rastreo.",
@@ -58,7 +58,7 @@
     "items": [
       { "title": "Crea una cuenta y un espacio", "desc": "Registro gratuito, luego nombra tu espacio y elige un color." },
       { "title": "Sube tus documentos", "desc": "Arrastra y suelta PDF, imagenes o enlaces web. La IA los lee y los indexa en segundo plano." },
-      { "title": "Conversa y comparte", "desc": "Haz tus preguntas, obten respuestas con fuentes, e invita a otras personas mediante un enlace de invitacion - con o sin cuenta." }
+      { "title": "Conversa y comparte", "desc": "Haz tus preguntas, obten respuestas con fuentes, e invita a otras personas mediante un enlace de invitacion con el rol que elijas." }
     ]
   },
   "opensource": {
@@ -232,7 +232,7 @@
       },
       {
         "question": "Necesito una cuenta para usarla?",
-        "answer": "Para crear un espacio de trabajo, si, se necesita una cuenta gratuita. En cambio, los invitados que reciben un enlace de invitacion pueden consultar o contribuir a un espacio sin crear una cuenta."
+        "answer": "Si, se necesita una cuenta gratuita para usar Open RAG, incluso para abrir un enlace de invitacion. Esto permite que cada espacio sepa exactamente quien accedio y con que rol."
       },
       {
         "question": "Que es un espacio de trabajo?",
@@ -244,7 +244,7 @@
       },
       {
         "question": "Como funcionan los enlaces de invitacion?",
-        "answer": "Desde un espacio del que eres propietario, genera un enlace con el rol de lector o editor. Cualquiera que abra ese enlace accede al espacio con ese rol, sin necesidad de crear una cuenta. Puedes revocar un enlace en cualquier momento."
+        "answer": "Desde un espacio del que eres propietario, genera un enlace con el rol de lector o editor. Cualquier persona conectada que abra ese enlace accede al espacio con ese rol - si aun no tiene cuenta, se le pide crear una gratis primero. Puedes revocar un enlace en cualquier momento."
       },
       {
         "question": "Que formatos de documentos se admiten?",
@@ -436,7 +436,7 @@
       "editor": "Editor",
       "viewer": "Lector",
       "linksTitle": "Enlaces de invitacion",
-      "linksHelp": "Un enlace de invitacion da acceso a este espacio, con el rol elegido, sin necesidad de cuenta.",
+      "linksHelp": "Un enlace de invitacion da acceso a este espacio, con el rol elegido, a cualquier persona conectada que lo abra.",
       "labelPlaceholder": "Nombre del enlace (opcional)",
       "createLink": "Crear",
       "noLinks": "Aun no hay enlaces de invitacion.",

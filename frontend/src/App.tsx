@@ -83,7 +83,14 @@ export default function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/share/:shareToken" element={<WorkspaceApp />} />
+        <Route
+          path="/share/:shareToken"
+          element={
+            <ProtectedRoute>
+              <WorkspaceApp />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/confidentialite" element={<PrivacyPage />} />
         <Route path="/faq" element={<FaqPage />} />
         <Route path="*" element={<LandingPage />} />

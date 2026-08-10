@@ -15,7 +15,7 @@
     "launchApp": "App starten"
   },
   "hero": {
-    "badges": ["100% Lokal", "Open Source", "Kostenlos", "Teilen ohne Konto"],
+    "badges": ["100% Lokal", "Open Source", "Kostenlos", "Teilen nach Rolle"],
     "title1": "Unterhalten Sie sich mit Ihren Dokumenten,",
     "title2": "lokal, im Team.",
     "subtitle": "Laden Sie PDFs, Bilder und Links in abgeschottete Bereiche und befragen Sie sie mit einer KI, die vollstandig auf Ihrem eigenen Server lauft - via Ollama, ohne Cloud-API, ohne Tracking.",
@@ -58,7 +58,7 @@
     "items": [
       { "title": "Konto und Bereich erstellen", "desc": "Kostenlose Registrierung, dann benennen Sie Ihren Bereich und wahlen eine Farbe." },
       { "title": "Dokumente hinzufugen", "desc": "PDFs, Bilder oder Weblinks per Drag & Drop hinzufugen. Die KI liest und indexiert sie im Hintergrund." },
-      { "title": "Unterhalten und teilen", "desc": "Stellen Sie Ihre Fragen, erhalten Sie Antworten mit Quellenangaben, und laden Sie andere per Freigabelink ein - mit oder ohne Konto." }
+      { "title": "Unterhalten und teilen", "desc": "Stellen Sie Ihre Fragen, erhalten Sie Antworten mit Quellenangaben, und laden Sie andere per Freigabelink mit der gewahlten Rolle ein." }
     ]
   },
   "opensource": {
@@ -232,7 +232,7 @@
       },
       {
         "question": "Brauche ich ein Konto, um es zu nutzen?",
-        "answer": "Um einen Arbeitsbereich zu erstellen, ja, ein kostenloses Konto ist erforderlich. Gaste, die einen Freigabelink erhalten, konnen einen Bereich jedoch einsehen oder nutzen, ohne ein Konto zu erstellen."
+        "answer": "Ja, ein kostenloses Konto ist erforderlich, um Open RAG zu nutzen, auch um einen Freigabelink zu offnen. So weiss jeder Bereich genau, wer darauf zugegriffen hat und mit welcher Rolle."
       },
       {
         "question": "Was ist ein Arbeitsbereich?",
@@ -244,7 +244,7 @@
       },
       {
         "question": "Wie funktionieren Freigabelinks?",
-        "answer": "Erstelle in einem Bereich, dessen Eigentumer du bist, einen Link mit der Rolle Betrachter oder Bearbeiter. Jeder, der diesen Link offnet, erhalt Zugriff auf den Bereich mit dieser Rolle, ohne ein Konto erstellen zu muessen. Du kannst einen Link jederzeit widerrufen."
+        "answer": "Erstelle in einem Bereich, dessen Eigentumer du bist, einen Link mit der Rolle Betrachter oder Bearbeiter. Jede angemeldete Person, die diesen Link offnet, erhalt Zugriff auf den Bereich mit dieser Rolle - wer noch kein Konto hat, wird zuerst gebeten, kostenlos eines zu erstellen. Du kannst einen Link jederzeit widerrufen."
       },
       {
         "question": "Welche Dokumentformate werden unterstutzt?",
@@ -436,7 +436,7 @@
       "editor": "Bearbeiter",
       "viewer": "Betrachter",
       "linksTitle": "Freigabelinks",
-      "linksHelp": "Ein Freigabelink gewahrt Zugriff auf diesen Bereich, mit der gewahlten Rolle, ohne Konto.",
+      "linksHelp": "Ein Freigabelink gewahrt Zugriff auf diesen Bereich, mit der gewahlten Rolle, jeder angemeldeten Person, die ihn offnet.",
       "labelPlaceholder": "Name des Links (optional)",
       "createLink": "Erstellen",
       "noLinks": "Noch keine Freigabelinks.",

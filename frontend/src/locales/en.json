@@ -15,7 +15,7 @@
     "launchApp": "Launch app"
   },
   "hero": {
-    "badges": ["100% Local", "Open Source", "Free", "Share without an account"],
+    "badges": ["100% Local", "Open Source", "Free", "Role-based sharing"],
     "title1": "Chat with your documents,",
     "title2": "locally, as a team.",
     "subtitle": "Drop your PDFs, images and links into isolated spaces, and query them with an AI that runs entirely on your own server - via Ollama, no cloud API, no tracking.",
@@ -58,7 +58,7 @@
     "items": [
       { "title": "Create an account and a space", "desc": "Free sign-up, then name your space and pick a color." },
       { "title": "Drop your documents", "desc": "Drag and drop PDFs, images or web links. The AI reads and indexes them in the background." },
-      { "title": "Chat and share", "desc": "Ask your questions, get sourced answers, and invite others via a share link - with or without an account." }
+      { "title": "Chat and share", "desc": "Ask your questions, get sourced answers, and invite others via a share link with the role of your choice." }
     ]
   },
   "opensource": {
@@ -232,7 +232,7 @@
       },
       {
         "question": "Do I need an account to use it?",
-        "answer": "To create a workspace, yes, a free account is required. Guests who receive a share link, however, can view or contribute to a space without creating an account."
+        "answer": "Yes, a free account is required to use Open RAG, including to open a share link. That's what lets each space know exactly who accessed it and with which role."
       },
       {
         "question": "What is a workspace?",
@@ -244,7 +244,7 @@
       },
       {
         "question": "How do share links work?",
-        "answer": "From a space you own, generate a link with the viewer or editor role. Anyone who opens that link gets access to the space with that role, without needing to create an account. You can revoke a link at any time."
+        "answer": "From a space you own, generate a link with the viewer or editor role. Anyone signed in who opens that link gets access to the space with that role - if they don't have an account yet, they're prompted to create one for free first. You can revoke a link at any time."
       },
       {
         "question": "Which document formats are supported?",
@@ -436,7 +436,7 @@
       "editor": "Editor",
       "viewer": "Viewer",
       "linksTitle": "Share links",
-      "linksHelp": "A share link grants access to this space, with the chosen role, no account required.",
+      "linksHelp": "A share link grants access to this space, with the chosen role, to anyone signed in who opens it.",
       "labelPlaceholder": "Link name (optional)",
       "createLink": "Create",
       "noLinks": "No share links yet.",

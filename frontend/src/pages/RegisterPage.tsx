@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Eye, EyeOff } from "lucide-react";
 import { useAuth } from "../hooks/useAuth";
@@ -13,6 +13,8 @@ export default function RegisterPage() {
   const { t } = useTranslation();
   const { register } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const redirectTo = (location.state as { from?: string } | null)?.from || "/dashboard";
   usePageTitle(`${t("auth.register.title")} - Open RAG`);
 
   const [displayName, setDisplayName] = useState("");
@@ -32,7 +34,7 @@ export default function RegisterPage() {
     setError(null);
     try {
       await register(email, password, displayName, captcha!);
-      navigate("/dashboard");
+      navigate(redirectTo);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erreur");
       setCaptchaKey((k) => k + 1);
@@ -48,7 +50,7 @@ export default function RegisterPage() {
       footer={
         <>
           {t("auth.register.hasAccount")}{" "}
-          <Link to="/login" className="font-medium text-accent hover:underline">
+          <Link to="/login" state={location.state} className="font-medium text-accent hover:underline">
             {t("auth.register.loginLink")}
           </Link>
         </>
