@@ -76,3 +76,19 @@ def register_user(client: TestClient, email: str, password: str = "correct-horse
 
 def auth_headers(token: str) -> dict:
     return {"Authorization": f"Bearer {token}"}
+
+
+def set_plan(user_id: str, plan: str) -> None:
+    """New accounts default to the 'decouverte' plan (1 member per space) -
+    tests that need to add multiple members to one space must bump the
+    owner's plan first, same as a real upgrade would."""
+    from app.database import SessionLocal
+    from app import models_db
+
+    db = SessionLocal()
+    try:
+        user = db.get(models_db.User, user_id)
+        user.plan = plan
+        db.commit()
+    finally:
+        db.close()

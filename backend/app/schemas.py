@@ -27,6 +27,7 @@ class UserOut(BaseModel):
     is_active: bool
     email_verified: bool
     totp_enabled: bool
+    plan: str
     created_at: datetime
 
     class Config:

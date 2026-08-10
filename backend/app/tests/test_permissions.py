@@ -1,4 +1,4 @@
-from .conftest import auth_headers, register_user
+from .conftest import auth_headers, register_user, set_plan
 
 
 def create_space(client, token, name="Test space"):
@@ -92,6 +92,7 @@ def test_member_viewer_cannot_write_but_editor_can(client):
     owner = register_user(client, "owner@example.com")
     editor = register_user(client, "editor@example.com")
     viewer = register_user(client, "viewer@example.com")
+    set_plan(owner["user"]["id"], "pro")  # 3 members needed on this space
     space = create_space(client, owner["access_token"])
 
     add_editor = client.post(
@@ -126,6 +127,7 @@ def test_member_viewer_cannot_write_but_editor_can(client):
 def test_non_owner_member_cannot_manage_members_or_links(client):
     owner = register_user(client, "owner@example.com")
     editor = register_user(client, "editor@example.com")
+    set_plan(owner["user"]["id"], "pro")
     space = create_space(client, owner["access_token"])
     client.post(
         f"/api/spaces/{space['id']}/members",
@@ -144,6 +146,7 @@ def test_non_owner_member_cannot_manage_members_or_links(client):
 def test_only_owner_can_delete_space(client):
     owner = register_user(client, "owner@example.com")
     editor = register_user(client, "editor@example.com")
+    set_plan(owner["user"]["id"], "pro")
     space = create_space(client, owner["access_token"])
     client.post(
         f"/api/spaces/{space['id']}/members",
@@ -155,6 +158,49 @@ def test_only_owner_can_delete_space(client):
     assert forbidden.status_code == 403
 
     allowed = client.delete(f"/api/spaces/{space['id']}", headers=auth_headers(owner["access_token"]))
+    assert allowed.status_code == 200
+
+
+def test_member_quota_follows_owner_plan(client):
+    owner = register_user(client, "owner@example.com")
+    editor = register_user(client, "editor@example.com")
+    space = create_space(client, owner["access_token"])
+
+    # default plan is "decouverte" -> 1 member per space (the owner only)
+    rejected = client.post(
+        f"/api/spaces/{space['id']}/members",
+        json={"email": "editor@example.com", "role": "editor"},
+        headers=auth_headers(owner["access_token"]),
+    )
+    assert rejected.status_code == 400
+
+    set_plan(owner["user"]["id"], "pro")
+    allowed = client.post(
+        f"/api/spaces/{space['id']}/members",
+        json={"email": "editor@example.com", "role": "editor"},
+        headers=auth_headers(owner["access_token"]),
+    )
+    assert allowed.status_code == 200
+
+
+def test_space_quota_follows_owner_plan(client):
+    owner = register_user(client, "owner@example.com")
+    create_space(client, owner["access_token"], name="First space")
+
+    # default plan is "decouverte" -> 1 space total
+    rejected = client.post(
+        "/api/spaces",
+        json={"name": "Second space", "description": "", "color": "#000"},
+        headers=auth_headers(owner["access_token"]),
+    )
+    assert rejected.status_code == 400
+
+    set_plan(owner["user"]["id"], "particulier")  # 3 spaces
+    allowed = client.post(
+        "/api/spaces",
+        json={"name": "Second space", "description": "", "color": "#000"},
+        headers=auth_headers(owner["access_token"]),
+    )
     assert allowed.status_code == 200
 
 

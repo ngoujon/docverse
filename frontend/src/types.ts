@@ -63,6 +63,8 @@ export interface HealthStatus {
   embed_model_ready: boolean;
 }
 
+export type UserPlan = "decouverte" | "particulier" | "pro" | "entreprise";
+
 export interface User {
   id: string;
   email: string;
@@ -71,6 +73,7 @@ export interface User {
   is_active: boolean;
   email_verified: boolean;
   totp_enabled: boolean;
+  plan: UserPlan;
   created_at: string;
 }
 

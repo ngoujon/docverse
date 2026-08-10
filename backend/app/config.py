@@ -91,7 +91,9 @@ class Settings:
 
     # --- Abuse limits -----------------------------------------------------
     # A compromised or malicious account shouldn't be able to spam an
-    # unbounded number of spaces or share links.
+    # unbounded number of spaces or share links, regardless of plan - this
+    # is a hard ceiling even for entreprise. PLAN_QUOTAS below is the real,
+    # product-facing limit for everyone under that ceiling.
     max_spaces_per_user: int = int(os.environ.get("MAX_SPACES_PER_USER", "50"))
     max_share_links_per_space: int = int(os.environ.get("MAX_SHARE_LINKS_PER_SPACE", "20"))
 
@@ -130,3 +132,19 @@ if not settings.secret_key:
         "qu'un fichier sur le volume de donnees).",
         _key_file,
     )
+
+
+# Product-facing plan quotas (see the business plan): not yet tied to real
+# billing, but the limits themselves are enforced today. `None` means
+# unlimited (still capped by the absolute abuse ceilings above).
+PLAN_QUOTAS: dict[str, dict[str, int | None]] = {
+    "decouverte": {"spaces": 1, "members_per_space": 1},
+    "particulier": {"spaces": 3, "members_per_space": 1},
+    "pro": {"spaces": 10, "members_per_space": 10},
+    "entreprise": {"spaces": None, "members_per_space": None},
+}
+DEFAULT_PLAN = "decouverte"
+
+
+def plan_quota(plan: str, key: str) -> int | None:
+    return PLAN_QUOTAS.get(plan, PLAN_QUOTAS[DEFAULT_PLAN]).get(key)

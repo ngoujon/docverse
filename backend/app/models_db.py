@@ -27,6 +27,10 @@ class User(Base):
     token_version = Column(Integer, nullable=False, default=0)
     totp_secret = Column(String, nullable=True)
     totp_enabled = Column(Boolean, nullable=False, default=False)
+    # decouverte | particulier | pro | entreprise - see config.PLAN_QUOTAS.
+    # Not yet tied to real billing (no Stripe integration), but the quotas
+    # it drives are already enforced.
+    plan = Column(String, nullable=False, default="decouverte")
     created_at = Column(DateTime, default=datetime.utcnow)
 
     owned_spaces = relationship("Space", back_populates="owner")

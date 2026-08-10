@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
-from .. import models_db, schemas
+from .. import config, models_db, schemas
 from ..config import UPLOAD_DIR, settings
 from ..database import get_db
 from ..deps import SpaceAccess, get_current_user, require_space_access, require_space_owner
@@ -56,9 +56,11 @@ def create_space(
     db: Session = Depends(get_db),
 ):
     owned_count = db.query(models_db.Space).filter_by(owner_id=user.id).count()
-    if owned_count >= settings.max_spaces_per_user:
+    plan_limit = config.plan_quota(user.plan, "spaces")
+    effective_limit = min(plan_limit, settings.max_spaces_per_user) if plan_limit is not None else settings.max_spaces_per_user
+    if owned_count >= effective_limit:
         raise HTTPException(
-            400, f"Limite de {settings.max_spaces_per_user} espaces par compte atteinte"
+            400, f"Limite de {effective_limit} espaces atteinte pour votre palier ({user.plan})"
         )
     space = models_db.Space(
         name=payload.name.strip() or "Espace sans nom",
@@ -207,6 +209,19 @@ def add_member(
         db.commit()
         member = existing
     else:
+        owner = db.get(models_db.User, access.space.owner_id)
+        plan_limit = config.plan_quota(owner.plan if owner else config.DEFAULT_PLAN, "members_per_space")
+        if plan_limit is not None:
+            # +1 for the owner - the plan's "members per space" figure is a
+            # total headcount, not just invited members.
+            current_count = (
+                db.query(models_db.SpaceMember).filter_by(space_id=access.space.id).count() + 1
+            )
+            if current_count >= plan_limit:
+                raise HTTPException(
+                    400,
+                    f"Limite de {plan_limit} membres par espace atteinte pour ce palier",
+                )
         member = models_db.SpaceMember(space_id=access.space.id, user_id=target.id, role=payload.role)
         db.add(member)
         db.commit()
