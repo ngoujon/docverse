@@ -129,6 +129,12 @@
       "strong": "Stark",
       "veryStrong": "Sehr stark"
     },
+    "sso": {
+      "divider": "oder weiter mit",
+      "google": "Weiter mit Google",
+      "microsoft": "Weiter mit Microsoft",
+      "apple": "Weiter mit Apple"
+    },
     "login": {
       "title": "Anmelden",
       "subtitle": "Greifen Sie auf Ihre Arbeitsbereiche zu.",

@@ -129,6 +129,12 @@
       "strong": "Strong",
       "veryStrong": "Very strong"
     },
+    "sso": {
+      "divider": "or continue with",
+      "google": "Continue with Google",
+      "microsoft": "Continue with Microsoft",
+      "apple": "Continue with Apple"
+    },
     "login": {
       "title": "Log in",
       "subtitle": "Access your workspaces.",

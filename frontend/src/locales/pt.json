@@ -129,6 +129,12 @@
       "strong": "Forte",
       "veryStrong": "Muito forte"
     },
+    "sso": {
+      "divider": "ou continuar com",
+      "google": "Continuar com Google",
+      "microsoft": "Continuar com Microsoft",
+      "apple": "Continuar com Apple"
+    },
     "login": {
       "title": "Iniciar sessao",
       "subtitle": "Aceda aos seus espacos de trabalho.",

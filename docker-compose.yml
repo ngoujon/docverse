@@ -91,6 +91,18 @@ services:
       # Mistral: prepared, not yet wired to a live provider switch - see
       # TODO.md Phase 3.
       - MISTRAL_API_KEY=${MISTRAL_API_KEY:-}
+      # SSO (Google/Microsoft/Apple): a provider is only offered on the
+      # login/register pages once its client id is set.
+      - BACKEND_BASE_URL=${BACKEND_BASE_URL:-http://localhost:8000}
+      - GOOGLE_OAUTH_CLIENT_ID=${GOOGLE_OAUTH_CLIENT_ID:-}
+      - GOOGLE_OAUTH_CLIENT_SECRET=${GOOGLE_OAUTH_CLIENT_SECRET:-}
+      - MICROSOFT_OAUTH_CLIENT_ID=${MICROSOFT_OAUTH_CLIENT_ID:-}
+      - MICROSOFT_OAUTH_CLIENT_SECRET=${MICROSOFT_OAUTH_CLIENT_SECRET:-}
+      - MICROSOFT_OAUTH_TENANT_ID=${MICROSOFT_OAUTH_TENANT_ID:-common}
+      - APPLE_OAUTH_CLIENT_ID=${APPLE_OAUTH_CLIENT_ID:-}
+      - APPLE_OAUTH_TEAM_ID=${APPLE_OAUTH_TEAM_ID:-}
+      - APPLE_OAUTH_KEY_ID=${APPLE_OAUTH_KEY_ID:-}
+      - APPLE_OAUTH_PRIVATE_KEY=${APPLE_OAUTH_PRIVATE_KEY:-}
     volumes:
       - app_data:/app/data
       # Bind-mount the source so backend code edits are picked up live by

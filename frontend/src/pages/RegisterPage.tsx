@@ -5,6 +5,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { useAuth } from "../hooks/useAuth";
 import AuthLayout from "../components/AuthLayout";
 import Captcha from "../components/Captcha";
+import SsoButtons from "../components/SsoButtons";
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter";
 import { usePageTitle } from "../hooks/usePageTitle";
 import type { CaptchaSolution } from "../types";
@@ -115,6 +116,8 @@ export default function RegisterPage() {
         >
           {submitting ? t("auth.register.submitting") : t("auth.register.submit")}
         </button>
+
+        <SsoButtons next={redirectTo} />
       </div>
     </AuthLayout>
   );

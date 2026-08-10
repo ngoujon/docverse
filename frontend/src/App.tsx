@@ -11,6 +11,7 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import NewsletterConfirmPage from "./pages/NewsletterConfirmPage";
 import VerifyEmailPage from "./pages/VerifyEmailPage";
+import OAuthCallbackPage from "./pages/OAuthCallbackPage";
 import DashboardPage from "./pages/DashboardPage";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
 import AccountSettingsPage from "./pages/AccountSettingsPage";
@@ -43,6 +44,7 @@ export default function App() {
         <Route path="/newsletter/confirm" element={<NewsletterConfirmPage mode="confirm" />} />
         <Route path="/newsletter/unsubscribe" element={<NewsletterConfirmPage mode="unsubscribe" />} />
         <Route path="/verify-email" element={<VerifyEmailPage />} />
+        <Route path="/oauth-callback" element={<OAuthCallbackPage />} />
         <Route
           path="/dashboard"
           element={

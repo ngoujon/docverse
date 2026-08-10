@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Eye, EyeOff, ShieldCheck } from "lucide-react";
 import { useAuth } from "../hooks/useAuth";
 import AuthLayout from "../components/AuthLayout";
+import SsoButtons from "../components/SsoButtons";
 import { usePageTitle } from "../hooks/usePageTitle";
 
 export default function LoginPage() {
@@ -150,6 +151,8 @@ export default function LoginPage() {
         >
           {submitting ? t("auth.login.submitting") : t("auth.login.submit")}
         </button>
+
+        <SsoButtons next={redirectTo} />
       </div>
     </AuthLayout>
   );

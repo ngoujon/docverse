@@ -89,6 +89,27 @@ class Settings:
     smtp_use_tls: bool = os.environ.get("SMTP_USE_TLS", "true").lower() != "false"
     smtp_from: str = os.environ.get("SMTP_FROM", "Open RAG <no-reply@open-rag.local>")
 
+    # --- SSO (Google / Microsoft / Apple) --------------------------------
+    # Each provider is only offered on the login/register pages once its
+    # client id is set - the frontend hides the button otherwise instead of
+    # showing a broken flow.
+    google_oauth_client_id: str = os.environ.get("GOOGLE_OAUTH_CLIENT_ID", "")
+    google_oauth_client_secret: str = os.environ.get("GOOGLE_OAUTH_CLIENT_SECRET", "")
+
+    microsoft_oauth_client_id: str = os.environ.get("MICROSOFT_OAUTH_CLIENT_ID", "")
+    microsoft_oauth_client_secret: str = os.environ.get("MICROSOFT_OAUTH_CLIENT_SECRET", "")
+    microsoft_oauth_tenant_id: str = os.environ.get("MICROSOFT_OAUTH_TENANT_ID", "common")
+
+    apple_oauth_client_id: str = os.environ.get("APPLE_OAUTH_CLIENT_ID", "")
+    apple_oauth_team_id: str = os.environ.get("APPLE_OAUTH_TEAM_ID", "")
+    apple_oauth_key_id: str = os.environ.get("APPLE_OAUTH_KEY_ID", "")
+    apple_oauth_private_key: str = os.environ.get("APPLE_OAUTH_PRIVATE_KEY", "")
+
+    # Where the backend's own OAuth callback routes live - used to build the
+    # redirect_uri sent to each provider, which must exactly match what's
+    # registered there.
+    backend_base_url: str = os.environ.get("BACKEND_BASE_URL", "http://localhost:8000")
+
     # --- Abuse limits -----------------------------------------------------
     # A compromised or malicious account shouldn't be able to spam an
     # unbounded number of spaces or share links, regardless of plan - this
