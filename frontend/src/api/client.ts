@@ -316,3 +316,49 @@ export async function streamChat(
     }
   }
 }
+
+export interface SupportChatEvent {
+  type: "token" | "done";
+  content?: string;
+}
+
+export async function streamSupportChat(
+  message: string,
+  history: { role: "user" | "assistant"; content: string }[],
+  onEvent: (event: SupportChatEvent) => void,
+  signal?: AbortSignal
+): Promise<void> {
+  const res = await fetch(`${BASE}/support/chat`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message, history }),
+    signal,
+  });
+  if (!res.ok || !res.body) {
+    throw new Error(`Erreur serveur (${res.status})`);
+  }
+
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = "";
+
+  while (true) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+
+    const parts = buffer.split("\n\n");
+    buffer = parts.pop() || "";
+    for (const part of parts) {
+      const line = part.trim();
+      if (!line.startsWith("data:")) continue;
+      const jsonStr = line.slice(5).trim();
+      if (!jsonStr) continue;
+      try {
+        onEvent(JSON.parse(jsonStr));
+      } catch {
+        /* ignore malformed chunk */
+      }
+    }
+  }
+}

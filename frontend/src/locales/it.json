@@ -207,6 +207,70 @@
     "ready": "Verifica superata",
     "error": "Verifica non disponibile, riprova"
   },
+  "support": {
+    "openLabel": "Apri l'assistente di aiuto",
+    "closeLabel": "Chiudi l'assistente di aiuto",
+    "title": "Assistente Open RAG",
+    "subtitle": "Domande sul sito o sull'applicazione",
+    "greeting": "Ciao! Posso rispondere a domande sul funzionamento di Open RAG (account, spazi, condivisione, documenti...). Cosa vorresti sapere?",
+    "placeholder": "Scrivi la tua domanda...",
+    "send": "Invia",
+    "errorGeneric": "Si e verificato un errore. Riprova tra un istante.",
+    "disclaimer": "Assistente automatico limitato all'uso del sito. Per tutto il resto, usa il modulo di contatto."
+  },
+  "faq": {
+    "eyebrow": "Domande frequenti",
+    "title": "Tutto su Open RAG",
+    "subtitle": "Le domande piu frequenti su account, spazi, condivisione e privacy.",
+    "backHome": "Torna alla home",
+    "contactCta": "Un'altra domanda? Scrivici dalla pagina iniziale.",
+    "items": [
+      {
+        "question": "Cos'e Open RAG?",
+        "answer": "Open RAG e un'applicazione open source e self-hosted che permette di dialogare con i tuoi documenti (PDF, immagini, pagine web, DOCX, TXT, Markdown) tramite un'IA locale basata su Ollama. Tutto funziona nei tuoi container Docker."
+      },
+      {
+        "question": "Serve un account per usarla?",
+        "answer": "Per creare uno spazio di lavoro, si, serve un account gratuito. Gli invitati che ricevono un link di condivisione, invece, possono consultare o contribuire a uno spazio senza creare un account."
+      },
+      {
+        "question": "Cos'e uno spazio di lavoro?",
+        "answer": "Uno spazio di lavoro raggruppa documenti e conversazioni su un determinato argomento. Ogni spazio e isolato: nulla viene condiviso tra due spazi diversi. Piu persone possono collaborare nello stesso spazio."
+      },
+      {
+        "question": "Quali ruoli esistono in uno spazio?",
+        "answer": "Proprietario (crea lo spazio, gestisce membri e link di condivisione, puo eliminarlo), editor (puo dialogare con l'assistente e aggiungere documenti) e lettore (puo solo consultare la cronologia e i documenti, senza scrivere)."
+      },
+      {
+        "question": "Come funzionano i link di condivisione?",
+        "answer": "Da uno spazio di cui sei proprietario, genera un link con il ruolo lettore o editor. Chiunque apra quel link accede allo spazio con quel ruolo, senza bisogno di creare un account. Puoi revocare un link in qualsiasi momento."
+      },
+      {
+        "question": "Quali formati di documenti sono supportati?",
+        "answer": "PDF (testo nativo o scansionato, con OCR automatico tramite IA di visione), immagini (JPG, PNG, WEBP...), pagine web, DOCX, TXT e Markdown. I documenti vengono automaticamente suddivisi e indicizzati per la ricerca."
+      },
+      {
+        "question": "L'IA puo cercare su internet?",
+        "answer": "Si. Quando una domanda richiede informazioni aggiornate (notizie, meteo, prezzi...), l'assistente rileva automaticamente la necessita e completa la risposta tramite un motore di ricerca self-hosted, senza chiave API ne tracciamento."
+      },
+      {
+        "question": "I miei dati restano privati?",
+        "answer": "Si: documenti, embedding e conversazioni restano memorizzati sul server che ospita la tua istanza. Nulla viene inviato a un servizio terzo, a meno che l'amministratore dell'istanza non abbia configurato esplicitamente un provider di IA cloud (Ollama Cloud)."
+      },
+      {
+        "question": "Come attivo la verifica in due passaggi (2FA)?",
+        "answer": "Dalla pagina Il mio account, sezione Sicurezza, clicca su Attiva accanto a \"Verifica in due passaggi\". Scansiona il codice con la tua app di autenticazione e conferma con il codice a 6 cifre."
+      },
+      {
+        "question": "Cosa succede se elimino per errore un documento o una conversazione?",
+        "answer": "Ogni spazio di lavoro ha un backup automatico (al massimo una volta al giorno, conservato per 7 giorni mobili). Un amministratore dell'istanza puo ripristinare lo spazio a uno stato precedente dalla dashboard di amministrazione."
+      },
+      {
+        "question": "Quanto costa Open RAG?",
+        "answer": "Il software e gratuito e open source. L'unico costo e quello della tua infrastruttura (server, VPS...) e, se scegli di attivarlo, di un abbonamento a un provider di IA cloud per risposte piu rapide."
+      }
+    ]
+  },
   "newsletter": {
     "backHome": "Torna alla home",
     "confirm": {

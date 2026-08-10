@@ -207,6 +207,70 @@
     "ready": "Verificacao concluida",
     "error": "Verificacao indisponivel, tente novamente"
   },
+  "support": {
+    "openLabel": "Abrir o assistente de ajuda",
+    "closeLabel": "Fechar o assistente de ajuda",
+    "title": "Assistente Open RAG",
+    "subtitle": "Perguntas sobre o site ou a aplicacao",
+    "greeting": "Ola! Posso responder a perguntas sobre o funcionamento do Open RAG (contas, espacos, partilha, documentos...). O que gostaria de saber?",
+    "placeholder": "Escreva a sua pergunta...",
+    "send": "Enviar",
+    "errorGeneric": "Ocorreu um erro. Tente novamente dentro de instantes.",
+    "disclaimer": "Assistente automatico limitado a ajuda sobre o site. Para tudo o resto, utilize o formulario de contacto."
+  },
+  "faq": {
+    "eyebrow": "Perguntas frequentes",
+    "title": "Tudo sobre o Open RAG",
+    "subtitle": "As perguntas mais frequentes sobre contas, espacos, partilha e privacidade.",
+    "backHome": "Voltar ao inicio",
+    "contactCta": "Outra pergunta? Escreva-nos a partir da pagina inicial.",
+    "items": [
+      {
+        "question": "O que e o Open RAG?",
+        "answer": "O Open RAG e uma aplicacao open source e auto-hospedada que lhe permite conversar com os seus proprios documentos (PDF, imagens, paginas web, DOCX, TXT, Markdown) atraves de uma IA local com tecnologia Ollama. Tudo corre nos seus proprios contentores Docker."
+      },
+      {
+        "question": "Preciso de uma conta para a utilizar?",
+        "answer": "Para criar um espaco de trabalho, sim, e necessaria uma conta gratuita. No entanto, os convidados que recebem um link de partilha podem consultar ou contribuir para um espaco sem criar conta."
+      },
+      {
+        "question": "O que e um espaco de trabalho?",
+        "answer": "Um espaco de trabalho agrupa documentos e conversas sobre um determinado tema. Cada espaco esta isolado: nada e partilhado entre dois espacos diferentes. Varias pessoas podem colaborar no mesmo espaco."
+      },
+      {
+        "question": "Que funcoes existem num espaco?",
+        "answer": "Proprietario (cria o espaco, gere membros e links de partilha, pode elimina-lo), editor (pode conversar com o assistente e adicionar documentos) e leitor (pode apenas consultar o historico e os documentos, sem escrever)."
+      },
+      {
+        "question": "Como funcionam os links de partilha?",
+        "answer": "A partir de um espaco de que e proprietario, gere um link com a funcao de leitor ou editor. Qualquer pessoa que abra esse link acede ao espaco com essa funcao, sem necessidade de criar conta. Pode revogar um link a qualquer momento."
+      },
+      {
+        "question": "Que formatos de documentos sao aceites?",
+        "answer": "PDF (texto nativo ou digitalizado, com OCR automatico por IA de visao), imagens (JPG, PNG, WEBP...), paginas web, DOCX, TXT e Markdown. Os documentos sao automaticamente fragmentados e indexados para pesquisa."
+      },
+      {
+        "question": "A IA pode pesquisar na internet?",
+        "answer": "Sim. Quando uma pergunta necessita de informacao atual (noticias, tempo, precos...), o assistente deteta automaticamente essa necessidade e completa a resposta atraves de um motor de pesquisa auto-hospedado, sem chave API nem rastreamento."
+      },
+      {
+        "question": "Os meus dados permanecem privados?",
+        "answer": "Sim: documentos, embeddings e conversas permanecem armazenados no servidor que aloja a sua instancia. Nada e enviado para um servico terceiro, exceto se o administrador da instancia tiver configurado explicitamente um fornecedor de IA na nuvem (Ollama Cloud)."
+      },
+      {
+        "question": "Como ativo a verificacao em dois passos (2FA)?",
+        "answer": "Na pagina A minha conta, seccao Seguranca, clique em Ativar junto a \"Verificacao em dois passos\". Digitalize o codigo com a sua aplicacao de autenticacao e confirme com o codigo de 6 digitos."
+      },
+      {
+        "question": "O que acontece se eliminar um documento ou conversa por engano?",
+        "answer": "Cada espaco tem uma copia de seguranca automatica (no maximo uma vez por dia, conservada durante 7 dias moveis). Um administrador da instancia pode restaurar o espaco a um estado anterior a partir do painel de administracao."
+      },
+      {
+        "question": "Quanto custa o Open RAG?",
+        "answer": "O software e gratuito e de codigo aberto. O unico custo e o da sua propria infraestrutura (servidor, VPS...) e, caso opte por ativa-lo, o de uma subscricao a um fornecedor de IA na nuvem para respostas mais rapidas."
+      }
+    ]
+  },
   "newsletter": {
     "backHome": "Voltar ao inicio",
     "confirm": {

@@ -207,6 +207,70 @@
     "ready": "Verification reussie",
     "error": "Verification indisponible, reessayez"
   },
+  "support": {
+    "openLabel": "Ouvrir l'assistant d'aide",
+    "closeLabel": "Fermer l'assistant d'aide",
+    "title": "Assistant Open RAG",
+    "subtitle": "Questions sur le site ou l'application",
+    "greeting": "Bonjour ! Je peux repondre a vos questions sur le fonctionnement d'Open RAG (comptes, espaces, partage, documents...). Que voulez-vous savoir ?",
+    "placeholder": "Posez votre question...",
+    "send": "Envoyer",
+    "errorGeneric": "Une erreur est survenue. Reessayez dans un instant.",
+    "disclaimer": "Assistant automatique limite a l'utilisation du site. Pour tout le reste, utilisez le formulaire de contact."
+  },
+  "faq": {
+    "eyebrow": "Questions frequentes",
+    "title": "Tout comprendre sur Open RAG",
+    "subtitle": "Les questions les plus posees sur les comptes, les espaces, le partage et la confidentialite.",
+    "backHome": "Retour a l'accueil",
+    "contactCta": "Une autre question ? Ecrivez-nous depuis la page d'accueil.",
+    "items": [
+      {
+        "question": "Qu'est-ce qu'Open RAG ?",
+        "answer": "Open RAG est une application open source et auto-hebergee qui vous permet de discuter avec vos propres documents (PDF, images, pages web, DOCX, TXT, Markdown) via une IA locale propulsee par Ollama. Tout tourne dans vos propres conteneurs Docker."
+      },
+      {
+        "question": "Ai-je besoin d'un compte pour l'utiliser ?",
+        "answer": "Pour creer un espace de travail, oui, un compte gratuit est necessaire. En revanche, les invites qui recoivent un lien de partage peuvent consulter ou contribuer a un espace sans creer de compte."
+      },
+      {
+        "question": "Qu'est-ce qu'un espace de travail ?",
+        "answer": "Un espace de travail regroupe des documents et des conversations sur un theme donne. Chaque espace est cloisonne : rien n'est partage entre deux espaces differents. Plusieurs personnes peuvent collaborer sur le meme espace."
+      },
+      {
+        "question": "Quels roles existent sur un espace ?",
+        "answer": "Proprietaire (cree l'espace, gere les membres et les liens de partage, peut le supprimer), editeur (peut discuter avec le chatbot et ajouter des documents) et lecteur (peut seulement consulter l'historique et les documents, sans ecrire)."
+      },
+      {
+        "question": "Comment fonctionnent les liens de partage ?",
+        "answer": "Depuis un espace dont vous etes proprietaire, generez un lien avec le role lecteur ou editeur. Toute personne qui ouvre ce lien accede a l'espace avec ce role, sans avoir besoin de creer de compte. Vous pouvez revoquer un lien a tout moment."
+      },
+      {
+        "question": "Quels formats de documents sont acceptes ?",
+        "answer": "PDF (texte natif ou scanne, avec OCR automatique par IA de vision), images (JPG, PNG, WEBP...), pages web, DOCX, TXT et Markdown. Les documents sont automatiquement decoupes et indexes pour la recherche."
+      },
+      {
+        "question": "L'IA peut-elle rechercher sur internet ?",
+        "answer": "Oui. Quand une question a besoin d'une information recente (actualite, meteo, prix...), l'assistant detecte automatiquement le besoin et complete sa reponse via un moteur de recherche auto-heberge, sans cle API ni tracking."
+      },
+      {
+        "question": "Mes donnees restent-elles privees ?",
+        "answer": "Oui : documents, embeddings et conversations restent stockes sur le serveur qui heberge votre instance. Rien n'est envoye a un service tiers, sauf si l'administrateur de l'instance a explicitement configure un fournisseur d'IA cloud (Ollama Cloud)."
+      },
+      {
+        "question": "Comment activer la verification en deux etapes (2FA) ?",
+        "answer": "Depuis la page Mon compte, section Securite, cliquez sur Activer a cote de « Verification en deux etapes ». Scannez le code avec votre application d'authentification puis confirmez avec le code a 6 chiffres."
+      },
+      {
+        "question": "Que se passe-t-il si je supprime un document ou une conversation par erreur ?",
+        "answer": "Chaque espace beneficie d'une sauvegarde automatique (au maximum une fois par jour, conservee 7 jours glissants). Un administrateur de l'instance peut restaurer l'espace a un etat anterieur depuis le tableau de bord d'administration."
+      },
+      {
+        "question": "Combien coute Open RAG ?",
+        "answer": "Le logiciel est gratuit et open source. Le seul cout est celui de votre propre infrastructure (serveur, VPS...) et, si vous choisissez de l'activer, celui d'un abonnement a un fournisseur d'IA cloud pour des reponses plus rapides."
+      }
+    ]
+  },
   "newsletter": {
     "backHome": "Retour a l'accueil",
     "confirm": {

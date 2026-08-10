@@ -39,3 +39,8 @@ chat_limiter = RateLimiter(max_requests=20, window_seconds=60)
 register_limiter = RateLimiter(max_requests=10, window_seconds=3600)
 login_limiter = RateLimiter(max_requests=10, window_seconds=300)
 password_reset_limiter = RateLimiter(max_requests=5, window_seconds=3600)
+
+# The public support widget needs no account and no captcha (a captcha per
+# chat message would kill the UX) - this is the only abuse backstop, so it's
+# tighter than the authenticated chat_limiter above.
+support_chat_limiter = RateLimiter(max_requests=15, window_seconds=300)

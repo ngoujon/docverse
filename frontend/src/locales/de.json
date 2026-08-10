@@ -207,6 +207,70 @@
     "ready": "Verifizierung erfolgreich",
     "error": "Verifizierung nicht verfugbar, bitte erneut versuchen"
   },
+  "support": {
+    "openLabel": "Hilfe-Assistenten offnen",
+    "closeLabel": "Hilfe-Assistenten schliessen",
+    "title": "Open RAG Assistent",
+    "subtitle": "Fragen zur Website oder zur App",
+    "greeting": "Hallo! Ich kann Fragen zur Funktionsweise von Open RAG beantworten (Konten, Bereiche, Freigabe, Dokumente...). Was mochtest du wissen?",
+    "placeholder": "Stelle deine Frage...",
+    "send": "Senden",
+    "errorGeneric": "Etwas ist schiefgelaufen. Bitte versuche es gleich noch einmal.",
+    "disclaimer": "Automatischer Assistent, beschrankt auf Hilfe zur Website. Fur alles andere nutze das Kontaktformular."
+  },
+  "faq": {
+    "eyebrow": "Haufig gestellte Fragen",
+    "title": "Alles uber Open RAG",
+    "subtitle": "Die haufigsten Fragen zu Konten, Bereichen, Freigabe und Datenschutz.",
+    "backHome": "Zuruck zur Startseite",
+    "contactCta": "Noch eine Frage? Schreib uns von der Startseite aus.",
+    "items": [
+      {
+        "question": "Was ist Open RAG?",
+        "answer": "Open RAG ist eine Open-Source-Anwendung zum Selbsthosten, mit der du mit deinen eigenen Dokumenten (PDF, Bilder, Webseiten, DOCX, TXT, Markdown) uber eine lokale, von Ollama betriebene KI sprechen kannst. Alles lauft in deinen eigenen Docker-Containern."
+      },
+      {
+        "question": "Brauche ich ein Konto, um es zu nutzen?",
+        "answer": "Um einen Arbeitsbereich zu erstellen, ja, ein kostenloses Konto ist erforderlich. Gaste, die einen Freigabelink erhalten, konnen einen Bereich jedoch einsehen oder nutzen, ohne ein Konto zu erstellen."
+      },
+      {
+        "question": "Was ist ein Arbeitsbereich?",
+        "answer": "Ein Arbeitsbereich buendelt Dokumente und Unterhaltungen zu einem bestimmten Thema. Jeder Bereich ist getrennt: Zwischen zwei verschiedenen Bereichen wird nichts geteilt. Mehrere Personen konnen im selben Bereich zusammenarbeiten."
+      },
+      {
+        "question": "Welche Rollen gibt es in einem Bereich?",
+        "answer": "Eigentumer (erstellt den Bereich, verwaltet Mitglieder und Freigabelinks, kann ihn loschen), Bearbeiter (kann mit dem Assistenten chatten und Dokumente hinzufugen) und Betrachter (kann nur Verlauf und Dokumente einsehen, ohne zu schreiben)."
+      },
+      {
+        "question": "Wie funktionieren Freigabelinks?",
+        "answer": "Erstelle in einem Bereich, dessen Eigentumer du bist, einen Link mit der Rolle Betrachter oder Bearbeiter. Jeder, der diesen Link offnet, erhalt Zugriff auf den Bereich mit dieser Rolle, ohne ein Konto erstellen zu muessen. Du kannst einen Link jederzeit widerrufen."
+      },
+      {
+        "question": "Welche Dokumentformate werden unterstutzt?",
+        "answer": "PDF (nativer Text oder gescannt, mit automatischer OCR durch eine Bild-KI), Bilder (JPG, PNG, WEBP...), Webseiten, DOCX, TXT und Markdown. Dokumente werden automatisch in Abschnitte zerlegt und fur die Suche indexiert."
+      },
+      {
+        "question": "Kann die KI im Internet suchen?",
+        "answer": "Ja. Wenn eine Frage aktuelle Informationen benotigt (Nachrichten, Wetter, Preise...), erkennt der Assistent dies automatisch und erganzt seine Antwort uber eine selbstgehostete Suchmaschine, ohne API-Schlussel und ohne Tracking."
+      },
+      {
+        "question": "Bleiben meine Daten privat?",
+        "answer": "Ja: Dokumente, Embeddings und Unterhaltungen bleiben auf dem Server gespeichert, der deine Instanz hostet. Es wird nichts an einen Drittanbieter gesendet, es sei denn, der Administrator der Instanz hat ausdrucklich einen Cloud-KI-Anbieter konfiguriert (Ollama Cloud)."
+      },
+      {
+        "question": "Wie aktiviere ich die Zwei-Faktor-Verifizierung (2FA)?",
+        "answer": "Klicke auf der Seite Mein Konto im Bereich Sicherheit auf Aktivieren neben \"Verifizierung in zwei Schritten\". Scanne den Code mit deiner Authentifizierungs-App und bestatige mit dem 6-stelligen Code."
+      },
+      {
+        "question": "Was passiert, wenn ich versehentlich ein Dokument oder eine Unterhaltung losche?",
+        "answer": "Jeder Arbeitsbereich erhalt ein automatisches Backup (hochstens einmal pro Tag, 7 Tage gleitend aufbewahrt). Ein Administrator der Instanz kann den Bereich uber das Admin-Dashboard auf einen fruheren Zustand zuruckstellen."
+      },
+      {
+        "question": "Was kostet Open RAG?",
+        "answer": "Die Software ist kostenlos und Open Source. Die einzigen Kosten sind deine eigene Infrastruktur (Server, VPS...) und, falls du dich dafur entscheidest, ein Abonnement bei einem Cloud-KI-Anbieter fur schnellere Antworten."
+      }
+    ]
+  },
   "newsletter": {
     "backHome": "Zuruck zur Startseite",
     "confirm": {

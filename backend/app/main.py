@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .config import UPLOAD_DIR, settings
 from .database import Base, SessionLocal, engine, ensure_schema
-from .routers import admin, auth, captcha, chat, conversations, contact, documents, newsletter, spaces
+from .routers import admin, auth, captcha, chat, conversations, contact, documents, newsletter, spaces, support
 from .services import ollama_client, vectorstore
 
 logging.basicConfig(level=logging.INFO)
@@ -81,6 +81,7 @@ app.include_router(conversations.router)
 app.include_router(documents.router)
 app.include_router(chat.router)
 app.include_router(contact.router)
+app.include_router(support.router)
 
 
 @app.get("/api/health")

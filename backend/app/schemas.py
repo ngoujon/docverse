@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Optional, Any
+from typing import Optional, Any, Literal
 
 from pydantic import BaseModel, EmailStr, Field
 
@@ -294,6 +294,16 @@ class ContactCreate(BaseModel):
 class CaptchaChallengeOut(BaseModel):
     salt: str
     difficulty: int
+
+
+class SupportChatMessage(BaseModel):
+    role: Literal["user", "assistant"]
+    content: str = Field(max_length=2000)
+
+
+class SupportChatRequest(BaseModel):
+    message: str = Field(min_length=1, max_length=2000)
+    history: list[SupportChatMessage] = Field(default_factory=list, max_length=20)
 
 
 class NewsletterSubscribeRequest(BaseModel):

@@ -86,6 +86,12 @@ export default function LandingPage() {
                 {l.label}
               </a>
             ))}
+            <Link
+              to="/faq"
+              className="font-mono text-xs uppercase tracking-wider text-slate-600 transition hover:text-retro-cyan"
+            >
+              FAQ
+            </Link>
             <LanguageSwitcher variant="dark" />
             <Link
               to="/login"
@@ -122,6 +128,13 @@ export default function LandingPage() {
                   {l.label}
                 </a>
               ))}
+              <Link
+                to="/faq"
+                onClick={() => setMobileMenuOpen(false)}
+                className="font-mono text-xs uppercase tracking-wider text-slate-600"
+              >
+                FAQ
+              </Link>
               <Link
                 to="/login"
                 className="font-mono text-xs uppercase tracking-wider text-slate-600"
@@ -307,6 +320,12 @@ export default function LandingPage() {
             <Heart size={11} className="text-retro-pink" />
           </p>
           <div className="flex items-center gap-4">
+            <Link
+              to="/faq"
+              className="font-mono text-[11px] uppercase tracking-wider text-slate-600 hover:text-retro-cyan"
+            >
+              FAQ
+            </Link>
             <Link
               to="/confidentialite"
               className="font-mono text-[11px] uppercase tracking-wider text-slate-600 hover:text-retro-cyan"

@@ -207,6 +207,70 @@
     "ready": "Verification passed",
     "error": "Verification unavailable, please retry"
   },
+  "support": {
+    "openLabel": "Open the help assistant",
+    "closeLabel": "Close the help assistant",
+    "title": "Open RAG Assistant",
+    "subtitle": "Questions about the site or the app",
+    "greeting": "Hi! I can answer questions about how Open RAG works (accounts, spaces, sharing, documents...). What would you like to know?",
+    "placeholder": "Ask your question...",
+    "send": "Send",
+    "errorGeneric": "Something went wrong. Please try again in a moment.",
+    "disclaimer": "Automated assistant limited to help with the site. For anything else, use the contact form."
+  },
+  "faq": {
+    "eyebrow": "Frequently asked questions",
+    "title": "Everything about Open RAG",
+    "subtitle": "The most common questions about accounts, spaces, sharing, and privacy.",
+    "backHome": "Back to home",
+    "contactCta": "Another question? Reach us from the home page.",
+    "items": [
+      {
+        "question": "What is Open RAG?",
+        "answer": "Open RAG is an open source, self-hosted application that lets you chat with your own documents (PDF, images, web pages, DOCX, TXT, Markdown) through a local AI powered by Ollama. Everything runs in your own Docker containers."
+      },
+      {
+        "question": "Do I need an account to use it?",
+        "answer": "To create a workspace, yes, a free account is required. Guests who receive a share link, however, can view or contribute to a space without creating an account."
+      },
+      {
+        "question": "What is a workspace?",
+        "answer": "A workspace groups documents and conversations around a given topic. Each workspace is isolated: nothing is shared between two different spaces. Several people can collaborate on the same workspace."
+      },
+      {
+        "question": "What roles exist on a workspace?",
+        "answer": "Owner (creates the space, manages members and share links, can delete it), editor (can chat with the assistant and add documents), and viewer (can only browse history and documents, without writing)."
+      },
+      {
+        "question": "How do share links work?",
+        "answer": "From a space you own, generate a link with the viewer or editor role. Anyone who opens that link gets access to the space with that role, without needing to create an account. You can revoke a link at any time."
+      },
+      {
+        "question": "Which document formats are supported?",
+        "answer": "PDF (native text or scanned, with automatic OCR by a vision AI), images (JPG, PNG, WEBP...), web pages, DOCX, TXT and Markdown. Documents are automatically chunked and indexed for search."
+      },
+      {
+        "question": "Can the AI search the web?",
+        "answer": "Yes. When a question needs current information (news, weather, prices...), the assistant automatically detects the need and completes its answer via a self-hosted search engine, with no API key and no tracking."
+      },
+      {
+        "question": "Does my data stay private?",
+        "answer": "Yes: documents, embeddings and conversations stay stored on the server hosting your instance. Nothing is sent to a third-party service, unless the instance administrator has explicitly configured a cloud AI provider (Ollama Cloud)."
+      },
+      {
+        "question": "How do I enable two-factor verification (2FA)?",
+        "answer": "From the Account page, Security section, click Enable next to \"Two-factor verification\". Scan the code with your authenticator app, then confirm with the 6-digit code."
+      },
+      {
+        "question": "What happens if I delete a document or conversation by mistake?",
+        "answer": "Every workspace gets an automatic backup (at most once a day, kept on a 7-day rolling window). An instance administrator can restore the space to an earlier state from the admin dashboard."
+      },
+      {
+        "question": "How much does Open RAG cost?",
+        "answer": "The software is free and open source. The only cost is your own infrastructure (server, VPS...) and, if you choose to enable it, a subscription to a cloud AI provider for faster responses."
+      }
+    ]
+  },
   "newsletter": {
     "backHome": "Back to home",
     "confirm": {
