@@ -85,6 +85,12 @@
     "privacy": "Confidentialite",
     "launchApp": "Lancer l'app"
   },
+  "demo": {
+    "question": "Resume les points cles du contrat fournisseur.",
+    "answer": "D'apres le contrat [1], la duree est de 12 mois avec reconduction tacite. Le preavis de resiliation est de 30 jours.",
+    "source": "contrat_fournisseur.pdf",
+    "typing": "en train d'ecrire..."
+  },
   "privacy": {
     "back": "Retour a l'accueil",
     "eyebrow": "Confidentialite",
@@ -176,6 +182,8 @@
       "success": "Vous avez ete desinscrit de la newsletter.",
       "error": "Lien de desinscription invalide."
     },
+    "sectionEyebrow": "Newsletter",
+    "sectionTitle": "Suivez les nouveautes",
     "signup": {
       "placeholder": "vous@exemple.com",
       "submit": "S'inscrire",

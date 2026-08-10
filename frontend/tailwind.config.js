@@ -71,12 +71,22 @@ export default {
           "0%, 100%": { opacity: 0.8 },
           "50%": { opacity: 1 },
         },
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+        blink: {
+          "0%, 49%": { opacity: 1 },
+          "50%, 100%": { opacity: 0 },
+        },
       },
       animation: {
         "fade-in": "fade-in 0.2s ease-out",
         pulse2: "pulse2 1.4s ease-in-out infinite",
         "grid-scroll": "grid-scroll 6s linear infinite",
         "glow-pulse": "glow-pulse 3s ease-in-out infinite",
+        marquee: "marquee 22s linear infinite",
+        blink: "blink 1s step-start infinite",
       },
     },
   },

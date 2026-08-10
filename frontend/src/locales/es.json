@@ -85,6 +85,12 @@
     "privacy": "Privacidad",
     "launchApp": "Abrir la app"
   },
+  "demo": {
+    "question": "Resume los puntos clave del contrato del proveedor.",
+    "answer": "Segun el contrato [1], la duracion es de 12 meses con renovacion automatica. El plazo de preaviso de rescision es de 30 dias.",
+    "source": "contrato_proveedor.pdf",
+    "typing": "escribiendo..."
+  },
   "privacy": {
     "back": "Volver al inicio",
     "eyebrow": "Privacidad",
@@ -176,6 +182,8 @@
       "success": "Se ha cancelado tu suscripcion a la newsletter.",
       "error": "Enlace de cancelacion invalido."
     },
+    "sectionEyebrow": "Newsletter",
+    "sectionTitle": "Sigue las novedades",
     "signup": {
       "placeholder": "tu@ejemplo.com",
       "submit": "Suscribirse",

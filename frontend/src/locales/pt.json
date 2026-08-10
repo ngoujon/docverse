@@ -85,6 +85,12 @@
     "privacy": "Privacidade",
     "launchApp": "Abrir a app"
   },
+  "demo": {
+    "question": "Resuma os pontos-chave do contrato do fornecedor.",
+    "answer": "De acordo com o contrato [1], a duracao e de 12 meses com renovacao automatica. O prazo de aviso previo de rescisao e de 30 dias.",
+    "source": "contrato_fornecedor.pdf",
+    "typing": "a escrever..."
+  },
   "privacy": {
     "back": "Voltar ao inicio",
     "eyebrow": "Privacidade",
@@ -176,6 +182,8 @@
       "success": "A sua subscricao da newsletter foi cancelada.",
       "error": "Link de cancelamento invalido."
     },
+    "sectionEyebrow": "Newsletter",
+    "sectionTitle": "Acompanhe as novidades",
     "signup": {
       "placeholder": "voce@exemplo.com",
       "submit": "Subscrever",

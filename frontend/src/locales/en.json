@@ -85,6 +85,12 @@
     "privacy": "Privacy",
     "launchApp": "Launch app"
   },
+  "demo": {
+    "question": "Summarize the key points of the vendor contract.",
+    "answer": "According to the contract [1], the term is 12 months with automatic renewal. The termination notice period is 30 days.",
+    "source": "vendor_contract.pdf",
+    "typing": "typing..."
+  },
   "privacy": {
     "back": "Back to home",
     "eyebrow": "Privacy",
@@ -176,6 +182,8 @@
       "success": "You've been unsubscribed from the newsletter.",
       "error": "Invalid unsubscribe link."
     },
+    "sectionEyebrow": "Newsletter",
+    "sectionTitle": "Follow what's new",
     "signup": {
       "placeholder": "you@example.com",
       "submit": "Subscribe",

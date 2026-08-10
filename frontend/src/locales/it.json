@@ -85,6 +85,12 @@
     "privacy": "Privacy",
     "launchApp": "Avvia l'app"
   },
+  "demo": {
+    "question": "Riassumi i punti chiave del contratto fornitore.",
+    "answer": "Secondo il contratto [1], la durata e di 12 mesi con rinnovo automatico. Il preavviso di recesso e di 30 giorni.",
+    "source": "contratto_fornitore.pdf",
+    "typing": "sta scrivendo..."
+  },
   "privacy": {
     "back": "Torna alla home",
     "eyebrow": "Privacy",
@@ -176,6 +182,8 @@
       "success": "Sei stato disiscritto dalla newsletter.",
       "error": "Link di annullamento non valido."
     },
+    "sectionEyebrow": "Newsletter",
+    "sectionTitle": "Resta aggiornato",
     "signup": {
       "placeholder": "tu@esempio.com",
       "submit": "Iscriviti",

@@ -85,6 +85,12 @@
     "privacy": "Datenschutz",
     "launchApp": "App starten"
   },
+  "demo": {
+    "question": "Fasse die wichtigsten Punkte des Lieferantenvertrags zusammen.",
+    "answer": "Laut Vertrag [1] betragt die Laufzeit 12 Monate mit automatischer Verlangerung. Die Kundigungsfrist betragt 30 Tage.",
+    "source": "lieferantenvertrag.pdf",
+    "typing": "tippt..."
+  },
   "privacy": {
     "back": "Zuruck zur Startseite",
     "eyebrow": "Datenschutz",
@@ -176,6 +182,8 @@
       "success": "Sie wurden vom Newsletter abgemeldet.",
       "error": "Ungultiger Abmeldelink."
     },
+    "sectionEyebrow": "Newsletter",
+    "sectionTitle": "Bleiben Sie auf dem Laufenden",
     "signup": {
       "placeholder": "sie@beispiel.de",
       "submit": "Anmelden",

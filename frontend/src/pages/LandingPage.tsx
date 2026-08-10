@@ -17,6 +17,12 @@ import {
 } from "lucide-react";
 import NeoGrid from "../components/landing/NeoGrid";
 import ContactForm from "../components/landing/ContactForm";
+import Scanlines from "../components/landing/Scanlines";
+import Marquee from "../components/landing/Marquee";
+import ChatMockup from "../components/landing/ChatMockup";
+import OnboardingTerminal from "../components/landing/OnboardingTerminal";
+import TerminalWindow from "../components/landing/TerminalWindow";
+import NewsletterSignup from "../components/NewsletterSignup";
 import LanguageSwitcher from "../components/LanguageSwitcher";
 import { usePageTitle } from "../hooks/usePageTitle";
 
@@ -29,13 +35,11 @@ const FEATURE_COLORS = [
   { color: "text-retro-purple", border: "hover:border-retro-purple" },
   { color: "text-retro-cyan", border: "hover:border-retro-cyan" },
 ];
+// First and fourth cards get more room in the bento grid - breaks the
+// uniform icon-grid template most generated landing pages default to.
+const FEATURE_SPAN = ["sm:col-span-2", "", "", "sm:col-span-2", "", ""];
 
 interface FeatureItem {
-  title: string;
-  desc: string;
-}
-
-interface StepItem {
   title: string;
   desc: string;
 }
@@ -52,11 +56,11 @@ export default function LandingPage() {
     { label: t("nav.contact"), href: "#contact" },
   ];
   const features = t("features.items", { returnObjects: true }) as FeatureItem[];
-  const steps = t("steps.items", { returnObjects: true }) as StepItem[];
   const badges = t("hero.badges", { returnObjects: true }) as string[];
 
   return (
     <div className="min-h-screen bg-retro-bg font-sans text-slate-800">
+      <Scanlines />
       {/* Nav */}
       <header className="sticky top-0 z-50 border-b border-retro-border/60 bg-retro-bg/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
@@ -64,6 +68,7 @@ export default function LandingPage() {
             <Sparkles size={20} className="text-retro-pink" />
             <span className="font-mono text-sm font-bold tracking-widest text-slate-900">
               OPEN<span className="text-retro-cyan">::</span>RAG
+              <span className="ml-0.5 inline-block h-3.5 w-[7px] animate-blink bg-retro-pink align-middle" />
             </span>
           </a>
 
@@ -79,7 +84,13 @@ export default function LandingPage() {
             ))}
             <LanguageSwitcher variant="dark" />
             <Link
-              to="/app"
+              to="/login"
+              className="font-mono text-xs uppercase tracking-wider text-slate-600 transition hover:text-retro-cyan"
+            >
+              {t("auth.login.title")}
+            </Link>
+            <Link
+              to="/register"
               className="flex items-center gap-1.5 rounded-lg border border-retro-pink bg-retro-pink/10 px-4 py-2 font-mono text-xs uppercase tracking-wider text-retro-pink transition hover:bg-retro-pink hover:text-white hover:shadow-neon"
             >
               {t("nav.launchApp")} <ArrowRight size={13} />
@@ -108,7 +119,13 @@ export default function LandingPage() {
                 </a>
               ))}
               <Link
-                to="/app"
+                to="/login"
+                className="font-mono text-xs uppercase tracking-wider text-slate-600"
+              >
+                {t("auth.login.title")}
+              </Link>
+              <Link
+                to="/register"
                 className="flex items-center justify-center gap-1.5 rounded-lg border border-retro-pink bg-retro-pink/10 px-4 py-2 font-mono text-xs uppercase tracking-wider text-retro-pink"
               >
                 {t("nav.launchApp")} <ArrowRight size={13} />
@@ -118,63 +135,68 @@ export default function LandingPage() {
         )}
       </header>
 
-      {/* Hero */}
-      <section id="top" className="relative overflow-hidden px-4 pb-28 pt-16 sm:px-6 sm:pt-24">
+      {/* Hero - two columns: pitch + a real product mockup instead of an abstract graphic */}
+      <section id="top" className="relative overflow-hidden px-4 pb-16 pt-14 sm:px-6 sm:pt-20">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[900px] -translate-x-1/2 rounded-full opacity-30 blur-[100px]"
           style={{
-            background:
-              "radial-gradient(closest-side, #ff2bd6, transparent 70%)",
+            background: "radial-gradient(closest-side, #ff2bd6, transparent 70%)",
           }}
         />
         <NeoGrid />
 
-        <div className="relative mx-auto max-w-3xl text-center">
-          <div className="mb-5 inline-flex flex-wrap items-center justify-center gap-2">
-            {badges.map((b) => (
+        <div className="relative mx-auto grid max-w-6xl gap-10 lg:grid-cols-2 lg:items-center lg:gap-6">
+          <div className="text-center lg:text-left">
+            <div className="mb-5 inline-flex flex-wrap items-center justify-center gap-2 lg:justify-start">
+              {badges.map((b) => (
+                <span
+                  key={b}
+                  className="rounded-full border border-retro-border bg-retro-panel/60 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-retro-cyan"
+                >
+                  {b}
+                </span>
+              ))}
+            </div>
+
+            <h1 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
               <span
-                key={b}
-                className="rounded-full border border-retro-border bg-retro-panel/60 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-retro-cyan"
+                className="bg-gradient-to-r from-retro-pink via-retro-purple to-retro-cyan bg-clip-text text-transparent"
+                style={{ textShadow: "0 0 40px rgba(255,43,214,0.25)" }}
               >
-                {b}
+                {t("hero.title1")}
               </span>
-            ))}
+              <br />
+              <span className="text-slate-900">{t("hero.title2")}</span>
+            </h1>
+
+            <p className="mx-auto mt-5 max-w-xl text-sm text-slate-600 sm:text-base lg:mx-0">
+              {t("hero.subtitle")}
+            </p>
+
+            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-start">
+              <Link
+                to="/register"
+                className="flex w-full items-center justify-center gap-2 rounded-lg border border-retro-pink bg-retro-pink px-6 py-3 font-mono text-xs uppercase tracking-wider text-white shadow-neon transition hover:bg-retro-pink/90 sm:w-auto"
+              >
+                {t("hero.ctaTry")} <ArrowRight size={14} />
+              </Link>
+              <a
+                href="#fonctionnalites"
+                className="flex w-full items-center justify-center gap-2 rounded-lg border border-retro-border px-6 py-3 font-mono text-xs uppercase tracking-wider text-slate-700 transition hover:border-retro-cyan hover:text-retro-cyan sm:w-auto"
+              >
+                {t("hero.ctaDiscover")}
+              </a>
+            </div>
           </div>
 
-          <h1 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl md:text-6xl">
-            <span
-              className="bg-gradient-to-r from-retro-pink via-retro-purple to-retro-cyan bg-clip-text text-transparent"
-              style={{ textShadow: "0 0 40px rgba(255,43,214,0.25)" }}
-            >
-              {t("hero.title1")}
-            </span>
-            <br />
-            <span className="text-slate-900">{t("hero.title2")}</span>
-          </h1>
-
-          <p className="mx-auto mt-5 max-w-xl text-sm text-slate-600 sm:text-base">
-            {t("hero.subtitle")}
-          </p>
-
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link
-              to="/app"
-              className="flex w-full items-center justify-center gap-2 rounded-lg border border-retro-pink bg-retro-pink px-6 py-3 font-mono text-xs uppercase tracking-wider text-white shadow-neon transition hover:bg-retro-pink/90 sm:w-auto"
-            >
-              {t("hero.ctaTry")} <ArrowRight size={14} />
-            </Link>
-            <a
-              href="#fonctionnalites"
-              className="flex w-full items-center justify-center gap-2 rounded-lg border border-retro-border px-6 py-3 font-mono text-xs uppercase tracking-wider text-slate-700 transition hover:border-retro-cyan hover:text-retro-cyan sm:w-auto"
-            >
-              {t("hero.ctaDiscover")}
-            </a>
-          </div>
+          <ChatMockup />
         </div>
       </section>
 
-      {/* Features */}
+      <Marquee items={badges} />
+
+      {/* Features - asymmetric bento grid instead of a uniform icon grid */}
       <section id="fonctionnalites" className="border-t border-retro-border/60 px-4 py-20 sm:px-6">
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-xl text-center">
@@ -193,7 +215,7 @@ export default function LandingPage() {
               return (
                 <div
                   key={f.title}
-                  className={`rounded-2xl border border-retro-border bg-retro-panel/40 p-5 transition-colors ${style.border}`}
+                  className={`rounded-2xl border border-retro-border bg-retro-panel/40 p-5 transition-colors ${style.border} ${FEATURE_SPAN[i]}`}
                 >
                   <Icon size={22} className={style.color} />
                   <h3 className="mt-3 text-sm font-semibold text-slate-900">{f.title}</h3>
@@ -205,9 +227,9 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* How it works */}
+      {/* How it works - a terminal session instead of numbered cards */}
       <section id="comment-ca-marche" className="border-t border-retro-border/60 px-4 py-20 sm:px-6">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-3xl">
           <div className="mx-auto max-w-xl text-center">
             <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-retro-cyan">
               {t("steps.eyebrow")}
@@ -217,34 +239,36 @@ export default function LandingPage() {
             </h2>
           </div>
 
-          <div className="mt-12 grid gap-6 sm:grid-cols-3">
-            {steps.map((s, i) => (
-              <div key={s.title} className="relative rounded-2xl border border-retro-border bg-retro-panel/40 p-5">
-                <span className="font-mono text-3xl font-bold text-retro-border">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="mt-2 text-sm font-semibold text-slate-900">{s.title}</h3>
-                <p className="mt-1.5 text-xs leading-relaxed text-slate-600">{s.desc}</p>
-              </div>
-            ))}
+          <div className="mt-10">
+            <OnboardingTerminal />
           </div>
         </div>
       </section>
 
-      {/* Open source callout */}
+      {/* Open source + newsletter */}
       <section className="border-t border-retro-border/60 px-4 py-20 sm:px-6">
-        <div className="mx-auto flex max-w-4xl flex-col items-center gap-4 rounded-2xl border border-retro-border bg-gradient-to-br from-retro-panel to-retro-bg2 p-8 text-center sm:p-12">
-          <Github size={28} className="text-slate-700" />
-          <h2 className="text-xl font-bold text-slate-900 sm:text-2xl">
-            {t("opensource.title")}
-          </h2>
-          <p className="max-w-lg text-sm text-slate-600">{t("opensource.desc")}</p>
-          <Link
-            to="/app"
-            className="mt-2 flex items-center gap-2 rounded-lg border border-retro-cyan bg-retro-cyan/10 px-6 py-3 font-mono text-xs uppercase tracking-wider text-retro-cyan transition hover:bg-retro-cyan hover:text-retro-bg"
-          >
-            {t("opensource.cta")} <ArrowRight size={14} />
-          </Link>
+        <div className="mx-auto grid max-w-5xl gap-6 lg:grid-cols-2">
+          <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border border-retro-border bg-gradient-to-br from-retro-panel to-retro-bg2 p-8 text-center sm:p-10">
+            <Github size={26} className="text-slate-700" />
+            <h2 className="text-xl font-bold text-slate-900">{t("opensource.title")}</h2>
+            <p className="max-w-sm text-sm text-slate-600">{t("opensource.desc")}</p>
+            <Link
+              to="/register"
+              className="mt-1 flex items-center gap-2 rounded-lg border border-retro-cyan bg-retro-cyan/10 px-6 py-3 font-mono text-xs uppercase tracking-wider text-retro-cyan transition hover:bg-retro-cyan hover:text-retro-bg"
+            >
+              {t("opensource.cta")} <ArrowRight size={14} />
+            </Link>
+          </div>
+
+          <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-retro-border bg-retro-panel/40 p-8 text-center sm:p-10">
+            <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-retro-pink">
+              {t("newsletter.sectionEyebrow")}
+            </p>
+            <h2 className="text-xl font-bold text-slate-900">{t("newsletter.sectionTitle")}</h2>
+            <div className="mt-2 flex justify-center">
+              <NewsletterSignup />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -261,8 +285,12 @@ export default function LandingPage() {
             <p className="mt-2 text-sm text-slate-600">{t("contact.subtitle")}</p>
           </div>
 
-          <div className="mt-8 rounded-2xl border border-retro-border bg-retro-panel/40 p-5 sm:p-8">
-            <ContactForm />
+          <div className="mt-8">
+            <TerminalWindow title="mail --compose">
+              <div className="p-5 sm:p-8">
+                <ContactForm />
+              </div>
+            </TerminalWindow>
           </div>
         </div>
       </section>
