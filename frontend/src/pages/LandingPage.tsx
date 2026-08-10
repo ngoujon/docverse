@@ -24,6 +24,7 @@ import TerminalWindow from "../components/landing/TerminalWindow";
 import NewsletterSignup from "../components/NewsletterSignup";
 import LanguageSwitcher from "../components/LanguageSwitcher";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { useAuth } from "../hooks/useAuth";
 
 const FEATURE_ICONS = [FolderLock, FileStack, ScanEye, Globe2, Gauge, ShieldCheck];
 const FEATURE_COLORS = [
@@ -45,6 +46,7 @@ interface FeatureItem {
 
 export default function LandingPage() {
   const { t } = useTranslation();
+  const { user } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   usePageMeta({
@@ -103,19 +105,30 @@ export default function LandingPage() {
             >
               FAQ
             </Link>
+            {user ? (
+              <Link
+                to="/dashboard"
+                className="flex items-center gap-1.5 rounded-lg border border-retro-pink bg-retro-pink/10 px-4 py-2 font-mono text-xs uppercase tracking-wider text-retro-pink transition hover:bg-retro-pink hover:text-white hover:shadow-neon"
+              >
+                {t("nav.launchApp")} <ArrowRight size={13} />
+              </Link>
+            ) : (
+              <>
+                <Link
+                  to="/register"
+                  className="font-mono text-xs uppercase tracking-wider text-slate-600 transition hover:text-retro-cyan"
+                >
+                  {t("nav.register")}
+                </Link>
+                <Link
+                  to="/login"
+                  className="flex items-center gap-1.5 rounded-lg border border-retro-pink bg-retro-pink/10 px-4 py-2 font-mono text-xs uppercase tracking-wider text-retro-pink transition hover:bg-retro-pink hover:text-white hover:shadow-neon"
+                >
+                  {t("auth.login.title")} <ArrowRight size={13} />
+                </Link>
+              </>
+            )}
             <LanguageSwitcher variant="dark" />
-            <Link
-              to="/login"
-              className="font-mono text-xs uppercase tracking-wider text-slate-600 transition hover:text-retro-cyan"
-            >
-              {t("auth.login.title")}
-            </Link>
-            <Link
-              to="/register"
-              className="flex items-center gap-1.5 rounded-lg border border-retro-pink bg-retro-pink/10 px-4 py-2 font-mono text-xs uppercase tracking-wider text-retro-pink transition hover:bg-retro-pink hover:text-white hover:shadow-neon"
-            >
-              {t("nav.launchApp")} <ArrowRight size={13} />
-            </Link>
           </nav>
 
           <div className="flex items-center gap-3 md:hidden">
@@ -160,18 +173,32 @@ export default function LandingPage() {
               >
                 FAQ
               </Link>
-              <Link
-                to="/login"
-                className="font-mono text-xs uppercase tracking-wider text-slate-600"
-              >
-                {t("auth.login.title")}
-              </Link>
-              <Link
-                to="/register"
-                className="flex items-center justify-center gap-1.5 rounded-lg border border-retro-pink bg-retro-pink/10 px-4 py-2 font-mono text-xs uppercase tracking-wider text-retro-pink"
-              >
-                {t("nav.launchApp")} <ArrowRight size={13} />
-              </Link>
+              {user ? (
+                <Link
+                  to="/dashboard"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-center gap-1.5 rounded-lg border border-retro-pink bg-retro-pink/10 px-4 py-2 font-mono text-xs uppercase tracking-wider text-retro-pink"
+                >
+                  {t("nav.launchApp")} <ArrowRight size={13} />
+                </Link>
+              ) : (
+                <>
+                  <Link
+                    to="/register"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="font-mono text-xs uppercase tracking-wider text-slate-600"
+                  >
+                    {t("nav.register")}
+                  </Link>
+                  <Link
+                    to="/login"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-center gap-1.5 rounded-lg border border-retro-pink bg-retro-pink/10 px-4 py-2 font-mono text-xs uppercase tracking-wider text-retro-pink"
+                  >
+                    {t("auth.login.title")} <ArrowRight size={13} />
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         )}
