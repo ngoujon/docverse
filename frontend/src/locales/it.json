@@ -30,43 +30,44 @@
     "desc": "PDF, immagini, note, pagine web: tutto converge in un unico posto dove basta fare una domanda."
   },
   "features": {
-    "eyebrow": "La soluzione",
-    "title": "Uno strumento semplice, pensato per le esigenze aziendali",
-    "subtitle": "Pensato per i team che perdono tempo a cercare un'informazione tra decine di documenti: subito operativo, senza formazione, con una gestione degli accessi pensata per piu team, progetti o clienti.",
+    "eyebrow": "Cosa ottieni",
+    "title": "Pensato per strutture che gestiscono piu clienti o pratiche",
+    "subtitle": "Studi, agenzie, team di progetto: uno spazio isolato per cliente, un accesso controllato per persona, e un costo che non cambia in base al numero di domande poste.",
     "items": [
       {
-        "title": "Spazi isolati",
-        "desc": "Ogni team, progetto o cliente ha il proprio spazio: documenti e conversazioni restano isolati. Condividi in sola lettura o in modifica, con un clic, in base a chi deve avere accesso a cosa."
+        "title": "Uno spazio per cliente, un accesso per persona",
+        "desc": "Ogni cliente o pratica ha il proprio spazio isolato: documenti e conversazioni non ne escono mai. Condividi in sola lettura o in modifica, in base a chi deve avere accesso a cosa."
       },
       {
-        "title": "Tutti i formati",
-        "desc": "PDF, immagini, pagine web, DOCX, TXT, Markdown: trascinali e rilasciali, vengono indicizzati automaticamente."
+        "title": "Tutti i tuoi documenti, visione IA inclusa",
+        "desc": "PDF, scansioni, immagini, DOCX, pagine web: tutto viene letto e indicizzato automaticamente, compresi i documenti scansionati grazie alla visione IA."
       },
       {
-        "title": "Visione IA",
-        "desc": "Scansioni e foto vengono lette da un modello multimodale: il contenuto delle tue immagini diventa ricercabile come testo."
+        "title": "Accesso tracciabile, revocabile in qualsiasi momento",
+        "desc": "Vedi chi ha accesso a ogni spazio, rimuovi un accesso con un clic, e un periodo di sicurezza impedisce di riaggiungere subito qualcuno."
       },
       {
-        "title": "Ricerca web locale",
-        "desc": "L'IA capisce da sola quando una domanda richiede informazioni recenti e completa le risposte tramite un motore di ricerca self-hosted, senza tracker ne chiave API."
+        "title": "Domande illimitate, costo fisso",
+        "desc": "Fai tutte le domande che vuoi, su ogni piano: nessun contatore di messaggi, nessuna fatturazione a consumo che sale con l'attivita del team."
       },
       {
-        "title": "Pensato per piu utenti",
-        "desc": "Le richieste vengono messe in coda automaticamente: lo strumento resta stabile e reattivo anche quando un intero team lo usa contemporaneamente."
+        "title": "Ricerca web senza fughe verso terzi",
+        "desc": "Quando una domanda richiede informazioni recenti, la ricerca passa da un motore self-hosted, senza chiave API ne tracker commerciali."
       },
       {
-        "title": "100% locale e privato",
-        "desc": "I tuoi dati non escono mai dalla tua infrastruttura, il che semplifica i requisiti di privacy e conformita della tua azienda."
+        "title": "Hosting che controlli",
+        "desc": "I tuoi documenti e le tue conversazioni restano sotto il tuo controllo, con un motore IA che puoi far evolvere senza dipendere da un unico fornitore."
       }
     ]
   },
   "steps": {
     "eyebrow": "Per iniziare",
     "title": "Operativo in pochi minuti, senza team IT",
+    "windowTitle": "Per iniziare",
     "items": [
-      { "title": "Crea un account e uno spazio", "desc": "Registrazione gratuita, poi dai un nome al tuo spazio e scegli un colore." },
-      { "title": "Carica i tuoi documenti", "desc": "Trascina e rilascia PDF, immagini o link web. L'IA li legge e li indicizza in background." },
-      { "title": "Chatta e condividi", "desc": "Fai le tue domande, ottieni risposte con fonti, e invita altre persone tramite un link di condivisione con il ruolo scelto." }
+      { "title": "Crea il tuo spazio", "desc": "Uno spazio per cliente o pratica, in pochi secondi - nessuna configurazione tecnica." },
+      { "title": "Carica i tuoi documenti", "desc": "PDF, scansioni, DOCX, pagine web: trascina e rilascia, tutto viene indicizzato automaticamente in background." },
+      { "title": "Condividi e fai le tue domande", "desc": "Invita chi vuoi con il ruolo giusto, domande illimitate, risposte sempre con fonti." }
     ]
   },
   "enterprise": {

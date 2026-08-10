@@ -6,30 +6,24 @@ interface StepItem {
   desc: string;
 }
 
-const COMMANDS = ["open-rag signup && new-space", "open-rag upload ./docs/*", "open-rag chat --share viewer"];
-
 export default function OnboardingTerminal() {
   const { t } = useTranslation();
   const steps = t("steps.items", { returnObjects: true }) as StepItem[];
 
   return (
-    <TerminalWindow title="~/onboarding">
-      <div className="space-y-4 bg-slate-950 p-4 font-mono text-xs sm:p-6 sm:text-sm">
+    <TerminalWindow title={t("steps.windowTitle")}>
+      <div className="divide-y divide-retro-border/60 bg-retro-panel">
         {steps.map((s, i) => (
-          <div key={s.title}>
-            <p className="text-emerald-400">
-              <span className="text-slate-500">➜ </span>
-              {COMMANDS[i]}
-            </p>
-            <p className="mt-1 pl-4 text-slate-300">
-              <span className="text-retro-pink"># {s.title}</span> — {s.desc}
-            </p>
+          <div key={s.title} className="flex items-start gap-4 p-4 sm:p-5">
+            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-retro-pink/10 font-mono text-xs font-semibold text-retro-pink">
+              {i + 1}
+            </span>
+            <div>
+              <p className="text-sm font-semibold text-slate-900">{s.title}</p>
+              <p className="mt-1 text-xs leading-relaxed text-slate-600">{s.desc}</p>
+            </div>
           </div>
         ))}
-        <p className="text-emerald-400">
-          <span className="text-slate-500">➜ </span>
-          <span className="inline-block h-3.5 w-[7px] animate-blink bg-emerald-400 align-middle" />
-        </p>
       </div>
     </TerminalWindow>
   );

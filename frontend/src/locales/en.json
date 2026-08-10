@@ -30,43 +30,44 @@
     "desc": "PDFs, images, notes, web pages: everything converges into one place where asking a question is all it takes."
   },
   "features": {
-    "eyebrow": "The solution",
-    "title": "A simple tool, built for business needs",
-    "subtitle": "Built for teams losing time hunting for one fact across dozens of documents: no training needed, and access management designed for multiple teams, projects, or clients.",
+    "eyebrow": "What you get",
+    "title": "Built for structures managing multiple clients or files",
+    "subtitle": "Firms, agencies, project teams: one siloed space per client, controlled access per person, and a cost that doesn't move with the number of questions asked.",
     "items": [
       {
-        "title": "Isolated spaces",
-        "desc": "Each team, project, or client gets its own space - documents and conversations stay isolated. Share with a read-only or read-write link, in one click, depending on who needs access to what."
+        "title": "One space per client, one access per person",
+        "desc": "Each client or file gets its own siloed space - documents and conversations never leave it. Share read-only or edit access, based on who needs what."
       },
       {
-        "title": "Every format",
-        "desc": "PDF, images, web pages, DOCX, TXT, Markdown: drag and drop them, they're indexed automatically."
+        "title": "All your documents, AI vision included",
+        "desc": "PDF, scans, images, DOCX, web pages: everything is read and indexed automatically, including scanned documents thanks to AI vision."
       },
       {
-        "title": "AI vision",
-        "desc": "Scans and photos are read by a multimodal model: the content of your images becomes searchable just like text."
+        "title": "Traceable access, revocable anytime",
+        "desc": "See who has access to each space, remove access in one click, and a safety delay stops someone from being re-added right away."
       },
       {
-        "title": "Local web search",
-        "desc": "The AI detects on its own when a question needs up-to-date information and completes its answers via a self-hosted search engine, no trackers, no API key."
+        "title": "Unlimited questions, fixed cost",
+        "desc": "Ask as many questions as you want, on every tier: no message counter, no usage-based billing that climbs with team activity."
       },
       {
-        "title": "Built for multiple users",
-        "desc": "Requests are queued automatically, so the tool stays stable and responsive even when a whole team is using it at once."
+        "title": "Web search that doesn't leak to a third party",
+        "desc": "When a question needs recent information, the search runs through a self-hosted engine - no API key, no commercial tracker."
       },
       {
-        "title": "100% local and private",
-        "desc": "Your data never leaves your infrastructure, which simplifies your company's privacy and compliance requirements."
+        "title": "Hosting you control",
+        "desc": "Your documents and conversations stay under your control, with an AI engine you can evolve without depending on a single provider."
       }
     ]
   },
   "steps": {
     "eyebrow": "Getting started",
     "title": "Up and running in minutes, no IT team required",
+    "windowTitle": "Getting started",
     "items": [
-      { "title": "Create an account and a space", "desc": "Free sign-up, then name your space and pick a color." },
-      { "title": "Drop your documents", "desc": "Drag and drop PDFs, images or web links. The AI reads and indexes them in the background." },
-      { "title": "Chat and share", "desc": "Ask your questions, get sourced answers, and invite others via a share link with the role of your choice." }
+      { "title": "Create your space", "desc": "One space per client or file, in seconds - no technical setup." },
+      { "title": "Upload your documents", "desc": "PDF, scans, DOCX, web pages: drag and drop, everything gets indexed automatically in the background." },
+      { "title": "Share and ask your questions", "desc": "Invite whoever you want with the right role, unlimited questions, always-sourced answers." }
     ]
   },
   "enterprise": {

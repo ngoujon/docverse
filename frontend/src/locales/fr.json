@@ -30,43 +30,44 @@
     "desc": "PDF, images, notes, pages web : tout converge vers un seul endroit ou poser une question suffit."
   },
   "features": {
-    "eyebrow": "La solution",
-    "title": "Un outil simple, pense pour les besoins d'une entreprise",
-    "subtitle": "Concu pour les equipes qui perdent du temps a chercher une information dans des dizaines de documents : prise en main immediate, aucune formation necessaire, et une gestion des acces adaptee a plusieurs equipes, projets ou clients.",
+    "eyebrow": "Ce que vous obtenez",
+    "title": "Concu pour les structures qui gerent plusieurs clients ou dossiers",
+    "subtitle": "Cabinets, agences, equipes projet : un espace cloisonne par client, un acces maitrise par personne, et un cout qui ne bouge pas avec le nombre de questions posees.",
     "items": [
       {
-        "title": "Espaces cloisonnes",
-        "desc": "Chaque equipe, projet ou client a son propre espace : documents et conversations restent cloisonnes. Partagez en lecture seule ou en edition, en un clic, selon qui doit avoir acces a quoi."
+        "title": "Un espace par client, un acces par personne",
+        "desc": "Chaque client ou dossier a son propre espace cloisonne : documents et conversations n'en sortent jamais. Partagez en lecture seule ou en edition, selon qui doit avoir acces a quoi."
       },
       {
-        "title": "Tous vos formats",
-        "desc": "PDF, images, pages web, DOCX, TXT, Markdown : deposez-les par glisser-deposer, ils sont indexes automatiquement."
+        "title": "Tous vos documents, vision IA incluse",
+        "desc": "PDF, scans, images, DOCX, pages web : tout est lu et indexe automatiquement, y compris les documents scannes grace a la vision par IA."
       },
       {
-        "title": "Vision par IA",
-        "desc": "Les scans et photos sont lus par un modele multimodal : le contenu des images devient interrogeable comme du texte."
+        "title": "Acces tracable, revocable a tout moment",
+        "desc": "Voyez qui a acces a chaque espace, retirez un acces en un clic, et un delai de securite empeche de recrediter quelqu'un immediatement apres."
       },
       {
-        "title": "Recherche web locale",
-        "desc": "L'IA detecte seule quand une question a besoin d'informations recentes et complete ses reponses via un moteur de recherche auto-heberge, sans traceurs ni cle API."
+        "title": "Questions illimitees, cout fixe",
+        "desc": "Posez autant de questions que vous voulez, sur tous les paliers : aucun compteur de messages, aucune facturation a l'usage qui grimpe avec l'activite de l'equipe."
       },
       {
-        "title": "Robuste a plusieurs utilisateurs",
-        "desc": "Les requetes sont mises en file d'attente automatiquement : l'outil reste stable et reactif meme quand toute une equipe l'utilise en meme temps."
+        "title": "Recherche web sans fuite vers un tiers",
+        "desc": "Quand une question a besoin d'une information recente, la recherche passe par un moteur auto-heberge, sans cle API ni traceur commercial."
       },
       {
-        "title": "100% local et prive",
-        "desc": "Vos donnees ne quittent jamais votre infrastructure, ce qui simplifie les exigences de confidentialite et de conformite de votre entreprise."
+        "title": "Hebergement que vous maitrisez",
+        "desc": "Vos documents et vos conversations restent sous votre controle, avec un moteur d'IA que vous pouvez faire evoluer sans dependre d'un seul fournisseur."
       }
     ]
   },
   "steps": {
     "eyebrow": "Mise en route",
     "title": "Operationnel en quelques minutes, sans equipe technique",
+    "windowTitle": "Mise en route",
     "items": [
-      { "title": "Creez un compte et un espace", "desc": "Inscription gratuite, puis nommez votre espace et choisissez une couleur." },
-      { "title": "Deposez vos documents", "desc": "Glissez-deposez PDF, images ou liens web. L'IA les lit et les indexe en arriere-plan." },
-      { "title": "Discutez et partagez", "desc": "Posez vos questions, obtenez des reponses sourcees, et invitez d'autres personnes via un lien de partage avec le role de votre choix." }
+      { "title": "Creez votre espace", "desc": "Un espace par client ou par dossier, en quelques secondes - aucune configuration technique." },
+      { "title": "Deposez vos documents", "desc": "PDF, scans, DOCX, pages web : glissez-deposez, tout est indexe automatiquement en arriere-plan." },
+      { "title": "Partagez et posez vos questions", "desc": "Invitez qui vous voulez avec le bon role, questions illimitees, reponses toujours sourcees." }
     ]
   },
   "enterprise": {

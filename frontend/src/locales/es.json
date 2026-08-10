@@ -30,43 +30,44 @@
     "desc": "PDF, imagenes, notas, paginas web: todo converge en un solo lugar donde basta con hacer una pregunta."
   },
   "features": {
-    "eyebrow": "La solucion",
-    "title": "Una herramienta simple, pensada para una empresa",
-    "subtitle": "Disenada para equipos que pierden tiempo buscando un dato entre decenas de documentos: sin necesidad de formacion, y con una gestion de accesos pensada para varios equipos, proyectos o clientes.",
+    "eyebrow": "Lo que obtienes",
+    "title": "Pensado para estructuras que gestionan varios clientes o expedientes",
+    "subtitle": "Despachos, agencias, equipos de proyecto: un espacio aislado por cliente, un acceso controlado por persona, y un coste que no cambia segun el numero de preguntas realizadas.",
     "items": [
       {
-        "title": "Espacios aislados",
-        "desc": "Cada equipo, proyecto o cliente tiene su propio espacio: documentos y conversaciones quedan aislados. Comparte en solo lectura o en edicion, con un clic, segun quien deba tener acceso a que."
+        "title": "Un espacio por cliente, un acceso por persona",
+        "desc": "Cada cliente o expediente tiene su propio espacio aislado: documentos y conversaciones nunca salen de el. Comparte en solo lectura o en edicion, segun quien deba tener acceso a que."
       },
       {
-        "title": "Todos tus formatos",
-        "desc": "PDF, imagenes, paginas web, DOCX, TXT, Markdown: arrastralos y sueltalos, se indexan automaticamente."
+        "title": "Todos tus documentos, con vision por IA incluida",
+        "desc": "PDF, escaneos, imagenes, DOCX, paginas web: todo se lee e indexa automaticamente, incluidos los documentos escaneados gracias a la vision por IA."
       },
       {
-        "title": "Vision por IA",
-        "desc": "Los escaneos y fotos son leidos por un modelo multimodal: el contenido de tus imagenes se vuelve consultable como texto."
+        "title": "Acceso trazable, revocable en cualquier momento",
+        "desc": "Ve quien tiene acceso a cada espacio, retira un acceso con un clic, y un plazo de seguridad impide volver a dar acceso a alguien de inmediato."
       },
       {
-        "title": "Busqueda web local",
-        "desc": "La IA detecta por si sola cuando una pregunta necesita informacion reciente y completa sus respuestas mediante un motor de busqueda autoalojado, sin rastreadores ni clave API."
+        "title": "Preguntas ilimitadas, coste fijo",
+        "desc": "Haz tantas preguntas como quieras, en todos los planes: sin contador de mensajes, sin facturacion por uso que suba con la actividad del equipo."
       },
       {
-        "title": "Preparado para varios usuarios",
-        "desc": "Las solicitudes se ponen en cola automaticamente: la herramienta se mantiene estable y reactiva incluso cuando todo un equipo la usa a la vez."
+        "title": "Busqueda web sin fuga hacia terceros",
+        "desc": "Cuando una pregunta necesita informacion reciente, la busqueda pasa por un motor autoalojado, sin clave API ni rastreador comercial."
       },
       {
-        "title": "100% local y privado",
-        "desc": "Tus datos nunca salen de tu infraestructura, lo que simplifica los requisitos de privacidad y cumplimiento de tu empresa."
+        "title": "Alojamiento que controlas",
+        "desc": "Tus documentos y conversaciones permanecen bajo tu control, con un motor de IA que puedes hacer evolucionar sin depender de un unico proveedor."
       }
     ]
   },
   "steps": {
     "eyebrow": "Primeros pasos",
     "title": "Operativo en minutos, sin equipo de TI",
+    "windowTitle": "Primeros pasos",
     "items": [
-      { "title": "Crea una cuenta y un espacio", "desc": "Registro gratuito, luego nombra tu espacio y elige un color." },
-      { "title": "Sube tus documentos", "desc": "Arrastra y suelta PDF, imagenes o enlaces web. La IA los lee y los indexa en segundo plano." },
-      { "title": "Conversa y comparte", "desc": "Haz tus preguntas, obten respuestas con fuentes, e invita a otras personas mediante un enlace de invitacion con el rol que elijas." }
+      { "title": "Crea tu espacio", "desc": "Un espacio por cliente o expediente, en segundos, sin configuracion tecnica." },
+      { "title": "Sube tus documentos", "desc": "PDF, escaneos, DOCX, paginas web: arrastra y suelta, todo se indexa automaticamente en segundo plano." },
+      { "title": "Comparte y haz tus preguntas", "desc": "Invita a quien quieras con el rol adecuado, preguntas ilimitadas, respuestas siempre con fuentes." }
     ]
   },
   "enterprise": {

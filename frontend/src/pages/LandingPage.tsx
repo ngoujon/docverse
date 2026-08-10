@@ -7,10 +7,10 @@ import {
   ArrowRight,
   FolderLock,
   FileStack,
-  ScanEye,
+  UserCog,
+  Infinity as InfinityIcon,
   Globe2,
-  Gauge,
-  ShieldCheck,
+  ServerCog,
   Sparkles,
 } from "lucide-react";
 import NeoGrid from "../components/landing/NeoGrid";
@@ -25,17 +25,17 @@ import LanguageSwitcher from "../components/LanguageSwitcher";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { useAuth } from "../hooks/useAuth";
 
-const FEATURE_ICONS = [FolderLock, FileStack, ScanEye, Globe2, Gauge, ShieldCheck];
+const FEATURE_ICONS = [FolderLock, FileStack, UserCog, InfinityIcon, Globe2, ServerCog];
 const FEATURE_COLORS = [
-  { color: "text-retro-pink", border: "hover:border-retro-pink" },
-  { color: "text-retro-cyan", border: "hover:border-retro-cyan" },
-  { color: "text-retro-orange", border: "hover:border-retro-orange" },
-  { color: "text-retro-yellow", border: "hover:border-retro-yellow" },
-  { color: "text-retro-purple", border: "hover:border-retro-purple" },
-  { color: "text-retro-cyan", border: "hover:border-retro-cyan" },
+  { color: "text-retro-pink", chip: "bg-retro-pink/10", border: "hover:border-retro-pink" },
+  { color: "text-retro-cyan", chip: "bg-retro-cyan/10", border: "hover:border-retro-cyan" },
+  { color: "text-retro-purple", chip: "bg-retro-purple/10", border: "hover:border-retro-purple" },
+  { color: "text-retro-pink", chip: "bg-retro-pink/10", border: "hover:border-retro-pink" },
+  { color: "text-retro-cyan", chip: "bg-retro-cyan/10", border: "hover:border-retro-cyan" },
+  { color: "text-retro-purple", chip: "bg-retro-purple/10", border: "hover:border-retro-purple" },
 ];
-// First and fourth cards get more room in the bento grid - breaks the
-// uniform icon-grid template most generated landing pages default to.
+// The two strongest business arguments (silo governance, fixed cost) get
+// more room in the bento grid, rather than a uniform icon-grid template.
 const FEATURE_SPAN = ["sm:col-span-2", "", "", "sm:col-span-2", "", ""];
 
 interface FeatureItem {
@@ -298,7 +298,9 @@ export default function LandingPage() {
                   key={f.title}
                   className={`rounded-2xl border border-retro-border bg-retro-panel/40 p-5 transition-colors ${style.border} ${FEATURE_SPAN[i]}`}
                 >
-                  <Icon size={22} className={style.color} />
+                  <span className={`flex h-9 w-9 items-center justify-center rounded-lg ${style.chip} ${style.color}`}>
+                    <Icon size={18} />
+                  </span>
                   <h3 className="mt-3 text-sm font-semibold text-slate-900">{f.title}</h3>
                   <p className="mt-1.5 text-xs leading-relaxed text-slate-600">{f.desc}</p>
                 </div>

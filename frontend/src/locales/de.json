@@ -30,43 +30,44 @@
     "desc": "PDFs, Bilder, Notizen, Webseiten: alles lauft an einem Ort zusammen, an dem eine Frage genugt."
   },
   "features": {
-    "eyebrow": "Die Losung",
-    "title": "Ein einfaches Werkzeug, gebaut fur den Unternehmensalltag",
-    "subtitle": "Entwickelt fur Teams, die Zeit mit der Suche nach einer einzigen Information in Dutzenden von Dokumenten verlieren: sofort einsatzbereit, keine Schulung notig, und eine Zugriffsverwaltung, die fur mehrere Teams, Projekte oder Kunden ausgelegt ist.",
+    "eyebrow": "Das bekommen Sie",
+    "title": "Gebaut fur Strukturen mit mehreren Kunden oder Akten",
+    "subtitle": "Kanzleien, Agenturen, Projektteams: ein abgeschotteter Bereich pro Kunde, kontrollierter Zugriff pro Person, und Kosten, die sich nicht mit der Zahl der gestellten Fragen andern.",
     "items": [
       {
-        "title": "Abgeschottete Bereiche",
-        "desc": "Jedes Team, Projekt oder jeder Kunde erhalt einen eigenen Bereich - Dokumente und Unterhaltungen bleiben getrennt. Teilen Sie mit einem Nur-Lese- oder Lese-/Schreiblink, mit einem Klick, je nachdem wer worauf Zugriff braucht."
+        "title": "Ein Bereich pro Kunde, ein Zugriff pro Person",
+        "desc": "Jeder Kunde oder jede Akte erhalt einen eigenen abgeschotteten Bereich - Dokumente und Unterhaltungen verlassen ihn nie. Teilen Sie Lese- oder Schreibzugriff, je nachdem wer worauf Zugriff braucht."
       },
       {
-        "title": "Alle Formate",
-        "desc": "PDF, Bilder, Webseiten, DOCX, TXT, Markdown: per Drag & Drop hinzufugen, automatisch indexiert."
+        "title": "Alle Dokumente, KI-Bilderkennung inklusive",
+        "desc": "PDF, Scans, Bilder, DOCX, Webseiten: alles wird automatisch gelesen und indexiert, auch gescannte Dokumente dank KI-Bilderkennung."
       },
       {
-        "title": "KI-Bilderkennung",
-        "desc": "Scans und Fotos werden von einem multimodalen Modell gelesen: Der Inhalt Ihrer Bilder wird wie Text durchsuchbar."
+        "title": "Nachvollziehbarer Zugriff, jederzeit widerrufbar",
+        "desc": "Sehen Sie, wer Zugriff auf jeden Bereich hat, entziehen Sie Zugriff mit einem Klick, und eine Sicherheitsfrist verhindert, dass jemand sofort wieder hinzugefugt wird."
       },
       {
-        "title": "Lokale Websuche",
-        "desc": "Die KI erkennt selbststandig, wann eine Frage aktuelle Informationen benotigt, und erganzt ihre Antworten uber eine selbst gehostete Suchmaschine, ohne Tracker, ohne API-Schlussel."
+        "title": "Unbegrenzte Fragen, feste Kosten",
+        "desc": "Stellen Sie so viele Fragen wie Sie mochten, in jeder Stufe: kein Nachrichtenzahler, keine nutzungsbasierte Abrechnung, die mit der Teamaktivitat steigt."
       },
       {
-        "title": "Ausgelegt fur mehrere Nutzer",
-        "desc": "Anfragen werden automatisch in eine Warteschlange gestellt: Das Tool bleibt stabil und reaktionsschnell, auch wenn ein ganzes Team es gleichzeitig nutzt."
+        "title": "Websuche ohne Weitergabe an Dritte",
+        "desc": "Wenn eine Frage aktuelle Informationen benotigt, lauft die Suche uber eine selbst gehostete Suchmaschine - ohne API-Schlussel, ohne kommerziellen Tracker."
       },
       {
-        "title": "100% lokal und privat",
-        "desc": "Ihre Daten verlassen nie Ihre Infrastruktur - das vereinfacht die Datenschutz- und Compliance-Anforderungen Ihres Unternehmens."
+        "title": "Hosting, das Sie kontrollieren",
+        "desc": "Ihre Dokumente und Unterhaltungen bleiben unter Ihrer Kontrolle, mit einer KI-Engine, die Sie weiterentwickeln konnen, ohne von einem einzigen Anbieter abhangig zu sein."
       }
     ]
   },
   "steps": {
     "eyebrow": "Erste Schritte",
     "title": "In wenigen Minuten einsatzbereit, ohne IT-Team",
+    "windowTitle": "Erste Schritte",
     "items": [
-      { "title": "Konto und Bereich erstellen", "desc": "Kostenlose Registrierung, dann benennen Sie Ihren Bereich und wahlen eine Farbe." },
-      { "title": "Dokumente hinzufugen", "desc": "PDFs, Bilder oder Weblinks per Drag & Drop hinzufugen. Die KI liest und indexiert sie im Hintergrund." },
-      { "title": "Unterhalten und teilen", "desc": "Stellen Sie Ihre Fragen, erhalten Sie Antworten mit Quellenangaben, und laden Sie andere per Freigabelink mit der gewahlten Rolle ein." }
+      { "title": "Erstellen Sie Ihren Bereich", "desc": "Ein Bereich pro Kunde oder Akte, in Sekunden - keine technische Einrichtung." },
+      { "title": "Dokumente hochladen", "desc": "PDF, Scans, DOCX, Webseiten: per Drag & Drop, alles wird automatisch im Hintergrund indexiert." },
+      { "title": "Teilen und Fragen stellen", "desc": "Laden Sie ein, wen Sie mochten, mit der passenden Rolle, unbegrenzte Fragen, immer belegte Antworten." }
     ]
   },
   "enterprise": {

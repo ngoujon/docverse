@@ -30,43 +30,44 @@
     "desc": "PDF, imagens, notas, paginas web: tudo converge para um unico lugar onde basta fazer uma pergunta."
   },
   "features": {
-    "eyebrow": "A solucao",
-    "title": "Uma ferramenta simples, pensada para as necessidades de uma empresa",
-    "subtitle": "Concebida para equipas que perdem tempo a procurar uma informacao entre dezenas de documentos: pronta a usar de imediato, sem formacao necessaria, e com uma gestao de acessos pensada para varias equipas, projetos ou clientes.",
+    "eyebrow": "O que obtem",
+    "title": "Concebido para estruturas que gerem varios clientes ou processos",
+    "subtitle": "Escritorios, agencias, equipas de projeto: um espaco isolado por cliente, um acesso controlado por pessoa, e um custo que nao muda com o numero de perguntas feitas.",
     "items": [
       {
-        "title": "Espacos isolados",
-        "desc": "Cada equipa, projeto ou cliente tem o seu proprio espaco: documentos e conversas mantem-se isolados. Partilhe em leitura ou edicao, com um clique, consoante quem deve ter acesso a que."
+        "title": "Um espaco por cliente, um acesso por pessoa",
+        "desc": "Cada cliente ou processo tem o seu proprio espaco isolado: documentos e conversas nunca saem dele. Partilhe acesso de leitura ou edicao, consoante quem precisa de que."
       },
       {
-        "title": "Todos os formatos",
-        "desc": "PDF, imagens, paginas web, DOCX, TXT, Markdown: arraste e largue, sao indexados automaticamente."
+        "title": "Todos os seus documentos, com visao por IA incluida",
+        "desc": "PDF, digitalizacoes, imagens, DOCX, paginas web: tudo e lido e indexado automaticamente, incluindo documentos digitalizados gracas a visao por IA."
       },
       {
-        "title": "Visao por IA",
-        "desc": "Digitalizacoes e fotos sao lidas por um modelo multimodal: o conteudo das suas imagens torna-se pesquisavel como texto."
+        "title": "Acesso rastreavel, revogavel a qualquer momento",
+        "desc": "Veja quem tem acesso a cada espaco, remova um acesso com um clique, e um prazo de seguranca impede que alguem seja readicionado de imediato."
       },
       {
-        "title": "Pesquisa web local",
-        "desc": "A IA deteta sozinha quando uma pergunta precisa de informacao recente e completa as respostas atraves de um motor de pesquisa auto-hospedado, sem rastreadores nem chave API."
+        "title": "Perguntas ilimitadas, custo fixo",
+        "desc": "Faca quantas perguntas quiser, em todos os planos: sem contador de mensagens, sem faturacao por utilizacao que aumenta com a atividade da equipa."
       },
       {
-        "title": "Preparado para varios utilizadores",
-        "desc": "Os pedidos sao colocados em fila automaticamente: a ferramenta mantem-se estavel e reativa mesmo quando uma equipa inteira a usa ao mesmo tempo."
+        "title": "Pesquisa web sem fuga para terceiros",
+        "desc": "Quando uma pergunta precisa de informacao recente, a pesquisa passa por um motor auto-hospedado, sem chave API nem rastreador comercial."
       },
       {
-        "title": "100% local e privado",
-        "desc": "Os seus dados nunca saem da sua infraestrutura, o que simplifica os requisitos de privacidade e conformidade da sua empresa."
+        "title": "Alojamento que controla",
+        "desc": "Os seus documentos e conversas permanecem sob o seu controlo, com um motor de IA que pode evoluir sem depender de um unico fornecedor."
       }
     ]
   },
   "steps": {
     "eyebrow": "Primeiros passos",
     "title": "Operacional em minutos, sem equipa de TI",
+    "windowTitle": "Primeiros passos",
     "items": [
-      { "title": "Crie uma conta e um espaco", "desc": "Registo gratuito, depois de-lhe um nome e escolha uma cor." },
-      { "title": "Carregue os seus documentos", "desc": "Arraste e largue PDF, imagens ou links da web. A IA le-os e indexa-os em segundo plano." },
-      { "title": "Converse e partilhe", "desc": "Faca as suas perguntas, obtenha respostas com fontes, e convide outras pessoas atraves de um link de partilha com a funcao escolhida." }
+      { "title": "Crie o seu espaco", "desc": "Um espaco por cliente ou processo, em segundos - sem configuracao tecnica." },
+      { "title": "Carregue os seus documentos", "desc": "PDF, digitalizacoes, DOCX, paginas web: arraste e largue, tudo e indexado automaticamente em segundo plano." },
+      { "title": "Partilhe e faca as suas perguntas", "desc": "Convide quem quiser com a funcao certa, perguntas ilimitadas, respostas sempre com fontes." }
     ]
   },
   "enterprise": {
