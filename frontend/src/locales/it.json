@@ -69,6 +69,20 @@
       { "title": "Chatta e condividi", "desc": "Fai le tue domande, ottieni risposte con fonti, e invita altre persone tramite un link di condivisione con il ruolo scelto." }
     ]
   },
+  "enterprise": {
+    "back": "Torna ai prezzi",
+    "eyebrow": "Piano Azienda",
+    "title": "Un preventivo su misura per la tua azienda",
+    "subtitle": "Spazi e membri illimitati, archiviazione su misura, SSO e SLA, supporto dedicato. Descrivi la tua esigenza, ti risponderemo rapidamente.",
+    "teamSize": "Dimensione del team",
+    "teamSizeOptions": ["1-10 utenti", "11-50 utenti", "51-200 utenti", "200+ utenti"],
+    "needs": "Descrivi la tua esigenza",
+    "needsPlaceholder": "Numero di spazi necessari, requisiti di sicurezza o conformita, tempistiche desiderate...",
+    "send": "Invia richiesta",
+    "messagePrefix": "Dimensione del team stimata",
+    "sentTitle": "Richiesta inviata!",
+    "sentDesc": "Il nostro team ti rispondera a breve per preparare il tuo preventivo."
+  },
   "contact": {
     "eyebrow": "Contatto",
     "title": "Una domanda? Scrivici",

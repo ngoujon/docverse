@@ -69,6 +69,20 @@
       { "title": "Converse e partilhe", "desc": "Faca as suas perguntas, obtenha respostas com fontes, e convide outras pessoas atraves de um link de partilha com a funcao escolhida." }
     ]
   },
+  "enterprise": {
+    "back": "Voltar aos precos",
+    "eyebrow": "Plano Empresa",
+    "title": "Um orcamento personalizado para a sua empresa",
+    "subtitle": "Espacos e membros ilimitados, armazenamento personalizado, SSO e SLA, suporte dedicado. Descreva a sua necessidade e responderemos rapidamente.",
+    "teamSize": "Tamanho da equipa",
+    "teamSizeOptions": ["1-10 utilizadores", "11-50 utilizadores", "51-200 utilizadores", "200+ utilizadores"],
+    "needs": "Descreva a sua necessidade",
+    "needsPlaceholder": "Numero de espacos necessarios, requisitos de seguranca ou conformidade, prazo pretendido...",
+    "send": "Enviar pedido",
+    "messagePrefix": "Tamanho de equipa estimado",
+    "sentTitle": "Pedido enviado!",
+    "sentDesc": "A nossa equipa entrara em contacto em breve para preparar o seu orcamento."
+  },
   "contact": {
     "eyebrow": "Contacto",
     "title": "Alguma pergunta? Escreva-nos",

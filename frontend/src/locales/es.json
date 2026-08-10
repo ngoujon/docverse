@@ -69,6 +69,20 @@
       { "title": "Conversa y comparte", "desc": "Haz tus preguntas, obten respuestas con fuentes, e invita a otras personas mediante un enlace de invitacion con el rol que elijas." }
     ]
   },
+  "enterprise": {
+    "back": "Volver a precios",
+    "eyebrow": "Plan Empresa",
+    "title": "Un presupuesto a medida para tu empresa",
+    "subtitle": "Espacios y miembros ilimitados, almacenamiento a medida, SSO y SLA, soporte dedicado. Describe tu necesidad y te responderemos rapidamente.",
+    "teamSize": "Tamano del equipo",
+    "teamSizeOptions": ["1-10 usuarios", "11-50 usuarios", "51-200 usuarios", "200+ usuarios"],
+    "needs": "Describe tu necesidad",
+    "needsPlaceholder": "Numero de espacios necesarios, requisitos de seguridad o cumplimiento, plazo deseado...",
+    "send": "Enviar solicitud",
+    "messagePrefix": "Tamano de equipo estimado",
+    "sentTitle": "¡Solicitud enviada!",
+    "sentDesc": "Nuestro equipo te respondera pronto para preparar tu presupuesto."
+  },
   "contact": {
     "eyebrow": "Contacto",
     "title": "¿Alguna pregunta? Escribenos",

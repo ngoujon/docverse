@@ -69,6 +69,20 @@
       { "title": "Discutez et partagez", "desc": "Posez vos questions, obtenez des reponses sourcees, et invitez d'autres personnes via un lien de partage avec le role de votre choix." }
     ]
   },
+  "enterprise": {
+    "back": "Retour aux tarifs",
+    "eyebrow": "Palier Entreprise",
+    "title": "Un devis sur mesure pour votre entreprise",
+    "subtitle": "Espaces et membres illimites, stockage sur mesure, SSO et SLA, support dedie. Decrivez votre besoin, nous revenons vers vous rapidement.",
+    "teamSize": "Taille de l'equipe",
+    "teamSizeOptions": ["1-10 utilisateurs", "11-50 utilisateurs", "51-200 utilisateurs", "200+ utilisateurs"],
+    "needs": "Decrivez votre besoin",
+    "needsPlaceholder": "Nombre d'espaces necessaires, exigences de securite ou de conformite, delai souhaite...",
+    "send": "Envoyer la demande",
+    "messagePrefix": "Taille d'equipe estimee",
+    "sentTitle": "Demande envoyee !",
+    "sentDesc": "Notre equipe vous recontacte rapidement pour construire votre devis."
+  },
   "contact": {
     "eyebrow": "Contact",
     "title": "Une question ? Ecrivez-nous",

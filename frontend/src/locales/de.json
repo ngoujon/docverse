@@ -69,6 +69,20 @@
       { "title": "Unterhalten und teilen", "desc": "Stellen Sie Ihre Fragen, erhalten Sie Antworten mit Quellenangaben, und laden Sie andere per Freigabelink mit der gewahlten Rolle ein." }
     ]
   },
+  "enterprise": {
+    "back": "Zuruck zu den Preisen",
+    "eyebrow": "Enterprise-Stufe",
+    "title": "Ein individuelles Angebot fur Ihr Unternehmen",
+    "subtitle": "Unbegrenzte Bereiche und Mitglieder, individueller Speicher, SSO und SLA, dedizierter Support. Beschreiben Sie Ihren Bedarf, wir melden uns schnell zuruck.",
+    "teamSize": "Teamgrosse",
+    "teamSizeOptions": ["1-10 Nutzer", "11-50 Nutzer", "51-200 Nutzer", "200+ Nutzer"],
+    "needs": "Beschreiben Sie Ihren Bedarf",
+    "needsPlaceholder": "Benotigte Anzahl Bereiche, Sicherheits- oder Compliance-Anforderungen, gewunschter Zeitrahmen...",
+    "send": "Anfrage senden",
+    "messagePrefix": "Geschatzte Teamgrosse",
+    "sentTitle": "Anfrage gesendet!",
+    "sentDesc": "Unser Team meldet sich in Kurze, um Ihr Angebot zu erstellen."
+  },
   "contact": {
     "eyebrow": "Kontakt",
     "title": "Eine Frage? Schreiben Sie uns",

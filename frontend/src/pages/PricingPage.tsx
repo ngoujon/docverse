@@ -127,7 +127,7 @@ export default function PricingPage() {
                   <button
                     onClick={() => startCheckout(planKey)}
                     disabled={isLoading}
-                    className={`mt-6 flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 font-mono text-xs uppercase tracking-wider transition disabled:opacity-60 ${
+                    className={`mt-6 flex items-center justify-center gap-2 whitespace-nowrap rounded-lg px-3 py-2.5 font-mono text-[11px] uppercase tracking-wide transition disabled:opacity-60 ${
                       isPro
                         ? "border border-retro-pink bg-retro-pink text-white hover:bg-retro-pink/90"
                         : "border border-retro-border text-slate-700 hover:border-retro-cyan hover:text-retro-cyan"
@@ -138,8 +138,8 @@ export default function PricingPage() {
                   </button>
                 ) : (
                   <Link
-                    to={i === 3 ? "/#contact" : user ? "/dashboard" : "/register"}
-                    className="mt-6 flex items-center justify-center gap-2 rounded-lg border border-retro-border px-4 py-2.5 font-mono text-xs uppercase tracking-wider text-slate-700 transition hover:border-retro-cyan hover:text-retro-cyan"
+                    to={i === 3 ? "/entreprise" : user ? "/dashboard" : "/register"}
+                    className="mt-6 flex items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-retro-border px-3 py-2.5 font-mono text-[11px] uppercase tracking-wide text-slate-700 transition hover:border-retro-cyan hover:text-retro-cyan"
                   >
                     {tier.cta} <ArrowRight size={13} />
                   </Link>

@@ -69,6 +69,20 @@
       { "title": "Chat and share", "desc": "Ask your questions, get sourced answers, and invite others via a share link with the role of your choice." }
     ]
   },
+  "enterprise": {
+    "back": "Back to pricing",
+    "eyebrow": "Enterprise tier",
+    "title": "A custom quote for your company",
+    "subtitle": "Unlimited spaces and members, custom storage, SSO and SLA, dedicated support. Describe your needs and we'll get back to you quickly.",
+    "teamSize": "Team size",
+    "teamSizeOptions": ["1-10 users", "11-50 users", "51-200 users", "200+ users"],
+    "needs": "Describe your needs",
+    "needsPlaceholder": "Number of spaces needed, security or compliance requirements, desired timeline...",
+    "send": "Send request",
+    "messagePrefix": "Estimated team size",
+    "sentTitle": "Request sent!",
+    "sentDesc": "Our team will get back to you shortly to build your quote."
+  },
   "contact": {
     "eyebrow": "Contact",
     "title": "Got a question? Write to us",
