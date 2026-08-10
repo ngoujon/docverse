@@ -352,6 +352,12 @@ export default function LandingPage() {
               {t("footer.privacy")}
             </Link>
             <Link
+              to="/cgu"
+              className="font-mono text-[11px] uppercase tracking-wider text-slate-600 hover:text-retro-cyan"
+            >
+              {t("footer.terms")}
+            </Link>
+            <Link
               to="/app"
               className="font-mono text-[11px] uppercase tracking-wider text-slate-600 hover:text-retro-cyan"
             >

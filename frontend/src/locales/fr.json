@@ -86,6 +86,7 @@
   "footer": {
     "tagline": "Fait avec {{heart}} - local et prive par design",
     "privacy": "Confidentialite",
+    "terms": "CGU",
     "pricing": "Tarifs",
     "launchApp": "Lancer l'app"
   },
@@ -163,6 +164,55 @@
       }
     ],
     "footnote": "Cette page decrit le fonctionnement du logiciel tel que fourni. L'organisation qui heberge cette instance reste responsable du traitement des donnees qu'elle collecte via ce site."
+  },
+  "terms": {
+    "back": "Retour a l'accueil",
+    "eyebrow": "Conditions d'utilisation",
+    "title": "Conditions Generales d'Utilisation",
+    "subtitle": "En creant un compte ou en utilisant Open RAG, vous acceptez les regles ci-dessous. Elles visent a rester simples et lisibles.",
+    "updated": "Derniere mise a jour : {{date}}",
+    "sections": [
+      {
+        "title": "1. Objet",
+        "body": "Les presentes conditions regissent l'acces et l'utilisation d'Open RAG (le \"Service\"), une application permettant de deposer des documents dans des espaces de travail et de les interroger via un assistant conversationnel base sur l'intelligence artificielle. L'utilisation du Service implique l'acceptation pleine et entiere de ces conditions."
+      },
+      {
+        "title": "2. Compte utilisateur",
+        "body": "L'acces au Service necessite la creation d'un compte (email/mot de passe, ou connexion via un fournisseur tiers comme Google). Vous etes responsable de la confidentialite de vos identifiants et de toute activite effectuee depuis votre compte. Un compte est personnel et ne doit pas etre partage."
+      },
+      {
+        "title": "3. Contenu depose",
+        "body": "Vous restez proprietaire des documents que vous deposez. Vous garantissez disposer des droits necessaires sur tout contenu importe et etre responsable de sa licite. Ce contenu est utilise uniquement pour repondre a vos propres questions au sein de vos espaces de travail - il n'est jamais utilise pour entrainer un modele d'IA ni partage avec d'autres utilisateurs sans votre action explicite (lien de partage)."
+      },
+      {
+        "title": "4. Espaces de travail et partage",
+        "body": "Chaque espace de travail appartient a un proprietaire, qui peut inviter d'autres utilisateurs via un lien de partage (lecture seule ou lecture/ecriture selon le role choisi). Le proprietaire d'un espace est responsable des personnes qu'il y invite et du contenu qui y est depose. Le nombre d'espaces et de membres par espace depend du palier d'abonnement du proprietaire."
+      },
+      {
+        "title": "5. Usage acceptable",
+        "body": "Vous vous engagez a ne pas utiliser le Service pour deposer ou generer du contenu illicite, a ne pas tenter de contourner les limites techniques (quotas, limitation de debit, mesures de securite), et a ne pas perturber le fonctionnement du Service pour les autres utilisateurs. Tout manquement peut entrainer la suspension ou la suppression du compte."
+      },
+      {
+        "title": "6. Limites de l'intelligence artificielle",
+        "body": "Les reponses generees par l'assistant IA peuvent etre incompletes, inexactes, ou contenir des erreurs (hallucinations), meme lorsqu'elles citent des sources. Elles ne constituent en aucun cas un conseil professionnel, juridique, medical ou financier. Vous restez seul responsable de l'usage que vous faites des reponses fournies."
+      },
+      {
+        "title": "7. Abonnements et resiliation",
+        "body": "Certains paliers sont payants et donnent lieu a un abonnement recurrent (voir la page Tarifs et les Conditions Generales de Vente). Vous pouvez resilier votre abonnement a tout moment depuis les parametres de votre compte ; l'acces au palier paye reste disponible jusqu'a la fin de la periode deja facturee. Vous pouvez egalement supprimer votre compte a tout moment, ce qui entraine la suppression definitive de vos espaces et donnees associees."
+      },
+      {
+        "title": "8. Disponibilite du service",
+        "body": "Le Service est fourni en l'etat, avec un objectif de disponibilite mais sans garantie de continuite absolue. Des interruptions temporaires (maintenance, incidents techniques) peuvent survenir. Des sauvegardes automatiques limitent le risque de perte de donnees sans l'eliminer completement."
+      },
+      {
+        "title": "9. Modification des conditions",
+        "body": "Ces conditions peuvent evoluer, notamment pour refleter de nouvelles fonctionnalites ou obligations legales. Les utilisateurs seront informes de tout changement significatif via l'application ou par email. La poursuite de l'utilisation du Service apres notification vaut acceptation des nouvelles conditions."
+      },
+      {
+        "title": "10. Droit applicable et contact",
+        "body": "Ces conditions sont regies par le droit francais. Pour toute question, utilisez le formulaire de contact du site."
+      }
+    ]
   },
   "auth": {
     "email": "Email",

@@ -86,6 +86,7 @@
   "footer": {
     "tagline": "Erstellt mit {{heart}} - lokal und privat by design",
     "privacy": "Datenschutz",
+    "terms": "AGB",
     "pricing": "Preise",
     "launchApp": "App starten"
   },
@@ -163,6 +164,55 @@
       }
     ],
     "footnote": "Diese Seite beschreibt die Funktionsweise der Software im Auslieferungszustand. Die Organisation, die diese Instanz hostet, bleibt fur die uber diese Website erhobenen Daten verantwortlich."
+  },
+  "terms": {
+    "back": "Zuruck zur Startseite",
+    "eyebrow": "Nutzungsbedingungen",
+    "title": "Allgemeine Nutzungsbedingungen",
+    "subtitle": "Mit der Erstellung eines Kontos oder der Nutzung von Open RAG akzeptieren Sie die folgenden Regeln. Sie sollen einfach und verstandlich bleiben.",
+    "updated": "Zuletzt aktualisiert: {{date}}",
+    "sections": [
+      {
+        "title": "1. Gegenstand",
+        "body": "Diese Bedingungen regeln den Zugang zu und die Nutzung von Open RAG (der \"Dienst\"), einer Anwendung zum Hochladen von Dokumenten in Arbeitsbereiche und deren Abfrage uber einen KI-basierten Chat-Assistenten. Die Nutzung des Dienstes setzt die vollstandige Annahme dieser Bedingungen voraus."
+      },
+      {
+        "title": "2. Benutzerkonto",
+        "body": "Fur die Nutzung des Dienstes ist ein Konto erforderlich (E-Mail/Passwort oder Anmeldung uber einen Drittanbieter wie Google). Sie sind fur die Vertraulichkeit Ihrer Zugangsdaten und alle uber Ihr Konto ausgefuhrten Aktivitaten verantwortlich. Ein Konto ist personlich und darf nicht geteilt werden."
+      },
+      {
+        "title": "3. Hochgeladene Inhalte",
+        "body": "Sie bleiben Eigentumer der von Ihnen hochgeladenen Dokumente. Sie sichern zu, uber die erforderlichen Rechte an importierten Inhalten zu verfugen und fur deren Rechtmassigkeit verantwortlich zu sein. Diese Inhalte werden ausschliesslich zur Beantwortung Ihrer eigenen Fragen innerhalb Ihrer Arbeitsbereiche verwendet - sie werden niemals zum Training eines KI-Modells genutzt oder ohne Ihre ausdruckliche Handlung (Freigabelink) mit anderen Nutzern geteilt."
+      },
+      {
+        "title": "4. Arbeitsbereiche und Freigabe",
+        "body": "Jeder Arbeitsbereich gehort einem Eigentumer, der andere Nutzer uber einen Freigabelink einladen kann (Nur-Lese- oder Lese-/Schreibzugriff je nach gewahlter Rolle). Der Eigentumer eines Bereichs ist verantwortlich fur die eingeladenen Personen und die dort hochgeladenen Inhalte. Die Anzahl der Bereiche und Mitglieder pro Bereich hangt von der Abonnementstufe des Eigentumers ab."
+      },
+      {
+        "title": "5. Zulassige Nutzung",
+        "body": "Sie verpflichten sich, den Dienst nicht zum Hochladen oder Erzeugen rechtswidriger Inhalte zu nutzen, nicht zu versuchen, technische Grenzen (Kontingente, Ratenbegrenzung, Sicherheitsmassnahmen) zu umgehen, und den Dienst nicht fur andere Nutzer zu storen. Ein Verstoss kann zur Sperrung oder Loschung des Kontos fuhren."
+      },
+      {
+        "title": "6. Grenzen der Kunstlichen Intelligenz",
+        "body": "Vom KI-Assistenten generierte Antworten konnen unvollstandig oder ungenau sein oder Fehler enthalten (Halluzinationen), selbst wenn Quellen zitiert werden. Sie stellen in keinem Fall eine professionelle, rechtliche, medizinische oder finanzielle Beratung dar. Sie allein sind fur die Verwendung der bereitgestellten Antworten verantwortlich."
+      },
+      {
+        "title": "7. Abonnements und Kundigung",
+        "body": "Manche Stufen sind kostenpflichtig und beinhalten ein wiederkehrendes Abonnement (siehe Preise-Seite und Allgemeine Verkaufsbedingungen). Sie konnen Ihr Abonnement jederzeit in den Kontoeinstellungen kundigen; der Zugang zur bezahlten Stufe bleibt bis zum Ende des bereits abgerechneten Zeitraums bestehen. Sie konnen Ihr Konto auch jederzeit loschen, wodurch Ihre Arbeitsbereiche und zugehorigen Daten endgultig geloscht werden."
+      },
+      {
+        "title": "8. Verfugbarkeit des Dienstes",
+        "body": "Der Dienst wird wie vorliegend bereitgestellt, mit einem Verfugbarkeitsziel, jedoch ohne Garantie absoluter Kontinuitat. Vorubergehende Unterbrechungen (Wartung, technische Vorfalle) konnen auftreten. Automatische Sicherungen verringern das Risiko von Datenverlust, ohne es vollstandig auszuschliessen."
+      },
+      {
+        "title": "9. Anderung dieser Bedingungen",
+        "body": "Diese Bedingungen konnen sich weiterentwickeln, insbesondere um neue Funktionen oder rechtliche Pflichten widerzuspiegeln. Nutzer werden uber wesentliche Anderungen uber die Anwendung oder per E-Mail informiert. Die fortgesetzte Nutzung des Dienstes nach einer Mitteilung gilt als Annahme der neuen Bedingungen."
+      },
+      {
+        "title": "10. Anwendbares Recht und Kontakt",
+        "body": "Diese Bedingungen unterliegen franzosischem Recht. Fur Fragen nutzen Sie bitte das Kontaktformular der Website."
+      }
+    ]
   },
   "auth": {
     "email": "E-Mail",

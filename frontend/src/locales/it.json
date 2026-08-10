@@ -86,6 +86,7 @@
   "footer": {
     "tagline": "Realizzato con {{heart}} - locale e privato by design",
     "privacy": "Privacy",
+    "terms": "Termini",
     "pricing": "Prezzi",
     "launchApp": "Avvia l'app"
   },
@@ -163,6 +164,55 @@
       }
     ],
     "footnote": "Questa pagina descrive il funzionamento del software cosi come fornito. L'organizzazione che ospita questa istanza rimane responsabile del trattamento dei dati che raccoglie tramite questo sito."
+  },
+  "terms": {
+    "back": "Torna alla home",
+    "eyebrow": "Termini di utilizzo",
+    "title": "Termini e Condizioni Generali di Utilizzo",
+    "subtitle": "Creando un account o utilizzando Open RAG, accetti le regole seguenti. Sono pensate per restare semplici e leggibili.",
+    "updated": "Ultimo aggiornamento: {{date}}",
+    "sections": [
+      {
+        "title": "1. Oggetto",
+        "body": "I presenti termini disciplinano l'accesso e l'utilizzo di Open RAG (il \"Servizio\"), un'applicazione che consente di caricare documenti in spazi di lavoro e di interrogarli tramite un assistente conversazionale basato sull'intelligenza artificiale. L'utilizzo del Servizio implica l'accettazione piena di questi termini."
+      },
+      {
+        "title": "2. Account utente",
+        "body": "L'accesso al Servizio richiede la creazione di un account (email/password, oppure accesso tramite un provider terzo come Google). Sei responsabile della riservatezza delle tue credenziali e di qualsiasi attivita svolta dal tuo account. Un account e personale e non deve essere condiviso."
+      },
+      {
+        "title": "3. Contenuto caricato",
+        "body": "Rimani proprietario dei documenti che carichi. Garantisci di disporre dei diritti necessari su qualsiasi contenuto importato e di essere responsabile della sua liceita. Questo contenuto viene utilizzato unicamente per rispondere alle tue domande all'interno dei tuoi spazi di lavoro - non viene mai utilizzato per addestrare un modello di IA ne condiviso con altri utenti senza una tua azione esplicita (link di condivisione)."
+      },
+      {
+        "title": "4. Spazi di lavoro e condivisione",
+        "body": "Ogni spazio di lavoro appartiene a un proprietario, che puo invitare altri utenti tramite un link di condivisione (sola lettura o lettura/scrittura a seconda del ruolo scelto). Il proprietario di uno spazio e responsabile delle persone che invita e del contenuto ivi caricato. Il numero di spazi e di membri per spazio dipende dal piano di abbonamento del proprietario."
+      },
+      {
+        "title": "5. Utilizzo accettabile",
+        "body": "Ti impegni a non utilizzare il Servizio per caricare o generare contenuto illecito, a non tentare di aggirare i limiti tecnici (quote, limitazione delle richieste, misure di sicurezza), e a non disturbare il funzionamento del Servizio per gli altri utenti. Qualsiasi violazione puo comportare la sospensione o l'eliminazione dell'account."
+      },
+      {
+        "title": "6. Limiti dell'intelligenza artificiale",
+        "body": "Le risposte generate dall'assistente IA possono essere incomplete, imprecise o contenere errori (allucinazioni), anche quando citano fonti. Non costituiscono in alcun caso una consulenza professionale, legale, medica o finanziaria. Sei l'unico responsabile dell'uso che fai delle risposte fornite."
+      },
+      {
+        "title": "7. Abbonamenti e disdetta",
+        "body": "Alcuni piani sono a pagamento e comportano un abbonamento ricorrente (vedi la pagina Prezzi e i Termini e Condizioni di Vendita). Puoi disdire il tuo abbonamento in qualsiasi momento dalle impostazioni del tuo account; l'accesso al piano a pagamento resta disponibile fino alla fine del periodo gia fatturato. Puoi anche eliminare il tuo account in qualsiasi momento, il che comporta la cancellazione definitiva dei tuoi spazi e dei dati associati."
+      },
+      {
+        "title": "8. Disponibilita del servizio",
+        "body": "Il Servizio e fornito cosi com'e, con un obiettivo di disponibilita ma senza garanzia di continuita assoluta. Possono verificarsi interruzioni temporanee (manutenzione, incidenti tecnici). I backup automatici riducono, senza eliminarlo del tutto, il rischio di perdita dei dati."
+      },
+      {
+        "title": "9. Modifica dei termini",
+        "body": "Questi termini possono evolvere, in particolare per riflettere nuove funzionalita o obblighi legali. Gli utenti saranno informati di qualsiasi modifica significativa tramite l'applicazione o via email. La prosecuzione dell'utilizzo del Servizio dopo la notifica equivale all'accettazione dei nuovi termini."
+      },
+      {
+        "title": "10. Legge applicabile e contatti",
+        "body": "Questi termini sono disciplinati dal diritto francese. Per qualsiasi domanda, utilizza il modulo di contatto del sito."
+      }
+    ]
   },
   "auth": {
     "email": "Email",

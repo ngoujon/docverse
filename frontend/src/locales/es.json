@@ -86,6 +86,7 @@
   "footer": {
     "tagline": "Hecho con {{heart}} - local y privado por diseno",
     "privacy": "Privacidad",
+    "terms": "Condiciones",
     "pricing": "Precios",
     "launchApp": "Abrir la app"
   },
@@ -163,6 +164,55 @@
       }
     ],
     "footnote": "Esta pagina describe el funcionamiento del software tal como se proporciona. La organizacion que aloja esta instancia sigue siendo responsable del tratamiento de los datos que recopila a traves de este sitio."
+  },
+  "terms": {
+    "back": "Volver al inicio",
+    "eyebrow": "Condiciones de uso",
+    "title": "Condiciones Generales de Uso",
+    "subtitle": "Al crear una cuenta o utilizar Open RAG, aceptas las siguientes reglas. Estan pensadas para ser simples y faciles de leer.",
+    "updated": "Ultima actualizacion: {{date}}",
+    "sections": [
+      {
+        "title": "1. Objeto",
+        "body": "Estas condiciones regulan el acceso y el uso de Open RAG (el \"Servicio\"), una aplicacion que permite subir documentos a espacios de trabajo y consultarlos mediante un asistente conversacional basado en inteligencia artificial. El uso del Servicio implica la aceptacion plena de estas condiciones."
+      },
+      {
+        "title": "2. Cuenta de usuario",
+        "body": "El acceso al Servicio requiere crear una cuenta (correo/contrasena, o inicio de sesion mediante un proveedor externo como Google). Eres responsable de la confidencialidad de tus credenciales y de toda actividad realizada desde tu cuenta. Una cuenta es personal y no debe compartirse."
+      },
+      {
+        "title": "3. Contenido subido",
+        "body": "Sigues siendo el propietario de los documentos que subes. Garantizas disponer de los derechos necesarios sobre cualquier contenido importado y eres responsable de su licitud. Este contenido se utiliza unicamente para responder a tus propias preguntas dentro de tus espacios de trabajo - nunca se utiliza para entrenar un modelo de IA ni se comparte con otros usuarios sin tu accion explicita (enlace de invitacion)."
+      },
+      {
+        "title": "4. Espacios de trabajo y colaboracion",
+        "body": "Cada espacio de trabajo pertenece a un propietario, que puede invitar a otros usuarios mediante un enlace de invitacion (solo lectura o lectura/escritura segun el rol elegido). El propietario de un espacio es responsable de las personas que invita y del contenido subido alli. El numero de espacios y de miembros por espacio depende del plan de suscripcion del propietario."
+      },
+      {
+        "title": "5. Uso aceptable",
+        "body": "Te comprometes a no utilizar el Servicio para subir o generar contenido ilicito, a no intentar eludir los limites tecnicos (cuotas, limitacion de solicitudes, medidas de seguridad), y a no perturbar el funcionamiento del Servicio para otros usuarios. Cualquier incumplimiento puede conllevar la suspension o eliminacion de la cuenta."
+      },
+      {
+        "title": "6. Limites de la inteligencia artificial",
+        "body": "Las respuestas generadas por el asistente de IA pueden ser incompletas, inexactas o contener errores (alucinaciones), incluso citando fuentes. No constituyen en ningun caso asesoramiento profesional, legal, medico o financiero. Eres el unico responsable del uso que hagas de las respuestas proporcionadas."
+      },
+      {
+        "title": "7. Suscripciones y cancelacion",
+        "body": "Algunos planes son de pago e implican una suscripcion recurrente (ver la pagina de Precios y las Condiciones Generales de Venta). Puedes cancelar tu suscripcion en cualquier momento desde los ajustes de tu cuenta; el acceso al plan de pago sigue disponible hasta el final del periodo ya facturado. Tambien puedes eliminar tu cuenta en cualquier momento, lo que borra definitivamente tus espacios y datos asociados."
+      },
+      {
+        "title": "8. Disponibilidad del servicio",
+        "body": "El Servicio se ofrece tal cual, con un objetivo de disponibilidad pero sin garantia de continuidad absoluta. Pueden producirse interrupciones temporales (mantenimiento, incidentes tecnicos). Las copias de seguridad automaticas reducen, sin eliminar por completo, el riesgo de perdida de datos."
+      },
+      {
+        "title": "9. Modificacion de las condiciones",
+        "body": "Estas condiciones pueden evolucionar, en particular para reflejar nuevas funcionalidades u obligaciones legales. Se informara a los usuarios de cualquier cambio significativo a traves de la aplicacion o por correo electronico. El uso continuado del Servicio tras dicha notificacion implica la aceptacion de las nuevas condiciones."
+      },
+      {
+        "title": "10. Legislacion aplicable y contacto",
+        "body": "Estas condiciones se rigen por el derecho frances. Para cualquier pregunta, utiliza el formulario de contacto del sitio."
+      }
+    ]
   },
   "auth": {
     "email": "Correo electronico",

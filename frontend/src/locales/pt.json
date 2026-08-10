@@ -86,6 +86,7 @@
   "footer": {
     "tagline": "Feito com {{heart}} - local e privado por design",
     "privacy": "Privacidade",
+    "terms": "Termos",
     "pricing": "Precos",
     "launchApp": "Abrir a app"
   },
@@ -163,6 +164,55 @@
       }
     ],
     "footnote": "Esta pagina descreve o funcionamento do software tal como fornecido. A organizacao que aloja esta instancia continua responsavel pelo tratamento dos dados que recolhe atraves deste site."
+  },
+  "terms": {
+    "back": "Voltar ao inicio",
+    "eyebrow": "Termos de utilizacao",
+    "title": "Termos Gerais de Utilizacao",
+    "subtitle": "Ao criar uma conta ou utilizar o Open RAG, aceita as regras abaixo. Foram pensadas para serem simples e faceis de ler.",
+    "updated": "Ultima atualizacao: {{date}}",
+    "sections": [
+      {
+        "title": "1. Objeto",
+        "body": "Estes termos regem o acesso e a utilizacao do Open RAG (o \"Servico\"), uma aplicacao que permite carregar documentos em espacos de trabalho e consulta-los atraves de um assistente conversacional baseado em inteligencia artificial. A utilizacao do Servico implica a aceitacao plena destes termos."
+      },
+      {
+        "title": "2. Conta de utilizador",
+        "body": "O acesso ao Servico exige a criacao de uma conta (email/palavra-passe, ou autenticacao atraves de um fornecedor externo como o Google). E responsavel pela confidencialidade das suas credenciais e por qualquer atividade realizada a partir da sua conta. Uma conta e pessoal e nao deve ser partilhada."
+      },
+      {
+        "title": "3. Conteudo carregado",
+        "body": "Mantem-se proprietario dos documentos que carrega. Garante possuir os direitos necessarios sobre qualquer conteudo importado e ser responsavel pela sua licitude. Este conteudo e utilizado apenas para responder as suas proprias perguntas dentro dos seus espacos de trabalho - nunca e utilizado para treinar um modelo de IA nem partilhado com outros utilizadores sem a sua acao explicita (link de partilha)."
+      },
+      {
+        "title": "4. Espacos de trabalho e partilha",
+        "body": "Cada espaco de trabalho pertence a um proprietario, que pode convidar outros utilizadores atraves de um link de partilha (apenas leitura ou leitura/escrita, consoante a funcao escolhida). O proprietario de um espaco e responsavel pelas pessoas que convida e pelo conteudo ai carregado. O numero de espacos e de membros por espaco depende do plano de subscricao do proprietario."
+      },
+      {
+        "title": "5. Utilizacao aceitavel",
+        "body": "Compromete-se a nao utilizar o Servico para carregar ou gerar conteudo ilicito, a nao tentar contornar os limites tecnicos (quotas, limitacao de pedidos, medidas de seguranca), e a nao perturbar o funcionamento do Servico para outros utilizadores. Qualquer incumprimento pode implicar a suspensao ou eliminacao da conta."
+      },
+      {
+        "title": "6. Limites da inteligencia artificial",
+        "body": "As respostas geradas pelo assistente de IA podem ser incompletas, imprecisas ou conter erros (alucinacoes), mesmo quando citam fontes. Nao constituem, em caso algum, aconselhamento profissional, juridico, medico ou financeiro. E o unico responsavel pela forma como utiliza as respostas fornecidas."
+      },
+      {
+        "title": "7. Subscricoes e cancelamento",
+        "body": "Alguns planos sao pagos e implicam uma subscricao recorrente (ver a pagina de Precos e os Termos Gerais de Venda). Pode cancelar a sua subscricao a qualquer momento nas definicoes da sua conta; o acesso ao plano pago mantem-se disponivel ate ao final do periodo ja faturado. Tambem pode eliminar a sua conta a qualquer momento, o que apaga definitivamente os seus espacos e dados associados."
+      },
+      {
+        "title": "8. Disponibilidade do servico",
+        "body": "O Servico e fornecido tal como esta, com um objetivo de disponibilidade mas sem garantia de continuidade absoluta. Podem ocorrer interrupcoes temporarias (manutencao, incidentes tecnicos). As copias de seguranca automaticas reduzem, sem eliminar por completo, o risco de perda de dados."
+      },
+      {
+        "title": "9. Alteracao destes termos",
+        "body": "Estes termos podem evoluir, nomeadamente para refletir novas funcionalidades ou obrigacoes legais. Os utilizadores serao informados de qualquer alteracao significativa atraves da aplicacao ou por email. A continuacao da utilizacao do Servico apos a notificacao implica a aceitacao dos novos termos."
+      },
+      {
+        "title": "10. Lei aplicavel e contacto",
+        "body": "Estes termos regem-se pelo direito frances. Para qualquer questao, utilize o formulario de contacto do site."
+      }
+    ]
   },
   "auth": {
     "email": "Email",

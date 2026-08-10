@@ -6,6 +6,7 @@ import WorkspaceApp from "./pages/WorkspaceApp";
 import PrivacyPage from "./pages/PrivacyPage";
 import FaqPage from "./pages/FaqPage";
 import PricingPage from "./pages/PricingPage";
+import TermsPage from "./pages/TermsPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
@@ -96,6 +97,7 @@ export default function App() {
         />
         <Route path="/confidentialite" element={<PrivacyPage />} />
         <Route path="/tarifs" element={<PricingPage />} />
+        <Route path="/cgu" element={<TermsPage />} />
         <Route path="/faq" element={<FaqPage />} />
         <Route path="*" element={<LandingPage />} />
       </Routes>
