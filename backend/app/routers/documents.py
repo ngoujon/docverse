@@ -3,7 +3,9 @@ import logging
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, BackgroundTasks
 from sqlalchemy.orm import Session
 
-from .. import models_db, schemas
+from sqlalchemy import func
+
+from .. import config, models_db, schemas
 from ..config import UPLOAD_DIR, settings
 from ..database import get_db, SessionLocal
 from ..deps import DocumentAccess, SpaceAccess, require_space_access, require_document_access
@@ -109,6 +111,22 @@ async def upload_document(
         raise HTTPException(
             400, "Le contenu du fichier ne correspond pas a son extension"
         )
+
+    owner = db.get(models_db.User, space.owner_id)
+    storage_limit = config.plan_quota(owner.plan if owner else config.DEFAULT_PLAN, "storage_bytes")
+    if storage_limit is not None:
+        used = (
+            db.query(func.coalesce(func.sum(models_db.Document.size_bytes), 0))
+            .filter(models_db.Document.space_id == space.id)
+            .scalar()
+            or 0
+        )
+        if used + len(content) > storage_limit:
+            limit_mb = storage_limit // (1024 * 1024)
+            raise HTTPException(
+                400,
+                f"Limite de stockage de {limit_mb} Mo atteinte pour cet espace sur ce palier",
+            )
 
     doc = models_db.Document(
         space_id=space.id,

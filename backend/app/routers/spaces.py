@@ -122,13 +122,18 @@ def space_stats(access: SpaceAccess = Depends(require_space_access), db: Session
         .order_by(models_db.Conversation.updated_at.desc())
         .first()
     )
+    owner = db.get(models_db.User, space.owner_id)
+    plan = owner.plan if owner else config.DEFAULT_PLAN
+    member_limit = config.plan_quota(plan, "members_per_space")
     return schemas.SpaceStatsOut(
         space_id=space.id,
         document_count=len(space.documents),
         conversation_count=len(space.conversations),
         message_count=message_count or 0,
         storage_bytes=storage_bytes or 0,
-        member_count=len(space.members),
+        storage_limit_bytes=config.plan_quota(plan, "storage_bytes"),
+        member_count=len(space.members) + 1,  # +1 for the owner, matches add_member's headcount
+        member_limit=member_limit,
         active_share_links=sum(1 for l in space.share_links if not l.revoked),
         last_activity_at=last_conv.updated_at if last_conv else None,
     )

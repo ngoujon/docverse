@@ -175,10 +175,10 @@ if not settings.secret_key:
 # billing, but the limits themselves are enforced today. `None` means
 # unlimited (still capped by the absolute abuse ceilings above).
 PLAN_QUOTAS: dict[str, dict[str, int | None]] = {
-    "decouverte": {"spaces": 1, "members_per_space": 1},
-    "particulier": {"spaces": 3, "members_per_space": 1},
-    "pro": {"spaces": 10, "members_per_space": 10},
-    "entreprise": {"spaces": None, "members_per_space": None},
+    "decouverte": {"spaces": 1, "members_per_space": 1, "storage_bytes": 200 * 1024 * 1024},
+    "particulier": {"spaces": 3, "members_per_space": 1, "storage_bytes": 2 * 1024 * 1024 * 1024},
+    "pro": {"spaces": 10, "members_per_space": 10, "storage_bytes": 10 * 1024 * 1024 * 1024},
+    "entreprise": {"spaces": None, "members_per_space": None, "storage_bytes": None},
 }
 DEFAULT_PLAN = "decouverte"
 

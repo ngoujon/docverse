@@ -149,13 +149,16 @@ class SpaceStatsOut(BaseModel):
     conversation_count: int
     message_count: int
     storage_bytes: int
+    storage_limit_bytes: Optional[int] = None
     member_count: int
+    member_limit: Optional[int] = None
     active_share_links: int
     last_activity_at: Optional[datetime] = None
 
 
 class MeStatsOut(BaseModel):
     owned_spaces: int
+    space_limit: Optional[int] = None
     member_spaces: int
     document_count: int
     conversation_count: int
