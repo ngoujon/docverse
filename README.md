@@ -8,11 +8,12 @@ moteur local (SearXNG). Le moteur d'IA reste 100% local (Ollama, dans vos
 propres conteneurs Docker) par defaut, avec une bascule optionnelle vers
 Ollama Cloud pour des reponses plus rapides.
 
-A l'origine un outil local et gratuit, Open RAG est desormais pense comme
-un produit avec des comptes utilisateur et une tarification par palier
-(voir `TODO.md` et le plan d'affaires pour le detail) : chaque personne a
-un compte, chaque espace de travail appartient a un palier d'abonnement
-qui determine ses limites (nombre d'espaces, membres par espace, stockage).
+Pense pour les structures qui gerent plusieurs clients ou dossiers
+(cabinets, agences, equipes projet) : chaque espace de travail est
+cloisonne, avec des roles et un acces revocable, et appartient a un
+palier d'abonnement qui determine ses limites (nombre d'espaces, membres
+par espace, stockage) - les questions posees a l'IA, elles, sont
+illimitees sur tous les paliers.
 
 ## Fonctionnalites
 
@@ -29,10 +30,12 @@ qui determine ses limites (nombre d'espaces, membres par espace, stockage).
   nom de domaine HTTPS et de compte Apple Developer payant ; Microsoft a
   ete retire (aucun tenant Azure disponible pour l'instant).
 - **Paliers d'abonnement** (Decouverte / Particulier / Pro / Entreprise) :
-  chaque palier limite le nombre d'espaces de travail possedes et le
-  nombre de membres par espace (voir `PLAN_QUOTAS` dans
-  `backend/app/config.py`). L'integration de paiement (Stripe) est en
-  cours de mise en place.
+  chaque palier limite reellement le nombre d'espaces de travail possedes,
+  le nombre de membres par espace et le stockage par espace (voir
+  `PLAN_QUOTAS` dans `backend/app/config.py`) - aucune limite en revanche
+  sur le nombre de questions posees a l'IA. Paiement et gestion
+  d'abonnement via Stripe (Checkout, portail de facturation,
+  synchronisation par webhook).
 - **RGPD** : export et suppression de compte en libre-service,
   desabonnement newsletter en un clic, page confidentialite dediee.
 
