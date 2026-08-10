@@ -12,7 +12,6 @@ import {
   Gauge,
   ShieldCheck,
   Sparkles,
-  Heart,
 } from "lucide-react";
 import NeoGrid from "../components/landing/NeoGrid";
 import ContactForm from "../components/landing/ContactForm";
@@ -360,9 +359,16 @@ export default function LandingPage() {
         </div>
 
         <div className="mx-auto mt-6 flex max-w-6xl flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
-          <p className="flex items-center gap-1.5 font-mono text-[11px] text-slate-600">
-            {t("footer.tagline", { heart: "" })}
-            <Heart size={11} className="text-retro-pink" />
+          <p className="font-mono text-[11px] text-slate-600">
+            {t("footer.tagline")}{" "}
+            <a
+              href="https://example.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-retro-cyan hover:underline"
+            >
+              [credit]
+            </a>
           </p>
           <div className="flex items-center gap-4">
             <Link

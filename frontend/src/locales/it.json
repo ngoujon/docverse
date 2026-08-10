@@ -109,7 +109,7 @@
     "genericError": "Si e verificato un errore"
   },
   "footer": {
-    "tagline": "Realizzato con {{heart}} - locale e privato by design",
+    "tagline": "Sito web realizzato da",
     "privacy": "Privacy",
     "terms": "Termini",
     "sale": "Condizioni di vendita",
@@ -135,7 +135,7 @@
       {
         "name": "Privati",
         "price": "9",
-        "period": "/mese",
+        "period": "/mese IVA inclusa",
         "tagline": "Per uso personale o freelance",
         "features": ["3 spazi di lavoro", "Link di condivisione illimitati", "2 GB di archiviazione per spazio", "Risposte IA senza attesa"],
         "cta": "Scegli Privati"
@@ -143,7 +143,7 @@
       {
         "name": "Pro",
         "price": "29",
-        "period": "/mese",
+        "period": "/mese IVA inclusa",
         "tagline": "Per un team che condivide spazi",
         "features": ["10 spazi di lavoro", "10 membri per spazio", "10 GB di archiviazione per spazio", "Supporto prioritario"],
         "cta": "Scegli Pro"
@@ -467,7 +467,7 @@
     "placeholder": "Scrivi la tua domanda...",
     "send": "Invia",
     "errorGeneric": "Si e verificato un errore. Riprova tra un istante.",
-    "disclaimer": "Assistente automatico limitato all'uso del sito. Per tutto il resto, usa il modulo di contatto."
+    "disclaimer": "Assistente automatico limitato all'uso del sito.\nPer tutto il resto, usa il modulo di contatto."
   },
   "faq": {
     "eyebrow": "Domande frequenti",

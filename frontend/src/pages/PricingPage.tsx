@@ -81,19 +81,19 @@ export default function PricingPage() {
 
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {tiers.map((tier, i) => {
-            const isPro = i === 2;
+            const isRecommended = i === 1;
             const planKey = PAID_PLAN_KEYS[i];
             const isLoading = loadingPlan === planKey;
             return (
               <div
                 key={tier.name}
                 className={`relative flex flex-col rounded-2xl border p-6 ${
-                  isPro
+                  isRecommended
                     ? "border-retro-pink bg-retro-panel/60 shadow-neon"
                     : "border-retro-border bg-retro-panel/40"
                 }`}
               >
-                {isPro && (
+                {isRecommended && (
                   <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full border border-retro-pink bg-retro-bg px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-retro-pink">
                     {t("pricing.popular")}
                   </span>
@@ -128,7 +128,7 @@ export default function PricingPage() {
                     onClick={() => startCheckout(planKey)}
                     disabled={isLoading}
                     className={`mt-6 flex items-center justify-center gap-2 whitespace-nowrap rounded-lg px-3 py-2.5 font-mono text-[11px] uppercase tracking-wide transition disabled:opacity-60 ${
-                      isPro
+                      isRecommended
                         ? "border border-retro-pink bg-retro-pink text-white hover:bg-retro-pink/90"
                         : "border border-retro-border text-slate-700 hover:border-retro-cyan hover:text-retro-cyan"
                     }`}

@@ -109,7 +109,7 @@
     "genericError": "Ocurrio un error"
   },
   "footer": {
-    "tagline": "Hecho con {{heart}} - local y privado por diseno",
+    "tagline": "Sitio web creado por",
     "privacy": "Privacidad",
     "terms": "Condiciones",
     "sale": "Condiciones de venta",
@@ -135,7 +135,7 @@
       {
         "name": "Particular",
         "price": "9",
-        "period": "/mes",
+        "period": "/mes IVA incl.",
         "tagline": "Para uso personal o freelance",
         "features": ["3 espacios de trabajo", "Enlaces de invitacion ilimitados", "2 GB de almacenamiento por espacio", "Respuestas IA sin espera"],
         "cta": "Elegir Particular"
@@ -143,7 +143,7 @@
       {
         "name": "Pro",
         "price": "29",
-        "period": "/mes",
+        "period": "/mes IVA incl.",
         "tagline": "Para un equipo que comparte espacios",
         "features": ["10 espacios de trabajo", "10 miembros por espacio", "10 GB de almacenamiento por espacio", "Soporte prioritario"],
         "cta": "Elegir Pro"
@@ -467,7 +467,7 @@
     "placeholder": "Escribe tu pregunta...",
     "send": "Enviar",
     "errorGeneric": "Ha ocurrido un error. Intentalo de nuevo en un momento.",
-    "disclaimer": "Asistente automatico limitado al uso del sitio. Para todo lo demas, usa el formulario de contacto."
+    "disclaimer": "Asistente automatico limitado al uso del sitio.\nPara todo lo demas, usa el formulario de contacto."
   },
   "faq": {
     "eyebrow": "Preguntas frecuentes",

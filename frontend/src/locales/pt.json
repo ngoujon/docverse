@@ -109,7 +109,7 @@
     "genericError": "Ocorreu um erro"
   },
   "footer": {
-    "tagline": "Feito com {{heart}} - local e privado por design",
+    "tagline": "Site criado por",
     "privacy": "Privacidade",
     "terms": "Termos",
     "sale": "Condicoes de venda",
@@ -135,7 +135,7 @@
       {
         "name": "Particular",
         "price": "9",
-        "period": "/mes",
+        "period": "/mes IVA incl.",
         "tagline": "Para uso pessoal ou freelance",
         "features": ["3 espacos de trabalho", "Links de partilha ilimitados", "2 GB de armazenamento por espaco", "Respostas de IA sem espera"],
         "cta": "Escolher Particular"
@@ -143,7 +143,7 @@
       {
         "name": "Pro",
         "price": "29",
-        "period": "/mes",
+        "period": "/mes IVA incl.",
         "tagline": "Para uma equipa que partilha espacos",
         "features": ["10 espacos de trabalho", "10 membros por espaco", "10 GB de armazenamento por espaco", "Suporte prioritario"],
         "cta": "Escolher Pro"
@@ -467,7 +467,7 @@
     "placeholder": "Escreva a sua pergunta...",
     "send": "Enviar",
     "errorGeneric": "Ocorreu um erro. Tente novamente dentro de instantes.",
-    "disclaimer": "Assistente automatico limitado a ajuda sobre o site. Para tudo o resto, utilize o formulario de contacto."
+    "disclaimer": "Assistente automatico limitado a ajuda sobre o site.\nPara tudo o resto, utilize o formulario de contacto."
   },
   "faq": {
     "eyebrow": "Perguntas frequentes",

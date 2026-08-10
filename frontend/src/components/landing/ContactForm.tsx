@@ -3,8 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Send, CheckCircle2, AlertCircle } from "lucide-react";
 import { api } from "../../api/client";
-import Captcha from "../Captcha";
-import type { CaptchaSolution } from "../../types";
+import { useCaptchaSolution } from "../../hooks/useCaptchaSolution";
 
 export default function ContactForm() {
   const { t } = useTranslation();
@@ -16,8 +15,7 @@ export default function ContactForm() {
   const [message, setMessage] = useState("");
   const [consent, setConsent] = useState(false);
   const [website, setWebsite] = useState(""); // honeypot
-  const [captcha, setCaptcha] = useState<CaptchaSolution | null>(null);
-  const [captchaKey, setCaptchaKey] = useState(0);
+  const { solution: captcha, reset: resetCaptcha } = useCaptchaSolution();
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
 
@@ -52,7 +50,7 @@ export default function ContactForm() {
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : t("contact.genericError"));
-      setCaptchaKey((k) => k + 1);
+      resetCaptcha();
     }
   };
 
@@ -177,8 +175,6 @@ export default function ContactForm() {
           </Link>
         </span>
       </label>
-
-      <Captcha key={captchaKey} onReady={setCaptcha} />
 
       {status === "error" && (
         <p className="flex items-center gap-1.5 text-xs text-red-600">

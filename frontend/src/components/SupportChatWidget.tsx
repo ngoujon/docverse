@@ -77,10 +77,7 @@ export default function SupportChatWidget() {
           className="fixed inset-0 z-[60] flex flex-col bg-retro-bg sm:inset-auto sm:bottom-6 sm:right-6 sm:h-[560px] sm:w-[380px] sm:rounded-xl sm:border sm:border-retro-border sm:shadow-[0_20px_60px_-15px_rgba(139,47,214,0.35)]"
         >
           <div className="flex items-center gap-2 border-b border-retro-border bg-retro-bg2 px-3 py-2.5 sm:rounded-t-xl">
-            <span className="h-2.5 w-2.5 rounded-full bg-retro-pink/70" />
-            <span className="h-2.5 w-2.5 rounded-full bg-retro-yellow/70" />
-            <span className="h-2.5 w-2.5 rounded-full bg-retro-cyan/70" />
-            <div className="ml-2 min-w-0 flex-1">
+            <div className="min-w-0 flex-1">
               <p className="truncate font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-700">
                 {t("support.title")}
               </p>
@@ -143,7 +140,7 @@ export default function SupportChatWidget() {
                 <Send size={13} />
               </button>
             </div>
-            <p className="mt-1.5 px-0.5 text-center text-[9px] leading-tight text-slate-400">
+            <p className="mt-1.5 whitespace-pre-line px-0.5 text-center text-[9px] leading-tight text-slate-400">
               {t("support.disclaimer")}
             </p>
           </div>

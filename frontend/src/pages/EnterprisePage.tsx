@@ -4,8 +4,7 @@ import { useTranslation } from "react-i18next";
 import { ArrowLeft, Send, CheckCircle2, AlertCircle, Building2 } from "lucide-react";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { api } from "../api/client";
-import Captcha from "../components/Captcha";
-import type { CaptchaSolution } from "../types";
+import { useCaptchaSolution } from "../hooks/useCaptchaSolution";
 
 export default function EnterprisePage() {
   const { t } = useTranslation();
@@ -17,8 +16,7 @@ export default function EnterprisePage() {
   const [needs, setNeeds] = useState("");
   const [consent, setConsent] = useState(false);
   const [website, setWebsite] = useState(""); // honeypot
-  const [captcha, setCaptcha] = useState<CaptchaSolution | null>(null);
-  const [captchaKey, setCaptchaKey] = useState(0);
+  const { solution: captcha, reset: resetCaptcha } = useCaptchaSolution();
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
 
@@ -53,7 +51,7 @@ export default function EnterprisePage() {
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : t("contact.genericError"));
-      setCaptchaKey((k) => k + 1);
+      resetCaptcha();
     }
   };
 
@@ -74,7 +72,12 @@ export default function EnterprisePage() {
           <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.3em] text-retro-pink">
             {t("enterprise.eyebrow")}
           </p>
-          <h1 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">{t("enterprise.title")}</h1>
+          <h1
+            className="mt-2 whitespace-nowrap font-bold text-slate-900"
+            style={{ fontSize: "clamp(1.05rem, 4.8vw, 1.875rem)" }}
+          >
+            {t("enterprise.title")}
+          </h1>
           <p className="mt-3 text-sm text-slate-600">{t("enterprise.subtitle")}</p>
         </div>
 
@@ -194,8 +197,6 @@ export default function EnterprisePage() {
                 </Link>
               </span>
             </label>
-
-            <Captcha key={captchaKey} onReady={setCaptcha} />
 
             {status === "error" && (
               <p className="flex items-center gap-1.5 text-xs text-red-600">

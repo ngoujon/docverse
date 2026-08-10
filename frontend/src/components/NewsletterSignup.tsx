@@ -2,14 +2,12 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Mail, CheckCircle2 } from "lucide-react";
 import { api } from "../api/client";
-import Captcha from "./Captcha";
-import type { CaptchaSolution } from "../types";
+import { useCaptchaSolution } from "../hooks/useCaptchaSolution";
 
 export default function NewsletterSignup() {
   const { t } = useTranslation();
   const [email, setEmail] = useState("");
-  const [captcha, setCaptcha] = useState<CaptchaSolution | null>(null);
-  const [captchaKey, setCaptchaKey] = useState(0);
+  const { solution: captcha, reset: resetCaptcha } = useCaptchaSolution();
   const [state, setState] = useState<"idle" | "submitting" | "done" | "error">("idle");
 
   const canSubmit = /\S+@\S+\.\S+/.test(email) && captcha && state !== "submitting";
@@ -22,7 +20,7 @@ export default function NewsletterSignup() {
       setState("done");
     } catch {
       setState("error");
-      setCaptchaKey((k) => k + 1);
+      resetCaptcha();
     }
   };
 
@@ -54,7 +52,6 @@ export default function NewsletterSignup() {
           {t("newsletter.signup.submit")}
         </button>
       </div>
-      <Captcha key={captchaKey} onReady={setCaptcha} />
       {state === "error" && <p className="text-xs text-red-500">{t("newsletter.signup.error")}</p>}
     </div>
   );

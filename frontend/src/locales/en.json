@@ -109,7 +109,7 @@
     "genericError": "Something went wrong"
   },
   "footer": {
-    "tagline": "Made with {{heart}} - local and private by design",
+    "tagline": "Website built by",
     "privacy": "Privacy",
     "terms": "Terms",
     "sale": "Terms of sale",
@@ -135,7 +135,7 @@
       {
         "name": "Individual",
         "price": "9",
-        "period": "/mo",
+        "period": "/mo incl. VAT",
         "tagline": "For personal or freelance use",
         "features": ["3 workspaces", "Unlimited share links", "2 GB storage per space", "AI replies, no cooldown"],
         "cta": "Choose Individual"
@@ -143,7 +143,7 @@
       {
         "name": "Pro",
         "price": "29",
-        "period": "/mo",
+        "period": "/mo incl. VAT",
         "tagline": "For a team sharing workspaces",
         "features": ["10 workspaces", "10 members per space", "10 GB storage per space", "Priority support"],
         "cta": "Choose Pro"
@@ -467,7 +467,7 @@
     "placeholder": "Ask your question...",
     "send": "Send",
     "errorGeneric": "Something went wrong. Please try again in a moment.",
-    "disclaimer": "Automated assistant limited to help with the site. For anything else, use the contact form."
+    "disclaimer": "Automated assistant limited to help with the site.\nFor anything else, use the contact form."
   },
   "faq": {
     "eyebrow": "Frequently asked questions",

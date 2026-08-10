@@ -109,7 +109,7 @@
     "genericError": "Une erreur est survenue"
   },
   "footer": {
-    "tagline": "Fait avec {{heart}} - local et prive par design",
+    "tagline": "Site internet realise par",
     "privacy": "Confidentialite",
     "terms": "CGU",
     "sale": "CGV",
@@ -135,7 +135,7 @@
       {
         "name": "Particulier",
         "price": "9",
-        "period": "/mois",
+        "period": "/mois TTC",
         "tagline": "Pour un usage personnel ou freelance",
         "features": ["3 espaces de travail", "Liens de partage illimites", "2 Go de stockage par espace", "Reponses IA sans cooldown"],
         "cta": "Choisir Particulier"
@@ -143,7 +143,7 @@
       {
         "name": "Pro",
         "price": "29",
-        "period": "/mois",
+        "period": "/mois TTC",
         "tagline": "Pour une equipe qui partage ses espaces",
         "features": ["10 espaces de travail", "10 membres par espace", "10 Go de stockage par espace", "Support prioritaire"],
         "cta": "Choisir Pro"
@@ -467,7 +467,7 @@
     "placeholder": "Posez votre question...",
     "send": "Envoyer",
     "errorGeneric": "Une erreur est survenue. Reessayez dans un instant.",
-    "disclaimer": "Assistant automatique limite a l'utilisation du site. Pour tout le reste, utilisez le formulaire de contact."
+    "disclaimer": "Assistant automatique limite a l'utilisation du site.\nPour tout le reste, utilisez le formulaire de contact."
   },
   "faq": {
     "eyebrow": "Questions frequentes",

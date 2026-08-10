@@ -109,7 +109,7 @@
     "genericError": "Ein Fehler ist aufgetreten"
   },
   "footer": {
-    "tagline": "Erstellt mit {{heart}} - lokal und privat by design",
+    "tagline": "Website erstellt von",
     "privacy": "Datenschutz",
     "terms": "AGB",
     "sale": "Verkaufsbedingungen",
@@ -135,7 +135,7 @@
       {
         "name": "Privat",
         "price": "9",
-        "period": "/Monat",
+        "period": "/Monat inkl. MwSt.",
         "tagline": "Fur privaten oder freiberuflichen Gebrauch",
         "features": ["3 Arbeitsbereiche", "Unbegrenzte Freigabelinks", "2 GB Speicher pro Bereich", "KI-Antworten ohne Wartezeit"],
         "cta": "Privat wahlen"
@@ -143,7 +143,7 @@
       {
         "name": "Pro",
         "price": "29",
-        "period": "/Monat",
+        "period": "/Monat inkl. MwSt.",
         "tagline": "Fur ein Team, das Bereiche teilt",
         "features": ["10 Arbeitsbereiche", "10 Mitglieder pro Bereich", "10 GB Speicher pro Bereich", "Prioritats-Support"],
         "cta": "Pro wahlen"
@@ -467,7 +467,7 @@
     "placeholder": "Stelle deine Frage...",
     "send": "Senden",
     "errorGeneric": "Etwas ist schiefgelaufen. Bitte versuche es gleich noch einmal.",
-    "disclaimer": "Automatischer Assistent, beschrankt auf Hilfe zur Website. Fur alles andere nutze das Kontaktformular."
+    "disclaimer": "Automatischer Assistent, beschrankt auf Hilfe zur Website.\nFur alles andere nutze das Kontaktformular."
   },
   "faq": {
     "eyebrow": "Haufig gestellte Fragen",
