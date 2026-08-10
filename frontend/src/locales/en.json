@@ -108,7 +108,7 @@
     "title": "A tier for every use case",
     "subtitle": "Three numbers to remember per tier: workspaces, members per space, storage per space. No message counter to watch.",
     "billingNote": "No commitment - cancel anytime.",
-    "popular": "Most popular",
+    "popular": "Recommended",
     "tiers": [
       {
         "name": "Discovery",
