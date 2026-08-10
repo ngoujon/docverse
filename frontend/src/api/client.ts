@@ -128,8 +128,8 @@ export const api = {
       method: "POST",
       body: JSON.stringify({ token, password }),
     }),
-  oauthProviders: () => request<{ google: boolean; microsoft: boolean; apple: boolean }>("/auth/oauth/providers"),
-  oauthLoginUrl: (provider: "google" | "microsoft" | "apple", next: string) =>
+  oauthProviders: () => request<{ google: boolean; apple: boolean }>("/auth/oauth/providers"),
+  oauthLoginUrl: (provider: "google" | "apple", next: string) =>
     `${BASE}/auth/oauth/${provider}/login?next=${encodeURIComponent(next)}`,
 
   // --- Captcha --------------------------------------------------------

@@ -89,16 +89,15 @@ class Settings:
     smtp_use_tls: bool = os.environ.get("SMTP_USE_TLS", "true").lower() != "false"
     smtp_from: str = os.environ.get("SMTP_FROM", "Open RAG <no-reply@open-rag.local>")
 
-    # --- SSO (Google / Microsoft / Apple) --------------------------------
+    # --- SSO (Google / Apple) --------------------------------------------
     # Each provider is only offered on the login/register pages once its
     # client id is set - the frontend hides the button otherwise instead of
-    # showing a broken flow.
+    # showing a broken flow. Microsoft was dropped: the account used to set
+    # it up has no Azure AD tenant, and getting one requires either a paid
+    # Microsoft 365 subscription or handing Microsoft a card for identity
+    # verification on a free Azure signup - out of scope for now.
     google_oauth_client_id: str = os.environ.get("GOOGLE_OAUTH_CLIENT_ID", "")
     google_oauth_client_secret: str = os.environ.get("GOOGLE_OAUTH_CLIENT_SECRET", "")
-
-    microsoft_oauth_client_id: str = os.environ.get("MICROSOFT_OAUTH_CLIENT_ID", "")
-    microsoft_oauth_client_secret: str = os.environ.get("MICROSOFT_OAUTH_CLIENT_SECRET", "")
-    microsoft_oauth_tenant_id: str = os.environ.get("MICROSOFT_OAUTH_TENANT_ID", "common")
 
     apple_oauth_client_id: str = os.environ.get("APPLE_OAUTH_CLIENT_ID", "")
     apple_oauth_team_id: str = os.environ.get("APPLE_OAUTH_TEAM_ID", "")

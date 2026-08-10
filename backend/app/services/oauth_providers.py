@@ -3,16 +3,20 @@ rolled with httpx (already a dependency) rather than pulling in a full
 OAuth client library, consistent with how the rest of this app favors small
 self-contained implementations (see utils/sha256.ts, services/captcha.py).
 
-Google and Microsoft both speak plain OAuth2 + OpenID Connect userinfo, so
-one generic flow covers both. Apple is deliberately not implemented here:
-its client "secret" is a JWT signed with a private key (not a static
-string) and it refuses http://localhost redirect URIs entirely, so it
-can't be exercised in local dev the way the other two can - see
-config.apple_oauth_* for the settings that would be needed once there's a
-real HTTPS domain.
+Google speaks plain OAuth2 + OpenID Connect userinfo, covered by the
+generic OAuthProvider below. Apple is different enough to need its own
+class: its client "secret" is a short-lived JWT signed with a private key
+(not a static string), it returns the user's name only once - as JSON in
+the callback body, never from a userinfo endpoint - and it refuses
+http://localhost redirect URIs entirely, so it can be fully wired up here
+but can't actually be exercised until this app is served over HTTPS from a
+real domain (see config.apple_oauth_*).
 """
 
+import time
+
 import httpx
+import jwt
 
 from ..config import settings
 
@@ -97,25 +101,93 @@ google = OAuthProvider(
     client_secret=settings.google_oauth_client_secret,
 )
 
-microsoft = OAuthProvider(
-    name="microsoft",
-    authorize_url=f"https://login.microsoftonline.com/{settings.microsoft_oauth_tenant_id}/oauth2/v2.0/authorize",
-    token_url=f"https://login.microsoftonline.com/{settings.microsoft_oauth_tenant_id}/oauth2/v2.0/token",
-    userinfo_url="https://graph.microsoft.com/oidc/userinfo",
-    scope="openid email profile",
-    client_id=settings.microsoft_oauth_client_id,
-    client_secret=settings.microsoft_oauth_client_secret,
-)
+class AppleAuth:
+    """Sign in with Apple - authorization-code flow with response_mode
+    "form_post" (mandatory as soon as the "email"/"name" scopes are
+    requested), handled by a dedicated POST route in routers/oauth.py
+    rather than forced into OAuthProvider's GET-callback shape."""
 
-PROVIDERS = {"google": google, "microsoft": microsoft}
+    name = "apple"
+
+    @property
+    def configured(self) -> bool:
+        return bool(
+            settings.apple_oauth_client_id
+            and settings.apple_oauth_team_id
+            and settings.apple_oauth_key_id
+            and settings.apple_oauth_private_key
+        )
+
+    def redirect_uri(self) -> str:
+        return f"{settings.backend_base_url}/api/auth/oauth/apple/callback"
+
+    def build_authorize_url(self, state: str) -> str:
+        if not self.configured:
+            raise OAuthNotConfigured(self.name)
+        params = {
+            "client_id": settings.apple_oauth_client_id,
+            "redirect_uri": self.redirect_uri(),
+            "response_type": "code",
+            "response_mode": "form_post",
+            "scope": "name email",
+            "state": state,
+        }
+        return f"https://appleid.apple.com/auth/authorize?{httpx.QueryParams(params)}"
+
+    def _client_secret(self) -> str:
+        # Apple wants a JWT instead of a static client secret. It may live
+        # up to ~6 months; minting a fresh one per exchange is simpler than
+        # caching and never risks using an expired one.
+        now = int(time.time())
+        payload = {
+            "iss": settings.apple_oauth_team_id,
+            "iat": now,
+            "exp": now + 3600,
+            "aud": "https://appleid.apple.com",
+            "sub": settings.apple_oauth_client_id,
+        }
+        return jwt.encode(
+            payload,
+            settings.apple_oauth_private_key,
+            algorithm="ES256",
+            headers={"kid": settings.apple_oauth_key_id},
+        )
+
+    async def exchange_code(self, code: str) -> dict:
+        async with httpx.AsyncClient(timeout=15) as client:
+            res = await client.post(
+                "https://appleid.apple.com/auth/token",
+                data={
+                    "client_id": settings.apple_oauth_client_id,
+                    "client_secret": self._client_secret(),
+                    "code": code,
+                    "grant_type": "authorization_code",
+                    "redirect_uri": self.redirect_uri(),
+                },
+            )
+            res.raise_for_status()
+            return res.json()
+
+    def email_from_id_token(self, id_token: str) -> str:
+        # This id_token was just obtained via our own direct, TLS server-
+        # to-server call to Apple's token endpoint (authenticated with the
+        # signed client secret above) - unlike the browser-mediated
+        # implicit/hybrid flow, nothing attacker-controlled passes through
+        # this code path, so decoding without re-verifying the signature
+        # is safe here.
+        claims = jwt.decode(id_token, options={"verify_signature": False})
+        return (claims.get("email") or "").lower().strip()
+
+
+apple = AppleAuth()
+
+PROVIDERS = {"google": google}
 
 
 def normalize_userinfo(provider: str, raw: dict) -> tuple[str, str]:
-    """Returns (email, display_name) - Google and Microsoft's OIDC userinfo
-    shapes differ slightly for the display name field."""
+    """Returns (email, display_name) for GET-callback providers (Google
+    today). Apple is handled separately - see AppleAuth.email_from_id_token
+    and routers/oauth.py's apple_callback."""
     email = raw.get("email", "").lower().strip()
-    if provider == "microsoft":
-        name = raw.get("name", "")
-    else:
-        name = raw.get("name") or raw.get("given_name", "")
+    name = raw.get("name") or raw.get("given_name", "")
     return email, name

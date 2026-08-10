@@ -132,7 +132,6 @@
     "sso": {
       "divider": "ou continuer avec",
       "google": "Continuer avec Google",
-      "microsoft": "Continuer avec Microsoft",
       "apple": "Continuer avec Apple"
     },
     "login": {
