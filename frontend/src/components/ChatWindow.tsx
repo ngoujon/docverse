@@ -4,6 +4,8 @@ import { Send, PanelRight, Sparkles, Menu, Loader2, Eye, Network } from "lucide-
 import clsx from "clsx";
 import type { Conversation, Message, Space } from "../types";
 import MessageBubble from "./MessageBubble";
+import LanguageSwitcher from "./LanguageSwitcher";
+import ThemeToggle from "./ThemeToggle";
 
 interface Props {
   space: Space;
@@ -17,6 +19,8 @@ interface Props {
   onOpenMobileNav?: () => void;
   readOnly?: boolean;
   onOpenVectorGraph: () => void;
+  theme: "light" | "dark";
+  onToggleTheme: () => void;
 }
 
 export default function ChatWindow({
@@ -31,6 +35,8 @@ export default function ChatWindow({
   onOpenMobileNav,
   readOnly,
   onOpenVectorGraph,
+  theme,
+  onToggleTheme,
 }: Props) {
   const { t } = useTranslation();
   const [input, setInput] = useState("");
@@ -65,6 +71,10 @@ export default function ChatWindow({
             <Menu size={16} />
           </button>
         )}
+        <div className="absolute right-3 top-3 flex items-center gap-1.5">
+          <ThemeToggle theme={theme} onToggle={onToggleTheme} />
+          <LanguageSwitcher variant="light" />
+        </div>
         <Sparkles size={28} />
         <p className="text-sm">{t("app.chat.selectConversation")}</p>
       </div>
@@ -88,6 +98,9 @@ export default function ChatWindow({
           </div>
         </div>
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+          <ThemeToggle theme={theme} onToggle={onToggleTheme} />
+          <LanguageSwitcher variant="light" />
+          <span className="mx-0.5 h-5 w-px bg-surface-border" aria-hidden="true" />
           <button
             onClick={onOpenVectorGraph}
             title={t("app.vectorGraph.openTitle")}

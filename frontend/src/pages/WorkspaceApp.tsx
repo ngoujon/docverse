@@ -5,7 +5,7 @@ import { usePageMeta } from "../hooks/usePageMeta";
 import { useTheme } from "../hooks/useTheme";
 import { useAuth } from "../hooks/useAuth";
 import { api, streamChat } from "../api/client";
-import type { Conversation, DocumentItem, HealthStatus, Message, Space } from "../types";
+import type { Conversation, DocumentItem, Message, Space } from "../types";
 import SpaceRail from "../components/SpaceRail";
 import ConversationSidebar from "../components/ConversationSidebar";
 import ChatWindow from "../components/ChatWindow";
@@ -33,7 +33,6 @@ export default function WorkspaceApp() {
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [documents, setDocuments] = useState<DocumentItem[]>([]);
-  const [health, setHealth] = useState<HealthStatus | null>(null);
 
   const [streaming, setStreaming] = useState(false);
   const [queuedPosition, setQueuedPosition] = useState<number | null>(null);
@@ -104,13 +103,6 @@ export default function WorkspaceApp() {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shareMode, shareToken, user]);
-
-  useEffect(() => {
-    const checkHealth = () => api.health().then(setHealth).catch(() => setHealth(null));
-    checkHealth();
-    const t = setInterval(checkHealth, 15000);
-    return () => clearInterval(t);
-  }, []);
 
   // Load conversations + documents when active space changes
   useEffect(() => {
@@ -335,9 +327,6 @@ export default function WorkspaceApp() {
             activeSpaceId={activeSpaceId}
             onSelect={selectSpace}
             onCreate={() => setSpaceModal({ open: true, editing: null })}
-            health={health}
-            theme={theme}
-            onToggleTheme={toggleTheme}
           />
         )}
 
@@ -373,6 +362,8 @@ export default function WorkspaceApp() {
             onOpenMobileNav={() => setMobileNavOpen(true)}
             readOnly={!canWrite}
             onOpenVectorGraph={() => setVectorGraphOpen(true)}
+            theme={theme}
+            onToggleTheme={toggleTheme}
           />
 
           {docPanelOpen && (

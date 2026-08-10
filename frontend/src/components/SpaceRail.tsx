@@ -1,18 +1,15 @@
 import { useTranslation } from "react-i18next";
-import { Plus, Layers } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Plus, Layers, ArrowLeft, LogOut } from "lucide-react";
 import clsx from "clsx";
-import type { Space, HealthStatus } from "../types";
-import LanguageSwitcher from "./LanguageSwitcher";
-import ThemeToggle from "./ThemeToggle";
+import type { Space } from "../types";
+import { useAuth } from "../hooks/useAuth";
 
 interface Props {
   spaces: Space[];
   activeSpaceId: string | null;
   onSelect: (id: string) => void;
   onCreate: () => void;
-  health: HealthStatus | null;
-  theme: "light" | "dark";
-  onToggleTheme: () => void;
 }
 
 function initials(name: string): string {
@@ -24,16 +21,11 @@ function initials(name: string): string {
     .join("");
 }
 
-export default function SpaceRail({
-  spaces,
-  activeSpaceId,
-  onSelect,
-  onCreate,
-  health,
-  theme,
-  onToggleTheme,
-}: Props) {
+export default function SpaceRail({ spaces, activeSpaceId, onSelect, onCreate }: Props) {
   const { t } = useTranslation();
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
   return (
     <aside className="flex w-[76px] shrink-0 flex-col items-center border-r border-surface-border bg-surface-1 py-4">
       <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-xl bg-accent/20 text-accent">
@@ -71,27 +63,24 @@ export default function SpaceRail({
       </div>
 
       <div className="flex flex-col items-center gap-2">
-        <ThemeToggle theme={theme} onToggle={onToggleTheme} />
-        <LanguageSwitcher variant="light" />
+        <button
+          onClick={() => navigate("/")}
+          title={t("common.backHome")}
+          className="flex h-9 w-9 items-center justify-center rounded-xl text-slate-500 hover:bg-surface-3 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+        >
+          <ArrowLeft size={17} />
+        </button>
+        <button
+          onClick={() => {
+            logout();
+            navigate("/");
+          }}
+          title={t("dashboard.nav.logout")}
+          className="flex h-9 w-9 items-center justify-center rounded-xl text-slate-500 hover:bg-red-500/10 hover:text-red-500 dark:text-slate-400"
+        >
+          <LogOut size={17} />
+        </button>
       </div>
-
-      <div
-        title={
-          health
-            ? health.ollama_reachable
-              ? t("app.spaceRail.ollamaConnected")
-              : t("app.spaceRail.ollamaUnreachable")
-            : t("app.spaceRail.checking")
-        }
-        className={clsx(
-          "mt-3 h-2.5 w-2.5 rounded-full",
-          !health
-            ? "bg-slate-600 animate-pulse2"
-            : health.ollama_reachable
-            ? "bg-emerald-500"
-            : "bg-red-500"
-        )}
-      />
     </aside>
   );
 }
