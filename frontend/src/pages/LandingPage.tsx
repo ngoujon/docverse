@@ -17,7 +17,7 @@ import {
 import NeoGrid from "../components/landing/NeoGrid";
 import ContactForm from "../components/landing/ContactForm";
 import Scanlines from "../components/landing/Scanlines";
-import Marquee from "../components/landing/Marquee";
+import HighlightBanner from "../components/landing/HighlightBanner";
 import ChatMockup from "../components/landing/ChatMockup";
 import OnboardingTerminal from "../components/landing/OnboardingTerminal";
 import TerminalWindow from "../components/landing/TerminalWindow";
@@ -274,7 +274,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <Marquee items={badges} />
+      <HighlightBanner />
 
       {/* Solution - features and onboarding merged into one section instead
           of two separate scroll stops with their own nav entries */}

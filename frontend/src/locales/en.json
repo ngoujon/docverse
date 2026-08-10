@@ -24,6 +24,11 @@
     "ctaTry": "Try it now",
     "ctaDiscover": "See pricing"
   },
+  "highlight": {
+    "eyebrow": "In practice",
+    "title": "Your documents become answers in seconds",
+    "desc": "PDFs, images, notes, web pages: everything converges into one place where asking a question is all it takes."
+  },
   "features": {
     "eyebrow": "The solution",
     "title": "A simple tool, built for business needs",

@@ -79,6 +79,14 @@ export default {
           "0%, 49%": { opacity: 1 },
           "50%, 100%": { opacity: 0 },
         },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-8px)" },
+        },
+        "draw-line": {
+          "0%": { strokeDashoffset: 40 },
+          "100%": { strokeDashoffset: 0 },
+        },
       },
       animation: {
         "fade-in": "fade-in 0.2s ease-out",
@@ -87,6 +95,8 @@ export default {
         "glow-pulse": "glow-pulse 3s ease-in-out infinite",
         marquee: "marquee 22s linear infinite",
         blink: "blink 1s step-start infinite",
+        float: "float 3.2s ease-in-out infinite",
+        "draw-line": "draw-line 2s linear infinite",
       },
     },
   },

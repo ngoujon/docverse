@@ -24,6 +24,11 @@
     "ctaTry": "Jetzt testen",
     "ctaDiscover": "Preise ansehen"
   },
+  "highlight": {
+    "eyebrow": "In der Praxis",
+    "title": "Ihre Dokumente werden in Sekunden zu Antworten",
+    "desc": "PDFs, Bilder, Notizen, Webseiten: alles lauft an einem Ort zusammen, an dem eine Frage genugt."
+  },
   "features": {
     "eyebrow": "Die Losung",
     "title": "Ein einfaches Werkzeug, gebaut fur den Unternehmensalltag",

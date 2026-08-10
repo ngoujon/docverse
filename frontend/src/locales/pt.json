@@ -24,6 +24,11 @@
     "ctaTry": "Experimentar agora",
     "ctaDiscover": "Ver precos"
   },
+  "highlight": {
+    "eyebrow": "Na pratica",
+    "title": "Os seus documentos tornam-se respostas em segundos",
+    "desc": "PDF, imagens, notas, paginas web: tudo converge para um unico lugar onde basta fazer uma pergunta."
+  },
   "features": {
     "eyebrow": "A solucao",
     "title": "Uma ferramenta simples, pensada para as necessidades de uma empresa",
