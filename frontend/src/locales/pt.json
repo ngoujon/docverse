@@ -11,11 +11,12 @@
   "nav": {
     "features": "Funcionalidades",
     "howItWorks": "Como funciona",
+    "pricing": "Precos",
     "contact": "Contacto",
     "launchApp": "Abrir a app"
   },
   "hero": {
-    "badges": ["100% Local", "Codigo aberto", "Gratuito", "Partilha por funcao"],
+    "badges": ["100% Local", "Codigo aberto", "Teste gratis", "Partilha por funcao"],
     "title1": "Converse com os seus documentos,",
     "title2": "em local, em equipa.",
     "subtitle": "Carregue os seus PDF, imagens e links em espacos isolados, e consulte-os com uma IA que corre inteiramente no seu proprio servidor - via Ollama, sem API na nuvem nem rastreio.",
@@ -62,8 +63,8 @@
     ]
   },
   "opensource": {
-    "title": "Projeto livre, gratuito e local por design",
-    "desc": "Contas gratuitas, sem subscricao, sem recolha de dados para treinar um modelo. Voce aloja, voce controla.",
+    "title": "Local por design, voce mantem o controlo",
+    "desc": "Sem recolha de dados para treinar um modelo, sem rastreio. Voce aloja, voce controla - com um plano gratuito para comecar sem compromisso.",
     "cta": "Comecar gratuitamente"
   },
   "contact": {
@@ -83,9 +84,54 @@
     "genericError": "Ocorreu um erro"
   },
   "footer": {
-    "tagline": "Feito com {{heart}} - projeto livre e gratuito",
+    "tagline": "Feito com {{heart}} - local e privado por design",
     "privacy": "Privacidade",
+    "pricing": "Precos",
     "launchApp": "Abrir a app"
+  },
+  "pricing": {
+    "eyebrow": "Precos",
+    "title": "Um plano para cada utilizacao",
+    "subtitle": "Tres numeros a lembrar por plano: espacos de trabalho, membros por espaco, armazenamento por espaco. Sem contador de mensagens a vigiar.",
+    "billingNote": "Precos sem IVA, sem fidelizacao - cancele quando quiser.",
+    "popular": "O mais escolhido",
+    "tiers": [
+      {
+        "name": "Descoberta",
+        "price": "0",
+        "period": "",
+        "tagline": "Para testar sem risco",
+        "features": ["1 espaco de trabalho", "1 membro", "200 MB de armazenamento", "Respostas de IA com espera entre mensagens"],
+        "cta": "Comecar gratuitamente"
+      },
+      {
+        "name": "Particular",
+        "price": "9",
+        "period": "/mes",
+        "tagline": "Para uso pessoal ou freelance",
+        "features": ["3 espacos de trabalho", "Links de partilha ilimitados", "2 GB de armazenamento por espaco", "Respostas de IA sem espera"],
+        "cta": "Escolher Particular"
+      },
+      {
+        "name": "Pro",
+        "price": "29",
+        "period": "/mes",
+        "tagline": "Para uma equipa que partilha espacos",
+        "features": ["10 espacos de trabalho", "10 membros por espaco", "10 GB de armazenamento por espaco", "Suporte prioritario"],
+        "cta": "Escolher Pro"
+      },
+      {
+        "name": "Empresa",
+        "price": "",
+        "period": "",
+        "tagline": "Para uma organizacao com necessidades de governanca",
+        "features": ["Espacos e membros ilimitados", "Armazenamento a medida", "SSO e SLA", "Suporte dedicado"],
+        "cta": "Contacte-nos"
+      }
+    ],
+    "faqNote": "Duvidas sobre os precos?",
+    "faqLink": "Consulte a FAQ",
+    "customPriceLabel": "Sob consulta"
   },
   "demo": {
     "question": "Resuma os pontos-chave do contrato do fornecedor.",

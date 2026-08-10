@@ -11,11 +11,12 @@
   "nav": {
     "features": "Funktionen",
     "howItWorks": "So funktioniert's",
+    "pricing": "Preise",
     "contact": "Kontakt",
     "launchApp": "App starten"
   },
   "hero": {
-    "badges": ["100% Lokal", "Open Source", "Kostenlos", "Teilen nach Rolle"],
+    "badges": ["100% Lokal", "Open Source", "Kostenlos testen", "Teilen nach Rolle"],
     "title1": "Unterhalten Sie sich mit Ihren Dokumenten,",
     "title2": "lokal, im Team.",
     "subtitle": "Laden Sie PDFs, Bilder und Links in abgeschottete Bereiche und befragen Sie sie mit einer KI, die vollstandig auf Ihrem eigenen Server lauft - via Ollama, ohne Cloud-API, ohne Tracking.",
@@ -62,8 +63,8 @@
     ]
   },
   "opensource": {
-    "title": "Frei, offen und lokal by design",
-    "desc": "Kostenlose Konten, kein Abo, keine Datensammlung zum Trainieren eines Modells. Sie hosten, Sie kontrollieren.",
+    "title": "Lokal by design, Sie behalten die Kontrolle",
+    "desc": "Keine Datensammlung zum Trainieren eines Modells, kein Tracking. Sie hosten, Sie kontrollieren - mit einer kostenlosen Stufe zum unverbindlichen Start.",
     "cta": "Kostenlos starten"
   },
   "contact": {
@@ -83,9 +84,54 @@
     "genericError": "Ein Fehler ist aufgetreten"
   },
   "footer": {
-    "tagline": "Erstellt mit {{heart}} - freies und kostenloses Projekt",
+    "tagline": "Erstellt mit {{heart}} - lokal und privat by design",
     "privacy": "Datenschutz",
+    "pricing": "Preise",
     "launchApp": "App starten"
+  },
+  "pricing": {
+    "eyebrow": "Preise",
+    "title": "Fur jeden Bedarf die passende Stufe",
+    "subtitle": "Drei Zahlen pro Stufe, die man sich merken muss: Arbeitsbereiche, Mitglieder pro Bereich, Speicher pro Bereich. Kein Nachrichtenzahler zum Uberwachen.",
+    "billingNote": "Preise zzgl. MwSt., keine Mindestlaufzeit - jederzeit kundbar.",
+    "popular": "Am beliebtesten",
+    "tiers": [
+      {
+        "name": "Entdecken",
+        "price": "0",
+        "period": "",
+        "tagline": "Risikofrei testen",
+        "features": ["1 Arbeitsbereich", "1 Mitglied", "200 MB Speicher", "KI-Antworten mit Wartezeit"],
+        "cta": "Kostenlos starten"
+      },
+      {
+        "name": "Privat",
+        "price": "9",
+        "period": "/Monat",
+        "tagline": "Fur privaten oder freiberuflichen Gebrauch",
+        "features": ["3 Arbeitsbereiche", "Unbegrenzte Freigabelinks", "2 GB Speicher pro Bereich", "KI-Antworten ohne Wartezeit"],
+        "cta": "Privat wahlen"
+      },
+      {
+        "name": "Pro",
+        "price": "29",
+        "period": "/Monat",
+        "tagline": "Fur ein Team, das Bereiche teilt",
+        "features": ["10 Arbeitsbereiche", "10 Mitglieder pro Bereich", "10 GB Speicher pro Bereich", "Prioritats-Support"],
+        "cta": "Pro wahlen"
+      },
+      {
+        "name": "Enterprise",
+        "price": "",
+        "period": "",
+        "tagline": "Fur Organisationen mit Governance-Anforderungen",
+        "features": ["Unbegrenzte Bereiche und Mitglieder", "Speicher nach Mass", "SSO und SLA", "Dedizierter Support"],
+        "cta": "Kontaktieren Sie uns"
+      }
+    ],
+    "faqNote": "Fragen zu den Preisen?",
+    "faqLink": "FAQ ansehen",
+    "customPriceLabel": "Auf Anfrage"
   },
   "demo": {
     "question": "Fasse die wichtigsten Punkte des Lieferantenvertrags zusammen.",

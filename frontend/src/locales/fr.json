@@ -11,11 +11,12 @@
   "nav": {
     "features": "Fonctionnalites",
     "howItWorks": "Comment ca marche",
+    "pricing": "Tarifs",
     "contact": "Contact",
     "launchApp": "Lancer l'app"
   },
   "hero": {
-    "badges": ["100% Local", "Open Source", "Gratuit", "Partage par role"],
+    "badges": ["100% Local", "Open Source", "Essai gratuit", "Partage par role"],
     "title1": "Discutez avec vos documents,",
     "title2": "en local, en equipe.",
     "subtitle": "Deposez vos PDF, images et liens dans des espaces cloisonnes, et interrogez-les avec une IA qui tourne entierement sur votre serveur - via Ollama, sans API cloud ni tracking.",
@@ -62,8 +63,8 @@
     ]
   },
   "opensource": {
-    "title": "Projet libre, gratuit, et local par design",
-    "desc": "Comptes gratuits, aucun abonnement, aucune collecte de donnees pour entrainer un modele. Vous hebergez, vous controlez.",
+    "title": "Local par design, vous gardez le controle",
+    "desc": "Aucune collecte de donnees pour entrainer un modele, aucun tracking. Vous hebergez, vous controlez - avec un palier gratuit pour commencer sans engagement.",
     "cta": "Commencer gratuitement"
   },
   "contact": {
@@ -83,9 +84,54 @@
     "genericError": "Une erreur est survenue"
   },
   "footer": {
-    "tagline": "Fait avec {{heart}} - projet libre et gratuit",
+    "tagline": "Fait avec {{heart}} - local et prive par design",
     "privacy": "Confidentialite",
+    "pricing": "Tarifs",
     "launchApp": "Lancer l'app"
+  },
+  "pricing": {
+    "eyebrow": "Tarifs",
+    "title": "Un palier pour chaque usage",
+    "subtitle": "Trois chiffres a retenir par palier : espaces de travail, membres par espace, stockage par espace. Pas de compteur de messages a surveiller.",
+    "billingNote": "Prix HT, sans engagement - resiliable a tout moment.",
+    "popular": "Le plus choisi",
+    "tiers": [
+      {
+        "name": "Decouverte",
+        "price": "0",
+        "period": "",
+        "tagline": "Pour tester sans risque",
+        "features": ["1 espace de travail", "1 membre", "200 Mo de stockage", "Reponses IA avec cooldown"],
+        "cta": "Commencer gratuitement"
+      },
+      {
+        "name": "Particulier",
+        "price": "9",
+        "period": "/mois",
+        "tagline": "Pour un usage personnel ou freelance",
+        "features": ["3 espaces de travail", "Liens de partage illimites", "2 Go de stockage par espace", "Reponses IA sans cooldown"],
+        "cta": "Choisir Particulier"
+      },
+      {
+        "name": "Pro",
+        "price": "29",
+        "period": "/mois",
+        "tagline": "Pour une equipe qui partage ses espaces",
+        "features": ["10 espaces de travail", "10 membres par espace", "10 Go de stockage par espace", "Support prioritaire"],
+        "cta": "Choisir Pro"
+      },
+      {
+        "name": "Entreprise",
+        "price": "",
+        "period": "",
+        "tagline": "Pour une organisation avec des besoins de gouvernance",
+        "features": ["Espaces et membres illimites", "Stockage sur mesure", "SSO et SLA", "Support dedie"],
+        "cta": "Nous contacter"
+      }
+    ],
+    "faqNote": "Des questions sur les tarifs ?",
+    "faqLink": "Consultez la FAQ",
+    "customPriceLabel": "Sur devis"
   },
   "demo": {
     "question": "Resume les points cles du contrat fournisseur.",

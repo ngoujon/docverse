@@ -5,6 +5,7 @@ import LandingPage from "./pages/LandingPage";
 import WorkspaceApp from "./pages/WorkspaceApp";
 import PrivacyPage from "./pages/PrivacyPage";
 import FaqPage from "./pages/FaqPage";
+import PricingPage from "./pages/PricingPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
@@ -94,6 +95,7 @@ export default function App() {
           }
         />
         <Route path="/confidentialite" element={<PrivacyPage />} />
+        <Route path="/tarifs" element={<PricingPage />} />
         <Route path="/faq" element={<FaqPage />} />
         <Route path="*" element={<LandingPage />} />
       </Routes>

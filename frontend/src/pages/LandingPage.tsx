@@ -87,6 +87,12 @@ export default function LandingPage() {
               </a>
             ))}
             <Link
+              to="/tarifs"
+              className="font-mono text-xs uppercase tracking-wider text-slate-600 transition hover:text-retro-cyan"
+            >
+              {t("nav.pricing")}
+            </Link>
+            <Link
               to="/faq"
               className="font-mono text-xs uppercase tracking-wider text-slate-600 transition hover:text-retro-cyan"
             >
@@ -128,6 +134,13 @@ export default function LandingPage() {
                   {l.label}
                 </a>
               ))}
+              <Link
+                to="/tarifs"
+                onClick={() => setMobileMenuOpen(false)}
+                className="font-mono text-xs uppercase tracking-wider text-slate-600"
+              >
+                {t("nav.pricing")}
+              </Link>
               <Link
                 to="/faq"
                 onClick={() => setMobileMenuOpen(false)}
@@ -320,6 +333,12 @@ export default function LandingPage() {
             <Heart size={11} className="text-retro-pink" />
           </p>
           <div className="flex items-center gap-4">
+            <Link
+              to="/tarifs"
+              className="font-mono text-[11px] uppercase tracking-wider text-slate-600 hover:text-retro-cyan"
+            >
+              {t("footer.pricing")}
+            </Link>
             <Link
               to="/faq"
               className="font-mono text-[11px] uppercase tracking-wider text-slate-600 hover:text-retro-cyan"

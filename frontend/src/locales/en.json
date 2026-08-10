@@ -11,11 +11,12 @@
   "nav": {
     "features": "Features",
     "howItWorks": "How it works",
+    "pricing": "Pricing",
     "contact": "Contact",
     "launchApp": "Launch app"
   },
   "hero": {
-    "badges": ["100% Local", "Open Source", "Free", "Role-based sharing"],
+    "badges": ["100% Local", "Open Source", "Free trial", "Role-based sharing"],
     "title1": "Chat with your documents,",
     "title2": "locally, as a team.",
     "subtitle": "Drop your PDFs, images and links into isolated spaces, and query them with an AI that runs entirely on your own server - via Ollama, no cloud API, no tracking.",
@@ -62,8 +63,8 @@
     ]
   },
   "opensource": {
-    "title": "Free, open, and local by design",
-    "desc": "Free accounts, no subscription, no data collected to train a model. You host it, you control it.",
+    "title": "Local by design, you stay in control",
+    "desc": "No data collected to train a model, no tracking. You host it, you control it - with a free tier to get started without commitment.",
     "cta": "Get started for free"
   },
   "contact": {
@@ -83,9 +84,54 @@
     "genericError": "Something went wrong"
   },
   "footer": {
-    "tagline": "Made with {{heart}} - free and open project",
+    "tagline": "Made with {{heart}} - local and private by design",
     "privacy": "Privacy",
+    "pricing": "Pricing",
     "launchApp": "Launch app"
+  },
+  "pricing": {
+    "eyebrow": "Pricing",
+    "title": "A tier for every use case",
+    "subtitle": "Three numbers to remember per tier: workspaces, members per space, storage per space. No message counter to watch.",
+    "billingNote": "Prices excl. VAT, no commitment - cancel anytime.",
+    "popular": "Most popular",
+    "tiers": [
+      {
+        "name": "Discovery",
+        "price": "0",
+        "period": "",
+        "tagline": "Try it risk-free",
+        "features": ["1 workspace", "1 member", "200 MB storage", "AI replies with a cooldown"],
+        "cta": "Start for free"
+      },
+      {
+        "name": "Individual",
+        "price": "9",
+        "period": "/mo",
+        "tagline": "For personal or freelance use",
+        "features": ["3 workspaces", "Unlimited share links", "2 GB storage per space", "AI replies, no cooldown"],
+        "cta": "Choose Individual"
+      },
+      {
+        "name": "Pro",
+        "price": "29",
+        "period": "/mo",
+        "tagline": "For a team sharing workspaces",
+        "features": ["10 workspaces", "10 members per space", "10 GB storage per space", "Priority support"],
+        "cta": "Choose Pro"
+      },
+      {
+        "name": "Enterprise",
+        "price": "",
+        "period": "",
+        "tagline": "For an organization with governance needs",
+        "features": ["Unlimited workspaces and members", "Custom storage", "SSO and SLA", "Dedicated support"],
+        "cta": "Contact us"
+      }
+    ],
+    "faqNote": "Questions about pricing?",
+    "faqLink": "Check the FAQ",
+    "customPriceLabel": "Custom"
   },
   "demo": {
     "question": "Summarize the key points of the vendor contract.",
