@@ -1,11 +1,12 @@
 import { useTranslation } from "react-i18next";
-import { FileText, Image, FileCode, Sparkles, MessageSquareText } from "lucide-react";
+import { FileText, Image, FileCode, Sparkles, MessageSquareText, AudioLines } from "lucide-react";
 
 const NODES = [
-  { Icon: FileText, x: 12, y: 14, delay: "0s", color: "text-retro-pink" },
-  { Icon: Image, x: 82, y: 10, delay: "0.6s", color: "text-retro-cyan" },
-  { Icon: FileCode, x: 8, y: 74, delay: "1.1s", color: "text-retro-purple" },
-  { Icon: MessageSquareText, x: 84, y: 76, delay: "1.7s", color: "text-retro-orange" },
+  { Icon: FileText, x: 8, y: 12, delay: "0s", color: "text-retro-pink", ring: "border-retro-pink/50" },
+  { Icon: Image, x: 86, y: 6, delay: "0.5s", color: "text-retro-cyan", ring: "border-retro-cyan/50" },
+  { Icon: AudioLines, x: 92, y: 52, delay: "1s", color: "text-retro-yellow", ring: "border-retro-yellow/50" },
+  { Icon: MessageSquareText, x: 70, y: 82, delay: "1.5s", color: "text-retro-orange", ring: "border-retro-orange/50" },
+  { Icon: FileCode, x: 6, y: 68, delay: "2s", color: "text-retro-purple", ring: "border-retro-purple/50" },
 ];
 
 export default function HighlightBanner() {
@@ -43,13 +44,13 @@ export default function HighlightBanner() {
             <Sparkles size={24} className="text-white" />
           </div>
 
-          {NODES.map(({ Icon, x, y, delay, color }, i) => (
+          {NODES.map(({ Icon, x, y, delay, color, ring }, i) => (
             <div
               key={i}
-              className="absolute flex h-9 w-9 animate-float items-center justify-center rounded-xl border border-retro-border/60 bg-slate-800 shadow-lg"
+              className={`absolute flex h-11 w-11 animate-float items-center justify-center rounded-xl border bg-slate-800 shadow-[0_6px_20px_rgba(0,0,0,0.5)] ${ring}`}
               style={{ left: `${x}%`, top: `${y}%`, animationDelay: delay }}
             >
-              <Icon size={16} className={color} />
+              <Icon size={19} className={color} strokeWidth={2.25} />
             </div>
           ))}
         </div>
