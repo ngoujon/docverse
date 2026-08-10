@@ -3,12 +3,13 @@ import remarkGfm from "remark-gfm";
 import { FileText, Globe, User, Bot } from "lucide-react";
 import clsx from "clsx";
 import type { Message } from "../types";
+import AnimatedText from "./AnimatedText";
 
 function withCitationLinks(content: string): string {
   return content.replace(/\[(\d+)\]/g, (_m, n) => `[${n}](#cite-${n})`);
 }
 
-export default function MessageBubble({ message }: { message: Message }) {
+export default function MessageBubble({ message, isStreaming }: { message: Message; isStreaming?: boolean }) {
   const isUser = message.role === "user";
 
   return (
@@ -33,7 +34,17 @@ export default function MessageBubble({ message }: { message: Message }) {
         >
           {isUser ? (
             <p className="whitespace-pre-wrap">{message.content}</p>
-          ) : message.content ? (
+          ) : !message.content ? (
+            <span className="inline-flex gap-1">
+              <span className="h-1.5 w-1.5 animate-pulse2 rounded-full bg-slate-500 dark:bg-slate-400 [animation-delay:-0.3s]" />
+              <span className="h-1.5 w-1.5 animate-pulse2 rounded-full bg-slate-500 dark:bg-slate-400 [animation-delay:-0.15s]" />
+              <span className="h-1.5 w-1.5 animate-pulse2 rounded-full bg-slate-500 dark:bg-slate-400" />
+            </span>
+          ) : isStreaming ? (
+            <p className="whitespace-pre-wrap">
+              <AnimatedText text={message.content} />
+            </p>
+          ) : (
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={{
@@ -51,12 +62,6 @@ export default function MessageBubble({ message }: { message: Message }) {
             >
               {withCitationLinks(message.content)}
             </ReactMarkdown>
-          ) : (
-            <span className="inline-flex gap-1">
-              <span className="h-1.5 w-1.5 animate-pulse2 rounded-full bg-slate-500 dark:bg-slate-400 [animation-delay:-0.3s]" />
-              <span className="h-1.5 w-1.5 animate-pulse2 rounded-full bg-slate-500 dark:bg-slate-400 [animation-delay:-0.15s]" />
-              <span className="h-1.5 w-1.5 animate-pulse2 rounded-full bg-slate-500 dark:bg-slate-400" />
-            </span>
           )}
         </div>
 

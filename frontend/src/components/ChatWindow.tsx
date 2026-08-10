@@ -115,8 +115,8 @@ export default function ChatWindow({
             {t("app.chat.emptyHint")}
           </div>
         )}
-        {messages.map((m) => (
-          <MessageBubble key={m.id} message={m} />
+        {messages.map((m, i) => (
+          <MessageBubble key={m.id} message={m} isStreaming={streaming && i === messages.length - 1} />
         ))}
         {streaming && queuedPosition !== null && queuedPosition !== undefined && (
           <div className="mx-auto flex w-fit items-center gap-2 rounded-full border border-surface-border bg-surface-2 px-3 py-1.5 text-xs text-slate-500 dark:text-slate-400">

@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { MessageCircle, Send, X } from "lucide-react";
 import { streamSupportChat } from "../api/client";
 import { useEscapeToClose } from "../hooks/useEscapeToClose";
+import AnimatedText from "./AnimatedText";
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -107,7 +108,13 @@ export default function SupportChatWidget() {
                     : "max-w-[85%] whitespace-pre-wrap rounded-xl rounded-tl-sm border border-retro-border bg-white px-3 py-2 text-xs text-slate-700"
                 }
               >
-                {m.content || (streaming && i === messages.length - 1 ? "…" : "")}
+                {m.content ? (
+                  <AnimatedText text={m.content} animate={m.role === "assistant" && streaming && i === messages.length - 1} />
+                ) : streaming && i === messages.length - 1 ? (
+                  "…"
+                ) : (
+                  ""
+                )}
               </div>
             ))}
           </div>
