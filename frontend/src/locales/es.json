@@ -120,7 +120,7 @@
   "pricing": {
     "eyebrow": "Precios",
     "title": "Un plan para cada uso",
-    "subtitle": "Tres cifras a recordar por plan: espacios de trabajo, miembros por espacio, almacenamiento por espacio. Sin contador de mensajes que vigilar.",
+    "subtitle": "Tres cifras a recordar por plan: espacios de trabajo, miembros por espacio, almacenamiento por espacio. Haz tantas preguntas como quieras, en todos los planes: sin limite en las respuestas de la IA.",
     "billingNote": "Sin permanencia - cancela cuando quieras.",
     "popular": "Recomendado",
     "tiers": [
@@ -129,7 +129,7 @@
         "price": "0",
         "period": "",
         "tagline": "Para probar sin riesgo",
-        "features": ["1 espacio de trabajo", "1 miembro", "200 MB de almacenamiento", "Respuestas IA con espera entre mensajes"],
+        "features": ["1 espacio de trabajo", "1 miembro", "200 MB de almacenamiento", "Preguntas ilimitadas"],
         "cta": "Empezar gratis"
       },
       {
@@ -137,7 +137,7 @@
         "price": "9",
         "period": "/mes IVA incl.",
         "tagline": "Para uso personal o freelance",
-        "features": ["3 espacios de trabajo", "Enlaces de invitacion ilimitados", "2 GB de almacenamiento por espacio", "Respuestas IA sin espera"],
+        "features": ["3 espacios de trabajo", "Enlaces de invitacion ilimitados", "2 GB de almacenamiento por espacio", "Copias de seguridad automaticas"],
         "cta": "Elegir Particular"
       },
       {

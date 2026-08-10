@@ -199,6 +199,26 @@ def add_member(
         raise HTTPException(404, "Aucun compte avec cet email")
     if target.id == access.space.owner_id:
         raise HTTPException(400, "Cet utilisateur est deja proprietaire de l'espace")
+
+    cooldown_cutoff = datetime.utcnow() - timedelta(hours=settings.member_reinvite_cooldown_hours)
+    recent_removal = (
+        db.query(models_db.SpaceMemberRemoval)
+        .filter(
+            models_db.SpaceMemberRemoval.space_id == access.space.id,
+            models_db.SpaceMemberRemoval.user_id == target.id,
+            models_db.SpaceMemberRemoval.removed_at > cooldown_cutoff,
+        )
+        .order_by(models_db.SpaceMemberRemoval.removed_at.desc())
+        .first()
+    )
+    if recent_removal:
+        remaining = recent_removal.removed_at + timedelta(hours=settings.member_reinvite_cooldown_hours) - datetime.utcnow()
+        hours_left = max(1, int(remaining.total_seconds() // 3600) + 1)
+        raise HTTPException(
+            400,
+            f"Cette personne a ete retiree recemment - elle pourra etre reinvitee dans {hours_left}h",
+        )
+
     existing = (
         db.query(models_db.SpaceMember)
         .filter_by(space_id=access.space.id, user_id=target.id)
@@ -245,6 +265,7 @@ def remove_member(
     member = db.get(models_db.SpaceMember, member_id)
     if not member or member.space_id != access.space.id:
         raise HTTPException(404, "Membre introuvable")
+    db.add(models_db.SpaceMemberRemoval(space_id=member.space_id, user_id=member.user_id))
     db.delete(member)
     db.commit()
     return {"ok": True}

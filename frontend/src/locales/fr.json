@@ -120,7 +120,7 @@
   "pricing": {
     "eyebrow": "Tarifs",
     "title": "Un palier pour chaque usage",
-    "subtitle": "Trois chiffres a retenir par palier : espaces de travail, membres par espace, stockage par espace. Pas de compteur de messages a surveiller.",
+    "subtitle": "Trois chiffres a retenir par palier : espaces de travail, membres par espace, stockage par espace. Posez autant de questions que vous voulez, sur tous les paliers : aucune limite sur les reponses de l'IA.",
     "billingNote": "Sans engagement - resiliable a tout moment.",
     "popular": "Recommande",
     "tiers": [
@@ -129,7 +129,7 @@
         "price": "0",
         "period": "",
         "tagline": "Pour tester sans risque",
-        "features": ["1 espace de travail", "1 membre", "200 Mo de stockage", "Reponses IA avec cooldown"],
+        "features": ["1 espace de travail", "1 membre", "200 Mo de stockage", "Questions illimitees"],
         "cta": "Commencer gratuitement"
       },
       {
@@ -137,7 +137,7 @@
         "price": "9",
         "period": "/mois TTC",
         "tagline": "Pour un usage personnel ou freelance",
-        "features": ["3 espaces de travail", "Liens de partage illimites", "2 Go de stockage par espace", "Reponses IA sans cooldown"],
+        "features": ["3 espaces de travail", "Liens de partage illimites", "2 Go de stockage par espace", "Sauvegardes automatiques"],
         "cta": "Choisir Particulier"
       },
       {

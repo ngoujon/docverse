@@ -206,6 +206,35 @@ def test_member_quota_follows_owner_plan(client):
     assert allowed.status_code == 200
 
 
+def test_removed_member_faces_reinvite_cooldown(client):
+    owner = register_user(client, "owner@example.com")
+    editor = register_user(client, "editor@example.com")
+    set_plan(owner["user"]["id"], "pro")
+    space = create_space(client, owner["access_token"])
+
+    added = client.post(
+        f"/api/spaces/{space['id']}/members",
+        json={"email": "editor@example.com", "role": "editor"},
+        headers=auth_headers(owner["access_token"]),
+    )
+    assert added.status_code == 200
+    member_id = added.json()["id"]
+
+    removed = client.delete(
+        f"/api/spaces/{space['id']}/members/{member_id}",
+        headers=auth_headers(owner["access_token"]),
+    )
+    assert removed.status_code == 200
+
+    blocked = client.post(
+        f"/api/spaces/{space['id']}/members",
+        json={"email": "editor@example.com", "role": "editor"},
+        headers=auth_headers(owner["access_token"]),
+    )
+    assert blocked.status_code == 400
+    assert "reinvit" in blocked.json()["detail"].lower()
+
+
 def test_space_quota_follows_owner_plan(client):
     owner = register_user(client, "owner@example.com")
     create_space(client, owner["access_token"], name="First space")

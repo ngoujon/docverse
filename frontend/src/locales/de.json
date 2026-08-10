@@ -120,7 +120,7 @@
   "pricing": {
     "eyebrow": "Preise",
     "title": "Fur jeden Bedarf die passende Stufe",
-    "subtitle": "Drei Zahlen pro Stufe, die man sich merken muss: Arbeitsbereiche, Mitglieder pro Bereich, Speicher pro Bereich. Kein Nachrichtenzahler zum Uberwachen.",
+    "subtitle": "Drei Zahlen pro Stufe, die man sich merken muss: Arbeitsbereiche, Mitglieder pro Bereich, Speicher pro Bereich. Stellen Sie so viele Fragen wie Sie mochten, in jeder Stufe: keine Begrenzung bei KI-Antworten.",
     "billingNote": "Keine Mindestlaufzeit - jederzeit kundbar.",
     "popular": "Empfohlen",
     "tiers": [
@@ -129,7 +129,7 @@
         "price": "0",
         "period": "",
         "tagline": "Risikofrei testen",
-        "features": ["1 Arbeitsbereich", "1 Mitglied", "200 MB Speicher", "KI-Antworten mit Wartezeit"],
+        "features": ["1 Arbeitsbereich", "1 Mitglied", "200 MB Speicher", "Unbegrenzte Fragen"],
         "cta": "Kostenlos starten"
       },
       {
@@ -137,7 +137,7 @@
         "price": "9",
         "period": "/Monat inkl. MwSt.",
         "tagline": "Fur privaten oder freiberuflichen Gebrauch",
-        "features": ["3 Arbeitsbereiche", "Unbegrenzte Freigabelinks", "2 GB Speicher pro Bereich", "KI-Antworten ohne Wartezeit"],
+        "features": ["3 Arbeitsbereiche", "Unbegrenzte Freigabelinks", "2 GB Speicher pro Bereich", "Automatische Backups"],
         "cta": "Privat wahlen"
       },
       {

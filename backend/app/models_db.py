@@ -83,6 +83,19 @@ class SpaceMember(Base):
     user = relationship("User")
 
 
+class SpaceMemberRemoval(Base):
+    """Log of member removals, kept independently of SpaceMember (which is
+    hard-deleted on removal) so add_member can enforce a re-invite cooldown
+    and stop someone from being cycled in/out to dodge members_per_space."""
+
+    __tablename__ = "space_member_removals"
+
+    id = Column(String, primary_key=True, default=gen_id)
+    space_id = Column(String, ForeignKey("spaces.id"), nullable=False, index=True)
+    user_id = Column(String, ForeignKey("users.id"), nullable=False, index=True)
+    removed_at = Column(DateTime, default=datetime.utcnow, index=True)
+
+
 class ShareLink(Base):
     """An unguessable capability token (the row id itself) that grants
     anonymous visitors a fixed role on one space, replacing the old

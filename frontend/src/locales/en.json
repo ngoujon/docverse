@@ -120,7 +120,7 @@
   "pricing": {
     "eyebrow": "Pricing",
     "title": "A tier for every use case",
-    "subtitle": "Three numbers to remember per tier: workspaces, members per space, storage per space. No message counter to watch.",
+    "subtitle": "Three numbers to remember per tier: workspaces, members per space, storage per space. Ask as many questions as you want, on every tier - no limit on AI replies.",
     "billingNote": "No commitment - cancel anytime.",
     "popular": "Recommended",
     "tiers": [
@@ -129,7 +129,7 @@
         "price": "0",
         "period": "",
         "tagline": "Try it risk-free",
-        "features": ["1 workspace", "1 member", "200 MB storage", "AI replies with a cooldown"],
+        "features": ["1 workspace", "1 member", "200 MB storage", "Unlimited questions"],
         "cta": "Start for free"
       },
       {
@@ -137,7 +137,7 @@
         "price": "9",
         "period": "/mo incl. VAT",
         "tagline": "For personal or freelance use",
-        "features": ["3 workspaces", "Unlimited share links", "2 GB storage per space", "AI replies, no cooldown"],
+        "features": ["3 workspaces", "Unlimited share links", "2 GB storage per space", "Automatic backups"],
         "cta": "Choose Individual"
       },
       {

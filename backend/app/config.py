@@ -129,6 +129,11 @@ class Settings:
     max_spaces_per_user: int = int(os.environ.get("MAX_SPACES_PER_USER", "50"))
     max_share_links_per_space: int = int(os.environ.get("MAX_SHARE_LINKS_PER_SPACE", "20"))
 
+    # A removed member can't be re-added to the same space for this long -
+    # closes the loophole of cycling members in/out to give more than
+    # members_per_space people access over time.
+    member_reinvite_cooldown_hours: int = int(os.environ.get("MEMBER_REINVITE_COOLDOWN_HOURS", "4"))
+
     # --- Self-hosted proof-of-work captcha -------------------------------
     # Number of leading hex-zero characters required in the solved hash.
     # 5 is ~1M attempts on average - a few hundred ms in a browser tab,
