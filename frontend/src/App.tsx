@@ -8,6 +8,7 @@ import FaqPage from "./pages/FaqPage";
 import PricingPage from "./pages/PricingPage";
 import TermsPage from "./pages/TermsPage";
 import LegalNoticePage from "./pages/LegalNoticePage";
+import TermsOfSalePage from "./pages/TermsOfSalePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
@@ -100,6 +101,7 @@ export default function App() {
         <Route path="/tarifs" element={<PricingPage />} />
         <Route path="/cgu" element={<TermsPage />} />
         <Route path="/mentions-legales" element={<LegalNoticePage />} />
+        <Route path="/cgv" element={<TermsOfSalePage />} />
         <Route path="/faq" element={<FaqPage />} />
         <Route path="*" element={<LandingPage />} />
       </Routes>

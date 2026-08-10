@@ -87,6 +87,7 @@
     "tagline": "Hecho con {{heart}} - local y privado por diseno",
     "privacy": "Privacidad",
     "terms": "Condiciones",
+    "sale": "Condiciones de venta",
     "legal": "Aviso legal",
     "pricing": "Precios",
     "launchApp": "Abrir la app"
@@ -212,6 +213,47 @@
       {
         "title": "10. Legislacion aplicable y contacto",
         "body": "Estas condiciones se rigen por el derecho frances. Para cualquier pregunta, utiliza el formulario de contacto del sitio."
+      }
+    ]
+  },
+  "sale": {
+    "back": "Volver al inicio",
+    "eyebrow": "Condiciones de venta",
+    "title": "Condiciones Generales de Venta",
+    "subtitle": "Estas condiciones se aplican a la suscripcion a los planes de pago de Open RAG (Particular, Pro). El plan Descubrimiento es gratuito y no esta cubierto. El plan Empresa se vende mediante presupuesto personalizado con condiciones propias.",
+    "updated": "Ultima actualizacion: {{date}}",
+    "sections": [
+      {
+        "title": "1. Vendedor",
+        "body": "Las suscripciones de pago son vendidas por [editeur], empresario individual que opera bajo el nombre comercial \"[credit]\" (SIREN [immatriculation]) - consulta el Aviso Legal para la identidad completa."
+      },
+      {
+        "title": "2. Ofertas y precios",
+        "body": "Los planes disponibles, sus limites (espacios, miembros, almacenamiento) y sus precios se muestran en la pagina de Precios en el momento de la suscripcion. Los precios se expresan en euros. El tratamiento de IVA aplicable se indica en la factura emitida por cada pago."
+      },
+      {
+        "title": "3. Suscripcion y pago",
+        "body": "La suscripcion se realiza en linea, con tarjeta, a traves de nuestro proveedor de pagos Stripe. La suscripcion se renueva automaticamente cada mes: el importe del plan elegido se cobra cada mes en la misma fecha, hasta su cancelacion. Open RAG no almacena ningun dato bancario - Stripe gestiona todo el pago de forma segura."
+      },
+      {
+        "title": "4. Derecho de desistimiento",
+        "body": "De acuerdo con el articulo L221-28 13 del Codigo de Consumo frances, el derecho de desistimiento de 14 dias aplicable a las ventas a distancia no puede ejercerse una vez que el servicio digital se ha ejecutado completamente, cuando la ejecucion comenzo tras el acuerdo previo expreso del consumidor y su renuncia expresa al derecho de desistimiento. Al suscribirte a un plan de pago, solicitas el acceso inmediato al servicio y reconoces renunciar a tu derecho de desistimiento en cuanto la suscripcion este activa."
+      },
+      {
+        "title": "5. Duracion y cancelacion",
+        "body": "La suscripcion no tiene permanencia minima y puede cancelarse en cualquier momento desde los ajustes de la cuenta (seccion Suscripcion). La cancelacion surte efecto al final del periodo ya pagado: no se realiza ningun reembolso prorrateado por el periodo en curso, pero el acceso al plan permanece activo hasta su fin."
+      },
+      {
+        "title": "6. Cambio de plan",
+        "body": "Puedes cambiar de plan (mejora o degradacion) en cualquier momento desde la gestion de la suscripcion. El nuevo precio se aplica segun las reglas de prorrateo de Stripe para el resto del periodo en curso."
+      },
+      {
+        "title": "7. Facturas",
+        "body": "Se emite automaticamente una factura por cada pago, disponible en cualquier momento desde la gestion de la suscripcion (portal de facturacion)."
+      },
+      {
+        "title": "8. Legislacion aplicable y litigios",
+        "body": "Estas condiciones se rigen por el derecho frances. En caso de litigio, se buscara primero una solucion amistosa a traves del formulario de contacto; en su defecto, seran competentes exclusivamente los tribunales franceses."
       }
     ]
   },

@@ -87,6 +87,7 @@
     "tagline": "Made with {{heart}} - local and private by design",
     "privacy": "Privacy",
     "terms": "Terms",
+    "sale": "Terms of sale",
     "legal": "Legal notice",
     "pricing": "Pricing",
     "launchApp": "Launch app"
@@ -212,6 +213,47 @@
       {
         "title": "10. Governing law and contact",
         "body": "These terms are governed by French law. For any question, use the site's contact form."
+      }
+    ]
+  },
+  "sale": {
+    "back": "Back to home",
+    "eyebrow": "Terms of sale",
+    "title": "Terms of Sale",
+    "subtitle": "These terms apply to subscribing to Open RAG's paid tiers (Individual, Pro). The Discovery tier is free and not covered. The Enterprise tier is sold on a custom quote with its own terms.",
+    "updated": "Last updated: {{date}}",
+    "sections": [
+      {
+        "title": "1. Seller",
+        "body": "Paid subscriptions are sold by [editeur], sole trader operating under the trade name \"[credit]\" (SIREN [immatriculation]) - see the Legal Notice page for the full identity."
+      },
+      {
+        "title": "2. Offers and prices",
+        "body": "Available tiers, their limits (workspaces, members, storage) and their prices are displayed on the Pricing page at the time of subscription. Prices are in euros. The applicable VAT treatment is stated on the invoice issued for each payment."
+      },
+      {
+        "title": "3. Subscribing and payment",
+        "body": "Subscribing happens online, by card, through our payment provider Stripe. The subscription auto-renews monthly: the chosen tier's amount is charged each month on the same date, until cancelled. No card data is stored by Open RAG - Stripe handles the entire payment securely."
+      },
+      {
+        "title": "4. Right of withdrawal",
+        "body": "Under article L221-28 13 of the French Consumer Code, the 14-day right of withdrawal for distance sales cannot be exercised once a digital service has been fully performed, when performance began after the consumer's prior express agreement and express waiver of their right of withdrawal. By subscribing to a paid tier, you request immediate access to the service and acknowledge waiving your right of withdrawal once the subscription is active."
+      },
+      {
+        "title": "5. Duration and cancellation",
+        "body": "The subscription has no minimum term and can be cancelled at any time from account settings (Subscription section). Cancellation takes effect at the end of the period already paid for: no prorated refund is issued for the current period, but access to the tier stays active until it ends."
+      },
+      {
+        "title": "6. Changing tiers",
+        "body": "You can change tiers (upgrade or downgrade) at any time from subscription management. The new price applies according to Stripe's proration rules for the remainder of the current period."
+      },
+      {
+        "title": "7. Invoices",
+        "body": "An invoice is issued automatically for each payment and remains available at any time from subscription management (billing portal)."
+      },
+      {
+        "title": "8. Governing law and disputes",
+        "body": "These terms are governed by French law. In case of a dispute, an amicable resolution will be sought first via the contact form; failing that, the competent French courts will have sole jurisdiction."
       }
     ]
   },

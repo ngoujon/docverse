@@ -87,6 +87,7 @@
     "tagline": "Erstellt mit {{heart}} - lokal und privat by design",
     "privacy": "Datenschutz",
     "terms": "AGB",
+    "sale": "Verkaufsbedingungen",
     "legal": "Impressum",
     "pricing": "Preise",
     "launchApp": "App starten"
@@ -212,6 +213,47 @@
       {
         "title": "10. Anwendbares Recht und Kontakt",
         "body": "Diese Bedingungen unterliegen franzosischem Recht. Fur Fragen nutzen Sie bitte das Kontaktformular der Website."
+      }
+    ]
+  },
+  "sale": {
+    "back": "Zuruck zur Startseite",
+    "eyebrow": "Verkaufsbedingungen",
+    "title": "Allgemeine Verkaufsbedingungen",
+    "subtitle": "Diese Bedingungen gelten fur den Abschluss der kostenpflichtigen Stufen von Open RAG (Privat, Pro). Die Stufe Entdecken ist kostenlos und nicht betroffen. Die Stufe Enterprise wird per individuellem Angebot mit eigenen Bedingungen verkauft.",
+    "updated": "Zuletzt aktualisiert: {{date}}",
+    "sections": [
+      {
+        "title": "1. Verkaufer",
+        "body": "Kostenpflichtige Abonnements werden verkauft von [editeur], Einzelunternehmer, tatig unter dem Handelsnamen \"[credit]\" (SIREN [immatriculation]) - vollstandige Angaben siehe Impressum."
+      },
+      {
+        "title": "2. Angebote und Preise",
+        "body": "Die verfugbaren Stufen, ihre Grenzen (Bereiche, Mitglieder, Speicher) und ihre Preise werden zum Zeitpunkt des Abschlusses auf der Preise-Seite angezeigt. Preise sind in Euro angegeben. Die anwendbare Mehrwertsteuerregelung wird auf der fur jede Zahlung ausgestellten Rechnung angegeben."
+      },
+      {
+        "title": "3. Abschluss und Zahlung",
+        "body": "Der Abschluss erfolgt online per Karte uber unseren Zahlungsdienstleister Stripe. Das Abonnement verlangert sich automatisch monatlich: Der Betrag der gewahlten Stufe wird jeden Monat am selben Datum abgebucht, bis zur Kundigung. Es werden keine Kartendaten von Open RAG gespeichert - Stripe wickelt die gesamte Zahlung sicher ab."
+      },
+      {
+        "title": "4. Widerrufsrecht",
+        "body": "Gemass Artikel L221-28 13 des franzosischen Verbraucherschutzgesetzbuchs kann das 14-tagige Widerrufsrecht bei Fernabsatzvertragen nicht mehr ausgeubt werden, sobald eine digitale Dienstleistung vollstandig erbracht wurde, wenn die Erbringung nach ausdrucklicher vorheriger Zustimmung des Verbrauchers und ausdrucklichem Verzicht auf sein Widerrufsrecht begonnen hat. Mit dem Abschluss einer kostenpflichtigen Stufe verlangen Sie den sofortigen Zugang zum Dienst und erkennen an, auf Ihr Widerrufsrecht zu verzichten, sobald das Abonnement aktiv ist."
+      },
+      {
+        "title": "5. Laufzeit und Kundigung",
+        "body": "Das Abonnement hat keine Mindestlaufzeit und kann jederzeit in den Kontoeinstellungen (Abschnitt Abonnement) gekundigt werden. Die Kundigung wird zum Ende des bereits bezahlten Zeitraums wirksam: Fur den laufenden Zeitraum erfolgt keine anteilige Ruckerstattung, der Zugang zur Stufe bleibt jedoch bis zu deren Ende aktiv."
+      },
+      {
+        "title": "6. Stufenwechsel",
+        "body": "Sie konnen jederzeit in der Abonnementverwaltung die Stufe wechseln (Upgrade oder Downgrade). Der neue Preis gilt gemass den Proration-Regeln von Stripe fur den Rest des laufenden Zeitraums."
+      },
+      {
+        "title": "7. Rechnungen",
+        "body": "Fur jede Zahlung wird automatisch eine Rechnung ausgestellt, die jederzeit in der Abonnementverwaltung (Rechnungsportal) verfugbar ist."
+      },
+      {
+        "title": "8. Anwendbares Recht und Streitigkeiten",
+        "body": "Diese Bedingungen unterliegen franzosischem Recht. Im Streitfall wird zunachst eine gutliche Einigung uber das Kontaktformular angestrebt; andernfalls sind ausschliesslich die zustandigen franzosischen Gerichte zustandig."
       }
     ]
   },

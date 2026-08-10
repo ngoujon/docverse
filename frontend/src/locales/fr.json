@@ -87,6 +87,7 @@
     "tagline": "Fait avec {{heart}} - local et prive par design",
     "privacy": "Confidentialite",
     "terms": "CGU",
+    "sale": "CGV",
     "legal": "Mentions legales",
     "pricing": "Tarifs",
     "launchApp": "Lancer l'app"
@@ -212,6 +213,47 @@
       {
         "title": "10. Droit applicable et contact",
         "body": "Ces conditions sont regies par le droit francais. Pour toute question, utilisez le formulaire de contact du site."
+      }
+    ]
+  },
+  "sale": {
+    "back": "Retour a l'accueil",
+    "eyebrow": "Conditions de vente",
+    "title": "Conditions Generales de Vente",
+    "subtitle": "Ces conditions s'appliquent a la souscription des paliers payants d'Open RAG (Particulier, Pro). Le palier Decouverte est gratuit et n'est pas concerne. Le palier Entreprise fait l'objet d'un devis et de conditions specifiques.",
+    "updated": "Derniere mise a jour : {{date}}",
+    "sections": [
+      {
+        "title": "1. Vendeur",
+        "body": "Les abonnements payants sont vendus par [editeur], entrepreneur individuel exercant sous le nom commercial \"[credit]\" (SIREN [immatriculation]) - voir la page Mentions legales pour l'identite complete."
+      },
+      {
+        "title": "2. Offres et prix",
+        "body": "Les paliers disponibles, leurs limites (espaces, membres, stockage) et leurs prix sont affiches sur la page Tarifs au moment de la souscription. Les prix sont exprimes en euros. Le regime de TVA applicable est precise sur la facture emise pour chaque paiement."
+      },
+      {
+        "title": "3. Souscription et paiement",
+        "body": "La souscription se fait en ligne, par carte bancaire, via notre prestataire de paiement Stripe. L'abonnement est a reconduction automatique mensuelle : le montant du palier choisi est preleve chaque mois a la meme date, jusqu'a resiliation. Aucune donnee bancaire n'est stockee par Open RAG - Stripe gere l'integralite du paiement de maniere securisee."
+      },
+      {
+        "title": "4. Droit de retractation",
+        "body": "Conformement a l'article L221-28 13 du Code de la consommation, le droit de retractation de 14 jours applicable aux ventes a distance ne peut etre exerce une fois le service numerique pleinement execute, lorsque son execution a commence apres accord prealable expres du consommateur et renoncement exprès a son droit de retractation. En souscrivant a un palier payant, vous demandez l'acces immediat au service et reconnaissez renoncer a votre droit de retractation des lors que l'abonnement est actif."
+      },
+      {
+        "title": "5. Duree et resiliation",
+        "body": "L'abonnement est sans engagement de duree et peut etre resilie a tout moment depuis les parametres du compte (section Abonnement). La resiliation prend effet a la fin de la periode deja payee : aucun remboursement au prorata n'est effectue pour la periode en cours, mais l'acces au palier reste actif jusqu'a son terme."
+      },
+      {
+        "title": "6. Changement de palier",
+        "body": "Vous pouvez changer de palier (mise a niveau ou retrogradation) a tout moment depuis la gestion de l'abonnement. Le nouveau tarif s'applique selon les regles de proratisation appliquees par Stripe pour le reste de la periode en cours."
+      },
+      {
+        "title": "7. Factures",
+        "body": "Une facture est emise automatiquement pour chaque paiement et reste consultable a tout moment depuis la gestion de l'abonnement (portail de facturation)."
+      },
+      {
+        "title": "8. Droit applicable et litiges",
+        "body": "Ces conditions sont regies par le droit francais. En cas de litige, une solution amiable sera recherchee en priorite via le formulaire de contact ; a defaut, les tribunaux francais competents seront seuls saisis."
       }
     ]
   },

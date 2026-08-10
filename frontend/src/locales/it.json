@@ -87,6 +87,7 @@
     "tagline": "Realizzato con {{heart}} - locale e privato by design",
     "privacy": "Privacy",
     "terms": "Termini",
+    "sale": "Condizioni di vendita",
     "legal": "Note legali",
     "pricing": "Prezzi",
     "launchApp": "Avvia l'app"
@@ -212,6 +213,47 @@
       {
         "title": "10. Legge applicabile e contatti",
         "body": "Questi termini sono disciplinati dal diritto francese. Per qualsiasi domanda, utilizza il modulo di contatto del sito."
+      }
+    ]
+  },
+  "sale": {
+    "back": "Torna alla home",
+    "eyebrow": "Condizioni di vendita",
+    "title": "Termini e Condizioni Generali di Vendita",
+    "subtitle": "Questi termini si applicano alla sottoscrizione dei piani a pagamento di Open RAG (Privati, Pro). Il piano Scoperta e gratuito e non e interessato. Il piano Azienda viene venduto su preventivo personalizzato con condizioni proprie.",
+    "updated": "Ultimo aggiornamento: {{date}}",
+    "sections": [
+      {
+        "title": "1. Venditore",
+        "body": "Gli abbonamenti a pagamento sono venduti da [editeur], imprenditore individuale operante con il nome commerciale \"[credit]\" (SIREN [immatriculation]) - vedi la pagina Note Legali per l'identita completa."
+      },
+      {
+        "title": "2. Offerte e prezzi",
+        "body": "I piani disponibili, i loro limiti (spazi, membri, archiviazione) e i loro prezzi sono mostrati nella pagina Prezzi al momento della sottoscrizione. I prezzi sono espressi in euro. Il regime IVA applicabile e indicato sulla fattura emessa per ogni pagamento."
+      },
+      {
+        "title": "3. Sottoscrizione e pagamento",
+        "body": "La sottoscrizione avviene online, con carta, tramite il nostro fornitore di pagamenti Stripe. L'abbonamento si rinnova automaticamente ogni mese: l'importo del piano scelto viene addebitato ogni mese alla stessa data, fino alla disdetta. Nessun dato della carta viene memorizzato da Open RAG - Stripe gestisce l'intero pagamento in modo sicuro."
+      },
+      {
+        "title": "4. Diritto di recesso",
+        "body": "Ai sensi dell'articolo L221-28 13 del Codice del consumo francese, il diritto di recesso di 14 giorni applicabile alle vendite a distanza non puo essere esercitato una volta che il servizio digitale e stato pienamente eseguito, quando l'esecuzione e iniziata dopo l'accordo preventivo espresso del consumatore e la rinuncia espressa al proprio diritto di recesso. Sottoscrivendo un piano a pagamento, richiedi l'accesso immediato al servizio e riconosci di rinunciare al tuo diritto di recesso non appena l'abbonamento e attivo."
+      },
+      {
+        "title": "5. Durata e disdetta",
+        "body": "L'abbonamento non prevede vincoli di durata e puo essere disdetto in qualsiasi momento dalle impostazioni dell'account (sezione Abbonamento). La disdetta ha effetto alla fine del periodo gia pagato: non viene effettuato alcun rimborso proporzionale per il periodo in corso, ma l'accesso al piano resta attivo fino al suo termine."
+      },
+      {
+        "title": "6. Cambio di piano",
+        "body": "Puoi cambiare piano (upgrade o downgrade) in qualsiasi momento dalla gestione dell'abbonamento. Il nuovo prezzo si applica secondo le regole di proration di Stripe per il resto del periodo in corso."
+      },
+      {
+        "title": "7. Fatture",
+        "body": "Una fattura viene emessa automaticamente per ogni pagamento ed e sempre disponibile dalla gestione dell'abbonamento (portale di fatturazione)."
+      },
+      {
+        "title": "8. Legge applicabile e controversie",
+        "body": "Questi termini sono disciplinati dal diritto francese. In caso di controversia, si cerchera prima una soluzione amichevole tramite il modulo di contatto; in mancanza di accordo, saranno competenti in via esclusiva i tribunali francesi."
       }
     ]
   },

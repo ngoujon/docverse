@@ -87,6 +87,7 @@
     "tagline": "Feito com {{heart}} - local e privado por design",
     "privacy": "Privacidade",
     "terms": "Termos",
+    "sale": "Condicoes de venda",
     "legal": "Aviso legal",
     "pricing": "Precos",
     "launchApp": "Abrir a app"
@@ -212,6 +213,47 @@
       {
         "title": "10. Lei aplicavel e contacto",
         "body": "Estes termos regem-se pelo direito frances. Para qualquer questao, utilize o formulario de contacto do site."
+      }
+    ]
+  },
+  "sale": {
+    "back": "Voltar ao inicio",
+    "eyebrow": "Condicoes de venda",
+    "title": "Termos Gerais de Venda",
+    "subtitle": "Estes termos aplicam-se a subscricao dos planos pagos do Open RAG (Particular, Pro). O plano Descoberta e gratuito e nao esta abrangido. O plano Empresa e vendido mediante orcamento personalizado com condicoes proprias.",
+    "updated": "Ultima atualizacao: {{date}}",
+    "sections": [
+      {
+        "title": "1. Vendedor",
+        "body": "As subscricoes pagas sao vendidas por [editeur], empresario em nome individual, a operar sob o nome comercial \"[credit]\" (SIREN [immatriculation]) - consulte o Aviso Legal para a identidade completa."
+      },
+      {
+        "title": "2. Ofertas e precos",
+        "body": "Os planos disponiveis, os seus limites (espacos, membros, armazenamento) e os seus precos sao apresentados na pagina de Precos no momento da subscricao. Os precos sao expressos em euros. O regime de IVA aplicavel e indicado na fatura emitida para cada pagamento."
+      },
+      {
+        "title": "3. Subscricao e pagamento",
+        "body": "A subscricao e feita online, por cartao, atraves do nosso prestador de pagamentos Stripe. A subscricao renova-se automaticamente todos os meses: o valor do plano escolhido e cobrado mensalmente na mesma data, ate ao cancelamento. Nenhum dado bancario e armazenado pelo Open RAG - a Stripe gere todo o pagamento de forma segura."
+      },
+      {
+        "title": "4. Direito de retratacao",
+        "body": "Nos termos do artigo L221-28 13 do Codigo do Consumidor frances, o direito de retratacao de 14 dias aplicavel as vendas a distancia deixa de poder ser exercido assim que o servico digital tenha sido totalmente executado, quando essa execucao tenha comecado apos acordo previo expresso do consumidor e renuncia expressa ao seu direito de retratacao. Ao subscrever um plano pago, solicita o acesso imediato ao servico e reconhece renunciar ao seu direito de retratacao assim que a subscricao estiver ativa."
+      },
+      {
+        "title": "5. Duracao e cancelamento",
+        "body": "A subscricao nao tem fidelizacao minima e pode ser cancelada a qualquer momento nas definicoes da conta (seccao Subscricao). O cancelamento produz efeitos no final do periodo ja pago: nao e efetuado qualquer reembolso proporcional pelo periodo em curso, mas o acesso ao plano mantem-se ativo ate ao seu termo."
+      },
+      {
+        "title": "6. Mudanca de plano",
+        "body": "Pode mudar de plano (upgrade ou downgrade) a qualquer momento a partir da gestao da subscricao. O novo preco aplica-se de acordo com as regras de proporcionalidade da Stripe para o restante do periodo em curso."
+      },
+      {
+        "title": "7. Faturas",
+        "body": "E emitida automaticamente uma fatura para cada pagamento, disponivel a qualquer momento na gestao da subscricao (portal de faturacao)."
+      },
+      {
+        "title": "8. Lei aplicavel e litigios",
+        "body": "Estes termos regem-se pelo direito frances. Em caso de litigio, sera procurada primeiro uma solucao amigavel atraves do formulario de contacto; na sua falta, os tribunais franceses competentes terao competencia exclusiva."
       }
     ]
   },
