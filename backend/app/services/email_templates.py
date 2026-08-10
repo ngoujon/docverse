@@ -73,7 +73,7 @@ def password_reset_email(reset_url: str) -> tuple[str, str, str]:
     return subject, _layout("Reinitialisez votre mot de passe Open RAG", body), text
 
 
-def welcome_email(display_name: str) -> tuple[str, str, str]:
+def welcome_email(display_name: str, app_url: str) -> tuple[str, str, str]:
     subject = "Bienvenue sur Open RAG"
     name = display_name or "vous"
     body = f"""
@@ -83,8 +83,9 @@ def welcome_email(display_name: str) -> tuple[str, str, str]:
         y deposer des documents, et generer des liens de partage en lecture seule ou
         en lecture/ecriture pour vos collaborateurs.
       </p>
+      {_button(app_url, "Lancer l'application")}
     """
-    text = f"Bienvenue sur Open RAG, {name} ! Votre compte est cree."
+    text = f"Bienvenue sur Open RAG, {name} ! Votre compte est cree. Lancer l'application : {app_url}"
     return subject, _layout("Votre compte Open RAG est pret", body), text
 
 

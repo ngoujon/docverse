@@ -40,7 +40,7 @@ def register(
     db.commit()
     db.refresh(user)
 
-    subject, html, text = email_templates.welcome_email(user.display_name)
+    subject, html, text = email_templates.welcome_email(user.display_name, f"{settings.frontend_base_url}/dashboard")
     background_tasks.add_task(mail_service.send_email, user.email, subject, html, text)
 
     verify_token = auth.issue_purpose_token(user.id, "email_verify", ttl_minutes=60 * 48)
