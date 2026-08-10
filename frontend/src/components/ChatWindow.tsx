@@ -134,7 +134,7 @@ export default function ChatWindow({
             <Eye size={14} /> {t("app.chat.readOnly")}
           </div>
         ) : (
-          <div className="flex items-end gap-2 rounded-xl border border-surface-border bg-surface-1 px-3 py-2 focus-within:border-accent">
+          <div className="flex items-center gap-2 rounded-xl border border-surface-border bg-surface-1 px-3 py-2 focus-within:border-accent">
             <textarea
               ref={textareaRef}
               value={input}
@@ -151,7 +151,7 @@ export default function ChatWindow({
               }}
               rows={1}
               placeholder={t("app.chat.placeholder")}
-              className="max-h-40 flex-1 resize-none bg-transparent text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none"
+              className="block max-h-40 flex-1 resize-none bg-transparent text-sm leading-5 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none"
             />
             <button
               onClick={handleSend}
