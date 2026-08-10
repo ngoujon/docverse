@@ -17,9 +17,9 @@
     "launchApp": "Launch app"
   },
   "hero": {
-    "badges": ["100% Local", "From €9/mo", "Free tier", "Role-based sharing"],
+    "badges": ["Unlimited questions", "From €9/mo", "Free tier", "Role-based sharing"],
     "title1": "Chat with your documents,",
-    "title2": "locally, as a team.",
+    "title2": "one space per client.",
     "subtitle": "The solution for teams that need to find an answer in seconds instead of searching for hours. Drop your documents, query them in plain language, on infrastructure you control end to end.",
     "ctaTry": "Try it now",
     "ctaDiscover": "See pricing"
@@ -479,7 +479,7 @@
     "items": [
       {
         "question": "What is Open RAG?",
-        "answer": "Open RAG is an open source, self-hosted application that lets you chat with your own documents (PDF, images, web pages, DOCX, TXT, Markdown) through a local AI powered by Ollama. Everything runs in your own Docker containers."
+        "answer": "Open RAG connects your business documents (PDF, images, web pages, DOCX, TXT, Markdown) to an AI with sourced answers, in spaces siloed per client or file. Built for firms, agencies and teams managing multiple clients."
       },
       {
         "question": "Do I need an account to use it?",
@@ -519,7 +519,7 @@
       },
       {
         "question": "How much does Open RAG cost?",
-        "answer": "The software is free and open source. The only cost is your own infrastructure (server, VPS...) and, if you choose to enable it, a subscription to a cloud AI provider for faster responses."
+        "answer": "A free tier exists to try it out (1 space, 1 member, 200 MB). Paid tiers start at €9/mo incl. VAT. On every tier, AI questions are unlimited - the only limits are the number of spaces, members per space, and storage."
       }
     ]
   },

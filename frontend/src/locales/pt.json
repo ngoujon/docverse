@@ -17,9 +17,9 @@
     "launchApp": "Abrir a app"
   },
   "hero": {
-    "badges": ["100% Local", "Desde 9€/mes", "Plano gratuito", "Partilha por funcao"],
+    "badges": ["Perguntas ilimitadas", "Desde 9€/mes", "Plano gratuito", "Partilha por funcao"],
     "title1": "Converse com os seus documentos,",
-    "title2": "em local, em equipa.",
+    "title2": "um espaco por cliente.",
     "subtitle": "A solucao para que as suas equipas encontrem uma resposta em segundos em vez de a procurarem durante horas. Carregue os seus documentos, consulte-os em linguagem natural, numa infraestrutura que controla de ponta a ponta.",
     "ctaTry": "Experimentar agora",
     "ctaDiscover": "Ver precos"
@@ -479,7 +479,7 @@
     "items": [
       {
         "question": "O que e o Open RAG?",
-        "answer": "O Open RAG e uma aplicacao open source e auto-hospedada que lhe permite conversar com os seus proprios documentos (PDF, imagens, paginas web, DOCX, TXT, Markdown) atraves de uma IA local com tecnologia Ollama. Tudo corre nos seus proprios contentores Docker."
+        "answer": "O Open RAG liga os seus documentos profissionais (PDF, imagens, paginas web, DOCX, TXT, Markdown) a uma IA com respostas com fontes, em espacos isolados por cliente ou processo. Concebido para escritorios, agencias e equipas com varios clientes."
       },
       {
         "question": "Preciso de uma conta para a utilizar?",
@@ -519,7 +519,7 @@
       },
       {
         "question": "Quanto custa o Open RAG?",
-        "answer": "O software e gratuito e de codigo aberto. O unico custo e o da sua propria infraestrutura (servidor, VPS...) e, caso opte por ativa-lo, o de uma subscricao a um fornecedor de IA na nuvem para respostas mais rapidas."
+        "answer": "Existe um plano gratuito para testar (1 espaco, 1 membro, 200 MB). Os planos pagos comecam em 9€ IVA incl./mes. Em todos os planos, as perguntas a IA sao ilimitadas: os unicos limites sao o numero de espacos, de membros por espaco e o armazenamento."
       }
     ]
   },

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, ChevronDown, HelpCircle } from "lucide-react";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { useJsonLd } from "../hooks/useJsonLd";
 
 interface FaqItem {
   question: string;
@@ -18,6 +19,16 @@ export default function FaqPage() {
     title: `${t("faq.title")} - Open RAG`,
     description: t("faq.subtitle"),
     canonicalPath: "/faq",
+  });
+
+  useJsonLd({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
   });
 
   return (

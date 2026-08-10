@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#fbf9ff" />
 
-    <title>Open RAG - Chattez avec vos documents, en local, en equipe</title>
+    <title>Open RAG - Chat IA sur vos documents, par espace client</title>
     <meta
       name="description"
-      content="Application open source et gratuite pour discuter avec vos PDF, images et pages web via une IA locale (Ollama). Comptes et espaces de travail partages, liens de partage avec role lecture/ecriture, recherche web integree, aucune donnee envoyee dans le cloud."
+      content="Un espace cloisonne par client ou dossier, acces revocable, questions illimitees, cout fixe des 9EUR/mois. Cabinets, agences et equipes projet interrogent leurs documents (PDF, scans, DOCX, pages web) avec des reponses IA sourcees."
     />
     <meta name="robots" content="index, follow" />
 
@@ -21,16 +21,16 @@
     <link rel="canonical" href="/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Open RAG" />
-    <meta property="og:title" content="Open RAG - Chattez avec vos documents, en local, en equipe" />
+    <meta property="og:title" content="Open RAG - Chat IA sur vos documents, par espace client" />
     <meta
       property="og:description"
-      content="Deposez vos PDF, images et liens dans des espaces de travail partages, et interrogez-les avec une IA qui tourne entierement sur votre serveur - via Ollama, sans API cloud ni tracking."
+      content="Un espace cloisonne par client ou dossier, acces revocable, questions illimitees, cout fixe des 9EUR/mois. Deposez vos documents, obtenez des reponses IA sourcees, partagez avec le role de votre choix."
     />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Open RAG - Chattez avec vos documents, en local, en equipe" />
+    <meta name="twitter:title" content="Open RAG - Chat IA sur vos documents, par espace client" />
     <meta
       name="twitter:description"
-      content="Application open source et gratuite pour discuter avec vos documents via une IA 100% locale, en solo ou en equipe."
+      content="Un espace cloisonne par client ou dossier, questions illimitees, cout fixe des 9EUR/mois. Pense pour les cabinets, agences et equipes qui gerent plusieurs clients."
     />
 
     <script type="application/ld+json">
@@ -39,22 +39,21 @@
         "@type": "SoftwareApplication",
         "name": "Open RAG",
         "applicationCategory": "BusinessApplication",
-        "operatingSystem": "Any (self-hosted via Docker)",
-        "description": "Application open source et gratuite de RAG (Retrieval-Augmented Generation) auto-hebergee : discutez avec vos documents (PDF, images, pages web) via une IA locale propulsee par Ollama, avec des comptes, des espaces de travail partages et sans service cloud tiers oblige.",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "EUR"
-        },
+        "operatingSystem": "Any (self-hosted via Docker) ou hebergement gere",
+        "description": "Open RAG connecte vos documents (PDF, scans, images, DOCX, pages web) a une IA avec reponses sourcees, dans des espaces cloisonnes par client ou par dossier. Roles et acces revocables, questions illimitees sur tous les paliers, cout fixe qui ne bouge pas avec l'usage.",
+        "offers": [
+          { "@type": "Offer", "name": "Decouverte", "price": "0", "priceCurrency": "EUR" },
+          { "@type": "Offer", "name": "Particulier", "price": "9", "priceCurrency": "EUR" },
+          { "@type": "Offer", "name": "Pro", "price": "29", "priceCurrency": "EUR" }
+        ],
         "featureList": [
-          "Comptes utilisateurs et espaces de travail partages entre plusieurs personnes",
-          "Liens de partage avec role lecture seule ou lecture/ecriture, sans compte requis pour les invites",
-          "Ingestion de PDF, images, pages web, DOCX, TXT, Markdown",
-          "Lecture d'images et de scans par IA de vision",
-          "Recherche web locale via un moteur auto-heberge",
-          "Sauvegardes automatiques par espace, restaurables par un administrateur",
-          "Verification en deux etapes (2FA) optionnelle",
-          "Aucune donnee envoyee a une API cloud tierce par defaut"
+          "Espaces cloisonnes par client ou projet, avec roles lecture seule ou edition",
+          "Acces revocable a tout moment, avec delai de securite avant reinvitation",
+          "Ingestion de PDF, images, pages web, DOCX, TXT, Markdown, avec OCR par vision IA sur les scans",
+          "Reponses IA sourcees, questions illimitees sur tous les paliers",
+          "Recherche web auto-hebergee, sans traceur ni cle API tierce",
+          "Authentification Google SSO et verification en deux etapes (2FA)",
+          "Sauvegardes automatiques par espace, restaurables par un administrateur"
         ]
       }
     </script>

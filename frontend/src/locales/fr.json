@@ -17,9 +17,9 @@
     "launchApp": "Lancer l'app"
   },
   "hero": {
-    "badges": ["100% Local", "Des 9€/mois", "Palier gratuit", "Partage par role"],
+    "badges": ["Questions illimitees", "Des 9€/mois", "Palier gratuit", "Partage par role"],
     "title1": "Discutez avec vos documents,",
-    "title2": "en local, en equipe.",
+    "title2": "un espace par client.",
     "subtitle": "La solution pour que vos equipes retrouvent une information en quelques secondes au lieu de la chercher pendant des heures. Deposez vos documents, interrogez-les en langage naturel, sur une infrastructure que vous maitrisez de bout en bout.",
     "ctaTry": "Essayer maintenant",
     "ctaDiscover": "Voir les tarifs"
@@ -479,7 +479,7 @@
     "items": [
       {
         "question": "Qu'est-ce qu'Open RAG ?",
-        "answer": "Open RAG est une application open source et auto-hebergee qui vous permet de discuter avec vos propres documents (PDF, images, pages web, DOCX, TXT, Markdown) via une IA locale propulsee par Ollama. Tout tourne dans vos propres conteneurs Docker."
+        "answer": "Open RAG est une application qui connecte vos documents professionnels (PDF, images, pages web, DOCX, TXT, Markdown) a une IA avec reponses sourcees, dans des espaces cloisonnes par client ou par dossier. Pensee pour les cabinets, agences et equipes qui gerent plusieurs clients."
       },
       {
         "question": "Ai-je besoin d'un compte pour l'utiliser ?",
@@ -519,7 +519,7 @@
       },
       {
         "question": "Combien coute Open RAG ?",
-        "answer": "Le logiciel est gratuit et open source. Le seul cout est celui de votre propre infrastructure (serveur, VPS...) et, si vous choisissez de l'activer, celui d'un abonnement a un fournisseur d'IA cloud pour des reponses plus rapides."
+        "answer": "Un palier gratuit existe pour tester (1 espace, 1 membre, 200 Mo). Les paliers payants commencent a 9€ TTC/mois. Sur tous les paliers, les questions posees a l'IA sont illimitees : les seules limites sont le nombre d'espaces, de membres par espace et le stockage."
       }
     ]
   },

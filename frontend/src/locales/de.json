@@ -17,9 +17,9 @@
     "launchApp": "App starten"
   },
   "hero": {
-    "badges": ["100% Lokal", "Ab 9€/Monat", "Kostenlose Stufe", "Teilen nach Rolle"],
+    "badges": ["Unbegrenzte Fragen", "Ab 9€/Monat", "Kostenlose Stufe", "Teilen nach Rolle"],
     "title1": "Unterhalten Sie sich mit Ihren Dokumenten,",
-    "title2": "lokal, im Team.",
+    "title2": "ein Bereich pro Kunde.",
     "subtitle": "Die Losung fur Teams, die eine Antwort in Sekunden statt nach stundenlanger Suche brauchen. Laden Sie Ihre Dokumente hoch, befragen Sie sie in normaler Sprache, auf einer Infrastruktur, die Sie vollstandig kontrollieren.",
     "ctaTry": "Jetzt testen",
     "ctaDiscover": "Preise ansehen"
@@ -479,7 +479,7 @@
     "items": [
       {
         "question": "Was ist Open RAG?",
-        "answer": "Open RAG ist eine Open-Source-Anwendung zum Selbsthosten, mit der du mit deinen eigenen Dokumenten (PDF, Bilder, Webseiten, DOCX, TXT, Markdown) uber eine lokale, von Ollama betriebene KI sprechen kannst. Alles lauft in deinen eigenen Docker-Containern."
+        "answer": "Open RAG verbindet Ihre Geschaftsdokumente (PDF, Bilder, Webseiten, DOCX, TXT, Markdown) mit einer KI mit belegten Antworten, in Bereichen, die pro Kunde oder Akte abgeschottet sind. Gebaut fur Kanzleien, Agenturen und Teams mit mehreren Kunden."
       },
       {
         "question": "Brauche ich ein Konto, um es zu nutzen?",
