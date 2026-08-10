@@ -12,6 +12,17 @@ function withCitationLinks(content: string): string {
 export default function MessageBubble({ message, isStreaming }: { message: Message; isStreaming?: boolean }) {
   const isUser = message.role === "user";
 
+  // The model retrieves candidate sources but doesn't always cite every
+  // one of them - only show badges for numbers ([1], [2], ...) that
+  // actually appear in the answer, using each source's original 1-based
+  // position so the badge number still matches the inline citation.
+  const citedNumbers = new Set(
+    Array.from(message.content.matchAll(/\[(\d+)\]/g), (m) => Number(m[1]))
+  );
+  const visibleSources = (message.sources ?? [])
+    .map((source, i) => ({ source, number: i + 1 }))
+    .filter(({ number }) => citedNumbers.has(number));
+
   return (
     <div className={clsx("flex gap-3 px-2 animate-fade-in", isUser && "flex-row-reverse")}>
       <div
@@ -65,11 +76,11 @@ export default function MessageBubble({ message, isStreaming }: { message: Messa
           )}
         </div>
 
-        {message.sources && message.sources.length > 0 && (
+        {visibleSources.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
-            {message.sources.map((s, i) => (
+            {visibleSources.map(({ source: s, number }) => (
               <a
-                key={i}
+                key={number}
                 href={s.type === "web" ? s.url : undefined}
                 target={s.type === "web" ? "_blank" : undefined}
                 rel="noreferrer"
@@ -79,7 +90,7 @@ export default function MessageBubble({ message, isStreaming }: { message: Messa
                   s.type === "web" && "hover:border-accent hover:text-accent"
                 )}
               >
-                <span className="cite-badge shrink-0">{i + 1}</span>
+                <span className="cite-badge shrink-0">{number}</span>
                 {s.type === "web" ? (
                   <Globe size={11} className="shrink-0" />
                 ) : (
