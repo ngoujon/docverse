@@ -661,7 +661,7 @@
       "subtitle": "Adicione ficheiros ou links que o chatbot podera consultar.",
       "dropActive": "Largue os ficheiros aqui",
       "dropIdle": "Arraste e largue ou clique",
-      "supportedFormats": "PDF, imagens, DOCX, TXT, Markdown",
+      "supportedFormats": "PDF, imagens, audio, DOCX, TXT, Markdown",
       "urlPlaceholder": "Cole um link (https://...)",
       "addUrl": "Adicionar link",
       "empty": "Ainda sem documentos.",

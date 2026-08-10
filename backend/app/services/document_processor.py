@@ -10,9 +10,10 @@ import httpx
 import trafilatura
 from docx import Document as DocxDocument
 
-from . import ollama_client
+from . import ollama_client, transcription
 
 IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".gif", ".bmp"}
+AUDIO_EXTENSIONS = {".mp3", ".wav", ".m4a", ".ogg", ".flac", ".webm"}
 
 _IMAGE_PROMPT = (
     "Tu analyses un document image. Transcris integralement tout le texte "
@@ -59,6 +60,10 @@ async def extract_text_from_pdf(path: Path) -> str:
 async def extract_text_from_image(path: Path) -> str:
     data = path.read_bytes()
     return await ollama_client.describe_image(_b64_from_bytes(data), _IMAGE_PROMPT)
+
+
+async def extract_text_from_audio(path: Path) -> str:
+    return await transcription.transcribe_audio(path)
 
 
 def extract_text_from_docx(path: Path) -> str:
@@ -153,6 +158,9 @@ async def process_document(
     if doc_type == "image":
         assert file_path is not None
         return file_path.name, await extract_text_from_image(file_path)
+    if doc_type == "audio":
+        assert file_path is not None
+        return file_path.name, await extract_text_from_audio(file_path)
     if doc_type == "docx":
         assert file_path is not None
         return file_path.name, extract_text_from_docx(file_path)
@@ -171,6 +179,8 @@ def guess_doc_type(filename: str) -> str:
         return "pdf"
     if ext in IMAGE_EXTENSIONS:
         return "image"
+    if ext in AUDIO_EXTENSIONS:
+        return "audio"
     if ext == ".docx":
         return "docx"
     if ext == ".md":
@@ -186,8 +196,17 @@ _IMAGE_SIGNATURES = (
     b"GIF87a",
     b"GIF89a",
     b"BM",  # BMP
-    b"RIFF",  # WEBP (RIFF....WEBP - checking the RIFF prefix is enough here)
 )
+
+_MP3_FRAME_SYNCS = (b"\xff\xfb", b"\xff\xf3", b"\xff\xf2", b"\xff\xe3")
+
+
+def _is_webp(content: bytes) -> bool:
+    return content.startswith(b"RIFF") and content[8:12] == b"WEBP"
+
+
+def _is_wav(content: bytes) -> bool:
+    return content.startswith(b"RIFF") and content[8:12] == b"WAVE"
 
 
 def content_matches_type(doc_type: str, content: bytes) -> bool:
@@ -199,7 +218,17 @@ def content_matches_type(doc_type: str, content: bytes) -> bool:
     if doc_type == "docx":
         return content.startswith(b"PK\x03\x04")  # docx is a zip archive
     if doc_type == "image":
-        return content.startswith(_IMAGE_SIGNATURES)
+        return content.startswith(_IMAGE_SIGNATURES) or _is_webp(content)
+    if doc_type == "audio":
+        return (
+            content.startswith(b"ID3")
+            or content.startswith(_MP3_FRAME_SYNCS)
+            or _is_wav(content)
+            or content.startswith(b"OggS")
+            or content.startswith(b"fLaC")
+            or content[4:8] == b"ftyp"  # M4A / MP4 container
+            or content.startswith(b"\x1a\x45\xdf\xa3")  # WebM (EBML header)
+        )
     if doc_type in ("txt", "md"):
         sample = content[:8192]
         if b"\x00" in sample:

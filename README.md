@@ -2,10 +2,11 @@
 
 Application web auto-hebergee (Docker) pour discuter avec une IA locale
 (Ollama) a propos de vos propres documents : PDF, images (scans, photos),
-pages web, DOCX, TXT/Markdown. L'IA peut aussi completer ses reponses avec
-une recherche web via un moteur local (SearXNG). Le moteur d'IA reste
-100% local (Ollama, dans vos propres conteneurs Docker) par defaut, avec
-une bascule optionnelle vers Ollama Cloud pour des reponses plus rapides.
+fichiers audio (transcrits automatiquement), pages web, DOCX, TXT/Markdown.
+L'IA peut aussi completer ses reponses avec une recherche web via un
+moteur local (SearXNG). Le moteur d'IA reste 100% local (Ollama, dans vos
+propres conteneurs Docker) par defaut, avec une bascule optionnelle vers
+Ollama Cloud pour des reponses plus rapides.
 
 A l'origine un outil local et gratuit, Open RAG est desormais pense comme
 un produit avec des comptes utilisateur et une tarification par palier
@@ -42,11 +43,22 @@ qui determine ses limites (nombre d'espaces, membres par espace, stockage).
   Une conversation appartient toujours a un seul espace.
 - **Plusieurs conversations par espace**, avec historique persistant.
 - **Ingestion multi-format** : PDF (texte natif + OCR automatique par IA de
-  vision pour les PDF scannes), images (JPG/PNG/WEBP...), pages web
-  (extraction du contenu principal), DOCX, TXT, Markdown.
+  vision pour les PDF scannes), images (JPG/PNG/WEBP...), fichiers audio
+  (MP3/WAV/M4A/OGG/FLAC/WEBM), pages web (extraction du contenu principal),
+  DOCX, TXT, Markdown.
 - **Lecture d'images par IA** : les documents images ou les pages de PDF
   scannees sont transcrits/decrits par un modele multimodal Ollama (par
   defaut `llava`), puis indexes comme du texte normal.
+- **Transcription audio** : les fichiers audio sont transcrits localement
+  via Whisper (`faster-whisper`, modele telecharge une seule fois dans le
+  volume de donnees) puis indexes comme du texte normal - aucun appel a un
+  service cloud pour cette etape.
+- **Quotas de stockage reellement appliques** par palier (200 Mo / 2 Go /
+  10 Go par espace), en plus des quotas d'espaces et de membres.
+- **Delai de securite avant reinvitation** : un membre retire d'un espace
+  ne peut pas y etre readdicte avant quelques heures (configurable via
+  `MEMBER_REINVITE_COOLDOWN_HOURS`), pour empecher de contourner le quota
+  de membres par espace.
 - **RAG (Retrieval-Augmented Generation)** : chaque question est enrichie
   avec les passages les plus pertinents des documents de l'espace
   (recherche vectorielle via ChromaDB + embeddings Ollama), et citee dans
@@ -161,11 +173,14 @@ declenche si necessaire) :
 | `OLLAMA_CHAT_MODEL`   | Conversation / raisonnement    | `llama3.1:8b`, `qwen2.5:7b-instruct`, `qwen2.5:14b-instruct` |
 | `OLLAMA_VISION_MODEL` | Lecture d'images / PDF scannes | `llava:7b`, `qwen2.5vl:7b`                      |
 | `OLLAMA_EMBED_MODEL`  | Indexation vectorielle         | `nomic-embed-text`                              |
+| `WHISPER_MODEL_SIZE`  | Transcription audio (self-hosted, pas via Ollama) | `small` (par defaut), `base` (plus rapide/moins precis), `medium` |
 
 Sur une machine avec peu de RAM/VRAM (< 8 Go), privilegiez des modeles
 `:7b` ou plus petits. Vous pouvez changer de modele a tout moment sans
 perdre vos documents deja indexes (seule la generation des reponses et la
-lecture d'images utilisent le modele configure au moment de l'appel).
+lecture d'images utilisent le modele configure au moment de l'appel). Le
+modele Whisper est telecharge une seule fois (dans le volume `app_data`)
+au premier fichier audio uploade, pas au demarrage.
 
 ## Utilisation
 

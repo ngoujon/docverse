@@ -75,6 +75,7 @@ export default function DocumentPanel({
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"],
       "text/plain": [".txt"],
       "text/markdown": [".md"],
+      "audio/*": [".mp3", ".wav", ".m4a", ".ogg", ".flac", ".webm"],
     },
   });
 

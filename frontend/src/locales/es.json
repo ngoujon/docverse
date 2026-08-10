@@ -661,7 +661,7 @@
       "subtitle": "Anade archivos o enlaces que el chatbot podra consultar.",
       "dropActive": "Suelta los archivos aqui",
       "dropIdle": "Arrastra y suelta o haz clic",
-      "supportedFormats": "PDF, imagenes, DOCX, TXT, Markdown",
+      "supportedFormats": "PDF, imagenes, audio, DOCX, TXT, Markdown",
       "urlPlaceholder": "Pega un enlace (https://...)",
       "addUrl": "Anadir enlace",
       "empty": "Aun no hay documentos.",

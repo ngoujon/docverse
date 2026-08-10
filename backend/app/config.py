@@ -10,10 +10,12 @@ UPLOAD_DIR = DATA_DIR / "uploads"
 CHROMA_DIR = DATA_DIR / "chroma"
 DB_PATH = DATA_DIR / "app.db"
 BACKUP_DIR = DATA_DIR / "backups"
+WHISPER_MODEL_DIR = DATA_DIR / "whisper_models"
 
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 CHROMA_DIR.mkdir(parents=True, exist_ok=True)
 BACKUP_DIR.mkdir(parents=True, exist_ok=True)
+WHISPER_MODEL_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def _parse_origins(raw: str) -> list[str]:
@@ -139,6 +141,14 @@ class Settings:
     # 5 is ~1M attempts on average - a few hundred ms in a browser tab,
     # expensive enough to deter naive scripted abuse at scale.
     captcha_difficulty: int = int(os.environ.get("CAPTCHA_DIFFICULTY", "5"))
+
+    # --- Audio transcription (self-hosted, via faster-whisper) -----------
+    # "small" balances accuracy and CPU speed for a self-hosted box with no
+    # GPU; downloaded once into WHISPER_MODEL_DIR (a persisted volume) on
+    # first use, not baked into the image, so switching sizes doesn't
+    # require a rebuild.
+    whisper_model_size: str = os.environ.get("WHISPER_MODEL_SIZE", "small")
+    whisper_compute_type: str = os.environ.get("WHISPER_COMPUTE_TYPE", "int8")
 
 
 settings = Settings()

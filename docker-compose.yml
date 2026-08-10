@@ -82,6 +82,10 @@ services:
       - FRONTEND_BASE_URL=${FRONTEND_BASE_URL:-http://localhost:3000}
       - CONTACT_EMAIL=${CONTACT_EMAIL:-}
       - CAPTCHA_DIFFICULTY=${CAPTCHA_DIFFICULTY:-5}
+      # Audio transcription (self-hosted via faster-whisper) - model is
+      # downloaded once into the app_data volume on first use.
+      - WHISPER_MODEL_SIZE=${WHISPER_MODEL_SIZE:-small}
+      - WHISPER_COMPUTE_TYPE=${WHISPER_COMPUTE_TYPE:-int8}
       - SMTP_HOST=${SMTP_HOST:-}
       - SMTP_PORT=${SMTP_PORT:-587}
       - SMTP_USER=${SMTP_USER:-}

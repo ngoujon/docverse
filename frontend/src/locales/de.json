@@ -661,7 +661,7 @@
       "subtitle": "Fugen Sie Dateien oder Links hinzu, die der Chatbot einsehen kann.",
       "dropActive": "Dateien hier ablegen",
       "dropIdle": "Per Drag & Drop hinzufugen oder klicken",
-      "supportedFormats": "PDF, Bilder, DOCX, TXT, Markdown",
+      "supportedFormats": "PDF, Bilder, Audio, DOCX, TXT, Markdown",
       "urlPlaceholder": "Link einfugen (https://...)",
       "addUrl": "Link hinzufugen",
       "empty": "Noch keine Dokumente.",
