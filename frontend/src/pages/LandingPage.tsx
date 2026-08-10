@@ -58,7 +58,6 @@ export default function LandingPage() {
   const navLinks = [
     { label: t("nav.features"), href: "#fonctionnalites" },
     { label: t("nav.howItWorks"), href: "#comment-ca-marche" },
-    { label: t("nav.contact"), href: "#contact" },
   ];
   const features = t("features.items", { returnObjects: true }) as FeatureItem[];
   const badges = t("hero.badges", { returnObjects: true }) as string[];
@@ -99,6 +98,12 @@ export default function LandingPage() {
             >
               {t("nav.pricing")}
             </Link>
+            <a
+              href="#contact"
+              className="font-mono text-xs uppercase tracking-wider text-slate-600 transition hover:text-retro-cyan"
+            >
+              {t("nav.contact")}
+            </a>
             <Link
               to="/faq"
               className="font-mono text-xs uppercase tracking-wider text-slate-600 transition hover:text-retro-cyan"
@@ -166,6 +171,13 @@ export default function LandingPage() {
               >
                 {t("nav.pricing")}
               </Link>
+              <a
+                href="#contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="font-mono text-xs uppercase tracking-wider text-slate-600"
+              >
+                {t("nav.contact")}
+              </a>
               <Link
                 to="/faq"
                 onClick={() => setMobileMenuOpen(false)}
