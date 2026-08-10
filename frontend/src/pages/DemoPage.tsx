@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, ArrowRight, FileText, Image, FileCode, Globe, Sparkles, RotateCcw, Info } from "lucide-react";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { useInvisibleCaptcha } from "../hooks/useInvisibleCaptcha";
 import AnimatedText from "../components/AnimatedText";
 
 interface DemoDocument {
@@ -29,6 +30,7 @@ export default function DemoPage() {
   const { t } = useTranslation();
   const documents = t("demoPage.documents", { returnObjects: true }) as DemoDocument[];
   const suggestions = t("demoPage.suggestions", { returnObjects: true }) as DemoSuggestion[];
+  const humanVerified = useInvisibleCaptcha();
   const [messages, setMessages] = useState<DemoMessage[]>([]);
   const [usedIndexes, setUsedIndexes] = useState<number[]>([]);
 
@@ -39,7 +41,7 @@ export default function DemoPage() {
   });
 
   const askSuggestion = (i: number) => {
-    if (usedIndexes.includes(i)) return;
+    if (!humanVerified || usedIndexes.includes(i)) return;
     const s = suggestions[i];
     setUsedIndexes((prev) => [...prev, i]);
     setMessages((prev) => [
@@ -166,7 +168,7 @@ export default function DemoPage() {
                   <button
                     key={s.question}
                     onClick={() => askSuggestion(i)}
-                    disabled={usedIndexes.includes(i)}
+                    disabled={!humanVerified || usedIndexes.includes(i)}
                     className="rounded-full border border-retro-border bg-white px-3 py-1.5 text-xs text-slate-700 transition hover:border-retro-cyan hover:text-retro-cyan disabled:cursor-not-allowed disabled:opacity-40"
                   >
                     {s.question}
