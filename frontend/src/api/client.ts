@@ -13,6 +13,7 @@ import type {
   SpaceMember,
   SpaceStats,
   User,
+  VectorGraph,
 } from "../types";
 import { getUserToken } from "./userToken";
 
@@ -126,6 +127,8 @@ export const api = {
     }),
   getSpace: (id: string, shareToken?: string) => request<Space>(`/spaces/${id}`, undefined, shareToken),
   getSpaceByShareToken: (token: string) => request<Space>(`/spaces/by-share/${token}`),
+  vectorGraph: (id: string, shareToken?: string) =>
+    request<VectorGraph>(`/spaces/${id}/vector-graph`, undefined, shareToken),
   spaceStats: (id: string, shareToken?: string) =>
     request<SpaceStats>(`/spaces/${id}/stats`, undefined, shareToken),
   updateSpace: (id: string, patch: Partial<Pick<Space, "name" | "description" | "color">>) =>

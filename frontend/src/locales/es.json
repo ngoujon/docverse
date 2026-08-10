@@ -327,6 +327,14 @@
     },
     "share": {
       "invalid": "Este enlace de invitacion no es valido, fue revocado o ha caducado."
+    },
+    "vectorGraph": {
+      "openTitle": "Visualizar la base vectorial",
+      "title": "Red de la base vectorial",
+      "nodeCount": "{{count}} fragmentos",
+      "truncated": "mostrando solo los primeros fragmentos",
+      "empty": "Aun no hay documentos indexados.",
+      "error": "No se pudo cargar la visualizacion."
     }
   }
 }

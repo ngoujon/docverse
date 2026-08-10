@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Send, PanelRight, Sparkles, Menu, Loader2, Eye } from "lucide-react";
+import { Send, PanelRight, Sparkles, Menu, Loader2, Eye, Network } from "lucide-react";
 import clsx from "clsx";
 import type { Conversation, Message, Space } from "../types";
 import MessageBubble from "./MessageBubble";
@@ -16,6 +16,7 @@ interface Props {
   docPanelOpen: boolean;
   onOpenMobileNav?: () => void;
   readOnly?: boolean;
+  onOpenVectorGraph: () => void;
 }
 
 export default function ChatWindow({
@@ -29,6 +30,7 @@ export default function ChatWindow({
   docPanelOpen,
   onOpenMobileNav,
   readOnly,
+  onOpenVectorGraph,
 }: Props) {
   const { t } = useTranslation();
   const [input, setInput] = useState("");
@@ -84,6 +86,13 @@ export default function ChatWindow({
           </div>
         </div>
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+          <button
+            onClick={onOpenVectorGraph}
+            title={t("app.vectorGraph.openTitle")}
+            className="rounded-lg border border-surface-border p-2 text-slate-500 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-600 hover:text-slate-700 dark:hover:text-slate-200"
+          >
+            <Network size={15} />
+          </button>
           <button
             onClick={onToggleDocPanel}
             title={t("app.chat.documentsTitle")}

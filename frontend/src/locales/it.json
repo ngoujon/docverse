@@ -327,6 +327,14 @@
     },
     "share": {
       "invalid": "Questo link di condivisione non e valido, e stato revocato o e scaduto."
+    },
+    "vectorGraph": {
+      "openTitle": "Visualizza il database vettoriale",
+      "title": "Rete del database vettoriale",
+      "nodeCount": "{{count}} estratti",
+      "truncated": "vengono mostrati solo i primi estratti",
+      "empty": "Ancora nessun documento indicizzato.",
+      "error": "Impossibile caricare la visualizzazione."
     }
   }
 }

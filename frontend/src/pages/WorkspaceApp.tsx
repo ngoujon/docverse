@@ -12,6 +12,7 @@ import ChatWindow from "../components/ChatWindow";
 import DocumentPanel from "../components/DocumentPanel";
 import SpaceModal, { type SpaceFormData } from "../components/SpaceModal";
 import SpaceSharingPanel from "../components/SpaceSharingPanel";
+import VectorGraphOverlay from "../components/VectorGraphOverlay";
 import ConfirmDialog from "../components/ConfirmDialog";
 
 export default function WorkspaceApp() {
@@ -44,6 +45,7 @@ export default function WorkspaceApp() {
     editing: null,
   });
   const [sharingOpen, setSharingOpen] = useState(false);
+  const [vectorGraphOpen, setVectorGraphOpen] = useState(false);
   const [deleteSpaceId, setDeleteSpaceId] = useState<string | null>(null);
   const [deleteConvId, setDeleteConvId] = useState<string | null>(null);
 
@@ -367,6 +369,7 @@ export default function WorkspaceApp() {
             docPanelOpen={docPanelOpen}
             onOpenMobileNav={() => setMobileNavOpen(true)}
             readOnly={!canWrite}
+            onOpenVectorGraph={() => setVectorGraphOpen(true)}
           />
 
           {docPanelOpen && (
@@ -414,6 +417,15 @@ export default function WorkspaceApp() {
         space={activeSpace}
         onClose={() => setSharingOpen(false)}
       />
+
+      {activeSpace && (
+        <VectorGraphOverlay
+          open={vectorGraphOpen}
+          spaceId={activeSpace.id}
+          shareToken={shareToken}
+          onClose={() => setVectorGraphOpen(false)}
+        />
+      )}
 
       <ConfirmDialog
         open={!!deleteSpaceId}

@@ -327,6 +327,14 @@
     },
     "share": {
       "invalid": "This share link is invalid, revoked, or expired."
+    },
+    "vectorGraph": {
+      "openTitle": "Visualize the vector database",
+      "title": "Vector database network",
+      "nodeCount": "{{count}} chunks",
+      "truncated": "showing only the first chunks",
+      "empty": "No indexed documents yet.",
+      "error": "Couldn't load the visualization."
     }
   }
 }

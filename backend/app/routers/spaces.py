@@ -9,7 +9,7 @@ from .. import models_db, schemas
 from ..config import UPLOAD_DIR
 from ..database import get_db
 from ..deps import SpaceAccess, get_current_user, require_space_access, require_space_owner
-from ..services import vectorstore
+from ..services import vector_graph, vectorstore
 
 router = APIRouter(prefix="/api/spaces", tags=["spaces"])
 
@@ -88,6 +88,11 @@ def get_space_by_share_token(token: str, db: Session = Depends(get_db)):
 @router.get("/{space_id}", response_model=schemas.SpaceOut)
 def get_space(access: SpaceAccess = Depends(require_space_access)):
     return _to_out(access.space, access.role)
+
+
+@router.get("/{space_id}/vector-graph", response_model=schemas.VectorGraphOut)
+def space_vector_graph(access: SpaceAccess = Depends(require_space_access)):
+    return vector_graph.build_graph(access.space.id)
 
 
 @router.get("/{space_id}/stats", response_model=schemas.SpaceStatsOut)

@@ -327,6 +327,14 @@
     },
     "share": {
       "invalid": "Este link de partilha e invalido, foi revogado ou expirou."
+    },
+    "vectorGraph": {
+      "openTitle": "Visualizar a base vetorial",
+      "title": "Rede da base vetorial",
+      "nodeCount": "{{count}} fragmentos",
+      "truncated": "a mostrar apenas os primeiros fragmentos",
+      "empty": "Ainda nao ha documentos indexados.",
+      "error": "Nao foi possivel carregar a visualizacao."
     }
   }
 }

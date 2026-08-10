@@ -126,6 +126,26 @@ class MeStatsOut(BaseModel):
     storage_bytes: int
 
 
+class VectorGraphNode(BaseModel):
+    id: str
+    doc_id: str
+    doc_name: str
+    text_preview: str
+    x: float
+    y: float
+
+
+class VectorGraphEdge(BaseModel):
+    source: str
+    target: str
+
+
+class VectorGraphOut(BaseModel):
+    nodes: list[VectorGraphNode]
+    edges: list[VectorGraphEdge]
+    truncated: bool
+
+
 class AdminStatsOut(BaseModel):
     users: int
     spaces: int

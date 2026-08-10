@@ -36,6 +36,21 @@ def add_chunks(
     collection.add(ids=ids, documents=chunks, embeddings=embeddings, metadatas=metadatas)
 
 
+def get_all(space_id: str) -> dict:
+    """Returns every chunk in a space's collection with its embedding,
+    text and metadata - used to build the vector-space visualization."""
+    collection = get_collection(space_id)
+    if collection.count() == 0:
+        return {"ids": [], "embeddings": [], "documents": [], "metadatas": []}
+    result = collection.get(include=["embeddings", "documents", "metadatas"])
+    return {
+        "ids": result.get("ids", []),
+        "embeddings": result.get("embeddings", []),
+        "documents": result.get("documents", []),
+        "metadatas": result.get("metadatas", []),
+    }
+
+
 def query(space_id: str, query_embedding: list[float], top_k: int = 6) -> list[dict]:
     collection = get_collection(space_id)
     if collection.count() == 0:

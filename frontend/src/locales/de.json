@@ -327,6 +327,14 @@
     },
     "share": {
       "invalid": "Dieser Freigabelink ist ungultig, widerrufen oder abgelaufen."
+    },
+    "vectorGraph": {
+      "openTitle": "Vektordatenbank visualisieren",
+      "title": "Netzwerk der Vektordatenbank",
+      "nodeCount": "{{count}} Abschnitte",
+      "truncated": "nur die ersten Abschnitte werden angezeigt",
+      "empty": "Noch keine indexierten Dokumente.",
+      "error": "Visualisierung konnte nicht geladen werden."
     }
   }
 }

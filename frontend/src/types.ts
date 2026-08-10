@@ -136,3 +136,23 @@ export interface CaptchaSolution {
   captcha_salt: string;
   captcha_nonce: number;
 }
+
+export interface VectorGraphNode {
+  id: string;
+  doc_id: string;
+  doc_name: string;
+  text_preview: string;
+  x: number;
+  y: number;
+}
+
+export interface VectorGraphEdge {
+  source: string;
+  target: string;
+}
+
+export interface VectorGraph {
+  nodes: VectorGraphNode[];
+  edges: VectorGraphEdge[];
+  truncated: boolean;
+}
