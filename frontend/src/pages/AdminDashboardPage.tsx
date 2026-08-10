@@ -19,7 +19,7 @@ import {
   Users,
 } from "lucide-react";
 import { api } from "../api/client";
-import { usePageTitle } from "../hooks/usePageTitle";
+import { usePageMeta } from "../hooks/usePageMeta";
 import { useAuth } from "../hooks/useAuth";
 import { formatBytes } from "../utils/format";
 import DashboardNav from "../components/DashboardNav";
@@ -38,7 +38,7 @@ export default function AdminDashboardPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { user: currentUser } = useAuth();
-  usePageTitle(`${t("dashboard.nav.admin")} - Open RAG`);
+  usePageMeta({ title: `${t("dashboard.nav.admin")} - Open RAG`, noindex: true });
 
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [users, setUsers] = useState<User[]>([]);

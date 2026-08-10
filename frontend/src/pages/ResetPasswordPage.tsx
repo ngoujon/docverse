@@ -5,14 +5,14 @@ import { CheckCircle2, Eye, EyeOff } from "lucide-react";
 import { api } from "../api/client";
 import AuthLayout from "../components/AuthLayout";
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter";
-import { usePageTitle } from "../hooks/usePageTitle";
+import { usePageMeta } from "../hooks/usePageMeta";
 
 export default function ResetPasswordPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const token = params.get("token") || "";
-  usePageTitle(`${t("auth.reset.title")} - Open RAG`);
+  usePageMeta({ title: `${t("auth.reset.title")} - Open RAG`, noindex: true });
 
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);

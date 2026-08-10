@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { usePageTitle } from "../hooks/usePageTitle";
+import { usePageMeta } from "../hooks/usePageMeta";
 import { useTheme } from "../hooks/useTheme";
 import { useAuth } from "../hooks/useAuth";
 import { api, streamChat } from "../api/client";
@@ -57,13 +57,14 @@ export default function WorkspaceApp() {
   const canWrite = activeSpace ? activeSpace.my_role !== "viewer" : false;
   const isOwner = activeSpace?.my_role === "owner";
 
-  usePageTitle(
-    activeConversation
+  usePageMeta({
+    title: activeConversation
       ? `${activeConversation.title} - ${activeSpace?.name ?? ""} - Open RAG`
       : activeSpace
       ? `${activeSpace.name} - Open RAG`
-      : "Open RAG"
-  );
+      : "Open RAG",
+    noindex: true,
+  });
 
   const selectSpace = (id: string) => {
     if (!spaces.some((s) => s.id === id)) return;

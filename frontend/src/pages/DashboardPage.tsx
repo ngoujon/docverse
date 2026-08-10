@@ -5,7 +5,7 @@ import { Eye, Files, Folders, MessagesSquare, Pencil, Plus, Star, Users2, HardDr
 import clsx from "clsx";
 import { api } from "../api/client";
 import { useAuth } from "../hooks/useAuth";
-import { usePageTitle } from "../hooks/usePageTitle";
+import { usePageMeta } from "../hooks/usePageMeta";
 import { formatBytes } from "../utils/format";
 import DashboardNav from "../components/DashboardNav";
 import StatCard from "../components/StatCard";
@@ -36,7 +36,7 @@ export default function DashboardPage() {
   const { t } = useTranslation();
   const { user } = useAuth();
   const navigate = useNavigate();
-  usePageTitle(`${t("dashboard.title")} - Open RAG`);
+  usePageMeta({ title: `${t("dashboard.title")} - Open RAG`, noindex: true });
 
   const [spaces, setSpaces] = useState<Space[]>([]);
   const [stats, setStats] = useState<MeStats | null>(null);

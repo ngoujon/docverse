@@ -5,7 +5,7 @@ import { CheckCircle2, XCircle } from "lucide-react";
 import { api } from "../api/client";
 import { useAuth } from "../hooks/useAuth";
 import AuthLayout from "../components/AuthLayout";
-import { usePageTitle } from "../hooks/usePageTitle";
+import { usePageMeta } from "../hooks/usePageMeta";
 
 export default function VerifyEmailPage() {
   const { t } = useTranslation();
@@ -13,7 +13,7 @@ export default function VerifyEmailPage() {
   const token = params.get("token") || "";
   const { refresh } = useAuth();
   const [status, setStatus] = useState<"loading" | "ok" | "error">("loading");
-  usePageTitle(`${t("auth.verify.title")} - Open RAG`);
+  usePageMeta({ title: `${t("auth.verify.title")} - Open RAG`, noindex: true });
 
   useEffect(() => {
     if (!token) {

@@ -24,7 +24,7 @@ import OnboardingTerminal from "../components/landing/OnboardingTerminal";
 import TerminalWindow from "../components/landing/TerminalWindow";
 import NewsletterSignup from "../components/NewsletterSignup";
 import LanguageSwitcher from "../components/LanguageSwitcher";
-import { usePageTitle } from "../hooks/usePageTitle";
+import { usePageMeta } from "../hooks/usePageMeta";
 
 const FEATURE_ICONS = [FolderLock, FileStack, ScanEye, Globe2, Gauge, ShieldCheck];
 const FEATURE_COLORS = [
@@ -48,7 +48,11 @@ export default function LandingPage() {
   const { t } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  usePageTitle(`Open RAG - ${t("hero.title1")} ${t("hero.title2")}`);
+  usePageMeta({
+    title: `Open RAG - ${t("hero.title1")} ${t("hero.title2")}`,
+    description: t("hero.subtitle"),
+    canonicalPath: "/",
+  });
 
   const navLinks = [
     { label: t("nav.features"), href: "#fonctionnalites" },

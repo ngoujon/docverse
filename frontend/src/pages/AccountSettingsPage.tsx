@@ -14,7 +14,7 @@ import {
 import { api } from "../api/client";
 import { setUserToken } from "../api/userToken";
 import { useAuth } from "../hooks/useAuth";
-import { usePageTitle } from "../hooks/usePageTitle";
+import { usePageMeta } from "../hooks/usePageMeta";
 import DashboardNav from "../components/DashboardNav";
 import ConfirmDialog from "../components/ConfirmDialog";
 import type { TwoFactorSetup } from "../types";
@@ -23,7 +23,7 @@ export default function AccountSettingsPage() {
   const { t } = useTranslation();
   const { user, logout, refresh } = useAuth();
   const navigate = useNavigate();
-  usePageTitle(`${t("auth.account.title")} - Open RAG`);
+  usePageMeta({ title: `${t("auth.account.title")} - Open RAG`, noindex: true });
 
   const [logoutDone, setLogoutDone] = useState(false);
   const [logoutBusy, setLogoutBusy] = useState(false);

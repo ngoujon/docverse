@@ -1,11 +1,23 @@
 # Open RAG - robots.txt
 # The marketing pages (/, /confidentialite) are public and meant to be
-# indexed. The app itself (/app/...) is a private workspace tool with no
-# unique per-URL content worth indexing, so it's excluded.
+# indexed. Everything else is either a private workspace/dashboard with
+# no unique per-URL content worth indexing, or a page whose URL carries a
+# single-use security token in the query string (password reset, email
+# verification, newsletter confirm/unsubscribe, share links) - those must
+# never be crawled or cached by a search engine, since that could leak or
+# burn the token.
 
 User-agent: *
 Allow: /
 Disallow: /app
 Disallow: /app/
+Disallow: /share/
+Disallow: /dashboard
+Disallow: /admin
+Disallow: /account
+Disallow: /reset-password
+Disallow: /verify-email
+Disallow: /newsletter/confirm
+Disallow: /newsletter/unsubscribe
 
 Sitemap: /sitemap.xml

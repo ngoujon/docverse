@@ -4,14 +4,14 @@ import { useTranslation } from "react-i18next";
 import { CheckCircle2, XCircle } from "lucide-react";
 import { api } from "../api/client";
 import AuthLayout from "../components/AuthLayout";
-import { usePageTitle } from "../hooks/usePageTitle";
+import { usePageMeta } from "../hooks/usePageMeta";
 
 export default function NewsletterConfirmPage({ mode }: { mode: "confirm" | "unsubscribe" }) {
   const { t } = useTranslation();
   const [params] = useSearchParams();
   const token = params.get("token") || "";
   const [status, setStatus] = useState<"loading" | "ok" | "error">("loading");
-  usePageTitle(`${t(`newsletter.${mode}.title`)} - Open RAG`);
+  usePageMeta({ title: `${t(`newsletter.${mode}.title`)} - Open RAG`, noindex: true });
 
   useEffect(() => {
     if (!token) {
