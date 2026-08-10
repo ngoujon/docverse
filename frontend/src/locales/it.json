@@ -63,11 +63,6 @@
       { "title": "Chatta e condividi", "desc": "Fai le tue domande, ottieni risposte con fonti, e invita altre persone tramite un link di condivisione con il ruolo scelto." }
     ]
   },
-  "pricingTeaser": {
-    "title": "Un piano per ogni esigenza",
-    "desc": "Dal piano Scoperta gratuito a un preventivo aziendale su misura: scegli in base a spazi, membri e archiviazione di cui hai bisogno.",
-    "cta": "Vedi i prezzi"
-  },
   "contact": {
     "eyebrow": "Contatto",
     "title": "Una domanda? Scrivici",

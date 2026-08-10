@@ -63,11 +63,6 @@
       { "title": "Discutez et partagez", "desc": "Posez vos questions, obtenez des reponses sourcees, et invitez d'autres personnes via un lien de partage avec le role de votre choix." }
     ]
   },
-  "pricingTeaser": {
-    "title": "Un palier pour chaque usage",
-    "desc": "De la decouverte gratuite a l'entreprise sur devis : choisissez selon le nombre d'espaces, de membres et de stockage dont vous avez besoin.",
-    "cta": "Voir les tarifs"
-  },
   "contact": {
     "eyebrow": "Contact",
     "title": "Une question ? Ecrivez-nous",

@@ -63,11 +63,6 @@
       { "title": "Conversa y comparte", "desc": "Haz tus preguntas, obten respuestas con fuentes, e invita a otras personas mediante un enlace de invitacion con el rol que elijas." }
     ]
   },
-  "pricingTeaser": {
-    "title": "Un plan para cada uso",
-    "desc": "Desde el plan gratuito de descubrimiento hasta un presupuesto empresarial a medida: elige segun los espacios, miembros y almacenamiento que necesites.",
-    "cta": "Ver precios"
-  },
   "contact": {
     "eyebrow": "Contacto",
     "title": "¿Alguna pregunta? Escribenos",

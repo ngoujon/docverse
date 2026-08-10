@@ -12,7 +12,6 @@ import {
   Gauge,
   ShieldCheck,
   Sparkles,
-  Tag,
   Heart,
 } from "lucide-react";
 import NeoGrid from "../components/landing/NeoGrid";
@@ -290,33 +289,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Pricing teaser + newsletter */}
-      <section className="border-t border-retro-border/60 px-4 py-20 sm:px-6">
-        <div className="mx-auto grid max-w-5xl gap-6 lg:grid-cols-2">
-          <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border border-retro-border bg-gradient-to-br from-retro-panel to-retro-bg2 p-8 text-center sm:p-10">
-            <Tag size={26} className="text-retro-pink" />
-            <h2 className="text-xl font-bold text-slate-900">{t("pricingTeaser.title")}</h2>
-            <p className="max-w-sm text-sm text-slate-600">{t("pricingTeaser.desc")}</p>
-            <Link
-              to="/tarifs"
-              className="mt-1 flex items-center gap-2 rounded-lg border border-retro-cyan bg-retro-cyan/10 px-6 py-3 font-mono text-xs uppercase tracking-wider text-retro-cyan transition hover:bg-retro-cyan hover:text-retro-bg"
-            >
-              {t("pricingTeaser.cta")} <ArrowRight size={14} />
-            </Link>
-          </div>
-
-          <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-retro-border bg-retro-panel/40 p-8 text-center sm:p-10">
-            <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-retro-pink">
-              {t("newsletter.sectionEyebrow")}
-            </p>
-            <h2 className="text-xl font-bold text-slate-900">{t("newsletter.sectionTitle")}</h2>
-            <div className="mt-2 flex justify-center">
-              <NewsletterSignup />
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Contact */}
       <section id="contact" className="border-t border-retro-border/60 px-4 py-20 sm:px-6">
         <div className="mx-auto max-w-2xl">
@@ -341,8 +313,18 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-retro-border/60 px-4 py-8 sm:px-6">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
+      <footer className="border-t border-retro-border/60 px-4 py-10 sm:px-6">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 border-b border-retro-border/60 pb-8 text-center sm:flex-row sm:text-left">
+          <div>
+            <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-retro-pink">
+              {t("newsletter.sectionEyebrow")}
+            </p>
+            <h2 className="mt-1 text-base font-bold text-slate-900">{t("newsletter.sectionTitle")}</h2>
+          </div>
+          <NewsletterSignup />
+        </div>
+
+        <div className="mx-auto mt-6 flex max-w-6xl flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
           <p className="flex items-center gap-1.5 font-mono text-[11px] text-slate-600">
             {t("footer.tagline", { heart: "" })}
             <Heart size={11} className="text-retro-pink" />

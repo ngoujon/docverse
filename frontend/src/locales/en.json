@@ -63,11 +63,6 @@
       { "title": "Chat and share", "desc": "Ask your questions, get sourced answers, and invite others via a share link with the role of your choice." }
     ]
   },
-  "pricingTeaser": {
-    "title": "A tier for every use case",
-    "desc": "From a free discovery tier to a custom enterprise quote: pick based on how many workspaces, members, and storage you need.",
-    "cta": "See pricing"
-  },
   "contact": {
     "eyebrow": "Contact",
     "title": "Got a question? Write to us",
