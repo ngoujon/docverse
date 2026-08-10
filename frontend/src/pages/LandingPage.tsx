@@ -55,10 +55,7 @@ export default function LandingPage() {
     canonicalPath: "/",
   });
 
-  const navLinks = [
-    { label: t("nav.features"), href: "#fonctionnalites" },
-    { label: t("nav.howItWorks"), href: "#comment-ca-marche" },
-  ];
+  const navLinks = [{ label: t("nav.features"), href: "#fonctionnalites" }];
   const features = t("features.items", { returnObjects: true }) as FeatureItem[];
   const badges = t("hero.badges", { returnObjects: true }) as string[];
 
@@ -279,16 +276,18 @@ export default function LandingPage() {
 
       <Marquee items={badges} />
 
-      {/* Features - asymmetric bento grid instead of a uniform icon grid */}
+      {/* Solution - features and onboarding merged into one section instead
+          of two separate scroll stops with their own nav entries */}
       <section id="fonctionnalites" className="border-t border-retro-border/60 px-4 py-20 sm:px-6">
         <div className="mx-auto max-w-6xl">
-          <div className="mx-auto max-w-xl text-center">
+          <div className="mx-auto max-w-2xl text-center">
             <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-retro-pink">
               {t("features.eyebrow")}
             </p>
             <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
               {t("features.title")}
             </h2>
+            <p className="mt-3 text-sm text-slate-600">{t("features.subtitle")}</p>
           </div>
 
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -307,23 +306,20 @@ export default function LandingPage() {
               );
             })}
           </div>
-        </div>
-      </section>
 
-      {/* How it works - a terminal session instead of numbered cards */}
-      <section id="comment-ca-marche" className="border-t border-retro-border/60 px-4 py-20 sm:px-6">
-        <div className="mx-auto max-w-3xl">
-          <div className="mx-auto max-w-xl text-center">
-            <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-retro-cyan">
-              {t("steps.eyebrow")}
-            </p>
-            <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
-              {t("steps.title")}
-            </h2>
-          </div>
+          <div className="mx-auto mt-16 max-w-3xl border-t border-retro-border/60 pt-16">
+            <div className="mx-auto max-w-xl text-center">
+              <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-retro-cyan">
+                {t("steps.eyebrow")}
+              </p>
+              <h3 className="mt-2 text-xl font-bold text-slate-900 sm:text-2xl">
+                {t("steps.title")}
+              </h3>
+            </div>
 
-          <div className="mt-10">
-            <OnboardingTerminal />
+            <div className="mt-8">
+              <OnboardingTerminal />
+            </div>
           </div>
         </div>
       </section>

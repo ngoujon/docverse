@@ -10,7 +10,6 @@
   },
   "nav": {
     "features": "Funcionalidades",
-    "howItWorks": "Como funciona",
     "demo": "Demo",
     "pricing": "Precos",
     "contact": "Contacto",
@@ -21,17 +20,18 @@
     "badges": ["100% Local", "Desde 9€/mes", "Plano gratuito", "Partilha por funcao"],
     "title1": "Converse com os seus documentos,",
     "title2": "em local, em equipa.",
-    "subtitle": "Carregue os seus PDF, imagens e links em espacos isolados, e consulte-os com uma IA que corre inteiramente no seu proprio servidor - via Ollama, sem API na nuvem nem rastreio.",
+    "subtitle": "A solucao para que as suas equipas encontrem uma resposta em segundos em vez de a procurarem durante horas. Carregue os seus documentos, consulte-os em linguagem natural, numa infraestrutura que controla de ponta a ponta.",
     "ctaTry": "Experimentar agora",
     "ctaDiscover": "Ver precos"
   },
   "features": {
-    "eyebrow": "Funcionalidades",
-    "title": "Tudo o que precisa, nada a mais",
+    "eyebrow": "A solucao",
+    "title": "Uma ferramenta simples, pensada para as necessidades de uma empresa",
+    "subtitle": "Concebida para equipas que perdem tempo a procurar uma informacao entre dezenas de documentos: pronta a usar de imediato, sem formacao necessaria, e com uma gestao de acessos pensada para varias equipas, projetos ou clientes.",
     "items": [
       {
         "title": "Espacos isolados",
-        "desc": "Cada espaco de trabalho guarda os seus documentos e conversas para si - nada e partilhado entre espacos. Partilhe-o com um link de leitura ou leitura/escrita, com um clique."
+        "desc": "Cada equipa, projeto ou cliente tem o seu proprio espaco: documentos e conversas mantem-se isolados. Partilhe em leitura ou edicao, com um clique, consoante quem deve ter acesso a que."
       },
       {
         "title": "Todos os formatos",
@@ -46,18 +46,18 @@
         "desc": "A IA deteta sozinha quando uma pergunta precisa de informacao recente e completa as respostas atraves de um motor de pesquisa auto-hospedado, sem rastreadores nem chave API."
       },
       {
-        "title": "Fila de pedidos inteligente",
-        "desc": "Os pedidos de IA sao processados um a um: mesmo num servidor pequeno, a app mantem-se estavel com varios utilizadores."
+        "title": "Preparado para varios utilizadores",
+        "desc": "Os pedidos sao colocados em fila automaticamente: a ferramenta mantem-se estavel e reativa mesmo quando uma equipa inteira a usa ao mesmo tempo."
       },
       {
         "title": "100% local e privado",
-        "desc": "Nenhum dado e enviado para uma API na nuvem de terceiros. Tudo corre no seu proprio servidor, com Ollama."
+        "desc": "Os seus dados nunca saem da sua infraestrutura, o que simplifica os requisitos de privacidade e conformidade da sua empresa."
       }
     ]
   },
   "steps": {
-    "eyebrow": "Como funciona",
-    "title": "Tres etapas, sem fricao",
+    "eyebrow": "Primeiros passos",
+    "title": "Operacional em minutos, sem equipa de TI",
     "items": [
       { "title": "Crie uma conta e um espaco", "desc": "Registo gratuito, depois de-lhe um nome e escolha uma cor." },
       { "title": "Carregue os seus documentos", "desc": "Arraste e largue PDF, imagens ou links da web. A IA le-os e indexa-os em segundo plano." },

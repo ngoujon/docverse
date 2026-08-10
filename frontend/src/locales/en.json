@@ -10,7 +10,6 @@
   },
   "nav": {
     "features": "Features",
-    "howItWorks": "How it works",
     "demo": "Demo",
     "pricing": "Pricing",
     "contact": "Contact",
@@ -21,17 +20,18 @@
     "badges": ["100% Local", "From €9/mo", "Free tier", "Role-based sharing"],
     "title1": "Chat with your documents,",
     "title2": "locally, as a team.",
-    "subtitle": "Drop your PDFs, images and links into isolated spaces, and query them with an AI that runs entirely on your own server - via Ollama, no cloud API, no tracking.",
+    "subtitle": "The solution for teams that need to find an answer in seconds instead of searching for hours. Drop your documents, query them in plain language, on infrastructure you control end to end.",
     "ctaTry": "Try it now",
     "ctaDiscover": "See pricing"
   },
   "features": {
-    "eyebrow": "Features",
-    "title": "Everything you need, nothing you don't",
+    "eyebrow": "The solution",
+    "title": "A simple tool, built for business needs",
+    "subtitle": "Built for teams losing time hunting for one fact across dozens of documents: no training needed, and access management designed for multiple teams, projects, or clients.",
     "items": [
       {
         "title": "Isolated spaces",
-        "desc": "Each workspace keeps its documents and conversations to itself - nothing is shared between spaces. Share one with a read-only or read-write link, in one click."
+        "desc": "Each team, project, or client gets its own space - documents and conversations stay isolated. Share with a read-only or read-write link, in one click, depending on who needs access to what."
       },
       {
         "title": "Every format",
@@ -46,18 +46,18 @@
         "desc": "The AI detects on its own when a question needs up-to-date information and completes its answers via a self-hosted search engine, no trackers, no API key."
       },
       {
-        "title": "Smart request queue",
-        "desc": "AI requests are processed one at a time: even on a small server, the app stays stable with multiple users."
+        "title": "Built for multiple users",
+        "desc": "Requests are queued automatically, so the tool stays stable and responsive even when a whole team is using it at once."
       },
       {
         "title": "100% local and private",
-        "desc": "No data is sent to a third-party cloud API. Everything runs on your own server, with Ollama."
+        "desc": "Your data never leaves your infrastructure, which simplifies your company's privacy and compliance requirements."
       }
     ]
   },
   "steps": {
-    "eyebrow": "How it works",
-    "title": "Three steps, zero friction",
+    "eyebrow": "Getting started",
+    "title": "Up and running in minutes, no IT team required",
     "items": [
       { "title": "Create an account and a space", "desc": "Free sign-up, then name your space and pick a color." },
       { "title": "Drop your documents", "desc": "Drag and drop PDFs, images or web links. The AI reads and indexes them in the background." },

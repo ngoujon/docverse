@@ -10,7 +10,6 @@
   },
   "nav": {
     "features": "Funktionen",
-    "howItWorks": "So funktioniert's",
     "demo": "Demo",
     "pricing": "Preise",
     "contact": "Kontakt",
@@ -21,17 +20,18 @@
     "badges": ["100% Lokal", "Ab 9€/Monat", "Kostenlose Stufe", "Teilen nach Rolle"],
     "title1": "Unterhalten Sie sich mit Ihren Dokumenten,",
     "title2": "lokal, im Team.",
-    "subtitle": "Laden Sie PDFs, Bilder und Links in abgeschottete Bereiche und befragen Sie sie mit einer KI, die vollstandig auf Ihrem eigenen Server lauft - via Ollama, ohne Cloud-API, ohne Tracking.",
+    "subtitle": "Die Losung fur Teams, die eine Antwort in Sekunden statt nach stundenlanger Suche brauchen. Laden Sie Ihre Dokumente hoch, befragen Sie sie in normaler Sprache, auf einer Infrastruktur, die Sie vollstandig kontrollieren.",
     "ctaTry": "Jetzt testen",
     "ctaDiscover": "Preise ansehen"
   },
   "features": {
-    "eyebrow": "Funktionen",
-    "title": "Alles, was Sie brauchen, nichts Uberflussiges",
+    "eyebrow": "Die Losung",
+    "title": "Ein einfaches Werkzeug, gebaut fur den Unternehmensalltag",
+    "subtitle": "Entwickelt fur Teams, die Zeit mit der Suche nach einer einzigen Information in Dutzenden von Dokumenten verlieren: sofort einsatzbereit, keine Schulung notig, und eine Zugriffsverwaltung, die fur mehrere Teams, Projekte oder Kunden ausgelegt ist.",
     "items": [
       {
         "title": "Abgeschottete Bereiche",
-        "desc": "Jeder Arbeitsbereich behalt seine Dokumente und Unterhaltungen fur sich - nichts wird zwischen Bereichen geteilt. Teilen Sie ihn mit einem Nur-Lese- oder Lese-/Schreiblink, mit einem Klick."
+        "desc": "Jedes Team, Projekt oder jeder Kunde erhalt einen eigenen Bereich - Dokumente und Unterhaltungen bleiben getrennt. Teilen Sie mit einem Nur-Lese- oder Lese-/Schreiblink, mit einem Klick, je nachdem wer worauf Zugriff braucht."
       },
       {
         "title": "Alle Formate",
@@ -46,18 +46,18 @@
         "desc": "Die KI erkennt selbststandig, wann eine Frage aktuelle Informationen benotigt, und erganzt ihre Antworten uber eine selbst gehostete Suchmaschine, ohne Tracker, ohne API-Schlussel."
       },
       {
-        "title": "Intelligente Warteschlange",
-        "desc": "KI-Anfragen werden nacheinander verarbeitet: Auch auf einem kleinen Server bleibt die App bei mehreren Nutzern stabil."
+        "title": "Ausgelegt fur mehrere Nutzer",
+        "desc": "Anfragen werden automatisch in eine Warteschlange gestellt: Das Tool bleibt stabil und reaktionsschnell, auch wenn ein ganzes Team es gleichzeitig nutzt."
       },
       {
         "title": "100% lokal und privat",
-        "desc": "Es werden keine Daten an eine Cloud-API Dritter gesendet. Alles lauft auf Ihrem eigenen Server, mit Ollama."
+        "desc": "Ihre Daten verlassen nie Ihre Infrastruktur - das vereinfacht die Datenschutz- und Compliance-Anforderungen Ihres Unternehmens."
       }
     ]
   },
   "steps": {
-    "eyebrow": "So funktioniert's",
-    "title": "Drei Schritte, keine Huerden",
+    "eyebrow": "Erste Schritte",
+    "title": "In wenigen Minuten einsatzbereit, ohne IT-Team",
     "items": [
       { "title": "Konto und Bereich erstellen", "desc": "Kostenlose Registrierung, dann benennen Sie Ihren Bereich und wahlen eine Farbe." },
       { "title": "Dokumente hinzufugen", "desc": "PDFs, Bilder oder Weblinks per Drag & Drop hinzufugen. Die KI liest und indexiert sie im Hintergrund." },

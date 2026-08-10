@@ -10,7 +10,6 @@
   },
   "nav": {
     "features": "Funzionalita",
-    "howItWorks": "Come funziona",
     "demo": "Demo",
     "pricing": "Prezzi",
     "contact": "Contatto",
@@ -21,17 +20,18 @@
     "badges": ["100% Locale", "Da 9€/mese", "Piano gratuito", "Condivisione per ruolo"],
     "title1": "Chatta con i tuoi documenti,",
     "title2": "in locale, in team.",
-    "subtitle": "Carica i tuoi PDF, immagini e link in spazi isolati, e interrogali con un'IA che gira interamente sul tuo server - via Ollama, senza API cloud ne tracciamento.",
+    "subtitle": "La soluzione per i team che devono trovare una risposta in pochi secondi invece di cercarla per ore. Carica i tuoi documenti, interrogali in linguaggio naturale, su un'infrastruttura che controlli interamente.",
     "ctaTry": "Prova ora",
     "ctaDiscover": "Vedi i prezzi"
   },
   "features": {
-    "eyebrow": "Funzionalita",
-    "title": "Tutto cio che serve, niente di superfluo",
+    "eyebrow": "La soluzione",
+    "title": "Uno strumento semplice, pensato per le esigenze aziendali",
+    "subtitle": "Pensato per i team che perdono tempo a cercare un'informazione tra decine di documenti: subito operativo, senza formazione, con una gestione degli accessi pensata per piu team, progetti o clienti.",
     "items": [
       {
         "title": "Spazi isolati",
-        "desc": "Ogni spazio di lavoro conserva i propri documenti e conversazioni solo per se - niente viene condiviso tra spazi. Condividilo con un link di sola lettura o lettura/scrittura, con un clic."
+        "desc": "Ogni team, progetto o cliente ha il proprio spazio: documenti e conversazioni restano isolati. Condividi in sola lettura o in modifica, con un clic, in base a chi deve avere accesso a cosa."
       },
       {
         "title": "Tutti i formati",
@@ -46,18 +46,18 @@
         "desc": "L'IA capisce da sola quando una domanda richiede informazioni recenti e completa le risposte tramite un motore di ricerca self-hosted, senza tracker ne chiave API."
       },
       {
-        "title": "Coda di richieste intelligente",
-        "desc": "Le richieste IA vengono elaborate una alla volta: anche su un piccolo server, l'app resta stabile con piu utenti."
+        "title": "Pensato per piu utenti",
+        "desc": "Le richieste vengono messe in coda automaticamente: lo strumento resta stabile e reattivo anche quando un intero team lo usa contemporaneamente."
       },
       {
         "title": "100% locale e privato",
-        "desc": "Nessun dato viene inviato a un'API cloud di terzi. Tutto gira sul tuo server, con Ollama."
+        "desc": "I tuoi dati non escono mai dalla tua infrastruttura, il che semplifica i requisiti di privacy e conformita della tua azienda."
       }
     ]
   },
   "steps": {
-    "eyebrow": "Come funziona",
-    "title": "Tre passaggi, zero attriti",
+    "eyebrow": "Per iniziare",
+    "title": "Operativo in pochi minuti, senza team IT",
     "items": [
       { "title": "Crea un account e uno spazio", "desc": "Registrazione gratuita, poi dai un nome al tuo spazio e scegli un colore." },
       { "title": "Carica i tuoi documenti", "desc": "Trascina e rilascia PDF, immagini o link web. L'IA li legge e li indicizza in background." },
