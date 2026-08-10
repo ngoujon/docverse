@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { useEscapeToClose } from "../hooks/useEscapeToClose";
 
 interface Props {
   open: boolean;
@@ -20,17 +21,22 @@ export default function ConfirmDialog({
   onCancel,
 }: Props) {
   const { t } = useTranslation();
+  useEscapeToClose(open, onCancel);
   if (!open) return null;
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fade-in"
       onClick={onCancel}
+      role="presentation"
     >
       <div
         className="w-full max-w-sm rounded-xl border border-surface-border bg-surface-2 p-5 shadow-panel"
         onClick={(e) => e.stopPropagation()}
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="confirm-dialog-title"
       >
-        <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{title}</h3>
+        <h3 id="confirm-dialog-title" className="text-sm font-semibold text-slate-900 dark:text-slate-100">{title}</h3>
         <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">{message}</p>
         <div className="mt-5 flex justify-end gap-2">
           <button

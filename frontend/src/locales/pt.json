@@ -4,7 +4,8 @@
     "save": "Guardar",
     "delete": "Eliminar",
     "confirm": "Confirmar",
-    "loading": "A carregar..."
+    "loading": "A carregar...",
+    "close": "Fechar"
   },
   "nav": {
     "features": "Funcionalidades",
@@ -317,6 +318,7 @@
       "newConversation": "Nova conversa",
       "noConversations": "Ainda sem conversas.",
       "shareTitle": "Partilha e membros",
+      "spaceOptions": "Opcoes do espaco",
       "readOnly": "Apenas leitura",
       "justNow": "agora mesmo",
       "minutesAgo": "ha {{count}} min",
@@ -334,7 +336,9 @@
       "placeholder": "Escreva a sua mensagem...",
       "readOnly": "Acesso apenas de leitura - nao pode escrever neste espaco.",
       "errorGeneric": "Ocorreu um erro ao gerar a resposta ({{error}}). Verifique se o Ollama esta em execucao e se os modelos estao transferidos.",
-      "connectionError": "Erro de ligacao ao servidor."
+      "connectionError": "Erro de ligacao ao servidor.",
+      "send": "Enviar",
+      "openMenu": "Abrir menu"
     },
     "documents": {
       "title": "Documentos do espaco",
@@ -343,6 +347,7 @@
       "dropIdle": "Arraste e largue ou clique",
       "supportedFormats": "PDF, imagens, DOCX, TXT, Markdown",
       "urlPlaceholder": "Cole um link (https://...)",
+      "addUrl": "Adicionar link",
       "empty": "Ainda sem documentos.",
       "statusReady": "{{count}} fragmentos",
       "statusPending": "Pendente",
@@ -400,7 +405,10 @@
       "nodeCount": "{{count}} fragmentos",
       "truncated": "a mostrar apenas os primeiros fragmentos",
       "empty": "Ainda nao ha documentos indexados.",
-      "error": "Nao foi possivel carregar a visualizacao."
+      "error": "Nao foi possivel carregar a visualizacao.",
+      "zoomIn": "Aumentar zoom",
+      "zoomOut": "Diminuir zoom",
+      "resetView": "Repor vista"
     }
   }
 }

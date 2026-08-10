@@ -4,7 +4,8 @@
     "save": "Save",
     "delete": "Delete",
     "confirm": "Confirm",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "close": "Close"
   },
   "nav": {
     "features": "Features",
@@ -317,6 +318,7 @@
       "newConversation": "New conversation",
       "noConversations": "No conversations yet.",
       "shareTitle": "Sharing and members",
+      "spaceOptions": "Space options",
       "readOnly": "Read only",
       "justNow": "just now",
       "minutesAgo": "{{count}} min ago",
@@ -334,7 +336,9 @@
       "placeholder": "Type your message...",
       "readOnly": "Read-only access - you can't write in this space.",
       "errorGeneric": "An error occurred while generating the response ({{error}}). Check that Ollama is running and the models are downloaded.",
-      "connectionError": "Connection error with the server."
+      "connectionError": "Connection error with the server.",
+      "send": "Send",
+      "openMenu": "Open menu"
     },
     "documents": {
       "title": "Space documents",
@@ -343,6 +347,7 @@
       "dropIdle": "Drag and drop or click",
       "supportedFormats": "PDF, images, DOCX, TXT, Markdown",
       "urlPlaceholder": "Paste a link (https://...)",
+      "addUrl": "Add link",
       "empty": "No documents yet.",
       "statusReady": "{{count}} chunks",
       "statusPending": "Pending",
@@ -400,7 +405,10 @@
       "nodeCount": "{{count}} chunks",
       "truncated": "showing only the first chunks",
       "empty": "No indexed documents yet.",
-      "error": "Couldn't load the visualization."
+      "error": "Couldn't load the visualization.",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out",
+      "resetView": "Reset view"
     }
   }
 }

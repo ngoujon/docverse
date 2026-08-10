@@ -4,7 +4,8 @@
     "save": "Enregistrer",
     "delete": "Supprimer",
     "confirm": "Confirmer",
-    "loading": "Chargement..."
+    "loading": "Chargement...",
+    "close": "Fermer"
   },
   "nav": {
     "features": "Fonctionnalites",
@@ -317,6 +318,7 @@
       "newConversation": "Nouvelle conversation",
       "noConversations": "Aucune conversation pour l'instant.",
       "shareTitle": "Partage et membres",
+      "spaceOptions": "Options de l'espace",
       "readOnly": "Lecture seule",
       "justNow": "a l'instant",
       "minutesAgo": "il y a {{count}} min",
@@ -334,7 +336,9 @@
       "placeholder": "Ecrivez votre message...",
       "readOnly": "Acces en lecture seule - vous ne pouvez pas ecrire dans cet espace.",
       "errorGeneric": "Une erreur est survenue pendant la generation ({{error}}). Verifiez qu'Ollama est bien demarre et que les modeles sont telecharges.",
-      "connectionError": "Erreur de connexion au serveur."
+      "connectionError": "Erreur de connexion au serveur.",
+      "send": "Envoyer",
+      "openMenu": "Ouvrir le menu"
     },
     "documents": {
       "title": "Documents de l'espace",
@@ -343,6 +347,7 @@
       "dropIdle": "Glissez-deposez ou cliquez",
       "supportedFormats": "PDF, images, DOCX, TXT, Markdown",
       "urlPlaceholder": "Coller un lien (https://...)",
+      "addUrl": "Ajouter le lien",
       "empty": "Aucun document pour l'instant.",
       "statusReady": "{{count}} extraits",
       "statusPending": "En attente",
@@ -400,7 +405,10 @@
       "nodeCount": "{{count}} extraits",
       "truncated": "affichage limite aux premiers extraits",
       "empty": "Aucun document indexe pour l'instant.",
-      "error": "Impossible de charger la visualisation."
+      "error": "Impossible de charger la visualisation.",
+      "zoomIn": "Zoomer",
+      "zoomOut": "Dezoomer",
+      "resetView": "Reinitialiser la vue"
     }
   }
 }

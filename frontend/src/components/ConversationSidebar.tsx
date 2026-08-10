@@ -83,6 +83,9 @@ export default function ConversationSidebar({
               <div className="relative">
                 <button
                   onClick={() => setMenuOpen((v) => !v)}
+                  title={t("app.sidebar.spaceOptions")}
+                  aria-haspopup="true"
+                  aria-expanded={menuOpen}
                   className="rounded-lg p-1.5 text-slate-500 dark:text-slate-400 hover:bg-surface-3 hover:text-slate-700 dark:hover:text-slate-200"
                 >
                   <Settings size={15} />
@@ -134,11 +137,19 @@ export default function ConversationSidebar({
           </p>
         )}
         {conversations.map((c) => (
-          <button
+          <div
             key={c.id}
+            role="button"
+            tabIndex={0}
             onClick={() => onSelect(c.id)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onSelect(c.id);
+              }
+            }}
             className={clsx(
-              "group mb-1 flex w-full items-start gap-2 rounded-lg px-3 py-2 text-left transition-colors",
+              "group mb-1 flex w-full cursor-pointer items-start gap-2 rounded-lg px-3 py-2 text-left transition-colors",
               activeConversationId === c.id ? "bg-surface-3" : "hover:bg-surface-2"
             )}
           >
@@ -148,17 +159,18 @@ export default function ConversationSidebar({
               <p className="text-[11px] text-slate-500 dark:text-slate-400">{relativeTime(c.updated_at, t)}</p>
             </div>
             {canWrite && (
-              <span
+              <button
                 onClick={(e) => {
                   e.stopPropagation();
                   onDelete(c.id);
                 }}
-                className="mt-0.5 shrink-0 rounded p-0.5 text-slate-500 dark:text-slate-400 opacity-0 hover:text-red-500 group-hover:opacity-100"
+                aria-label={t("common.delete")}
+                className="mt-0.5 shrink-0 rounded p-0.5 text-slate-500 dark:text-slate-400 opacity-0 hover:text-red-500 group-hover:opacity-100 group-focus-within:opacity-100"
               >
                 <Trash2 size={13} />
-              </span>
+              </button>
             )}
-          </button>
+          </div>
         ))}
       </div>
     </aside>

@@ -4,7 +4,8 @@
     "save": "Speichern",
     "delete": "Loschen",
     "confirm": "Bestatigen",
-    "loading": "Wird geladen..."
+    "loading": "Wird geladen...",
+    "close": "Schliessen"
   },
   "nav": {
     "features": "Funktionen",
@@ -317,6 +318,7 @@
       "newConversation": "Neue Unterhaltung",
       "noConversations": "Noch keine Unterhaltungen.",
       "shareTitle": "Freigabe und Mitglieder",
+      "spaceOptions": "Bereichsoptionen",
       "readOnly": "Nur Lesezugriff",
       "justNow": "gerade eben",
       "minutesAgo": "vor {{count}} Min.",
@@ -334,7 +336,9 @@
       "placeholder": "Nachricht eingeben...",
       "readOnly": "Nur Lesezugriff - Sie konnen in diesem Bereich nicht schreiben.",
       "errorGeneric": "Bei der Antworterstellung ist ein Fehler aufgetreten ({{error}}). Uberprufen Sie, ob Ollama lauft und die Modelle heruntergeladen sind.",
-      "connectionError": "Verbindungsfehler zum Server."
+      "connectionError": "Verbindungsfehler zum Server.",
+      "send": "Senden",
+      "openMenu": "Menu offnen"
     },
     "documents": {
       "title": "Dokumente des Bereichs",
@@ -343,6 +347,7 @@
       "dropIdle": "Per Drag & Drop hinzufugen oder klicken",
       "supportedFormats": "PDF, Bilder, DOCX, TXT, Markdown",
       "urlPlaceholder": "Link einfugen (https://...)",
+      "addUrl": "Link hinzufugen",
       "empty": "Noch keine Dokumente.",
       "statusReady": "{{count}} Abschnitte",
       "statusPending": "Ausstehend",
@@ -400,7 +405,10 @@
       "nodeCount": "{{count}} Abschnitte",
       "truncated": "nur die ersten Abschnitte werden angezeigt",
       "empty": "Noch keine indexierten Dokumente.",
-      "error": "Visualisierung konnte nicht geladen werden."
+      "error": "Visualisierung konnte nicht geladen werden.",
+      "zoomIn": "Vergroessern",
+      "zoomOut": "Verkleinern",
+      "resetView": "Ansicht zurucksetzen"
     }
   }
 }

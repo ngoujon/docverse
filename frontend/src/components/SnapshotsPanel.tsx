@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { History, RotateCcw, X } from "lucide-react";
 import { api } from "../api/client";
 import { formatBytes } from "../utils/format";
+import { useEscapeToClose } from "../hooks/useEscapeToClose";
 import ConfirmDialog from "./ConfirmDialog";
 import type { Space, SpaceSnapshot } from "../types";
 
@@ -35,6 +36,8 @@ export default function SnapshotsPanel({
       .finally(() => setLoading(false));
   }, [open, space]);
 
+  useEscapeToClose(open, onClose);
+
   if (!open || !space) return null;
 
   const handleCreate = async () => {
@@ -62,16 +65,24 @@ export default function SnapshotsPanel({
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fade-in"
       onClick={onClose}
+      role="presentation"
     >
       <div
         className="max-h-[80vh] w-full max-w-lg overflow-y-auto rounded-xl border border-surface-border bg-surface-2 p-5 shadow-panel"
         onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="snapshots-panel-title"
       >
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+          <h3 id="snapshots-panel-title" className="text-sm font-semibold text-slate-900 dark:text-slate-100">
             {t("admin.snapshots.title", { name: space.name })}
           </h3>
-          <button onClick={onClose} className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200">
+          <button
+            onClick={onClose}
+            aria-label={t("common.close")}
+            className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+          >
             <X size={18} />
           </button>
         </div>

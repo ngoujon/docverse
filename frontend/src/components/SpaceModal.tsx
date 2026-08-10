@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { X } from "lucide-react";
+import { useEscapeToClose } from "../hooks/useEscapeToClose";
 import type { Space } from "../types";
 
 const COLORS = [
@@ -33,6 +34,8 @@ export default function SpaceModal({ open, initial, onClose, onSubmit }: Props) 
   const [description, setDescription] = useState(initial?.description ?? "");
   const [color, setColor] = useState(initial?.color ?? COLORS[0]);
 
+  useEscapeToClose(open, onClose);
+
   if (!open) return null;
 
   const isEdit = !!initial;
@@ -46,16 +49,24 @@ export default function SpaceModal({ open, initial, onClose, onSubmit }: Props) 
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fade-in"
       onClick={onClose}
+      role="presentation"
     >
       <div
         className="w-full max-w-md rounded-xl border border-surface-border bg-surface-2 p-5 shadow-panel"
         onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="space-modal-title"
       >
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+          <h3 id="space-modal-title" className="text-sm font-semibold text-slate-900 dark:text-slate-100">
             {isEdit ? t("app.spaceModal.editTitle") : t("app.spaceModal.createTitle")}
           </h3>
-          <button onClick={onClose} className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200">
+          <button
+            onClick={onClose}
+            aria-label={t("common.close")}
+            className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+          >
             <X size={18} />
           </button>
         </div>
@@ -91,6 +102,8 @@ export default function SpaceModal({ open, initial, onClose, onSubmit }: Props) 
                 <button
                   key={c}
                   onClick={() => setColor(c)}
+                  aria-label={`${t("app.spaceModal.color")} ${c}`}
+                  aria-pressed={color === c}
                   className="h-7 w-7 rounded-full ring-offset-2 ring-offset-surface-2 transition"
                   style={{
                     backgroundColor: c,

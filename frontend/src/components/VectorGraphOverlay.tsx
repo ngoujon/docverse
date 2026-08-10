@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Loader2, Minus, Plus, RotateCcw, X } from "lucide-react";
 import { api } from "../api/client";
+import { useEscapeToClose } from "../hooks/useEscapeToClose";
 import type { VectorGraph, VectorGraphNode } from "../types";
 
 interface Props {
@@ -49,6 +50,8 @@ export default function VectorGraphOverlay({ open, spaceId, shareToken, onClose 
     return map;
   }, [graph]);
 
+  useEscapeToClose(open, onClose);
+
   if (!open) return null;
 
   const handleWheel: React.WheelEventHandler<SVGSVGElement> = (e) => {
@@ -69,7 +72,7 @@ export default function VectorGraphOverlay({ open, spaceId, shareToken, onClose 
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-slate-950">
+    <div className="fixed inset-0 z-50 flex flex-col bg-slate-950" role="dialog" aria-modal="true" aria-label={t("app.vectorGraph.title")}>
       <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
         <div>
           <h2 className="font-mono text-sm font-semibold uppercase tracking-wider text-white">
@@ -85,12 +88,14 @@ export default function VectorGraphOverlay({ open, spaceId, shareToken, onClose 
         <div className="flex items-center gap-1.5">
           <button
             onClick={() => setScale((s) => Math.min(6, s * 1.2))}
+            aria-label={t("app.vectorGraph.zoomIn")}
             className="rounded-lg border border-white/15 p-2 text-slate-300 hover:border-white/40 hover:text-white"
           >
             <Plus size={14} />
           </button>
           <button
             onClick={() => setScale((s) => Math.max(0.3, s * 0.8))}
+            aria-label={t("app.vectorGraph.zoomOut")}
             className="rounded-lg border border-white/15 p-2 text-slate-300 hover:border-white/40 hover:text-white"
           >
             <Minus size={14} />
@@ -100,12 +105,14 @@ export default function VectorGraphOverlay({ open, spaceId, shareToken, onClose 
               setScale(1);
               setOffset({ x: 0, y: 0 });
             }}
+            aria-label={t("app.vectorGraph.resetView")}
             className="rounded-lg border border-white/15 p-2 text-slate-300 hover:border-white/40 hover:text-white"
           >
             <RotateCcw size={14} />
           </button>
           <button
             onClick={onClose}
+            aria-label={t("common.close")}
             className="ml-2 rounded-lg border border-white/15 p-2 text-slate-300 hover:border-white/40 hover:text-white"
           >
             <X size={16} />

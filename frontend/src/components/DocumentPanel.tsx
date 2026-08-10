@@ -95,6 +95,7 @@ export default function DocumentPanel({
         {onClose && (
           <button
             onClick={onClose}
+            aria-label={t("common.close")}
             className="shrink-0 rounded-lg p-1 text-slate-500 dark:text-slate-400 hover:bg-surface-3 hover:text-slate-700 dark:hover:text-slate-200 lg:hidden"
           >
             <X size={16} />
@@ -132,6 +133,7 @@ export default function DocumentPanel({
           <button
             onClick={handleUrlSubmit}
             disabled={!urlInput.trim()}
+            aria-label={t("app.documents.addUrl")}
             className="shrink-0 rounded-lg bg-surface-3 p-1.5 text-slate-600 dark:text-slate-400 hover:bg-surface-4 disabled:opacity-30"
           >
             <LinkIcon size={14} />
@@ -172,7 +174,8 @@ export default function DocumentPanel({
                   {!readOnly && (
                     <button
                       onClick={() => onDelete(doc.id)}
-                      className="shrink-0 rounded p-1 text-slate-500 dark:text-slate-400 opacity-0 hover:text-red-500 group-hover:opacity-100"
+                      aria-label={t("common.delete")}
+                      className="shrink-0 rounded p-1 text-slate-500 dark:text-slate-400 opacity-0 hover:text-red-500 group-hover:opacity-100 focus-visible:opacity-100"
                     >
                       <Trash2 size={13} />
                     </button>

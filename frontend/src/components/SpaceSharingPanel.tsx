@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Check, Copy, Eye, Pencil, Plus, Trash2, UserPlus, X } from "lucide-react";
 import clsx from "clsx";
 import { api } from "../api/client";
+import { useEscapeToClose } from "../hooks/useEscapeToClose";
 import type { Space, ShareLink, SpaceMember } from "../types";
 
 interface Props {
@@ -51,6 +52,8 @@ export default function SpaceSharingPanel({ open, space, onClose }: Props) {
       .finally(() => setLoading(false));
   }, [open, space]);
 
+  useEscapeToClose(open, onClose);
+
   if (!open || !space) return null;
 
   const handleAddMember = async () => {
@@ -97,16 +100,24 @@ export default function SpaceSharingPanel({ open, space, onClose }: Props) {
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fade-in"
       onClick={onClose}
+      role="presentation"
     >
       <div
         className="max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-xl border border-surface-border bg-surface-2 p-5 shadow-panel"
         onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="sharing-panel-title"
       >
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+          <h3 id="sharing-panel-title" className="text-sm font-semibold text-slate-900 dark:text-slate-100">
             {t("app.sharing.title", { name: space.name })}
           </h3>
-          <button onClick={onClose} className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200">
+          <button
+            onClick={onClose}
+            aria-label={t("common.close")}
+            className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+          >
             <X size={18} />
           </button>
         </div>
@@ -174,6 +185,7 @@ export default function SpaceSharingPanel({ open, space, onClose }: Props) {
                         </button>
                         <button
                           onClick={() => handleRevokeLink(l.id)}
+                          aria-label={t("common.delete")}
                           className="rounded-md p-1 text-slate-500 dark:text-slate-400 hover:text-red-500"
                         >
                           <Trash2 size={13} />
@@ -233,6 +245,7 @@ export default function SpaceSharingPanel({ open, space, onClose }: Props) {
                     </span>
                     <button
                       onClick={() => handleRemoveMember(m.id)}
+                      aria-label={t("common.delete")}
                       className="rounded-md p-1 text-slate-500 dark:text-slate-400 hover:text-red-500"
                     >
                       <Trash2 size={13} />

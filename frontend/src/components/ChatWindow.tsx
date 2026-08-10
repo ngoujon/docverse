@@ -59,6 +59,7 @@ export default function ChatWindow({
         {onOpenMobileNav && (
           <button
             onClick={onOpenMobileNav}
+            aria-label={t("app.chat.openMenu")}
             className="absolute left-3 top-3 rounded-lg border border-surface-border p-2 text-slate-500 dark:text-slate-400 md:hidden"
           >
             <Menu size={16} />
@@ -76,6 +77,7 @@ export default function ChatWindow({
         <div className="flex min-w-0 items-center gap-2">
           <button
             onClick={onOpenMobileNav}
+            aria-label={t("app.chat.openMenu")}
             className="shrink-0 rounded-lg border border-surface-border p-1.5 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 md:hidden"
           >
             <Menu size={16} />
@@ -154,6 +156,7 @@ export default function ChatWindow({
             <button
               onClick={handleSend}
               disabled={!input.trim() || streaming}
+              aria-label={t("app.chat.send")}
               className="mb-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent text-white transition hover:bg-accent-hover disabled:opacity-30"
             >
               <Send size={15} />
