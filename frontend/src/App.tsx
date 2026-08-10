@@ -9,8 +9,10 @@ import RegisterPage from "./pages/RegisterPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import NewsletterConfirmPage from "./pages/NewsletterConfirmPage";
+import VerifyEmailPage from "./pages/VerifyEmailPage";
 import DashboardPage from "./pages/DashboardPage";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
+import AccountSettingsPage from "./pages/AccountSettingsPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 export default function App() {
@@ -29,11 +31,20 @@ export default function App() {
       <Route path="/reset-password" element={<ResetPasswordPage />} />
       <Route path="/newsletter/confirm" element={<NewsletterConfirmPage mode="confirm" />} />
       <Route path="/newsletter/unsubscribe" element={<NewsletterConfirmPage mode="unsubscribe" />} />
+      <Route path="/verify-email" element={<VerifyEmailPage />} />
       <Route
         path="/dashboard"
         element={
           <ProtectedRoute>
             <DashboardPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/account"
+        element={
+          <ProtectedRoute>
+            <AccountSettingsPage />
           </ProtectedRoute>
         }
       />

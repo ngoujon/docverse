@@ -191,6 +191,13 @@
       "exportData": "Meine Daten exportieren",
       "emailVerified": "E-Mail bestatigt",
       "emailNotVerified": "E-Mail nicht bestatigt"
+    },
+    "verify": {
+      "title": "E-Mail-Bestatigung",
+      "verifying": "Uberprufung lauft...",
+      "success": "Ihre E-Mail-Adresse wurde bestatigt.",
+      "error": "Ungultiger oder abgelaufener Bestatigungslink.",
+      "goToDashboard": "Zum Dashboard"
     }
   },
   "captcha": {

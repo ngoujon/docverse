@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { LayoutDashboard, LogOut, Shield, Sparkles } from "lucide-react";
+import { LayoutDashboard, LogOut, Settings, Shield, Sparkles } from "lucide-react";
 import clsx from "clsx";
 import { useAuth } from "../hooks/useAuth";
 import { useTheme } from "../hooks/useTheme";
@@ -49,6 +49,13 @@ export default function DashboardNav({ active }: { active: "client" | "admin" })
         <span className="hidden text-sm text-slate-600 dark:text-slate-400 sm:inline">
           {user?.display_name || user?.email}
         </span>
+        <Link
+          to="/account"
+          title={t("auth.account.title")}
+          className="flex h-8 w-8 items-center justify-center rounded-lg border border-surface-border text-slate-500 hover:border-accent hover:text-accent dark:text-slate-400"
+        >
+          <Settings size={14} />
+        </Link>
         <button
           onClick={() => {
             logout();

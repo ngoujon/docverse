@@ -191,6 +191,13 @@
       "exportData": "Exportar os meus dados",
       "emailVerified": "Email verificado",
       "emailNotVerified": "Email nao verificado"
+    },
+    "verify": {
+      "title": "Verificacao de email",
+      "verifying": "A verificar...",
+      "success": "O seu endereco de email foi verificado.",
+      "error": "Link de verificacao invalido ou expirado.",
+      "goToDashboard": "Ir para o painel"
     }
   },
   "captcha": {

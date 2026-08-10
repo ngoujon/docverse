@@ -191,6 +191,13 @@
       "exportData": "Export my data",
       "emailVerified": "Email verified",
       "emailNotVerified": "Email not verified"
+    },
+    "verify": {
+      "title": "Email verification",
+      "verifying": "Verifying...",
+      "success": "Your email address has been verified.",
+      "error": "Invalid or expired verification link.",
+      "goToDashboard": "Go to dashboard"
     }
   },
   "captcha": {
