@@ -85,8 +85,8 @@ async def upload_document(
     access: SpaceAccess = Depends(require_space_access),
     db: Session = Depends(get_db),
 ):
-    if not access.can_write:
-        raise HTTPException(403, "Acces en lecture seule a cet espace")
+    if not access.can_upload:
+        raise HTTPException(403, "Vous n'avez pas la permission de gerer les documents de cet espace")
     space = access.space
     try:
         doc_type = document_processor.guess_doc_type(file.filename)
@@ -158,8 +158,8 @@ def ingest_url(
     access: SpaceAccess = Depends(require_space_access),
     db: Session = Depends(get_db),
 ):
-    if not access.can_write:
-        raise HTTPException(403, "Acces en lecture seule a cet espace")
+    if not access.can_upload:
+        raise HTTPException(403, "Vous n'avez pas la permission de gerer les documents de cet espace")
     doc = models_db.Document(
         space_id=access.space.id,
         name=payload.url,
@@ -180,8 +180,8 @@ def delete_document(
     access: DocumentAccess = Depends(require_document_access),
     db: Session = Depends(get_db),
 ):
-    if not access.can_write:
-        raise HTTPException(403, "Acces en lecture seule a cet espace")
+    if not access.can_upload:
+        raise HTTPException(403, "Vous n'avez pas la permission de gerer les documents de cet espace")
     doc = access.document
     vectorstore.delete_document(doc.space_id, doc.id)
     if doc.file_path:

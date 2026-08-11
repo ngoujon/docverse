@@ -66,3 +66,18 @@ def ensure_schema() -> None:
                         ),
                         {"val": default_value},
                     )
+
+        # One-off data migration: the old editor/viewer per-member role was
+        # replaced by a single "member" role plus a separate can_upload
+        # flag. Former editors keep write access (can_upload=true); former
+        # viewers keep none. Idempotent - already-migrated rows have
+        # role="member" and don't match the filter again.
+        for table_name in ("space_members", "share_links"):
+            if table_name not in inspector.get_table_names():
+                continue
+            conn.execute(
+                text(f"UPDATE {table_name} SET can_upload = 1 WHERE role = 'editor'")
+            )
+            conn.execute(
+                text(f"UPDATE {table_name} SET role = 'member' WHERE role IN ('editor', 'viewer')")
+            )

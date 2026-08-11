@@ -76,7 +76,10 @@ class SpaceMember(Base):
     id = Column(String, primary_key=True, default=gen_id)
     space_id = Column(String, ForeignKey("spaces.id"), nullable=False, index=True)
     user_id = Column(String, ForeignKey("users.id"), nullable=False, index=True)
-    role = Column(String, nullable=False, default="viewer")  # editor | viewer
+    role = Column(String, nullable=False, default="member")
+    # Members can always chat; uploading/deleting documents is a separate,
+    # opt-in permission the space owner grants per member (off by default).
+    can_upload = Column(Boolean, nullable=False, default=False)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     space = relationship("Space", back_populates="members")
@@ -105,7 +108,8 @@ class ShareLink(Base):
 
     id = Column(String, primary_key=True, default=gen_id)
     space_id = Column(String, ForeignKey("spaces.id"), nullable=False, index=True)
-    role = Column(String, nullable=False, default="viewer")  # editor | viewer
+    role = Column(String, nullable=False, default="member")
+    can_upload = Column(Boolean, nullable=False, default=False)
     label = Column(String, default="")
     created_by = Column(String, ForeignKey("users.id"), nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)

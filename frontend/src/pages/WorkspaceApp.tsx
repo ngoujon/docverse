@@ -54,7 +54,8 @@ export default function WorkspaceApp() {
 
   const activeSpace = spaces.find((s) => s.id === activeSpaceId) || null;
   const activeConversation = conversations.find((c) => c.id === activeConversationId) || null;
-  const canWrite = activeSpace ? activeSpace.my_role !== "viewer" : false;
+  const canWrite = activeSpace ? activeSpace.my_role !== "admin_view" : false;
+  const canUpload = activeSpace?.can_upload ?? false;
   const isOwner = activeSpace?.my_role === "owner";
 
   usePageMeta({
@@ -380,7 +381,7 @@ export default function WorkspaceApp() {
                   onIngestUrl={handleIngestUrl}
                   onDelete={setDeleteDocId}
                   onClose={() => setDocPanelOpen(false)}
-                  readOnly={!canWrite}
+                  readOnly={!canUpload}
                 />
               </div>
             </>

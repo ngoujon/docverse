@@ -64,12 +64,17 @@ def require_admin(user: models_db.User = Depends(get_current_user)) -> models_db
 @dataclass
 class SpaceAccess:
     space: models_db.Space
-    role: str  # "owner" | "editor" | "viewer"
+    role: str  # "owner" | "member" | "admin_view"
     user: Optional[models_db.User]
+    can_upload: bool = False
 
     @property
     def can_write(self) -> bool:
-        return self.role in ("owner", "editor")
+        # Chatting and managing your own conversations is a baseline
+        # capability of any real member (never gated), unlike uploading
+        # documents (see can_upload) - only an admin browsing a space they
+        # don't belong to (role="admin_view") is denied this.
+        return self.role in ("owner", "member")
 
     @property
     def is_owner(self) -> bool:
@@ -84,15 +89,15 @@ def _resolve_role(
 ) -> SpaceAccess:
     if user:
         if space.owner_id == user.id:
-            return SpaceAccess(space, "owner", user)
+            return SpaceAccess(space, "owner", user, can_upload=True)
         member = (
             db.query(models_db.SpaceMember)
             .filter_by(space_id=space.id, user_id=user.id)
             .first()
         )
         if member:
-            return SpaceAccess(space, member.role, user)
-        # A share link grants a role, but only to a signed-in visitor - an
+            return SpaceAccess(space, "member", user, can_upload=member.can_upload)
+        # A share link grants access, but only to a signed-in visitor - an
         # anonymous seat doesn't count against the owner's plan quota
         # (config.PLAN_QUOTAS) and would make member limits meaningless.
         # The visitor's own account is what's checked here, not the space
@@ -105,12 +110,12 @@ def _resolve_role(
                 and not link.revoked
                 and (not link.expires_at or link.expires_at > datetime.utcnow())
             ):
-                return SpaceAccess(space, link.role, user)
+                return SpaceAccess(space, "member", user, can_upload=link.can_upload)
         if user.role == "admin":
             # Admins can see any space from the admin dashboard, but that
-            # doesn't imply edit rights over content they don't own or
+            # doesn't imply chat/edit rights over content they don't own or
             # aren't a member of.
-            return SpaceAccess(space, "viewer", user)
+            return SpaceAccess(space, "admin_view", user, can_upload=False)
     raise HTTPException(401, "Acces non autorise a cet espace - connectez-vous pour utiliser ce lien de partage")
 
 
@@ -137,10 +142,11 @@ class ConversationAccess:
     conversation: models_db.Conversation
     role: str
     user: Optional[models_db.User]
+    can_upload: bool = False
 
     @property
     def can_write(self) -> bool:
-        return self.role in ("owner", "editor")
+        return self.role in ("owner", "member")
 
 
 def require_conversation_access(
@@ -156,7 +162,7 @@ def require_conversation_access(
     if not space:
         raise HTTPException(404, "Espace introuvable")
     access = _resolve_role(space, user, x_share_token, db)
-    return ConversationAccess(conv, access.role, access.user)
+    return ConversationAccess(conv, access.role, access.user, access.can_upload)
 
 
 @dataclass
@@ -164,10 +170,11 @@ class DocumentAccess:
     document: models_db.Document
     role: str
     user: Optional[models_db.User]
+    can_upload: bool = False
 
     @property
     def can_write(self) -> bool:
-        return self.role in ("owner", "editor")
+        return self.role in ("owner", "member")
 
 
 def require_document_access(
@@ -183,4 +190,4 @@ def require_document_access(
     if not space:
         raise HTTPException(404, "Espace introuvable")
     access = _resolve_role(space, user, x_share_token, db)
-    return DocumentAccess(doc, access.role, access.user)
+    return DocumentAccess(doc, access.role, access.user, access.can_upload)

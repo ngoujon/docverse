@@ -1,3 +1,5 @@
+import io
+
 from .conftest import auth_headers, register_user, set_plan
 
 
@@ -7,14 +9,23 @@ def create_space(client, token, name="Test space"):
     return res.json()
 
 
-def create_share_link(client, token, space_id, role):
+def create_share_link(client, token, space_id, can_upload=False):
     res = client.post(
         f"/api/spaces/{space_id}/share-links",
-        json={"role": role, "label": "", "expires_in_days": None},
+        json={"can_upload": can_upload, "label": "", "expires_in_days": None},
         headers=auth_headers(token),
     )
     assert res.status_code == 200, res.text
     return res.json()
+
+
+def upload_document(client, token, space_id, share_id=None):
+    headers = share_headers(token, share_id) if share_id else auth_headers(token)
+    return client.post(
+        f"/api/spaces/{space_id}/documents/upload",
+        files={"file": ("note.txt", io.BytesIO(b"hello"), "text/plain")},
+        headers=headers,
+    )
 
 
 def test_space_creation_requires_auth(client):
@@ -52,43 +63,45 @@ def test_anonymous_share_link_access_is_rejected(client):
     something and every access is attributable to a real account."""
     owner = register_user(client, "owner@example.com")
     space = create_space(client, owner["access_token"])
-    link = create_share_link(client, owner["access_token"], space["id"], "viewer")
+    link = create_share_link(client, owner["access_token"], space["id"])
 
     res = client.get(f"/api/spaces/{space['id']}", headers={"X-Share-Token": link["id"]})
     assert res.status_code == 401
 
 
-def test_viewer_share_link_is_read_only(client):
+def test_share_link_member_can_always_chat_but_upload_is_opt_in(client):
+    """A share link (like any space member) can always chat - uploading
+    documents is a separate, opt-in permission carried by can_upload."""
     owner = register_user(client, "owner@example.com")
     visitor = register_user(client, "visitor@example.com")
     space = create_space(client, owner["access_token"])
-    link = create_share_link(client, owner["access_token"], space["id"], "viewer")
+    link = create_share_link(client, owner["access_token"], space["id"], can_upload=False)
 
-    # signed-in viewer can read
     res = client.get(f"/api/spaces/{space['id']}", headers=share_headers(visitor["access_token"], link["id"]))
     assert res.status_code == 200
-    assert res.json()["my_role"] == "viewer"
+    assert res.json()["my_role"] == "member"
+    assert res.json()["can_upload"] is False
 
-    # viewer cannot create a conversation
+    # can always chat, even without upload rights
     res = client.post(
         f"/api/spaces/{space['id']}/conversations",
         json={"title": "Hello"},
         headers=share_headers(visitor["access_token"], link["id"]),
     )
+    assert res.status_code == 200
+
+    # cannot upload documents without the explicit permission
+    res = upload_document(client, visitor["access_token"], space["id"], share_id=link["id"])
     assert res.status_code == 403
 
 
-def test_editor_share_link_can_write(client):
+def test_share_link_with_upload_permission_can_upload(client):
     owner = register_user(client, "owner@example.com")
     visitor = register_user(client, "visitor@example.com")
     space = create_space(client, owner["access_token"])
-    link = create_share_link(client, owner["access_token"], space["id"], "editor")
+    link = create_share_link(client, owner["access_token"], space["id"], can_upload=True)
 
-    res = client.post(
-        f"/api/spaces/{space['id']}/conversations",
-        json={"title": "Hello"},
-        headers=share_headers(visitor["access_token"], link["id"]),
-    )
+    res = upload_document(client, visitor["access_token"], space["id"], share_id=link["id"])
     assert res.status_code == 200
 
 
@@ -96,7 +109,7 @@ def test_revoked_share_link_is_rejected(client):
     owner = register_user(client, "owner@example.com")
     visitor = register_user(client, "visitor@example.com")
     space = create_space(client, owner["access_token"])
-    link = create_share_link(client, owner["access_token"], space["id"], "viewer")
+    link = create_share_link(client, owner["access_token"], space["id"])
 
     # a signed-in visitor works before revocation
     res = client.get(f"/api/spaces/{space['id']}", headers=share_headers(visitor["access_token"], link["id"]))
@@ -111,73 +124,78 @@ def test_revoked_share_link_is_rejected(client):
     assert res.status_code == 401
 
 
-def test_member_viewer_cannot_write_but_editor_can(client):
+def test_member_can_always_chat_but_upload_is_opt_in(client):
     owner = register_user(client, "owner@example.com")
-    editor = register_user(client, "editor@example.com")
-    viewer = register_user(client, "viewer@example.com")
+    uploader = register_user(client, "uploader@example.com")
+    chatter = register_user(client, "chatter@example.com")
     set_plan(owner["user"]["id"], "pro")  # 3 members needed on this space
     space = create_space(client, owner["access_token"])
 
-    add_editor = client.post(
+    add_uploader = client.post(
         f"/api/spaces/{space['id']}/members",
-        json={"email": "editor@example.com", "role": "editor"},
+        json={"email": "uploader@example.com", "can_upload": True},
         headers=auth_headers(owner["access_token"]),
     )
-    assert add_editor.status_code == 200
+    assert add_uploader.status_code == 200
 
-    add_viewer = client.post(
+    add_chatter = client.post(
         f"/api/spaces/{space['id']}/members",
-        json={"email": "viewer@example.com", "role": "viewer"},
+        json={"email": "chatter@example.com", "can_upload": False},
         headers=auth_headers(owner["access_token"]),
     )
-    assert add_viewer.status_code == 200
+    assert add_chatter.status_code == 200
 
-    editor_res = client.post(
+    # both members can chat, regardless of upload permission
+    uploader_conv = client.post(
         f"/api/spaces/{space['id']}/conversations",
         json={"title": "Hello"},
-        headers=auth_headers(editor["access_token"]),
+        headers=auth_headers(uploader["access_token"]),
     )
-    assert editor_res.status_code == 200
+    assert uploader_conv.status_code == 200
 
-    viewer_res = client.post(
+    chatter_conv = client.post(
         f"/api/spaces/{space['id']}/conversations",
         json={"title": "Hello"},
-        headers=auth_headers(viewer["access_token"]),
+        headers=auth_headers(chatter["access_token"]),
     )
-    assert viewer_res.status_code == 403
+    assert chatter_conv.status_code == 200
+
+    # only the member with can_upload can upload documents
+    assert upload_document(client, uploader["access_token"], space["id"]).status_code == 200
+    assert upload_document(client, chatter["access_token"], space["id"]).status_code == 403
 
 
 def test_non_owner_member_cannot_manage_members_or_links(client):
     owner = register_user(client, "owner@example.com")
-    editor = register_user(client, "editor@example.com")
+    member = register_user(client, "member@example.com")
     set_plan(owner["user"]["id"], "pro")
     space = create_space(client, owner["access_token"])
     client.post(
         f"/api/spaces/{space['id']}/members",
-        json={"email": "editor@example.com", "role": "editor"},
+        json={"email": "member@example.com", "can_upload": True},
         headers=auth_headers(owner["access_token"]),
     )
 
     res = client.post(
         f"/api/spaces/{space['id']}/share-links",
-        json={"role": "viewer", "label": "", "expires_in_days": None},
-        headers=auth_headers(editor["access_token"]),
+        json={"can_upload": False, "label": "", "expires_in_days": None},
+        headers=auth_headers(member["access_token"]),
     )
     assert res.status_code == 403
 
 
 def test_only_owner_can_delete_space(client):
     owner = register_user(client, "owner@example.com")
-    editor = register_user(client, "editor@example.com")
+    member = register_user(client, "member@example.com")
     set_plan(owner["user"]["id"], "pro")
     space = create_space(client, owner["access_token"])
     client.post(
         f"/api/spaces/{space['id']}/members",
-        json={"email": "editor@example.com", "role": "editor"},
+        json={"email": "member@example.com", "can_upload": True},
         headers=auth_headers(owner["access_token"]),
     )
 
-    forbidden = client.delete(f"/api/spaces/{space['id']}", headers=auth_headers(editor["access_token"]))
+    forbidden = client.delete(f"/api/spaces/{space['id']}", headers=auth_headers(member["access_token"]))
     assert forbidden.status_code == 403
 
     allowed = client.delete(f"/api/spaces/{space['id']}", headers=auth_headers(owner["access_token"]))
@@ -186,13 +204,13 @@ def test_only_owner_can_delete_space(client):
 
 def test_member_quota_follows_owner_plan(client):
     owner = register_user(client, "owner@example.com")
-    editor = register_user(client, "editor@example.com")
+    member = register_user(client, "member@example.com")
     space = create_space(client, owner["access_token"])
 
     # default plan is "decouverte" -> 1 member per space (the owner only)
     rejected = client.post(
         f"/api/spaces/{space['id']}/members",
-        json={"email": "editor@example.com", "role": "editor"},
+        json={"email": "member@example.com", "can_upload": False},
         headers=auth_headers(owner["access_token"]),
     )
     assert rejected.status_code == 400
@@ -200,7 +218,7 @@ def test_member_quota_follows_owner_plan(client):
     set_plan(owner["user"]["id"], "pro")
     allowed = client.post(
         f"/api/spaces/{space['id']}/members",
-        json={"email": "editor@example.com", "role": "editor"},
+        json={"email": "member@example.com", "can_upload": False},
         headers=auth_headers(owner["access_token"]),
     )
     assert allowed.status_code == 200
@@ -208,13 +226,13 @@ def test_member_quota_follows_owner_plan(client):
 
 def test_removed_member_faces_reinvite_cooldown(client):
     owner = register_user(client, "owner@example.com")
-    editor = register_user(client, "editor@example.com")
+    member = register_user(client, "member@example.com")
     set_plan(owner["user"]["id"], "pro")
     space = create_space(client, owner["access_token"])
 
     added = client.post(
         f"/api/spaces/{space['id']}/members",
-        json={"email": "editor@example.com", "role": "editor"},
+        json={"email": "member@example.com", "can_upload": False},
         headers=auth_headers(owner["access_token"]),
     )
     assert added.status_code == 200
@@ -228,7 +246,7 @@ def test_removed_member_faces_reinvite_cooldown(client):
 
     blocked = client.post(
         f"/api/spaces/{space['id']}/members",
-        json={"email": "editor@example.com", "role": "editor"},
+        json={"email": "member@example.com", "can_upload": False},
         headers=auth_headers(owner["access_token"]),
     )
     assert blocked.status_code == 400
@@ -258,7 +276,7 @@ def test_space_quota_follows_owner_plan(client):
 
 def test_admin_cannot_write_to_spaces_they_do_not_own(client):
     """Deliberate privacy default: an admin sees any space via the admin
-    dashboard but does not get implicit edit rights over content they
+    dashboard but does not get implicit chat/edit rights over content they
     don't own or belong to."""
     owner = register_user(client, "owner@example.com")  # first user -> admin
     space = create_space(client, owner["access_token"])
@@ -277,7 +295,7 @@ def test_admin_cannot_write_to_spaces_they_do_not_own(client):
 
     res = client.get(f"/api/spaces/{space['id']}", headers=auth_headers(admin2_data["access_token"]))
     assert res.status_code == 200
-    assert res.json()["my_role"] == "viewer"
+    assert res.json()["my_role"] == "admin_view"
 
     write_res = client.post(
         f"/api/spaces/{space['id']}/conversations",

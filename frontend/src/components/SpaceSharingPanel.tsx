@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Check, Copy, Eye, Pencil, Plus, Trash2, UserPlus, X } from "lucide-react";
+import { Check, Copy, Plus, Trash2, Upload, UserPlus, X } from "lucide-react";
 import clsx from "clsx";
 import { api } from "../api/client";
 import { useEscapeToClose } from "../hooks/useEscapeToClose";
@@ -13,17 +13,17 @@ interface Props {
   onClose: () => void;
 }
 
-function RoleBadge({ role }: { role: "editor" | "viewer" }) {
+function UploadBadge({ canUpload }: { canUpload: boolean }) {
   const { t } = useTranslation();
   return (
     <span
       className={clsx(
         "flex items-center gap-1 rounded-full px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider",
-        role === "editor" ? "bg-accent/15 text-accent" : "bg-surface-3 text-slate-600 dark:text-slate-300"
+        canUpload ? "bg-accent/15 text-accent" : "bg-surface-3 text-slate-600 dark:text-slate-300"
       )}
     >
-      {role === "editor" ? <Pencil size={10} /> : <Eye size={10} />}
-      {role === "editor" ? t("app.sharing.editor") : t("app.sharing.viewer")}
+      {canUpload ? <Upload size={10} /> : null}
+      {canUpload ? t("app.sharing.canUpload") : t("app.sharing.chatOnly")}
     </span>
   );
 }
@@ -36,10 +36,10 @@ export default function SpaceSharingPanel({ open, space, onClose }: Props) {
   const [loading, setLoading] = useState(false);
 
   const [memberEmail, setMemberEmail] = useState("");
-  const [memberRole, setMemberRole] = useState<"editor" | "viewer">("viewer");
+  const [memberCanUpload, setMemberCanUpload] = useState(false);
   const [memberError, setMemberError] = useState<string | null>(null);
 
-  const [linkRole, setLinkRole] = useState<"editor" | "viewer">("viewer");
+  const [linkCanUpload, setLinkCanUpload] = useState(false);
   const [linkLabel, setLinkLabel] = useState("");
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
@@ -63,7 +63,7 @@ export default function SpaceSharingPanel({ open, space, onClose }: Props) {
     if (!memberEmail.trim()) return;
     setMemberError(null);
     try {
-      const member = await api.addMember(space.id, memberEmail.trim(), memberRole);
+      const member = await api.addMember(space.id, memberEmail.trim(), memberCanUpload);
       setMembers((prev) => [...prev.filter((m) => m.id !== member.id), member]);
       setMemberEmail("");
       api.spaceStats(space.id).then(setStats);
@@ -79,7 +79,7 @@ export default function SpaceSharingPanel({ open, space, onClose }: Props) {
   };
 
   const handleCreateLink = async () => {
-    const link = await api.createShareLink(space.id, linkRole, linkLabel.trim());
+    const link = await api.createShareLink(space.id, linkCanUpload, linkLabel.trim());
     setLinks((prev) => [link, ...prev]);
     setLinkLabel("");
   };
@@ -170,14 +170,15 @@ export default function SpaceSharingPanel({ open, space, onClose }: Props) {
                   placeholder={t("app.sharing.labelPlaceholder")}
                   className="min-w-0 flex-1 rounded-lg border border-surface-border bg-surface-1 px-2.5 py-1.5 text-xs text-slate-900 dark:text-slate-100 outline-none focus:border-accent"
                 />
-                <select
-                  value={linkRole}
-                  onChange={(e) => setLinkRole(e.target.value as "editor" | "viewer")}
-                  className="rounded-lg border border-surface-border bg-surface-1 px-2 py-1.5 text-xs text-slate-900 dark:text-slate-100 outline-none focus:border-accent"
-                >
-                  <option value="viewer">{t("app.sharing.viewer")}</option>
-                  <option value="editor">{t("app.sharing.editor")}</option>
-                </select>
+                <label className="flex items-center gap-1.5 whitespace-nowrap text-[11px] text-slate-600 dark:text-slate-300">
+                  <input
+                    type="checkbox"
+                    checked={linkCanUpload}
+                    onChange={(e) => setLinkCanUpload(e.target.checked)}
+                    className="accent-accent"
+                  />
+                  {t("app.sharing.canUploadLabel")}
+                </label>
                 <button
                   onClick={handleCreateLink}
                   className="flex items-center gap-1 rounded-lg bg-accent px-2.5 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-white hover:bg-accent-hover"
@@ -198,7 +199,7 @@ export default function SpaceSharingPanel({ open, space, onClose }: Props) {
                       l.revoked && "opacity-50"
                     )}
                   >
-                    <RoleBadge role={l.role} />
+                    <UploadBadge canUpload={l.can_upload} />
                     <span className="min-w-0 flex-1 truncate text-xs text-slate-700 dark:text-slate-300">
                       {l.label || t("app.sharing.unnamedLink")}
                     </span>
@@ -261,14 +262,15 @@ export default function SpaceSharingPanel({ open, space, onClose }: Props) {
                   placeholder={t("app.sharing.emailPlaceholder")}
                   className="min-w-0 flex-1 rounded-lg border border-surface-border bg-surface-1 px-2.5 py-1.5 text-xs text-slate-900 dark:text-slate-100 outline-none focus:border-accent"
                 />
-                <select
-                  value={memberRole}
-                  onChange={(e) => setMemberRole(e.target.value as "editor" | "viewer")}
-                  className="rounded-lg border border-surface-border bg-surface-1 px-2 py-1.5 text-xs text-slate-900 dark:text-slate-100 outline-none focus:border-accent"
-                >
-                  <option value="viewer">{t("app.sharing.viewer")}</option>
-                  <option value="editor">{t("app.sharing.editor")}</option>
-                </select>
+                <label className="flex items-center gap-1.5 whitespace-nowrap text-[11px] text-slate-600 dark:text-slate-300">
+                  <input
+                    type="checkbox"
+                    checked={memberCanUpload}
+                    onChange={(e) => setMemberCanUpload(e.target.checked)}
+                    className="accent-accent"
+                  />
+                  {t("app.sharing.canUploadLabel")}
+                </label>
                 <button
                   onClick={handleAddMember}
                   className="flex items-center gap-1 rounded-lg bg-accent px-2.5 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-white hover:bg-accent-hover"
@@ -287,7 +289,7 @@ export default function SpaceSharingPanel({ open, space, onClose }: Props) {
                     key={m.id}
                     className="flex items-center gap-2 rounded-lg border border-surface-border bg-surface-1 px-3 py-2"
                   >
-                    <RoleBadge role={m.role} />
+                    <UploadBadge canUpload={m.can_upload} />
                     <span className="min-w-0 flex-1 truncate text-xs text-slate-700 dark:text-slate-300">
                       {m.display_name || m.email}
                     </span>

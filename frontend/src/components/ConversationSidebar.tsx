@@ -50,7 +50,7 @@ export default function ConversationSidebar({
   const { t } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
   const isOwner = space.my_role === "owner";
-  const canWrite = space.my_role === "owner" || space.my_role === "editor";
+  const canWrite = space.my_role !== "admin_view";
 
   return (
     <aside className="flex w-[280px] shrink-0 flex-col border-r border-surface-border bg-surface-1">

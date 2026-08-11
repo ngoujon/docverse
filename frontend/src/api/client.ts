@@ -201,10 +201,10 @@ export const api = {
 
   // --- Members ------------------------------------------------------
   listMembers: (spaceId: string) => request<SpaceMember[]>(`/spaces/${spaceId}/members`),
-  addMember: (spaceId: string, email: string, role: "editor" | "viewer") =>
+  addMember: (spaceId: string, email: string, canUpload: boolean) =>
     request<SpaceMember>(`/spaces/${spaceId}/members`, {
       method: "POST",
-      body: JSON.stringify({ email, role }),
+      body: JSON.stringify({ email, can_upload: canUpload }),
     }),
   removeMember: (spaceId: string, memberId: string) =>
     request(`/spaces/${spaceId}/members/${memberId}`, { method: "DELETE" }),
@@ -213,13 +213,13 @@ export const api = {
   listShareLinks: (spaceId: string) => request<ShareLink[]>(`/spaces/${spaceId}/share-links`),
   createShareLink: (
     spaceId: string,
-    role: "editor" | "viewer",
+    canUpload: boolean,
     label: string,
     expiresInDays?: number
   ) =>
     request<ShareLink>(`/spaces/${spaceId}/share-links`, {
       method: "POST",
-      body: JSON.stringify({ role, label, expires_in_days: expiresInDays ?? null }),
+      body: JSON.stringify({ can_upload: canUpload, label, expires_in_days: expiresInDays ?? null }),
     }),
   revokeShareLink: (spaceId: string, linkId: string) =>
     request(`/spaces/${spaceId}/share-links/${linkId}`, { method: "DELETE" }),

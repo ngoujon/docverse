@@ -14,7 +14,7 @@ from ..services import backup, vector_graph, vectorstore
 router = APIRouter(prefix="/api/spaces", tags=["spaces"])
 
 
-def _to_out(space: models_db.Space, role: str) -> schemas.SpaceOut:
+def _to_out(space: models_db.Space, role: str, can_upload: bool = False) -> schemas.SpaceOut:
     return schemas.SpaceOut(
         id=space.id,
         name=space.name,
@@ -22,6 +22,7 @@ def _to_out(space: models_db.Space, role: str) -> schemas.SpaceOut:
         color=space.color or "#6366f1",
         owner_id=space.owner_id,
         my_role=role,
+        can_upload=can_upload,
         created_at=space.created_at,
         document_count=len(space.documents),
         conversation_count=len(space.conversations),
@@ -37,14 +38,14 @@ def list_my_spaces(
     that's a deliberate privacy default; see /api/admin/spaces."""
     owned = db.query(models_db.Space).filter_by(owner_id=user.id).all()
     member_rows = db.query(models_db.SpaceMember).filter_by(user_id=user.id).all()
-    member_spaces = {m.space_id: m.role for m in member_rows}
+    member_upload = {m.space_id: m.can_upload for m in member_rows}
     members_spaces_objs = (
-        db.query(models_db.Space).filter(models_db.Space.id.in_(member_spaces.keys())).all()
-        if member_spaces
+        db.query(models_db.Space).filter(models_db.Space.id.in_(member_upload.keys())).all()
+        if member_upload
         else []
     )
-    out = [_to_out(s, "owner") for s in owned]
-    out += [_to_out(s, member_spaces[s.id]) for s in members_spaces_objs]
+    out = [_to_out(s, "owner", can_upload=True) for s in owned]
+    out += [_to_out(s, "member", can_upload=member_upload[s.id]) for s in members_spaces_objs]
     out.sort(key=lambda s: s.created_at, reverse=True)
     return out
 
@@ -71,7 +72,7 @@ def create_space(
     db.add(space)
     db.commit()
     db.refresh(space)
-    return _to_out(space, "owner")
+    return _to_out(space, "owner", can_upload=True)
 
 
 @router.get("/by-share/{token}", response_model=schemas.SpaceOut)
@@ -89,12 +90,12 @@ def get_space_by_share_token(token: str, db: Session = Depends(get_db)):
     space = db.get(models_db.Space, link.space_id)
     if not space:
         raise HTTPException(404, "Espace introuvable")
-    return _to_out(space, link.role)
+    return _to_out(space, "member", can_upload=link.can_upload)
 
 
 @router.get("/{space_id}", response_model=schemas.SpaceOut)
 def get_space(access: SpaceAccess = Depends(require_space_access)):
-    return _to_out(access.space, access.role)
+    return _to_out(access.space, access.role, can_upload=access.can_upload)
 
 
 @router.get("/{space_id}/vector-graph", response_model=schemas.VectorGraphOut)
@@ -154,7 +155,7 @@ def update_space(
         space.color = payload.color
     db.commit()
     db.refresh(space)
-    return _to_out(space, "owner")
+    return _to_out(space, "owner", can_upload=True)
 
 
 @router.delete("/{space_id}")
@@ -185,7 +186,7 @@ def list_members(access: SpaceAccess = Depends(require_space_access), db: Sessio
             user_id=m.user_id,
             email=m.user.email,
             display_name=m.user.display_name,
-            role=m.role,
+            can_upload=m.can_upload,
             created_at=m.created_at,
         )
         for m in rows
@@ -230,7 +231,7 @@ def add_member(
         .first()
     )
     if existing:
-        existing.role = payload.role
+        existing.can_upload = payload.can_upload
         db.commit()
         member = existing
     else:
@@ -247,7 +248,9 @@ def add_member(
                     400,
                     f"Limite de {plan_limit} membres par espace atteinte pour ce palier",
                 )
-        member = models_db.SpaceMember(space_id=access.space.id, user_id=target.id, role=payload.role)
+        member = models_db.SpaceMember(
+            space_id=access.space.id, user_id=target.id, can_upload=payload.can_upload
+        )
         db.add(member)
         db.commit()
         db.refresh(member)
@@ -256,7 +259,7 @@ def add_member(
         user_id=target.id,
         email=target.email,
         display_name=target.display_name,
-        role=member.role,
+        can_upload=member.can_upload,
         created_at=member.created_at,
     )
 
@@ -306,7 +309,7 @@ def create_share_link(
     )
     link = models_db.ShareLink(
         space_id=access.space.id,
-        role=payload.role,
+        can_upload=payload.can_upload,
         label=payload.label,
         created_by=access.user.id if access.user else None,
         expires_at=expires_at,

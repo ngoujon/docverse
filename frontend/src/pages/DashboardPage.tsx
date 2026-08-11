@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Eye, Files, Folders, MessagesSquare, Pencil, Plus, Star, Users2, HardDrive } from "lucide-react";
+import { Eye, Files, Folders, MessagesSquare, Plus, Star, Users2, HardDrive } from "lucide-react";
 import clsx from "clsx";
 import { api } from "../api/client";
 import { useAuth } from "../hooks/useAuth";
@@ -15,16 +15,12 @@ import type { MeStats, Space } from "../types";
 
 function RoleBadge({ role }: { role: Space["my_role"] }) {
   const { t } = useTranslation();
-  const icon = role === "owner" ? <Star size={10} /> : role === "editor" ? <Pencil size={10} /> : <Eye size={10} />;
+  const icon = role === "owner" ? <Star size={10} /> : <Eye size={10} />;
   return (
     <span
       className={clsx(
         "flex items-center gap-1 rounded-full px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider",
-        role === "owner"
-          ? "bg-accent/15 text-accent"
-          : role === "editor"
-          ? "bg-cyan-500/15 text-cyan-600 dark:text-cyan-400"
-          : "bg-surface-3 text-slate-600 dark:text-slate-300"
+        role === "owner" ? "bg-accent/15 text-accent" : "bg-surface-3 text-slate-600 dark:text-slate-300"
       )}
     >
       {icon}

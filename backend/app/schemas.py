@@ -101,7 +101,8 @@ class SpaceOut(BaseModel):
     description: str
     color: str
     owner_id: str
-    my_role: str = "viewer"  # owner | editor | viewer, resolved per-request
+    my_role: str = "member"  # owner | member | admin_view, resolved per-request
+    can_upload: bool = False
     created_at: datetime
     document_count: int = 0
     conversation_count: int = 0
@@ -112,7 +113,9 @@ class SpaceOut(BaseModel):
 
 class SpaceMemberCreate(BaseModel):
     email: EmailStr
-    role: str = Field(default="viewer", pattern="^(editor|viewer)$")
+    # Off by default - members can always chat, but uploading/deleting
+    # documents is an explicit permission the owner grants per invitation.
+    can_upload: bool = False
 
 
 class SpaceMemberOut(BaseModel):
@@ -120,12 +123,12 @@ class SpaceMemberOut(BaseModel):
     user_id: str
     email: str
     display_name: str
-    role: str
+    can_upload: bool
     created_at: datetime
 
 
 class ShareLinkCreate(BaseModel):
-    role: str = Field(default="viewer", pattern="^(editor|viewer)$")
+    can_upload: bool = False
     label: str = Field(default="", max_length=120)
     expires_in_days: Optional[int] = Field(default=None, ge=1, le=365)
 
@@ -133,7 +136,7 @@ class ShareLinkCreate(BaseModel):
 class ShareLinkOut(BaseModel):
     id: str
     space_id: str
-    role: str
+    can_upload: bool
     label: str
     created_at: datetime
     expires_at: Optional[datetime] = None

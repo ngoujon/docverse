@@ -1,4 +1,4 @@
-export type SpaceRole = "owner" | "editor" | "viewer";
+export type SpaceRole = "owner" | "member" | "admin_view";
 
 export interface Space {
   id: string;
@@ -7,6 +7,7 @@ export interface Space {
   color: string;
   owner_id: string;
   my_role: SpaceRole;
+  can_upload: boolean;
   created_at: string;
   document_count: number;
   conversation_count: number;
@@ -115,14 +116,14 @@ export interface SpaceMember {
   user_id: string;
   email: string;
   display_name: string;
-  role: "editor" | "viewer";
+  can_upload: boolean;
   created_at: string;
 }
 
 export interface ShareLink {
   id: string;
   space_id: string;
-  role: "editor" | "viewer";
+  can_upload: boolean;
   label: string;
   created_at: string;
   expires_at?: string | null;
