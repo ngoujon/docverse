@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .config import UPLOAD_DIR, settings
 from .database import Base, SessionLocal, engine, ensure_schema
-from .routers import admin, auth, billing, captcha, chat, conversations, contact, documents, newsletter, oauth, spaces, support
+from .routers import admin, auth, billing, captcha, chat, conversations, contact, documents, newsletter, oauth, spaces, support, testimonials
 from .services import ollama_client, vectorstore
 
 logging.basicConfig(level=logging.INFO)
@@ -46,7 +46,64 @@ def _delete_ownerless_spaces() -> None:
         db.close()
 
 
+def _seed_testimonials() -> None:
+    """Inserts a handful of example testimonials on first boot, so the
+    admin has something concrete to look at and edit rather than an empty
+    table - always unpublished, since these are placeholder drafts, not
+    real customer feedback, and must be reviewed before going live."""
+    from . import models_db
+
+    db = SessionLocal()
+    try:
+        if db.query(models_db.Testimonial).count() > 0:
+            return
+        seeds = [
+            {
+                "author_name": "Marie L.",
+                "author_role": "Experte-comptable",
+                "author_company": "Cabinet d'expertise comptable",
+                "content": (
+                    "Chaque client a son propre espace, ce qui correspond exactement a la "
+                    "facon dont on organise deja nos dossiers. On pose autant de questions "
+                    "qu'on veut sans se demander si ca va couter plus cher ce mois-ci."
+                ),
+                "rating": 5,
+                "display_order": 1,
+            },
+            {
+                "author_name": "Thomas B.",
+                "author_role": "Avocat en droit des affaires",
+                "author_company": "Cabinet d'avocats",
+                "content": (
+                    "Les reponses citent toujours le document source, ce qui est "
+                    "indispensable pour notre metier. Pouvoir retirer l'acces d'un "
+                    "collaborateur en un clic est aussi tres rassurant."
+                ),
+                "rating": 5,
+                "display_order": 2,
+            },
+            {
+                "author_name": "Camille R.",
+                "author_role": "Directrice d'agence",
+                "author_company": "Agence de communication",
+                "content": (
+                    "Le cout fixe change tout par rapport a payer un abonnement IA par "
+                    "personne dans l'equipe. On sait exactement ce qu'on paie chaque mois."
+                ),
+                "rating": 4,
+                "display_order": 3,
+            },
+        ]
+        for seed in seeds:
+            db.add(models_db.Testimonial(published=False, **seed))
+        db.commit()
+        logger.info("Avis d'exemple ajoutes (non publies) - a relire dans /admin.")
+    finally:
+        db.close()
+
+
 _delete_ownerless_spaces()
+_seed_testimonials()
 
 app = FastAPI(title="Open RAG", version="1.0.0")
 
@@ -84,6 +141,7 @@ app.include_router(documents.router)
 app.include_router(chat.router)
 app.include_router(contact.router)
 app.include_router(support.router)
+app.include_router(testimonials.router)
 
 
 @app.get("/api/health")

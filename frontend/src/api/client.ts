@@ -15,6 +15,8 @@ import type {
   SpaceMember,
   SpaceSnapshot,
   SpaceStats,
+  Testimonial,
+  TestimonialInput,
   TwoFactorSetup,
   User,
   VectorGraph,
@@ -164,6 +166,13 @@ export const api = {
     request<User>(`/admin/users/${userId}`, { method: "PATCH", body: JSON.stringify(patch) }),
   adminDeleteUser: (userId: string) => request(`/admin/users/${userId}`, { method: "DELETE" }),
   adminDeleteSpace: (spaceId: string) => request(`/admin/spaces/${spaceId}`, { method: "DELETE" }),
+  adminListTestimonials: () => request<Testimonial[]>("/admin/testimonials"),
+  adminCreateTestimonial: (payload: TestimonialInput) =>
+    request<Testimonial>("/admin/testimonials", { method: "POST", body: JSON.stringify(payload) }),
+  adminUpdateTestimonial: (id: string, patch: Partial<TestimonialInput>) =>
+    request<Testimonial>(`/admin/testimonials/${id}`, { method: "PATCH", body: JSON.stringify(patch) }),
+  adminDeleteTestimonial: (id: string) => request(`/admin/testimonials/${id}`, { method: "DELETE" }),
+  listTestimonials: () => request<Testimonial[]>("/testimonials"),
   adminListSnapshots: (spaceId: string) =>
     request<SpaceSnapshot[]>(`/admin/spaces/${spaceId}/snapshots`),
   adminCreateSnapshot: (spaceId: string) =>

@@ -24,6 +24,10 @@
     "ctaTry": "Prova ora",
     "ctaDiscover": "Vedi i prezzi"
   },
+  "testimonials": {
+    "eyebrow": "Usano Open RAG",
+    "title": "Cosa dicono i nostri utenti"
+  },
   "highlight": {
     "eyebrow": "In pratica",
     "title": "I tuoi documenti diventano risposte in pochi secondi",
@@ -579,7 +583,26 @@
     },
     "tabs": {
       "users": "Utenti",
-      "spaces": "Spazi"
+      "spaces": "Spazi",
+      "testimonials": "Recensioni"
+    },
+    "testimonials": {
+      "hint": "Queste recensioni sono visibili sul sito pubblico solo dopo la pubblicazione.",
+      "create": "Nuova recensione",
+      "createTitle": "Nuova recensione",
+      "editTitle": "Modifica recensione",
+      "authorName": "Nome",
+      "authorRole": "Ruolo",
+      "authorCompany": "Azienda",
+      "content": "Recensione",
+      "rating": "Valutazione",
+      "published": "Pubblicata",
+      "draft": "Bozza",
+      "publish": "Pubblica",
+      "unpublish": "Rimuovi pubblicazione",
+      "empty": "Ancora nessuna recensione.",
+      "confirmDeleteTitle": "Eliminare questa recensione?",
+      "confirmDeleteMessage": "Questa azione e definitiva."
     },
     "table": {
       "email": "Email",

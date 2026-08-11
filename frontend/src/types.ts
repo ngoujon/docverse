@@ -193,3 +193,25 @@ export interface VectorGraph {
   edges: VectorGraphEdge[];
   truncated: boolean;
 }
+
+export interface Testimonial {
+  id: string;
+  author_name: string;
+  author_role: string;
+  author_company: string;
+  content: string;
+  rating: number;
+  published: boolean;
+  display_order: number;
+  created_at: string;
+}
+
+export interface TestimonialInput {
+  author_name: string;
+  author_role?: string;
+  author_company?: string;
+  content: string;
+  rating?: number;
+  published?: boolean;
+  display_order?: number;
+}

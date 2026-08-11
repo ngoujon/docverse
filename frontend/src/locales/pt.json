@@ -24,6 +24,10 @@
     "ctaTry": "Experimentar agora",
     "ctaDiscover": "Ver precos"
   },
+  "testimonials": {
+    "eyebrow": "Eles usam o Open RAG",
+    "title": "O que dizem os nossos utilizadores"
+  },
   "highlight": {
     "eyebrow": "Na pratica",
     "title": "Os seus documentos tornam-se respostas em segundos",
@@ -579,7 +583,26 @@
     },
     "tabs": {
       "users": "Utilizadores",
-      "spaces": "Espacos"
+      "spaces": "Espacos",
+      "testimonials": "Testemunhos"
+    },
+    "testimonials": {
+      "hint": "Estes testemunhos so sao visiveis no site publico depois de publicados.",
+      "create": "Novo testemunho",
+      "createTitle": "Novo testemunho",
+      "editTitle": "Editar testemunho",
+      "authorName": "Nome",
+      "authorRole": "Funcao",
+      "authorCompany": "Empresa",
+      "content": "Testemunho",
+      "rating": "Classificacao",
+      "published": "Publicado",
+      "draft": "Rascunho",
+      "publish": "Publicar",
+      "unpublish": "Despublicar",
+      "empty": "Ainda sem testemunhos.",
+      "confirmDeleteTitle": "Eliminar este testemunho?",
+      "confirmDeleteMessage": "Esta acao e definitiva."
     },
     "table": {
       "email": "Email",

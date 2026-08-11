@@ -325,3 +325,40 @@ class NewsletterSubscribeRequest(BaseModel):
     email: EmailStr
     captcha_salt: str
     captcha_nonce: int
+
+
+# --- Testimonials -------------------------------------------------------
+
+class TestimonialOut(BaseModel):
+    id: str
+    author_name: str
+    author_role: str
+    author_company: str
+    content: str
+    rating: int
+    published: bool
+    display_order: int
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
+class TestimonialCreate(BaseModel):
+    author_name: str = Field(min_length=1, max_length=120)
+    author_role: str = Field(default="", max_length=120)
+    author_company: str = Field(default="", max_length=120)
+    content: str = Field(min_length=1, max_length=2000)
+    rating: int = Field(default=5, ge=1, le=5)
+    published: bool = False
+    display_order: int = 0
+
+
+class TestimonialUpdate(BaseModel):
+    author_name: Optional[str] = Field(default=None, min_length=1, max_length=120)
+    author_role: Optional[str] = Field(default=None, max_length=120)
+    author_company: Optional[str] = Field(default=None, max_length=120)
+    content: Optional[str] = Field(default=None, min_length=1, max_length=2000)
+    rating: Optional[int] = Field(default=None, ge=1, le=5)
+    published: Optional[bool] = None
+    display_order: Optional[int] = None

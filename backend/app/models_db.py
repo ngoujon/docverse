@@ -184,6 +184,27 @@ class ContactMessage(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
 
+class Testimonial(Base):
+    """A homepage testimonial/review. Seeded with placeholder drafts on
+    first boot (see database.py) but never auto-published - an admin must
+    review and explicitly publish each one from the admin dashboard,
+    since displaying fabricated reviews as genuine to visitors would be
+    misleading advertising if left on autopilot."""
+
+    __tablename__ = "testimonials"
+
+    id = Column(String, primary_key=True, default=gen_id)
+    author_name = Column(String, nullable=False)
+    author_role = Column(String, default="")
+    author_company = Column(String, default="")
+    content = Column(Text, nullable=False)
+    rating = Column(Integer, default=5)
+    published = Column(Boolean, default=False)
+    display_order = Column(Integer, default=0)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
 class SpaceSnapshot(Base):
     """A point-in-time backup of one space (its SQL rows, vector store, and
     uploaded files), so an admin can restore it after a mistake or data

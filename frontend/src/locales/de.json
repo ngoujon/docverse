@@ -24,6 +24,10 @@
     "ctaTry": "Jetzt testen",
     "ctaDiscover": "Preise ansehen"
   },
+  "testimonials": {
+    "eyebrow": "Sie nutzen Open RAG",
+    "title": "Was unsere Nutzer sagen"
+  },
   "highlight": {
     "eyebrow": "In der Praxis",
     "title": "Ihre Dokumente werden in Sekunden zu Antworten",
@@ -579,7 +583,26 @@
     },
     "tabs": {
       "users": "Nutzer",
-      "spaces": "Bereiche"
+      "spaces": "Bereiche",
+      "testimonials": "Bewertungen"
+    },
+    "testimonials": {
+      "hint": "Diese Bewertungen sind auf der offentlichen Seite erst nach Veroffentlichung sichtbar.",
+      "create": "Neue Bewertung",
+      "createTitle": "Neue Bewertung",
+      "editTitle": "Bewertung bearbeiten",
+      "authorName": "Name",
+      "authorRole": "Funktion",
+      "authorCompany": "Unternehmen",
+      "content": "Bewertung",
+      "rating": "Bewertung (Sterne)",
+      "published": "Veroffentlicht",
+      "draft": "Entwurf",
+      "publish": "Veroffentlichen",
+      "unpublish": "Zuruckziehen",
+      "empty": "Noch keine Bewertungen.",
+      "confirmDeleteTitle": "Diese Bewertung loschen?",
+      "confirmDeleteMessage": "Diese Aktion ist endgultig."
     },
     "table": {
       "email": "E-Mail",

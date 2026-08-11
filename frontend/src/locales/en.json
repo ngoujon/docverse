@@ -24,6 +24,10 @@
     "ctaTry": "Try it now",
     "ctaDiscover": "See pricing"
   },
+  "testimonials": {
+    "eyebrow": "They use Open RAG",
+    "title": "What our users say"
+  },
   "highlight": {
     "eyebrow": "In practice",
     "title": "Your documents become answers in seconds",
@@ -579,7 +583,26 @@
     },
     "tabs": {
       "users": "Users",
-      "spaces": "Spaces"
+      "spaces": "Spaces",
+      "testimonials": "Testimonials"
+    },
+    "testimonials": {
+      "hint": "These testimonials are only visible on the public site once published.",
+      "create": "New testimonial",
+      "createTitle": "New testimonial",
+      "editTitle": "Edit testimonial",
+      "authorName": "Name",
+      "authorRole": "Role",
+      "authorCompany": "Company",
+      "content": "Testimonial",
+      "rating": "Rating",
+      "published": "Published",
+      "draft": "Draft",
+      "publish": "Publish",
+      "unpublish": "Unpublish",
+      "empty": "No testimonials yet.",
+      "confirmDeleteTitle": "Delete this testimonial?",
+      "confirmDeleteMessage": "This action is permanent."
     },
     "table": {
       "email": "Email",

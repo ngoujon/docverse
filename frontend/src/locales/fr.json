@@ -24,6 +24,10 @@
     "ctaTry": "Essayer maintenant",
     "ctaDiscover": "Voir les tarifs"
   },
+  "testimonials": {
+    "eyebrow": "Ils utilisent Open RAG",
+    "title": "Ce qu'en disent nos utilisateurs"
+  },
   "highlight": {
     "eyebrow": "En pratique",
     "title": "Vos documents deviennent des reponses en quelques secondes",
@@ -579,7 +583,26 @@
     },
     "tabs": {
       "users": "Utilisateurs",
-      "spaces": "Espaces"
+      "spaces": "Espaces",
+      "testimonials": "Avis"
+    },
+    "testimonials": {
+      "hint": "Ces avis ne sont visibles sur le site public que s'ils sont publies.",
+      "create": "Nouvel avis",
+      "createTitle": "Nouvel avis",
+      "editTitle": "Modifier l'avis",
+      "authorName": "Nom",
+      "authorRole": "Fonction",
+      "authorCompany": "Entreprise",
+      "content": "Avis",
+      "rating": "Note",
+      "published": "Publie",
+      "draft": "Brouillon",
+      "publish": "Publier",
+      "unpublish": "Depublier",
+      "empty": "Aucun avis pour l'instant.",
+      "confirmDeleteTitle": "Supprimer cet avis ?",
+      "confirmDeleteMessage": "Cette action est definitive."
     },
     "table": {
       "email": "Email",

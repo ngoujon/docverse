@@ -17,6 +17,7 @@ import NeoGrid from "../components/landing/NeoGrid";
 import ContactForm from "../components/landing/ContactForm";
 import Scanlines from "../components/landing/Scanlines";
 import HighlightBanner from "../components/landing/HighlightBanner";
+import Testimonials from "../components/landing/Testimonials";
 import ChatMockup from "../components/landing/ChatMockup";
 import OnboardingTerminal from "../components/landing/OnboardingTerminal";
 import TerminalWindow from "../components/landing/TerminalWindow";
@@ -324,6 +325,8 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      <Testimonials />
 
       {/* Contact */}
       <section id="contact" className="border-t border-retro-border/60 px-4 py-20 sm:px-6">
