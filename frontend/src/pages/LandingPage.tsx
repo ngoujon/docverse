@@ -14,6 +14,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import NeoGrid from "../components/landing/NeoGrid";
+import StarField from "../components/landing/StarField";
 import ContactForm from "../components/landing/ContactForm";
 import Scanlines from "../components/landing/Scanlines";
 import HighlightBanner from "../components/landing/HighlightBanner";
@@ -222,6 +223,7 @@ export default function LandingPage() {
             background: "radial-gradient(closest-side, #ff2bd6, transparent 70%)",
           }}
         />
+        <StarField />
         <NeoGrid />
 
         <div className="relative mx-auto grid max-w-6xl gap-10 lg:grid-cols-2 lg:items-center lg:gap-6">
