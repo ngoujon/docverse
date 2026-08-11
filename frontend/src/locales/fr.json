@@ -548,6 +548,13 @@
       "error": "Une erreur est survenue, reessayez."
     }
   },
+  "activation": {
+    "title": "Bien demarrer",
+    "progress": "{{done}}/{{total}} etapes terminees",
+    "step1": "Creez votre premier espace",
+    "step2": "Deposez un document",
+    "step3": "Posez une question"
+  },
   "dashboard": {
     "title": "Tableau de bord",
     "greeting": "Bonjour, {{name}}",

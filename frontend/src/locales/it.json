@@ -548,6 +548,13 @@
       "error": "Si e verificato un errore, riprova."
     }
   },
+  "activation": {
+    "title": "Per iniziare",
+    "progress": "{{done}}/{{total}} passaggi completati",
+    "step1": "Crea il tuo primo spazio",
+    "step2": "Carica un documento",
+    "step3": "Fai una domanda"
+  },
   "dashboard": {
     "title": "Pannello",
     "greeting": "Ciao, {{name}}",

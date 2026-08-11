@@ -548,6 +548,13 @@
       "error": "Ein Fehler ist aufgetreten, bitte erneut versuchen."
     }
   },
+  "activation": {
+    "title": "Erste Schritte",
+    "progress": "{{done}}/{{total}} Schritte erledigt",
+    "step1": "Erstellen Sie Ihren ersten Bereich",
+    "step2": "Laden Sie ein Dokument hoch",
+    "step3": "Stellen Sie eine Frage"
+  },
   "dashboard": {
     "title": "Dashboard",
     "greeting": "Hallo, {{name}}",

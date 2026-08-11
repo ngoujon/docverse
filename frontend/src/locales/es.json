@@ -548,6 +548,13 @@
       "error": "Ocurrio un error, intentalo de nuevo."
     }
   },
+  "activation": {
+    "title": "Primeros pasos",
+    "progress": "{{done}}/{{total}} pasos completados",
+    "step1": "Crea tu primer espacio",
+    "step2": "Sube un documento",
+    "step3": "Haz una pregunta"
+  },
   "dashboard": {
     "title": "Panel",
     "greeting": "Hola, {{name}}",

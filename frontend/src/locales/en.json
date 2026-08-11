@@ -548,6 +548,13 @@
       "error": "Something went wrong, please retry."
     }
   },
+  "activation": {
+    "title": "Get started",
+    "progress": "{{done}}/{{total}} steps done",
+    "step1": "Create your first space",
+    "step2": "Upload a document",
+    "step3": "Ask a question"
+  },
   "dashboard": {
     "title": "Dashboard",
     "greeting": "Hello, {{name}}",

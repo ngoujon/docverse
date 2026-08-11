@@ -548,6 +548,13 @@
       "error": "Ocorreu um erro, tente novamente."
     }
   },
+  "activation": {
+    "title": "Comecar",
+    "progress": "{{done}}/{{total}} etapas concluidas",
+    "step1": "Crie o seu primeiro espaco",
+    "step2": "Carregue um documento",
+    "step3": "Faca uma pergunta"
+  },
   "dashboard": {
     "title": "Painel",
     "greeting": "Ola, {{name}}",

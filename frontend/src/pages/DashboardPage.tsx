@@ -10,6 +10,7 @@ import { formatBytes } from "../utils/format";
 import DashboardNav from "../components/DashboardNav";
 import StatCard from "../components/StatCard";
 import SpaceModal, { type SpaceFormData } from "../components/SpaceModal";
+import ActivationChecklist from "../components/ActivationChecklist";
 import type { MeStats, Space } from "../types";
 
 function RoleBadge({ role }: { role: Space["my_role"] }) {
@@ -87,6 +88,8 @@ export default function DashboardPage() {
             <StatCard icon={<HardDrive size={14} />} label={t("dashboard.kpi.storage")} value={formatBytes(stats.storage_bytes)} />
           </div>
         )}
+
+        {stats && <ActivationChecklist stats={stats} onCreateSpace={() => setModalOpen(true)} />}
 
         <div className="mt-8 flex items-center justify-between">
           <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
