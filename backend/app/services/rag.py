@@ -1,6 +1,6 @@
 import re
 
-from . import ollama_client, vectorstore, websearch
+from . import ollama_client, reranker, vectorstore, websearch
 from ..config import settings
 
 _WEB_SEARCH_CLASSIFIER_PROMPT = (
@@ -67,8 +67,8 @@ _SYSTEM_PROMPT_TEMPLATE = (
 
 async def retrieve_document_context(space_id: str, query: str) -> list[dict]:
     embedding = await ollama_client.embed(query)
-    results = vectorstore.query(space_id, embedding, top_k=settings.retrieval_top_k)
-    return results
+    candidates = vectorstore.query(space_id, embedding, top_k=settings.rerank_candidate_pool)
+    return await reranker.rerank(query, candidates, settings.retrieval_top_k)
 
 
 async def gather_context(space_id: str, query: str) -> tuple[str, list[dict]]:

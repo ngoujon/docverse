@@ -56,6 +56,11 @@ class Settings:
     chunk_size: int = int(os.environ.get("CHUNK_SIZE", "1200"))
     chunk_overlap: int = int(os.environ.get("CHUNK_OVERLAP", "150"))
     retrieval_top_k: int = int(os.environ.get("RETRIEVAL_TOP_K", "6"))
+    # Vector search first pulls this many candidates, then the reranker
+    # narrows them down to retrieval_top_k - a wider net catches chunks a
+    # pure similarity score would rank too low, without changing the final
+    # context size the chat model sees.
+    rerank_candidate_pool: int = int(os.environ.get("RERANK_CANDIDATE_POOL", "20"))
 
     cors_origins: list[str] = _parse_origins(os.environ.get("CORS_ORIGINS", "*"))
 
