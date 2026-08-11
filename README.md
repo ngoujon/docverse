@@ -156,6 +156,8 @@ il suffit de recharger la page.
 
 ## Deploiement (production)
 
+En local (sans domaine ni HTTPS) :
+
 ```bash
 cp .env.example .env
 docker compose -f docker-compose.prod.yml up -d --build
@@ -164,6 +166,29 @@ docker compose -f docker-compose.prod.yml up -d --build
 Interface disponible sur http://localhost:8080 (ou `FRONTEND_PORT`). Cette
 variante compile le frontend une bonne fois pour toutes (image Nginx) : il
 faut relancer `--build` a chaque changement de code.
+
+### Deploiement sur un VPS avec nom de domaine
+
+`docker-compose.prod.yml` inclut Caddy, qui obtient et renouvelle
+automatiquement un certificat HTTPS (Let's Encrypt) pour le domaine
+configure - aucune manipulation de certificat a faire a la main.
+
+Deux scripts dans `tools/` automatisent le deploiement depuis cette
+machine (aucune commande a taper sur le VPS) :
+
+```bash
+cp tools/deploy.env.example tools/deploy.env   # SSH, domaine, chemin distant
+cp .env.example tools/production.env           # vrais secrets de production
+
+tools/deploy.sh   # premier deploiement complet (installe Docker si besoin,
+                   # clone le depot, envoie le .env, demarre la stack)
+tools/update.sh   # mises a jour suivantes (git pull + rebuild sur le VPS)
+```
+
+Prerequis avant `deploy.sh` : le DNS du domaine doit deja pointer (A/AAAA)
+vers l'IP du VPS, sinon Caddy ne pourra pas valider le certificat.
+`tools/deploy.env` et `tools/production.env` contiennent des secrets et ne
+sont jamais commites (voir `.gitignore`).
 
 ## Choix des modeles
 

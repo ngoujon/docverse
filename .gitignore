@@ -13,6 +13,8 @@ frontend/vite.config.d.ts
 
 # Env
 .env
+tools/deploy.env
+tools/production.env
 
 # OS
 .DS_Store
