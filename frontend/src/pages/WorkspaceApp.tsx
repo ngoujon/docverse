@@ -364,6 +364,7 @@ export default function WorkspaceApp() {
             onOpenVectorGraph={() => setVectorGraphOpen(true)}
             theme={theme}
             onToggleTheme={toggleTheme}
+            shareToken={shareToken}
           />
 
           {docPanelOpen && (

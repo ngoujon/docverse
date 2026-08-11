@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Send, PanelRight, Sparkles, Menu, Loader2, Eye, Network } from "lucide-react";
+import { Send, PanelRight, Sparkles, Menu, Loader2, Eye, Network, Download, FileText, FileType } from "lucide-react";
 import clsx from "clsx";
 import type { Conversation, Message, Space } from "../types";
+import { api } from "../api/client";
 import MessageBubble from "./MessageBubble";
 import LanguageSwitcher from "./LanguageSwitcher";
 import ThemeToggle from "./ThemeToggle";
@@ -21,6 +22,59 @@ interface Props {
   onOpenVectorGraph: () => void;
   theme: "light" | "dark";
   onToggleTheme: () => void;
+  shareToken?: string;
+}
+
+function ExportMenu({ conversationId, title, shareToken }: { conversationId: string; title: string; shareToken?: string }) {
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const [exporting, setExporting] = useState(false);
+
+  const handleExport = async (format: "pdf" | "docx") => {
+    setOpen(false);
+    setExporting(true);
+    try {
+      await api.exportConversation(conversationId, format, title || "conversation", shareToken);
+    } catch {
+      // A failed export isn't worth a modal - the button just stops
+      // spinning and the user can retry.
+    } finally {
+      setExporting(false);
+    }
+  };
+
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        disabled={exporting}
+        title={t("app.chat.exportTitle")}
+        className="rounded-lg border border-surface-border p-2 text-slate-500 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-600 hover:text-slate-700 dark:hover:text-slate-200 disabled:opacity-50"
+      >
+        {exporting ? <Loader2 size={15} className="animate-spin" /> : <Download size={15} />}
+      </button>
+
+      {open && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
+          <div className="absolute right-0 z-50 mt-1 w-44 overflow-hidden rounded-lg border border-surface-border bg-surface-1 shadow-panel">
+            <button
+              onClick={() => handleExport("pdf")}
+              className="flex w-full items-center gap-2 px-3 py-2 text-left text-xs text-slate-700 hover:bg-surface-3 dark:text-slate-300"
+            >
+              <FileText size={13} /> {t("app.chat.exportPdf")}
+            </button>
+            <button
+              onClick={() => handleExport("docx")}
+              className="flex w-full items-center gap-2 px-3 py-2 text-left text-xs text-slate-700 hover:bg-surface-3 dark:text-slate-300"
+            >
+              <FileType size={13} /> {t("app.chat.exportWord")}
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  );
 }
 
 export default function ChatWindow({
@@ -37,6 +91,7 @@ export default function ChatWindow({
   onOpenVectorGraph,
   theme,
   onToggleTheme,
+  shareToken,
 }: Props) {
   const { t } = useTranslation();
   const [input, setInput] = useState("");
@@ -101,6 +156,9 @@ export default function ChatWindow({
           <ThemeToggle theme={theme} onToggle={onToggleTheme} />
           <LanguageSwitcher variant="light" />
           <span className="mx-0.5 h-5 w-px bg-surface-border" aria-hidden="true" />
+          {messages.length > 0 && (
+            <ExportMenu conversationId={conversation.id} title={conversation.title} shareToken={shareToken} />
+          )}
           <button
             onClick={onOpenVectorGraph}
             title={t("app.vectorGraph.openTitle")}

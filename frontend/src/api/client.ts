@@ -238,6 +238,32 @@ export const api = {
     request(`/conversations/${id}`, { method: "DELETE" }, shareToken),
   listMessages: (conversationId: string, shareToken?: string) =>
     request<Message[]>(`/conversations/${conversationId}/messages`, undefined, shareToken),
+  exportConversation: async (
+    conversationId: string,
+    format: "pdf" | "docx",
+    filenameFallback: string,
+    shareToken?: string
+  ): Promise<void> => {
+    const res = await fetch(`${BASE}/conversations/${conversationId}/export?format=${format}`, {
+      headers: authHeaders(shareToken),
+    });
+    if (res.status === 401) throw new UnauthorizedError(await readDetail(res, "Acces non autorise"));
+    if (!res.ok) throw new Error(await readDetail(res, res.statusText));
+
+    const disposition = res.headers.get("Content-Disposition") || "";
+    const match = disposition.match(/filename="([^"]+)"/);
+    const filename = match ? match[1] : `${filenameFallback}.${format}`;
+
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  },
 
   // --- Documents ------------------------------------------------------
   listDocuments: (spaceId: string, shareToken?: string) =>
