@@ -10,7 +10,7 @@ from ..config import PLAN_PRICE_IDS, plan_for_price_id, settings
 from ..database import get_db
 from ..deps import get_current_user
 
-logger = logging.getLogger("open-rag.billing")
+logger = logging.getLogger("hyaides.billing")
 router = APIRouter(prefix="/api/billing", tags=["billing"])
 
 

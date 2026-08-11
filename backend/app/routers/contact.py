@@ -8,7 +8,7 @@ from ..database import get_db
 from ..deps import client_ip
 from ..services import captcha, rate_limiter
 
-logger = logging.getLogger("open-rag.contact")
+logger = logging.getLogger("hyaides.contact")
 router = APIRouter(prefix="/api", tags=["contact"])
 
 

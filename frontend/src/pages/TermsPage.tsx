@@ -13,7 +13,7 @@ export default function TermsPage() {
   const sections = t("terms.sections", { returnObjects: true }) as TermsSection[];
 
   usePageMeta({
-    title: `${t("terms.title")} - Open RAG`,
+    title: `${t("terms.title")} - Hyaides`,
     description: t("terms.subtitle"),
     canonicalPath: "/cgu",
   });

@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 
 from .config import DB_PATH
 
-logger = logging.getLogger("open-rag.database")
+logger = logging.getLogger("hyaides.database")
 
 engine = create_engine(
     f"sqlite:///{DB_PATH}",

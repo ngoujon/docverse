@@ -8,7 +8,7 @@ from faster_whisper import WhisperModel
 from ..config import WHISPER_MODEL_DIR, settings
 from . import queue_manager
 
-logger = logging.getLogger("open-rag.transcription")
+logger = logging.getLogger("hyaides.transcription")
 
 
 @lru_cache(maxsize=1)

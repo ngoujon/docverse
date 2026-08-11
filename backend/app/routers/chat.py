@@ -12,7 +12,7 @@ from ..database import get_db, SessionLocal
 from ..deps import ConversationAccess, require_conversation_access, client_ip
 from ..services import backup, ollama_client, queue_manager, rag, rate_limiter
 
-logger = logging.getLogger("open-rag.chat")
+logger = logging.getLogger("hyaides.chat")
 router = APIRouter(prefix="/api", tags=["chat"])
 
 _HISTORY_LIMIT = 20

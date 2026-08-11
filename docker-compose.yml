@@ -91,7 +91,7 @@ services:
       - SMTP_USER=${SMTP_USER:-}
       - SMTP_PASSWORD=${SMTP_PASSWORD:-}
       - SMTP_USE_TLS=${SMTP_USE_TLS:-true}
-      - SMTP_FROM=${SMTP_FROM:-Open RAG <no-reply@open-rag.local>}
+      - SMTP_FROM=${SMTP_FROM:-Hyaides <no-reply@hyaides.local>}
       # Mistral: prepared, not yet wired to a live provider switch - see
       # TODO.md Phase 3.
       - MISTRAL_API_KEY=${MISTRAL_API_KEY:-}

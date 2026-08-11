@@ -25,7 +25,7 @@
     "ctaDiscover": "See pricing"
   },
   "testimonials": {
-    "eyebrow": "They use Open RAG",
+    "eyebrow": "They use Hyaides",
     "title": "What our users say"
   },
   "highlight": {
@@ -243,12 +243,12 @@
     "back": "Back to home",
     "eyebrow": "Terms of use",
     "title": "Terms of Use",
-    "subtitle": "By creating an account or using Open RAG, you agree to the rules below. They're meant to stay simple and readable.",
+    "subtitle": "By creating an account or using Hyaides, you agree to the rules below. They're meant to stay simple and readable.",
     "updated": "Last updated: {{date}}",
     "sections": [
       {
         "title": "1. Purpose",
-        "body": "These terms govern access to and use of Open RAG (the \"Service\"), an application for uploading documents into workspaces and querying them through an AI-based conversational assistant. Using the Service means fully accepting these terms."
+        "body": "These terms govern access to and use of Hyaides (the \"Service\"), an application for uploading documents into workspaces and querying them through an AI-based conversational assistant. Using the Service means fully accepting these terms."
       },
       {
         "title": "2. User account",
@@ -292,7 +292,7 @@
     "back": "Back to home",
     "eyebrow": "Terms of sale",
     "title": "Terms of Sale",
-    "subtitle": "These terms apply to subscribing to Open RAG's paid tiers (Individual, Pro). The Discovery tier is free and not covered. The Enterprise tier is sold on a custom quote with its own terms.",
+    "subtitle": "These terms apply to subscribing to Hyaides's paid tiers (Individual, Pro). The Discovery tier is free and not covered. The Enterprise tier is sold on a custom quote with its own terms.",
     "updated": "Last updated: {{date}}",
     "sections": [
       {
@@ -305,7 +305,7 @@
       },
       {
         "title": "3. Subscribing and payment",
-        "body": "Subscribing happens online, by card, through our payment provider Stripe. The subscription auto-renews monthly: the chosen tier's amount is charged each month on the same date, until cancelled. No card data is stored by Open RAG - Stripe handles the entire payment securely."
+        "body": "Subscribing happens online, by card, through our payment provider Stripe. The subscription auto-renews monthly: the chosen tier's amount is charged each month on the same date, until cancelled. No card data is stored by Hyaides - Stripe handles the entire payment securely."
       },
       {
         "title": "4. Right of withdrawal",
@@ -466,9 +466,9 @@
   "support": {
     "openLabel": "Open the help assistant",
     "closeLabel": "Close the help assistant",
-    "title": "Open RAG Assistant",
+    "title": "Hyaides Assistant",
     "subtitle": "Questions about the site or the app",
-    "greeting": "Hi! I can answer questions about how Open RAG works (accounts, spaces, sharing, documents...). What would you like to know?",
+    "greeting": "Hi! I can answer questions about how Hyaides works (accounts, spaces, sharing, documents...). What would you like to know?",
     "placeholder": "Ask your question...",
     "send": "Send",
     "errorGeneric": "Something went wrong. Please try again in a moment.",
@@ -476,18 +476,18 @@
   },
   "faq": {
     "eyebrow": "Frequently asked questions",
-    "title": "Everything about Open RAG",
+    "title": "Everything about Hyaides",
     "subtitle": "The most common questions about accounts, spaces, sharing, and privacy.",
     "backHome": "Back to home",
     "contactCta": "Another question? Reach us from the home page.",
     "items": [
       {
-        "question": "What is Open RAG?",
-        "answer": "Open RAG connects your business documents (PDF, images, web pages, DOCX, TXT, Markdown) to an AI with sourced answers, in spaces siloed per client or file. Built for firms, agencies and teams managing multiple clients."
+        "question": "What is Hyaides?",
+        "answer": "Hyaides connects your business documents (PDF, images, web pages, DOCX, TXT, Markdown) to an AI with sourced answers, in spaces siloed per client or file. Built for firms, agencies and teams managing multiple clients."
       },
       {
         "question": "Do I need an account to use it?",
-        "answer": "Yes, a free account is required to use Open RAG, including to open a share link. That's what lets each space know exactly who accessed it and with which role."
+        "answer": "Yes, a free account is required to use Hyaides, including to open a share link. That's what lets each space know exactly who accessed it and with which role."
       },
       {
         "question": "What is a workspace?",
@@ -522,7 +522,7 @@
         "answer": "Every workspace gets an automatic backup (at most once a day, kept on a 7-day rolling window). An instance administrator can restore the space to an earlier state from the admin dashboard."
       },
       {
-        "question": "How much does Open RAG cost?",
+        "question": "How much does Hyaides cost?",
         "answer": "A free tier exists to try it out (1 space, 1 member, 200 MB). Paid tiers start at €9/mo incl. VAT. On every tier, AI questions are unlimited - the only limits are the number of spaces, members per space, and storage."
       }
     ]

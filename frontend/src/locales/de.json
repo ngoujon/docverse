@@ -25,7 +25,7 @@
     "ctaDiscover": "Preise ansehen"
   },
   "testimonials": {
-    "eyebrow": "Sie nutzen Open RAG",
+    "eyebrow": "Sie nutzen Hyaides",
     "title": "Was unsere Nutzer sagen"
   },
   "highlight": {
@@ -243,12 +243,12 @@
     "back": "Zuruck zur Startseite",
     "eyebrow": "Nutzungsbedingungen",
     "title": "Allgemeine Nutzungsbedingungen",
-    "subtitle": "Mit der Erstellung eines Kontos oder der Nutzung von Open RAG akzeptieren Sie die folgenden Regeln. Sie sollen einfach und verstandlich bleiben.",
+    "subtitle": "Mit der Erstellung eines Kontos oder der Nutzung von Hyaides akzeptieren Sie die folgenden Regeln. Sie sollen einfach und verstandlich bleiben.",
     "updated": "Zuletzt aktualisiert: {{date}}",
     "sections": [
       {
         "title": "1. Gegenstand",
-        "body": "Diese Bedingungen regeln den Zugang zu und die Nutzung von Open RAG (der \"Dienst\"), einer Anwendung zum Hochladen von Dokumenten in Arbeitsbereiche und deren Abfrage uber einen KI-basierten Chat-Assistenten. Die Nutzung des Dienstes setzt die vollstandige Annahme dieser Bedingungen voraus."
+        "body": "Diese Bedingungen regeln den Zugang zu und die Nutzung von Hyaides (der \"Dienst\"), einer Anwendung zum Hochladen von Dokumenten in Arbeitsbereiche und deren Abfrage uber einen KI-basierten Chat-Assistenten. Die Nutzung des Dienstes setzt die vollstandige Annahme dieser Bedingungen voraus."
       },
       {
         "title": "2. Benutzerkonto",
@@ -292,7 +292,7 @@
     "back": "Zuruck zur Startseite",
     "eyebrow": "Verkaufsbedingungen",
     "title": "Allgemeine Verkaufsbedingungen",
-    "subtitle": "Diese Bedingungen gelten fur den Abschluss der kostenpflichtigen Stufen von Open RAG (Privat, Pro). Die Stufe Entdecken ist kostenlos und nicht betroffen. Die Stufe Enterprise wird per individuellem Angebot mit eigenen Bedingungen verkauft.",
+    "subtitle": "Diese Bedingungen gelten fur den Abschluss der kostenpflichtigen Stufen von Hyaides (Privat, Pro). Die Stufe Entdecken ist kostenlos und nicht betroffen. Die Stufe Enterprise wird per individuellem Angebot mit eigenen Bedingungen verkauft.",
     "updated": "Zuletzt aktualisiert: {{date}}",
     "sections": [
       {
@@ -305,7 +305,7 @@
       },
       {
         "title": "3. Abschluss und Zahlung",
-        "body": "Der Abschluss erfolgt online per Karte uber unseren Zahlungsdienstleister Stripe. Das Abonnement verlangert sich automatisch monatlich: Der Betrag der gewahlten Stufe wird jeden Monat am selben Datum abgebucht, bis zur Kundigung. Es werden keine Kartendaten von Open RAG gespeichert - Stripe wickelt die gesamte Zahlung sicher ab."
+        "body": "Der Abschluss erfolgt online per Karte uber unseren Zahlungsdienstleister Stripe. Das Abonnement verlangert sich automatisch monatlich: Der Betrag der gewahlten Stufe wird jeden Monat am selben Datum abgebucht, bis zur Kundigung. Es werden keine Kartendaten von Hyaides gespeichert - Stripe wickelt die gesamte Zahlung sicher ab."
       },
       {
         "title": "4. Widerrufsrecht",
@@ -466,9 +466,9 @@
   "support": {
     "openLabel": "Hilfe-Assistenten offnen",
     "closeLabel": "Hilfe-Assistenten schliessen",
-    "title": "Open RAG Assistent",
+    "title": "Hyaides Assistent",
     "subtitle": "Fragen zur Website oder zur App",
-    "greeting": "Hallo! Ich kann Fragen zur Funktionsweise von Open RAG beantworten (Konten, Bereiche, Freigabe, Dokumente...). Was mochtest du wissen?",
+    "greeting": "Hallo! Ich kann Fragen zur Funktionsweise von Hyaides beantworten (Konten, Bereiche, Freigabe, Dokumente...). Was mochtest du wissen?",
     "placeholder": "Stelle deine Frage...",
     "send": "Senden",
     "errorGeneric": "Etwas ist schiefgelaufen. Bitte versuche es gleich noch einmal.",
@@ -476,18 +476,18 @@
   },
   "faq": {
     "eyebrow": "Haufig gestellte Fragen",
-    "title": "Alles uber Open RAG",
+    "title": "Alles uber Hyaides",
     "subtitle": "Die haufigsten Fragen zu Konten, Bereichen, Freigabe und Datenschutz.",
     "backHome": "Zuruck zur Startseite",
     "contactCta": "Noch eine Frage? Schreib uns von der Startseite aus.",
     "items": [
       {
-        "question": "Was ist Open RAG?",
-        "answer": "Open RAG verbindet Ihre Geschaftsdokumente (PDF, Bilder, Webseiten, DOCX, TXT, Markdown) mit einer KI mit belegten Antworten, in Bereichen, die pro Kunde oder Akte abgeschottet sind. Gebaut fur Kanzleien, Agenturen und Teams mit mehreren Kunden."
+        "question": "Was ist Hyaides?",
+        "answer": "Hyaides verbindet Ihre Geschaftsdokumente (PDF, Bilder, Webseiten, DOCX, TXT, Markdown) mit einer KI mit belegten Antworten, in Bereichen, die pro Kunde oder Akte abgeschottet sind. Gebaut fur Kanzleien, Agenturen und Teams mit mehreren Kunden."
       },
       {
         "question": "Brauche ich ein Konto, um es zu nutzen?",
-        "answer": "Ja, ein kostenloses Konto ist erforderlich, um Open RAG zu nutzen, auch um einen Freigabelink zu offnen. So weiss jeder Bereich genau, wer darauf zugegriffen hat und mit welcher Rolle."
+        "answer": "Ja, ein kostenloses Konto ist erforderlich, um Hyaides zu nutzen, auch um einen Freigabelink zu offnen. So weiss jeder Bereich genau, wer darauf zugegriffen hat und mit welcher Rolle."
       },
       {
         "question": "Was ist ein Arbeitsbereich?",
@@ -522,7 +522,7 @@
         "answer": "Jeder Arbeitsbereich erhalt ein automatisches Backup (hochstens einmal pro Tag, 7 Tage gleitend aufbewahrt). Ein Administrator der Instanz kann den Bereich uber das Admin-Dashboard auf einen fruheren Zustand zuruckstellen."
       },
       {
-        "question": "Was kostet Open RAG?",
+        "question": "Was kostet Hyaides?",
         "answer": "Die Software ist kostenlos und Open Source. Die einzigen Kosten sind deine eigene Infrastruktur (Server, VPS...) und, falls du dich dafur entscheidest, ein Abonnement bei einem Cloud-KI-Anbieter fur schnellere Antworten."
       }
     ]

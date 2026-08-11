@@ -6,7 +6,7 @@ def generate_secret() -> str:
 
 
 def provisioning_uri(secret: str, email: str) -> str:
-    return pyotp.TOTP(secret).provisioning_uri(name=email, issuer_name="Open RAG")
+    return pyotp.TOTP(secret).provisioning_uri(name=email, issuer_name="Hyaides")
 
 
 def verify_code(secret: str, code: str) -> bool:

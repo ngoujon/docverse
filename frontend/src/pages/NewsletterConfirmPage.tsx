@@ -11,7 +11,7 @@ export default function NewsletterConfirmPage({ mode }: { mode: "confirm" | "uns
   const [params] = useSearchParams();
   const token = params.get("token") || "";
   const [status, setStatus] = useState<"loading" | "ok" | "error">("loading");
-  usePageMeta({ title: `${t(`newsletter.${mode}.title`)} - Open RAG`, noindex: true });
+  usePageMeta({ title: `${t(`newsletter.${mode}.title`)} - Hyaides`, noindex: true });
 
   useEffect(() => {
     if (!token) {

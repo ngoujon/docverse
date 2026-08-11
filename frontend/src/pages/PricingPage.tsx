@@ -29,7 +29,7 @@ export default function PricingPage() {
   const autoTriggered = useRef(false);
 
   usePageMeta({
-    title: `${t("pricing.title")} - Open RAG`,
+    title: `${t("pricing.title")} - Hyaides`,
     description: t("pricing.subtitle"),
     canonicalPath: "/tarifs",
   });

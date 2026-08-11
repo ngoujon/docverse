@@ -3,7 +3,7 @@ import os
 import secrets
 from pathlib import Path
 
-logger = logging.getLogger("open-rag.config")
+logger = logging.getLogger("hyaides.config")
 
 DATA_DIR = Path(os.environ.get("DATA_DIR", "/app/data"))
 UPLOAD_DIR = DATA_DIR / "uploads"
@@ -94,7 +94,7 @@ class Settings:
     smtp_user: str = os.environ.get("SMTP_USER", "")
     smtp_password: str = os.environ.get("SMTP_PASSWORD", "")
     smtp_use_tls: bool = os.environ.get("SMTP_USE_TLS", "true").lower() != "false"
-    smtp_from: str = os.environ.get("SMTP_FROM", "Open RAG <no-reply@open-rag.local>")
+    smtp_from: str = os.environ.get("SMTP_FROM", "Hyaides <no-reply@hyaides.local>")
 
     # --- SSO (Google / Apple) --------------------------------------------
     # Each provider is only offered on the login/register pages once its

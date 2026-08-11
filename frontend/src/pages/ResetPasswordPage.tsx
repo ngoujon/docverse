@@ -12,7 +12,7 @@ export default function ResetPasswordPage() {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const token = params.get("token") || "";
-  usePageMeta({ title: `${t("auth.reset.title")} - Open RAG`, noindex: true });
+  usePageMeta({ title: `${t("auth.reset.title")} - Hyaides`, noindex: true });
 
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);

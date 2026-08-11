@@ -13,7 +13,7 @@ export default function VerifyEmailPage() {
   const token = params.get("token") || "";
   const { refresh } = useAuth();
   const [status, setStatus] = useState<"loading" | "ok" | "error">("loading");
-  usePageMeta({ title: `${t("auth.verify.title")} - Open RAG`, noindex: true });
+  usePageMeta({ title: `${t("auth.verify.title")} - Hyaides`, noindex: true });
 
   useEffect(() => {
     if (!token) {

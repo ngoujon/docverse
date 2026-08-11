@@ -25,7 +25,7 @@
     "ctaDiscover": "Vedi i prezzi"
   },
   "testimonials": {
-    "eyebrow": "Usano Open RAG",
+    "eyebrow": "Usano Hyaides",
     "title": "Cosa dicono i nostri utenti"
   },
   "highlight": {
@@ -243,12 +243,12 @@
     "back": "Torna alla home",
     "eyebrow": "Termini di utilizzo",
     "title": "Termini e Condizioni Generali di Utilizzo",
-    "subtitle": "Creando un account o utilizzando Open RAG, accetti le regole seguenti. Sono pensate per restare semplici e leggibili.",
+    "subtitle": "Creando un account o utilizzando Hyaides, accetti le regole seguenti. Sono pensate per restare semplici e leggibili.",
     "updated": "Ultimo aggiornamento: {{date}}",
     "sections": [
       {
         "title": "1. Oggetto",
-        "body": "I presenti termini disciplinano l'accesso e l'utilizzo di Open RAG (il \"Servizio\"), un'applicazione che consente di caricare documenti in spazi di lavoro e di interrogarli tramite un assistente conversazionale basato sull'intelligenza artificiale. L'utilizzo del Servizio implica l'accettazione piena di questi termini."
+        "body": "I presenti termini disciplinano l'accesso e l'utilizzo di Hyaides (il \"Servizio\"), un'applicazione che consente di caricare documenti in spazi di lavoro e di interrogarli tramite un assistente conversazionale basato sull'intelligenza artificiale. L'utilizzo del Servizio implica l'accettazione piena di questi termini."
       },
       {
         "title": "2. Account utente",
@@ -292,7 +292,7 @@
     "back": "Torna alla home",
     "eyebrow": "Condizioni di vendita",
     "title": "Termini e Condizioni Generali di Vendita",
-    "subtitle": "Questi termini si applicano alla sottoscrizione dei piani a pagamento di Open RAG (Privati, Pro). Il piano Scoperta e gratuito e non e interessato. Il piano Azienda viene venduto su preventivo personalizzato con condizioni proprie.",
+    "subtitle": "Questi termini si applicano alla sottoscrizione dei piani a pagamento di Hyaides (Privati, Pro). Il piano Scoperta e gratuito e non e interessato. Il piano Azienda viene venduto su preventivo personalizzato con condizioni proprie.",
     "updated": "Ultimo aggiornamento: {{date}}",
     "sections": [
       {
@@ -305,7 +305,7 @@
       },
       {
         "title": "3. Sottoscrizione e pagamento",
-        "body": "La sottoscrizione avviene online, con carta, tramite il nostro fornitore di pagamenti Stripe. L'abbonamento si rinnova automaticamente ogni mese: l'importo del piano scelto viene addebitato ogni mese alla stessa data, fino alla disdetta. Nessun dato della carta viene memorizzato da Open RAG - Stripe gestisce l'intero pagamento in modo sicuro."
+        "body": "La sottoscrizione avviene online, con carta, tramite il nostro fornitore di pagamenti Stripe. L'abbonamento si rinnova automaticamente ogni mese: l'importo del piano scelto viene addebitato ogni mese alla stessa data, fino alla disdetta. Nessun dato della carta viene memorizzato da Hyaides - Stripe gestisce l'intero pagamento in modo sicuro."
       },
       {
         "title": "4. Diritto di recesso",
@@ -466,9 +466,9 @@
   "support": {
     "openLabel": "Apri l'assistente di aiuto",
     "closeLabel": "Chiudi l'assistente di aiuto",
-    "title": "Assistente Open RAG",
+    "title": "Assistente Hyaides",
     "subtitle": "Domande sul sito o sull'applicazione",
-    "greeting": "Ciao! Posso rispondere a domande sul funzionamento di Open RAG (account, spazi, condivisione, documenti...). Cosa vorresti sapere?",
+    "greeting": "Ciao! Posso rispondere a domande sul funzionamento di Hyaides (account, spazi, condivisione, documenti...). Cosa vorresti sapere?",
     "placeholder": "Scrivi la tua domanda...",
     "send": "Invia",
     "errorGeneric": "Si e verificato un errore. Riprova tra un istante.",
@@ -476,18 +476,18 @@
   },
   "faq": {
     "eyebrow": "Domande frequenti",
-    "title": "Tutto su Open RAG",
+    "title": "Tutto su Hyaides",
     "subtitle": "Le domande piu frequenti su account, spazi, condivisione e privacy.",
     "backHome": "Torna alla home",
     "contactCta": "Un'altra domanda? Scrivici dalla pagina iniziale.",
     "items": [
       {
-        "question": "Cos'e Open RAG?",
-        "answer": "Open RAG collega i tuoi documenti professionali (PDF, immagini, pagine web, DOCX, TXT, Markdown) a un'IA con risposte con fonti, in spazi isolati per cliente o pratica. Pensato per studi, agenzie e team che gestiscono piu clienti."
+        "question": "Cos'e Hyaides?",
+        "answer": "Hyaides collega i tuoi documenti professionali (PDF, immagini, pagine web, DOCX, TXT, Markdown) a un'IA con risposte con fonti, in spazi isolati per cliente o pratica. Pensato per studi, agenzie e team che gestiscono piu clienti."
       },
       {
         "question": "Serve un account per usarla?",
-        "answer": "Si, serve un account gratuito per usare Open RAG, anche per aprire un link di condivisione. E questo che permette a ogni spazio di sapere esattamente chi vi ha avuto accesso e con quale ruolo."
+        "answer": "Si, serve un account gratuito per usare Hyaides, anche per aprire un link di condivisione. E questo che permette a ogni spazio di sapere esattamente chi vi ha avuto accesso e con quale ruolo."
       },
       {
         "question": "Cos'e uno spazio di lavoro?",
@@ -522,7 +522,7 @@
         "answer": "Ogni spazio di lavoro ha un backup automatico (al massimo una volta al giorno, conservato per 7 giorni mobili). Un amministratore dell'istanza puo ripristinare lo spazio a uno stato precedente dalla dashboard di amministrazione."
       },
       {
-        "question": "Quanto costa Open RAG?",
+        "question": "Quanto costa Hyaides?",
         "answer": "Esiste un piano gratuito per provare (1 spazio, 1 membro, 200 MB). I piani a pagamento partono da 9€ IVA inclusa/mese. Su ogni piano, le domande all'IA sono illimitate: gli unici limiti sono il numero di spazi, di membri per spazio e lo spazio di archiviazione."
       }
     ]

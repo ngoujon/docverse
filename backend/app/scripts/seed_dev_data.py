@@ -14,7 +14,7 @@ from .. import models_db
 from ..services import auth
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("open-rag.seed")
+logger = logging.getLogger("hyaides.seed")
 
 DEV_PASSWORD = "ChangeMe123!"
 

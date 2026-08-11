@@ -59,10 +59,10 @@ export default function WorkspaceApp() {
 
   usePageMeta({
     title: activeConversation
-      ? `${activeConversation.title} - ${activeSpace?.name ?? ""} - Open RAG`
+      ? `${activeConversation.title} - ${activeSpace?.name ?? ""} - Hyaides`
       : activeSpace
-      ? `${activeSpace.name} - Open RAG`
-      : "Open RAG",
+      ? `${activeSpace.name} - Hyaides`
+      : "Hyaides",
     noindex: true,
   });
 

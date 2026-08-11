@@ -43,7 +43,7 @@ export default function AdminDashboardPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { user: currentUser } = useAuth();
-  usePageMeta({ title: `${t("dashboard.nav.admin")} - Open RAG`, noindex: true });
+  usePageMeta({ title: `${t("dashboard.nav.admin")} - Hyaides`, noindex: true });
 
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [users, setUsers] = useState<User[]>([]);

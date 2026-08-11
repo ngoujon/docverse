@@ -12,7 +12,7 @@ from ..deps import DocumentAccess, SpaceAccess, require_space_access, require_do
 from ..services import backup, document_processor, ollama_client, vectorstore
 from ..utils.chunking import split_text
 
-logger = logging.getLogger("open-rag.documents")
+logger = logging.getLogger("hyaides.documents")
 router = APIRouter(prefix="/api", tags=["documents"])
 
 

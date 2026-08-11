@@ -13,7 +13,7 @@ export default function TermsOfSalePage() {
   const sections = t("sale.sections", { returnObjects: true }) as SaleSection[];
 
   usePageMeta({
-    title: `${t("sale.title")} - Open RAG`,
+    title: `${t("sale.title")} - Hyaides`,
     description: t("sale.subtitle"),
     canonicalPath: "/cgv",
   });

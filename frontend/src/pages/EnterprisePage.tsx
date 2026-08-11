@@ -23,7 +23,7 @@ export default function EnterprisePage() {
   const teamSizeOptions = t("enterprise.teamSizeOptions", { returnObjects: true }) as string[];
 
   usePageMeta({
-    title: `${t("enterprise.title")} - Open RAG`,
+    title: `${t("enterprise.title")} - Hyaides`,
     description: t("enterprise.subtitle"),
     canonicalPath: "/entreprise",
   });

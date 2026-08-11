@@ -13,7 +13,7 @@ export default function LegalNoticePage() {
   const sections = t("legal.sections", { returnObjects: true }) as LegalSection[];
 
   usePageMeta({
-    title: `${t("legal.title")} - Open RAG`,
+    title: `${t("legal.title")} - Hyaides`,
     description: t("legal.subtitle"),
     canonicalPath: "/mentions-legales",
   });

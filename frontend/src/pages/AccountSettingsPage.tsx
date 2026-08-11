@@ -25,7 +25,7 @@ export default function AccountSettingsPage() {
   const { t } = useTranslation();
   const { user, logout, refresh } = useAuth();
   const navigate = useNavigate();
-  usePageMeta({ title: `${t("auth.account.title")} - Open RAG`, noindex: true });
+  usePageMeta({ title: `${t("auth.account.title")} - Hyaides`, noindex: true });
 
   const [logoutDone, setLogoutDone] = useState(false);
   const [logoutBusy, setLogoutBusy] = useState(false);
@@ -121,7 +121,7 @@ export default function AccountSettingsPage() {
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `open-rag-export-${user.id}.json`;
+      a.download = `hyaides-export-${user.id}.json`;
       a.click();
       URL.revokeObjectURL(url);
     } finally {

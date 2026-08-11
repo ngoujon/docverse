@@ -13,7 +13,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const redirectTo = (location.state as { from?: string } | null)?.from || "/dashboard";
-  usePageTitle(`${t("auth.login.title")} - Open RAG`);
+  usePageTitle(`${t("auth.login.title")} - Hyaides`);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

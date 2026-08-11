@@ -35,7 +35,7 @@ export default function DemoPage() {
   const [usedIndexes, setUsedIndexes] = useState<number[]>([]);
 
   usePageMeta({
-    title: `${t("demoPage.title")} - Open RAG`,
+    title: `${t("demoPage.title")} - Hyaides`,
     description: t("demoPage.subtitle"),
     canonicalPath: "/demo",
   });

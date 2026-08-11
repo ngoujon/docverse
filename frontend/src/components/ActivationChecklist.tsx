@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Check, Circle, X } from "lucide-react";
 import type { MeStats } from "../types";
 
-const DISMISSED_KEY = "open-rag:activation-dismissed";
+const DISMISSED_KEY = "hyaides:activation-dismissed";
 
 interface Props {
   stats: MeStats;

@@ -37,7 +37,7 @@ i18n
       // Explicit user choice (saved in localStorage) wins; otherwise fall
       // back to the browser language; otherwise French.
       order: ["localStorage", "navigator"],
-      lookupLocalStorage: "open-rag:lang",
+      lookupLocalStorage: "hyaides:lang",
       caches: ["localStorage"],
     },
     interpolation: { escapeValue: false },

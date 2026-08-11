@@ -5,7 +5,7 @@ from chromadb.config import Settings as ChromaSettings
 
 from ..config import CHROMA_DIR
 
-logger = logging.getLogger("open-rag.vectorstore")
+logger = logging.getLogger("hyaides.vectorstore")
 
 _client = chromadb.PersistentClient(
     path=str(CHROMA_DIR), settings=ChromaSettings(anonymized_telemetry=False)

@@ -19,7 +19,7 @@ from ..database import SessionLocal
 from .. import models_db
 from . import vectorstore
 
-logger = logging.getLogger("open-rag.backup")
+logger = logging.getLogger("hyaides.backup")
 
 _SNAPSHOT_INTERVAL = timedelta(hours=24)
 _RETENTION = timedelta(days=7)

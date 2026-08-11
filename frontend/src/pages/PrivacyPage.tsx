@@ -15,7 +15,7 @@ export default function PrivacyPage() {
   const sections = t("privacy.sections", { returnObjects: true }) as PrivacySection[];
 
   usePageMeta({
-    title: `${t("privacy.title")} - Open RAG`,
+    title: `${t("privacy.title")} - Hyaides`,
     description: t("privacy.subtitle"),
     canonicalPath: "/confidentialite",
   });

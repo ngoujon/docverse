@@ -34,7 +34,7 @@ export default function AuthLayout({
       <div className="w-full max-w-sm">
         <Link to="/" className="mb-6 flex items-center justify-center gap-2 text-slate-900 dark:text-slate-100">
           <Sparkles size={18} className="text-accent" />
-          <span className="font-mono text-sm font-bold uppercase tracking-widest">Open::Rag</span>
+          <span className="font-mono text-sm font-bold uppercase tracking-widest">Hya::Ides</span>
         </Link>
 
         <div className="rounded-xl border border-surface-border bg-surface-1 p-6 shadow-panel">

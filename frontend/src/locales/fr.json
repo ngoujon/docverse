@@ -25,7 +25,7 @@
     "ctaDiscover": "Voir les tarifs"
   },
   "testimonials": {
-    "eyebrow": "Ils utilisent Open RAG",
+    "eyebrow": "Ils utilisent Hyaides",
     "title": "Ce qu'en disent nos utilisateurs"
   },
   "highlight": {
@@ -243,12 +243,12 @@
     "back": "Retour a l'accueil",
     "eyebrow": "Conditions d'utilisation",
     "title": "Conditions Generales d'Utilisation",
-    "subtitle": "En creant un compte ou en utilisant Open RAG, vous acceptez les regles ci-dessous. Elles visent a rester simples et lisibles.",
+    "subtitle": "En creant un compte ou en utilisant Hyaides, vous acceptez les regles ci-dessous. Elles visent a rester simples et lisibles.",
     "updated": "Derniere mise a jour : {{date}}",
     "sections": [
       {
         "title": "1. Objet",
-        "body": "Les presentes conditions regissent l'acces et l'utilisation d'Open RAG (le \"Service\"), une application permettant de deposer des documents dans des espaces de travail et de les interroger via un assistant conversationnel base sur l'intelligence artificielle. L'utilisation du Service implique l'acceptation pleine et entiere de ces conditions."
+        "body": "Les presentes conditions regissent l'acces et l'utilisation d'Hyaides (le \"Service\"), une application permettant de deposer des documents dans des espaces de travail et de les interroger via un assistant conversationnel base sur l'intelligence artificielle. L'utilisation du Service implique l'acceptation pleine et entiere de ces conditions."
       },
       {
         "title": "2. Compte utilisateur",
@@ -292,7 +292,7 @@
     "back": "Retour a l'accueil",
     "eyebrow": "Conditions de vente",
     "title": "Conditions Generales de Vente",
-    "subtitle": "Ces conditions s'appliquent a la souscription des paliers payants d'Open RAG (Particulier, Pro). Le palier Decouverte est gratuit et n'est pas concerne. Le palier Entreprise fait l'objet d'un devis et de conditions specifiques.",
+    "subtitle": "Ces conditions s'appliquent a la souscription des paliers payants d'Hyaides (Particulier, Pro). Le palier Decouverte est gratuit et n'est pas concerne. Le palier Entreprise fait l'objet d'un devis et de conditions specifiques.",
     "updated": "Derniere mise a jour : {{date}}",
     "sections": [
       {
@@ -305,7 +305,7 @@
       },
       {
         "title": "3. Souscription et paiement",
-        "body": "La souscription se fait en ligne, par carte bancaire, via notre prestataire de paiement Stripe. L'abonnement est a reconduction automatique mensuelle : le montant du palier choisi est preleve chaque mois a la meme date, jusqu'a resiliation. Aucune donnee bancaire n'est stockee par Open RAG - Stripe gere l'integralite du paiement de maniere securisee."
+        "body": "La souscription se fait en ligne, par carte bancaire, via notre prestataire de paiement Stripe. L'abonnement est a reconduction automatique mensuelle : le montant du palier choisi est preleve chaque mois a la meme date, jusqu'a resiliation. Aucune donnee bancaire n'est stockee par Hyaides - Stripe gere l'integralite du paiement de maniere securisee."
       },
       {
         "title": "4. Droit de retractation",
@@ -466,9 +466,9 @@
   "support": {
     "openLabel": "Ouvrir l'assistant d'aide",
     "closeLabel": "Fermer l'assistant d'aide",
-    "title": "Assistant Open RAG",
+    "title": "Assistant Hyaides",
     "subtitle": "Questions sur le site ou l'application",
-    "greeting": "Bonjour ! Je peux repondre a vos questions sur le fonctionnement d'Open RAG (comptes, espaces, partage, documents...). Que voulez-vous savoir ?",
+    "greeting": "Bonjour ! Je peux repondre a vos questions sur le fonctionnement d'Hyaides (comptes, espaces, partage, documents...). Que voulez-vous savoir ?",
     "placeholder": "Posez votre question...",
     "send": "Envoyer",
     "errorGeneric": "Une erreur est survenue. Reessayez dans un instant.",
@@ -476,18 +476,18 @@
   },
   "faq": {
     "eyebrow": "Questions frequentes",
-    "title": "Tout comprendre sur Open RAG",
+    "title": "Tout comprendre sur Hyaides",
     "subtitle": "Les questions les plus posees sur les comptes, les espaces, le partage et la confidentialite.",
     "backHome": "Retour a l'accueil",
     "contactCta": "Une autre question ? Ecrivez-nous depuis la page d'accueil.",
     "items": [
       {
-        "question": "Qu'est-ce qu'Open RAG ?",
-        "answer": "Open RAG est une application qui connecte vos documents professionnels (PDF, images, pages web, DOCX, TXT, Markdown) a une IA avec reponses sourcees, dans des espaces cloisonnes par client ou par dossier. Pensee pour les cabinets, agences et equipes qui gerent plusieurs clients."
+        "question": "Qu'est-ce qu'Hyaides ?",
+        "answer": "Hyaides est une application qui connecte vos documents professionnels (PDF, images, pages web, DOCX, TXT, Markdown) a une IA avec reponses sourcees, dans des espaces cloisonnes par client ou par dossier. Pensee pour les cabinets, agences et equipes qui gerent plusieurs clients."
       },
       {
         "question": "Ai-je besoin d'un compte pour l'utiliser ?",
-        "answer": "Oui, un compte gratuit est necessaire pour utiliser Open RAG, y compris pour ouvrir un lien de partage. C'est ce qui permet a chaque espace de savoir precisement qui y a accede et avec quel role."
+        "answer": "Oui, un compte gratuit est necessaire pour utiliser Hyaides, y compris pour ouvrir un lien de partage. C'est ce qui permet a chaque espace de savoir precisement qui y a accede et avec quel role."
       },
       {
         "question": "Qu'est-ce qu'un espace de travail ?",
@@ -522,7 +522,7 @@
         "answer": "Chaque espace beneficie d'une sauvegarde automatique (au maximum une fois par jour, conservee 7 jours glissants). Un administrateur de l'instance peut restaurer l'espace a un etat anterieur depuis le tableau de bord d'administration."
       },
       {
-        "question": "Combien coute Open RAG ?",
+        "question": "Combien coute Hyaides ?",
         "answer": "Un palier gratuit existe pour tester (1 espace, 1 membre, 200 Mo). Les paliers payants commencent a 9€ TTC/mois. Sur tous les paliers, les questions posees a l'IA sont illimitees : les seules limites sont le nombre d'espaces, de membres par espace et le stockage."
       }
     ]

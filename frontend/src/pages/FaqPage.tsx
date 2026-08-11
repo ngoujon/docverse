@@ -16,7 +16,7 @@ export default function FaqPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   usePageMeta({
-    title: `${t("faq.title")} - Open RAG`,
+    title: `${t("faq.title")} - Hyaides`,
     description: t("faq.subtitle"),
     canonicalPath: "/faq",
   });

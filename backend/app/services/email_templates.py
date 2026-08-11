@@ -28,7 +28,7 @@ def _layout(preheader: str, body_html: str) -> str:
         <tr>
           <td style="padding:28px 32px 8px;">
             <span style="font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;font-weight:700;letter-spacing:.12em;color:{_PURPLE};text-transform:uppercase;">
-              &#10022;&#10022; OPEN::RAG
+              &#10022;&#10022; HYA::IDES
             </span>
           </td>
         </tr>
@@ -36,7 +36,7 @@ def _layout(preheader: str, body_html: str) -> str:
         <tr>
           <td style="padding:18px 32px;background:{_BG2};border-top:1px solid {_BORDER};">
             <p style="margin:0;font-size:12px;color:{_MUTED};font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;">
-              Open RAG - auto-heberge, sans tracking. Vous recevez cet email car une action lui correspond a ete initiee sur votre instance.
+              Hyaides - auto-heberge, sans tracking. Vous recevez cet email car une action lui correspond a ete initiee sur votre instance.
             </p>
           </td>
         </tr>
@@ -56,7 +56,7 @@ def _button(url: str, label: str) -> str:
 
 
 def password_reset_email(reset_url: str) -> tuple[str, str, str]:
-    subject = "Reinitialisation de votre mot de passe - Open RAG"
+    subject = "Reinitialisation de votre mot de passe - Hyaides"
     body = f"""
       <h1 style="margin:0 0 12px;font-size:22px;color:{_INK};">Mot de passe oublie ?</h1>
       <p style="margin:0 0 4px;font-size:14px;line-height:1.6;color:{_INK};">
@@ -69,12 +69,12 @@ def password_reset_email(reset_url: str) -> tuple[str, str, str]:
         votre mot de passe actuel reste valide.
       </p>
     """
-    text = f"Reinitialisation de votre mot de passe Open RAG : {reset_url} (expire dans 60 minutes)"
-    return subject, _layout("Reinitialisez votre mot de passe Open RAG", body), text
+    text = f"Reinitialisation de votre mot de passe Hyaides : {reset_url} (expire dans 60 minutes)"
+    return subject, _layout("Reinitialisez votre mot de passe Hyaides", body), text
 
 
 def welcome_email(display_name: str, app_url: str) -> tuple[str, str, str]:
-    subject = "Bienvenue sur Open RAG"
+    subject = "Bienvenue sur Hyaides"
     name = display_name or "vous"
     body = f"""
       <h1 style="margin:0 0 12px;font-size:22px;color:{_INK};">Bienvenue, {name} !</h1>
@@ -85,12 +85,12 @@ def welcome_email(display_name: str, app_url: str) -> tuple[str, str, str]:
       </p>
       {_button(app_url, "Lancer l'application")}
     """
-    text = f"Bienvenue sur Open RAG, {name} ! Votre compte est cree. Lancer l'application : {app_url}"
-    return subject, _layout("Votre compte Open RAG est pret", body), text
+    text = f"Bienvenue sur Hyaides, {name} ! Votre compte est cree. Lancer l'application : {app_url}"
+    return subject, _layout("Votre compte Hyaides est pret", body), text
 
 
 def verify_email_email(verify_url: str) -> tuple[str, str, str]:
-    subject = "Confirmez votre adresse email - Open RAG"
+    subject = "Confirmez votre adresse email - Hyaides"
     body = f"""
       <h1 style="margin:0 0 12px;font-size:22px;color:{_INK};">Confirmez votre email</h1>
       <p style="margin:0 0 4px;font-size:14px;line-height:1.6;color:{_INK};">
@@ -102,8 +102,8 @@ def verify_email_email(verify_url: str) -> tuple[str, str, str]:
         Si vous n'etes pas a l'origine de la creation de ce compte, ignorez cet email.
       </p>
     """
-    text = f"Confirmez votre email Open RAG : {verify_url}"
-    return subject, _layout("Confirmez votre email Open RAG", body), text
+    text = f"Confirmez votre email Hyaides : {verify_url}"
+    return subject, _layout("Confirmez votre email Hyaides", body), text
 
 
 def newsletter_confirm_email(confirm_url: str, unsubscribe_url: str) -> tuple[str, str, str]:
@@ -111,7 +111,7 @@ def newsletter_confirm_email(confirm_url: str, unsubscribe_url: str) -> tuple[st
     body = f"""
       <h1 style="margin:0 0 12px;font-size:22px;color:{_INK};">Plus qu'une etape</h1>
       <p style="margin:0 0 4px;font-size:14px;line-height:1.6;color:{_INK};">
-        Confirmez votre adresse pour recevoir les actualites d'Open RAG. Si vous n'avez
+        Confirmez votre adresse pour recevoir les actualites d'Hyaides. Si vous n'avez
         rien demande, ignorez cet email.
       </p>
       {_button(confirm_url, "Confirmer mon inscription")}
@@ -121,7 +121,7 @@ def newsletter_confirm_email(confirm_url: str, unsubscribe_url: str) -> tuple[st
       </p>
     """
     text = (
-        f"Confirmez votre inscription a la newsletter Open RAG : {confirm_url}\n"
+        f"Confirmez votre inscription a la newsletter Hyaides : {confirm_url}\n"
         f"Se desinscrire : {unsubscribe_url}"
     )
     return subject, _layout("Confirmez votre inscription a la newsletter", body), text

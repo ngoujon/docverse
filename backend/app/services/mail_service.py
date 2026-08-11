@@ -5,7 +5,7 @@ from email.mime.text import MIMEText
 
 from ..config import settings
 
-logger = logging.getLogger("open-rag.mail")
+logger = logging.getLogger("hyaides.mail")
 
 
 def send_email(to: str, subject: str, html_body: str, text_body: str = "") -> None:

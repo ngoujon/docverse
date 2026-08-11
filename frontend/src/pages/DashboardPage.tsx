@@ -37,7 +37,7 @@ export default function DashboardPage() {
   const { t } = useTranslation();
   const { user } = useAuth();
   const navigate = useNavigate();
-  usePageMeta({ title: `${t("dashboard.title")} - Open RAG`, noindex: true });
+  usePageMeta({ title: `${t("dashboard.title")} - Hyaides`, noindex: true });
 
   const [spaces, setSpaces] = useState<Space[]>([]);
   const [stats, setStats] = useState<MeStats | null>(null);

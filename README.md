@@ -1,4 +1,4 @@
-# Open RAG
+# Hyaides
 
 Application web auto-hebergee (Docker) pour discuter avec une IA locale
 (Ollama) a propos de vos propres documents : PDF, images (scans, photos),
@@ -291,21 +291,21 @@ le serveur hote) :
 # Sauvegarde (l'app peut rester en marche : SQLite gere les lectures
 # concurrentes, mais pour une coherence stricte, un arret bref est plus sur)
 docker run --rm \
-  -v open-rag_app_data:/data:ro \
+  -v hyaides_app_data:/data:ro \
   -v "$(pwd)/backups":/backup \
-  alpine tar czf /backup/open-rag-data-$(date +%Y%m%d-%H%M%S).tar.gz -C /data .
+  alpine tar czf /backup/hyaides-data-$(date +%Y%m%d-%H%M%S).tar.gz -C /data .
 
 # Restauration (ecrase les donnees actuelles du volume - a faire conteneurs arretes)
 docker compose down
 docker run --rm \
-  -v open-rag_app_data:/data \
+  -v hyaides_app_data:/data \
   -v "$(pwd)/backups":/backup \
-  alpine sh -c "rm -rf /data/* && tar xzf /backup/open-rag-data-XXXXXXXX-XXXXXX.tar.gz -C /data"
+  alpine sh -c "rm -rf /data/* && tar xzf /backup/hyaides-data-XXXXXXXX-XXXXXX.tar.gz -C /data"
 docker compose up -d
 ```
 
-Adaptez `open-rag_app_data` au nom reel du volume (`docker volume ls`) si
-le projet n'est pas dans un dossier nomme `open-rag`. Conservez ces
+Adaptez `hyaides_app_data` au nom reel du volume (`docker volume ls`) si
+le projet n'est pas dans un dossier nomme `hyaides`. Conservez ces
 archives hors du serveur (stockage objet, autre machine) : une sauvegarde
 qui vit sur le meme disque que les donnees d'origine ne protege pas contre
 une panne disque.

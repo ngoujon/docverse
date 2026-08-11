@@ -8,7 +8,7 @@ import { usePageTitle } from "../hooks/usePageTitle";
 
 export default function ForgotPasswordPage() {
   const { t } = useTranslation();
-  usePageTitle(`${t("auth.forgot.title")} - Open RAG`);
+  usePageTitle(`${t("auth.forgot.title")} - Hyaides`);
 
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);

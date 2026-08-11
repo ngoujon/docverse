@@ -50,7 +50,7 @@ export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   usePageMeta({
-    title: `Open RAG - ${t("hero.title1")} ${t("hero.title2")}`,
+    title: `Hyaides - ${t("hero.title1")} ${t("hero.title2")}`,
     description: t("hero.subtitle"),
     canonicalPath: "/",
   });
@@ -68,7 +68,7 @@ export default function LandingPage() {
           <a href="#top" className="flex items-center gap-2">
             <Sparkles size={20} className="text-retro-pink" />
             <span className="font-mono text-sm font-bold tracking-widest text-slate-900">
-              OPEN<span className="text-retro-cyan">::</span>RAG
+              HYA<span className="text-retro-cyan">::</span>IDES
               <span className="ml-0.5 inline-block h-3.5 w-[7px] animate-blink bg-retro-pink align-middle" />
             </span>
           </a>

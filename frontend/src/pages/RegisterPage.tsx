@@ -16,7 +16,7 @@ export default function RegisterPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const redirectTo = (location.state as { from?: string } | null)?.from || "/dashboard";
-  usePageTitle(`${t("auth.register.title")} - Open RAG`);
+  usePageTitle(`${t("auth.register.title")} - Hyaides`);
 
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");

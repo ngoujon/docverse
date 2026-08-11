@@ -3,7 +3,7 @@
 // per-space password/unlock-token flow entirely. Keyed by space id so a
 // visitor who followed links to several shared spaces keeps access to all
 // of them.
-const STORAGE_KEY = "open-rag:share-tokens";
+const STORAGE_KEY = "hyaides:share-tokens";
 
 function readAll(): Record<string, string> {
   try {

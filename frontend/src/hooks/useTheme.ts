@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 
 type Theme = "light" | "dark";
-const STORAGE_KEY = "open-rag:theme";
+const STORAGE_KEY = "hyaides:theme";
 
 function readStored(): Theme {
   try {

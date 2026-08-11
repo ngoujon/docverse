@@ -10,7 +10,7 @@ from .routers import admin, auth, billing, captcha, chat, conversations, contact
 from .services import ollama_client, vectorstore
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("open-rag.startup")
+logger = logging.getLogger("hyaides.startup")
 
 Base.metadata.create_all(bind=engine)
 ensure_schema()
@@ -105,7 +105,7 @@ def _seed_testimonials() -> None:
 _delete_ownerless_spaces()
 _seed_testimonials()
 
-app = FastAPI(title="Open RAG", version="1.0.0")
+app = FastAPI(title="Hyaides", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,

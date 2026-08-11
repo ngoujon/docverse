@@ -1,4 +1,4 @@
-const STORAGE_KEY = "open-rag:user-token";
+const STORAGE_KEY = "hyaides:user-token";
 
 export function getUserToken(): string | null {
   try {
