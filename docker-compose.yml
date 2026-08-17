@@ -2,7 +2,7 @@
 # name) so renaming the local checkout never orphans the existing named
 # volumes (app_data holds the real SQLite DB, ollama_data the pulled
 # models) - Docker Compose scopes volume names by project name.
-name: open-rag
+name: hyaides
 
 services:
   ollama:
