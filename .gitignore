@@ -16,6 +16,9 @@ frontend/vite.config.d.ts
 tools/deploy.env
 tools/production.env
 
+# Local dev port overrides
+docker-compose.override.yml
+
 # OS
 .DS_Store
 
