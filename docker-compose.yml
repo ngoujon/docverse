@@ -27,27 +27,6 @@ services:
     #           count: all
     #           capabilities: [gpu]
 
-  ollama-pull:
-    image: ollama/ollama:latest
-    depends_on:
-      ollama:
-        condition: service_healthy
-    environment:
-      - OLLAMA_HOST=http://ollama:11434
-      - OLLAMA_CHAT_MODEL=${OLLAMA_CHAT_MODEL:-llama3.1:8b}
-      - OLLAMA_VISION_MODEL=${OLLAMA_VISION_MODEL:-llava:7b}
-      - OLLAMA_EMBED_MODEL=${OLLAMA_EMBED_MODEL:-nomic-embed-text}
-    entrypoint: ["/bin/sh", "-c"]
-    command:
-      - |
-        set -e
-        echo "Telechargement des modeles Ollama (peut prendre plusieurs minutes la premiere fois)..."
-        ollama pull "$$OLLAMA_CHAT_MODEL"
-        ollama pull "$$OLLAMA_VISION_MODEL"
-        ollama pull "$$OLLAMA_EMBED_MODEL"
-        echo "Modeles prets."
-    restart: "no"
-
   searxng:
     image: searxng/searxng:latest
     restart: unless-stopped
@@ -62,8 +41,8 @@ services:
     build: ./backend
     restart: unless-stopped
     depends_on:
-      ollama-pull:
-        condition: service_completed_successfully
+      ollama:
+        condition: service_healthy
       searxng:
         condition: service_started
     environment:

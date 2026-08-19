@@ -133,16 +133,7 @@ cp .env.example .env
 docker compose up -d --build
 ```
 
-Au premier lancement, le service `ollama-pull` telecharge automatiquement
-les modeles configures (`llama3.1:8b`, `llava:7b`, `nomic-embed-text` par
-defaut). Cela peut prendre plusieurs minutes selon votre connexion. Vous
-pouvez suivre la progression avec :
-
-```bash
-docker compose logs -f ollama-pull
-```
-
-Une fois le telechargement termine, l'application est disponible sur :
+L'application est immediatement disponible sur :
 
 - **Page d'accueil** : http://localhost:3000
 - **Application (espaces/chat)** : http://localhost:3000/app
@@ -373,9 +364,9 @@ VITE_API_PROXY_TARGET=http://localhost:8000 npm run dev
 
 - **"Ollama injoignable"** (point rouge dans la colonne de gauche) :
   verifiez `docker compose logs ollama` et que le conteneur est demarre.
-- **Documents bloques en "En attente"** : le service `ollama-pull` n'a
-  peut-etre pas fini de telecharger les modeles — verifiez
-  `docker compose logs ollama-pull`.
+- **Documents bloques en "En attente"** : les modeles Ollama sont peut-etre
+  en cours de telechargement (ils se telechargent a la premiere utilisation)
+  — verifiez `docker compose logs ollama`.
 - **Reponses lentes / CPU a 100%** : normal sans GPU avec de gros modeles ;
   essayez un modele de chat plus petit (`qwen2.5:7b-instruct` par ex.).
 - **Recherche web sans resultat** : verifiez `docker compose logs searxng`.
@@ -387,10 +378,6 @@ VITE_API_PROXY_TARGET=http://localhost:8000 npm run dev
 - **"En file d'attente" reste affiche longtemps** : normal si plusieurs
   personnes discutent en meme temps sur un serveur a `OLLAMA_MAX_CONCURRENCY=1`
   - les requetes sont traitees dans l'ordre d'arrivee.
-- **`ollama-pull` reste affiche comme "Exited" dans `docker compose ps`** :
-  c'est normal, ce n'est pas un serveur mais une tache ponctuelle (elle
-  telecharge les modeles puis se termine avec succes). Verifiez juste
-  qu'elle s'est bien terminee sans erreur : `docker compose logs ollama-pull`.
 - **Mes changements de code n'apparaissent pas** : en mode developpement
   (`docker compose.yml`), aucun rebuild n'est necessaire — verifiez que
   vous etes bien sur http://localhost:3000 (et pas 8080, qui correspond au
