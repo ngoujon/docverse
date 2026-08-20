@@ -65,16 +65,28 @@ _SYSTEM_PROMPT_TEMPLATE = (
 )
 
 
-async def retrieve_document_context(space_id: str, query: str) -> list[dict]:
+async def retrieve_document_context(
+    space_id: str, query: str, doc_ids: list[str] | None = None
+) -> list[dict]:
     embedding = await ollama_client.embed(query)
-    candidates = vectorstore.query(space_id, embedding, top_k=settings.rerank_candidate_pool)
-    return await reranker.rerank(query, candidates, settings.retrieval_top_k)
+    pool = settings.rerank_candidate_pool
+    top_k = settings.retrieval_top_k
+    if doc_ids:
+        # "@name"-scoped question: no other document competes for the slots,
+        # so pull a deeper slice of the mentioned one(s) instead of the
+        # usual space-wide budget.
+        pool = max(pool, 40)
+        top_k = max(top_k, 12)
+    candidates = vectorstore.query(space_id, embedding, top_k=pool, doc_ids=doc_ids)
+    return await reranker.rerank(query, candidates, top_k)
 
 
-async def gather_context(space_id: str, query: str) -> tuple[str, list[dict]]:
+async def gather_context(
+    space_id: str, query: str, doc_ids: list[str] | None = None
+) -> tuple[str, list[dict]]:
     """Builds a numbered context block and a parallel list of source
     descriptors used for citations in the UI."""
-    doc_results = await retrieve_document_context(space_id, query)
+    doc_results = await retrieve_document_context(space_id, query, doc_ids)
 
     do_web_search = await _should_auto_search_web(query)
     web_results = await websearch.search_web(query) if do_web_search else []

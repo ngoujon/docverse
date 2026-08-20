@@ -44,6 +44,21 @@ async def chat(
     if not user_message:
         raise HTTPException(400, "Message vide")
 
+    # Trust nothing from the client about which documents it's allowed to
+    # scope retrieval to - drop any id that isn't actually in this space,
+    # otherwise a crafted doc_id could pull chunks from a space this user
+    # has no access to.
+    doc_ids = payload.doc_ids
+    if doc_ids:
+        valid_ids = {
+            row[0]
+            for row in db.query(models_db.Document.id).filter(
+                models_db.Document.space_id == conv.space_id,
+                models_db.Document.id.in_(doc_ids),
+            )
+        }
+        doc_ids = [d for d in doc_ids if d in valid_ids]
+
     history = [
         {"role": m.role, "content": m.content} for m in conv.messages[-_HISTORY_LIMIT:]
     ]
@@ -113,7 +128,7 @@ async def chat(
 
         try:
             try:
-                context_block, sources = await rag.gather_context(space_id, user_message)
+                context_block, sources = await rag.gather_context(space_id, user_message, doc_ids)
                 messages = rag.build_llm_messages(
                     space_name, history, context_block, user_message
                 )

@@ -200,7 +200,7 @@ export default function WorkspaceApp() {
   };
 
   // ---- Chat ----
-  const handleSend = async (text: string) => {
+  const handleSend = async (text: string, docIds: string[] = []) => {
     if (!activeConversationId || !activeSpaceId) return;
 
     const tempUserId = `temp-user-${Date.now()}`;
@@ -249,7 +249,8 @@ export default function WorkspaceApp() {
           }
         },
         shareToken,
-        controller.signal
+        controller.signal,
+        docIds
       );
     } catch (err) {
       setMessages((prev) =>
@@ -353,6 +354,7 @@ export default function WorkspaceApp() {
         <>
           <ChatWindow
             space={activeSpace}
+            documents={documents}
             conversation={activeConversation}
             messages={messages}
             streaming={streaming}

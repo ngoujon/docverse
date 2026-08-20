@@ -55,12 +55,20 @@ def get_all(space_id: str) -> dict:
     }
 
 
-def query(space_id: str, query_embedding: list[float], top_k: int = 6) -> list[dict]:
+def query(
+    space_id: str,
+    query_embedding: list[float],
+    top_k: int = 6,
+    doc_ids: list[str] | None = None,
+) -> list[dict]:
     collection = get_collection(space_id)
     if collection.count() == 0:
         return []
     top_k = min(top_k, collection.count())
-    results = collection.query(query_embeddings=[query_embedding], n_results=top_k)
+    kwargs = {"query_embeddings": [query_embedding], "n_results": top_k}
+    if doc_ids:
+        kwargs["where"] = {"doc_id": {"$in": doc_ids}}
+    results = collection.query(**kwargs)
     out = []
     docs = results.get("documents", [[]])[0]
     metas = results.get("metadatas", [[]])[0]

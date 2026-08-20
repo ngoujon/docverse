@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Send, PanelRight, Sparkles, Menu, Loader2, Eye, Network, Download, FileText, FileType } from "lucide-react";
+import { Send, PanelRight, Sparkles, Menu, Loader2, Eye, Network, Download, FileText, FileType, Paperclip } from "lucide-react";
 import clsx from "clsx";
-import type { Conversation, Message, Space } from "../types";
+import type { Conversation, DocumentItem, Message, Space } from "../types";
 import { api } from "../api/client";
 import MessageBubble from "./MessageBubble";
 import LanguageSwitcher from "./LanguageSwitcher";
@@ -10,11 +10,12 @@ import ThemeToggle from "./ThemeToggle";
 
 interface Props {
   space: Space;
+  documents: DocumentItem[];
   conversation: Conversation | null;
   messages: Message[];
   streaming: boolean;
   queuedPosition?: number | null;
-  onSend: (text: string) => void;
+  onSend: (text: string, docIds: string[]) => void;
   onToggleDocPanel: () => void;
   docPanelOpen: boolean;
   onOpenMobileNav?: () => void;
@@ -79,6 +80,7 @@ function ExportMenu({ conversationId, title, shareToken }: { conversationId: str
 
 export default function ChatWindow({
   space,
+  documents,
   conversation,
   messages,
   streaming,
@@ -98,19 +100,68 @@ export default function ChatWindow({
   const scrollRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  const mentionableDocs = useMemo(() => documents.filter((d) => d.status === "ready"), [documents]);
+  const [mentionQuery, setMentionQuery] = useState<string | null>(null);
+  const [mentionStart, setMentionStart] = useState(0);
+  const [mentionActiveIndex, setMentionActiveIndex] = useState(0);
+  const mentionMatches = useMemo(() => {
+    if (mentionQuery === null) return [];
+    const q = mentionQuery.toLowerCase();
+    return mentionableDocs.filter((d) => d.name.toLowerCase().includes(q)).slice(0, 6);
+  }, [mentionQuery, mentionableDocs]);
+
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages]);
 
   useEffect(() => {
     setInput("");
+    setMentionQuery(null);
   }, [conversation?.id]);
+
+  const updateMentionState = (text: string, cursor: number) => {
+    const uptoCursor = text.slice(0, cursor);
+    const at = uptoCursor.lastIndexOf("@");
+    if (at === -1 || /[\s\n]/.test(uptoCursor.slice(at + 1))) {
+      setMentionQuery(null);
+      return;
+    }
+    setMentionStart(at);
+    setMentionQuery(uptoCursor.slice(at + 1));
+    setMentionActiveIndex(0);
+  };
+
+  const pickMention = (doc: DocumentItem) => {
+    if (mentionQuery === null) return;
+    const textarea = textareaRef.current;
+    const cursor = textarea ? textarea.selectionStart : input.length;
+    const before = input.slice(0, mentionStart);
+    const after = input.slice(cursor);
+    const inserted = `@${doc.name} `;
+    const next = `${before}${inserted}${after}`;
+    setInput(next);
+    setMentionQuery(null);
+    requestAnimationFrame(() => {
+      if (!textarea) return;
+      textarea.focus();
+      const pos = before.length + inserted.length;
+      textarea.setSelectionRange(pos, pos);
+    });
+  };
+
+  const mentionedDocIds = (text: string): string[] => {
+    const ids = mentionableDocs
+      .filter((d) => text.includes(`@${d.name}`))
+      .map((d) => d.id);
+    return Array.from(new Set(ids));
+  };
 
   const handleSend = () => {
     const text = input.trim();
     if (!text || streaming) return;
-    onSend(text);
+    onSend(text, mentionedDocIds(text));
     setInput("");
+    setMentionQuery(null);
     if (textareaRef.current) textareaRef.current.style.height = "auto";
   };
 
@@ -205,33 +256,81 @@ export default function ChatWindow({
             <Eye size={14} /> {t("app.chat.readOnly")}
           </div>
         ) : (
-          <div className="flex items-center gap-2 rounded-xl border border-surface-border bg-surface-1 px-3 py-2 focus-within:border-accent">
-            <textarea
-              ref={textareaRef}
-              value={input}
-              onChange={(e) => {
-                setInput(e.target.value);
-                e.target.style.height = "auto";
-                e.target.style.height = `${Math.min(e.target.scrollHeight, 160)}px`;
-              }}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && !e.shiftKey) {
-                  e.preventDefault();
-                  handleSend();
-                }
-              }}
-              rows={1}
-              placeholder={t("app.chat.placeholder")}
-              className="block max-h-40 flex-1 resize-none bg-transparent text-sm leading-5 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none"
-            />
-            <button
-              onClick={handleSend}
-              disabled={!input.trim() || streaming}
-              aria-label={t("app.chat.send")}
-              className="mb-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent text-white transition hover:bg-accent-hover disabled:opacity-30"
-            >
-              <Send size={15} />
-            </button>
+          <div className="relative">
+            {mentionQuery !== null && mentionMatches.length > 0 && (
+              <div className="absolute bottom-full left-0 z-20 mb-1.5 w-64 overflow-hidden rounded-lg border border-surface-border bg-surface-2 py-1 shadow-panel">
+                {mentionMatches.map((doc, i) => (
+                  <button
+                    key={doc.id}
+                    type="button"
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      pickMention(doc);
+                    }}
+                    className={clsx(
+                      "flex w-full items-center gap-2 px-3 py-1.5 text-left text-xs",
+                      i === mentionActiveIndex
+                        ? "bg-accent/15 text-accent"
+                        : "text-slate-700 dark:text-slate-300 hover:bg-surface-3"
+                    )}
+                  >
+                    <Paperclip size={12} className="shrink-0" />
+                    <span className="truncate">{doc.name}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+            <div className="flex items-center gap-2 rounded-xl border border-surface-border bg-surface-1 px-3 py-2 focus-within:border-accent">
+              <textarea
+                ref={textareaRef}
+                value={input}
+                onChange={(e) => {
+                  setInput(e.target.value);
+                  e.target.style.height = "auto";
+                  e.target.style.height = `${Math.min(e.target.scrollHeight, 160)}px`;
+                  updateMentionState(e.target.value, e.target.selectionStart);
+                }}
+                onKeyDown={(e) => {
+                  if (mentionQuery !== null && mentionMatches.length > 0) {
+                    if (e.key === "ArrowDown") {
+                      e.preventDefault();
+                      setMentionActiveIndex((i) => (i + 1) % mentionMatches.length);
+                      return;
+                    }
+                    if (e.key === "ArrowUp") {
+                      e.preventDefault();
+                      setMentionActiveIndex((i) => (i - 1 + mentionMatches.length) % mentionMatches.length);
+                      return;
+                    }
+                    if (e.key === "Enter" || e.key === "Tab") {
+                      e.preventDefault();
+                      pickMention(mentionMatches[mentionActiveIndex]);
+                      return;
+                    }
+                    if (e.key === "Escape") {
+                      e.preventDefault();
+                      setMentionQuery(null);
+                      return;
+                    }
+                  }
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSend();
+                  }
+                }}
+                rows={1}
+                placeholder={t("app.chat.placeholder")}
+                className="block max-h-40 flex-1 resize-none bg-transparent text-sm leading-5 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none"
+              />
+              <button
+                onClick={handleSend}
+                disabled={!input.trim() || streaming}
+                aria-label={t("app.chat.send")}
+                className="mb-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent text-white transition hover:bg-accent-hover disabled:opacity-30"
+              >
+                <Send size={15} />
+              </button>
+            </div>
           </div>
         )}
       </div>

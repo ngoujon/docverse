@@ -338,7 +338,8 @@ export async function streamChat(
   message: string,
   onEvent: (event: StreamEvent) => void,
   shareToken?: string,
-  signal?: AbortSignal
+  signal?: AbortSignal,
+  docIds?: string[]
 ): Promise<void> {
   const res = await fetch(`${BASE}/conversations/${conversationId}/chat`, {
     method: "POST",
@@ -346,7 +347,7 @@ export async function streamChat(
       "Content-Type": "application/json",
       ...authHeaders(shareToken),
     },
-    body: JSON.stringify({ message }),
+    body: JSON.stringify({ message, doc_ids: docIds ?? [] }),
     signal,
   });
   if (res.status === 401) throw new UnauthorizedError();

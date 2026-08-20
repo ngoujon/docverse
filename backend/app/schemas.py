@@ -292,6 +292,11 @@ class MessageOut(BaseModel):
 
 class ChatRequest(BaseModel):
     message: str
+    # Documents explicitly referenced with "@name" in the message (see
+    # frontend ChatWindow.tsx) - narrows retrieval to just these instead of
+    # searching the whole space. Ids not belonging to this conversation's
+    # space are silently dropped server-side (see routers/chat.py).
+    doc_ids: list[str] = []
 
 
 class DocumentOut(BaseModel):
