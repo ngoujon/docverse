@@ -32,12 +32,22 @@ import ConfirmDialog from "../components/ConfirmDialog";
 import SnapshotsPanel from "../components/SnapshotsPanel";
 import TestimonialModal from "../components/TestimonialModal";
 import CreateUserModal from "../components/CreateUserModal";
-import type { AdminStats, Space, Testimonial, TestimonialInput, User } from "../types";
+import type { AdminStats, Invoice, Space, Testimonial, TestimonialInput, User } from "../types";
 
 const PAGE_SIZE = 50;
 
 function relativeDate(iso: string): string {
   return new Date(iso + "Z").toLocaleDateString();
+}
+
+function formatInvoiceAmount(amountCents: number, currency: string): string {
+  return new Intl.NumberFormat(undefined, { style: "currency", currency: currency.toUpperCase() }).format(
+    amountCents / 100
+  );
+}
+
+function formatInvoiceDate(unixSeconds: number): string {
+  return new Date(unixSeconds * 1000).toLocaleDateString();
 }
 
 export default function AdminDashboardPage() {
@@ -52,8 +62,13 @@ export default function AdminDashboardPage() {
   const [spaces, setSpaces] = useState<Space[]>([]);
   const [spacesTotal, setSpacesTotal] = useState(0);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [invoices, setInvoices] = useState<Invoice[]>([]);
+  const [invoicesHasMore, setInvoicesHasMore] = useState(false);
+  const [invoicesLoading, setInvoicesLoading] = useState(false);
+  const [invoicesError, setInvoicesError] = useState(false);
+  const [invoicesLoaded, setInvoicesLoaded] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [tab, setTab] = useState<"users" | "spaces" | "testimonials">("users");
+  const [tab, setTab] = useState<"users" | "spaces" | "testimonials" | "invoices">("users");
 
   const [deleteUserTarget, setDeleteUserTarget] = useState<User | null>(null);
   const [deleteSpaceTarget, setDeleteSpaceTarget] = useState<Space | null>(null);
@@ -86,6 +101,33 @@ export default function AdminDashboardPage() {
   useEffect(() => {
     loadInitial();
   }, [loadInitial]);
+
+  useEffect(() => {
+    if (tab !== "invoices" || invoicesLoaded) return;
+    setInvoicesLoading(true);
+    setInvoicesError(false);
+    api
+      .adminInvoices(20)
+      .then((page) => {
+        setInvoices(page.items);
+        setInvoicesHasMore(page.has_more);
+        setInvoicesLoaded(true);
+      })
+      .catch(() => setInvoicesError(true))
+      .finally(() => setInvoicesLoading(false));
+  }, [tab, invoicesLoaded]);
+
+  const loadMoreInvoices = async () => {
+    if (invoices.length === 0) return;
+    setInvoicesLoading(true);
+    try {
+      const page = await api.adminInvoices(20, invoices[invoices.length - 1].id);
+      setInvoices((prev) => [...prev, ...page.items]);
+      setInvoicesHasMore(page.has_more);
+    } finally {
+      setInvoicesLoading(false);
+    }
+  };
 
   const loadMoreUsers = async () => {
     const page = await api.adminUsers(PAGE_SIZE, users.length);
@@ -233,6 +275,14 @@ export default function AdminDashboardPage() {
             }`}
           >
             {t("admin.tabs.testimonials")}
+          </button>
+          <button
+            onClick={() => setTab("invoices")}
+            className={`rounded-md px-3 py-1.5 text-xs font-medium ${
+              tab === "invoices" ? "bg-accent text-white" : "text-slate-600 dark:text-slate-400"
+            }`}
+          >
+            {t("admin.tabs.invoices")}
           </button>
         </div>
 
@@ -400,7 +450,7 @@ export default function AdminDashboardPage() {
               </button>
             )}
           </>
-        ) : (
+        ) : tab === "testimonials" ? (
           <>
             <div className="mt-4 flex items-center justify-between">
               <p className="text-xs text-slate-500 dark:text-slate-400">{t("admin.testimonials.hint")}</p>
@@ -504,6 +554,88 @@ export default function AdminDashboardPage() {
                 </tbody>
               </table>
             </div>
+          </>
+        ) : invoicesLoading && invoices.length === 0 ? (
+          <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">{t("common.loading")}</p>
+        ) : invoicesError ? (
+          <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">{t("admin.invoices.unavailable")}</p>
+        ) : (
+          <>
+            <div className="mt-4 overflow-x-auto rounded-xl border border-surface-border">
+              <table className="w-full text-left text-sm">
+                <thead className="bg-surface-1 text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  <tr>
+                    <th className="px-4 py-2.5">{t("admin.invoices.number")}</th>
+                    <th className="px-4 py-2.5">{t("admin.invoices.customer")}</th>
+                    <th className="px-4 py-2.5">{t("admin.invoices.amount")}</th>
+                    <th className="px-4 py-2.5">{t("admin.invoices.type")}</th>
+                    <th className="px-4 py-2.5">{t("admin.table.status")}</th>
+                    <th className="px-4 py-2.5">{t("admin.table.createdAt")}</th>
+                    <th className="px-4 py-2.5 text-right">{t("admin.table.actions")}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {invoices.map((inv) => (
+                    <tr key={inv.id} className="border-t border-surface-border">
+                      <td className="px-4 py-2.5 font-mono text-xs text-slate-600 dark:text-slate-400">
+                        {inv.number || "-"}
+                      </td>
+                      <td className="px-4 py-2.5 text-slate-800 dark:text-slate-200">
+                        <p>{inv.customer_name || "-"}</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">{inv.customer_email}</p>
+                      </td>
+                      <td className="px-4 py-2.5 text-slate-600 dark:text-slate-400">
+                        {formatInvoiceAmount(inv.amount_paid, inv.currency)}
+                      </td>
+                      <td className="px-4 py-2.5">
+                        <span
+                          className={`rounded-full px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider ${
+                            inv.is_business
+                              ? "bg-accent/15 text-accent"
+                              : "bg-surface-3 text-slate-600 dark:text-slate-300"
+                          }`}
+                          title={inv.tax_ids.join(", ")}
+                        >
+                          {inv.is_business ? t("admin.invoices.business") : t("admin.invoices.individual")}
+                        </span>
+                      </td>
+                      <td className="px-4 py-2.5 text-slate-600 dark:text-slate-400">{inv.status || "-"}</td>
+                      <td className="px-4 py-2.5 text-slate-600 dark:text-slate-400">
+                        {formatInvoiceDate(inv.created)}
+                      </td>
+                      <td className="px-4 py-2.5 text-right">
+                        {inv.invoice_pdf && (
+                          <a
+                            href={inv.invoice_pdf}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-xs font-medium text-accent hover:underline"
+                          >
+                            {t("admin.invoices.viewPdf")}
+                          </a>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                  {invoices.length === 0 && (
+                    <tr>
+                      <td colSpan={7} className="px-4 py-6 text-center text-slate-500 dark:text-slate-400">
+                        {t("admin.invoices.empty")}
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+            {invoicesHasMore && (
+              <button
+                onClick={loadMoreInvoices}
+                disabled={invoicesLoading}
+                className="mt-3 flex items-center gap-1.5 rounded-lg border border-surface-border px-3 py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:bg-surface-3 disabled:opacity-40"
+              >
+                <ArrowDownToLine size={12} /> {t("admin.actions.loadMore")}
+              </button>
+            )}
           </>
         )}
       </main>

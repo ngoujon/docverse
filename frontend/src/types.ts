@@ -216,3 +216,18 @@ export interface TestimonialInput {
   published?: boolean;
   display_order?: number;
 }
+
+export interface Invoice {
+  id: string;
+  number: string | null;
+  customer_email: string | null;
+  customer_name: string | null;
+  is_business: boolean;
+  tax_ids: string[];
+  amount_paid: number;
+  currency: string;
+  status: string | null;
+  created: number;
+  hosted_invoice_url: string | null;
+  invoice_pdf: string | null;
+}

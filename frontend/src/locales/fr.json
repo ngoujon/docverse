@@ -593,7 +593,19 @@
     "tabs": {
       "users": "Utilisateurs",
       "spaces": "Espaces",
-      "testimonials": "Avis"
+      "testimonials": "Avis",
+      "invoices": "Factures"
+    },
+    "invoices": {
+      "number": "Numero",
+      "customer": "Client",
+      "amount": "Montant",
+      "type": "Type",
+      "business": "Pro",
+      "individual": "Particulier",
+      "viewPdf": "Voir le PDF",
+      "empty": "Aucune facture pour l'instant.",
+      "unavailable": "Facturation non configuree sur cette instance."
     },
     "users": {
       "createButton": "Nouvel utilisateur",

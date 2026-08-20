@@ -593,7 +593,19 @@
     "tabs": {
       "users": "Users",
       "spaces": "Spaces",
-      "testimonials": "Testimonials"
+      "testimonials": "Testimonials",
+      "invoices": "Invoices"
+    },
+    "invoices": {
+      "number": "Number",
+      "customer": "Customer",
+      "amount": "Amount",
+      "type": "Type",
+      "business": "Business",
+      "individual": "Individual",
+      "viewPdf": "View PDF",
+      "empty": "No invoices yet.",
+      "unavailable": "Billing is not configured on this instance."
     },
     "users": {
       "createButton": "New user",

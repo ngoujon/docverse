@@ -227,6 +227,26 @@ class PaginatedSpaces(BaseModel):
     offset: int
 
 
+class InvoiceOut(BaseModel):
+    id: str
+    number: Optional[str] = None
+    customer_email: Optional[str] = None
+    customer_name: Optional[str] = None
+    is_business: bool
+    tax_ids: list[str] = []
+    amount_paid: int
+    currency: str
+    status: Optional[str] = None
+    created: int
+    hosted_invoice_url: Optional[str] = None
+    invoice_pdf: Optional[str] = None
+
+
+class PaginatedInvoices(BaseModel):
+    items: list[InvoiceOut]
+    has_more: bool
+
+
 class AdminStatsOut(BaseModel):
     users: int
     spaces: int

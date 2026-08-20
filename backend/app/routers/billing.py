@@ -47,6 +47,11 @@ def create_checkout_session(
         success_url=f"{settings.frontend_base_url}/account?billing=success",
         cancel_url=f"{settings.frontend_base_url}/tarifs?billing=cancelled",
         allow_promotion_codes=True,
+        # Lets a business customer add their VAT/SIRET at checkout - Stripe
+        # then prints it on the invoice, which is how we tell a "pro"
+        # subscriber apart from an individual one (see admin invoices list).
+        tax_id_collection={"enabled": True},
+        billing_address_collection="required",
     )
     return {"url": session.url}
 

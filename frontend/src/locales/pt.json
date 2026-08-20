@@ -593,7 +593,19 @@
     "tabs": {
       "users": "Utilizadores",
       "spaces": "Espacos",
-      "testimonials": "Testemunhos"
+      "testimonials": "Testemunhos",
+      "invoices": "Faturas"
+    },
+    "invoices": {
+      "number": "Numero",
+      "customer": "Cliente",
+      "amount": "Valor",
+      "type": "Tipo",
+      "business": "Empresa",
+      "individual": "Particular",
+      "viewPdf": "Ver PDF",
+      "empty": "Ainda sem faturas.",
+      "unavailable": "A faturacao nao esta configurada nesta instancia."
     },
     "users": {
       "createButton": "Novo utilizador",

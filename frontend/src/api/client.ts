@@ -6,6 +6,7 @@ import type {
   Conversation,
   DocumentItem,
   HealthStatus,
+  Invoice,
   LoginResponse,
   MeStats,
   Message,
@@ -177,6 +178,10 @@ export const api = {
   adminUpdateTestimonial: (id: string, patch: Partial<TestimonialInput>) =>
     request<Testimonial>(`/admin/testimonials/${id}`, { method: "PATCH", body: JSON.stringify(patch) }),
   adminDeleteTestimonial: (id: string) => request(`/admin/testimonials/${id}`, { method: "DELETE" }),
+  adminInvoices: (limit = 20, startingAfter?: string) =>
+    request<{ items: Invoice[]; has_more: boolean }>(
+      `/admin/invoices?limit=${limit}${startingAfter ? `&starting_after=${startingAfter}` : ""}`
+    ),
   listTestimonials: () => request<Testimonial[]>("/testimonials"),
   adminListSnapshots: (spaceId: string) =>
     request<SpaceSnapshot[]>(`/admin/spaces/${spaceId}/snapshots`),

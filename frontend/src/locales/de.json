@@ -593,7 +593,19 @@
     "tabs": {
       "users": "Nutzer",
       "spaces": "Bereiche",
-      "testimonials": "Bewertungen"
+      "testimonials": "Bewertungen",
+      "invoices": "Rechnungen"
+    },
+    "invoices": {
+      "number": "Nummer",
+      "customer": "Kunde",
+      "amount": "Betrag",
+      "type": "Typ",
+      "business": "Geschaeftlich",
+      "individual": "Privat",
+      "viewPdf": "PDF ansehen",
+      "empty": "Noch keine Rechnungen.",
+      "unavailable": "Abrechnung ist auf dieser Instanz nicht konfiguriert."
     },
     "users": {
       "createButton": "Neuer Benutzer",
