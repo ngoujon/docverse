@@ -232,6 +232,10 @@
         "body": "Se usar o formulario de contacto, o seu nome, email e mensagem sao guardados para que possamos responder-lhe. Esta informacao nunca e revendida nem partilhada com terceiros, nem usada para fins comerciais."
       },
       {
+        "title": "Pagamentos e envio de emails",
+        "body": "Se subscrever um plano pago, o pagamento e processado pelo nosso fornecedor Stripe: nunca guardamos o numero do seu cartao. O envio de emails (redefinicao de palavra-passe, confirmacoes, newsletter) passa por um servidor de envio de emails (SMTP) configurado pelo administrador da instancia. Estes fornecedores recebem apenas os dados estritamente necessarios para processar o pagamento ou enviar o email."
+      },
+      {
         "title": "Os seus direitos (RGPD)",
         "body": "Exportar os seus dados: a partir de A minha conta, transfira um ficheiro com todos os seus dados num clique. Eliminar a sua conta: a partir de A minha conta (zona de perigo), eliminacao imediata e definitiva da sua conta e dos seus espacos. Newsletter: cada email inclui um link de cancelamento num clique, sem necessidade de iniciar sessao. Para qualquer outro pedido (retificacao, oposicao), utilize o formulario de contacto."
       }

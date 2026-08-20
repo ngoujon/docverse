@@ -232,6 +232,10 @@
         "body": "Si utilizas el formulario de contacto, se conservan tu nombre, correo electronico y mensaje para poder responderte. Esta informacion no se revende ni se comparte con terceros, ni se utiliza con fines comerciales."
       },
       {
+        "title": "Pagos y envio de emails",
+        "body": "Si contratas un plan de pago, el pago lo procesa nuestro proveedor Stripe: nunca almacenamos tu numero de tarjeta. El envio de emails (restablecimiento de contrasena, confirmaciones, newsletter) pasa por un servidor de envio de correos (SMTP) configurado por el administrador de la instancia. Estos proveedores solo reciben los datos estrictamente necesarios para procesar el pago o enviar el email."
+      },
+      {
         "title": "Tus derechos (RGPD)",
         "body": "Exportar tus datos: desde Mi cuenta, descarga un archivo con todos tus datos en un clic. Eliminar tu cuenta: desde Mi cuenta (zona de peligro), eliminacion inmediata y definitiva de tu cuenta y tus espacios. Newsletter: cada email incluye un enlace de baja en un clic, sin necesidad de iniciar sesion. Para cualquier otra solicitud (rectificacion, oposicion), utiliza el formulario de contacto."
       }

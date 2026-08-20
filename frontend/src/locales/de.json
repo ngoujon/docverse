@@ -232,6 +232,10 @@
         "body": "Wenn Sie das Kontaktformular verwenden, werden Ihr Name, Ihre E-Mail-Adresse und Ihre Nachricht gespeichert, damit wir Ihnen antworten konnen. Diese Informationen werden weder weiterverkauft noch an Dritte weitergegeben und nicht fur Werbezwecke genutzt."
       },
       {
+        "title": "Zahlungen und E-Mail-Versand",
+        "body": "Wenn Sie einen kostenpflichtigen Plan abonnieren, wird die Zahlung von unserem Anbieter Stripe verarbeitet: Wir speichern Ihre Kartennummer niemals. Der Versand von E-Mails (Passwort-Reset, Bestatigungen, Newsletter) erfolgt uber einen vom Instanz-Administrator konfigurierten E-Mail-Versandserver (SMTP). Diese Anbieter erhalten nur die Daten, die fur die Zahlungsabwicklung oder den E-Mail-Versand unbedingt erforderlich sind."
+      },
+      {
         "title": "Ihre Rechte (DSGVO)",
         "body": "Daten exportieren: Laden Sie in Mein Konto mit einem Klick eine Datei mit allen Ihren Daten herunter. Konto loschen: In Mein Konto (Gefahrenzone) konnen Sie Ihr Konto und Ihre Arbeitsbereiche sofort und endgultig loschen. Newsletter: Jede E-Mail enthalt einen Ein-Klick-Abmeldelink, ohne dass eine Anmeldung erforderlich ist. Fur alle anderen Anliegen (Berichtigung, Widerspruch) nutzen Sie das Kontaktformular."
       }

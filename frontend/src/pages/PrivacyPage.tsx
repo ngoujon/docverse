@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, Cookie, Database, Mail, ShieldCheck, UserCheck } from "lucide-react";
+import { ArrowLeft, Cookie, CreditCard, Database, Mail, ShieldCheck, UserCheck } from "lucide-react";
 import { usePageMeta } from "../hooks/usePageMeta";
 
-const SECTION_ICONS = [Cookie, Database, ShieldCheck, Mail, UserCheck];
+const SECTION_ICONS = [Cookie, Database, ShieldCheck, Mail, CreditCard, UserCheck];
 
 interface PrivacySection {
   title: string;

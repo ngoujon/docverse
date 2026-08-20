@@ -232,6 +232,10 @@
         "body": "Si vous utilisez le formulaire de contact, votre nom, votre email et votre message sont conserves afin de pouvoir vous repondre. Ces informations ne sont ni revendues ni partagees avec des tiers, et ne servent a aucune prospection commerciale."
       },
       {
+        "title": "Paiement et envoi d'emails",
+        "body": "Si vous souscrivez a un abonnement payant, le paiement est traite par notre prestataire Stripe : nous ne stockons jamais votre numero de carte bancaire. L'envoi des emails (reinitialisation de mot de passe, confirmations, newsletter) passe par un serveur d'envoi d'emails (SMTP) configure par l'administrateur de l'instance. Ces prestataires ne recoivent que les donnees strictement necessaires a l'execution du paiement ou a l'envoi de l'email."
+      },
+      {
         "title": "Vos droits (RGPD)",
         "body": "Exporter vos donnees : depuis Mon compte, telechargez un fichier contenant l'integralite de vos donnees en un clic. Supprimer votre compte : depuis Mon compte (zone dangereuse), suppression immediate et definitive de votre compte et de vos espaces. Newsletter : chaque email envoye contient un lien de desabonnement en un clic, sans avoir besoin de vous connecter. Pour toute autre demande (rectification, opposition), utilisez le formulaire de contact."
       }

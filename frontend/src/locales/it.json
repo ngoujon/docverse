@@ -232,6 +232,10 @@
         "body": "Se utilizzi il modulo di contatto, il tuo nome, la tua email e il tuo messaggio vengono conservati per poterti rispondere. Queste informazioni non vengono mai rivendute ne condivise con terzi, ne utilizzate per scopi commerciali."
       },
       {
+        "title": "Pagamenti e invio di email",
+        "body": "Se sottoscrivi un piano a pagamento, il pagamento e gestito dal nostro fornitore Stripe: non memorizziamo mai il numero della tua carta. L'invio delle email (reimpostazione password, conferme, newsletter) passa attraverso un server di invio email (SMTP) configurato dall'amministratore dell'istanza. Questi fornitori ricevono solo i dati strettamente necessari per elaborare il pagamento o inviare l'email."
+      },
+      {
         "title": "I tuoi diritti (GDPR)",
         "body": "Esporta i tuoi dati: da Il mio account, scarica un file con tutti i tuoi dati in un clic. Elimina il tuo account: da Il mio account (zona pericolosa), eliminazione immediata e definitiva del tuo account e dei tuoi spazi. Newsletter: ogni email include un link di disiscrizione in un clic, senza bisogno di accedere. Per qualsiasi altra richiesta (rettifica, opposizione), utilizza il modulo di contatto."
       }
