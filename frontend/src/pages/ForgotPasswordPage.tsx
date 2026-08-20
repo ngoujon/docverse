@@ -4,11 +4,11 @@ import { useTranslation } from "react-i18next";
 import { MailCheck } from "lucide-react";
 import { api } from "../api/client";
 import AuthLayout from "../components/AuthLayout";
-import { usePageTitle } from "../hooks/usePageTitle";
+import { usePageMeta } from "../hooks/usePageMeta";
 
 export default function ForgotPasswordPage() {
   const { t } = useTranslation();
-  usePageTitle(`${t("auth.forgot.title")} - Hyaides`);
+  usePageMeta({ title: `${t("auth.forgot.title")} - Hyaides`, noindex: true });
 
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);

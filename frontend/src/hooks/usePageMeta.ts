@@ -45,7 +45,10 @@ export function usePageMeta({ title, description, canonicalPath, noindex }: Page
       canonicalTag = document.querySelector('link[rel="canonical"]');
       if (canonicalTag) {
         previousCanonical = canonicalTag.getAttribute("href");
-        canonicalTag.setAttribute("href", canonicalPath);
+        const canonicalUrl = canonicalPath.startsWith('http')
+          ? canonicalPath
+          : `${window.location.origin}${canonicalPath}`;
+        canonicalTag.setAttribute("href", canonicalUrl);
       }
     }
 

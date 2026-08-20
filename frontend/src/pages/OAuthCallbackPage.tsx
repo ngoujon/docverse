@@ -3,11 +3,13 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 import { setUserToken } from "../api/userToken";
 import { useAuth } from "../hooks/useAuth";
+import { usePageMeta } from "../hooks/usePageMeta";
 
 export default function OAuthCallbackPage() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
   const { refresh } = useAuth();
+  usePageMeta({ title: "OAuth Callback - Hyaides", noindex: true });
 
   useEffect(() => {
     const token = params.get("token");

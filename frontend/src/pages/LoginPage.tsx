@@ -5,7 +5,7 @@ import { Eye, EyeOff, ShieldCheck } from "lucide-react";
 import { useAuth } from "../hooks/useAuth";
 import AuthLayout from "../components/AuthLayout";
 import SsoButtons from "../components/SsoButtons";
-import { usePageTitle } from "../hooks/usePageTitle";
+import { usePageMeta } from "../hooks/usePageMeta";
 
 export default function LoginPage() {
   const { t } = useTranslation();
@@ -13,7 +13,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const redirectTo = (location.state as { from?: string } | null)?.from || "/dashboard";
-  usePageTitle(`${t("auth.login.title")} - Hyaides`);
+  usePageMeta({ title: `${t("auth.login.title")} - Hyaides`, noindex: true });
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

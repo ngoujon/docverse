@@ -7,7 +7,7 @@ import AuthLayout from "../components/AuthLayout";
 import Captcha from "../components/Captcha";
 import SsoButtons from "../components/SsoButtons";
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter";
-import { usePageTitle } from "../hooks/usePageTitle";
+import { usePageMeta } from "../hooks/usePageMeta";
 import type { CaptchaSolution } from "../types";
 
 export default function RegisterPage() {
@@ -16,7 +16,7 @@ export default function RegisterPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const redirectTo = (location.state as { from?: string } | null)?.from || "/dashboard";
-  usePageTitle(`${t("auth.register.title")} - Hyaides`);
+  usePageMeta({ title: `${t("auth.register.title")} - Hyaides`, noindex: true });
 
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
