@@ -130,8 +130,11 @@ export const api = {
       method: "POST",
       body: JSON.stringify({ token, password }),
     }),
-  oauthProviders: () => request<{ google: boolean; apple: boolean }>("/auth/oauth/providers"),
-  oauthLoginUrl: (provider: "google" | "apple", next: string) =>
+  oauthProviders: () =>
+    request<{ google: boolean; apple: boolean; github: boolean; linkedin: boolean }>(
+      "/auth/oauth/providers"
+    ),
+  oauthLoginUrl: (provider: "google" | "apple" | "github" | "linkedin", next: string) =>
     `${BASE}/auth/oauth/${provider}/login?next=${encodeURIComponent(next)}`,
 
   // --- Billing (Stripe) -------------------------------------------------

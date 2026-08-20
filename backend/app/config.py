@@ -111,6 +111,12 @@ class Settings:
     apple_oauth_key_id: str = os.environ.get("APPLE_OAUTH_KEY_ID", "")
     apple_oauth_private_key: str = os.environ.get("APPLE_OAUTH_PRIVATE_KEY", "")
 
+    github_oauth_client_id: str = os.environ.get("GITHUB_OAUTH_CLIENT_ID", "")
+    github_oauth_client_secret: str = os.environ.get("GITHUB_OAUTH_CLIENT_SECRET", "")
+
+    linkedin_oauth_client_id: str = os.environ.get("LINKEDIN_OAUTH_CLIENT_ID", "")
+    linkedin_oauth_client_secret: str = os.environ.get("LINKEDIN_OAUTH_CLIENT_SECRET", "")
+
     # --- Billing (Stripe) --------------------------------------------------
     # Checkout/portal routes 503 instead of crashing when these are unset,
     # so the app still runs fine without billing configured (e.g. local dev).

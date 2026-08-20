@@ -101,6 +101,54 @@ google = OAuthProvider(
     client_secret=settings.google_oauth_client_secret,
 )
 
+linkedin = OAuthProvider(
+    # LinkedIn's "Sign In with LinkedIn using OpenID Connect" product speaks
+    # plain OIDC, same shape as Google - no subclassing needed.
+    name="linkedin",
+    authorize_url="https://www.linkedin.com/oauth/v2/authorization",
+    token_url="https://www.linkedin.com/oauth/v2/accessToken",
+    userinfo_url="https://api.linkedin.com/v2/userinfo",
+    scope="openid profile email",
+    client_id=settings.linkedin_oauth_client_id,
+    client_secret=settings.linkedin_oauth_client_secret,
+)
+
+
+class GitHubAuth(OAuthProvider):
+    """GitHub's /user endpoint omits "email" whenever the user hasn't made
+    one public, even with the user:email scope granted - the verified
+    address only shows up via the separate /user/emails endpoint, so
+    userinfo has to merge both calls."""
+
+    async def fetch_userinfo(self, access_token: str) -> dict:
+        headers = {"Authorization": f"Bearer {access_token}"}
+        async with httpx.AsyncClient(timeout=15) as client:
+            profile_res = await client.get("https://api.github.com/user", headers=headers)
+            profile_res.raise_for_status()
+            profile = profile_res.json()
+
+            if not profile.get("email"):
+                emails_res = await client.get("https://api.github.com/user/emails", headers=headers)
+                emails_res.raise_for_status()
+                primary = next(
+                    (e["email"] for e in emails_res.json() if e.get("primary") and e.get("verified")),
+                    None,
+                )
+                if primary:
+                    profile["email"] = primary
+            return profile
+
+
+github = GitHubAuth(
+    name="github",
+    authorize_url="https://github.com/login/oauth/authorize",
+    token_url="https://github.com/login/oauth/access_token",
+    userinfo_url="https://api.github.com/user",
+    scope="read:user user:email",
+    client_id=settings.github_oauth_client_id,
+    client_secret=settings.github_oauth_client_secret,
+)
+
 class AppleAuth:
     """Sign in with Apple - authorization-code flow with response_mode
     "form_post" (mandatory as soon as the "email"/"name" scopes are
@@ -181,13 +229,15 @@ class AppleAuth:
 
 apple = AppleAuth()
 
-PROVIDERS = {"google": google}
+PROVIDERS = {"google": google, "github": github, "linkedin": linkedin}
 
 
 def normalize_userinfo(provider: str, raw: dict) -> tuple[str, str]:
-    """Returns (email, display_name) for GET-callback providers (Google
-    today). Apple is handled separately - see AppleAuth.email_from_id_token
-    and routers/oauth.py's apple_callback."""
-    email = raw.get("email", "").lower().strip()
-    name = raw.get("name") or raw.get("given_name", "")
+    """Returns (email, display_name) for GET-callback providers (Google,
+    GitHub, LinkedIn). Apple is handled separately - see
+    AppleAuth.email_from_id_token and routers/oauth.py's apple_callback."""
+    email = (raw.get("email") or "").lower().strip()
+    # GitHub profiles often leave "name" blank; "login" (the username) is
+    # always present and is what GitHub itself falls back to in its own UI.
+    name = raw.get("name") or raw.get("given_name") or raw.get("login") or ""
     return email, name

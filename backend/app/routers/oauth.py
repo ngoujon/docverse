@@ -61,6 +61,8 @@ def list_providers():
     return {
         "google": oauth_providers.google.configured,
         "apple": oauth_providers.apple.configured,
+        "github": oauth_providers.github.configured,
+        "linkedin": oauth_providers.linkedin.configured,
     }
 
 

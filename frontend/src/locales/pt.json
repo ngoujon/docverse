@@ -371,7 +371,9 @@
     "sso": {
       "divider": "ou continuar com",
       "google": "Continuar com Google",
-      "apple": "Continuar com Apple"
+      "apple": "Continuar com Apple",
+      "github": "Continuar com GitHub",
+      "linkedin": "Continuar com LinkedIn"
     },
     "login": {
       "title": "Iniciar sessao",
