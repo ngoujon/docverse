@@ -595,6 +595,17 @@
       "spaces": "Espacos",
       "testimonials": "Testemunhos"
     },
+    "users": {
+      "createButton": "Novo utilizador",
+      "createTitle": "Novo utilizador",
+      "createError": "Nao foi possivel criar esta conta (email ja utilizado?)",
+      "password": "Palavra-passe",
+      "generatePassword": "Gerar",
+      "copyPassword": "Copiar",
+      "roleUser": "Utilizador",
+      "roleAdmin": "Administrador",
+      "create": "Criar conta"
+    },
     "testimonials": {
       "hint": "Estes testemunhos so sao visiveis no site publico depois de publicados.",
       "create": "Novo testemunho",

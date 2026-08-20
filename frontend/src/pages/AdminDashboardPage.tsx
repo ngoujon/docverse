@@ -31,6 +31,7 @@ import StatCard from "../components/StatCard";
 import ConfirmDialog from "../components/ConfirmDialog";
 import SnapshotsPanel from "../components/SnapshotsPanel";
 import TestimonialModal from "../components/TestimonialModal";
+import CreateUserModal from "../components/CreateUserModal";
 import type { AdminStats, Space, Testimonial, TestimonialInput, User } from "../types";
 
 const PAGE_SIZE = 50;
@@ -61,6 +62,7 @@ export default function AdminDashboardPage() {
   const [editingTestimonial, setEditingTestimonial] = useState<Testimonial | null>(null);
   const [snapshotsSpace, setSnapshotsSpace] = useState<Space | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
+  const [createUserModalOpen, setCreateUserModalOpen] = useState(false);
 
   const loadInitial = useCallback(() => {
     setLoading(true);
@@ -115,6 +117,13 @@ export default function AdminDashboardPage() {
     } finally {
       setBusyId(null);
     }
+  };
+
+  const createUser = async (data: { email: string; password: string; display_name: string; role: "admin" | "user" }) => {
+    const created = await api.adminCreateUser(data);
+    setUsers((prev) => [created, ...prev]);
+    setUsersTotal((n) => n + 1);
+    setCreateUserModalOpen(false);
   };
 
   const confirmDeleteUser = async () => {
@@ -231,7 +240,15 @@ export default function AdminDashboardPage() {
           <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">{t("common.loading")}</p>
         ) : tab === "users" ? (
           <>
-            <div className="mt-4 overflow-x-auto rounded-xl border border-surface-border">
+            <div className="mt-4 flex justify-end">
+              <button
+                onClick={() => setCreateUserModalOpen(true)}
+                className="flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-white shadow-neon-light hover:bg-accent-hover"
+              >
+                <Plus size={13} /> {t("admin.users.createButton")}
+              </button>
+            </div>
+            <div className="mt-3 overflow-x-auto rounded-xl border border-surface-border">
               <table className="w-full text-left text-sm">
                 <thead className="bg-surface-1 text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   <tr>
@@ -519,6 +536,11 @@ export default function AdminDashboardPage() {
         confirmLabel={t("admin.actions.delete")}
         onConfirm={confirmDeleteTestimonial}
         onCancel={() => setDeleteTestimonialTarget(null)}
+      />
+      <CreateUserModal
+        open={createUserModalOpen}
+        onClose={() => setCreateUserModalOpen(false)}
+        onSubmit={createUser}
       />
       <TestimonialModal
         open={testimonialModalOpen}

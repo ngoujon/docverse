@@ -595,6 +595,17 @@
       "spaces": "Espacios",
       "testimonials": "Opiniones"
     },
+    "users": {
+      "createButton": "Nuevo usuario",
+      "createTitle": "Nuevo usuario",
+      "createError": "No se pudo crear esta cuenta (¿email ya usado?)",
+      "password": "Contrasena",
+      "generatePassword": "Generar",
+      "copyPassword": "Copiar",
+      "roleUser": "Usuario",
+      "roleAdmin": "Administrador",
+      "create": "Crear cuenta"
+    },
     "testimonials": {
       "hint": "Estas opiniones solo son visibles en el sitio publico una vez publicadas.",
       "create": "Nueva opinion",

@@ -165,6 +165,8 @@ export const api = {
   adminSpaces: (limit = 50, offset = 0) =>
     request<Paginated<Space>>(`/admin/spaces?limit=${limit}&offset=${offset}`),
   adminStats: () => request<AdminStats>("/admin/stats"),
+  adminCreateUser: (payload: { email: string; password: string; display_name?: string; role?: "admin" | "user" }) =>
+    request<User>("/admin/users", { method: "POST", body: JSON.stringify(payload) }),
   adminUpdateUser: (userId: string, patch: { role?: "admin" | "user"; is_active?: boolean }) =>
     request<User>(`/admin/users/${userId}`, { method: "PATCH", body: JSON.stringify(patch) }),
   adminDeleteUser: (userId: string) => request(`/admin/users/${userId}`, { method: "DELETE" }),

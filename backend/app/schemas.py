@@ -194,6 +194,13 @@ class AdminUpdateUserRequest(BaseModel):
     is_active: Optional[bool] = None
 
 
+class AdminCreateUserRequest(BaseModel):
+    email: EmailStr
+    password: str = Field(min_length=8, max_length=200)
+    display_name: str = Field(default="", max_length=120)
+    role: str = Field(default="user", pattern="^(admin|user)$")
+
+
 class SpaceSnapshotOut(BaseModel):
     id: str
     space_id: str

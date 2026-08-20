@@ -595,6 +595,17 @@
       "spaces": "Spaces",
       "testimonials": "Testimonials"
     },
+    "users": {
+      "createButton": "New user",
+      "createTitle": "New user",
+      "createError": "Could not create this account (email already in use?)",
+      "password": "Password",
+      "generatePassword": "Generate",
+      "copyPassword": "Copy",
+      "roleUser": "User",
+      "roleAdmin": "Administrator",
+      "create": "Create account"
+    },
     "testimonials": {
       "hint": "These testimonials are only visible on the public site once published.",
       "create": "New testimonial",

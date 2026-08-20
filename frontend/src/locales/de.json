@@ -595,6 +595,17 @@
       "spaces": "Bereiche",
       "testimonials": "Bewertungen"
     },
+    "users": {
+      "createButton": "Neuer Benutzer",
+      "createTitle": "Neuer Benutzer",
+      "createError": "Konto konnte nicht erstellt werden (E-Mail bereits vergeben?)",
+      "password": "Passwort",
+      "generatePassword": "Generieren",
+      "copyPassword": "Kopieren",
+      "roleUser": "Benutzer",
+      "roleAdmin": "Administrator",
+      "create": "Konto erstellen"
+    },
     "testimonials": {
       "hint": "Diese Bewertungen sind auf der offentlichen Seite erst nach Veroffentlichung sichtbar.",
       "create": "Neue Bewertung",

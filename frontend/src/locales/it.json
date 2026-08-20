@@ -595,6 +595,17 @@
       "spaces": "Spazi",
       "testimonials": "Recensioni"
     },
+    "users": {
+      "createButton": "Nuovo utente",
+      "createTitle": "Nuovo utente",
+      "createError": "Impossibile creare questo account (email gia usata?)",
+      "password": "Password",
+      "generatePassword": "Genera",
+      "copyPassword": "Copia",
+      "roleUser": "Utente",
+      "roleAdmin": "Amministratore",
+      "create": "Crea account"
+    },
     "testimonials": {
       "hint": "Queste recensioni sono visibili sul sito pubblico solo dopo la pubblicazione.",
       "create": "Nuova recensione",

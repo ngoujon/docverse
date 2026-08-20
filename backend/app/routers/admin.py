@@ -9,7 +9,7 @@ from .. import models_db, schemas
 from ..config import UPLOAD_DIR
 from ..database import get_db
 from ..deps import require_admin
-from ..services import backup, vectorstore
+from ..services import auth, backup, vectorstore
 
 router = APIRouter(prefix="/api/admin", tags=["admin"])
 
@@ -25,6 +25,31 @@ def list_users(
     total = q.count()
     items = q.offset(offset).limit(limit).all()
     return schemas.PaginatedUsers(items=items, total=total, limit=limit, offset=offset)
+
+
+@router.post("/users", response_model=schemas.UserOut, status_code=201)
+def create_user(
+    payload: schemas.AdminCreateUserRequest,
+    _: models_db.User = Depends(require_admin),
+    db: Session = Depends(get_db),
+):
+    email = payload.email.lower().strip()
+    if db.query(models_db.User).filter_by(email=email).first():
+        raise HTTPException(409, "Un compte existe deja avec cet email")
+
+    user = models_db.User(
+        email=email,
+        password_hash=auth.hash_password(payload.password),
+        display_name=payload.display_name.strip() or email.split("@")[0],
+        role=payload.role,
+        # An admin creating this account on the user's behalf already
+        # vouches for the email address, same as an SSO login would.
+        email_verified=True,
+    )
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    return user
 
 
 def _active_admin_count(db: Session, exclude_user_id: str | None = None) -> int:
