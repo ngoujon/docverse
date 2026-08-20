@@ -165,12 +165,18 @@ app.add_middleware(
 
 
 @app.middleware("http")
-async def security_headers(request: Request, call_next):
+async def cache_and_security_headers(request: Request, call_next):
     response = await call_next(request)
+    # Security headers
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
     response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()"
+    # Cache control: API responses must not be cached by default
+    # (endpoints that need caching should override these headers)
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
     return response
 
 
