@@ -116,7 +116,7 @@ export default function ChatWindow({
 
   if (!conversation) {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center gap-3 px-4 text-center text-slate-600 dark:text-slate-400">
+      <div className="relative flex flex-1 flex-col items-center justify-center gap-3 px-4 text-center text-slate-600 dark:text-slate-400">
         {onOpenMobileNav && (
           <button
             onClick={onOpenMobileNav}

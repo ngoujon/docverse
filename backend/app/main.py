@@ -1,6 +1,7 @@
 import logging
 import shutil
 
+import httpx
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -102,8 +103,52 @@ def _seed_testimonials() -> None:
         db.close()
 
 
+def _pull_model(client: httpx.Client, model: str) -> None:
+    logger.info("Telechargement du modele Ollama %s (peut prendre quelques minutes)...", model)
+    r = client.post(f"{settings.ollama_base_url}/api/pull", json={"model": model, "stream": False})
+    r.raise_for_status()
+    logger.info("Modele Ollama %s pret.", model)
+
+
+def _ensure_local_models() -> None:
+    """Ollama does not auto-pull a model on first /api/chat or
+    /api/embeddings call - a missing model just 404s the request. Embeddings
+    always run against the LOCAL Ollama instance, even when Ollama Cloud is
+    configured for chat/vision (the cloud API has no /api/embeddings route
+    - see ollama_client.embed), so unlike chat/vision there's no cloud
+    fallback: every document ingestion (any file type) fails outright at
+    the indexing step if this one model is missing. Chat/vision only need
+    a local pull when Ollama Cloud isn't configured at all. Nothing else in
+    this app ever calls /api/pull, so it's done once here at startup rather
+    than left to a "first use" that was never actually wired up."""
+    wanted = [settings.embed_model]
+    if not settings.use_ollama_cloud:
+        wanted += [settings.chat_model, settings.vision_model]
+
+    try:
+        with httpx.Client(timeout=10.0) as client:
+            r = client.get(f"{settings.ollama_base_url}/api/tags")
+            r.raise_for_status()
+            have = {m["name"].split(":")[0] for m in r.json().get("models", [])}
+
+        missing = [m for m in wanted if m.split(":")[0] not in have]
+        if not missing:
+            return
+        with httpx.Client(timeout=600.0) as client:
+            for model in missing:
+                _pull_model(client, model)
+    except Exception:
+        logger.exception(
+            "Echec du telechargement automatique d'un ou plusieurs modeles Ollama "
+            "(%s) - les fonctionnalites concernees echoueront tant qu'ils ne "
+            "seront pas presents.",
+            ", ".join(wanted),
+        )
+
+
 _delete_ownerless_spaces()
 _seed_testimonials()
+_ensure_local_models()
 
 app = FastAPI(title="Hyaides", version="1.0.0")
 
