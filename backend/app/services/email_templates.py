@@ -2,6 +2,8 @@
 load external CSS) - matches the marketing site's always-light "retro"
 palette (frontend/tailwind.config.js -> theme.extend.colors.retro)."""
 
+from ..config import settings
+
 _BG = "#fbf9ff"
 _BG2 = "#f3edff"
 _PANEL = "#ffffff"
@@ -30,13 +32,21 @@ def _layout(preheader: str, body_html: str) -> str:
             <span style="font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;font-weight:700;letter-spacing:.12em;color:{_PURPLE};text-transform:uppercase;">
               &#10022;&#10022; HYA::IDES
             </span>
+            <span style="font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;font-weight:600;letter-spacing:.08em;color:{_MUTED};text-transform:uppercase;">
+              &nbsp;by [credit]
+            </span>
           </td>
         </tr>
         <tr><td style="padding:8px 32px 32px;">{body_html}</td></tr>
         <tr>
           <td style="padding:18px 32px;background:{_BG2};border-top:1px solid {_BORDER};">
-            <p style="margin:0;font-size:12px;color:{_MUTED};font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;">
-              Hyaides - auto-heberge, sans tracking. Vous recevez cet email car une action lui correspond a ete initiee sur votre instance.
+            <p style="margin:0 0 6px;font-size:12px;color:{_MUTED};font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;">
+              Vous recevez cet email car une action lui correspond a ete initiee sur votre compte Hyaides.
+              Une question ? Ecrivez-nous a
+              <a href="mailto:{settings.contact_email or 'contact@example.com'}" style="color:{_CYAN};">{settings.contact_email or 'contact@example.com'}</a>.
+            </p>
+            <p style="margin:0;font-size:11px;color:{_MUTED};font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;">
+              Hyaides est un service edite par [credit] ([editeur], SIREN [immatriculation]) - [adresse], [CP] [ville], France.
             </p>
           </td>
         </tr>

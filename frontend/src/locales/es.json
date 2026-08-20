@@ -20,7 +20,7 @@
     "badges": ["Preguntas ilimitadas", "Desde 9€/mes", "Plan gratuito", "Compartir por rol"],
     "title1": "Conversa con tus documentos,",
     "title2": "un espacio por cliente.",
-    "subtitle": "La solucion para que tus equipos encuentren una respuesta en segundos en lugar de buscarla durante horas. Sube tus documentos, consultalos en lenguaje natural, sobre una infraestructura que controlas de principio a fin.",
+    "subtitle": "La solucion para que tus equipos encuentren una respuesta en segundos en lugar de buscarla durante horas. Sube tus documentos, consultalos en lenguaje natural, sobre una plataforma segura alojada y operada por [credit].",
     "ctaTry": "Probar ahora",
     "ctaDiscover": "Ver precios"
   },
@@ -213,7 +213,7 @@
     "back": "Volver al inicio",
     "eyebrow": "Privacidad",
     "title": "Cookies y datos personales",
-    "subtitle": "Este proyecto esta disenado para ser local y privado por defecto. Esto es, simplemente, lo que se almacena y por que.",
+    "subtitle": "Tus datos estan aislados por espacio de trabajo y nunca se venden. Esto es, simplemente, lo que se almacena y por que.",
     "sections": [
       {
         "title": "Cookies",

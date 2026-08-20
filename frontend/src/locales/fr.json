@@ -20,7 +20,7 @@
     "badges": ["Questions illimitees", "Des 9€/mois", "Palier gratuit", "Partage par role"],
     "title1": "Discutez avec vos documents,",
     "title2": "un espace par client.",
-    "subtitle": "La solution pour que vos equipes retrouvent une information en quelques secondes au lieu de la chercher pendant des heures. Deposez vos documents, interrogez-les en langage naturel, sur une infrastructure que vous maitrisez de bout en bout.",
+    "subtitle": "La solution pour que vos equipes retrouvent une information en quelques secondes au lieu de la chercher pendant des heures. Deposez vos documents, interrogez-les en langage naturel, sur une plateforme securisee hebergee et exploitee par [credit].",
     "ctaTry": "Essayer maintenant",
     "ctaDiscover": "Voir les tarifs"
   },
@@ -213,7 +213,7 @@
     "back": "Retour a l'accueil",
     "eyebrow": "Confidentialite",
     "title": "Cookies et donnees personnelles",
-    "subtitle": "Ce projet est concu pour etre local et prive par defaut. Voici, simplement, ce qui est stocke et pourquoi.",
+    "subtitle": "Vos donnees sont cloisonnees par espace et jamais revendues. Voici, simplement, ce qui est stocke et pourquoi.",
     "sections": [
       {
         "title": "Cookies",

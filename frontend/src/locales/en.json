@@ -20,7 +20,7 @@
     "badges": ["Unlimited questions", "From €9/mo", "Free tier", "Role-based sharing"],
     "title1": "Chat with your documents,",
     "title2": "one space per client.",
-    "subtitle": "The solution for teams that need to find an answer in seconds instead of searching for hours. Drop your documents, query them in plain language, on infrastructure you control end to end.",
+    "subtitle": "The solution for teams that need to find an answer in seconds instead of searching for hours. Drop your documents, query them in plain language, on a secure platform hosted and operated by [credit].",
     "ctaTry": "Try it now",
     "ctaDiscover": "See pricing"
   },
@@ -213,7 +213,7 @@
     "back": "Back to home",
     "eyebrow": "Privacy",
     "title": "Cookies and personal data",
-    "subtitle": "This project is designed to be local and private by default. Here's simply what's stored, and why.",
+    "subtitle": "Your data is isolated per workspace and never sold. Here's simply what's stored, and why.",
     "sections": [
       {
         "title": "Cookies",

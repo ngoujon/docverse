@@ -20,7 +20,7 @@
     "badges": ["Domande illimitate", "Da 9€/mese", "Piano gratuito", "Condivisione per ruolo"],
     "title1": "Chatta con i tuoi documenti,",
     "title2": "uno spazio per cliente.",
-    "subtitle": "La soluzione per i team che devono trovare una risposta in pochi secondi invece di cercarla per ore. Carica i tuoi documenti, interrogali in linguaggio naturale, su un'infrastruttura che controlli interamente.",
+    "subtitle": "La soluzione per i team che devono trovare una risposta in pochi secondi invece di cercarla per ore. Carica i tuoi documenti, interrogali in linguaggio naturale, su una piattaforma sicura ospitata e gestita da [credit].",
     "ctaTry": "Prova ora",
     "ctaDiscover": "Vedi i prezzi"
   },
@@ -213,7 +213,7 @@
     "back": "Torna alla home",
     "eyebrow": "Privacy",
     "title": "Cookie e dati personali",
-    "subtitle": "Questo progetto e pensato per essere locale e privato di default. Ecco, semplicemente, cosa viene memorizzato e perche.",
+    "subtitle": "I tuoi dati sono isolati per spazio di lavoro e non vengono mai venduti. Ecco, semplicemente, cosa viene memorizzato e perche.",
     "sections": [
       {
         "title": "Cookie",
