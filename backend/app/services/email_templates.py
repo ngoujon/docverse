@@ -2,6 +2,8 @@
 load external CSS) - matches the marketing site's always-light "retro"
 palette (frontend/tailwind.config.js -> theme.extend.colors.retro)."""
 
+from html import escape
+
 from ..config import settings
 
 _BG = "#fbf9ff"
@@ -114,6 +116,30 @@ def verify_email_email(verify_url: str) -> tuple[str, str, str]:
     """
     text = f"Confirmez votre email Hyaides : {verify_url}"
     return subject, _layout("Confirmez votre email Hyaides", body), text
+
+
+def contact_notification_email(name: str, email: str, subject: str, phone: str, company: str, message: str) -> tuple[str, str, str]:
+    mail_subject = f"Nouveau message de contact : {subject}" if subject else "Nouveau message de contact"
+    rows = "".join(
+        f'<p style="margin:0 0 4px;font-size:13px;line-height:1.6;color:{_INK};"><strong>{label} :</strong> {escape(value)}</p>'
+        for label, value in (
+            ("Nom", name),
+            ("Email", email),
+            ("Telephone", phone),
+            ("Societe", company),
+        )
+        if value
+    )
+    body = f"""
+      <h1 style="margin:0 0 12px;font-size:22px;color:{_INK};">Nouveau message de contact</h1>
+      {rows}
+      <p style="margin:16px 0 4px;font-size:13px;line-height:1.6;color:{_INK};white-space:pre-wrap;">{escape(message)}</p>
+    """
+    text = (
+        f"Nouveau message de contact\nNom : {name}\nEmail : {email}\n"
+        f"Telephone : {phone}\nSociete : {company}\n\n{message}"
+    )
+    return mail_subject, _layout("Nouveau message recu via le formulaire de contact", body), text
 
 
 def newsletter_confirm_email(confirm_url: str, unsubscribe_url: str) -> tuple[str, str, str]:
