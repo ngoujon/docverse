@@ -1,7 +1,20 @@
+import re
 from datetime import datetime
 from typing import Optional, Any, Literal
 
 from pydantic import BaseModel, EmailStr, Field, field_validator
+
+
+def _validate_password_complexity(value: str) -> str:
+    if not re.search(r"[a-z]", value):
+        raise ValueError("Le mot de passe doit contenir au moins une lettre minuscule")
+    if not re.search(r"[A-Z]", value):
+        raise ValueError("Le mot de passe doit contenir au moins une lettre majuscule")
+    if not re.search(r"\d", value):
+        raise ValueError("Le mot de passe doit contenir au moins un chiffre")
+    if not re.search(r"[^a-zA-Z0-9]", value):
+        raise ValueError("Le mot de passe doit contenir au moins un caractère spécial")
+    return value
 
 
 # --- Auth -------------------------------------------------------------
@@ -12,6 +25,8 @@ class RegisterRequest(BaseModel):
     display_name: str = Field(default="", max_length=120)
     captcha_salt: str
     captcha_nonce: int
+
+    _validate_password = field_validator("password")(_validate_password_complexity)
 
 
 class LoginRequest(BaseModel):
@@ -79,6 +94,8 @@ class LogoutEverywhereResponse(BaseModel):
 class ResetPasswordRequest(BaseModel):
     token: str
     password: str = Field(min_length=8, max_length=200)
+
+    _validate_password = field_validator("password")(_validate_password_complexity)
 
 
 # --- Spaces -------------------------------------------------------------
@@ -199,6 +216,8 @@ class AdminCreateUserRequest(BaseModel):
     password: str = Field(min_length=8, max_length=200)
     display_name: str = Field(default="", max_length=120)
     role: str = Field(default="user", pattern="^(admin|user)$")
+
+    _validate_password = field_validator("password")(_validate_password_complexity)
 
 
 class SpaceSnapshotOut(BaseModel):
