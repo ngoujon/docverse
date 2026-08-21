@@ -20,7 +20,7 @@ def test_register_rejects_duplicate_email(client):
         "/api/auth/register",
         json={
             "email": "dupe@example.com",
-            "password": "correct-horse-battery",
+            "password": "Correct-horse-battery1",
             "display_name": "",
             "captcha_salt": challenge["salt"],
             "captcha_nonce": 0,
@@ -30,8 +30,8 @@ def test_register_rejects_duplicate_email(client):
 
 
 def test_login_success_and_wrong_password(client):
-    register_user(client, "user@example.com", password="right-password")
-    ok = client.post("/api/auth/login", json={"email": "user@example.com", "password": "right-password"})
+    register_user(client, "user@example.com", password="Right-password1")
+    ok = client.post("/api/auth/login", json={"email": "user@example.com", "password": "Right-password1"})
     assert ok.status_code == 200
     assert ok.json()["access_token"]
 
@@ -83,7 +83,7 @@ def test_password_reset_token_is_single_use(client):
     from app.database import SessionLocal
     from app import models_db
 
-    data = register_user(client, "reset@example.com", password="old-password-123")
+    data = register_user(client, "reset@example.com", password="Old-password-123")
     db = SessionLocal()
     try:
         user = db.get(models_db.User, data["user"]["id"])
@@ -91,25 +91,25 @@ def test_password_reset_token_is_single_use(client):
     finally:
         db.close()
 
-    first = client.post("/api/auth/reset-password", json={"token": token, "password": "new-password-456"})
+    first = client.post("/api/auth/reset-password", json={"token": token, "password": "New-password-456"})
     assert first.status_code == 200
 
-    replay = client.post("/api/auth/reset-password", json={"token": token, "password": "another-password-789"})
+    replay = client.post("/api/auth/reset-password", json={"token": token, "password": "Another-password-789"})
     assert replay.status_code == 400
 
     login_new = client.post(
-        "/api/auth/login", json={"email": "reset@example.com", "password": "new-password-456"}
+        "/api/auth/login", json={"email": "reset@example.com", "password": "New-password-456"}
     )
     assert login_new.status_code == 200
 
     login_old = client.post(
-        "/api/auth/login", json={"email": "reset@example.com", "password": "old-password-123"}
+        "/api/auth/login", json={"email": "reset@example.com", "password": "Old-password-123"}
     )
     assert login_old.status_code == 401
 
 
 def test_reset_password_bumps_token_version_and_revokes_old_sessions(client):
-    data = register_user(client, "revoke@example.com", password="old-password-123")
+    data = register_user(client, "revoke@example.com", password="Old-password-123")
     old_token = data["access_token"]
 
     from app.services import auth as auth_service
@@ -123,7 +123,7 @@ def test_reset_password_bumps_token_version_and_revokes_old_sessions(client):
     finally:
         db.close()
 
-    res = client.post("/api/auth/reset-password", json={"token": reset_token, "password": "new-password-456"})
+    res = client.post("/api/auth/reset-password", json={"token": reset_token, "password": "New-password-456"})
     assert res.status_code == 200
 
     # the session token issued before the reset must no longer work
@@ -134,7 +134,7 @@ def test_reset_password_bumps_token_version_and_revokes_old_sessions(client):
 def test_2fa_setup_enable_and_login_flow(client):
     import pyotp
 
-    data = register_user(client, "totp@example.com", password="right-password")
+    data = register_user(client, "totp@example.com", password="Right-password1")
     token = data["access_token"]
 
     setup = client.post("/api/auth/2fa/setup", headers=auth_headers(token))
@@ -145,7 +145,7 @@ def test_2fa_setup_enable_and_login_flow(client):
     enable = client.post("/api/auth/2fa/enable", json={"code": code}, headers=auth_headers(token))
     assert enable.status_code == 200
 
-    login = client.post("/api/auth/login", json={"email": "totp@example.com", "password": "right-password"})
+    login = client.post("/api/auth/login", json={"email": "totp@example.com", "password": "Right-password1"})
     assert login.status_code == 200
     body = login.json()
     assert body["requires_2fa"] is True

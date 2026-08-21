@@ -58,7 +58,7 @@ def client():
         yield c
 
 
-def register_user(client: TestClient, email: str, password: str = "correct-horse-battery", display_name: str = "") -> dict:
+def register_user(client: TestClient, email: str, password: str = "Correct-horse-battery1", display_name: str = "") -> dict:
     challenge = client.get("/api/captcha/challenge").json()
     res = client.post(
         "/api/auth/register",
