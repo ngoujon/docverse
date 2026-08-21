@@ -7,6 +7,16 @@ interface PageMeta {
   noindex?: boolean;
 }
 
+/** Set by the build-time prerender script (see scripts/prerender.mjs) right
+ * before rendering a given route, so usePageMeta can report the page's real
+ * title/description synchronously during that one-shot server render -
+ * useEffect never runs there. Stays null in the browser bundle, so this is
+ * a no-op for every normal client render. */
+let ssrMetaSink: PageMeta | null = null;
+export function __setSSRMetaSink(sink: PageMeta | null) {
+  ssrMetaSink = sink;
+}
+
 /** Beyond the document title, keeps <meta name="description"> and
  * <link rel="canonical"> accurate per route for the handful of pages that
  * are actually meant to be indexed (the SPA ships a single static
@@ -15,6 +25,13 @@ interface PageMeta {
  * the previous values on unmount so navigating back to another page
  * doesn't leak this page's meta. */
 export function usePageMeta({ title, description, canonicalPath, noindex }: PageMeta) {
+  if (ssrMetaSink) {
+    ssrMetaSink.title = title;
+    ssrMetaSink.description = description;
+    ssrMetaSink.canonicalPath = canonicalPath;
+    ssrMetaSink.noindex = noindex;
+  }
+
   useEffect(() => {
     const previousTitle = document.title;
     document.title = title;
