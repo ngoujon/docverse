@@ -181,6 +181,46 @@ vers l'IP du VPS, sinon Caddy ne pourra pas valider le certificat.
 `tools/deploy.env` et `tools/production.env` contiennent des secrets et ne
 sont jamais commites (voir `.gitignore`).
 
+## Environnement de staging
+
+`docker-compose.staging.yml` reprend exactement la meme forme que
+`docker-compose.prod.yml` (frontend pre-compile servi par Nginx, Caddy en
+entree HTTPS) mais avec son propre nom de projet, ses propres volumes et
+des ports differents (`8081`/`8443` au lieu de `8080`/`443`) : il peut donc
+tourner sur la meme machine que la prod sans collision. C'est l'etape ou
+l'on valide un changement dans des conditions proches du reel avant de
+le pousser en production.
+
+```bash
+cp .env.staging .env.staging.local   # completez les secrets localement
+docker compose -f docker-compose.staging.yml --env-file .env.staging.local up -d --build
+```
+
+Interface disponible sur http://localhost:8081 (ou via Caddy sur le
+sous-domaine `DOMAIN`, par defaut `example.com`). Utilisez des
+comptes de test partout ou c'est possible (Stripe en mode test, apps
+OAuth dediees "staging") : ne jamais reutiliser des identifiants ou des
+secrets de production ici.
+
+### Workflow dev -> staging -> prod
+
+1. **Dev** (`docker-compose.yml`) : hot-reload, base et modeles locaux,
+   iteration rapide sur le code (voir "Demarrage (developpement)"
+   ci-dessus).
+2. **Staging** (`docker-compose.staging.yml`) : image compilee comme en
+   prod, memes variables d'environnement (issues de `.env.staging`), mais
+   isolee (volumes, ports, domaine et secrets propres). On y verifie
+   qu'un changement se comporte bien une fois construit "pour de vrai"
+   (build Docker complet, pas de bind mount, vrais emails/paiements en
+   mode test) avant d'y toucher en production.
+3. **Prod** (`docker-compose.prod.yml`) : une fois valide en staging, le
+   meme changement est deploye en production via `tools/update.sh` (ou
+   `tools/deploy.sh` pour un premier deploiement).
+
+Les fichiers `.env.staging` et `.env.example` doivent rester synchronises
+quand une nouvelle variable d'environnement est ajoutee au backend, pour
+que le staging reste representatif de la prod.
+
 ## Choix des modeles
 
 Modifiables dans `.env` avant le premier lancement (ou en relancant

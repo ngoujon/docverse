@@ -13,6 +13,7 @@ frontend/vite.config.d.ts
 
 # Env
 .env
+.env.staging.local
 tools/deploy.env
 tools/production.env
 
