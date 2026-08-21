@@ -9,6 +9,10 @@ def _make_admin(user_id: str) -> None:
     try:
         user = db.get(models_db.User, user_id)
         user.role = "admin"
+        # require_admin also mandates 2FA for admin routes - simulate an
+        # admin who has already completed setup, since that's not what
+        # these tests are about.
+        user.totp_enabled = True
         db.commit()
     finally:
         db.close()

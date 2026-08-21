@@ -428,6 +428,7 @@
       "logoutEverywhere": "Log out everywhere",
       "logoutEverywhereDone": "Logged out on all devices.",
       "twofaTitle": "Two-factor verification (2FA)",
+      "twofaAdminRequired": "As an administrator account, two-factor authentication is required to access the admin area. Set it up below.",
       "twofaEnabled": "Enabled",
       "twofaDisabled": "Disabled",
       "twofaEnable": "Enable",

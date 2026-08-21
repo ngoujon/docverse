@@ -161,3 +161,26 @@ def test_2fa_setup_enable_and_login_flow(client):
     )
     assert verify.status_code == 200
     assert verify.json()["access_token"]
+
+
+def test_admin_without_2fa_is_denied_admin_routes(client):
+    import pyotp
+
+    # First registered user becomes admin.
+    data = register_user(client, "admin@example.com", password="Right-password1")
+    token = data["access_token"]
+
+    blocked = client.get("/api/admin/users", headers=auth_headers(token))
+    assert blocked.status_code == 403
+
+    setup = client.post("/api/auth/2fa/setup", headers=auth_headers(token))
+    secret = setup.json()["secret"]
+    enable = client.post(
+        "/api/auth/2fa/enable",
+        json={"code": pyotp.TOTP(secret).now()},
+        headers=auth_headers(token),
+    )
+    assert enable.status_code == 200
+
+    allowed = client.get("/api/admin/users", headers=auth_headers(token))
+    assert allowed.status_code == 200

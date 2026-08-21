@@ -428,6 +428,7 @@
       "logoutEverywhere": "Se deconnecter partout",
       "logoutEverywhereDone": "Deconnecte de tous les appareils.",
       "twofaTitle": "Verification en deux etapes (2FA)",
+      "twofaAdminRequired": "La verification en deux etapes est obligatoire pour les comptes administrateur avant d'acceder a l'espace d'administration. Configurez-la ci-dessous.",
       "twofaEnabled": "Activee",
       "twofaDisabled": "Desactivee",
       "twofaEnable": "Activer",

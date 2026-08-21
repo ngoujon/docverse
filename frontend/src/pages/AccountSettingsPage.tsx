@@ -9,6 +9,7 @@ import {
   KeyRound,
   Loader2,
   LogOut,
+  ShieldAlert,
   ShieldCheck,
   ShieldOff,
   Trash2,
@@ -229,6 +230,13 @@ export default function AccountSettingsPage() {
             </p>
           )}
         </div>
+
+        {user.role === "admin" && !user.totp_enabled && (
+          <div className="mt-3 flex items-start gap-2 rounded-xl border border-amber-400/50 bg-amber-50 p-4 text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-300">
+            <ShieldAlert size={16} className="mt-0.5 shrink-0" />
+            <p className="text-xs">{t("auth.account.twofaAdminRequired")}</p>
+          </div>
+        )}
 
         <div className="mt-3 rounded-xl border border-surface-border bg-surface-1 p-5">
           <div className="flex items-center justify-between gap-3">
