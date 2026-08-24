@@ -1,6 +1,7 @@
 import io
 import json
 from datetime import datetime
+from pathlib import Path
 
 from docx import Document as DocxDocument
 from docx.shared import Pt
@@ -8,8 +9,9 @@ from fpdf import FPDF, XPos, YPos
 
 from .. import models_db
 
-_DEJAVU_REGULAR = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
-_DEJAVU_BOLD = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+_FONTS_DIR = Path(__file__).resolve().parent.parent / "assets" / "fonts"
+_DEJAVU_REGULAR = str(_FONTS_DIR / "DejaVuSans.ttf")
+_DEJAVU_BOLD = str(_FONTS_DIR / "DejaVuSans-Bold.ttf")
 
 
 def _line(pdf: FPDF, height: float, text: str) -> None:
