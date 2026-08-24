@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { useTheme } from "../hooks/useTheme";
 import { useAuth } from "../hooks/useAuth";
+import { useEscapeToClose } from "../hooks/useEscapeToClose";
 import { api, streamChat } from "../api/client";
 import type { Conversation, DocumentItem, Message, Space } from "../types";
 import SpaceRail from "../components/SpaceRail";
@@ -38,6 +39,8 @@ export default function WorkspaceApp() {
   const [queuedPosition, setQueuedPosition] = useState<number | null>(null);
   const [docPanelOpen, setDocPanelOpen] = useState(true);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+
+  useEscapeToClose(mobileNavOpen, () => setMobileNavOpen(false));
 
   const [spaceModal, setSpaceModal] = useState<{ open: boolean; editing: Space | null }>({
     open: false,
