@@ -17,7 +17,12 @@
     "launchApp": "Lancer l'app"
   },
   "hero": {
-    "badges": ["Questions illimitees", "Des 9€/mois", "Palier gratuit", "Partage par role"],
+    "badges": [
+      "Questions illimitees",
+      "Des 9€/mois",
+      "Palier gratuit",
+      "Partage par role"
+    ],
     "title1": "Discutez avec vos documents,",
     "title2": "un espace par client.",
     "subtitle": "La solution pour que vos equipes retrouvent une information en quelques secondes au lieu de la chercher pendant des heures. Deposez vos documents, interrogez-les en langage naturel, sur une plateforme securisee hebergee et exploitee par [credit].",
@@ -69,9 +74,18 @@
     "title": "Operationnel en quelques minutes, sans equipe technique",
     "windowTitle": "Mise en route",
     "items": [
-      { "title": "Creez votre espace", "desc": "Un espace par client ou par dossier, en quelques secondes - aucune configuration technique." },
-      { "title": "Deposez vos documents", "desc": "PDF, scans, DOCX, pages web : glissez-deposez, tout est indexe automatiquement en arriere-plan." },
-      { "title": "Partagez et posez vos questions", "desc": "Invitez qui vous voulez avec le bon role, questions illimitees, reponses toujours sourcees." }
+      {
+        "title": "Creez votre espace",
+        "desc": "Un espace par client ou par dossier, en quelques secondes - aucune configuration technique."
+      },
+      {
+        "title": "Deposez vos documents",
+        "desc": "PDF, scans, DOCX, pages web : glissez-deposez, tout est indexe automatiquement en arriere-plan."
+      },
+      {
+        "title": "Partagez et posez vos questions",
+        "desc": "Invitez qui vous voulez avec le bon role, questions illimitees, reponses toujours sourcees."
+      }
     ]
   },
   "enterprise": {
@@ -80,7 +94,12 @@
     "title": "Un devis sur mesure pour votre entreprise",
     "subtitle": "Espaces et membres illimites, stockage sur mesure, SSO et SLA, support dedie. Decrivez votre besoin, nous revenons vers vous rapidement.",
     "teamSize": "Taille de l'equipe",
-    "teamSizeOptions": ["1-10 utilisateurs", "11-50 utilisateurs", "51-200 utilisateurs", "200+ utilisateurs"],
+    "teamSizeOptions": [
+      "1-10 utilisateurs",
+      "11-50 utilisateurs",
+      "51-200 utilisateurs",
+      "200+ utilisateurs"
+    ],
     "needs": "Decrivez votre besoin",
     "needsPlaceholder": "Nombre d'espaces necessaires, exigences de securite ou de conformite, delai souhaite...",
     "send": "Envoyer la demande",
@@ -134,7 +153,12 @@
         "price": "0",
         "period": "",
         "tagline": "Pour tester sans risque",
-        "features": ["1 espace de travail", "1 membre", "200 Mo de stockage", "Questions illimitees"],
+        "features": [
+          "1 espace de travail",
+          "1 membre",
+          "200 Mo de stockage",
+          "Questions illimitees"
+        ],
         "cta": "Commencer gratuitement"
       },
       {
@@ -142,7 +166,12 @@
         "price": "9",
         "period": "/mois TTC",
         "tagline": "Pour un usage personnel ou freelance",
-        "features": ["3 espaces de travail", "Liens de partage illimites", "2 Go de stockage par espace", "Sauvegardes automatiques"],
+        "features": [
+          "3 espaces de travail",
+          "Liens de partage illimites",
+          "2 Go de stockage par espace",
+          "Sauvegardes automatiques"
+        ],
         "cta": "Choisir Particulier"
       },
       {
@@ -150,7 +179,12 @@
         "price": "29",
         "period": "/mois TTC",
         "tagline": "Pour une equipe qui partage ses espaces",
-        "features": ["10 espaces de travail", "10 membres par espace", "10 Go de stockage par espace", "Support prioritaire"],
+        "features": [
+          "10 espaces de travail",
+          "10 membres par espace",
+          "10 Go de stockage par espace",
+          "Support prioritaire"
+        ],
         "cta": "Choisir Pro"
       },
       {
@@ -158,7 +192,12 @@
         "price": "",
         "period": "",
         "tagline": "Pour une organisation avec des besoins de gouvernance",
-        "features": ["Espaces et membres illimites", "Stockage sur mesure", "SSO et SLA", "Support dedie"],
+        "features": [
+          "Espaces et membres illimites",
+          "Stockage sur mesure",
+          "SSO et SLA",
+          "Support dedie"
+        ],
         "cta": "Nous contacter"
       }
     ],
@@ -180,10 +219,22 @@
     "banner": "Ceci est une simulation avec des reponses pre-ecrites - aucun document n'est vraiment analyse ici.",
     "documentsTitle": "Documents de l'espace",
     "documents": [
-      { "name": "rapport_activite_2025.pdf", "type": "pdf" },
-      { "name": "facture_fournisseur_scan.jpg", "type": "image" },
-      { "name": "notes_reunion.md", "type": "text" },
-      { "name": "exemple-clients.com", "type": "web" }
+      {
+        "name": "rapport_activite_2025.pdf",
+        "type": "pdf"
+      },
+      {
+        "name": "facture_fournisseur_scan.jpg",
+        "type": "image"
+      },
+      {
+        "name": "notes_reunion.md",
+        "type": "text"
+      },
+      {
+        "name": "exemple-clients.com",
+        "type": "web"
+      }
     ],
     "suggestions": [
       {
@@ -225,22 +276,30 @@
       },
       {
         "title": "Compte et donnees d'espace",
-        "body": "Votre email et votre mot de passe (chiffre) sont necessaires pour creer un compte. Les documents que vous deposez, leur contenu indexe et vos conversations restent stockes uniquement sur le serveur qui heberge cette instance (base de donnees et base vectorielle locales). Rien n'est envoye a un service d'IA cloud tiers sans configuration explicite : le traitement (lecture, indexation, generation des reponses) est effectue localement via Ollama, ou via le fournisseur cloud que l'administrateur de l'instance a choisi de configurer."
+        "body": "Votre email et votre mot de passe (chiffre) sont necessaires pour creer un compte. Les documents que vous deposez, leur contenu indexe et vos conversations sont stockes sur le serveur qui heberge le service (base de donnees et base vectorielle dediees), cloisonnes par espace de travail, et ne sont jamais revendus ni utilises pour entrainer un modele d'IA. Pour generer une reponse, lire une image ou indexer un document, le texte concerne est transmis a un moteur d'inference : selon la configuration du service, ce traitement a lieu sur nos propres serveurs ou chez un prestataire d'inference IA (voir la section Prestataires techniques ci-dessous)."
+      },
+      {
+        "title": "Ce que vous mettez en ligne",
+        "body": "Vous restez responsable des documents que vous deposez et des informations que vous saisissez dans les conversations. Avant d'importer un fichier, assurez-vous d'avoir le droit de le faire : ne deposez pas de documents appartenant a un tiers sans son autorisation, et evitez les donnees particulierement sensibles (donnees de sante, pieces d'identite, coordonnees bancaires, mots de passe) lorsqu'elles ne sont pas indispensables a votre usage. Le contenu de vos documents est traite automatiquement pour repondre a vos questions, et un lien de partage donne acces a tout un espace de travail : verifiez ce qu'il contient avant de le transmettre, et revoquez le lien des qu'il n'est plus utile. Vous pouvez supprimer un document, un espace ou l'integralite de votre compte a tout moment."
       },
       {
         "title": "Formulaire de contact",
         "body": "Si vous utilisez le formulaire de contact, votre nom, votre email et votre message sont conserves afin de pouvoir vous repondre. Ces informations ne sont ni revendues ni partagees avec des tiers, et ne servent a aucune prospection commerciale."
       },
       {
-        "title": "Paiement et envoi d'emails",
-        "body": "Si vous souscrivez a un abonnement payant, le paiement est traite par notre prestataire Stripe : nous ne stockons jamais votre numero de carte bancaire. L'envoi des emails (reinitialisation de mot de passe, confirmations, newsletter) passe par un serveur d'envoi d'emails (SMTP) configure par l'administrateur de l'instance. Ces prestataires ne recoivent que les donnees strictement necessaires a l'execution du paiement ou a l'envoi de l'email."
+        "title": "Prestataires techniques",
+        "body": "Pour fonctionner, le service s'appuie sur un petit nombre de prestataires, qui agissent comme sous-traitants et sont lies par contrat : un hebergeur (les serveurs sur lesquels tourne le service), un prestataire de paiement certifie pour les abonnements payants (nous ne stockons jamais votre numero de carte bancaire), un service d'envoi d'emails (verification d'adresse, reinitialisation de mot de passe, newsletter) et un fournisseur d'inference IA lorsque les reponses ne sont pas generees sur nos propres serveurs. Chacun ne recoit que les donnees strictement necessaires a sa prestation et n'est autorise ni a les utiliser a d'autres fins, ni a des fins publicitaires, ni pour entrainer ses propres modeles. Certains de ces prestataires peuvent etre etablis hors de l'Union europeenne ; les transferts correspondants sont alors encadres par les clauses contractuelles types de la Commission europeenne. La liste nominative et a jour de ces sous-traitants vous est communiquee sur simple demande via le formulaire de contact."
+      },
+      {
+        "title": "Responsable du traitement et durees de conservation",
+        "body": "Le responsable du traitement est l'editeur du service, dont l'identite complete figure sur la page Mentions legales ; il peut etre contacte via le formulaire de contact. Vos donnees de compte, vos documents et vos conversations sont conserves tant que votre compte existe, puis supprimes des que vous supprimez votre compte. Les messages envoyes via le formulaire de contact sont conserves le temps de traiter votre demande. Les donnees necessaires a la facturation sont conservees pendant la duree legale de conservation des pieces comptables. Une inscription a la newsletter est conservee jusqu'a votre desabonnement."
       },
       {
         "title": "Vos droits (RGPD)",
         "body": "Exporter vos donnees : depuis Mon compte, telechargez un fichier contenant l'integralite de vos donnees en un clic. Supprimer votre compte : depuis Mon compte (zone dangereuse), suppression immediate et definitive de votre compte et de vos espaces. Newsletter : chaque email envoye contient un lien de desabonnement en un clic, sans avoir besoin de vous connecter. Pour toute autre demande (rectification, opposition), utilisez le formulaire de contact."
       }
     ],
-    "footnote": "Cette page decrit le fonctionnement du logiciel tel que fourni. L'organisation qui heberge cette instance reste responsable du traitement des donnees qu'elle collecte via ce site.",
+    "footnote": "Cette page decrit le service tel qu'il est exploite sur ce site. Le logiciel pouvant aussi etre auto-heberge, une instance installee et administree par une autre organisation releve de la responsabilite de celle-ci.",
     "rightsLinkCta": "Gerer mes donnees dans Mon compte"
   },
   "terms": {
@@ -305,7 +364,7 @@
       },
       {
         "title": "2. Offres et prix",
-        "body": "Les paliers disponibles, leurs limites (espaces, membres, stockage) et leurs prix sont affiches sur la page Tarifs au moment de la souscription. Les prix sont exprimes en euros. Le regime de TVA applicable est precise sur la facture emise pour chaque paiement."
+        "body": "Les paliers disponibles, leurs limites (espaces, membres, stockage) et leurs prix sont affiches sur la page Tarifs au moment de la souscription. Les prix sont exprimes en euros et affiches toutes taxes comprises : le montant preleve est exactement le prix affiche, sans frais ni taxe ajoutes au moment du paiement. TVA non applicable, article 293 B du Code general des impots : aucune TVA n'est facturee, et les factures emises ne font donc apparaitre aucune TVA deductible."
       },
       {
         "title": "3. Souscription et paiement",
@@ -328,7 +387,11 @@
         "body": "Une facture est emise automatiquement pour chaque paiement et reste consultable a tout moment depuis la gestion de l'abonnement (portail de facturation)."
       },
       {
-        "title": "8. Droit applicable et litiges",
+        "title": "8. Mediateur de la consommation",
+        "body": "Conformement aux articles L612-1 et suivants du Code de la consommation, tout consommateur a le droit de recourir gratuitement a un mediateur de la consommation en vue de la resolution amiable d'un litige, apres avoir adresse une reclamation ecrite au vendeur et en l'absence de reponse satisfaisante dans un delai d'un mois. Le mediateur competent pour Hyaides est : [A COMPLETER - nom, adresse postale et site web du mediateur de la consommation]."
+      },
+      {
+        "title": "9. Droit applicable et litiges",
         "body": "Ces conditions sont regies par le droit francais. En cas de litige, une solution amiable sera recherchee en priorite via le formulaire de contact ; a defaut, les tribunaux francais competents seront seuls saisis."
       }
     ]
@@ -341,7 +404,7 @@
     "sections": [
       {
         "title": "Editeur du site",
-        "body": "[editeur], entrepreneur individuel exercant sous le nom commercial \"[credit]\".\nSIREN : [immatriculation] - SIRET : [immatriculation]\nCode APE : [APE] (Programmation informatique)\nTVA intracommunautaire : [TVA]\nImmatricule au RNE le [date] - RCS [ville]\nSiege social : [adresse], [CP] [ville], France"
+        "body": "[editeur], entrepreneur individuel exercant sous le nom commercial \"[credit]\".\nSIREN : [immatriculation] - SIRET : [immatriculation]\nCode APE : [APE] (Programmation informatique)\nTVA non applicable, article 293 B du CGI (franchise en base de TVA) - numero de TVA intracommunautaire : [TVA]\nImmatricule au RNE le [date] - RCS [ville]\nSiege social : [adresse], [CP] [ville], France"
       },
       {
         "title": "Directeur de la publication",
@@ -395,7 +458,11 @@
       "loginLink": "Se connecter",
       "passwordHint": "8 caracteres minimum.",
       "submit": "Creer mon compte",
-      "submitting": "Creation..."
+      "submitting": "Creation...",
+      "terms": "J'ai lu et j'accepte les conditions generales d'utilisation et la politique de confidentialite.",
+      "termsLinkTerms": "Lire les CGU",
+      "termsLinkPrivacy": "Lire la politique de confidentialite",
+      "ssoTerms": "En continuant avec un fournisseur externe, vous acceptez egalement ces conditions."
     },
     "forgot": {
       "title": "Mot de passe oublie",

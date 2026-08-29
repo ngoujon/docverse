@@ -14,7 +14,10 @@ SHARE_TOKEN_HEADER = "X-Share-Token"
 
 def client_ip(request: Request) -> str:
     # X-Real-IP is set by our nginx config from $remote_addr, overwriting
-    # anything the client sent - it can't be spoofed by the caller.
+    # anything the client sent - it can't be spoofed by the caller. Behind
+    # Caddy, nginx's realip module resolves $remote_addr back to the true
+    # client (trusting only private ranges), so this is the visitor's IP
+    # and not the edge proxy's.
     real_ip = request.headers.get("x-real-ip")
     if real_ip:
         return real_ip.strip()

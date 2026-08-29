@@ -24,17 +24,18 @@ export default function RegisterPage() {
   const [visible, setVisible] = useState(false);
   const [captcha, setCaptcha] = useState<CaptchaSolution | null>(null);
   const [captchaKey, setCaptchaKey] = useState(0);
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
-  const canSubmit = email && password.length >= 8 && captcha && !submitting;
+  const canSubmit = email && password.length >= 8 && captcha && termsAccepted && !submitting;
 
   const handleSubmit = async () => {
     if (!canSubmit) return;
     setSubmitting(true);
     setError(null);
     try {
-      await register(email, password, displayName, captcha!);
+      await register(email, password, displayName, captcha!, termsAccepted);
       navigate(redirectTo);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erreur");
@@ -107,6 +108,28 @@ export default function RegisterPage() {
 
         <Captcha key={captchaKey} onReady={setCaptcha} />
 
+        {/* Explicit, recorded acceptance of the CGU + privacy policy: the
+            backend refuses to create an account without it and stores the
+            date, so the terms in force that day can be produced later. */}
+        <label className="flex cursor-pointer items-start gap-2 text-[11px] leading-relaxed text-slate-600 dark:text-slate-400">
+          <input
+            type="checkbox"
+            checked={termsAccepted}
+            onChange={(e) => setTermsAccepted(e.target.checked)}
+            className="mt-0.5 h-3.5 w-3.5 shrink-0 accent-accent"
+          />
+          <span>
+            {t("auth.register.terms")}{" "}
+            <Link to="/cgu" target="_blank" className="text-accent hover:underline">
+              {t("auth.register.termsLinkTerms")}
+            </Link>{" "}
+            &middot;{" "}
+            <Link to="/confidentialite" target="_blank" className="text-accent hover:underline">
+              {t("auth.register.termsLinkPrivacy")}
+            </Link>
+          </span>
+        </label>
+
         {error && <p className="text-xs text-red-500">{error}</p>}
 
         <button
@@ -118,6 +141,10 @@ export default function RegisterPage() {
         </button>
 
         <SsoButtons next={redirectTo} />
+
+        <p className="text-center text-[11px] leading-relaxed text-slate-500 dark:text-slate-400">
+          {t("auth.register.ssoTerms")}
+        </p>
       </div>
     </AuthLayout>
   );

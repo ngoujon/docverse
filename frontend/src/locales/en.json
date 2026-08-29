@@ -17,7 +17,12 @@
     "launchApp": "Launch app"
   },
   "hero": {
-    "badges": ["Unlimited questions", "From €9/mo", "Free tier", "Role-based sharing"],
+    "badges": [
+      "Unlimited questions",
+      "From €9/mo",
+      "Free tier",
+      "Role-based sharing"
+    ],
     "title1": "Chat with your documents,",
     "title2": "one space per client.",
     "subtitle": "The solution for teams that need to find an answer in seconds instead of searching for hours. Drop your documents, query them in plain language, on a secure platform hosted and operated by [credit].",
@@ -69,9 +74,18 @@
     "title": "Up and running in minutes, no IT team required",
     "windowTitle": "Getting started",
     "items": [
-      { "title": "Create your space", "desc": "One space per client or file, in seconds - no technical setup." },
-      { "title": "Upload your documents", "desc": "PDF, scans, DOCX, web pages: drag and drop, everything gets indexed automatically in the background." },
-      { "title": "Share and ask your questions", "desc": "Invite whoever you want with the right role, unlimited questions, always-sourced answers." }
+      {
+        "title": "Create your space",
+        "desc": "One space per client or file, in seconds - no technical setup."
+      },
+      {
+        "title": "Upload your documents",
+        "desc": "PDF, scans, DOCX, web pages: drag and drop, everything gets indexed automatically in the background."
+      },
+      {
+        "title": "Share and ask your questions",
+        "desc": "Invite whoever you want with the right role, unlimited questions, always-sourced answers."
+      }
     ]
   },
   "enterprise": {
@@ -80,7 +94,12 @@
     "title": "A custom quote for your company",
     "subtitle": "Unlimited spaces and members, custom storage, SSO and SLA, dedicated support. Describe your needs and we'll get back to you quickly.",
     "teamSize": "Team size",
-    "teamSizeOptions": ["1-10 users", "11-50 users", "51-200 users", "200+ users"],
+    "teamSizeOptions": [
+      "1-10 users",
+      "11-50 users",
+      "51-200 users",
+      "200+ users"
+    ],
     "needs": "Describe your needs",
     "needsPlaceholder": "Number of spaces needed, security or compliance requirements, desired timeline...",
     "send": "Send request",
@@ -134,7 +153,12 @@
         "price": "0",
         "period": "",
         "tagline": "Try it risk-free",
-        "features": ["1 workspace", "1 member", "200 MB storage", "Unlimited questions"],
+        "features": [
+          "1 workspace",
+          "1 member",
+          "200 MB storage",
+          "Unlimited questions"
+        ],
         "cta": "Start for free"
       },
       {
@@ -142,7 +166,12 @@
         "price": "9",
         "period": "/mo incl. VAT",
         "tagline": "For personal or freelance use",
-        "features": ["3 workspaces", "Unlimited share links", "2 GB storage per space", "Automatic backups"],
+        "features": [
+          "3 workspaces",
+          "Unlimited share links",
+          "2 GB storage per space",
+          "Automatic backups"
+        ],
         "cta": "Choose Individual"
       },
       {
@@ -150,7 +179,12 @@
         "price": "29",
         "period": "/mo incl. VAT",
         "tagline": "For a team sharing workspaces",
-        "features": ["10 workspaces", "10 members per space", "10 GB storage per space", "Priority support"],
+        "features": [
+          "10 workspaces",
+          "10 members per space",
+          "10 GB storage per space",
+          "Priority support"
+        ],
         "cta": "Choose Pro"
       },
       {
@@ -158,7 +192,12 @@
         "price": "",
         "period": "",
         "tagline": "For an organization with governance needs",
-        "features": ["Unlimited workspaces and members", "Custom storage", "SSO and SLA", "Dedicated support"],
+        "features": [
+          "Unlimited workspaces and members",
+          "Custom storage",
+          "SSO and SLA",
+          "Dedicated support"
+        ],
         "cta": "Contact us"
       }
     ],
@@ -180,10 +219,22 @@
     "banner": "This is a simulation with pre-written answers - no document is actually being analyzed here.",
     "documentsTitle": "Workspace documents",
     "documents": [
-      { "name": "annual_report_2025.pdf", "type": "pdf" },
-      { "name": "vendor_invoice_scan.jpg", "type": "image" },
-      { "name": "meeting_notes.md", "type": "text" },
-      { "name": "example-clients.com", "type": "web" }
+      {
+        "name": "annual_report_2025.pdf",
+        "type": "pdf"
+      },
+      {
+        "name": "vendor_invoice_scan.jpg",
+        "type": "image"
+      },
+      {
+        "name": "meeting_notes.md",
+        "type": "text"
+      },
+      {
+        "name": "example-clients.com",
+        "type": "web"
+      }
     ],
     "suggestions": [
       {
@@ -225,22 +276,30 @@
       },
       {
         "title": "Account and workspace data",
-        "body": "Your email and (encrypted) password are required to create an account. The documents you upload, their indexed content, and your conversations are stored only on the server hosting this instance (local database and vector store). Nothing is sent to a third-party cloud AI service without explicit configuration: processing (reading, indexing, generating answers) happens locally via Ollama, or via whichever cloud provider this instance's administrator chose to configure."
+        "body": "Your email address and your password (hashed) are required to create an account. The documents you upload, their indexed content and your conversations are stored on the server hosting the service (dedicated database and vector store), partitioned per workspace, and are never resold nor used to train an AI model. To generate an answer, read an image or index a document, the text concerned is sent to an inference engine: depending on how the service is configured, that processing happens on our own servers or at an AI inference provider (see the Technical providers section below)."
+      },
+      {
+        "title": "What you upload",
+        "body": "You remain responsible for the documents you upload and for the information you type into conversations. Before importing a file, make sure you are entitled to do so: do not upload documents belonging to a third party without their permission, and avoid particularly sensitive data (health data, identity documents, bank details, passwords) where it is not essential to your use. The content of your documents is processed automatically to answer your questions, and a share link grants access to an entire workspace: check what it contains before sending it, and revoke the link as soon as it is no longer needed. You can delete a document, a workspace or your entire account at any time."
       },
       {
         "title": "Contact form",
         "body": "If you use the contact form, your name, email and message are kept so we can reply to you. This information is never resold or shared with third parties, and is never used for marketing outreach."
       },
       {
-        "title": "Payments and emails",
-        "body": "If you subscribe to a paid plan, payment is processed by our provider Stripe: we never store your card number. Outgoing emails (password reset, confirmations, newsletter) go through an email sending server (SMTP) configured by the instance administrator. These providers only receive the data strictly necessary to process the payment or send the email."
+        "title": "Technical providers",
+        "body": "To operate, the service relies on a small number of providers, acting as processors and bound by contract: a hosting provider (the servers the service runs on), a certified payment provider for paid subscriptions (we never store your card number), an email sending service (address verification, password reset, newsletter) and an AI inference provider when answers are not generated on our own servers. Each one receives only the data strictly necessary for its service and is not allowed to use it for any other purpose, for advertising, or to train its own models. Some of these providers may be established outside the European Union; the corresponding transfers are then covered by the European Commission's standard contractual clauses. The named, up-to-date list of these processors is provided on simple request through the contact form."
+      },
+      {
+        "title": "Data controller and retention periods",
+        "body": "The data controller is the publisher of the service, whose full identity appears on the Legal notice page; they can be reached through the contact form. Your account data, documents and conversations are kept for as long as your account exists, then deleted as soon as you delete your account. Messages sent through the contact form are kept for the time needed to handle your request. Data required for billing is kept for the legal retention period applying to accounting records. A newsletter subscription is kept until you unsubscribe."
       },
       {
         "title": "Your rights (GDPR)",
         "body": "Export your data: from My Account, download a file with all of your data in one click. Delete your account: from My Account (danger zone), immediate and permanent deletion of your account and workspaces. Newsletter: every email includes a one-click unsubscribe link, no login required. For any other request (rectification, objection), use the contact form."
       }
     ],
-    "footnote": "This page describes how the software works as provided. The organization hosting this instance remains responsible for the data it collects through this site.",
+    "footnote": "This page describes the service as operated on this website. Since the software can also be self-hosted, an instance installed and administered by another organisation is that organisation's responsibility.",
     "rightsLinkCta": "Manage my data in My Account"
   },
   "terms": {
@@ -305,7 +364,7 @@
       },
       {
         "title": "2. Offers and prices",
-        "body": "Available tiers, their limits (workspaces, members, storage) and their prices are displayed on the Pricing page at the time of subscription. Prices are in euros. The applicable VAT treatment is stated on the invoice issued for each payment."
+        "body": "Available tiers, their limits (workspaces, members, storage) and their prices are displayed on the Pricing page at the time of subscription. Prices are in euros and shown inclusive of all taxes: the amount charged is exactly the price displayed, with no fees or taxes added at payment time. VAT is not applicable under article 293 B of the French General Tax Code: no VAT is charged, and the invoices issued therefore show no deductible VAT."
       },
       {
         "title": "3. Subscribing and payment",
@@ -328,7 +387,11 @@
         "body": "An invoice is issued automatically for each payment and remains available at any time from subscription management (billing portal)."
       },
       {
-        "title": "8. Governing law and disputes",
+        "title": "8. Consumer mediation",
+        "body": "Under articles L612-1 and following of the French Consumer Code, every consumer has the right to free recourse to a consumer mediator for the amicable resolution of a dispute, after having sent a written complaint to the seller and received no satisfactory reply within one month. The mediator competent for Hyaides is: [TO BE COMPLETED - name, postal address and website of the consumer mediator]."
+      },
+      {
+        "title": "9. Governing law and disputes",
         "body": "These terms are governed by French law. In case of a dispute, an amicable resolution will be sought first via the contact form; failing that, the competent French courts will have sole jurisdiction."
       }
     ]
@@ -341,7 +404,7 @@
     "sections": [
       {
         "title": "Site publisher",
-        "body": "[editeur], sole trader (entrepreneur individuel) operating under the trade name \"[credit]\".\nSIREN: [immatriculation] - SIRET: [immatriculation]\nAPE code: [APE] (Computer programming)\nIntra-community VAT: [TVA]\nRegistered with the RNE on [date] - RCS [ville]\nRegistered address: [adresse], [CP] [ville], France"
+        "body": "[editeur], sole trader (entrepreneur individuel) operating under the trade name \"[credit]\".\nSIREN: [immatriculation] - SIRET: [immatriculation]\nAPE code: [APE] (Computer programming)\nVAT not applicable, article 293 B of the French General Tax Code (small-business VAT exemption) - intra-community VAT number: [TVA]\nRegistered with the RNE on [date] - RCS [ville]\nRegistered address: [adresse], [CP] [ville], France"
       },
       {
         "title": "Publication director",
@@ -395,7 +458,11 @@
       "loginLink": "Log in",
       "passwordHint": "At least 8 characters.",
       "submit": "Create my account",
-      "submitting": "Creating..."
+      "submitting": "Creating...",
+      "terms": "I have read and accept the terms of use and the privacy policy.",
+      "termsLinkTerms": "Read the terms of use",
+      "termsLinkPrivacy": "Read the privacy policy",
+      "ssoTerms": "By continuing with an external provider, you also accept these terms."
     },
     "forgot": {
       "title": "Forgot password",

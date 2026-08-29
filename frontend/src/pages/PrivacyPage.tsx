@@ -1,9 +1,29 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, Cookie, CreditCard, Database, Mail, ShieldCheck, UserCheck } from "lucide-react";
+import {
+  ArrowLeft,
+  Clock,
+  Cookie,
+  Database,
+  FileWarning,
+  Mail,
+  Server,
+  ShieldCheck,
+  UserCheck,
+} from "lucide-react";
 import { usePageMeta } from "../hooks/usePageMeta";
 
-const SECTION_ICONS = [Cookie, Database, ShieldCheck, Mail, CreditCard, UserCheck];
+// One icon per section, in the order they appear in the locale files.
+const SECTION_ICONS = [
+  Cookie, // cookies
+  Database, // localStorage
+  ShieldCheck, // account and workspace data
+  FileWarning, // what you upload
+  Mail, // contact form
+  Server, // technical providers
+  Clock, // controller and retention periods
+  UserCheck, // GDPR rights
+];
 
 interface PrivacySection {
   title: string;
@@ -40,7 +60,9 @@ export default function PrivacyPage() {
 
         <div className="mt-10 space-y-6">
           {sections.map((s, i) => {
-            const Icon = SECTION_ICONS[i];
+            // Falls back rather than crashing the render if a section is
+            // added to the locales without an icon here.
+            const Icon = SECTION_ICONS[i] ?? ShieldCheck;
             return (
               <div
                 key={s.title}

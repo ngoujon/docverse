@@ -34,7 +34,7 @@ export default function TermsOfSalePage() {
         <h1 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">{t("sale.title")}</h1>
         <p className="mt-3 text-sm text-slate-600">{t("sale.subtitle")}</p>
         <p className="mt-4 font-mono text-[11px] uppercase tracking-wider text-slate-400">
-          {t("sale.updated", { date: "2026-08-10" })}
+          {t("sale.updated", { date: "2026-08-27" })}
         </p>
 
         <div className="mt-8 space-y-5">

@@ -17,7 +17,12 @@
     "launchApp": "App starten"
   },
   "hero": {
-    "badges": ["Unbegrenzte Fragen", "Ab 9€/Monat", "Kostenlose Stufe", "Teilen nach Rolle"],
+    "badges": [
+      "Unbegrenzte Fragen",
+      "Ab 9€/Monat",
+      "Kostenlose Stufe",
+      "Teilen nach Rolle"
+    ],
     "title1": "Unterhalten Sie sich mit Ihren Dokumenten,",
     "title2": "ein Bereich pro Kunde.",
     "subtitle": "Die Losung fur Teams, die eine Antwort in Sekunden statt nach stundenlanger Suche brauchen. Laden Sie Ihre Dokumente hoch, befragen Sie sie in normaler Sprache, auf einer sicheren Plattform, die von [credit] betrieben wird.",
@@ -69,9 +74,18 @@
     "title": "In wenigen Minuten einsatzbereit, ohne IT-Team",
     "windowTitle": "Erste Schritte",
     "items": [
-      { "title": "Erstellen Sie Ihren Bereich", "desc": "Ein Bereich pro Kunde oder Akte, in Sekunden - keine technische Einrichtung." },
-      { "title": "Dokumente hochladen", "desc": "PDF, Scans, DOCX, Webseiten: per Drag & Drop, alles wird automatisch im Hintergrund indexiert." },
-      { "title": "Teilen und Fragen stellen", "desc": "Laden Sie ein, wen Sie mochten, mit der passenden Rolle, unbegrenzte Fragen, immer belegte Antworten." }
+      {
+        "title": "Erstellen Sie Ihren Bereich",
+        "desc": "Ein Bereich pro Kunde oder Akte, in Sekunden - keine technische Einrichtung."
+      },
+      {
+        "title": "Dokumente hochladen",
+        "desc": "PDF, Scans, DOCX, Webseiten: per Drag & Drop, alles wird automatisch im Hintergrund indexiert."
+      },
+      {
+        "title": "Teilen und Fragen stellen",
+        "desc": "Laden Sie ein, wen Sie mochten, mit der passenden Rolle, unbegrenzte Fragen, immer belegte Antworten."
+      }
     ]
   },
   "enterprise": {
@@ -80,7 +94,12 @@
     "title": "Ein individuelles Angebot fur Ihr Unternehmen",
     "subtitle": "Unbegrenzte Bereiche und Mitglieder, individueller Speicher, SSO und SLA, dedizierter Support. Beschreiben Sie Ihren Bedarf, wir melden uns schnell zuruck.",
     "teamSize": "Teamgrosse",
-    "teamSizeOptions": ["1-10 Nutzer", "11-50 Nutzer", "51-200 Nutzer", "200+ Nutzer"],
+    "teamSizeOptions": [
+      "1-10 Nutzer",
+      "11-50 Nutzer",
+      "51-200 Nutzer",
+      "200+ Nutzer"
+    ],
     "needs": "Beschreiben Sie Ihren Bedarf",
     "needsPlaceholder": "Benotigte Anzahl Bereiche, Sicherheits- oder Compliance-Anforderungen, gewunschter Zeitrahmen...",
     "send": "Anfrage senden",
@@ -134,7 +153,12 @@
         "price": "0",
         "period": "",
         "tagline": "Risikofrei testen",
-        "features": ["1 Arbeitsbereich", "1 Mitglied", "200 MB Speicher", "Unbegrenzte Fragen"],
+        "features": [
+          "1 Arbeitsbereich",
+          "1 Mitglied",
+          "200 MB Speicher",
+          "Unbegrenzte Fragen"
+        ],
         "cta": "Kostenlos starten"
       },
       {
@@ -142,7 +166,12 @@
         "price": "9",
         "period": "/Monat inkl. MwSt.",
         "tagline": "Fur privaten oder freiberuflichen Gebrauch",
-        "features": ["3 Arbeitsbereiche", "Unbegrenzte Freigabelinks", "2 GB Speicher pro Bereich", "Automatische Backups"],
+        "features": [
+          "3 Arbeitsbereiche",
+          "Unbegrenzte Freigabelinks",
+          "2 GB Speicher pro Bereich",
+          "Automatische Backups"
+        ],
         "cta": "Privat wahlen"
       },
       {
@@ -150,7 +179,12 @@
         "price": "29",
         "period": "/Monat inkl. MwSt.",
         "tagline": "Fur ein Team, das Bereiche teilt",
-        "features": ["10 Arbeitsbereiche", "10 Mitglieder pro Bereich", "10 GB Speicher pro Bereich", "Prioritats-Support"],
+        "features": [
+          "10 Arbeitsbereiche",
+          "10 Mitglieder pro Bereich",
+          "10 GB Speicher pro Bereich",
+          "Prioritats-Support"
+        ],
         "cta": "Pro wahlen"
       },
       {
@@ -158,7 +192,12 @@
         "price": "",
         "period": "",
         "tagline": "Fur Organisationen mit Governance-Anforderungen",
-        "features": ["Unbegrenzte Bereiche und Mitglieder", "Speicher nach Mass", "SSO und SLA", "Dedizierter Support"],
+        "features": [
+          "Unbegrenzte Bereiche und Mitglieder",
+          "Speicher nach Mass",
+          "SSO und SLA",
+          "Dedizierter Support"
+        ],
         "cta": "Kontaktieren Sie uns"
       }
     ],
@@ -180,10 +219,22 @@
     "banner": "Dies ist eine Simulation mit vorgeschriebenen Antworten - hier wird kein Dokument wirklich analysiert.",
     "documentsTitle": "Dokumente des Bereichs",
     "documents": [
-      { "name": "jahresbericht_2025.pdf", "type": "pdf" },
-      { "name": "lieferantenrechnung_scan.jpg", "type": "image" },
-      { "name": "besprechungsnotizen.md", "type": "text" },
-      { "name": "beispiel-kunden.com", "type": "web" }
+      {
+        "name": "jahresbericht_2025.pdf",
+        "type": "pdf"
+      },
+      {
+        "name": "lieferantenrechnung_scan.jpg",
+        "type": "image"
+      },
+      {
+        "name": "besprechungsnotizen.md",
+        "type": "text"
+      },
+      {
+        "name": "beispiel-kunden.com",
+        "type": "web"
+      }
     ],
     "suggestions": [
       {
@@ -225,22 +276,30 @@
       },
       {
         "title": "Konto- und Bereichsdaten",
-        "body": "Ihre E-Mail-Adresse und Ihr (verschlusseltes) Passwort werden fur die Kontoerstellung benotigt. Die von Ihnen hochgeladenen Dokumente, ihr indexierter Inhalt und Ihre Unterhaltungen werden ausschliesslich auf dem Server gespeichert, der diese Instanz hostet (lokale Datenbank und Vektordatenbank). Ohne ausdruckliche Konfiguration wird nichts an einen Cloud-KI-Dienst Dritter gesendet: Die Verarbeitung (Lesen, Indexieren, Antwortgenerierung) erfolgt lokal uber Ollama oder uber den Cloud-Anbieter, den der Administrator dieser Instanz konfiguriert hat."
+        "body": "Ihre E-Mail-Adresse und Ihr Passwort (verschlusselt) sind fur die Erstellung eines Kontos erforderlich. Die von Ihnen hochgeladenen Dokumente, deren indexierte Inhalte und Ihre Unterhaltungen werden auf dem Server gespeichert, auf dem der Dienst lauft (eigene Datenbank und Vektordatenbank), nach Arbeitsbereich getrennt, und werden niemals weiterverkauft oder zum Training eines KI-Modells verwendet. Um eine Antwort zu erzeugen, ein Bild zu lesen oder ein Dokument zu indexieren, wird der betreffende Text an eine Inferenz-Engine ubermittelt: je nach Konfiguration des Dienstes erfolgt diese Verarbeitung auf unseren eigenen Servern oder bei einem KI-Inferenzanbieter (siehe Abschnitt Technische Dienstleister unten)."
+      },
+      {
+        "title": "Was Sie hochladen",
+        "body": "Sie bleiben fur die Dokumente, die Sie hochladen, und fur die Informationen, die Sie in Unterhaltungen eingeben, verantwortlich. Vergewissern Sie sich vor dem Hochladen, dass Sie dazu berechtigt sind: laden Sie keine Dokumente Dritter ohne deren Zustimmung hoch und vermeiden Sie besonders sensible Daten (Gesundheitsdaten, Ausweisdokumente, Bankdaten, Passworter), wenn sie fur Ihre Nutzung nicht unbedingt notig sind. Der Inhalt Ihrer Dokumente wird automatisch verarbeitet, um Ihre Fragen zu beantworten, und ein Freigabelink gewahrt Zugang zu einem gesamten Arbeitsbereich: prufen Sie vor dem Versenden, was er enthalt, und widerrufen Sie den Link, sobald er nicht mehr benotigt wird. Sie konnen ein Dokument, einen Arbeitsbereich oder Ihr gesamtes Konto jederzeit loschen."
       },
       {
         "title": "Kontaktformular",
         "body": "Wenn Sie das Kontaktformular verwenden, werden Ihr Name, Ihre E-Mail-Adresse und Ihre Nachricht gespeichert, damit wir Ihnen antworten konnen. Diese Informationen werden weder weiterverkauft noch an Dritte weitergegeben und nicht fur Werbezwecke genutzt."
       },
       {
-        "title": "Zahlungen und E-Mail-Versand",
-        "body": "Wenn Sie einen kostenpflichtigen Plan abonnieren, wird die Zahlung von unserem Anbieter Stripe verarbeitet: Wir speichern Ihre Kartennummer niemals. Der Versand von E-Mails (Passwort-Reset, Bestatigungen, Newsletter) erfolgt uber einen vom Instanz-Administrator konfigurierten E-Mail-Versandserver (SMTP). Diese Anbieter erhalten nur die Daten, die fur die Zahlungsabwicklung oder den E-Mail-Versand unbedingt erforderlich sind."
+        "title": "Technische Dienstleister",
+        "body": "Fur den Betrieb stutzt sich der Dienst auf eine kleine Zahl von Dienstleistern, die als Auftragsverarbeiter handeln und vertraglich gebunden sind: einen Hoster (die Server, auf denen der Dienst lauft), einen zertifizierten Zahlungsdienstleister fur kostenpflichtige Abonnements (wir speichern niemals Ihre Kartennummer), einen E-Mail-Versanddienst (Adressbestatigung, Passwort-Reset, Newsletter) und einen KI-Inferenzanbieter, wenn die Antworten nicht auf unseren eigenen Servern erzeugt werden. Jeder erhalt nur die fur seine Leistung unbedingt erforderlichen Daten und darf sie weder zu anderen Zwecken noch fur Werbung oder zum Training eigener Modelle verwenden. Einige dieser Dienstleister konnen ausserhalb der Europaischen Union ansassig sein; die entsprechenden Ubermittlungen sind dann durch die Standardvertragsklauseln der Europaischen Kommission abgesichert. Die namentliche, aktuelle Liste dieser Auftragsverarbeiter erhalten Sie auf einfache Anfrage uber das Kontaktformular."
+      },
+      {
+        "title": "Verantwortlicher und Speicherfristen",
+        "body": "Verantwortlicher fur die Verarbeitung ist der Betreiber des Dienstes, dessen vollstandige Identitat auf der Seite Impressum angegeben ist; er ist uber das Kontaktformular erreichbar. Ihre Kontodaten, Dokumente und Unterhaltungen werden gespeichert, solange Ihr Konto besteht, und geloscht, sobald Sie Ihr Konto loschen. Uber das Kontaktformular gesendete Nachrichten werden so lange aufbewahrt, wie es zur Bearbeitung Ihrer Anfrage notig ist. Fur die Rechnungsstellung erforderliche Daten werden fur die gesetzliche Aufbewahrungsfrist von Buchhaltungsunterlagen gespeichert. Eine Newsletter-Anmeldung wird bis zu Ihrer Abmeldung gespeichert."
       },
       {
         "title": "Ihre Rechte (DSGVO)",
         "body": "Daten exportieren: Laden Sie in Mein Konto mit einem Klick eine Datei mit allen Ihren Daten herunter. Konto loschen: In Mein Konto (Gefahrenzone) konnen Sie Ihr Konto und Ihre Arbeitsbereiche sofort und endgultig loschen. Newsletter: Jede E-Mail enthalt einen Ein-Klick-Abmeldelink, ohne dass eine Anmeldung erforderlich ist. Fur alle anderen Anliegen (Berichtigung, Widerspruch) nutzen Sie das Kontaktformular."
       }
     ],
-    "footnote": "Diese Seite beschreibt die Funktionsweise der Software im Auslieferungszustand. Die Organisation, die diese Instanz hostet, bleibt fur die uber diese Website erhobenen Daten verantwortlich.",
+    "footnote": "Diese Seite beschreibt den Dienst, wie er auf dieser Website betrieben wird. Da die Software auch selbst gehostet werden kann, liegt eine von einer anderen Organisation installierte und verwaltete Instanz in deren Verantwortung.",
     "rightsLinkCta": "Meine Daten in Mein Konto verwalten"
   },
   "terms": {
@@ -305,7 +364,7 @@
       },
       {
         "title": "2. Angebote und Preise",
-        "body": "Die verfugbaren Stufen, ihre Grenzen (Bereiche, Mitglieder, Speicher) und ihre Preise werden zum Zeitpunkt des Abschlusses auf der Preise-Seite angezeigt. Preise sind in Euro angegeben. Die anwendbare Mehrwertsteuerregelung wird auf der fur jede Zahlung ausgestellten Rechnung angegeben."
+        "body": "Die verfugbaren Stufen, ihre Grenzen (Bereiche, Mitglieder, Speicher) und ihre Preise werden zum Zeitpunkt des Abschlusses auf der Preise-Seite angezeigt. Die Preise sind in Euro und inklusive aller Steuern angegeben: abgebucht wird genau der angezeigte Preis, ohne zusatzliche Gebuhren oder Steuern beim Bezahlvorgang. Keine Umsatzsteuer gemass Artikel 293 B des franzosischen Steuergesetzbuchs: es wird keine Mehrwertsteuer berechnet, und die ausgestellten Rechnungen weisen daher keine abziehbare Mehrwertsteuer aus."
       },
       {
         "title": "3. Abschluss und Zahlung",
@@ -328,7 +387,11 @@
         "body": "Fur jede Zahlung wird automatisch eine Rechnung ausgestellt, die jederzeit in der Abonnementverwaltung (Rechnungsportal) verfugbar ist."
       },
       {
-        "title": "8. Anwendbares Recht und Streitigkeiten",
+        "title": "8. Verbraucherschlichtung",
+        "body": "Gemass den Artikeln L612-1 ff. des franzosischen Verbrauchergesetzbuchs hat jeder Verbraucher das Recht, kostenlos eine Verbraucherschlichtungsstelle zur gutlichen Beilegung eines Streitfalls anzurufen, nachdem er eine schriftliche Beschwerde an den Verkaufer gerichtet und innerhalb eines Monats keine zufriedenstellende Antwort erhalten hat. Zustandige Schlichtungsstelle fur Hyaides ist: [NOCH AUSZUFULLEN - Name, Postanschrift und Website der Verbraucherschlichtungsstelle]."
+      },
+      {
+        "title": "9. Anwendbares Recht und Streitigkeiten",
         "body": "Diese Bedingungen unterliegen franzosischem Recht. Im Streitfall wird zunachst eine gutliche Einigung uber das Kontaktformular angestrebt; andernfalls sind ausschliesslich die zustandigen franzosischen Gerichte zustandig."
       }
     ]
@@ -341,7 +404,7 @@
     "sections": [
       {
         "title": "Betreiber der Website",
-        "body": "[editeur], Einzelunternehmer (entrepreneur individuel), tatig unter dem Handelsnamen \"[credit]\".\nSIREN: [immatriculation] - SIRET: [immatriculation]\nAPE-Code: [APE] (Softwareentwicklung)\nUSt-IdNr.: [TVA]\nEingetragen im RNE am [date] - RCS [ville]\nSitz: [adresse], [CP] [ville], Frankreich"
+        "body": "[editeur], Einzelunternehmer (entrepreneur individuel), tatig unter dem Handelsnamen \"[credit]\".\nSIREN: [immatriculation] - SIRET: [immatriculation]\nAPE-Code: [APE] (Softwareentwicklung)\nKeine Umsatzsteuer, Artikel 293 B des franzosischen Steuergesetzbuchs (Kleinunternehmerregelung) - USt-IdNr.: [TVA]\nEingetragen im RNE am [date] - RCS [ville]\nSitz: [adresse], [CP] [ville], Frankreich"
       },
       {
         "title": "Verantwortlicher fur die Veroffentlichung",
@@ -395,7 +458,11 @@
       "loginLink": "Anmelden",
       "passwordHint": "Mindestens 8 Zeichen.",
       "submit": "Konto erstellen",
-      "submitting": "Wird erstellt..."
+      "submitting": "Wird erstellt...",
+      "terms": "Ich habe die Nutzungsbedingungen und die Datenschutzerklarung gelesen und akzeptiere sie.",
+      "termsLinkTerms": "Nutzungsbedingungen lesen",
+      "termsLinkPrivacy": "Datenschutzerklarung lesen",
+      "ssoTerms": "Wenn Sie mit einem externen Anbieter fortfahren, akzeptieren Sie diese Bedingungen ebenfalls."
     },
     "forgot": {
       "title": "Passwort vergessen",

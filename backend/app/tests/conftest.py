@@ -68,6 +68,7 @@ def register_user(client: TestClient, email: str, password: str = "Correct-horse
             "display_name": display_name,
             "captcha_salt": challenge["salt"],
             "captcha_nonce": 0,
+            "terms_accepted": True,
         },
     )
     assert res.status_code == 200, res.text

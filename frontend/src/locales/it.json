@@ -17,7 +17,12 @@
     "launchApp": "Avvia l'app"
   },
   "hero": {
-    "badges": ["Domande illimitate", "Da 9€/mese", "Piano gratuito", "Condivisione per ruolo"],
+    "badges": [
+      "Domande illimitate",
+      "Da 9€/mese",
+      "Piano gratuito",
+      "Condivisione per ruolo"
+    ],
     "title1": "Chatta con i tuoi documenti,",
     "title2": "uno spazio per cliente.",
     "subtitle": "La soluzione per i team che devono trovare una risposta in pochi secondi invece di cercarla per ore. Carica i tuoi documenti, interrogali in linguaggio naturale, su una piattaforma sicura ospitata e gestita da [credit].",
@@ -69,9 +74,18 @@
     "title": "Operativo in pochi minuti, senza team IT",
     "windowTitle": "Per iniziare",
     "items": [
-      { "title": "Crea il tuo spazio", "desc": "Uno spazio per cliente o pratica, in pochi secondi - nessuna configurazione tecnica." },
-      { "title": "Carica i tuoi documenti", "desc": "PDF, scansioni, DOCX, pagine web: trascina e rilascia, tutto viene indicizzato automaticamente in background." },
-      { "title": "Condividi e fai le tue domande", "desc": "Invita chi vuoi con il ruolo giusto, domande illimitate, risposte sempre con fonti." }
+      {
+        "title": "Crea il tuo spazio",
+        "desc": "Uno spazio per cliente o pratica, in pochi secondi - nessuna configurazione tecnica."
+      },
+      {
+        "title": "Carica i tuoi documenti",
+        "desc": "PDF, scansioni, DOCX, pagine web: trascina e rilascia, tutto viene indicizzato automaticamente in background."
+      },
+      {
+        "title": "Condividi e fai le tue domande",
+        "desc": "Invita chi vuoi con il ruolo giusto, domande illimitate, risposte sempre con fonti."
+      }
     ]
   },
   "enterprise": {
@@ -80,7 +94,12 @@
     "title": "Un preventivo su misura per la tua azienda",
     "subtitle": "Spazi e membri illimitati, archiviazione su misura, SSO e SLA, supporto dedicato. Descrivi la tua esigenza, ti risponderemo rapidamente.",
     "teamSize": "Dimensione del team",
-    "teamSizeOptions": ["1-10 utenti", "11-50 utenti", "51-200 utenti", "200+ utenti"],
+    "teamSizeOptions": [
+      "1-10 utenti",
+      "11-50 utenti",
+      "51-200 utenti",
+      "200+ utenti"
+    ],
     "needs": "Descrivi la tua esigenza",
     "needsPlaceholder": "Numero di spazi necessari, requisiti di sicurezza o conformita, tempistiche desiderate...",
     "send": "Invia richiesta",
@@ -134,7 +153,12 @@
         "price": "0",
         "period": "",
         "tagline": "Per provare senza rischi",
-        "features": ["1 spazio di lavoro", "1 membro", "200 MB di archiviazione", "Domande illimitate"],
+        "features": [
+          "1 spazio di lavoro",
+          "1 membro",
+          "200 MB di archiviazione",
+          "Domande illimitate"
+        ],
         "cta": "Inizia gratis"
       },
       {
@@ -142,7 +166,12 @@
         "price": "9",
         "period": "/mese IVA inclusa",
         "tagline": "Per uso personale o freelance",
-        "features": ["3 spazi di lavoro", "Link di condivisione illimitati", "2 GB di archiviazione per spazio", "Backup automatici"],
+        "features": [
+          "3 spazi di lavoro",
+          "Link di condivisione illimitati",
+          "2 GB di archiviazione per spazio",
+          "Backup automatici"
+        ],
         "cta": "Scegli Privati"
       },
       {
@@ -150,7 +179,12 @@
         "price": "29",
         "period": "/mese IVA inclusa",
         "tagline": "Per un team che condivide spazi",
-        "features": ["10 spazi di lavoro", "10 membri per spazio", "10 GB di archiviazione per spazio", "Supporto prioritario"],
+        "features": [
+          "10 spazi di lavoro",
+          "10 membri per spazio",
+          "10 GB di archiviazione per spazio",
+          "Supporto prioritario"
+        ],
         "cta": "Scegli Pro"
       },
       {
@@ -158,7 +192,12 @@
         "price": "",
         "period": "",
         "tagline": "Per un'organizzazione con esigenze di governance",
-        "features": ["Spazi e membri illimitati", "Archiviazione su misura", "SSO e SLA", "Supporto dedicato"],
+        "features": [
+          "Spazi e membri illimitati",
+          "Archiviazione su misura",
+          "SSO e SLA",
+          "Supporto dedicato"
+        ],
         "cta": "Contattaci"
       }
     ],
@@ -180,10 +219,22 @@
     "banner": "Questa e una simulazione con risposte pre-scritte - nessun documento viene realmente analizzato qui.",
     "documentsTitle": "Documenti dello spazio",
     "documents": [
-      { "name": "rapporto_attivita_2025.pdf", "type": "pdf" },
-      { "name": "fattura_fornitore_scan.jpg", "type": "image" },
-      { "name": "note_riunione.md", "type": "text" },
-      { "name": "esempio-clienti.com", "type": "web" }
+      {
+        "name": "rapporto_attivita_2025.pdf",
+        "type": "pdf"
+      },
+      {
+        "name": "fattura_fornitore_scan.jpg",
+        "type": "image"
+      },
+      {
+        "name": "note_riunione.md",
+        "type": "text"
+      },
+      {
+        "name": "esempio-clienti.com",
+        "type": "web"
+      }
     ],
     "suggestions": [
       {
@@ -225,22 +276,30 @@
       },
       {
         "title": "Account e dati dello spazio",
-        "body": "La tua email e la tua password (cifrata) sono necessarie per creare un account. I documenti che carichi, il loro contenuto indicizzato e le tue conversazioni restano memorizzati solo sul server che ospita questa istanza (database e database vettoriale locali). Senza configurazione esplicita, nulla viene inviato a un servizio IA cloud di terzi: l'elaborazione (lettura, indicizzazione, generazione delle risposte) avviene localmente tramite Ollama, oppure tramite il fornitore cloud che l'amministratore di questa istanza ha scelto di configurare."
+        "body": "La tua email e la tua password (cifrata) sono necessarie per creare un account. I documenti che carichi, il loro contenuto indicizzato e le tue conversazioni sono archiviati sul server che ospita il servizio (database e database vettoriale dedicati), separati per spazio di lavoro, e non vengono mai rivenduti ne utilizzati per addestrare un modello di IA. Per generare una risposta, leggere un'immagine o indicizzare un documento, il testo interessato viene inviato a un motore di inferenza: a seconda della configurazione del servizio, tale trattamento avviene sui nostri server o presso un fornitore di inferenza IA (vedi la sezione Fornitori tecnici qui sotto)."
+      },
+      {
+        "title": "Cio che carichi",
+        "body": "Resti responsabile dei documenti che carichi e delle informazioni che inserisci nelle conversazioni. Prima di importare un file, assicurati di averne il diritto: non caricare documenti appartenenti a terzi senza la loro autorizzazione ed evita i dati particolarmente sensibili (dati sanitari, documenti d'identita, coordinate bancarie, password) quando non sono indispensabili al tuo utilizzo. Il contenuto dei tuoi documenti viene trattato automaticamente per rispondere alle tue domande, e un link di condivisione da accesso a un intero spazio di lavoro: verifica cosa contiene prima di inviarlo e revoca il link appena non serve piu. Puoi eliminare un documento, uno spazio o l'intero account in qualsiasi momento."
       },
       {
         "title": "Modulo di contatto",
         "body": "Se utilizzi il modulo di contatto, il tuo nome, la tua email e il tuo messaggio vengono conservati per poterti rispondere. Queste informazioni non vengono mai rivendute ne condivise con terzi, ne utilizzate per scopi commerciali."
       },
       {
-        "title": "Pagamenti e invio di email",
-        "body": "Se sottoscrivi un piano a pagamento, il pagamento e gestito dal nostro fornitore Stripe: non memorizziamo mai il numero della tua carta. L'invio delle email (reimpostazione password, conferme, newsletter) passa attraverso un server di invio email (SMTP) configurato dall'amministratore dell'istanza. Questi fornitori ricevono solo i dati strettamente necessari per elaborare il pagamento o inviare l'email."
+        "title": "Fornitori tecnici",
+        "body": "Per funzionare, il servizio si appoggia a un numero ristretto di fornitori, che agiscono come responsabili del trattamento e sono vincolati contrattualmente: un fornitore di hosting (i server su cui gira il servizio), un fornitore di pagamento certificato per gli abbonamenti a pagamento (non memorizziamo mai il numero della tua carta), un servizio di invio email (verifica dell'indirizzo, reimpostazione della password, newsletter) e un fornitore di inferenza IA quando le risposte non vengono generate sui nostri server. Ciascuno riceve solo i dati strettamente necessari alla propria prestazione e non e autorizzato a utilizzarli per altri scopi, per finalita pubblicitarie o per addestrare i propri modelli. Alcuni di questi fornitori possono avere sede fuori dall'Unione europea; i relativi trasferimenti sono in tal caso disciplinati dalle clausole contrattuali tipo della Commissione europea. L'elenco nominativo e aggiornato di questi fornitori viene comunicato su semplice richiesta tramite il modulo di contatto."
+      },
+      {
+        "title": "Titolare del trattamento e periodi di conservazione",
+        "body": "Il titolare del trattamento e l'editore del servizio, la cui identita completa figura nella pagina Note legali; puo essere contattato tramite il modulo di contatto. I dati del tuo account, i tuoi documenti e le tue conversazioni sono conservati finche il tuo account esiste, poi eliminati non appena lo elimini. I messaggi inviati tramite il modulo di contatto sono conservati per il tempo necessario a gestire la tua richiesta. I dati necessari alla fatturazione sono conservati per la durata legale di conservazione dei documenti contabili. Un'iscrizione alla newsletter e conservata fino alla tua cancellazione."
       },
       {
         "title": "I tuoi diritti (GDPR)",
         "body": "Esporta i tuoi dati: da Il mio account, scarica un file con tutti i tuoi dati in un clic. Elimina il tuo account: da Il mio account (zona pericolosa), eliminazione immediata e definitiva del tuo account e dei tuoi spazi. Newsletter: ogni email include un link di disiscrizione in un clic, senza bisogno di accedere. Per qualsiasi altra richiesta (rettifica, opposizione), utilizza il modulo di contatto."
       }
     ],
-    "footnote": "Questa pagina descrive il funzionamento del software cosi come fornito. L'organizzazione che ospita questa istanza rimane responsabile del trattamento dei dati che raccoglie tramite questo sito.",
+    "footnote": "Questa pagina descrive il servizio cosi come viene gestito su questo sito. Poiche il software puo anche essere auto-ospitato, un'istanza installata e amministrata da un'altra organizzazione ricade sotto la responsabilita di quest'ultima.",
     "rightsLinkCta": "Gestisci i miei dati in Il mio account"
   },
   "terms": {
@@ -305,7 +364,7 @@
       },
       {
         "title": "2. Offerte e prezzi",
-        "body": "I piani disponibili, i loro limiti (spazi, membri, archiviazione) e i loro prezzi sono mostrati nella pagina Prezzi al momento della sottoscrizione. I prezzi sono espressi in euro. Il regime IVA applicabile e indicato sulla fattura emessa per ogni pagamento."
+        "body": "I piani disponibili, i loro limiti (spazi, membri, archiviazione) e i loro prezzi sono mostrati nella pagina Prezzi al momento della sottoscrizione. I prezzi sono espressi in euro e comprensivi di tutte le imposte: viene addebitato esattamente il prezzo indicato, senza costi o imposte aggiunti al momento del pagamento. IVA non applicabile, articolo 293 B del Codice generale delle imposte francese: non viene fatturata alcuna IVA e le fatture emesse non riportano quindi IVA detraibile."
       },
       {
         "title": "3. Sottoscrizione e pagamento",
@@ -328,7 +387,11 @@
         "body": "Una fattura viene emessa automaticamente per ogni pagamento ed e sempre disponibile dalla gestione dell'abbonamento (portale di fatturazione)."
       },
       {
-        "title": "8. Legge applicabile e controversie",
+        "title": "8. Mediatore del consumo",
+        "body": "Ai sensi degli articoli L612-1 e seguenti del Codice del consumo francese, ogni consumatore ha il diritto di rivolgersi gratuitamente a un mediatore del consumo per la risoluzione amichevole di una controversia, dopo aver inviato un reclamo scritto al venditore e non aver ricevuto una risposta soddisfacente entro un mese. Il mediatore competente per Hyaides e: [DA COMPLETARE - nome, indirizzo postale e sito web del mediatore del consumo]."
+      },
+      {
+        "title": "9. Legge applicabile e controversie",
         "body": "Questi termini sono disciplinati dal diritto francese. In caso di controversia, si cerchera prima una soluzione amichevole tramite il modulo di contatto; in mancanza di accordo, saranno competenti in via esclusiva i tribunali francesi."
       }
     ]
@@ -341,7 +404,7 @@
     "sections": [
       {
         "title": "Editore del sito",
-        "body": "[editeur], imprenditore individuale (entrepreneur individuel), operante con il nome commerciale \"[credit]\".\nSIREN: [immatriculation] - SIRET: [immatriculation]\nCodice APE: [APE] (Programmazione informatica)\nPartita IVA intracomunitaria: [TVA]\nIscritto al RNE il [date] - RCS [ville]\nSede legale: [adresse], [CP] [ville], Francia"
+        "body": "[editeur], imprenditore individuale (entrepreneur individuel), operante con il nome commerciale \"[credit]\".\nSIREN: [immatriculation] - SIRET: [immatriculation]\nCodice APE: [APE] (Programmazione informatica)\nIVA non applicabile, articolo 293 B del Codice generale delle imposte francese (regime di franchigia IVA) - partita IVA intracomunitaria: [TVA]\nIscritto al RNE il [date] - RCS [ville]\nSede legale: [adresse], [CP] [ville], Francia"
       },
       {
         "title": "Direttore della pubblicazione",
@@ -395,7 +458,11 @@
       "loginLink": "Accedi",
       "passwordHint": "Almeno 8 caratteri.",
       "submit": "Crea il mio account",
-      "submitting": "Creazione..."
+      "submitting": "Creazione...",
+      "terms": "Ho letto e accetto le condizioni d'uso e l'informativa sulla privacy.",
+      "termsLinkTerms": "Leggi le condizioni d'uso",
+      "termsLinkPrivacy": "Leggi l'informativa sulla privacy",
+      "ssoTerms": "Continuando con un fornitore esterno, accetti anche queste condizioni."
     },
     "forgot": {
       "title": "Password dimenticata",

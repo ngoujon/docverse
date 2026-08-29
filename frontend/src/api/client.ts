@@ -82,11 +82,18 @@ export const api = {
     email: string,
     password: string,
     displayName: string,
-    captcha: CaptchaSolution
+    captcha: CaptchaSolution,
+    termsAccepted: boolean
   ) =>
     request<AuthResponse>("/auth/register", {
       method: "POST",
-      body: JSON.stringify({ email, password, display_name: displayName, ...captcha }),
+      body: JSON.stringify({
+        email,
+        password,
+        display_name: displayName,
+        terms_accepted: termsAccepted,
+        ...captcha,
+      }),
     }),
   login: (email: string, password: string) =>
     request<LoginResponse>("/auth/login", {

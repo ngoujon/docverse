@@ -25,6 +25,10 @@ class RegisterRequest(BaseModel):
     display_name: str = Field(default="", max_length=120)
     captcha_salt: str
     captcha_nonce: int
+    # Explicit acceptance of the CGU + privacy policy. Checked server-side
+    # rather than trusting the frontend checkbox alone, so an account can
+    # never exist without a recorded acceptance.
+    terms_accepted: bool = False
 
     _validate_password = field_validator("password")(_validate_password_complexity)
 

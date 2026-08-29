@@ -17,7 +17,8 @@ interface AuthContextValue {
     email: string,
     password: string,
     displayName: string,
-    captcha: CaptchaSolution
+    captcha: CaptchaSolution,
+    termsAccepted: boolean
   ) => Promise<void>;
   logout: () => void;
   refresh: () => Promise<void>;
@@ -69,8 +70,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const register = useCallback(
-    async (email: string, password: string, displayName: string, captcha: CaptchaSolution) => {
-      const res = await api.register(email, password, displayName, captcha);
+    async (
+      email: string,
+      password: string,
+      displayName: string,
+      captcha: CaptchaSolution,
+      termsAccepted: boolean
+    ) => {
+      const res = await api.register(email, password, displayName, captcha, termsAccepted);
       setUserToken(res.access_token);
       setUser(res.user);
     },

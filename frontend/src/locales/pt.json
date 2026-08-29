@@ -17,7 +17,12 @@
     "launchApp": "Abrir a app"
   },
   "hero": {
-    "badges": ["Perguntas ilimitadas", "Desde 9€/mes", "Plano gratuito", "Partilha por funcao"],
+    "badges": [
+      "Perguntas ilimitadas",
+      "Desde 9€/mes",
+      "Plano gratuito",
+      "Partilha por funcao"
+    ],
     "title1": "Converse com os seus documentos,",
     "title2": "um espaco por cliente.",
     "subtitle": "A solucao para que as suas equipas encontrem uma resposta em segundos em vez de a procurarem durante horas. Carregue os seus documentos, consulte-os em linguagem natural, numa plataforma segura alojada e operada pela [credit].",
@@ -69,9 +74,18 @@
     "title": "Operacional em minutos, sem equipa de TI",
     "windowTitle": "Primeiros passos",
     "items": [
-      { "title": "Crie o seu espaco", "desc": "Um espaco por cliente ou processo, em segundos - sem configuracao tecnica." },
-      { "title": "Carregue os seus documentos", "desc": "PDF, digitalizacoes, DOCX, paginas web: arraste e largue, tudo e indexado automaticamente em segundo plano." },
-      { "title": "Partilhe e faca as suas perguntas", "desc": "Convide quem quiser com a funcao certa, perguntas ilimitadas, respostas sempre com fontes." }
+      {
+        "title": "Crie o seu espaco",
+        "desc": "Um espaco por cliente ou processo, em segundos - sem configuracao tecnica."
+      },
+      {
+        "title": "Carregue os seus documentos",
+        "desc": "PDF, digitalizacoes, DOCX, paginas web: arraste e largue, tudo e indexado automaticamente em segundo plano."
+      },
+      {
+        "title": "Partilhe e faca as suas perguntas",
+        "desc": "Convide quem quiser com a funcao certa, perguntas ilimitadas, respostas sempre com fontes."
+      }
     ]
   },
   "enterprise": {
@@ -80,7 +94,12 @@
     "title": "Um orcamento personalizado para a sua empresa",
     "subtitle": "Espacos e membros ilimitados, armazenamento personalizado, SSO e SLA, suporte dedicado. Descreva a sua necessidade e responderemos rapidamente.",
     "teamSize": "Tamanho da equipa",
-    "teamSizeOptions": ["1-10 utilizadores", "11-50 utilizadores", "51-200 utilizadores", "200+ utilizadores"],
+    "teamSizeOptions": [
+      "1-10 utilizadores",
+      "11-50 utilizadores",
+      "51-200 utilizadores",
+      "200+ utilizadores"
+    ],
     "needs": "Descreva a sua necessidade",
     "needsPlaceholder": "Numero de espacos necessarios, requisitos de seguranca ou conformidade, prazo pretendido...",
     "send": "Enviar pedido",
@@ -134,7 +153,12 @@
         "price": "0",
         "period": "",
         "tagline": "Para testar sem risco",
-        "features": ["1 espaco de trabalho", "1 membro", "200 MB de armazenamento", "Perguntas ilimitadas"],
+        "features": [
+          "1 espaco de trabalho",
+          "1 membro",
+          "200 MB de armazenamento",
+          "Perguntas ilimitadas"
+        ],
         "cta": "Comecar gratuitamente"
       },
       {
@@ -142,7 +166,12 @@
         "price": "9",
         "period": "/mes IVA incl.",
         "tagline": "Para uso pessoal ou freelance",
-        "features": ["3 espacos de trabalho", "Links de partilha ilimitados", "2 GB de armazenamento por espaco", "Copias de seguranca automaticas"],
+        "features": [
+          "3 espacos de trabalho",
+          "Links de partilha ilimitados",
+          "2 GB de armazenamento por espaco",
+          "Copias de seguranca automaticas"
+        ],
         "cta": "Escolher Particular"
       },
       {
@@ -150,7 +179,12 @@
         "price": "29",
         "period": "/mes IVA incl.",
         "tagline": "Para uma equipa que partilha espacos",
-        "features": ["10 espacos de trabalho", "10 membros por espaco", "10 GB de armazenamento por espaco", "Suporte prioritario"],
+        "features": [
+          "10 espacos de trabalho",
+          "10 membros por espaco",
+          "10 GB de armazenamento por espaco",
+          "Suporte prioritario"
+        ],
         "cta": "Escolher Pro"
       },
       {
@@ -158,7 +192,12 @@
         "price": "",
         "period": "",
         "tagline": "Para uma organizacao com necessidades de governanca",
-        "features": ["Espacos e membros ilimitados", "Armazenamento a medida", "SSO e SLA", "Suporte dedicado"],
+        "features": [
+          "Espacos e membros ilimitados",
+          "Armazenamento a medida",
+          "SSO e SLA",
+          "Suporte dedicado"
+        ],
         "cta": "Contacte-nos"
       }
     ],
@@ -180,10 +219,22 @@
     "banner": "Isto e uma simulacao com respostas pre-escritas - nenhum documento e realmente analisado aqui.",
     "documentsTitle": "Documentos do espaco",
     "documents": [
-      { "name": "relatorio_atividade_2025.pdf", "type": "pdf" },
-      { "name": "fatura_fornecedor_digitalizada.jpg", "type": "image" },
-      { "name": "notas_reuniao.md", "type": "text" },
-      { "name": "exemplo-clientes.com", "type": "web" }
+      {
+        "name": "relatorio_atividade_2025.pdf",
+        "type": "pdf"
+      },
+      {
+        "name": "fatura_fornecedor_digitalizada.jpg",
+        "type": "image"
+      },
+      {
+        "name": "notas_reuniao.md",
+        "type": "text"
+      },
+      {
+        "name": "exemplo-clientes.com",
+        "type": "web"
+      }
     ],
     "suggestions": [
       {
@@ -225,22 +276,30 @@
       },
       {
         "title": "Conta e dados do espaco",
-        "body": "O seu email e a sua palavra-passe (encriptada) sao necessarios para criar uma conta. Os documentos que carrega, o seu conteudo indexado e as suas conversas ficam armazenados apenas no servidor que aloja esta instancia (base de dados e base vetorial locais). Nada e enviado para um servico de IA na nuvem de terceiros sem configuracao explicita: o processamento (leitura, indexacao, geracao de respostas) e feito localmente via Ollama, ou atraves do fornecedor cloud que o administrador desta instancia tenha configurado."
+        "body": "O seu email e a sua palavra-passe (cifrada) sao necessarios para criar uma conta. Os documentos que carrega, o respetivo conteudo indexado e as suas conversas sao armazenados no servidor que aloja o servico (base de dados e base vetorial dedicadas), separados por espaco de trabalho, e nunca sao revendidos nem utilizados para treinar um modelo de IA. Para gerar uma resposta, ler uma imagem ou indexar um documento, o texto em causa e enviado para um motor de inferencia: consoante a configuracao do servico, esse tratamento ocorre nos nossos proprios servidores ou num fornecedor de inferencia de IA (ver a seccao Fornecedores tecnicos abaixo)."
+      },
+      {
+        "title": "O que coloca online",
+        "body": "Continua a ser responsavel pelos documentos que carrega e pelas informacoes que escreve nas conversas. Antes de importar um ficheiro, certifique-se de que tem o direito de o fazer: nao carregue documentos pertencentes a terceiros sem a sua autorizacao e evite dados particularmente sensiveis (dados de saude, documentos de identificacao, dados bancarios, palavras-passe) quando nao forem indispensaveis a sua utilizacao. O conteudo dos seus documentos e tratado automaticamente para responder as suas perguntas, e uma ligacao de partilha da acesso a todo um espaco de trabalho: verifique o que contem antes de a enviar e revogue-a assim que deixar de ser util. Pode eliminar um documento, um espaco ou a totalidade da sua conta a qualquer momento."
       },
       {
         "title": "Formulario de contacto",
         "body": "Se usar o formulario de contacto, o seu nome, email e mensagem sao guardados para que possamos responder-lhe. Esta informacao nunca e revendida nem partilhada com terceiros, nem usada para fins comerciais."
       },
       {
-        "title": "Pagamentos e envio de emails",
-        "body": "Se subscrever um plano pago, o pagamento e processado pelo nosso fornecedor Stripe: nunca guardamos o numero do seu cartao. O envio de emails (redefinicao de palavra-passe, confirmacoes, newsletter) passa por um servidor de envio de emails (SMTP) configurado pelo administrador da instancia. Estes fornecedores recebem apenas os dados estritamente necessarios para processar o pagamento ou enviar o email."
+        "title": "Fornecedores tecnicos",
+        "body": "Para funcionar, o servico apoia-se num pequeno numero de fornecedores, que atuam como subcontratantes e estao vinculados por contrato: um fornecedor de alojamento (os servidores onde o servico corre), um prestador de pagamento certificado para as subscricoes pagas (nunca armazenamos o numero do seu cartao), um servico de envio de emails (verificacao de endereco, reposicao de palavra-passe, newsletter) e um fornecedor de inferencia de IA quando as respostas nao sao geradas nos nossos proprios servidores. Cada um recebe apenas os dados estritamente necessarios a sua prestacao e nao esta autorizado a utiliza-los para outros fins, para publicidade ou para treinar os seus proprios modelos. Alguns destes fornecedores podem estar estabelecidos fora da Uniao Europeia; nesse caso, as transferencias correspondentes sao enquadradas pelas clausulas contratuais-tipo da Comissao Europeia. A lista nominativa e atualizada destes subcontratantes e comunicada mediante simples pedido atraves do formulario de contacto."
+      },
+      {
+        "title": "Responsavel pelo tratamento e prazos de conservacao",
+        "body": "O responsavel pelo tratamento e o editor do servico, cuja identidade completa consta da pagina de Informacoes legais; pode ser contactado atraves do formulario de contacto. Os dados da sua conta, os seus documentos e as suas conversas sao conservados enquanto a sua conta existir e eliminados assim que a apagar. As mensagens enviadas pelo formulario de contacto sao conservadas pelo tempo necessario para tratar o seu pedido. Os dados necessarios a faturacao sao conservados durante o prazo legal de conservacao dos documentos contabilisticos. Uma inscricao na newsletter e conservada ate que cancele a subscricao."
       },
       {
         "title": "Os seus direitos (RGPD)",
         "body": "Exportar os seus dados: a partir de A minha conta, transfira um ficheiro com todos os seus dados num clique. Eliminar a sua conta: a partir de A minha conta (zona de perigo), eliminacao imediata e definitiva da sua conta e dos seus espacos. Newsletter: cada email inclui um link de cancelamento num clique, sem necessidade de iniciar sessao. Para qualquer outro pedido (retificacao, oposicao), utilize o formulario de contacto."
       }
     ],
-    "footnote": "Esta pagina descreve o funcionamento do software tal como fornecido. A organizacao que aloja esta instancia continua responsavel pelo tratamento dos dados que recolhe atraves deste site.",
+    "footnote": "Esta pagina descreve o servico tal como e explorado neste site. Uma vez que o software tambem pode ser auto-alojado, uma instancia instalada e administrada por outra organizacao e da responsabilidade dessa organizacao.",
     "rightsLinkCta": "Gerir os meus dados em A minha conta"
   },
   "terms": {
@@ -305,7 +364,7 @@
       },
       {
         "title": "2. Ofertas e precos",
-        "body": "Os planos disponiveis, os seus limites (espacos, membros, armazenamento) e os seus precos sao apresentados na pagina de Precos no momento da subscricao. Os precos sao expressos em euros. O regime de IVA aplicavel e indicado na fatura emitida para cada pagamento."
+        "body": "Os planos disponiveis, os seus limites (espacos, membros, armazenamento) e os seus precos sao apresentados na pagina de Precos no momento da subscricao. Os precos sao expressos em euros e incluem todos os impostos: e cobrado exatamente o preco apresentado, sem taxas nem impostos acrescentados no momento do pagamento. IVA nao aplicavel, artigo 293 B do Codigo Geral dos Impostos frances: nao e faturado qualquer IVA e as faturas emitidas nao apresentam, portanto, IVA dedutivel."
       },
       {
         "title": "3. Subscricao e pagamento",
@@ -328,7 +387,11 @@
         "body": "E emitida automaticamente uma fatura para cada pagamento, disponivel a qualquer momento na gestao da subscricao (portal de faturacao)."
       },
       {
-        "title": "8. Lei aplicavel e litigios",
+        "title": "8. Mediador de consumo",
+        "body": "Nos termos dos artigos L612-1 e seguintes do Codigo do consumo frances, qualquer consumidor tem o direito de recorrer gratuitamente a um mediador de consumo para a resolucao amigavel de um litigio, depois de ter enviado uma reclamacao escrita ao vendedor e nao ter obtido resposta satisfatoria no prazo de um mes. O mediador competente para o Hyaides e: [A COMPLETAR - nome, morada e site do mediador de consumo]."
+      },
+      {
+        "title": "9. Lei aplicavel e litigios",
         "body": "Estes termos regem-se pelo direito frances. Em caso de litigio, sera procurada primeiro uma solucao amigavel atraves do formulario de contacto; na sua falta, os tribunais franceses competentes terao competencia exclusiva."
       }
     ]
@@ -341,7 +404,7 @@
     "sections": [
       {
         "title": "Editor do site",
-        "body": "[editeur], empresario em nome individual (entrepreneur individuel), a operar sob o nome comercial \"[credit]\".\nSIREN: [immatriculation] - SIRET: [immatriculation]\nCodigo APE: [APE] (Programacao informatica)\nIVA intracomunitario: [TVA]\nRegistado no RNE em [date] - RCS [ville]\nSede: [adresse], [CP] [ville], Franca"
+        "body": "[editeur], empresario em nome individual (entrepreneur individuel), a operar sob o nome comercial \"[credit]\".\nSIREN: [immatriculation] - SIRET: [immatriculation]\nCodigo APE: [APE] (Programacao informatica)\nIVA nao aplicavel, artigo 293 B do Codigo Geral dos Impostos frances (regime de isencao de IVA) - numero de IVA intracomunitario: [TVA]\nRegistado no RNE em [date] - RCS [ville]\nSede: [adresse], [CP] [ville], Franca"
       },
       {
         "title": "Diretor de publicacao",
@@ -395,7 +458,11 @@
       "loginLink": "Iniciar sessao",
       "passwordHint": "Minimo de 8 caracteres.",
       "submit": "Criar a minha conta",
-      "submitting": "A criar..."
+      "submitting": "A criar...",
+      "terms": "Li e aceito as condicoes de utilizacao e a politica de privacidade.",
+      "termsLinkTerms": "Ler as condicoes de utilizacao",
+      "termsLinkPrivacy": "Ler a politica de privacidade",
+      "ssoTerms": "Ao continuar com um fornecedor externo, aceita igualmente estas condicoes."
     },
     "forgot": {
       "title": "Palavra-passe esquecida",

@@ -1,4 +1,5 @@
 import shutil
+from datetime import datetime
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request
 from sqlalchemy import func
@@ -24,6 +25,8 @@ def register(
         raise HTTPException(429, "Trop de tentatives, reessayez plus tard")
     if not captcha.verify_solution(payload.captcha_salt, payload.captcha_nonce):
         raise HTTPException(400, "Verification anti-robot invalide ou expiree")
+    if not payload.terms_accepted:
+        raise HTTPException(400, "Vous devez accepter les conditions d'utilisation")
 
     email = payload.email.lower().strip()
     if db.query(models_db.User).filter_by(email=email).first():
@@ -35,6 +38,7 @@ def register(
         password_hash=auth.hash_password(payload.password),
         display_name=payload.display_name.strip(),
         role="admin" if is_first_user else "user",
+        terms_accepted_at=datetime.utcnow(),
     )
     db.add(user)
     db.commit()

@@ -52,6 +52,18 @@ def create_checkout_session(
         # subscriber apart from an individual one (see admin invoices list).
         tax_id_collection={"enabled": True},
         billing_address_collection="required",
+        # Required tick-box on the Stripe-hosted page: "I agree to the terms
+        # of service". Without a recorded acceptance, the waiver of the
+        # 14-day right of withdrawal written in the CGV (art. L221-28 13 of
+        # the Code de la consommation) can't be held against the customer,
+        # who could then demand a refund despite having used the service.
+        # The CGV URL itself is configured in the Stripe Dashboard
+        # (Settings > Checkout and Payment Links > Terms of service) - this
+        # call fails if it isn't set there.
+        consent_collection={"terms_of_service": "required"},
+        # The app is available in 6 languages; let the Stripe-hosted page
+        # follow the customer's browser instead of always showing English.
+        locale="auto",
     )
     return {"url": session.url}
 

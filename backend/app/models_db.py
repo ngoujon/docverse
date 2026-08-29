@@ -37,6 +37,13 @@ class User(Base):
     # that never subscribed.
     stripe_customer_id = Column(String, nullable=True)
     stripe_subscription_id = Column(String, nullable=True)
+    # When this account explicitly accepted the CGU + privacy policy (the
+    # required checkbox on the signup form, or the notice shown next to the
+    # SSO buttons). Kept as a timestamp rather than a boolean because what
+    # matters in a dispute is *when* the terms were accepted, so it can be
+    # matched against the version of the terms in force that day. Null for
+    # accounts created before this was introduced.
+    terms_accepted_at = Column(DateTime, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     owned_spaces = relationship("Space", back_populates="owner")

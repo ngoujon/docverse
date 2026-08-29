@@ -24,9 +24,42 @@ def test_register_rejects_duplicate_email(client):
             "display_name": "",
             "captcha_salt": challenge["salt"],
             "captcha_nonce": 0,
+            "terms_accepted": True,
         },
     )
     assert res.status_code == 409
+
+
+def test_register_requires_accepting_terms(client):
+    """The CGV waive the 14-day right of withdrawal, so an account must
+    never exist without a recorded acceptance of the terms - the checkbox
+    is enforced server-side, not just in the signup form."""
+    challenge = client.get("/api/captcha/challenge").json()
+    res = client.post(
+        "/api/auth/register",
+        json={
+            "email": "noterms@example.com",
+            "password": "Correct-horse-battery1",
+            "display_name": "",
+            "captcha_salt": challenge["salt"],
+            "captcha_nonce": 0,
+            "terms_accepted": False,
+        },
+    )
+    assert res.status_code == 400
+
+
+def test_register_records_terms_acceptance_date(client):
+    from app.database import SessionLocal
+    from app import models_db
+
+    data = register_user(client, "terms@example.com")
+    db = SessionLocal()
+    try:
+        user = db.get(models_db.User, data["user"]["id"])
+        assert user.terms_accepted_at is not None
+    finally:
+        db.close()
 
 
 def test_login_success_and_wrong_password(client):

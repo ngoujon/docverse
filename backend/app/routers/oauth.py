@@ -1,5 +1,6 @@
 import json
 import logging
+from datetime import datetime
 from urllib.parse import quote
 
 from fastapi import APIRouter, Depends, Form, HTTPException, Query
@@ -43,6 +44,11 @@ def _login_or_create_user(db: Session, email: str, name: str, next_path: str) ->
             role="admin" if is_first_user else "user",
             # The identity provider already verified this email address.
             email_verified=True,
+            # The login/signup pages state, right next to the SSO buttons,
+            # that continuing with a provider means accepting the CGU and
+            # the privacy policy - record when that happened, exactly as
+            # the email/password signup does with its checkbox.
+            terms_accepted_at=datetime.utcnow(),
         )
         db.add(user)
         db.commit()
