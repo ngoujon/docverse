@@ -2,11 +2,13 @@ import logging
 import shutil
 
 import httpx
-from fastapi import FastAPI, Request
+from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
+from . import models_db
 from .config import UPLOAD_DIR, settings
 from .database import Base, SessionLocal, engine, ensure_schema
+from .deps import require_admin
 from .routers import admin, auth, billing, captcha, chat, conversations, contact, documents, newsletter, oauth, spaces, support, testimonials
 from .services import ollama_client, vectorstore
 
@@ -171,7 +173,12 @@ async def cache_and_security_headers(request: Request, call_next):
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
-    response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()"
+    response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+    # API responses are JSON, never a document: a restrictive CSP costs
+    # nothing here and neutralises any content-sniffing or direct-navigation
+    # trick that would otherwise get a reflected value treated as markup.
+    response.headers["Content-Security-Policy"] = "default-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'"
+    response.headers["Cross-Origin-Resource-Policy"] = "same-origin"
     # Cache control: API responses must not be cached by default
     # (endpoints that need caching should override these headers)
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
@@ -197,6 +204,21 @@ app.include_router(testimonials.router)
 
 @app.get("/api/health")
 async def health():
+    """Public liveness probe - deliberately says nothing but "the process
+    is up".
+
+    It used to return the inference provider, the exact model names and
+    every model present on the box. None of that is a secret in the sense
+    of a credential, but handed to an anonymous caller it's free
+    reconnaissance: it names the stack to target, tells an attacker which
+    model to tailor prompt-injection payloads to, and confirms when
+    something changes. The detailed version now lives behind admin auth at
+    /api/admin/health, which is where an operator looks anyway."""
+    return {"status": "ok"}
+
+
+@app.get("/api/admin/health")
+async def admin_health(_admin: models_db.User = Depends(require_admin)):
     # This always probes the LOCAL Ollama instance, since embeddings run
     # there regardless of provider, and chat/vision do too when Ollama
     # Cloud isn't configured.

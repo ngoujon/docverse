@@ -25,8 +25,7 @@ def submit_contact(
         # success so bots don't learn to avoid it.
         return {"ok": True}
 
-    if not rate_limiter.contact_form_limiter.allow(client_ip(request)):
-        raise HTTPException(429, "Trop de messages envoyes, reessayez plus tard")
+    rate_limiter.enforce(rate_limiter.contact_form_limiter, client_ip(request), "Trop de messages envoyes, reessayez plus tard")
 
     if not captcha.verify_solution(payload.captcha_salt, payload.captcha_nonce):
         raise HTTPException(400, "Verification anti-robot invalide ou expiree")

@@ -53,8 +53,15 @@ export interface DocumentItem {
   created_at: string;
 }
 
+// What /api/health tells an anonymous caller: that the process is up, and
+// nothing else. Naming the inference provider and the exact models to the
+// public internet was free reconnaissance for an attacker.
 export interface HealthStatus {
   status: string;
+}
+
+// The full picture, from /api/admin/health - admin session required.
+export interface AdminHealthStatus extends HealthStatus {
   ollama_reachable: boolean;
   models_available: string[];
   chat_provider: "ollama_cloud" | "ollama_local";

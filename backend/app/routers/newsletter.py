@@ -1,12 +1,13 @@
 from datetime import datetime
 
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 
 from .. import models_db, schemas
 from ..config import settings
 from ..database import get_db
-from ..services import auth, captcha, email_templates, mail_service
+from ..deps import client_ip
+from ..services import auth, captcha, email_templates, mail_service, rate_limiter
 
 router = APIRouter(prefix="/api/newsletter", tags=["newsletter"])
 
@@ -16,9 +17,20 @@ _UNSUBSCRIBE_TTL_MINUTES = 5 * 365 * 24 * 60
 @router.post("/subscribe")
 def subscribe(
     payload: schemas.NewsletterSubscribeRequest,
+    request: Request,
     background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
 ):
+    # The captcha alone was the only gate here. Every accepted request makes
+    # us send a confirmation email to an address the caller chose, so an
+    # unlimited endpoint is a mail-bombing tool pointed at third parties
+    # (and a fast route to getting our sending domain blacklisted), on top
+    # of filling the subscriber table with unconfirmed rows.
+    rate_limiter.enforce(
+        rate_limiter.newsletter_limiter,
+        client_ip(request),
+        "Trop d'inscriptions depuis cette adresse, reessayez plus tard",
+    )
     if not captcha.verify_solution(payload.captcha_salt, payload.captcha_nonce):
         raise HTTPException(400, "Verification anti-robot invalide ou expiree")
 

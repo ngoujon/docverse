@@ -164,6 +164,49 @@ class Settings:
 
 settings = Settings()
 
+# Anything shorter than this can't carry 128 bits of entropy even at one
+# bit per character, and HS256 is only as strong as the key: a guessable
+# SECRET_KEY means anyone can mint a session token with "role": "admin".
+_MIN_SECRET_KEY_LENGTH = 32
+
+# Values that show up in every wordlist and in half the tutorials this app
+# could have been copied from. Checked case-insensitively.
+_WEAK_SECRET_KEYS = {
+    "secret",
+    "secretkey",
+    "secret_key",
+    "changeme",
+    "change_me",
+    "password",
+    "hyaides",
+    "[credit]",
+    "dev",
+    "development",
+    "test",
+    "production",
+    "please-change-me",
+    "your-secret-key",
+    "supersecret",
+    "s3cr3t",
+}
+
+if settings.secret_key and (
+    len(settings.secret_key) < _MIN_SECRET_KEY_LENGTH
+    or settings.secret_key.lower() in _WEAK_SECRET_KEYS
+):
+    # Refusing to boot is deliberately harsher than a warning: a weak
+    # signing key is not a degraded mode, it's an unauthenticated admin
+    # takeover waiting to be found, and a log line at startup is exactly
+    # the thing nobody reads. Generate one with:
+    #     python -c "import secrets; print(secrets.token_hex(32))"
+    raise RuntimeError(
+        "SECRET_KEY est trop faible ou trop courte "
+        f"({_MIN_SECRET_KEY_LENGTH} caracteres aleatoires minimum). Elle signe "
+        "les jetons de session : une cle devinable permet a n'importe qui de "
+        "forger un jeton administrateur. Generez-en une avec : "
+        'python -c "import secrets; print(secrets.token_hex(32))"'
+    )
+
 if not settings.secret_key:
     # Falling back to a fresh random key on every restart used to mean
     # every session and password-reset link silently died on deploy/

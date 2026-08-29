@@ -1,4 +1,5 @@
 import type {
+  AdminHealthStatus,
   AdminStats,
   AuthResponse,
   CaptchaChallenge,
@@ -76,6 +77,7 @@ async function request<T>(
 
 export const api = {
   health: () => request<HealthStatus>("/health"),
+  adminHealth: () => request<AdminHealthStatus>("/admin/health"),
 
   // --- Auth ---------------------------------------------------------
   register: (

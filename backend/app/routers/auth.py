@@ -21,8 +21,7 @@ def register(
     background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
 ):
-    if not rate_limiter.register_limiter.allow(client_ip(request)):
-        raise HTTPException(429, "Trop de tentatives, reessayez plus tard")
+    rate_limiter.enforce(rate_limiter.register_limiter, client_ip(request))
     if not captcha.verify_solution(payload.captcha_salt, payload.captcha_nonce):
         raise HTTPException(400, "Verification anti-robot invalide ou expiree")
     if not payload.terms_accepted:
@@ -30,7 +29,16 @@ def register(
 
     email = payload.email.lower().strip()
     if db.query(models_db.User).filter_by(email=email).first():
-        raise HTTPException(409, "Un compte existe deja avec cet email")
+        # A distinct "this email is taken" answer is a free account
+        # enumeration oracle on a public form, so the message stays
+        # deliberately ambiguous between "already registered" and "not
+        # allowed" - the person who actually owns the address recovers it
+        # through the password-reset flow, which tells nobody anything.
+        raise HTTPException(
+            409,
+            "Impossible de creer un compte avec cet email. S'il vous appartient deja, "
+            "utilisez « mot de passe oublie » pour y acceder.",
+        )
 
     is_first_user = db.query(models_db.User).count() == 0
     user = models_db.User(
@@ -58,15 +66,34 @@ def register(
 
 @router.post("/login", response_model=schemas.LoginResponse)
 def login(payload: schemas.LoginRequest, request: Request, db: Session = Depends(get_db)):
-    if not rate_limiter.login_limiter.allow(client_ip(request)):
-        raise HTTPException(429, "Trop de tentatives, reessayez plus tard")
+    rate_limiter.enforce(rate_limiter.login_limiter, client_ip(request))
 
     email = payload.email.lower().strip()
+    # Second, IP-independent bucket: an attacker rotating source addresses
+    # slips past the per-IP limit above, but every one of those attempts
+    # still targets this one address. Only failures are recorded and a
+    # success clears the bucket (below), so a third party hammering your
+    # email can never lock you out of your own account.
+    account_key = f"login:{email}"
+    rate_limiter.enforce_check(
+        rate_limiter.login_account_limiter,
+        account_key,
+        "Trop de tentatives de connexion sur ce compte, reessayez plus tard",
+    )
+
     user = db.query(models_db.User).filter_by(email=email).first()
+    if not user:
+        # Burn the same bcrypt time a real account would have cost:
+        # answering "unknown email" in microseconds while "wrong password"
+        # takes ~100ms tells an attacker exactly which addresses exist.
+        auth.verify_password_dummy()
     if not user or not auth.verify_password(payload.password, user.password_hash):
+        rate_limiter.login_account_limiter.record(account_key)
         raise HTTPException(401, "Email ou mot de passe incorrect")
     if not user.is_active:
         raise HTTPException(403, "Ce compte a ete desactive")
+
+    rate_limiter.login_account_limiter.reset(account_key)
 
     if user.totp_enabled:
         pending_token = auth.issue_purpose_token(user.id, "2fa_pending", ttl_minutes=5)
@@ -82,8 +109,7 @@ def verify_login_2fa(
     request: Request,
     db: Session = Depends(get_db),
 ):
-    if not rate_limiter.login_limiter.allow(client_ip(request)):
-        raise HTTPException(429, "Trop de tentatives, reessayez plus tard")
+    rate_limiter.enforce(rate_limiter.login_limiter, client_ip(request))
     user_id = auth.verify_purpose_token(payload.pending_token, "2fa_pending")
     user = db.get(models_db.User, user_id) if user_id else None
     if not user or not user.totp_enabled:
@@ -227,8 +253,7 @@ def forgot_password(
     background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
 ):
-    if not rate_limiter.password_reset_limiter.allow(client_ip(request)):
-        raise HTTPException(429, "Trop de tentatives, reessayez plus tard")
+    rate_limiter.enforce(rate_limiter.password_reset_limiter, client_ip(request))
 
     email = payload.email.lower().strip()
     user = db.query(models_db.User).filter_by(email=email).first()
@@ -237,8 +262,15 @@ def forgot_password(
         reset_url = f"{settings.frontend_base_url}/reset-password?token={token}"
         subject, html, text = email_templates.password_reset_email(reset_url)
         background_tasks.add_task(mail_service.send_email, user.email, subject, html, text)
-    # Same response whether or not the email exists, so this endpoint can't
-    # be used to enumerate registered accounts.
+    else:
+        # The response body was already identical either way, but the
+        # timing was not: issuing a reset token costs a bcrypt-hash
+        # fingerprint and a DB write that the unknown-address path skips
+        # entirely. That measurable gap is enough to enumerate accounts, so
+        # the miss branch pays a comparable cost.
+        auth.verify_password_dummy()
+    # Same response, and now the same cost, whether or not the email
+    # exists - so this endpoint can't be used to enumerate accounts.
     return {"ok": True}
 
 

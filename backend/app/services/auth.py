@@ -1,4 +1,5 @@
 import hashlib
+import secrets
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 
@@ -19,6 +20,23 @@ def verify_password(password: str, password_hash: str) -> bool:
         return bcrypt.checkpw(password.encode("utf-8"), password_hash.encode("utf-8"))
     except ValueError:
         return False
+
+
+# A bcrypt hash of a value nobody can supply, used only to burn the same
+# ~100ms verify_password() would have cost. Computed once at import.
+_DUMMY_HASH = hash_password(secrets.token_urlsafe(32))
+
+
+def verify_password_dummy() -> None:
+    """Run a throwaway bcrypt verification.
+
+    Skipping the hash comparison when an email doesn't exist makes "unknown
+    address" answer in microseconds while "known address, wrong password"
+    takes the full bcrypt work factor. That gap is trivially measurable and
+    turns any login or password-reset form into an account enumeration
+    oracle, whatever the response body says. Callers on the not-found path
+    call this so both branches cost the same."""
+    bcrypt.checkpw(b"invalid", _DUMMY_HASH.encode("utf-8"))
 
 
 def issue_user_token(user_id: str, role: str, token_version: int) -> str:

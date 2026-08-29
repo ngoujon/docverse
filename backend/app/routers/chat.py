@@ -31,8 +31,7 @@ async def chat(
 ):
     if not access.can_write:
         raise HTTPException(403, "Acces en lecture seule a cet espace")
-    if not rate_limiter.chat_limiter.allow(client_ip(request)):
-        raise HTTPException(429, "Trop de messages envoyes, patientez un instant")
+    rate_limiter.enforce(rate_limiter.chat_limiter, client_ip(request), "Trop de messages envoyes, patientez un instant")
 
     conv = access.conversation
     conversation_id = conv.id

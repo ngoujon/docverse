@@ -14,7 +14,10 @@ os.environ["DATA_DIR"] = _TEST_DATA_DIR
 # their compose-level defaults (e.g. CAPTCHA_DIFFICULTY=5), so setdefault
 # would be a no-op here and the real proof-of-work difficulty would leak
 # into the test run.
-os.environ["SECRET_KEY"] = "test-only-secret-key"
+# Long enough to clear the weak-key guard in config.py (which refuses to
+# boot on a short or wordlist SECRET_KEY) while staying an obvious
+# test-only constant.
+os.environ["SECRET_KEY"] = "test-only-secret-key-not-used-anywhere-real-0123456789"
 os.environ["CAPTCHA_DIFFICULTY"] = "0"
 os.environ["CORS_ORIGINS"] = "*"
 
