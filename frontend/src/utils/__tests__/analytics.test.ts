@@ -55,8 +55,6 @@ describe("consent", () => {
 
 describe("beacons", () => {
   function stubFetch() {
-    // jsdom has no sendBeacon; stub it away so the fallback path is explicit.
-    vi.stubGlobal("navigator", { ...navigator, sendBeacon: undefined });
     return vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response(null));
   }
 
@@ -74,6 +72,13 @@ describe("beacons", () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
+  it("drops a time on page under a second as noise", () => {
+    const fetchMock = stubFetch();
+    setConsent("granted");
+    trackTimeOnPage("/tarifs", 0.4);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
   it("posts form-encoded events with a reusable session id once consent is granted", () => {
     const fetchMock = stubFetch();
     setConsent("granted");
@@ -83,10 +88,13 @@ describe("beacons", () => {
     expect(fetchMock).toHaveBeenCalledTimes(2);
     const [url, init] = fetchMock.mock.calls[0];
     expect(url).toBe("https://analytics.example.com/api/tracking/collect");
-    // A "simple" cross-origin request: no custom header, so no preflight -
-    // the collect endpoint only answers preflights for example.com origins.
-    expect(init?.headers).toBeUndefined();
+    // A "simple" cross-origin request: safelisted content type, so no
+    // preflight - the collect endpoint only answers preflights for example.com.
+    expect(init?.headers).toEqual({
+      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+    });
     expect(init?.mode).toBe("no-cors");
+    expect(init?.keepalive).toBe(true);
 
     const first = new URLSearchParams(String(init?.body));
     const second = new URLSearchParams(String(fetchMock.mock.calls[1][1]?.body));
@@ -95,17 +103,5 @@ describe("beacons", () => {
     expect(first.get("session_id")).toBe(second.get("session_id"));
     expect(first.get("site_key")).toMatch(/^tk_/);
     expect(first.get("event_type")).toBe("page_view");
-  });
-
-  it("prefers sendBeacon when the browser provides it", () => {
-    const beacon = vi.fn().mockReturnValue(true);
-    vi.stubGlobal("navigator", { ...navigator, sendBeacon: beacon });
-    const fetchMock = vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response(null));
-    setConsent("granted");
-    trackPageView("/faq");
-
-    expect(beacon).toHaveBeenCalledTimes(1);
-    expect(fetchMock).not.toHaveBeenCalled();
-    expect(new URLSearchParams(String(beacon.mock.calls[0][1])).get("payload[path]")).toBe("/faq");
   });
 });

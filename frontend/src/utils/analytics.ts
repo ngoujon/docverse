@@ -64,8 +64,8 @@ function sessionId(): string {
 }
 
 /** The collect endpoint answers CORS preflights only for example.com origins,
- * so the beacon has to stay a "simple" cross-origin request: form encoding,
- * no custom header, and no attempt to read the (opaque) response. */
+ * so the beacon has to stay a "simple" cross-origin request: form encoding
+ * (a safelisted content type, hence no preflight) and no custom header. */
 function encode(payload: Record<string, unknown>): URLSearchParams {
   const body = new URLSearchParams({
     site_key: SITE_KEY,
@@ -78,19 +78,21 @@ function encode(payload: Record<string, unknown>): URLSearchParams {
   return body;
 }
 
+/** `no-cors` because the API answers `Cross-Origin-Resource-Policy:
+ * same-origin`: its response is unreadable from here, and asking for it would
+ * only log a network error next to a hit that was in fact recorded.
+ * `keepalive` replaces sendBeacon, whose requests never reach this collector
+ * (same finding as the [autre-site] integration). */
 function send(payload: Record<string, unknown>): void {
   if (typeof window === "undefined" || readConsent() !== "granted") return;
   try {
-    const body = encode(payload);
-    // sendBeacon survives the tab closing, which is exactly when the time
-    // spent on the last page is flushed.
-    if (typeof navigator.sendBeacon === "function" && navigator.sendBeacon(ENDPOINT, body)) return;
     void fetch(ENDPOINT, {
       method: "POST",
       mode: "no-cors",
       credentials: "omit",
       keepalive: true,
-      body,
+      headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+      body: encode(payload).toString(),
     }).catch(() => {
       /* an ad blocker or a network hiccup must never break the page */
     });
@@ -110,7 +112,10 @@ export function trackPageView(path: string): void {
   });
 }
 
+/** Under a second, the event is noise (a tab flicked to and back). */
+const MIN_TIME_ON_PAGE_SECONDS = 1;
+
 export function trackTimeOnPage(path: string, seconds: number): void {
-  if (!isTrackablePath(path) || seconds <= 0) return;
+  if (!isTrackablePath(path) || seconds < MIN_TIME_ON_PAGE_SECONDS) return;
   send({ path: path || "/", time_on_page: Math.round(seconds * 10) / 10 });
 }

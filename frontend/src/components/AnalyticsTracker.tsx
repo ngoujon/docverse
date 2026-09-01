@@ -41,8 +41,11 @@ export default function AnalyticsTracker() {
     };
 
     document.addEventListener("visibilitychange", onVisibilityChange);
+    // Safari fires pagehide rather than hiding the document on a close.
+    window.addEventListener("pagehide", flush);
     return () => {
       document.removeEventListener("visibilitychange", onVisibilityChange);
+      window.removeEventListener("pagehide", flush);
       flush();
     };
   }, [pathname, consent]);
