@@ -260,6 +260,13 @@
     "ctaButton": "Create my free account",
     "resetLabel": "Reset"
   },
+  "cookies": {
+    "title": "Audience measurement",
+    "body": "With your consent, we count page views through [credit] to see what visitors are interested in. No advertising cookies, and no tracking inside the app.",
+    "accept": "Accept",
+    "decline": "Decline",
+    "learnMore": "Learn more"
+  },
   "privacy": {
     "back": "Back to home",
     "eyebrow": "Privacy",
@@ -268,7 +275,7 @@
     "sections": [
       {
         "title": "Cookies",
-        "body": "This site uses no tracking or analytics cookies, and no third-party/advertising cookies. No consent banner is needed - there's nothing to consent to."
+        "body": "This site uses no advertising cookies and no third-party targeting cookies. An audience measurement tool ([credit]) records page views, time spent and an approximate country derived from your IP address, but only if you accept it in the banner shown on your first visit: it relies on a temporary session id that is cleared when you close the tab. Your choice is kept in your browser's local storage and you can change it by clearing this site's data. App pages (spaces, share links, dashboard) are never tracked."
       },
       {
         "title": "Local storage (localStorage)",
@@ -288,7 +295,7 @@
       },
       {
         "title": "Technical providers",
-        "body": "To operate, the service relies on a small number of providers, acting as processors and bound by contract: a hosting provider (the servers the service runs on), a certified payment provider for paid subscriptions (we never store your card number), an email sending service (address verification, password reset, newsletter) and an AI inference provider when answers are not generated on our own servers. Each one receives only the data strictly necessary for its service and is not allowed to use it for any other purpose, for advertising, or to train its own models. Some of these providers may be established outside the European Union; the corresponding transfers are then covered by the European Commission's standard contractual clauses. The named, up-to-date list of these processors is provided on simple request through the contact form."
+        "body": "To operate, the service relies on a small number of providers, acting as processors and bound by contract: a hosting provider (the servers the service runs on), a certified payment provider for paid subscriptions (we never store your card number), an email sending service (address verification, password reset, newsletter), an audience measurement tool ([credit], only if you accept it) and an AI inference provider when answers are not generated on our own servers. Each one receives only the data strictly necessary for its service and is not allowed to use it for any other purpose, for advertising, or to train its own models. Some of these providers may be established outside the European Union; the corresponding transfers are then covered by the European Commission's standard contractual clauses. The named, up-to-date list of these processors is provided on simple request through the contact form."
       },
       {
         "title": "Data controller and retention periods",

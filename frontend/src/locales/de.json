@@ -260,6 +260,13 @@
     "ctaButton": "Kostenloses Konto erstellen",
     "resetLabel": "Zurucksetzen"
   },
+  "cookies": {
+    "title": "Reichweitenmessung",
+    "body": "Mit Ihrer Einwilligung zahlen wir Seitenaufrufe uber [credit], um zu sehen, was Besucher interessiert. Keine Werbe-Cookies und kein Tracking in der Anwendung.",
+    "accept": "Akzeptieren",
+    "decline": "Ablehnen",
+    "learnMore": "Mehr erfahren"
+  },
   "privacy": {
     "back": "Zuruck zur Startseite",
     "eyebrow": "Datenschutz",
@@ -268,7 +275,7 @@
     "sections": [
       {
         "title": "Cookies",
-        "body": "Diese Website verwendet keine Tracking- oder Analyse-Cookies und keine Cookies von Drittanbietern/Werbetreibenden. Ein Einwilligungsbanner ist daher nicht erforderlich: Es gibt nichts, dem zugestimmt werden musste."
+        "body": "Diese Website verwendet keine Werbe-Cookies und keine Tracking-Cookies von Drittanbietern. Ein Reichweitenmessdienst ([credit]) erfasst Seitenaufrufe, Verweildauer und ein aus der IP-Adresse abgeleitetes ungefahres Land - aber nur, wenn Sie beim ersten Besuch im Banner zustimmen: Grundlage ist eine temporare Sitzungskennung, die beim Schliessen des Tabs geloscht wird. Ihre Entscheidung wird im lokalen Speicher Ihres Browsers gespeichert und lasst sich durch Loschen der Websitedaten andern. Seiten der Anwendung (Arbeitsbereiche, Freigaben, Dashboard) werden nie erfasst."
       },
       {
         "title": "Lokaler Speicher (localStorage)",
@@ -288,7 +295,7 @@
       },
       {
         "title": "Technische Dienstleister",
-        "body": "Fur den Betrieb stutzt sich der Dienst auf eine kleine Zahl von Dienstleistern, die als Auftragsverarbeiter handeln und vertraglich gebunden sind: einen Hoster (die Server, auf denen der Dienst lauft), einen zertifizierten Zahlungsdienstleister fur kostenpflichtige Abonnements (wir speichern niemals Ihre Kartennummer), einen E-Mail-Versanddienst (Adressbestatigung, Passwort-Reset, Newsletter) und einen KI-Inferenzanbieter, wenn die Antworten nicht auf unseren eigenen Servern erzeugt werden. Jeder erhalt nur die fur seine Leistung unbedingt erforderlichen Daten und darf sie weder zu anderen Zwecken noch fur Werbung oder zum Training eigener Modelle verwenden. Einige dieser Dienstleister konnen ausserhalb der Europaischen Union ansassig sein; die entsprechenden Ubermittlungen sind dann durch die Standardvertragsklauseln der Europaischen Kommission abgesichert. Die namentliche, aktuelle Liste dieser Auftragsverarbeiter erhalten Sie auf einfache Anfrage uber das Kontaktformular."
+        "body": "Fur den Betrieb stutzt sich der Dienst auf eine kleine Zahl von Dienstleistern, die als Auftragsverarbeiter handeln und vertraglich gebunden sind: einen Hoster (die Server, auf denen der Dienst lauft), einen zertifizierten Zahlungsdienstleister fur kostenpflichtige Abonnements (wir speichern niemals Ihre Kartennummer), einen E-Mail-Versanddienst (Adressbestatigung, Passwort-Reset, Newsletter), einen Reichweitenmessdienst ([credit], nur mit Ihrer Einwilligung) und einen KI-Inferenzanbieter, wenn die Antworten nicht auf unseren eigenen Servern erzeugt werden. Jeder erhalt nur die fur seine Leistung unbedingt erforderlichen Daten und darf sie weder zu anderen Zwecken noch fur Werbung oder zum Training eigener Modelle verwenden. Einige dieser Dienstleister konnen ausserhalb der Europaischen Union ansassig sein; die entsprechenden Ubermittlungen sind dann durch die Standardvertragsklauseln der Europaischen Kommission abgesichert. Die namentliche, aktuelle Liste dieser Auftragsverarbeiter erhalten Sie auf einfache Anfrage uber das Kontaktformular."
       },
       {
         "title": "Verantwortlicher und Speicherfristen",

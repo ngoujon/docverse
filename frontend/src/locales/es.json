@@ -260,6 +260,13 @@
     "ctaButton": "Crear mi cuenta gratis",
     "resetLabel": "Reiniciar"
   },
+  "cookies": {
+    "title": "Medicion de audiencia",
+    "body": "Con tu consentimiento, contamos las paginas vistas con [credit] para saber que interesa a los visitantes. Sin cookies publicitarias y sin seguimiento dentro de la aplicacion.",
+    "accept": "Aceptar",
+    "decline": "Rechazar",
+    "learnMore": "Mas informacion"
+  },
   "privacy": {
     "back": "Volver al inicio",
     "eyebrow": "Privacidad",
@@ -268,7 +275,7 @@
     "sections": [
       {
         "title": "Cookies",
-        "body": "Este sitio no utiliza cookies de seguimiento ni de medicion de audiencia, ni cookies de terceros/publicitarias. Por lo tanto, no se necesita ningun banner de consentimiento: no hay nada que consentir."
+        "body": "Este sitio no utiliza cookies publicitarias ni cookies de terceros para segmentacion. Una herramienta de medicion de audiencia ([credit]) registra las paginas vistas, el tiempo de permanencia y un pais aproximado deducido de la direccion IP, unicamente si lo aceptas en el aviso que aparece en tu primera visita: se basa en un identificador de sesion temporal que se borra al cerrar la pestana. Tu eleccion se guarda en el almacenamiento local del navegador y puedes cambiarla borrando los datos del sitio. Las paginas de la aplicacion (espacios, enlaces compartidos, panel) nunca se rastrean."
       },
       {
         "title": "Almacenamiento local (localStorage)",
@@ -288,7 +295,7 @@
       },
       {
         "title": "Proveedores tecnicos",
-        "body": "Para funcionar, el servicio se apoya en un pequeno numero de proveedores, que actuan como encargados del tratamiento y estan vinculados por contrato: un proveedor de alojamiento (los servidores en los que se ejecuta el servicio), un proveedor de pago certificado para las suscripciones de pago (nunca almacenamos tu numero de tarjeta), un servicio de envio de emails (verificacion de direccion, restablecimiento de contrasena, newsletter) y un proveedor de inferencia de IA cuando las respuestas no se generan en nuestros propios servidores. Cada uno recibe unicamente los datos estrictamente necesarios para su prestacion y no esta autorizado a usarlos con otros fines, ni con fines publicitarios, ni para entrenar sus propios modelos. Algunos de estos proveedores pueden estar establecidos fuera de la Union Europea; en ese caso, las transferencias correspondientes se amparan en las clausulas contractuales tipo de la Comision Europea. La lista nominativa y actualizada de estos encargados se facilita a peticion a traves del formulario de contacto."
+        "body": "Para funcionar, el servicio se apoya en un pequeno numero de proveedores, que actuan como encargados del tratamiento y estan vinculados por contrato: un proveedor de alojamiento (los servidores en los que se ejecuta el servicio), un proveedor de pago certificado para las suscripciones de pago (nunca almacenamos tu numero de tarjeta), un servicio de envio de emails (verificacion de direccion, restablecimiento de contrasena, newsletter), una herramienta de medicion de audiencia ([credit], unicamente si la aceptas) y un proveedor de inferencia de IA cuando las respuestas no se generan en nuestros propios servidores. Cada uno recibe unicamente los datos estrictamente necesarios para su prestacion y no esta autorizado a usarlos con otros fines, ni con fines publicitarios, ni para entrenar sus propios modelos. Algunos de estos proveedores pueden estar establecidos fuera de la Union Europea; en ese caso, las transferencias correspondientes se amparan en las clausulas contractuales tipo de la Comision Europea. La lista nominativa y actualizada de estos encargados se facilita a peticion a traves del formulario de contacto."
       },
       {
         "title": "Responsable del tratamiento y plazos de conservacion",

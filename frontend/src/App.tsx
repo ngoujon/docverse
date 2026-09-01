@@ -23,6 +23,9 @@ import AdminDashboardPage from "./pages/AdminDashboardPage";
 import AccountSettingsPage from "./pages/AccountSettingsPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import SupportChatWidget from "./components/SupportChatWidget";
+import AnalyticsTracker from "./components/AnalyticsTracker";
+import CookieConsentBanner from "./components/CookieConsentBanner";
+import { isTrackablePath } from "./utils/analytics";
 
 // The support widget helps visitors use the site/app - shown on the public
 // marketing pages, not inside the real product (workspace app) where it
@@ -38,6 +41,8 @@ export default function App() {
   }, [i18n.language]);
 
   const showSupportWidget = !SUPPORT_WIDGET_EXCLUDED_PREFIXES.some((p) => location.pathname.startsWith(p));
+  // Only the pages the audience measurement actually covers ask for consent.
+  const showConsentBanner = isTrackablePath(location.pathname);
 
   return (
     <>
@@ -110,6 +115,8 @@ export default function App() {
         <Route path="*" element={<LandingPage />} />
       </Routes>
       {showSupportWidget && <SupportChatWidget />}
+      <AnalyticsTracker />
+      {showConsentBanner && <CookieConsentBanner />}
     </>
   );
 }

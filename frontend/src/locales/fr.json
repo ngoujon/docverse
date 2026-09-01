@@ -260,6 +260,13 @@
     "ctaButton": "Creer mon compte gratuitement",
     "resetLabel": "Recommencer"
   },
+  "cookies": {
+    "title": "Mesure d'audience",
+    "body": "Avec votre accord, nous comptons les pages vues via [credit] pour savoir ce qui interesse les visiteurs. Aucun cookie publicitaire, aucun suivi dans l'application.",
+    "accept": "Accepter",
+    "decline": "Refuser",
+    "learnMore": "En savoir plus"
+  },
   "privacy": {
     "back": "Retour a l'accueil",
     "eyebrow": "Confidentialite",
@@ -268,7 +275,7 @@
     "sections": [
       {
         "title": "Cookies",
-        "body": "Ce site n'utilise aucun cookie de suivi ni de mesure d'audience, et aucun cookie tiers/publicitaire. Aucun bandeau de consentement n'est donc necessaire : il n'y a rien a consentir."
+        "body": "Ce site n'utilise aucun cookie publicitaire ni aucun cookie tiers de ciblage. Une mesure d'audience ([credit]) enregistre les pages vues, le temps passe et un pays approximatif deduit de l'adresse IP, uniquement si vous l'acceptez via le bandeau affiche a votre premiere visite : elle repose sur un identifiant de session temporaire, efface a la fermeture de l'onglet. Votre choix est conserve dans le stockage local de votre navigateur et vous pouvez le changer en effacant les donnees du site. Les pages de l'application (espaces, partages, tableau de bord) ne sont jamais suivies."
       },
       {
         "title": "Stockage local (localStorage)",
@@ -288,7 +295,7 @@
       },
       {
         "title": "Prestataires techniques",
-        "body": "Pour fonctionner, le service s'appuie sur un petit nombre de prestataires, qui agissent comme sous-traitants et sont lies par contrat : un hebergeur (les serveurs sur lesquels tourne le service), un prestataire de paiement certifie pour les abonnements payants (nous ne stockons jamais votre numero de carte bancaire), un service d'envoi d'emails (verification d'adresse, reinitialisation de mot de passe, newsletter) et un fournisseur d'inference IA lorsque les reponses ne sont pas generees sur nos propres serveurs. Chacun ne recoit que les donnees strictement necessaires a sa prestation et n'est autorise ni a les utiliser a d'autres fins, ni a des fins publicitaires, ni pour entrainer ses propres modeles. Certains de ces prestataires peuvent etre etablis hors de l'Union europeenne ; les transferts correspondants sont alors encadres par les clauses contractuelles types de la Commission europeenne. La liste nominative et a jour de ces sous-traitants vous est communiquee sur simple demande via le formulaire de contact."
+        "body": "Pour fonctionner, le service s'appuie sur un petit nombre de prestataires, qui agissent comme sous-traitants et sont lies par contrat : un hebergeur (les serveurs sur lesquels tourne le service), un prestataire de paiement certifie pour les abonnements payants (nous ne stockons jamais votre numero de carte bancaire), un service d'envoi d'emails (verification d'adresse, reinitialisation de mot de passe, newsletter), un outil de mesure d'audience ([credit], uniquement si vous l'acceptez) et un fournisseur d'inference IA lorsque les reponses ne sont pas generees sur nos propres serveurs. Chacun ne recoit que les donnees strictement necessaires a sa prestation et n'est autorise ni a les utiliser a d'autres fins, ni a des fins publicitaires, ni pour entrainer ses propres modeles. Certains de ces prestataires peuvent etre etablis hors de l'Union europeenne ; les transferts correspondants sont alors encadres par les clauses contractuelles types de la Commission europeenne. La liste nominative et a jour de ces sous-traitants vous est communiquee sur simple demande via le formulaire de contact."
       },
       {
         "title": "Responsable du traitement et durees de conservation",

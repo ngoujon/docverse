@@ -260,6 +260,13 @@
     "ctaButton": "Crea il mio account gratuito",
     "resetLabel": "Ricomincia"
   },
+  "cookies": {
+    "title": "Misurazione del pubblico",
+    "body": "Con il tuo consenso, contiamo le pagine viste tramite [credit] per capire cosa interessa ai visitatori. Nessun cookie pubblicitario e nessun tracciamento nell'applicazione.",
+    "accept": "Accetta",
+    "decline": "Rifiuta",
+    "learnMore": "Scopri di piu"
+  },
   "privacy": {
     "back": "Torna alla home",
     "eyebrow": "Privacy",
@@ -268,7 +275,7 @@
     "sections": [
       {
         "title": "Cookie",
-        "body": "Questo sito non utilizza cookie di tracciamento ne di misurazione del pubblico, ne cookie di terze parti/pubblicitari. Non e quindi necessario alcun banner di consenso: non c'e nulla da acconsentire."
+        "body": "Questo sito non utilizza cookie pubblicitari ne cookie di terze parti per il targeting. Uno strumento di misurazione del pubblico ([credit]) registra le pagine viste, il tempo trascorso e un paese approssimativo dedotto dall'indirizzo IP, solo se lo accetti nel banner mostrato alla prima visita: si basa su un identificativo di sessione temporaneo, cancellato alla chiusura della scheda. La tua scelta viene conservata nell'archiviazione locale del browser e puoi modificarla cancellando i dati del sito. Le pagine dell'applicazione (spazi, condivisioni, dashboard) non vengono mai tracciate."
       },
       {
         "title": "Archiviazione locale (localStorage)",
@@ -288,7 +295,7 @@
       },
       {
         "title": "Fornitori tecnici",
-        "body": "Per funzionare, il servizio si appoggia a un numero ristretto di fornitori, che agiscono come responsabili del trattamento e sono vincolati contrattualmente: un fornitore di hosting (i server su cui gira il servizio), un fornitore di pagamento certificato per gli abbonamenti a pagamento (non memorizziamo mai il numero della tua carta), un servizio di invio email (verifica dell'indirizzo, reimpostazione della password, newsletter) e un fornitore di inferenza IA quando le risposte non vengono generate sui nostri server. Ciascuno riceve solo i dati strettamente necessari alla propria prestazione e non e autorizzato a utilizzarli per altri scopi, per finalita pubblicitarie o per addestrare i propri modelli. Alcuni di questi fornitori possono avere sede fuori dall'Unione europea; i relativi trasferimenti sono in tal caso disciplinati dalle clausole contrattuali tipo della Commissione europea. L'elenco nominativo e aggiornato di questi fornitori viene comunicato su semplice richiesta tramite il modulo di contatto."
+        "body": "Per funzionare, il servizio si appoggia a un numero ristretto di fornitori, che agiscono come responsabili del trattamento e sono vincolati contrattualmente: un fornitore di hosting (i server su cui gira il servizio), un fornitore di pagamento certificato per gli abbonamenti a pagamento (non memorizziamo mai il numero della tua carta), un servizio di invio email (verifica dell'indirizzo, reimpostazione della password, newsletter), uno strumento di misurazione del pubblico ([credit], solo se lo accetti) e un fornitore di inferenza IA quando le risposte non vengono generate sui nostri server. Ciascuno riceve solo i dati strettamente necessari alla propria prestazione e non e autorizzato a utilizzarli per altri scopi, per finalita pubblicitarie o per addestrare i propri modelli. Alcuni di questi fornitori possono avere sede fuori dall'Unione europea; i relativi trasferimenti sono in tal caso disciplinati dalle clausole contrattuali tipo della Commissione europea. L'elenco nominativo e aggiornato di questi fornitori viene comunicato su semplice richiesta tramite il modulo di contatto."
       },
       {
         "title": "Titolare del trattamento e periodi di conservazione",
