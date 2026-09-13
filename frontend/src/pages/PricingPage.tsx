@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Check, Loader2 } from "lucide-react";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { useAuth } from "../hooks/useAuth";
 import { api } from "../api/client";
+import { pageTitle } from "../brand";
 
 interface PricingTier {
   name: string;
@@ -29,7 +30,7 @@ export default function PricingPage() {
   const autoTriggered = useRef(false);
 
   usePageMeta({
-    title: `${t("pricing.title")} - Hyaides`,
+    title: pageTitle(t("pricing.title")),
     description: t("pricing.subtitle"),
     canonicalPath: "/tarifs",
   });

@@ -1,7 +1,6 @@
 import logging
 import shutil
 
-import httpx
 from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -10,7 +9,7 @@ from .config import UPLOAD_DIR, settings
 from .database import Base, SessionLocal, engine, ensure_schema
 from .deps import require_admin
 from .routers import admin, auth, billing, captcha, chat, conversations, contact, documents, newsletter, oauth, spaces, support, testimonials
-from .services import ollama_client, vectorstore
+from .services import llm_provider, vectorstore
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("hyaides.startup")
@@ -104,54 +103,6 @@ def _seed_testimonials() -> None:
     finally:
         db.close()
 
-
-def _pull_model(client: httpx.Client, model: str) -> None:
-    logger.info("Telechargement du modele Ollama %s (peut prendre quelques minutes)...", model)
-    r = client.post(f"{settings.ollama_base_url}/api/pull", json={"model": model, "stream": False})
-    r.raise_for_status()
-    logger.info("Modele Ollama %s pret.", model)
-
-
-def _ensure_local_models() -> None:
-    """Ollama does not auto-pull a model on first /api/chat or
-    /api/embeddings call - a missing model just 404s the request. Embeddings
-    always run against the LOCAL Ollama instance, even when Ollama Cloud is
-    configured for chat/vision (the cloud API has no /api/embeddings route
-    - see ollama_client.embed), so unlike chat/vision there's no cloud
-    fallback: every document ingestion (any file type) fails outright at
-    the indexing step if this one model is missing. Chat/vision only need
-    a local pull when Ollama Cloud isn't configured at all. Nothing else in
-    this app ever calls /api/pull, so it's done once here at startup rather
-    than left to a "first use" that was never actually wired up."""
-    wanted = [settings.embed_model]
-    if not settings.use_ollama_cloud:
-        wanted += [settings.chat_model, settings.vision_model]
-
-    try:
-        with httpx.Client(timeout=10.0) as client:
-            r = client.get(f"{settings.ollama_base_url}/api/tags")
-            r.raise_for_status()
-            have = {m["name"].split(":")[0] for m in r.json().get("models", [])}
-
-        missing = [m for m in wanted if m.split(":")[0] not in have]
-        if not missing:
-            return
-        with httpx.Client(timeout=600.0) as client:
-            for model in missing:
-                _pull_model(client, model)
-    except Exception:
-        logger.exception(
-            "Echec du telechargement automatique d'un ou plusieurs modeles Ollama "
-            "(%s) - les fonctionnalites concernees echoueront tant qu'ils ne "
-            "seront pas presents.",
-            ", ".join(wanted),
-        )
-
-
-_delete_ownerless_spaces()
-_seed_testimonials()
-_ensure_local_models()
-
 app = FastAPI(title="Hyaides", version="1.0.0")
 
 app.add_middleware(
@@ -219,29 +170,19 @@ async def health():
 
 @app.get("/api/admin/health")
 async def admin_health(_admin: models_db.User = Depends(require_admin)):
-    # This always probes the LOCAL Ollama instance, since embeddings run
-    # there regardless of provider, and chat/vision do too when Ollama
-    # Cloud isn't configured.
-    ollama_ok = True
-    models: list[str] = []
-    try:
-        models = await ollama_client.list_models()
-    except Exception:
-        ollama_ok = False
-
-    def has(model: str) -> bool:
-        return any(m.split(":")[0] == model.split(":")[0] for m in models)
-
-    using_cloud = settings.use_ollama_cloud
+    # Plus aucun modele n'est heberge ici : la seule chose a verifier est
+    # que l'API Mistral repond et que la cle est valide. Les modeles sont
+    # geres par le fournisseur, il n'y a donc plus de notion de "modele
+    # telecharge" a surveiller comme du temps d'Ollama local.
+    status = await llm_provider.health()
     return {
         "status": "ok",
-        "ollama_reachable": ollama_ok,
-        "models_available": models,
-        "chat_provider": "ollama_cloud" if using_cloud else "ollama_local",
-        "vision_provider": "ollama_cloud" if using_cloud else "ollama_local",
-        # Cloud-hosted models are assumed available (ollama.com manages
-        # that); only local pulls need this readiness check.
-        "chat_model_ready": True if using_cloud else has(settings.chat_model),
-        "vision_model_ready": True if using_cloud else has(settings.vision_model),
-        "embed_model_ready": has(settings.embed_model),
+        "llm_provider": "mistral",
+        "llm_reachable": status["reachable"],
+        "llm_error": status.get("reason"),
+        "models_available": status.get("models_available", []),
+        "chat_model": settings.mistral_chat_model,
+        "vision_model": settings.mistral_vision_model,
+        "embed_model": settings.mistral_embed_model,
+        "hosting": f"{settings.hosting_provider} ({settings.hosting_country})",
     }

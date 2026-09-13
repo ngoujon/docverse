@@ -117,7 +117,7 @@ space_unlock_limiter = RateLimiter(max_requests=10, window_seconds=300)
 contact_form_limiter = RateLimiter(max_requests=5, window_seconds=3600)
 
 # Generic per-IP chat throttle so one user can't monopolize the single
-# Ollama worker on a small VPS.
+# appel au fournisseur d'IA, facture a l'usage.
 chat_limiter = RateLimiter(max_requests=20, window_seconds=60)
 
 # Account creation and login attempts, per IP.

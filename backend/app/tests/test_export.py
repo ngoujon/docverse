@@ -10,7 +10,7 @@ def create_space(client, token, name="Test space"):
 def _seed_conversation_with_accented_content(space_id: str) -> str:
     """Inserts a conversation with real messages (incl. accents and a
     cited source) directly in the DB - exercises the export code path
-    without needing a live Ollama chat call in tests."""
+    without needing a live Mistral chat call in tests."""
     from app.database import SessionLocal
     from app import models_db
 

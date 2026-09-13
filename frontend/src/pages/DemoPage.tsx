@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, FileText, Image, FileCode, Globe, Sparkles, Rota
 import { usePageMeta } from "../hooks/usePageMeta";
 import { useInvisibleCaptcha } from "../hooks/useInvisibleCaptcha";
 import AnimatedText from "../components/AnimatedText";
+import { pageTitle } from "../brand";
 
 interface DemoDocument {
   name: string;
@@ -35,7 +36,7 @@ export default function DemoPage() {
   const [usedIndexes, setUsedIndexes] = useState<number[]>([]);
 
   usePageMeta({
-    title: `${t("demoPage.title")} - Hyaides`,
+    title: pageTitle(t("demoPage.title")),
     description: t("demoPage.subtitle"),
     canonicalPath: "/demo",
   });

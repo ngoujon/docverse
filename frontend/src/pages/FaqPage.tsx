@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { ArrowLeft, ChevronDown, HelpCircle } from "lucide-react";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { useJsonLd } from "../hooks/useJsonLd";
+import { pageTitle } from "../brand";
 
 interface FaqItem {
   question: string;
@@ -16,7 +17,7 @@ export default function FaqPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   usePageMeta({
-    title: `${t("faq.title")} - Hyaides`,
+    title: pageTitle(t("faq.title")),
     description: t("faq.subtitle"),
     canonicalPath: "/faq",
   });

@@ -12,6 +12,7 @@ import {
   UserCheck,
 } from "lucide-react";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { pageTitle } from "../brand";
 
 // One icon per section, in the order they appear in the locale files.
 const SECTION_ICONS = [
@@ -35,7 +36,7 @@ export default function PrivacyPage() {
   const sections = t("privacy.sections", { returnObjects: true }) as PrivacySection[];
 
   usePageMeta({
-    title: `${t("privacy.title")} - Hyaides`,
+    title: pageTitle(t("privacy.title")),
     description: t("privacy.subtitle"),
     canonicalPath: "/confidentialite",
   });

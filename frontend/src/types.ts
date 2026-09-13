@@ -62,13 +62,16 @@ export interface HealthStatus {
 
 // The full picture, from /api/admin/health - admin session required.
 export interface AdminHealthStatus extends HealthStatus {
-  ollama_reachable: boolean;
+  llm_provider: "mistral";
+  llm_reachable: boolean;
+  /** Renseigne uniquement quand llm_reachable vaut false. */
+  llm_error?: string | null;
   models_available: string[];
-  chat_provider: "ollama_cloud" | "ollama_local";
-  vision_provider: "ollama_cloud" | "ollama_local";
-  chat_model_ready: boolean;
-  vision_model_ready: boolean;
-  embed_model_ready: boolean;
+  chat_model: string;
+  vision_model: string;
+  embed_model: string;
+  /** Ex. "OVHcloud (France)" - affiche tel quel dans l'espace admin. */
+  hosting: string;
 }
 
 export type UserPlan = "decouverte" | "particulier" | "pro" | "entreprise";

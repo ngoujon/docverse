@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 from .. import models_db, schemas
 from ..database import get_db, SessionLocal
 from ..deps import ConversationAccess, require_conversation_access, client_ip
-from ..services import backup, ollama_client, queue_manager, rag, rate_limiter
+from ..services import backup, llm_provider, queue_manager, rag, rate_limiter
 
 logger = logging.getLogger("hyaides.chat")
 router = APIRouter(prefix="/api", tags=["chat"])
@@ -131,15 +131,15 @@ async def chat(
                 messages = rag.build_llm_messages(
                     space_name, history, context_block, user_message
                 )
-                async for token in ollama_client.chat_stream(messages):
+                async for token in llm_provider.chat_stream(messages):
                     full_text += token
                     yield _sse({"type": "token", "content": token})
             except Exception as exc:  # noqa: BLE001
                 logger.exception("Erreur pendant la generation de la reponse")
                 error_text = (
                     "\n\n*Une erreur est survenue pendant la generation "
-                    f"({exc}). Verifiez qu'Ollama est bien demarre et que les "
-                    "modeles sont telecharges.*"
+                    f"({exc}). Le service d'IA est momentanement "
+                    "indisponible, reessayez dans quelques instants.*"
                 )
                 full_text += error_text
                 yield _sse({"type": "token", "content": error_text})

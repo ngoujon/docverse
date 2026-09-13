@@ -28,7 +28,7 @@ def test_rerank_reorders_by_model_response(monkeypatch):
     async def fake_chat(messages, model=None, temperature=0.3):
         return "3,1"
 
-    monkeypatch.setattr(reranker.ollama_client, "chat", fake_chat)
+    monkeypatch.setattr(reranker.llm_provider, "chat", fake_chat)
 
     async def _run():
         candidates = _candidates(5)
@@ -42,7 +42,7 @@ def test_rerank_falls_back_to_vector_order_on_llm_failure(monkeypatch):
     async def fake_chat(messages, model=None, temperature=0.3):
         raise RuntimeError("boom")
 
-    monkeypatch.setattr(reranker.ollama_client, "chat", fake_chat)
+    monkeypatch.setattr(reranker.llm_provider, "chat", fake_chat)
 
     async def _run():
         candidates = _candidates(5)
@@ -56,7 +56,7 @@ def test_rerank_pads_when_model_returns_too_few_indices(monkeypatch):
     async def fake_chat(messages, model=None, temperature=0.3):
         return "2"
 
-    monkeypatch.setattr(reranker.ollama_client, "chat", fake_chat)
+    monkeypatch.setattr(reranker.llm_provider, "chat", fake_chat)
 
     async def _run():
         candidates = _candidates(5)

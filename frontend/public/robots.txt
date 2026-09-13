@@ -1,4 +1,4 @@
-# Open RAG - robots.txt
+# robots.txt
 # The marketing pages (/, /confidentialite) are public and meant to be
 # indexed. Everything else is either a private workspace/dashboard with
 # no unique per-URL content worth indexing, or a page whose URL carries a

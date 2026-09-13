@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft } from "lucide-react";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { pageTitle } from "../brand";
 
 interface LegalSection {
   title: string;
@@ -13,7 +14,7 @@ export default function LegalNoticePage() {
   const sections = t("legal.sections", { returnObjects: true }) as LegalSection[];
 
   usePageMeta({
-    title: `${t("legal.title")} - Hyaides`,
+    title: pageTitle(t("legal.title")),
     description: t("legal.subtitle"),
     canonicalPath: "/mentions-legales",
   });

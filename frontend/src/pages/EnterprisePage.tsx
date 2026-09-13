@@ -5,6 +5,7 @@ import { ArrowLeft, Send, CheckCircle2, AlertCircle, Building2 } from "lucide-re
 import { usePageMeta } from "../hooks/usePageMeta";
 import { api } from "../api/client";
 import { useCaptchaSolution } from "../hooks/useCaptchaSolution";
+import { pageTitle } from "../brand";
 
 export default function EnterprisePage() {
   const { t } = useTranslation();
@@ -23,7 +24,7 @@ export default function EnterprisePage() {
   const teamSizeOptions = t("enterprise.teamSizeOptions", { returnObjects: true }) as string[];
 
   usePageMeta({
-    title: `${t("enterprise.title")} - Hyaides`,
+    title: pageTitle(t("enterprise.title")),
     description: t("enterprise.subtitle"),
     canonicalPath: "/entreprise",
   });

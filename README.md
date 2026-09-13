@@ -1,12 +1,19 @@
 # Hyaides
 
-Application web auto-hebergee (Docker) pour discuter avec une IA locale
-(Ollama) a propos de vos propres documents : PDF, images (scans, photos),
-fichiers audio (transcrits automatiquement), pages web, DOCX, TXT/Markdown.
-L'IA peut aussi completer ses reponses avec une recherche web via un
-moteur local (SearXNG). Le moteur d'IA reste 100% local (Ollama, dans vos
-propres conteneurs Docker) par defaut, avec une bascule optionnelle vers
-Ollama Cloud pour des reponses plus rapides.
+Solution cloud **RAG souveraine** : discutez avec une IA a propos de vos
+propres documents (PDF, images/scans, fichiers audio transcrits
+automatiquement, pages web, DOCX, TXT/Markdown), sur une chaine de
+traitement entierement europeenne.
+
+- **Hebergement en France**, chez OVHcloud.
+- **Moteur d'IA francais** : l'API [Mistral AI](https://mistral.ai)
+  (chat, vision, embeddings), facturee a l'usage. Aucune requete d'IA ne
+  sort de l'Union europeenne.
+- **Transcription audio locale** (Whisper) : les fichiers audio ne
+  quittent jamais le serveur, pas meme vers Mistral.
+- **Recherche web auto-hebergee** (SearXNG) pour completer les reponses
+  avec de l'information recente, sans cle API ni traceur commercial.
+- **Aucun entrainement sur vos donnees.**
 
 Pense pour les structures qui gerent plusieurs clients ou dossiers
 (cabinets, agences, equipes projet) : chaque espace de travail est
@@ -50,8 +57,8 @@ illimitees sur tous les paliers.
   (MP3/WAV/M4A/OGG/FLAC/WEBM), pages web (extraction du contenu principal),
   DOCX, TXT, Markdown.
 - **Lecture d'images par IA** : les documents images ou les pages de PDF
-  scannees sont transcrits/decrits par un modele multimodal Ollama (par
-  defaut `llava`), puis indexes comme du texte normal.
+  scannees sont transcrits/decrits par le modele multimodal de Mistral
+  (par defaut `mistral-medium-latest`), puis indexes comme du texte normal.
 - **Transcription audio** : les fichiers audio sont transcrits localement
   via Whisper (`faster-whisper`, modele telecharge une seule fois dans le
   volume de donnees) puis indexes comme du texte normal - aucun appel a un
@@ -64,7 +71,7 @@ illimitees sur tous les paliers.
   de membres par espace.
 - **RAG (Retrieval-Augmented Generation)** : chaque question est enrichie
   avec les passages les plus pertinents des documents de l'espace
-  (recherche vectorielle via ChromaDB + embeddings Ollama), et citee dans
+  (recherche vectorielle via ChromaDB + embeddings `mistral-embed`), et citee dans
   la reponse (`[1]`, `[2]`, ...).
 - **Recherche web optionnelle** (bouton par conversation) : complete le
   contexte avec des resultats d'un moteur de recherche local (SearXNG),
@@ -84,10 +91,10 @@ illimitees sur tous les paliers.
   portugais, italien. Detection automatique de la langue du navigateur,
   avec selecteur manuel (memorise).
 - **Theme clair/sombre** avec bascule reelle (pas seulement suivre l'OS).
-- **File d'attente pour les requetes IA** : toutes les requetes a Ollama
-  (chat, embeddings, vision) sont traitees une par une par defaut, pour
-  rester stable meme sur un petit serveur avec plusieurs utilisateurs en
-  meme temps (voir `OLLAMA_MAX_CONCURRENCY`).
+- **Limitation des appels simultanes a l'IA** : les appels a l'API
+  Mistral sont plafonnes pour ne pas declencher ses erreurs 429 (quota).
+  L'inference n'etant plus hebergee ici, ce n'est plus une protection du
+  serveur (voir `LLM_MAX_CONCURRENCY`).
 - **Site marketing** (page d'accueil neo-retro, FAQ, formulaire de
   contact, assistant conversationnel d'aide) distinct de l'application
   elle-meme.
@@ -101,7 +108,8 @@ frontend (React + Vite)
 backend (FastAPI)
    ├── SQLite            → espaces, conversations, messages, documents
    ├── ChromaDB (local)  → base vectorielle (une collection par espace)
-   ├── Ollama            → chat, vision (OCR/description d'images), embeddings
+   ├── API Mistral       → chat, vision (OCR/description d'images), embeddings
+   ├── Whisper (local)   → transcription audio, sans appel externe
    └── SearXNG           → recherche web locale (optionnelle)
 ```
 
@@ -120,9 +128,13 @@ Deux variantes de la stack sont fournies :
 ## Prerequis
 
 - Docker et Docker Compose
-- Au moins ~10-15 Go d'espace disque libre pour les modeles Ollama
-- Idealement un GPU (NVIDIA) pour des reponses rapides, mais fonctionne
-  aussi sur CPU (plus lent)
+- Une cle API Mistral (`MISTRAL_API_KEY`), a creer sur
+  <https://console.mistral.ai/>. **Obligatoire** : sans elle, le chat et
+  l'indexation de documents echouent.
+- Aucun GPU requis, et quelques centaines de Mo de disque suffisent :
+  plus aucun modele de langage n'est heberge localement. Seul le modele
+  Whisper (~500 Mo pour `small`) est telecharge, pour la transcription
+  audio.
 
 ## Demarrage (developpement, avec hot-reload)
 
@@ -223,23 +235,25 @@ que le staging reste representatif de la prod.
 
 ## Choix des modeles
 
-Modifiables dans `.env` avant le premier lancement (ou en relancant
-`docker compose up -d` apres modification, un nouveau `ollama pull` sera
-declenche si necessaire) :
+Modifiables dans `.env`, sans redemarrage d'infrastructure : les modeles
+sont heberges par Mistral, il n'y a plus rien a telecharger.
 
-| Variable              | Role                          | Suggestions                                    |
-|------------------------|-------------------------------|-------------------------------------------------|
-| `OLLAMA_CHAT_MODEL`   | Conversation / raisonnement    | `llama3.1:8b`, `qwen2.5:7b-instruct`, `qwen2.5:14b-instruct` |
-| `OLLAMA_VISION_MODEL` | Lecture d'images / PDF scannes | `llava:7b`, `qwen2.5vl:7b`                      |
-| `OLLAMA_EMBED_MODEL`  | Indexation vectorielle         | `nomic-embed-text`                              |
-| `WHISPER_MODEL_SIZE`  | Transcription audio (self-hosted, pas via Ollama) | `small` (par defaut), `base` (plus rapide/moins precis), `medium` |
+| Variable                | Role                           | Suggestions                                              |
+|-------------------------|--------------------------------|----------------------------------------------------------|
+| `MISTRAL_CHAT_MODEL`    | Conversation / raisonnement    | `mistral-large-latest`, `mistral-small-latest` (~8x moins cher) |
+| `MISTRAL_VISION_MODEL`  | Lecture d'images / PDF scannes | `mistral-medium-latest`, `mistral-small-latest`                    |
+| `MISTRAL_EMBED_MODEL`   | Indexation vectorielle         | `mistral-embed`                                          |
+| `WHISPER_MODEL_SIZE`    | Transcription audio (locale, jamais envoyee a Mistral) | `small` (par defaut), `base` (plus rapide/moins precis), `medium` |
 
-Sur une machine avec peu de RAM/VRAM (< 8 Go), privilegiez des modeles
-`:7b` ou plus petits. Vous pouvez changer de modele a tout moment sans
-perdre vos documents deja indexes (seule la generation des reponses et la
-lecture d'images utilisent le modele configure au moment de l'appel). Le
-modele Whisper est telecharge une seule fois (dans le volume `app_data`)
-au premier fichier audio uploade, pas au demarrage.
+> **Attention au modele d'embeddings** : en changer modifie la dimension
+> des vecteurs et rend l'index existant inexploitable. Il faut alors vider
+> la base vectorielle et reindexer tous les documents.
+
+Le modele de chat et celui de vision peuvent etre changes a tout moment
+sans perdre vos documents deja indexes : seules la generation des reponses
+et la lecture d'images utilisent le modele configure au moment de l'appel.
+Le modele Whisper, lui, est telecharge une seule fois (dans le volume
+`app_data`) au premier fichier audio uploade, pas au demarrage.
 
 ## Utilisation
 
@@ -264,16 +278,15 @@ au premier fichier audio uploade, pas au demarrage.
 
 ## Charge et securite (important pour un petit serveur)
 
-Cette application est prevue pour tourner correctement meme sur un VPS
-modeste (2 vCPU type Hostinger KVM 2) :
+Cette application tourne confortablement sur un VPS modeste (2 vCPU) :
+l'inference etant deportee chez Mistral, le serveur ne fait plus que de
+l'orchestration, du stockage et de la recherche vectorielle.
 
-- **File d'attente Ollama** (`OLLAMA_MAX_CONCURRENCY`, defaut `1`) : toutes
-  les requetes IA (chat, recherche, vision) passent par une file globale
-  cote backend. Si plusieurs personnes utilisent l'app en meme temps, elles
-  sont traitees les unes apres les autres au lieu de saturer le serveur ;
-  l'utilisateur voit un indicateur "en file d'attente" pendant l'attente.
-  N'augmentez cette valeur que si votre machine a vraiment la RAM/le GPU
-  pour plusieurs inferences simultanees.
+- **Plafond d'appels simultanes** (`LLM_MAX_CONCURRENCY`, defaut `8`) :
+  les appels a l'API Mistral passent par une file globale cote backend.
+  Ce n'est plus une protection du serveur mais un garde-fou contre les
+  erreurs 429 (quota) du fournisseur ; baissez la valeur si vous en voyez
+  dans les logs.
 - **Limitation de debit** sur le formulaire de contact, la connexion, et
   l'envoi de messages, pour limiter les abus.
 - **Mots de passe utilisateur** stockes uniquement sous forme hachee
@@ -291,9 +304,11 @@ modeste (2 vCPU type Hostinger KVM 2) :
   les services Docker internes) sont bloquees, y compris a travers les
   redirections HTTP.
 - **Ports internes non exposes publiquement en production**
-  (`docker-compose.prod.yml`) : Ollama (11434, sans authentification native)
-  et l'API backend (8000, debug) sont lies a `127.0.0.1` par defaut - seul
-  le frontend (Nginx) est cense etre expose sur Internet.
+  (`docker-compose.prod.yml`) : l'API backend (8000, debug) est liee a
+  `127.0.0.1` par defaut - seul le frontend (Nginx) est cense etre expose
+  sur Internet.
+- **Cle API Mistral cote serveur uniquement** : elle ne transite jamais
+  par le navigateur, aucun appel a Mistral n'est fait depuis le frontend.
 - Le limiteur de debit identifie le vrai client via l'en-tete `X-Real-IP`
   positionne par Nginx (non falsifiable par l'appelant), pas via
   `X-Forwarded-For` seul qui peut etre manipule.
@@ -386,7 +401,7 @@ Backend :
 cd backend
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-export OLLAMA_BASE_URL=http://localhost:11434
+export MISTRAL_API_KEY=...        # obligatoire
 export SEARXNG_BASE_URL=http://localhost:8081
 export DATA_DIR=./data
 uvicorn app.main:app --reload --port 8000
@@ -402,22 +417,23 @@ VITE_API_PROXY_TARGET=http://localhost:8000 npm run dev
 
 ## Depannage
 
-- **"Ollama injoignable"** (point rouge dans la colonne de gauche) :
-  verifiez `docker compose logs ollama` et que le conteneur est demarre.
-- **Documents bloques en "En attente"** : les modeles Ollama sont peut-etre
-  en cours de telechargement (ils se telechargent a la premiere utilisation)
-  — verifiez `docker compose logs ollama`.
-- **Reponses lentes / CPU a 100%** : normal sans GPU avec de gros modeles ;
-  essayez un modele de chat plus petit (`qwen2.5:7b-instruct` par ex.).
+- **"IA injoignable"** (point rouge dans la colonne de gauche) : verifiez
+  que `MISTRAL_API_KEY` est renseignee et valide. Le detail de l'erreur
+  est renvoye par `GET /api/admin/health` (session admin requise).
+- **Documents bloques en "En attente"** : regardez `docker compose logs
+  backend` — le plus souvent une cle API absente, un quota Mistral
+  depasse (429) ou un solde epuise.
+- **Reponses lentes** : essayez `mistral-small-latest`, nettement plus
+  rapide et moins cher que `mistral-large-latest`.
 - **Recherche web sans resultat** : verifiez `docker compose logs searxng`.
 - **Deconnecte de facon inattendue** : le jeton de session est stocke dans
   le navigateur (localStorage) ; si vous changez de navigateur/appareil ou
   videz les donnees du site, vous devrez vous reconnecter. Idem si le
   backend a redemarre sans `SECRET_KEY` fixe dans `.env` (une cle
   temporaire est alors regeneree, invalidant toutes les sessions).
-- **"En file d'attente" reste affiche longtemps** : normal si plusieurs
-  personnes discutent en meme temps sur un serveur a `OLLAMA_MAX_CONCURRENCY=1`
-  - les requetes sont traitees dans l'ordre d'arrivee.
+- **"En file d'attente" reste affiche longtemps** : `LLM_MAX_CONCURRENCY`
+  est peut-etre trop bas pour votre trafic - les requetes sont traitees
+  dans l'ordre d'arrivee.
 - **Mes changements de code n'apparaissent pas** : en mode developpement
   (`docker compose.yml`), aucun rebuild n'est necessaire — verifiez que
   vous etes bien sur http://localhost:3000 (et pas 8080, qui correspond au
@@ -428,11 +444,17 @@ VITE_API_PROXY_TARGET=http://localhost:8000 npm run dev
 
 ## Confidentialite
 
-Les documents, embeddings et conversations restent dans les volumes Docker
-locaux (`app_data`, `ollama_data`) et la recherche web est auto-hebergee
-(SearXNG, sans tracking). La connexion SSO (Google) et le paiement
-(Stripe, en cours d'integration) sont les deux seuls appels a des services
-tiers, et uniquement pour ce qui les concerne directement (identite,
-facturation) - jamais pour le contenu des documents ou des conversations.
+Les documents, embeddings et conversations sont stockes dans le volume
+Docker `app_data`, sur des serveurs situes en France (OVHcloud). La
+recherche web est auto-hebergee (SearXNG, sans tracking) et la
+transcription audio s'execute sur le serveur, sans appel externe.
+
+Le contenu des documents et des questions n'est transmis qu'a **Mistral
+AI** (societe francaise, traitements dans l'Union europeenne) pour generer
+les reponses, et n'est jamais utilise pour entrainer un modele. La
+connexion SSO (Google) et le paiement (Stripe) sont les seuls autres
+appels a des services tiers, uniquement pour ce qui les concerne
+directement (identite, facturation) - jamais pour le contenu des documents
+ou des conversations.
 Voir la page "Confidentialite" de l'application pour le detail RGPD
 (export et suppression de compte, desabonnement newsletter).

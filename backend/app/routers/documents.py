@@ -9,7 +9,7 @@ from .. import config, models_db, schemas
 from ..config import UPLOAD_DIR, settings
 from ..database import get_db, SessionLocal
 from ..deps import DocumentAccess, SpaceAccess, require_space_access, require_document_access
-from ..services import backup, document_processor, ollama_client, vectorstore
+from ..services import backup, document_processor, llm_provider, vectorstore
 from ..utils.chunking import split_text
 
 logger = logging.getLogger("hyaides.documents")
@@ -55,9 +55,10 @@ async def _ingest(document_id: str) -> None:
                 db.commit()
                 return
 
-            embeddings = []
-            for chunk in chunks:
-                embeddings.append(await ollama_client.embed(chunk))
+            # Un seul appel par lot de chunks : l'API Mistral vectorise
+            # plusieurs textes a la fois, la ou l'ancien Ollama local
+            # imposait une requete par chunk.
+            embeddings = await llm_provider.embed_batch(chunks)
 
             vectorstore.add_chunks(doc.space_id, doc.id, doc.name, chunks, embeddings)
 

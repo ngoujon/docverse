@@ -33,6 +33,7 @@ import SnapshotsPanel from "../components/SnapshotsPanel";
 import TestimonialModal from "../components/TestimonialModal";
 import CreateUserModal from "../components/CreateUserModal";
 import type { AdminStats, Invoice, Space, Testimonial, TestimonialInput, User } from "../types";
+import { pageTitle } from "../brand";
 
 const PAGE_SIZE = 50;
 
@@ -54,7 +55,7 @@ export default function AdminDashboardPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { user: currentUser } = useAuth();
-  usePageMeta({ title: `${t("dashboard.nav.admin")} - Hyaides`, noindex: true });
+  usePageMeta({ title: pageTitle(t("dashboard.nav.admin")), noindex: true });
 
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [users, setUsers] = useState<User[]>([]);

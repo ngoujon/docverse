@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft } from "lucide-react";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { pageTitle } from "../brand";
 
 interface TermsSection {
   title: string;
@@ -13,7 +14,7 @@ export default function TermsPage() {
   const sections = t("terms.sections", { returnObjects: true }) as TermsSection[];
 
   usePageMeta({
-    title: `${t("terms.title")} - Hyaides`,
+    title: pageTitle(t("terms.title")),
     description: t("terms.subtitle"),
     canonicalPath: "/cgu",
   });

@@ -6,6 +6,7 @@ import { api } from "../api/client";
 import { useAuth } from "../hooks/useAuth";
 import AuthLayout from "../components/AuthLayout";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { pageTitle } from "../brand";
 
 export default function VerifyEmailPage() {
   const { t } = useTranslation();
@@ -13,7 +14,7 @@ export default function VerifyEmailPage() {
   const token = params.get("token") || "";
   const { refresh } = useAuth();
   const [status, setStatus] = useState<"loading" | "ok" | "error">("loading");
-  usePageMeta({ title: `${t("auth.verify.title")} - Hyaides`, noindex: true });
+  usePageMeta({ title: pageTitle(t("auth.verify.title")), noindex: true });
 
   useEffect(() => {
     if (!token) {

@@ -24,30 +24,23 @@ def _parse_origins(raw: str) -> list[str]:
 
 
 class Settings:
-    ollama_base_url: str = os.environ.get("OLLAMA_BASE_URL", "http://ollama:11434")
-    chat_model: str = os.environ.get("OLLAMA_CHAT_MODEL", "llama3.1:8b")
-    vision_model: str = os.environ.get("OLLAMA_VISION_MODEL", "llava:7b")
-    embed_model: str = os.environ.get("OLLAMA_EMBED_MODEL", "nomic-embed-text")
+    # --- Marque -----------------------------------------------------------
+    # Le nom commercial et le domaine sont volontairement pilotes par
+    # l'environnement : ils apparaissent dans les emails, les meta et les
+    # mentions legales, et le produit doit pouvoir etre renomme sans
+    # rechercher/remplacer dans tout le code.
+    brand_name: str = os.environ.get("BRAND_NAME", "Hyaides")
+    brand_domain: str = os.environ.get("BRAND_DOMAIN", "example.com")
+    # Pays d'hebergement affiche dans l'UI et les documents contractuels.
+    hosting_country: str = os.environ.get("HOSTING_COUNTRY", "France")
+    hosting_provider: str = os.environ.get("HOSTING_PROVIDER", "OVHcloud")
 
-    # Ollama Cloud (https://ollama.com/models) speaks the same /api/chat
-    # protocol as local Ollama, just hosted, auth'd with a bearer key, and
-    # without an /api/embeddings route - so when a key is present, chat and
-    # vision transparently switch to it for more reactive responses while
-    # embeddings (used for retrieval) always stay on the local instance.
-    ollama_cloud_api_key: str = os.environ.get("OLLAMA_CLOUD_API_KEY", "")
-    ollama_cloud_base_url: str = os.environ.get("OLLAMA_CLOUD_BASE_URL", "https://ollama.com")
-    ollama_cloud_chat_model: str = os.environ.get("OLLAMA_CLOUD_CHAT_MODEL", "gpt-oss:20b")
-    ollama_cloud_vision_model: str = os.environ.get("OLLAMA_CLOUD_VISION_MODEL", "qwen3.5")
-
-    @property
-    def use_ollama_cloud(self) -> bool:
-        return bool(self.ollama_cloud_api_key)
-
-    # Requests to Ollama (chat, embeddings, vision) are serialized through a
-    # queue so a small, CPU-only VPS doesn't get overwhelmed by concurrent
-    # users. Only raise this if Ollama actually has the RAM/GPU headroom to
-    # run several inferences at once.
-    ollama_max_concurrency: int = int(os.environ.get("OLLAMA_MAX_CONCURRENCY", "1"))
+    # --- Nombre d'appels simultanes au fournisseur d'IA -------------------
+    # L'inference est desormais hebergee (API Mistral) : cette limite ne
+    # protege plus un petit Ollama local de la saturation, elle evite
+    # seulement de declencher les 429 du fournisseur. D'ou une valeur bien
+    # plus haute que le mono-worker d'avant.
+    llm_max_concurrency: int = int(os.environ.get("LLM_MAX_CONCURRENCY", "8"))
 
     searxng_base_url: str = os.environ.get("SEARXNG_BASE_URL", "http://searxng:8080")
 
@@ -76,14 +69,14 @@ class Settings:
     # confirmation) since the backend doesn't know its own public URL.
     frontend_base_url: str = os.environ.get("FRONTEND_BASE_URL", "http://localhost:3000")
 
-    # --- LLM provider ---------------------------------------------------
-    # "ollama" today; "mistral" once MISTRAL_API_KEY is provided and this
-    # is flipped. See services/llm_provider.py.
-    llm_provider: str = os.environ.get("LLM_PROVIDER", "ollama")
+    # --- Fournisseur d'IA : Mistral AI ------------------------------------
+    # Unique fournisseur depuis le passage a l'offre souveraine : chat,
+    # vision et embeddings sont tous servis par l'API Mistral, operee en
+    # France. Voir services/llm_provider.py.
     mistral_api_key: str = os.environ.get("MISTRAL_API_KEY", "")
     mistral_base_url: str = os.environ.get("MISTRAL_BASE_URL", "https://api.mistral.ai")
     mistral_chat_model: str = os.environ.get("MISTRAL_CHAT_MODEL", "mistral-large-latest")
-    mistral_vision_model: str = os.environ.get("MISTRAL_VISION_MODEL", "pixtral-large-latest")
+    mistral_vision_model: str = os.environ.get("MISTRAL_VISION_MODEL", "mistral-medium-latest")
     mistral_embed_model: str = os.environ.get("MISTRAL_EMBED_MODEL", "mistral-embed")
 
     # --- Outbound email ---------------------------------------------------
@@ -94,7 +87,7 @@ class Settings:
     smtp_user: str = os.environ.get("SMTP_USER", "")
     smtp_password: str = os.environ.get("SMTP_PASSWORD", "")
     smtp_use_tls: bool = os.environ.get("SMTP_USE_TLS", "true").lower() != "false"
-    smtp_from: str = os.environ.get("SMTP_FROM", "Hyaides <no-reply@hyaides.local>")
+    smtp_from: str = os.environ.get("SMTP_FROM", "Hyaides <no-reply@example.com>")
 
     # --- SSO (Google / Apple) --------------------------------------------
     # Each provider is only offered on the login/register pages once its

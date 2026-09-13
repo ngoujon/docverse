@@ -1,32 +1,10 @@
 # Project name pinned explicitly (rather than derived from the folder
 # name) so renaming the local checkout never orphans the existing named
-# volumes (app_data holds the real SQLite DB, ollama_data the pulled
-# models) - Docker Compose scopes volume names by project name.
+# volumes (app_data holds the real SQLite DB and the Whisper model)
+# - Docker Compose scopes volume names by project name.
 name: hyaides
 
 services:
-  ollama:
-    image: ollama/ollama:latest
-    restart: unless-stopped
-    volumes:
-      - ollama_data:/root/.ollama
-    ports:
-      - "11434:11434"
-    healthcheck:
-      test: ["CMD", "ollama", "list"]
-      interval: 10s
-      timeout: 5s
-      retries: 12
-      start_period: 20s
-    # Uncomment to use an NVIDIA GPU (requires the NVIDIA Container Toolkit):
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - driver: nvidia
-    #           count: all
-    #           capabilities: [gpu]
-
   searxng:
     image: searxng/searxng:latest
     restart: unless-stopped
@@ -41,26 +19,11 @@ services:
     build: ./backend
     restart: unless-stopped
     depends_on:
-      ollama:
-        condition: service_healthy
       searxng:
         condition: service_started
     environment:
-      - OLLAMA_BASE_URL=http://ollama:11434
-      - OLLAMA_CHAT_MODEL=${OLLAMA_CHAT_MODEL:-llama3.1:8b}
-      - OLLAMA_VISION_MODEL=${OLLAMA_VISION_MODEL:-llava:7b}
-      - OLLAMA_EMBED_MODEL=${OLLAMA_EMBED_MODEL:-nomic-embed-text}
-      # Ollama Cloud (https://ollama.com): when OLLAMA_CLOUD_API_KEY is set,
-      # chat + vision transparently switch to the hosted models below for
-      # more reactive responses - embeddings always stay local (the cloud
-      # API has no /api/embeddings).
-      - OLLAMA_CLOUD_API_KEY=${OLLAMA_CLOUD_API_KEY:-}
-      - OLLAMA_CLOUD_BASE_URL=${OLLAMA_CLOUD_BASE_URL:-https://ollama.com}
-      - OLLAMA_CLOUD_CHAT_MODEL=${OLLAMA_CLOUD_CHAT_MODEL:-gpt-oss:20b}
-      - OLLAMA_CLOUD_VISION_MODEL=${OLLAMA_CLOUD_VISION_MODEL:-qwen3.5}
       - SEARXNG_BASE_URL=http://searxng:8080
       - MAX_UPLOAD_MB=${MAX_UPLOAD_MB:-50}
-      - OLLAMA_MAX_CONCURRENCY=${OLLAMA_MAX_CONCURRENCY:-1}
       - SECRET_KEY=${SECRET_KEY:-}
       - USER_TOKEN_TTL_DAYS=${USER_TOKEN_TTL_DAYS:-30}
       - CORS_ORIGINS=${CORS_ORIGINS:-*}
@@ -77,9 +40,21 @@ services:
       - SMTP_PASSWORD=${SMTP_PASSWORD:-}
       - SMTP_USE_TLS=${SMTP_USE_TLS:-true}
       - SMTP_FROM=${SMTP_FROM:-Hyaides <no-reply@hyaides.local>}
-      # Mistral: prepared, not yet wired to a live provider switch - see
-      # TODO.md Phase 3.
+      # --- IA : Mistral AI (unique fournisseur) --------------------------
+      # Chat, vision et embeddings passent tous par l'API Mistral, operee
+      # en France. Sans MISTRAL_API_KEY, le chat et l'indexation de
+      # documents echouent : c'est desormais une dependance dure.
       - MISTRAL_API_KEY=${MISTRAL_API_KEY:-}
+      - MISTRAL_BASE_URL=${MISTRAL_BASE_URL:-https://api.mistral.ai}
+      - MISTRAL_CHAT_MODEL=${MISTRAL_CHAT_MODEL:-mistral-large-latest}
+      - MISTRAL_VISION_MODEL=${MISTRAL_VISION_MODEL:-mistral-medium-latest}
+      - MISTRAL_EMBED_MODEL=${MISTRAL_EMBED_MODEL:-mistral-embed}
+      - LLM_MAX_CONCURRENCY=${LLM_MAX_CONCURRENCY:-8}
+      # --- Marque (permet de renommer le produit sans toucher au code) ---
+      - BRAND_NAME=${BRAND_NAME:-Hyaides}
+      - BRAND_DOMAIN=${BRAND_DOMAIN:-example.com}
+      - HOSTING_COUNTRY=${HOSTING_COUNTRY:-France}
+      - HOSTING_PROVIDER=${HOSTING_PROVIDER:-OVHcloud}
       # SSO (Google/Microsoft/Apple): a provider is only offered on the
       # login/register pages once its client id is set.
       - BACKEND_BASE_URL=${BACKEND_BASE_URL:-http://localhost:8000}
@@ -123,6 +98,5 @@ services:
       - "${FRONTEND_PORT:-3000}:3000"
 
 volumes:
-  ollama_data:
   app_data:
   frontend_node_modules:

@@ -6,13 +6,14 @@ import { api } from "../api/client";
 import AuthLayout from "../components/AuthLayout";
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { pageTitle } from "../brand";
 
 export default function ResetPasswordPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const token = params.get("token") || "";
-  usePageMeta({ title: `${t("auth.reset.title")} - Hyaides`, noindex: true });
+  usePageMeta({ title: pageTitle(t("auth.reset.title")), noindex: true });
 
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);

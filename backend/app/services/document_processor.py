@@ -10,7 +10,7 @@ import httpx
 import trafilatura
 from docx import Document as DocxDocument
 
-from . import ollama_client, transcription
+from . import llm_provider, transcription
 
 IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".gif", ".bmp"}
 AUDIO_EXTENSIONS = {".mp3", ".wav", ".m4a", ".ogg", ".flac", ".webm"}
@@ -47,8 +47,10 @@ async def extract_text_from_pdf(path: Path) -> str:
             if len(text) < _MIN_TEXT_CHARS_PER_PAGE:
                 pix = page.get_pixmap(dpi=200)
                 img_bytes = pix.tobytes("png")
-                described = await ollama_client.describe_image(
-                    _b64_from_bytes(img_bytes), _SCANNED_PAGE_PROMPT
+                described = await llm_provider.describe_image(
+                    _b64_from_bytes(img_bytes),
+                    _SCANNED_PAGE_PROMPT,
+                    mime_type="image/png",
                 )
                 text = described.strip()
             parts.append(f"[Page {page_index + 1}]\n{text}")
@@ -57,9 +59,24 @@ async def extract_text_from_pdf(path: Path) -> str:
     return "\n\n".join(parts)
 
 
+# L'API Mistral recoit l'image dans une data-URI : le type MIME doit
+# correspondre au contenu reel, sans quoi elle rejette la requete. On le
+# deduit de l'extension plutot que d'annoncer du JPEG par defaut.
+_IMAGE_MIME_TYPES = {
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".png": "image/png",
+    ".webp": "image/webp",
+    ".gif": "image/gif",
+}
+
+
 async def extract_text_from_image(path: Path) -> str:
     data = path.read_bytes()
-    return await ollama_client.describe_image(_b64_from_bytes(data), _IMAGE_PROMPT)
+    mime_type = _IMAGE_MIME_TYPES.get(path.suffix.lower(), "image/jpeg")
+    return await llm_provider.describe_image(
+        _b64_from_bytes(data), _IMAGE_PROMPT, mime_type=mime_type
+    )
 
 
 async def extract_text_from_audio(path: Path) -> str:
@@ -100,7 +117,7 @@ def _is_public_ip(ip_str: str) -> bool:
 async def _assert_public_url(url: str) -> None:
     """Blocks requests to internal/cloud-metadata/loopback addresses so the
     URL-ingestion and web-search features can't be used for SSRF (e.g.
-    pointing at http://169.254.169.254/, http://ollama:11434, localhost...).
+    pointing at http://169.254.169.254/, http://backend:8000, localhost...).
     Resolves the hostname ourselves rather than trusting the string, since
     that's also what actually gets connected to."""
     parsed = urlparse(url)

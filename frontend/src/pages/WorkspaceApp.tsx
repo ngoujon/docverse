@@ -15,6 +15,7 @@ import SpaceModal, { type SpaceFormData } from "../components/SpaceModal";
 import SpaceSharingPanel from "../components/SpaceSharingPanel";
 import VectorGraphOverlay from "../components/VectorGraphOverlay";
 import ConfirmDialog from "../components/ConfirmDialog";
+import { pageTitle } from "../brand";
 
 export default function WorkspaceApp() {
   const { t } = useTranslation();
@@ -63,10 +64,10 @@ export default function WorkspaceApp() {
 
   usePageMeta({
     title: activeConversation
-      ? `${activeConversation.title} - ${activeSpace?.name ?? ""} - Hyaides`
+      ? pageTitle(`${activeConversation.title} - ${activeSpace?.name ?? ""}`)
       : activeSpace
-      ? `${activeSpace.name} - Hyaides`
-      : "Hyaides",
+      ? pageTitle(activeSpace.name)
+      : pageTitle(),
     noindex: true,
   });
 

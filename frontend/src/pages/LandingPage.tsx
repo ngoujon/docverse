@@ -12,6 +12,10 @@ import {
   Globe2,
   ServerCog,
   Sparkles,
+  MapPin,
+  Cpu,
+  ShieldCheck,
+  MicOff,
 } from "lucide-react";
 import NeoGrid from "../components/landing/NeoGrid";
 import StarField from "../components/landing/StarField";
@@ -26,6 +30,9 @@ import NewsletterSignup from "../components/NewsletterSignup";
 import LanguageSwitcher from "../components/LanguageSwitcher";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { useAuth } from "../hooks/useAuth";
+import { BRAND } from "../brand";
+
+const SOVEREIGNTY_ICONS = [MapPin, Cpu, ShieldCheck, MicOff];
 
 const FEATURE_ICONS = [FolderLock, FileStack, UserCog, InfinityIcon, Globe2, ServerCog];
 const FEATURE_COLORS = [
@@ -51,14 +58,20 @@ export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   usePageMeta({
-    title: `Hyaides - ${t("hero.title1")} ${t("hero.title2")}`,
+    title: `${BRAND.name} - ${t("hero.title1")} ${t("hero.title2")}`,
     description: t("hero.subtitle"),
     canonicalPath: "/",
   });
 
-  const navLinks = [{ label: t("nav.features"), href: "#fonctionnalites" }];
+  const navLinks = [
+    { label: t("nav.sovereignty"), href: "#souverainete" },
+    { label: t("nav.features"), href: "#fonctionnalites" },
+  ];
   const features = t("features.items", { returnObjects: true }) as FeatureItem[];
   const badges = t("hero.badges", { returnObjects: true }) as string[];
+  const sovereigntyItems = t("sovereignty.items", {
+    returnObjects: true,
+  }) as FeatureItem[];
 
   return (
     <div className="min-h-screen bg-retro-bg font-sans text-slate-800">
@@ -273,6 +286,43 @@ export default function LandingPage() {
           <Link to="/demo" className="block transition hover:-translate-y-0.5">
             <ChatMockup />
           </Link>
+        </div>
+      </section>
+
+      {/* Souverainete - place juste apres le hero parce que c'est
+          l'argument d'achat principal, pas un detail de bas de page. */}
+      <section
+        id="souverainete"
+        className="border-t border-retro-border/60 bg-retro-panel/20 px-4 py-20 sm:px-6"
+      >
+        <div className="mx-auto max-w-6xl">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-retro-cyan">
+              {t("sovereignty.eyebrow")}
+            </p>
+            <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
+              {t("sovereignty.title")}
+            </h2>
+            <p className="mt-3 text-sm text-slate-600">{t("sovereignty.subtitle")}</p>
+          </div>
+
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {sovereigntyItems.map((item, i) => {
+              const Icon = SOVEREIGNTY_ICONS[i];
+              return (
+                <div
+                  key={item.title}
+                  className="rounded-2xl border border-retro-border bg-retro-panel/40 p-5"
+                >
+                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-retro-cyan/10 text-retro-cyan">
+                    <Icon size={18} />
+                  </span>
+                  <h3 className="mt-3 text-sm font-semibold text-slate-900">{item.title}</h3>
+                  <p className="mt-1.5 text-xs leading-relaxed text-slate-600">{item.desc}</p>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 

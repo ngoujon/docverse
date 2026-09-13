@@ -1,6 +1,6 @@
 import re
 
-from . import ollama_client, reranker, vectorstore, websearch
+from . import llm_provider, reranker, vectorstore, websearch
 from ..config import settings
 
 _WEB_SEARCH_CLASSIFIER_PROMPT = (
@@ -32,7 +32,7 @@ async def _should_auto_search_web(query: str) -> bool:
     if len(stripped) < 3 or _OBVIOUSLY_NO_SEARCH_RE.match(stripped):
         return False
     try:
-        answer = await ollama_client.chat(
+        answer = await llm_provider.chat(
             [{"role": "user", "content": _WEB_SEARCH_CLASSIFIER_PROMPT.format(query=query)}],
             temperature=0,
         )
@@ -68,7 +68,7 @@ _SYSTEM_PROMPT_TEMPLATE = (
 async def retrieve_document_context(
     space_id: str, query: str, doc_ids: list[str] | None = None
 ) -> list[dict]:
-    embedding = await ollama_client.embed(query)
+    embedding = await llm_provider.embed(query)
     pool = settings.rerank_candidate_pool
     top_k = settings.retrieval_top_k
     if doc_ids:

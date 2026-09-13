@@ -6,6 +6,7 @@ import { useAuth } from "../hooks/useAuth";
 import AuthLayout from "../components/AuthLayout";
 import SsoButtons from "../components/SsoButtons";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { pageTitle } from "../brand";
 
 export default function LoginPage() {
   const { t } = useTranslation();
@@ -13,7 +14,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const redirectTo = (location.state as { from?: string } | null)?.from || "/dashboard";
-  usePageMeta({ title: `${t("auth.login.title")} - Hyaides`, noindex: true });
+  usePageMeta({ title: pageTitle(t("auth.login.title")), noindex: true });
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

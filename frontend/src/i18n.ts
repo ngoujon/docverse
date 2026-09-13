@@ -2,6 +2,8 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
+import { BRAND } from "./brand";
+
 import fr from "./locales/fr.json";
 import en from "./locales/en.json";
 import de from "./locales/de.json";
@@ -40,7 +42,20 @@ i18n
       lookupLocalStorage: "hyaides:lang",
       caches: ["localStorage"],
     },
-    interpolation: { escapeValue: false },
+    interpolation: {
+      escapeValue: false,
+      // Le nom du produit, le domaine et les partenaires ne sont jamais
+      // ecrits en dur dans les traductions : elles utilisent {{brand}},
+      // {{domain}}, etc. Un renommage se fait donc en changeant les
+      // VITE_BRAND_* au build, sans retoucher les six fichiers de langue.
+      defaultVariables: {
+        brand: BRAND.name,
+        domain: BRAND.domain,
+        aiProvider: BRAND.aiProvider,
+        hostingCountry: BRAND.hostingCountry,
+        hostingProvider: BRAND.hostingProvider,
+      },
+    },
   });
 
 export default i18n;

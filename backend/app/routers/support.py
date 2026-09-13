@@ -6,7 +6,7 @@ from fastapi.responses import StreamingResponse
 
 from .. import schemas
 from ..deps import client_ip
-from ..services import ollama_client, rate_limiter
+from ..services import llm_provider, rate_limiter
 
 logger = logging.getLogger("hyaides.support")
 router = APIRouter(prefix="/api/support", tags=["support"])
@@ -14,9 +14,11 @@ router = APIRouter(prefix="/api/support", tags=["support"])
 _HISTORY_LIMIT = 12
 
 _SYSTEM_PROMPT = """Tu es l'assistant d'accueil du site Hyaides, un service \
-SaaS edite par [credit] permettant de discuter avec ses documents grace a une IA \
-(RAG, propulse par Ollama) - aucune installation requise, tout est heberge par \
-[credit].
+SaaS souverain edite par [credit] permettant de discuter avec ses documents grace \
+a une IA (RAG, propulse par Mistral AI, editeur francais) - aucune installation \
+requise, tout est heberge en France chez OVHcloud. Les donnees des clients ne \
+quittent jamais l'Union europeenne et ne sont jamais utilisees pour entrainer \
+un modele.
 
 Ton unique role est d'aider les visiteurs du site a comprendre et a utiliser \
 Hyaides : creation de compte, espaces de travail, roles (proprietaire/editeur/\
@@ -94,7 +96,7 @@ async def support_chat(payload: schemas.SupportChatRequest, request: Request):
     async def event_stream():
         full_text = ""
         try:
-            async for token in ollama_client.chat_stream(messages, temperature=0.3):
+            async for token in llm_provider.chat_stream(messages, temperature=0.3):
                 full_text += token
                 yield _sse({"type": "token", "content": token})
         except Exception:

@@ -10,6 +10,7 @@
   },
   "nav": {
     "features": "Funciones",
+    "sovereignty": "Soberania",
     "demo": "Demo",
     "pricing": "Precios",
     "contact": "Contacto",
@@ -18,19 +19,42 @@
   },
   "hero": {
     "badges": [
+      "Alojado en Francia",
+      "IA francesa - Mistral",
       "Preguntas ilimitadas",
-      "Desde 9€/mes",
-      "Plan gratuito",
-      "Compartir por rol"
+      "Plan gratuito"
     ],
-    "title1": "Conversa con tus documentos,",
-    "title2": "un espacio por cliente.",
-    "subtitle": "La solucion para que tus equipos encuentren una respuesta en segundos en lugar de buscarla durante horas. Sube tus documentos, consultalos en lenguaje natural, sobre una plataforma segura alojada y operada por [credit].",
+    "title1": "Tu solucion cloud RAG soberana,",
+    "title2": "alojada en Francia.",
+    "subtitle": "Sube tus documentos, consultalos en lenguaje natural y obten respuestas con fuentes. Toda la cadena es europea: alojamiento {{hostingProvider}} en {{hostingCountry}}, motor de IA {{aiProvider}}, editor frances. Tus datos nunca salen de la Union Europea.",
     "ctaTry": "Probar ahora",
     "ctaDiscover": "Ver precios"
   },
+  "sovereignty": {
+    "eyebrow": "Soberania digital",
+    "title": "Desde la carga hasta la respuesta, todo permanece en Europa",
+    "subtitle": "La soberania no se declara en una pagina legal: se comprueba proveedor por proveedor. Estos son los nuestros.",
+    "items": [
+      {
+        "title": "Alojado en {{hostingCountry}}, en {{hostingProvider}}",
+        "desc": "Documentos, conversaciones e indice vectorial se almacenan en servidores situados en {{hostingCountry}} y operados por una empresa europea, fuera del ambito del CLOUD Act estadounidense."
+      },
+      {
+        "title": "Un motor de IA frances",
+        "desc": "Las respuestas las genera {{aiProvider}}, editor frances de modelos de lenguaje. Ninguna peticion de IA se envia a un proveedor fuera de la Union Europea."
+      },
+      {
+        "title": "Tus datos no entrenan ningun modelo",
+        "desc": "Tus documentos y preguntas nunca se usan para entrenar un modelo, ni por nosotros ni por nuestro proveedor de IA. Nada que desmarcar: es el comportamiento por defecto."
+      },
+      {
+        "title": "El audio nunca sale de nuestros servidores",
+        "desc": "La transcripcion de tus archivos de audio se ejecuta en nuestra propia infraestructura, sin llamadas a servicios de terceros - ni siquiera al proveedor del modelo de chat."
+      }
+    ]
+  },
   "testimonials": {
-    "eyebrow": "Ellos usan Hyaides",
+    "eyebrow": "Ellos usan {{brand}}",
     "title": "Lo que dicen nuestros usuarios"
   },
   "highlight": {
@@ -40,8 +64,8 @@
   },
   "features": {
     "eyebrow": "Lo que obtienes",
-    "title": "Pensado para estructuras que gestionan varios clientes o expedientes",
-    "subtitle": "Despachos, agencias, equipos de proyecto: un espacio aislado por cliente, un acceso controlado por persona, y un coste que no cambia segun el numero de preguntas realizadas.",
+    "title": "El RAG soberano para estructuras que gestionan varios clientes o expedientes",
+    "subtitle": "Despachos, agencias, equipos de proyecto: un espacio aislado por cliente, acceso controlado por persona, un coste que no varia con el numero de preguntas - y un cumplimiento del RGPD que no depende de ninguna transferencia fuera de la Union Europea.",
     "items": [
       {
         "title": "Un espacio por cliente, un acceso por persona",
@@ -60,12 +84,12 @@
         "desc": "Haz tantas preguntas como quieras, en todos los planes: sin contador de mensajes, sin facturacion por uso que suba con la actividad del equipo."
       },
       {
-        "title": "Busqueda web sin fuga hacia terceros",
-        "desc": "Cuando una pregunta necesita informacion reciente, la busqueda pasa por un motor autoalojado, sin clave API ni rastreador comercial."
+        "title": "Busqueda web sin fugas a terceros",
+        "desc": "Cuando una pregunta necesita informacion reciente, la busqueda pasa por un motor autoalojado, sin clave de API ni rastreadores comerciales."
       },
       {
-        "title": "Alojamiento que controlas",
-        "desc": "Tus documentos y conversaciones permanecen bajo tu control, con un motor de IA que puedes hacer evolucionar sin depender de un unico proveedor."
+        "title": "Alojado en Francia, fuera del CLOUD Act",
+        "desc": "Tus documentos, conversaciones e indice vectorial permanecen en servidores situados en {{hostingCountry}}, en {{hostingProvider}} - un proveedor europeo, fuera del ambito de aplicacion del CLOUD Act estadounidense."
       }
     ]
   },
@@ -283,7 +307,7 @@
       },
       {
         "title": "Cuenta y datos del espacio",
-        "body": "Tu email y tu contrasena (cifrada) son necesarios para crear una cuenta. Los documentos que subes, su contenido indexado y tus conversaciones se almacenan en el servidor que aloja el servicio (base de datos y base vectorial dedicadas), separados por espacio de trabajo, y nunca se revenden ni se utilizan para entrenar un modelo de IA. Para generar una respuesta, leer una imagen o indexar un documento, el texto correspondiente se envia a un motor de inferencia: segun la configuracion del servicio, ese tratamiento se realiza en nuestros propios servidores o en un proveedor de inferencia de IA (ver la seccion Proveedores tecnicos mas abajo)."
+        "body": "Tu email y tu contrasena (cifrada) son necesarios para crear una cuenta. Los documentos que subes, su contenido indexado y tus conversaciones se almacenan en el servidor que aloja el servicio (base de datos y base vectorial dedicadas), separados por espacio de trabajo, y nunca se revenden ni se utilizan para entrenar un modelo de IA. Para generar una respuesta, leer una imagen o indexar un documento, el texto correspondiente se transmite a nuestro proveedor de inferencia de IA, Mistral AI, empresa francesa cuyos tratamientos se realizan dentro de la Union Europea (ver la seccion Proveedores tecnicos mas abajo). La transcripcion de tus archivos de audio, en cambio, se ejecuta en nuestros propios servidores y no se transmite a ningun tercero."
       },
       {
         "title": "Lo que subes",
@@ -295,7 +319,7 @@
       },
       {
         "title": "Proveedores tecnicos",
-        "body": "Para funcionar, el servicio se apoya en un pequeno numero de proveedores, que actuan como encargados del tratamiento y estan vinculados por contrato: un proveedor de alojamiento (los servidores en los que se ejecuta el servicio), un proveedor de pago certificado para las suscripciones de pago (nunca almacenamos tu numero de tarjeta), un servicio de envio de emails (verificacion de direccion, restablecimiento de contrasena, newsletter), una herramienta de medicion de audiencia ([credit], unicamente si la aceptas) y un proveedor de inferencia de IA cuando las respuestas no se generan en nuestros propios servidores. Cada uno recibe unicamente los datos estrictamente necesarios para su prestacion y no esta autorizado a usarlos con otros fines, ni con fines publicitarios, ni para entrenar sus propios modelos. Algunos de estos proveedores pueden estar establecidos fuera de la Union Europea; en ese caso, las transferencias correspondientes se amparan en las clausulas contractuales tipo de la Comision Europea. La lista nominativa y actualizada de estos encargados se facilita a peticion a traves del formulario de contacto."
+        "body": "Para funcionar, el servicio se apoya en un pequeno numero de proveedores que actuan como encargados del tratamiento y estan vinculados por contrato: un proveedor de alojamiento (OVHcloud, servidores situados en Francia), un proveedor de inferencia de IA (Mistral AI, empresa francesa, tratamientos realizados dentro de la Union Europea), un proveedor de pago certificado para los planes de pago (nunca almacenamos tu numero de tarjeta), un servicio de envio de correos (verificacion de direccion, restablecimiento de contrasena, newsletter) y una herramienta de medicion de audiencia ([credit], solo si la aceptas). Cada uno recibe unicamente los datos estrictamente necesarios para su prestacion y no esta autorizado a usarlos con otros fines, ni publicitarios, ni para entrenar sus propios modelos. Tus documentos, tus conversaciones y el indice vectorial asociado se alojan y tratan exclusivamente dentro de la Union Europea. Los proveedores de pago y de correo, en cambio, pueden estar establecidos fuera de la Union Europea: no reciben ningun contenido de tus documentos, y las transferencias correspondientes se rigen por las clausulas contractuales tipo de la Comision Europea. La lista nominativa y actualizada de estos encargados se te comunica a peticion a traves del formulario de contacto."
       },
       {
         "title": "Responsable del tratamiento y plazos de conservacion",
@@ -313,12 +337,12 @@
     "back": "Volver al inicio",
     "eyebrow": "Condiciones de uso",
     "title": "Condiciones Generales de Uso",
-    "subtitle": "Al crear una cuenta o utilizar Hyaides, aceptas las siguientes reglas. Estan pensadas para ser simples y faciles de leer.",
+    "subtitle": "Al crear una cuenta o utilizar {{brand}}, aceptas las siguientes reglas. Estan pensadas para ser simples y faciles de leer.",
     "updated": "Ultima actualizacion: {{date}}",
     "sections": [
       {
         "title": "1. Objeto",
-        "body": "Estas condiciones regulan el acceso y el uso de Hyaides (el \"Servicio\"), una aplicacion que permite subir documentos a espacios de trabajo y consultarlos mediante un asistente conversacional basado en inteligencia artificial. El uso del Servicio implica la aceptacion plena de estas condiciones."
+        "body": "Estas condiciones regulan el acceso y el uso de {{brand}} (el \"Servicio\"), una aplicacion que permite subir documentos a espacios de trabajo y consultarlos mediante un asistente conversacional basado en inteligencia artificial. El uso del Servicio implica la aceptacion plena de estas condiciones."
       },
       {
         "title": "2. Cuenta de usuario",
@@ -362,7 +386,7 @@
     "back": "Volver al inicio",
     "eyebrow": "Condiciones de venta",
     "title": "Condiciones Generales de Venta",
-    "subtitle": "Estas condiciones se aplican a la suscripcion a los planes de pago de Hyaides (Particular, Pro). El plan Descubrimiento es gratuito y no esta cubierto. El plan Empresa se vende mediante presupuesto personalizado con condiciones propias.",
+    "subtitle": "Estas condiciones se aplican a la suscripcion a los planes de pago de {{brand}} (Particular, Pro). El plan Descubrimiento es gratuito y no esta cubierto. El plan Empresa se vende mediante presupuesto personalizado con condiciones propias.",
     "updated": "Ultima actualizacion: {{date}}",
     "sections": [
       {
@@ -375,7 +399,7 @@
       },
       {
         "title": "3. Suscripcion y pago",
-        "body": "La suscripcion se realiza en linea, con tarjeta, a traves de nuestro proveedor de pagos Stripe. La suscripcion se renueva automaticamente cada mes: el importe del plan elegido se cobra cada mes en la misma fecha, hasta su cancelacion. Hyaides no almacena ningun dato bancario - Stripe gestiona todo el pago de forma segura."
+        "body": "La suscripcion se realiza en linea, con tarjeta, a traves de nuestro proveedor de pagos Stripe. La suscripcion se renueva automaticamente cada mes: el importe del plan elegido se cobra cada mes en la misma fecha, hasta su cancelacion. {{brand}} no almacena ningun dato bancario - Stripe gestiona todo el pago de forma segura."
       },
       {
         "title": "4. Derecho de desistimiento",
@@ -395,7 +419,7 @@
       },
       {
         "title": "8. Mediador de consumo",
-        "body": "Conforme a los articulos L612-1 y siguientes del Codigo de consumo frances, todo consumidor tiene derecho a recurrir gratuitamente a un mediador de consumo para la resolucion amistosa de un litigio, tras haber enviado una reclamacion escrita al vendedor y no haber recibido una respuesta satisfactoria en el plazo de un mes. El mediador competente para Hyaides es: [POR COMPLETAR - nombre, direccion postal y sitio web del mediador de consumo]."
+        "body": "Conforme a los articulos L612-1 y siguientes del Codigo de consumo frances, todo consumidor tiene derecho a recurrir gratuitamente a un mediador de consumo para la resolucion amistosa de un litigio, tras haber enviado una reclamacion escrita al vendedor y no haber recibido una respuesta satisfactoria en el plazo de un mes. El mediador competente para {{brand}} es: [POR COMPLETAR - nombre, direccion postal y sitio web del mediador de consumo]."
       },
       {
         "title": "9. Legislacion aplicable y litigios",
@@ -419,7 +443,7 @@
       },
       {
         "title": "Alojamiento",
-        "body": "Este sitio y la aplicacion estan alojados por Hostinger International Ltd., 61 Lordou Vironos Street, 6023 Larnaca, Chipre (hostinger.com)."
+        "body": "Este sitio y la aplicacion estan alojados por OVH SAS, 2 rue Kellermann, 59100 Roubaix, Francia (ovhcloud.com). Los servidores que alojan el servicio y tus datos se encuentran en Francia."
       },
       {
         "title": "Propiedad intelectual",
@@ -547,9 +571,9 @@
   "support": {
     "openLabel": "Abrir el asistente de ayuda",
     "closeLabel": "Cerrar el asistente de ayuda",
-    "title": "Asistente Hyaides",
+    "title": "Asistente {{brand}}",
     "subtitle": "Preguntas sobre el sitio o la aplicacion",
-    "greeting": "Hola! Puedo responder preguntas sobre el funcionamiento de Hyaides (cuentas, espacios, uso compartido, documentos...). Que quieres saber?",
+    "greeting": "Hola! Puedo responder preguntas sobre el funcionamiento de {{brand}} (cuentas, espacios, uso compartido, documentos...). Que quieres saber?",
     "placeholder": "Escribe tu pregunta...",
     "send": "Enviar",
     "errorGeneric": "Ha ocurrido un error. Intentalo de nuevo en un momento.",
@@ -557,18 +581,18 @@
   },
   "faq": {
     "eyebrow": "Preguntas frecuentes",
-    "title": "Todo sobre Hyaides",
+    "title": "Todo sobre {{brand}}",
     "subtitle": "Las preguntas mas habituales sobre cuentas, espacios, uso compartido y privacidad.",
     "backHome": "Volver al inicio",
     "contactCta": "Otra pregunta? Escribenos desde la pagina de inicio.",
     "items": [
       {
-        "question": "Que es Hyaides?",
-        "answer": "Hyaides conecta tus documentos profesionales (PDF, imagenes, paginas web, DOCX, TXT, Markdown) a una IA con respuestas con fuentes, en espacios aislados por cliente o expediente. Pensado para despachos, agencias y equipos que gestionan varios clientes."
+        "question": "Que es {{brand}}?",
+        "answer": "{{brand}} conecta tus documentos profesionales (PDF, imagenes, paginas web, DOCX, TXT, Markdown) a una IA con respuestas con fuentes, en espacios aislados por cliente o expediente. Pensado para despachos, agencias y equipos que gestionan varios clientes."
       },
       {
         "question": "Necesito una cuenta para usarla?",
-        "answer": "Si, se necesita una cuenta gratuita para usar Hyaides, incluso para abrir un enlace de invitacion. Esto permite que cada espacio sepa exactamente quien accedio y con que rol."
+        "answer": "Si, se necesita una cuenta gratuita para usar {{brand}}, incluso para abrir un enlace de invitacion. Esto permite que cada espacio sepa exactamente quien accedio y con que rol."
       },
       {
         "question": "Que es un espacio de trabajo?",
@@ -592,7 +616,7 @@
       },
       {
         "question": "Mis datos siguen siendo privados?",
-        "answer": "Si: los documentos, embeddings y conversaciones permanecen almacenados en el servidor que aloja tu instancia. Nada se envia a un servicio externo, salvo que el administrador de la instancia haya configurado explicitamente un proveedor de IA en la nube (Ollama Cloud)."
+        "answer": "Si, dentro de la Union Europea. Tus documentos, embeddings y conversaciones se almacenan en nuestros servidores en Francia, en OVHcloud. Para generar una respuesta, el texto util se transmite a Mistral AI, editor frances cuyos tratamientos se realizan en la UE: nada va a un proveedor fuera de la Union Europea, y tus datos nunca se usan para entrenar un modelo. La transcripcion de audio ni siquiera sale de nuestros servidores."
       },
       {
         "question": "Como activo la verificacion en dos pasos (2FA)?",
@@ -603,7 +627,7 @@
         "answer": "Cada espacio cuenta con una copia de seguridad automatica (como maximo una vez al dia, conservada durante 7 dias moviles). Un administrador de la instancia puede restaurar el espacio a un estado anterior desde el panel de administracion."
       },
       {
-        "question": "Cuanto cuesta Hyaides?",
+        "question": "Cuanto cuesta {{brand}}?",
         "answer": "Existe un plan gratuito para probar (1 espacio, 1 miembro, 200 MB). Los planes de pago empiezan en 9€ IVA incl./mes. En todos los planes, las preguntas a la IA son ilimitadas: los unicos limites son el numero de espacios, de miembros por espacio y el almacenamiento."
       }
     ]
@@ -758,8 +782,8 @@
   "app": {
     "spaceRail": {
       "newSpace": "Nuevo espacio",
-      "ollamaConnected": "Ollama conectado",
-      "ollamaUnreachable": "Ollama inaccesible",
+      "aiConnected": "IA conectada",
+      "aiUnreachable": "IA no disponible",
       "checking": "Comprobando..."
     },
     "sidebar": {
@@ -788,7 +812,7 @@
       "queuedSuffix": " - el servidor procesa una solicitud a la vez",
       "placeholder": "Escribe tu mensaje...",
       "readOnly": "Acceso de solo lectura - no puedes escribir en este espacio.",
-      "errorGeneric": "Se produjo un error al generar la respuesta ({{error}}). Comprueba que Ollama este en ejecucion y que los modelos esten descargados.",
+      "errorGeneric": "Se ha producido un error durante la generacion ({{error}}). El servicio de IA no esta disponible temporalmente, vuelve a intentarlo en unos instantes.",
       "connectionError": "Error de conexion con el servidor.",
       "send": "Enviar",
       "openMenu": "Abrir menu"

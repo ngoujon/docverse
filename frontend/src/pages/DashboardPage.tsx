@@ -12,6 +12,7 @@ import StatCard from "../components/StatCard";
 import SpaceModal, { type SpaceFormData } from "../components/SpaceModal";
 import ActivationChecklist from "../components/ActivationChecklist";
 import type { MeStats, Space } from "../types";
+import { pageTitle } from "../brand";
 
 function RoleBadge({ role }: { role: Space["my_role"] }) {
   const { t } = useTranslation();
@@ -33,7 +34,7 @@ export default function DashboardPage() {
   const { t } = useTranslation();
   const { user } = useAuth();
   const navigate = useNavigate();
-  usePageMeta({ title: `${t("dashboard.title")} - Hyaides`, noindex: true });
+  usePageMeta({ title: pageTitle(t("dashboard.title")), noindex: true });
 
   const [spaces, setSpaces] = useState<Space[]>([]);
   const [stats, setStats] = useState<MeStats | null>(null);

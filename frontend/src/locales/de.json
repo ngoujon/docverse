@@ -10,6 +10,7 @@
   },
   "nav": {
     "features": "Funktionen",
+    "sovereignty": "Souveranitat",
     "demo": "Demo",
     "pricing": "Preise",
     "contact": "Kontakt",
@@ -18,19 +19,42 @@
   },
   "hero": {
     "badges": [
+      "In Frankreich gehostet",
+      "Franzosische KI - Mistral",
       "Unbegrenzte Fragen",
-      "Ab 9€/Monat",
-      "Kostenlose Stufe",
-      "Teilen nach Rolle"
+      "Kostenlose Stufe"
     ],
-    "title1": "Unterhalten Sie sich mit Ihren Dokumenten,",
-    "title2": "ein Bereich pro Kunde.",
-    "subtitle": "Die Losung fur Teams, die eine Antwort in Sekunden statt nach stundenlanger Suche brauchen. Laden Sie Ihre Dokumente hoch, befragen Sie sie in normaler Sprache, auf einer sicheren Plattform, die von [credit] betrieben wird.",
+    "title1": "Ihre souverane Cloud-RAG-Losung,",
+    "title2": "gehostet in Frankreich.",
+    "subtitle": "Laden Sie Ihre Dokumente hoch, befragen Sie sie in naturlicher Sprache, erhalten Sie belegte Antworten. Die gesamte Kette ist europaisch: Hosting bei {{hostingProvider}} in {{hostingCountry}}, KI-Engine von {{aiProvider}}, franzosischer Anbieter. Ihre Daten verlassen die Europaische Union nie.",
     "ctaTry": "Jetzt testen",
     "ctaDiscover": "Preise ansehen"
   },
+  "sovereignty": {
+    "eyebrow": "Digitale Souveranitat",
+    "title": "Vom Upload bis zur Antwort bleibt alles in Europa",
+    "subtitle": "Souveranitat erklart man nicht auf einer Rechtsseite: Sie wird Anbieter fur Anbieter uberpruft. Hier sind unsere.",
+    "items": [
+      {
+        "title": "Gehostet in {{hostingCountry}}, bei {{hostingProvider}}",
+        "desc": "Dokumente, Unterhaltungen und Vektorindex liegen auf Servern in {{hostingCountry}}, betrieben von einem europaischen Unternehmen, ausserhalb des Anwendungsbereichs des US-CLOUD-Act."
+      },
+      {
+        "title": "Eine franzosische KI-Engine",
+        "desc": "Die Antworten werden von {{aiProvider}} erzeugt, einem franzosischen Anbieter von Sprachmodellen. Keine KI-Anfrage verlasst die Europaische Union."
+      },
+      {
+        "title": "Ihre Daten trainieren kein Modell",
+        "desc": "Ihre Dokumente und Fragen werden nie zum Training eines Modells verwendet - weder von uns noch von unserem KI-Anbieter. Nichts abzuwahlen: Das ist das Standardverhalten."
+      },
+      {
+        "title": "Audio verlasst unsere Server nie",
+        "desc": "Die Transkription Ihrer Audiodateien lauft auf unserer eigenen Infrastruktur, ohne Aufruf eines Drittanbieters - nicht einmal des Chat-Modell-Anbieters."
+      }
+    ]
+  },
   "testimonials": {
-    "eyebrow": "Sie nutzen Hyaides",
+    "eyebrow": "Sie nutzen {{brand}}",
     "title": "Was unsere Nutzer sagen"
   },
   "highlight": {
@@ -40,8 +64,8 @@
   },
   "features": {
     "eyebrow": "Das bekommen Sie",
-    "title": "Gebaut fur Strukturen mit mehreren Kunden oder Akten",
-    "subtitle": "Kanzleien, Agenturen, Projektteams: ein abgeschotteter Bereich pro Kunde, kontrollierter Zugriff pro Person, und Kosten, die sich nicht mit der Zahl der gestellten Fragen andern.",
+    "title": "Souveranes RAG fur Organisationen mit mehreren Kunden oder Akten",
+    "subtitle": "Kanzleien, Agenturen, Projektteams: ein abgeschotteter Bereich pro Kunde, gesteuerter Zugriff pro Person, konstante Kosten unabhangig von der Zahl der Fragen - und DSGVO-Konformitat ohne jede Ubermittlung ausserhalb der Europaischen Union.",
     "items": [
       {
         "title": "Ein Bereich pro Kunde, ein Zugriff pro Person",
@@ -60,12 +84,12 @@
         "desc": "Stellen Sie so viele Fragen wie Sie mochten, in jeder Stufe: kein Nachrichtenzahler, keine nutzungsbasierte Abrechnung, die mit der Teamaktivitat steigt."
       },
       {
-        "title": "Websuche ohne Weitergabe an Dritte",
-        "desc": "Wenn eine Frage aktuelle Informationen benotigt, lauft die Suche uber eine selbst gehostete Suchmaschine - ohne API-Schlussel, ohne kommerziellen Tracker."
+        "title": "Websuche ohne Datenabfluss an Dritte",
+        "desc": "Wenn eine Frage aktuelle Informationen braucht, lauft die Suche uber eine selbst gehostete Engine - ohne API-Schlussel und ohne kommerzielle Tracker."
       },
       {
-        "title": "Hosting, das Sie kontrollieren",
-        "desc": "Ihre Dokumente und Unterhaltungen bleiben unter Ihrer Kontrolle, mit einer KI-Engine, die Sie weiterentwickeln konnen, ohne von einem einzigen Anbieter abhangig zu sein."
+        "title": "In Frankreich gehostet, ausserhalb des CLOUD Act",
+        "desc": "Ihre Dokumente, Unterhaltungen und der Vektorindex bleiben auf Servern in {{hostingCountry}} bei {{hostingProvider}} - einem europaischen Hoster ausserhalb des Anwendungsbereichs des US-CLOUD-Act."
       }
     ]
   },
@@ -283,7 +307,7 @@
       },
       {
         "title": "Konto- und Bereichsdaten",
-        "body": "Ihre E-Mail-Adresse und Ihr Passwort (verschlusselt) sind fur die Erstellung eines Kontos erforderlich. Die von Ihnen hochgeladenen Dokumente, deren indexierte Inhalte und Ihre Unterhaltungen werden auf dem Server gespeichert, auf dem der Dienst lauft (eigene Datenbank und Vektordatenbank), nach Arbeitsbereich getrennt, und werden niemals weiterverkauft oder zum Training eines KI-Modells verwendet. Um eine Antwort zu erzeugen, ein Bild zu lesen oder ein Dokument zu indexieren, wird der betreffende Text an eine Inferenz-Engine ubermittelt: je nach Konfiguration des Dienstes erfolgt diese Verarbeitung auf unseren eigenen Servern oder bei einem KI-Inferenzanbieter (siehe Abschnitt Technische Dienstleister unten)."
+        "body": "Ihre E-Mail-Adresse und Ihr Passwort (verschlusselt) sind fur die Erstellung eines Kontos erforderlich. Die von Ihnen hochgeladenen Dokumente, deren indexierte Inhalte und Ihre Unterhaltungen werden auf dem Server gespeichert, auf dem der Dienst lauft (eigene Datenbank und Vektordatenbank), nach Arbeitsbereich getrennt, und werden niemals weiterverkauft oder zum Training eines KI-Modells verwendet. Um eine Antwort zu erzeugen, ein Bild zu lesen oder ein Dokument zu indexieren, wird der betreffende Text an unseren KI-Inferenzanbieter Mistral AI ubermittelt, ein franzosisches Unternehmen, dessen Verarbeitung innerhalb der Europaischen Union stattfindet (siehe Abschnitt Technische Dienstleister). Die Transkription Ihrer Audiodateien lauft dagegen auf unseren eigenen Servern und wird an keinen Dritten ubermittelt."
       },
       {
         "title": "Was Sie hochladen",
@@ -295,7 +319,7 @@
       },
       {
         "title": "Technische Dienstleister",
-        "body": "Fur den Betrieb stutzt sich der Dienst auf eine kleine Zahl von Dienstleistern, die als Auftragsverarbeiter handeln und vertraglich gebunden sind: einen Hoster (die Server, auf denen der Dienst lauft), einen zertifizierten Zahlungsdienstleister fur kostenpflichtige Abonnements (wir speichern niemals Ihre Kartennummer), einen E-Mail-Versanddienst (Adressbestatigung, Passwort-Reset, Newsletter), einen Reichweitenmessdienst ([credit], nur mit Ihrer Einwilligung) und einen KI-Inferenzanbieter, wenn die Antworten nicht auf unseren eigenen Servern erzeugt werden. Jeder erhalt nur die fur seine Leistung unbedingt erforderlichen Daten und darf sie weder zu anderen Zwecken noch fur Werbung oder zum Training eigener Modelle verwenden. Einige dieser Dienstleister konnen ausserhalb der Europaischen Union ansassig sein; die entsprechenden Ubermittlungen sind dann durch die Standardvertragsklauseln der Europaischen Kommission abgesichert. Die namentliche, aktuelle Liste dieser Auftragsverarbeiter erhalten Sie auf einfache Anfrage uber das Kontaktformular."
+        "body": "Fur den Betrieb stutzt sich der Dienst auf wenige Dienstleister, die als Auftragsverarbeiter handeln und vertraglich gebunden sind: einen Hoster (OVHcloud, Server in Frankreich), einen KI-Inferenzanbieter (Mistral AI, franzosisches Unternehmen, Verarbeitung innerhalb der Europaischen Union), einen zertifizierten Zahlungsdienstleister fur kostenpflichtige Stufen (wir speichern Ihre Kartennummer nie), einen E-Mail-Versanddienst (Adressbestatigung, Passwort-Zurucksetzung, Newsletter) und ein Analysewerkzeug ([credit], nur mit Ihrer Zustimmung). Jeder erhalt nur die fur seine Leistung unbedingt erforderlichen Daten und darf sie weder zu anderen Zwecken noch fur Werbung noch zum Training eigener Modelle verwenden. Ihre Dokumente, Unterhaltungen und der zugehorige Vektorindex werden ausschliesslich innerhalb der Europaischen Union gehostet und verarbeitet. Die Zahlungs- und E-Mail-Dienstleister konnen dagegen ausserhalb der Europaischen Union ansassig sein: Sie erhalten keine Inhalte aus Ihren Dokumenten, und die entsprechenden Ubermittlungen erfolgen auf Grundlage der Standardvertragsklauseln der Europaischen Kommission. Die aktuelle namentliche Liste dieser Auftragsverarbeiter erhalten Sie auf Anfrage uber das Kontaktformular."
       },
       {
         "title": "Verantwortlicher und Speicherfristen",
@@ -313,12 +337,12 @@
     "back": "Zuruck zur Startseite",
     "eyebrow": "Nutzungsbedingungen",
     "title": "Allgemeine Nutzungsbedingungen",
-    "subtitle": "Mit der Erstellung eines Kontos oder der Nutzung von Hyaides akzeptieren Sie die folgenden Regeln. Sie sollen einfach und verstandlich bleiben.",
+    "subtitle": "Mit der Erstellung eines Kontos oder der Nutzung von {{brand}} akzeptieren Sie die folgenden Regeln. Sie sollen einfach und verstandlich bleiben.",
     "updated": "Zuletzt aktualisiert: {{date}}",
     "sections": [
       {
         "title": "1. Gegenstand",
-        "body": "Diese Bedingungen regeln den Zugang zu und die Nutzung von Hyaides (der \"Dienst\"), einer Anwendung zum Hochladen von Dokumenten in Arbeitsbereiche und deren Abfrage uber einen KI-basierten Chat-Assistenten. Die Nutzung des Dienstes setzt die vollstandige Annahme dieser Bedingungen voraus."
+        "body": "Diese Bedingungen regeln den Zugang zu und die Nutzung von {{brand}} (der \"Dienst\"), einer Anwendung zum Hochladen von Dokumenten in Arbeitsbereiche und deren Abfrage uber einen KI-basierten Chat-Assistenten. Die Nutzung des Dienstes setzt die vollstandige Annahme dieser Bedingungen voraus."
       },
       {
         "title": "2. Benutzerkonto",
@@ -362,7 +386,7 @@
     "back": "Zuruck zur Startseite",
     "eyebrow": "Verkaufsbedingungen",
     "title": "Allgemeine Verkaufsbedingungen",
-    "subtitle": "Diese Bedingungen gelten fur den Abschluss der kostenpflichtigen Stufen von Hyaides (Privat, Pro). Die Stufe Entdecken ist kostenlos und nicht betroffen. Die Stufe Enterprise wird per individuellem Angebot mit eigenen Bedingungen verkauft.",
+    "subtitle": "Diese Bedingungen gelten fur den Abschluss der kostenpflichtigen Stufen von {{brand}} (Privat, Pro). Die Stufe Entdecken ist kostenlos und nicht betroffen. Die Stufe Enterprise wird per individuellem Angebot mit eigenen Bedingungen verkauft.",
     "updated": "Zuletzt aktualisiert: {{date}}",
     "sections": [
       {
@@ -375,7 +399,7 @@
       },
       {
         "title": "3. Abschluss und Zahlung",
-        "body": "Der Abschluss erfolgt online per Karte uber unseren Zahlungsdienstleister Stripe. Das Abonnement verlangert sich automatisch monatlich: Der Betrag der gewahlten Stufe wird jeden Monat am selben Datum abgebucht, bis zur Kundigung. Es werden keine Kartendaten von Hyaides gespeichert - Stripe wickelt die gesamte Zahlung sicher ab."
+        "body": "Der Abschluss erfolgt online per Karte uber unseren Zahlungsdienstleister Stripe. Das Abonnement verlangert sich automatisch monatlich: Der Betrag der gewahlten Stufe wird jeden Monat am selben Datum abgebucht, bis zur Kundigung. Es werden keine Kartendaten von {{brand}} gespeichert - Stripe wickelt die gesamte Zahlung sicher ab."
       },
       {
         "title": "4. Widerrufsrecht",
@@ -395,7 +419,7 @@
       },
       {
         "title": "8. Verbraucherschlichtung",
-        "body": "Gemass den Artikeln L612-1 ff. des franzosischen Verbrauchergesetzbuchs hat jeder Verbraucher das Recht, kostenlos eine Verbraucherschlichtungsstelle zur gutlichen Beilegung eines Streitfalls anzurufen, nachdem er eine schriftliche Beschwerde an den Verkaufer gerichtet und innerhalb eines Monats keine zufriedenstellende Antwort erhalten hat. Zustandige Schlichtungsstelle fur Hyaides ist: [NOCH AUSZUFULLEN - Name, Postanschrift und Website der Verbraucherschlichtungsstelle]."
+        "body": "Gemass den Artikeln L612-1 ff. des franzosischen Verbrauchergesetzbuchs hat jeder Verbraucher das Recht, kostenlos eine Verbraucherschlichtungsstelle zur gutlichen Beilegung eines Streitfalls anzurufen, nachdem er eine schriftliche Beschwerde an den Verkaufer gerichtet und innerhalb eines Monats keine zufriedenstellende Antwort erhalten hat. Zustandige Schlichtungsstelle fur {{brand}} ist: [NOCH AUSZUFULLEN - Name, Postanschrift und Website der Verbraucherschlichtungsstelle]."
       },
       {
         "title": "9. Anwendbares Recht und Streitigkeiten",
@@ -419,7 +443,7 @@
       },
       {
         "title": "Hosting",
-        "body": "Diese Website und die Anwendung werden gehostet von Hostinger International Ltd., 61 Lordou Vironos Street, 6023 Larnaca, Zypern (hostinger.com)."
+        "body": "Diese Website und die Anwendung werden von OVH SAS, 2 rue Kellermann, 59100 Roubaix, Frankreich (ovhcloud.com) gehostet. Die Server, auf denen der Dienst und Ihre Daten liegen, befinden sich in Frankreich."
       },
       {
         "title": "Geistiges Eigentum",
@@ -547,9 +571,9 @@
   "support": {
     "openLabel": "Hilfe-Assistenten offnen",
     "closeLabel": "Hilfe-Assistenten schliessen",
-    "title": "Hyaides Assistent",
+    "title": "{{brand}} Assistent",
     "subtitle": "Fragen zur Website oder zur App",
-    "greeting": "Hallo! Ich kann Fragen zur Funktionsweise von Hyaides beantworten (Konten, Bereiche, Freigabe, Dokumente...). Was mochtest du wissen?",
+    "greeting": "Hallo! Ich kann Fragen zur Funktionsweise von {{brand}} beantworten (Konten, Bereiche, Freigabe, Dokumente...). Was mochtest du wissen?",
     "placeholder": "Stelle deine Frage...",
     "send": "Senden",
     "errorGeneric": "Etwas ist schiefgelaufen. Bitte versuche es gleich noch einmal.",
@@ -557,18 +581,18 @@
   },
   "faq": {
     "eyebrow": "Haufig gestellte Fragen",
-    "title": "Alles uber Hyaides",
+    "title": "Alles uber {{brand}}",
     "subtitle": "Die haufigsten Fragen zu Konten, Bereichen, Freigabe und Datenschutz.",
     "backHome": "Zuruck zur Startseite",
     "contactCta": "Noch eine Frage? Schreib uns von der Startseite aus.",
     "items": [
       {
-        "question": "Was ist Hyaides?",
-        "answer": "Hyaides verbindet Ihre Geschaftsdokumente (PDF, Bilder, Webseiten, DOCX, TXT, Markdown) mit einer KI mit belegten Antworten, in Bereichen, die pro Kunde oder Akte abgeschottet sind. Gebaut fur Kanzleien, Agenturen und Teams mit mehreren Kunden."
+        "question": "Was ist {{brand}}?",
+        "answer": "{{brand}} verbindet Ihre Geschaftsdokumente (PDF, Bilder, Webseiten, DOCX, TXT, Markdown) mit einer KI mit belegten Antworten, in Bereichen, die pro Kunde oder Akte abgeschottet sind. Gebaut fur Kanzleien, Agenturen und Teams mit mehreren Kunden."
       },
       {
         "question": "Brauche ich ein Konto, um es zu nutzen?",
-        "answer": "Ja, ein kostenloses Konto ist erforderlich, um Hyaides zu nutzen, auch um einen Freigabelink zu offnen. So weiss jeder Bereich genau, wer darauf zugegriffen hat und mit welcher Rolle."
+        "answer": "Ja, ein kostenloses Konto ist erforderlich, um {{brand}} zu nutzen, auch um einen Freigabelink zu offnen. So weiss jeder Bereich genau, wer darauf zugegriffen hat und mit welcher Rolle."
       },
       {
         "question": "Was ist ein Arbeitsbereich?",
@@ -592,7 +616,7 @@
       },
       {
         "question": "Bleiben meine Daten privat?",
-        "answer": "Ja: Dokumente, Embeddings und Unterhaltungen bleiben auf dem Server gespeichert, der deine Instanz hostet. Es wird nichts an einen Drittanbieter gesendet, es sei denn, der Administrator der Instanz hat ausdrucklich einen Cloud-KI-Anbieter konfiguriert (Ollama Cloud)."
+        "answer": "Ja, innerhalb der Europaischen Union. Ihre Dokumente, Embeddings und Unterhaltungen liegen auf unseren Servern in Frankreich bei OVHcloud. Zur Erzeugung einer Antwort wird der relevante Text an Mistral AI ubermittelt, einen franzosischen Anbieter, dessen Verarbeitung in der EU stattfindet - nichts geht an einen Anbieter ausserhalb der Europaischen Union, und Ihre Daten werden nie zum Training eines Modells verwendet. Die Audiotranskription verlasst unsere Server nicht einmal."
       },
       {
         "question": "Wie aktiviere ich die Zwei-Faktor-Verifizierung (2FA)?",
@@ -603,7 +627,7 @@
         "answer": "Jeder Arbeitsbereich erhalt ein automatisches Backup (hochstens einmal pro Tag, 7 Tage gleitend aufbewahrt). Ein Administrator der Instanz kann den Bereich uber das Admin-Dashboard auf einen fruheren Zustand zuruckstellen."
       },
       {
-        "question": "Was kostet Hyaides?",
+        "question": "Was kostet {{brand}}?",
         "answer": "Die Software ist kostenlos und Open Source. Die einzigen Kosten sind deine eigene Infrastruktur (Server, VPS...) und, falls du dich dafur entscheidest, ein Abonnement bei einem Cloud-KI-Anbieter fur schnellere Antworten."
       }
     ]
@@ -758,8 +782,8 @@
   "app": {
     "spaceRail": {
       "newSpace": "Neuer Bereich",
-      "ollamaConnected": "Ollama verbunden",
-      "ollamaUnreachable": "Ollama nicht erreichbar",
+      "aiConnected": "KI verbunden",
+      "aiUnreachable": "KI nicht erreichbar",
       "checking": "Uberprufung..."
     },
     "sidebar": {
@@ -788,7 +812,7 @@
       "queuedSuffix": " - der Server verarbeitet jeweils eine Anfrage",
       "placeholder": "Nachricht eingeben...",
       "readOnly": "Nur Lesezugriff - Sie konnen in diesem Bereich nicht schreiben.",
-      "errorGeneric": "Bei der Antworterstellung ist ein Fehler aufgetreten ({{error}}). Uberprufen Sie, ob Ollama lauft und die Modelle heruntergeladen sind.",
+      "errorGeneric": "Bei der Erzeugung der Antwort ist ein Fehler aufgetreten ({{error}}). Der KI-Dienst ist vorubergehend nicht verfugbar, bitte versuchen Sie es gleich erneut.",
       "connectionError": "Verbindungsfehler zum Server.",
       "send": "Senden",
       "openMenu": "Menu offnen"

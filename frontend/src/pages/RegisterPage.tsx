@@ -9,6 +9,7 @@ import SsoButtons from "../components/SsoButtons";
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter";
 import { usePageMeta } from "../hooks/usePageMeta";
 import type { CaptchaSolution } from "../types";
+import { pageTitle } from "../brand";
 
 export default function RegisterPage() {
   const { t } = useTranslation();
@@ -16,7 +17,7 @@ export default function RegisterPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const redirectTo = (location.state as { from?: string } | null)?.from || "/dashboard";
-  usePageMeta({ title: `${t("auth.register.title")} - Hyaides`, noindex: true });
+  usePageMeta({ title: pageTitle(t("auth.register.title")), noindex: true });
 
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");

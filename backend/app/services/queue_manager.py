@@ -2,15 +2,15 @@ import asyncio
 
 from ..config import settings
 
-_semaphore = asyncio.Semaphore(settings.ollama_max_concurrency)
+_semaphore = asyncio.Semaphore(settings.llm_max_concurrency)
 _waiting = 0
 _state_lock = asyncio.Lock()
 
 
 class QueueSlot:
-    """Serializes access to Ollama (a single small VPS can only run one
-    inference at a time without falling over). Reports how many requests
-    were already waiting when this one joined, for UI feedback."""
+    """Borne les appels simultanes a l'API Mistral pour ne pas declencher
+    ses 429. Reporte combien de requetes attendaient deja a l'arrivee de
+    celle-ci, pour le retour visuel dans l'interface."""
 
     def __init__(self) -> None:
         self.position = 0

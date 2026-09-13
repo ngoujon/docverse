@@ -35,6 +35,6 @@ async def transcribe_audio(path: Path) -> str:
     CPU work - keeps the event loop free for other requests. Always goes
     through the local queue slot (like embeddings): transcription is
     self-hosted only, with no cloud fallback, so it competes for the same
-    CPU as local Ollama calls and must be serialized against them."""
+    CPU as the rest of the app and must be serialized against it."""
     async with queue_manager.queue_slot():
         return await asyncio.to_thread(_transcribe_sync, path)

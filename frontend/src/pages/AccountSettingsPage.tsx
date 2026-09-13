@@ -21,12 +21,13 @@ import { usePageMeta } from "../hooks/usePageMeta";
 import DashboardNav from "../components/DashboardNav";
 import ConfirmDialog from "../components/ConfirmDialog";
 import type { TwoFactorSetup } from "../types";
+import { BRAND, pageTitle } from "../brand";
 
 export default function AccountSettingsPage() {
   const { t } = useTranslation();
   const { user, logout, refresh } = useAuth();
   const navigate = useNavigate();
-  usePageMeta({ title: `${t("auth.account.title")} - Hyaides`, noindex: true });
+  usePageMeta({ title: pageTitle(t("auth.account.title")), noindex: true });
 
   const [logoutDone, setLogoutDone] = useState(false);
   const [logoutBusy, setLogoutBusy] = useState(false);
@@ -122,7 +123,7 @@ export default function AccountSettingsPage() {
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `hyaides-export-${user.id}.json`;
+      a.download = `${BRAND.name.toLowerCase()}-export-${user.id}.json`;
       a.click();
       URL.revokeObjectURL(url);
     } finally {

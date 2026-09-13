@@ -16,7 +16,12 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const distDir = path.join(root, "dist");
-const siteOrigin = "https://example.com";
+// Pilote par l'environnement pour que le prerendu suive un changement de
+// nom de domaine sans edition de code (meme logique que VITE_BRAND_DOMAIN
+// cote application - voir frontend/src/brand.ts).
+const siteOrigin =
+  process.env.SITE_ORIGIN ||
+  `https://${process.env.VITE_BRAND_DOMAIN || "example.com"}`;
 
 // i18next-browser-languagedetector (pulled in by src/i18n.ts) reads
 // window/navigator/localStorage at init time; give it a minimal jsdom global
@@ -51,9 +56,30 @@ async function main() {
       await writeFile(path.join(outDir, "index.html"), html, "utf-8");
       console.log(`prerendered ${route}`);
     }
+
+    await writeSitemap();
   } finally {
     await vite.close();
   }
+}
+
+// Priorites par route pour le sitemap. Une route absente prend 0.7.
+const ROUTE_PRIORITY = { "/": "1.0", "/tarifs": "0.9", "/entreprise": "0.8", "/faq": "0.8" };
+
+// Genere dist/sitemap.xml a partir de ROUTES plutot que de maintenir a la
+// main un fichier statique dans public/ : le domaine y etait code en dur et
+// devenait faux des qu'il changeait, et une route prerendue pouvait etre
+// oubliee du sitemap.
+async function writeSitemap() {
+  const urls = ROUTES.map((route) => {
+    const loc = `${siteOrigin}${route === "/" ? "/" : route}`;
+    const priority = ROUTE_PRIORITY[route] ?? "0.7";
+    return `  <url>\n    <loc>${loc}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
+  }).join("\n");
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
+  await writeFile(path.join(distDir, "sitemap.xml"), xml, "utf-8");
+  console.log(`sitemap ${ROUTES.length} routes -> ${siteOrigin}`);
 }
 
 function injectPage(template, { appHtml, title, description, canonicalPath }) {

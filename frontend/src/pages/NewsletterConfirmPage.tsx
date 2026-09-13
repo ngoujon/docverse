@@ -5,13 +5,14 @@ import { CheckCircle2, XCircle } from "lucide-react";
 import { api } from "../api/client";
 import AuthLayout from "../components/AuthLayout";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { pageTitle } from "../brand";
 
 export default function NewsletterConfirmPage({ mode }: { mode: "confirm" | "unsubscribe" }) {
   const { t } = useTranslation();
   const [params] = useSearchParams();
   const token = params.get("token") || "";
   const [status, setStatus] = useState<"loading" | "ok" | "error">("loading");
-  usePageMeta({ title: `${t(`newsletter.${mode}.title`)} - Hyaides`, noindex: true });
+  usePageMeta({ title: pageTitle(t(`newsletter.${mode}.title`)), noindex: true });
 
   useEffect(() => {
     if (!token) {

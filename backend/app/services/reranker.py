@@ -1,6 +1,6 @@
 import re
 
-from . import ollama_client
+from . import llm_provider
 
 _RERANK_PROMPT = (
     "Question de l'utilisateur : {query}\n\n"
@@ -50,7 +50,7 @@ async def rerank(query: str, candidates: list[dict], top_k: int) -> list[dict]:
 
     fallback = candidates[:top_k]
     try:
-        response = await ollama_client.chat(
+        response = await llm_provider.chat(
             [
                 {
                     "role": "user",
