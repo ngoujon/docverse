@@ -29,8 +29,14 @@ def send_email(to: str, subject: str, html_body: str, text_body: str = "") -> No
     msg.attach(MIMEText(html_body, "html"))
 
     try:
-        with smtplib.SMTP(settings.smtp_host, settings.smtp_port, timeout=10) as server:
-            if settings.smtp_use_tls:
+        # Port 465 is implicit TLS (the connection is SSL from the first
+        # byte) - STARTTLS on that port hangs or errors because the server
+        # already expects a TLS handshake, not a plaintext greeting. 587
+        # (and anything else) is plaintext-then-upgrade, so STARTTLS applies
+        # there, gated by SMTP_USE_TLS.
+        smtp_cls = smtplib.SMTP_SSL if settings.smtp_port == 465 else smtplib.SMTP
+        with smtp_cls(settings.smtp_host, settings.smtp_port, timeout=10) as server:
+            if settings.smtp_port != 465 and settings.smtp_use_tls:
                 server.starttls()
             if settings.smtp_user:
                 server.login(settings.smtp_user, settings.smtp_password)
