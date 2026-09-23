@@ -16,7 +16,7 @@ const env = import.meta.env;
 
 export const BRAND = {
   /** Nom commercial affiche partout dans l'interface et les titres de page. */
-  name: env.VITE_BRAND_NAME || "Hyaides",
+  name: env.VITE_BRAND_NAME || "Docverse",
   /** Domaine public, utilise dans les meta, les liens canoniques et les emails. */
   domain: env.VITE_BRAND_DOMAIN || "example.com",
   /** Pays d'hebergement des donnees - argument commercial central. */

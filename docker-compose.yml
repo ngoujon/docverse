@@ -2,7 +2,7 @@
 # name) so renaming the local checkout never orphans the existing named
 # volumes (app_data holds the real SQLite DB and the Whisper model)
 # - Docker Compose scopes volume names by project name.
-name: hyaides
+name: docverse
 
 services:
   searxng:
@@ -39,7 +39,7 @@ services:
       - SMTP_USER=${SMTP_USER:-}
       - SMTP_PASSWORD=${SMTP_PASSWORD:-}
       - SMTP_USE_TLS=${SMTP_USE_TLS:-true}
-      - SMTP_FROM=${SMTP_FROM:-Hyaides <no-reply@hyaides.local>}
+      - SMTP_FROM=${SMTP_FROM:-Docverse <no-reply@docverse.local>}
       # --- IA : Mistral AI (unique fournisseur) --------------------------
       # Chat, vision et embeddings passent tous par l'API Mistral, operee
       # en France. Sans MISTRAL_API_KEY, le chat et l'indexation de
@@ -51,7 +51,7 @@ services:
       - MISTRAL_EMBED_MODEL=${MISTRAL_EMBED_MODEL:-mistral-embed}
       - LLM_MAX_CONCURRENCY=${LLM_MAX_CONCURRENCY:-8}
       # --- Marque (permet de renommer le produit sans toucher au code) ---
-      - BRAND_NAME=${BRAND_NAME:-Hyaides}
+      - BRAND_NAME=${BRAND_NAME:-Docverse}
       - BRAND_DOMAIN=${BRAND_DOMAIN:-example.com}
       - HOSTING_COUNTRY=${HOSTING_COUNTRY:-France}
       - HOSTING_PROVIDER=${HOSTING_PROVIDER:-OVHcloud}

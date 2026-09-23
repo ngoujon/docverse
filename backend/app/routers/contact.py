@@ -9,7 +9,7 @@ from ..database import get_db
 from ..deps import client_ip
 from ..services import captcha, email_templates, mail_service, rate_limiter
 
-logger = logging.getLogger("hyaides.contact")
+logger = logging.getLogger("docverse.contact")
 router = APIRouter(prefix="/api", tags=["contact"])
 
 

@@ -1,4 +1,4 @@
-# Hyaides
+# Docverse
 
 Solution cloud **RAG souveraine** : discutez avec une IA a propos de vos
 propres documents (PDF, images/scans, fichiers audio transcrits
@@ -362,21 +362,21 @@ le serveur hote) :
 # Sauvegarde (l'app peut rester en marche : SQLite gere les lectures
 # concurrentes, mais pour une coherence stricte, un arret bref est plus sur)
 docker run --rm \
-  -v hyaides_app_data:/data:ro \
+  -v docverse_app_data:/data:ro \
   -v "$(pwd)/backups":/backup \
-  alpine tar czf /backup/hyaides-data-$(date +%Y%m%d-%H%M%S).tar.gz -C /data .
+  alpine tar czf /backup/docverse-data-$(date +%Y%m%d-%H%M%S).tar.gz -C /data .
 
 # Restauration (ecrase les donnees actuelles du volume - a faire conteneurs arretes)
 docker compose down
 docker run --rm \
-  -v hyaides_app_data:/data \
+  -v docverse_app_data:/data \
   -v "$(pwd)/backups":/backup \
-  alpine sh -c "rm -rf /data/* && tar xzf /backup/hyaides-data-XXXXXXXX-XXXXXX.tar.gz -C /data"
+  alpine sh -c "rm -rf /data/* && tar xzf /backup/docverse-data-XXXXXXXX-XXXXXX.tar.gz -C /data"
 docker compose up -d
 ```
 
-Adaptez `hyaides_app_data` au nom reel du volume (`docker volume ls`) si
-le projet n'est pas dans un dossier nomme `hyaides`. Conservez ces
+Adaptez `docverse_app_data` au nom reel du volume (`docker volume ls`) si
+le projet n'est pas dans un dossier nomme `docverse`. Conservez ces
 archives hors du serveur (stockage objet, autre machine) : une sauvegarde
 qui vit sur le meme disque que les donnees d'origine ne protege pas contre
 une panne disque.

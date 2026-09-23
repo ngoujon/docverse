@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 
 from .config import DB_PATH
 
-logger = logging.getLogger("hyaides.database")
+logger = logging.getLogger("docverse.database")
 
 engine = create_engine(
     f"sqlite:///{DB_PATH}",

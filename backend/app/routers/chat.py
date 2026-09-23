@@ -12,7 +12,7 @@ from ..database import get_db, SessionLocal
 from ..deps import ConversationAccess, require_conversation_access, client_ip
 from ..services import backup, llm_provider, queue_manager, rag, rate_limiter
 
-logger = logging.getLogger("hyaides.chat")
+logger = logging.getLogger("docverse.chat")
 router = APIRouter(prefix="/api", tags=["chat"])
 
 _HISTORY_LIMIT = 20

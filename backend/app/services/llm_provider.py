@@ -21,7 +21,7 @@ import httpx
 from ..config import settings
 from . import queue_manager
 
-logger = logging.getLogger("hyaides.llm")
+logger = logging.getLogger("docverse.llm")
 
 # Mistral facture a l'usage et repond vite : un timeout genereux suffit,
 # il n'y a plus de modele a charger en memoire comme avec Ollama local.

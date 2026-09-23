@@ -12,7 +12,7 @@ from ..config import settings
 from ..database import get_db
 from ..services import auth, oauth_providers
 
-logger = logging.getLogger("hyaides.oauth")
+logger = logging.getLogger("docverse.oauth")
 router = APIRouter(prefix="/api/auth/oauth", tags=["oauth"])
 
 _STATE_PURPOSE = "oauth_state"

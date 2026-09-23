@@ -12,7 +12,7 @@ from .routers import admin, auth, billing, captcha, chat, conversations, contact
 from .services import llm_provider, vectorstore
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("hyaides.startup")
+logger = logging.getLogger("docverse.startup")
 
 Base.metadata.create_all(bind=engine)
 ensure_schema()
@@ -103,7 +103,7 @@ def _seed_testimonials() -> None:
     finally:
         db.close()
 
-app = FastAPI(title="Hyaides", version="1.0.0")
+app = FastAPI(title="Docverse", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,

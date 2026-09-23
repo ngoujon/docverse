@@ -7,7 +7,7 @@ directory, which is what makes this work without fixtures."""
 import os
 import tempfile
 
-_TEST_DATA_DIR = tempfile.mkdtemp(prefix="hyaides_test_")
+_TEST_DATA_DIR = tempfile.mkdtemp(prefix="docverse_test_")
 os.environ["DATA_DIR"] = _TEST_DATA_DIR
 # Force-override (not setdefault): docker-compose.yml always sets these on
 # the backend container's environment - even "unset" host vars resolve to

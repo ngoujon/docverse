@@ -14,7 +14,7 @@ from .. import models_db
 from ..services import auth
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("hyaides.seed")
+logger = logging.getLogger("docverse.seed")
 
 DEV_PASSWORD = "ChangeMe123!"
 

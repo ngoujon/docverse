@@ -1,6 +1,5 @@
-// A small star cluster, echoing the Hyaides namesake (the Hyades star
-// cluster) and the app's core metaphor: documents become points of
-// knowledge, connected into constellations you can query.
+// A small star cluster, echoing the app's core metaphor: documents become
+// points of knowledge, connected into constellations you can query.
 const STARS = [
   { x: 62, y: 8, r: 0.22, twinkle: true },
   { x: 71, y: 14, r: 0.14 },

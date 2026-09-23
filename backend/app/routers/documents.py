@@ -12,7 +12,7 @@ from ..deps import DocumentAccess, SpaceAccess, require_space_access, require_do
 from ..services import backup, document_processor, llm_provider, vectorstore
 from ..utils.chunking import split_text
 
-logger = logging.getLogger("hyaides.documents")
+logger = logging.getLogger("docverse.documents")
 router = APIRouter(prefix="/api", tags=["documents"])
 
 

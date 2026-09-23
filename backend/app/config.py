@@ -3,7 +3,7 @@ import os
 import secrets
 from pathlib import Path
 
-logger = logging.getLogger("hyaides.config")
+logger = logging.getLogger("docverse.config")
 
 DATA_DIR = Path(os.environ.get("DATA_DIR", "/app/data"))
 UPLOAD_DIR = DATA_DIR / "uploads"
@@ -29,7 +29,7 @@ class Settings:
     # l'environnement : ils apparaissent dans les emails, les meta et les
     # mentions legales, et le produit doit pouvoir etre renomme sans
     # rechercher/remplacer dans tout le code.
-    brand_name: str = os.environ.get("BRAND_NAME", "Hyaides")
+    brand_name: str = os.environ.get("BRAND_NAME", "Docverse")
     brand_domain: str = os.environ.get("BRAND_DOMAIN", "example.com")
     # Pays d'hebergement affiche dans l'UI et les documents contractuels.
     hosting_country: str = os.environ.get("HOSTING_COUNTRY", "France")
@@ -87,7 +87,7 @@ class Settings:
     smtp_user: str = os.environ.get("SMTP_USER", "")
     smtp_password: str = os.environ.get("SMTP_PASSWORD", "")
     smtp_use_tls: bool = os.environ.get("SMTP_USE_TLS", "true").lower() != "false"
-    smtp_from: str = os.environ.get("SMTP_FROM", "Hyaides <no-reply@example.com>")
+    smtp_from: str = os.environ.get("SMTP_FROM", "Docverse <no-reply@example.com>")
 
     # --- SSO (Google / Apple) --------------------------------------------
     # Each provider is only offered on the login/register pages once its
@@ -171,7 +171,7 @@ _WEAK_SECRET_KEYS = {
     "changeme",
     "change_me",
     "password",
-    "hyaides",
+    "docverse",
     "[credit]",
     "dev",
     "development",
