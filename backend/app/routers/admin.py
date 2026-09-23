@@ -2,7 +2,7 @@ import shutil
 from datetime import datetime, timedelta
 
 import stripe
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
@@ -10,9 +10,13 @@ from .. import models_db, schemas
 from ..config import UPLOAD_DIR, settings
 from ..database import get_db
 from ..deps import require_admin
-from ..services import auth, backup, vectorstore
+from ..services import auth, backup, email_templates, mail_service, vectorstore
 
 router = APIRouter(prefix="/api/admin", tags=["admin"])
+
+# Matches the TTL used for the subscriber-facing unsubscribe link in
+# routers/newsletter.py so links generated from a campaign behave the same.
+_NEWSLETTER_UNSUBSCRIBE_TTL_MINUTES = 5 * 365 * 24 * 60
 
 
 @router.get("/users", response_model=schemas.PaginatedUsers)
@@ -230,6 +234,64 @@ def stats(_: models_db.User = Depends(require_admin), db: Session = Depends(get_
         new_users_7d=db.query(models_db.User).filter(models_db.User.created_at >= since).count(),
         new_spaces_7d=db.query(models_db.Space).filter(models_db.Space.created_at >= since).count(),
     )
+
+
+@router.get("/newsletter", response_model=schemas.PaginatedNewsletterSubscribers)
+def list_newsletter_subscribers(
+    limit: int = Query(50, ge=1, le=200),
+    offset: int = Query(0, ge=0),
+    confirmed: bool | None = Query(None),
+    q: str | None = Query(None),
+    _: models_db.User = Depends(require_admin),
+    db: Session = Depends(get_db),
+):
+    query = db.query(models_db.NewsletterSubscriber)
+    if confirmed is not None:
+        query = query.filter(models_db.NewsletterSubscriber.confirmed.is_(confirmed))
+    if q and q.strip():
+        query = query.filter(models_db.NewsletterSubscriber.email.ilike(f"%{q.strip()}%"))
+    query = query.order_by(models_db.NewsletterSubscriber.created_at.desc())
+    total = query.count()
+    items = query.offset(offset).limit(limit).all()
+    return schemas.PaginatedNewsletterSubscribers(items=items, total=total, limit=limit, offset=offset)
+
+
+@router.delete("/newsletter/{subscriber_id}")
+def delete_newsletter_subscriber(
+    subscriber_id: str,
+    _: models_db.User = Depends(require_admin),
+    db: Session = Depends(get_db),
+):
+    sub = db.get(models_db.NewsletterSubscriber, subscriber_id)
+    if not sub:
+        raise HTTPException(404, "Abonne introuvable")
+    db.delete(sub)
+    db.commit()
+    return {"ok": True}
+
+
+@router.post("/newsletter/send", response_model=schemas.NewsletterCampaignResult)
+def send_newsletter_campaign(
+    payload: schemas.NewsletterCampaignRequest,
+    background_tasks: BackgroundTasks,
+    _: models_db.User = Depends(require_admin),
+    db: Session = Depends(get_db),
+):
+    subscribers = (
+        db.query(models_db.NewsletterSubscriber)
+        .filter(models_db.NewsletterSubscriber.confirmed.is_(True))
+        .all()
+    )
+    for sub in subscribers:
+        unsub_token = auth.issue_purpose_token(
+            sub.email, "newsletter_unsubscribe", ttl_minutes=_NEWSLETTER_UNSUBSCRIBE_TTL_MINUTES
+        )
+        unsubscribe_url = f"{settings.frontend_base_url}/newsletter/unsubscribe?token={unsub_token}"
+        subject, html, text = email_templates.newsletter_campaign_email(
+            payload.subject, payload.message, unsubscribe_url
+        )
+        background_tasks.add_task(mail_service.send_email, sub.email, subject, html, text)
+    return schemas.NewsletterCampaignResult(sent=len(subscribers))
 
 
 @router.get("/invoices", response_model=schemas.PaginatedInvoices)

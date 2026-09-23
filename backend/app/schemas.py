@@ -385,6 +385,33 @@ class NewsletterSubscribeRequest(BaseModel):
     captcha_nonce: int
 
 
+class NewsletterSubscriberOut(BaseModel):
+    id: str
+    email: str
+    confirmed: bool
+    created_at: datetime
+    confirmed_at: Optional[datetime] = None
+
+    class Config:
+        from_attributes = True
+
+
+class PaginatedNewsletterSubscribers(BaseModel):
+    items: list[NewsletterSubscriberOut]
+    total: int
+    limit: int
+    offset: int
+
+
+class NewsletterCampaignRequest(BaseModel):
+    subject: str = Field(min_length=1, max_length=200)
+    message: str = Field(min_length=1, max_length=20000)
+
+
+class NewsletterCampaignResult(BaseModel):
+    sent: int
+
+
 # --- Testimonials -------------------------------------------------------
 
 class TestimonialOut(BaseModel):

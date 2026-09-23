@@ -697,7 +697,8 @@
       "users": "Usuarios",
       "spaces": "Espacios",
       "testimonials": "Opiniones",
-      "invoices": "Facturas"
+      "invoices": "Facturas",
+      "newsletter": "Newsletter"
     },
     "invoices": {
       "number": "Numero",
@@ -737,6 +738,22 @@
       "unpublish": "Despublicar",
       "empty": "Aun no hay opiniones.",
       "confirmDeleteTitle": "Eliminar esta opinion?",
+      "confirmDeleteMessage": "Esta accion es definitiva."
+    },
+    "newsletter": {
+      "hint": "Gestiona los suscriptores y envia un boletin a los suscriptores confirmados.",
+      "compose": "Nuevo boletin",
+      "composeTitle": "Redactar un boletin",
+      "composeHint": "Este correo se enviara a {{count}} suscriptor(es) confirmado(s).",
+      "subject": "Asunto",
+      "message": "Mensaje",
+      "send": "Enviar",
+      "sending": "Enviando...",
+      "sent": "Boletin enviado a {{count}} suscriptor(es).",
+      "confirmed": "Confirmado",
+      "pending": "Pendiente",
+      "empty": "Aun no hay suscriptores.",
+      "confirmDeleteTitle": "¿Eliminar este suscriptor?",
       "confirmDeleteMessage": "Esta accion es definitiva."
     },
     "table": {

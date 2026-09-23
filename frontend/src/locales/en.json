@@ -697,7 +697,8 @@
       "users": "Users",
       "spaces": "Spaces",
       "testimonials": "Testimonials",
-      "invoices": "Invoices"
+      "invoices": "Invoices",
+      "newsletter": "Newsletter"
     },
     "invoices": {
       "number": "Number",
@@ -737,6 +738,22 @@
       "unpublish": "Unpublish",
       "empty": "No testimonials yet.",
       "confirmDeleteTitle": "Delete this testimonial?",
+      "confirmDeleteMessage": "This action is permanent."
+    },
+    "newsletter": {
+      "hint": "Manage subscribers and send a newsletter to confirmed subscribers.",
+      "compose": "New newsletter",
+      "composeTitle": "Compose a newsletter",
+      "composeHint": "This email will be sent to {{count}} confirmed subscriber(s).",
+      "subject": "Subject",
+      "message": "Message",
+      "send": "Send",
+      "sending": "Sending...",
+      "sent": "Newsletter sent to {{count}} subscriber(s).",
+      "confirmed": "Confirmed",
+      "pending": "Pending",
+      "empty": "No subscribers yet.",
+      "confirmDeleteTitle": "Delete this subscriber?",
       "confirmDeleteMessage": "This action is permanent."
     },
     "table": {

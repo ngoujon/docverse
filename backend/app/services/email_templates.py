@@ -161,3 +161,21 @@ def newsletter_confirm_email(confirm_url: str, unsubscribe_url: str) -> tuple[st
         f"Se desinscrire : {unsubscribe_url}"
     )
     return subject, _layout("Confirmez votre inscription a la newsletter", body), text
+
+
+def newsletter_campaign_email(subject: str, message: str, unsubscribe_url: str) -> tuple[str, str, str]:
+    paragraphs = "".join(
+        f'<p style="margin:0 0 14px;font-size:14px;line-height:1.6;color:{_INK};">{escape(line)}</p>'
+        for line in message.strip().splitlines()
+        if line.strip()
+    )
+    body = f"""
+      <h1 style="margin:0 0 12px;font-size:22px;color:{_INK};">{escape(subject)}</h1>
+      {paragraphs}
+      <p style="margin:16px 0 0;font-size:12px;line-height:1.6;color:{_MUTED};">
+        Vous recevez cet email car vous etes inscrit a la newsletter Docverse.
+        <a href="{unsubscribe_url}" style="color:{_MUTED};">Se desinscrire</a>.
+      </p>
+    """
+    text = f"{message.strip()}\n\nSe desinscrire : {unsubscribe_url}"
+    return subject, _layout(subject, body), text

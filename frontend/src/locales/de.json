@@ -697,7 +697,8 @@
       "users": "Nutzer",
       "spaces": "Bereiche",
       "testimonials": "Bewertungen",
-      "invoices": "Rechnungen"
+      "invoices": "Rechnungen",
+      "newsletter": "Newsletter"
     },
     "invoices": {
       "number": "Nummer",
@@ -737,6 +738,22 @@
       "unpublish": "Zuruckziehen",
       "empty": "Noch keine Bewertungen.",
       "confirmDeleteTitle": "Diese Bewertung loschen?",
+      "confirmDeleteMessage": "Diese Aktion ist endgultig."
+    },
+    "newsletter": {
+      "hint": "Verwalten Sie Abonnenten und senden Sie einen Newsletter an bestatigte Abonnenten.",
+      "compose": "Neuer Newsletter",
+      "composeTitle": "Newsletter verfassen",
+      "composeHint": "Diese E-Mail wird an {{count}} bestatigte Abonnenten gesendet.",
+      "subject": "Betreff",
+      "message": "Nachricht",
+      "send": "Senden",
+      "sending": "Wird gesendet...",
+      "sent": "Newsletter an {{count}} Abonnenten gesendet.",
+      "confirmed": "Bestatigt",
+      "pending": "Ausstehend",
+      "empty": "Noch keine Abonnenten.",
+      "confirmDeleteTitle": "Diesen Abonnenten loschen?",
       "confirmDeleteMessage": "Diese Aktion ist endgultig."
     },
     "table": {

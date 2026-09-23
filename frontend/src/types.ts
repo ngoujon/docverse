@@ -175,6 +175,14 @@ export interface AdminStats {
   new_spaces_7d: number;
 }
 
+export interface NewsletterSubscriber {
+  id: string;
+  email: string;
+  confirmed: boolean;
+  created_at: string;
+  confirmed_at: string | null;
+}
+
 export interface CaptchaChallenge {
   salt: string;
   difficulty: number;

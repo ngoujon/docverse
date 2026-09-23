@@ -697,7 +697,8 @@
       "users": "Utilisateurs",
       "spaces": "Espaces",
       "testimonials": "Avis",
-      "invoices": "Factures"
+      "invoices": "Factures",
+      "newsletter": "Newsletter"
     },
     "invoices": {
       "number": "Numero",
@@ -737,6 +738,22 @@
       "unpublish": "Depublier",
       "empty": "Aucun avis pour l'instant.",
       "confirmDeleteTitle": "Supprimer cet avis ?",
+      "confirmDeleteMessage": "Cette action est definitive."
+    },
+    "newsletter": {
+      "hint": "Gerez les abonnes et envoyez une newsletter aux inscrits confirmes.",
+      "compose": "Nouvelle newsletter",
+      "composeTitle": "Composer une newsletter",
+      "composeHint": "Cet email sera envoye a {{count}} abonne(s) confirme(s).",
+      "subject": "Objet",
+      "message": "Message",
+      "send": "Envoyer",
+      "sending": "Envoi...",
+      "sent": "Newsletter envoyee a {{count}} abonne(s).",
+      "confirmed": "Confirme",
+      "pending": "En attente",
+      "empty": "Aucun abonne pour l'instant.",
+      "confirmDeleteTitle": "Supprimer cet abonne ?",
       "confirmDeleteMessage": "Cette action est definitive."
     },
     "table": {

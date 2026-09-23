@@ -11,6 +11,7 @@ import type {
   LoginResponse,
   MeStats,
   Message,
+  NewsletterSubscriber,
   Paginated,
   ShareLink,
   Space,
@@ -181,6 +182,11 @@ export const api = {
     request<User>(`/admin/users/${userId}`, { method: "PATCH", body: JSON.stringify(patch) }),
   adminDeleteUser: (userId: string) => request(`/admin/users/${userId}`, { method: "DELETE" }),
   adminDeleteSpace: (spaceId: string) => request(`/admin/spaces/${spaceId}`, { method: "DELETE" }),
+  adminNewsletterSubscribers: (limit = 50, offset = 0) =>
+    request<Paginated<NewsletterSubscriber>>(`/admin/newsletter?limit=${limit}&offset=${offset}`),
+  adminDeleteNewsletterSubscriber: (id: string) => request(`/admin/newsletter/${id}`, { method: "DELETE" }),
+  adminSendNewsletterCampaign: (payload: { subject: string; message: string }) =>
+    request<{ sent: number }>("/admin/newsletter/send", { method: "POST", body: JSON.stringify(payload) }),
   adminListTestimonials: () => request<Testimonial[]>("/admin/testimonials"),
   adminCreateTestimonial: (payload: TestimonialInput) =>
     request<Testimonial>("/admin/testimonials", { method: "POST", body: JSON.stringify(payload) }),

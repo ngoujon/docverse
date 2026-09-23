@@ -15,6 +15,7 @@ import {
   MessagesSquare,
   Pencil,
   Plus,
+  Send,
   ShieldMinus,
   ShieldPlus,
   Star,
@@ -32,7 +33,16 @@ import ConfirmDialog from "../components/ConfirmDialog";
 import SnapshotsPanel from "../components/SnapshotsPanel";
 import TestimonialModal from "../components/TestimonialModal";
 import CreateUserModal from "../components/CreateUserModal";
-import type { AdminStats, Invoice, Space, Testimonial, TestimonialInput, User } from "../types";
+import NewsletterCampaignModal from "../components/NewsletterCampaignModal";
+import type {
+  AdminStats,
+  Invoice,
+  NewsletterSubscriber,
+  Space,
+  Testimonial,
+  TestimonialInput,
+  User,
+} from "../types";
 import { pageTitle } from "../brand";
 
 const PAGE_SIZE = 50;
@@ -68,17 +78,23 @@ export default function AdminDashboardPage() {
   const [invoicesLoading, setInvoicesLoading] = useState(false);
   const [invoicesError, setInvoicesError] = useState(false);
   const [invoicesLoaded, setInvoicesLoaded] = useState(false);
+  const [subscribers, setSubscribers] = useState<NewsletterSubscriber[]>([]);
+  const [subscribersTotal, setSubscribersTotal] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [tab, setTab] = useState<"users" | "spaces" | "testimonials" | "invoices">("users");
+  const [tab, setTab] = useState<"users" | "spaces" | "testimonials" | "invoices" | "newsletter">("users");
 
   const [deleteUserTarget, setDeleteUserTarget] = useState<User | null>(null);
   const [deleteSpaceTarget, setDeleteSpaceTarget] = useState<Space | null>(null);
   const [deleteTestimonialTarget, setDeleteTestimonialTarget] = useState<Testimonial | null>(null);
+  const [deleteSubscriberTarget, setDeleteSubscriberTarget] = useState<NewsletterSubscriber | null>(null);
   const [testimonialModalOpen, setTestimonialModalOpen] = useState(false);
   const [editingTestimonial, setEditingTestimonial] = useState<Testimonial | null>(null);
   const [snapshotsSpace, setSnapshotsSpace] = useState<Space | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
   const [createUserModalOpen, setCreateUserModalOpen] = useState(false);
+  const [campaignModalOpen, setCampaignModalOpen] = useState(false);
+  const [campaignSending, setCampaignSending] = useState(false);
+  const [campaignResult, setCampaignResult] = useState<number | null>(null);
 
   const loadInitial = useCallback(() => {
     setLoading(true);
@@ -87,14 +103,17 @@ export default function AdminDashboardPage() {
       api.adminUsers(PAGE_SIZE, 0),
       api.adminSpaces(PAGE_SIZE, 0),
       api.adminListTestimonials(),
+      api.adminNewsletterSubscribers(PAGE_SIZE, 0),
     ])
-      .then(([st, u, s, tst]) => {
+      .then(([st, u, s, tst, nl]) => {
         setStats(st);
         setUsers(u.items);
         setUsersTotal(u.total);
         setSpaces(s.items);
         setSpacesTotal(s.total);
         setTestimonials(tst);
+        setSubscribers(nl.items);
+        setSubscribersTotal(nl.total);
       })
       .finally(() => setLoading(false));
   }, []);
@@ -140,6 +159,12 @@ export default function AdminDashboardPage() {
     const page = await api.adminSpaces(PAGE_SIZE, spaces.length);
     setSpaces((prev) => [...prev, ...page.items]);
     setSpacesTotal(page.total);
+  };
+
+  const loadMoreSubscribers = async () => {
+    const page = await api.adminNewsletterSubscribers(PAGE_SIZE, subscribers.length);
+    setSubscribers((prev) => [...prev, ...page.items]);
+    setSubscribersTotal(page.total);
   };
 
   const toggleRole = async (u: User) => {
@@ -232,6 +257,31 @@ export default function AdminDashboardPage() {
     }
   };
 
+  const confirmDeleteSubscriber = async () => {
+    if (!deleteSubscriberTarget) return;
+    const id = deleteSubscriberTarget.id;
+    setBusyId(id);
+    try {
+      await api.adminDeleteNewsletterSubscriber(id);
+      setSubscribers((prev) => prev.filter((x) => x.id !== id));
+      setSubscribersTotal((n) => n - 1);
+    } finally {
+      setBusyId(null);
+      setDeleteSubscriberTarget(null);
+    }
+  };
+
+  const sendCampaign = async (data: { subject: string; message: string }) => {
+    setCampaignSending(true);
+    try {
+      const result = await api.adminSendNewsletterCampaign(data);
+      setCampaignResult(result.sent);
+      setCampaignModalOpen(false);
+    } finally {
+      setCampaignSending(false);
+    }
+  };
+
   return (
     <div className="min-h-[100dvh] bg-surface-0">
       <DashboardNav active="admin" />
@@ -284,6 +334,14 @@ export default function AdminDashboardPage() {
             }`}
           >
             {t("admin.tabs.invoices")}
+          </button>
+          <button
+            onClick={() => setTab("newsletter")}
+            className={`rounded-md px-3 py-1.5 text-xs font-medium ${
+              tab === "newsletter" ? "bg-accent text-white" : "text-slate-600 dark:text-slate-400"
+            }`}
+          >
+            {t("admin.tabs.newsletter")}
           </button>
         </div>
 
@@ -556,11 +614,12 @@ export default function AdminDashboardPage() {
               </table>
             </div>
           </>
-        ) : invoicesLoading && invoices.length === 0 ? (
-          <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">{t("common.loading")}</p>
-        ) : invoicesError ? (
-          <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">{t("admin.invoices.unavailable")}</p>
-        ) : (
+        ) : tab === "invoices" ? (
+          invoicesLoading && invoices.length === 0 ? (
+            <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">{t("common.loading")}</p>
+          ) : invoicesError ? (
+            <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">{t("admin.invoices.unavailable")}</p>
+          ) : (
           <>
             <div className="mt-4 overflow-x-auto rounded-xl border border-surface-border">
               <table className="w-full text-left text-sm">
@@ -638,6 +697,90 @@ export default function AdminDashboardPage() {
               </button>
             )}
           </>
+          )
+        ) : (
+          <>
+            <div className="mt-4 flex items-center justify-between">
+              <p className="text-xs text-slate-500 dark:text-slate-400">{t("admin.newsletter.hint")}</p>
+              <button
+                onClick={() => {
+                  setCampaignResult(null);
+                  setCampaignModalOpen(true);
+                }}
+                className="flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-white shadow-neon-light hover:bg-accent-hover"
+              >
+                <Send size={13} /> {t("admin.newsletter.compose")}
+              </button>
+            </div>
+
+            {campaignResult !== null && (
+              <p className="mt-3 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-xs text-emerald-600 dark:text-emerald-400">
+                {t("admin.newsletter.sent", { count: campaignResult })}
+              </p>
+            )}
+
+            <div className="mt-4 overflow-x-auto rounded-xl border border-surface-border">
+              <table className="w-full text-left text-sm">
+                <thead className="bg-surface-1 text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  <tr>
+                    <th className="px-4 py-2.5">{t("admin.table.email")}</th>
+                    <th className="px-4 py-2.5">{t("admin.table.status")}</th>
+                    <th className="px-4 py-2.5">{t("admin.table.createdAt")}</th>
+                    <th className="px-4 py-2.5 text-right">{t("admin.table.actions")}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {subscribers.map((sub) => {
+                    const busy = busyId === sub.id;
+                    return (
+                      <tr key={sub.id} className="border-t border-surface-border">
+                        <td className="px-4 py-2.5 text-slate-800 dark:text-slate-200">{sub.email}</td>
+                        <td className="px-4 py-2.5">
+                          <span
+                            className={`rounded-full px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider ${
+                              sub.confirmed
+                                ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
+                                : "bg-surface-3 text-slate-600 dark:text-slate-300"
+                            }`}
+                          >
+                            {sub.confirmed ? t("admin.newsletter.confirmed") : t("admin.newsletter.pending")}
+                          </span>
+                        </td>
+                        <td className="px-4 py-2.5 text-slate-600 dark:text-slate-400">{relativeDate(sub.created_at)}</td>
+                        <td className="px-4 py-2.5">
+                          <div className="flex items-center justify-end gap-1">
+                            <button
+                              title={t("admin.actions.delete")}
+                              disabled={busy}
+                              onClick={() => setDeleteSubscriberTarget(sub)}
+                              className="rounded-md p-1.5 text-red-500 hover:bg-red-500/10 disabled:opacity-30"
+                            >
+                              <Trash2 size={14} />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                  {subscribers.length === 0 && (
+                    <tr>
+                      <td colSpan={4} className="px-4 py-6 text-center text-slate-500 dark:text-slate-400">
+                        {t("admin.newsletter.empty")}
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+            {subscribers.length < subscribersTotal && (
+              <button
+                onClick={loadMoreSubscribers}
+                className="mt-3 flex items-center gap-1.5 rounded-lg border border-surface-border px-3 py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:bg-surface-3"
+              >
+                <ArrowDownToLine size={12} /> {t("admin.actions.loadMore")}
+              </button>
+            )}
+          </>
         )}
       </main>
 
@@ -669,6 +812,21 @@ export default function AdminDashboardPage() {
         confirmLabel={t("admin.actions.delete")}
         onConfirm={confirmDeleteTestimonial}
         onCancel={() => setDeleteTestimonialTarget(null)}
+      />
+      <ConfirmDialog
+        open={!!deleteSubscriberTarget}
+        title={t("admin.newsletter.confirmDeleteTitle")}
+        message={t("admin.newsletter.confirmDeleteMessage")}
+        confirmLabel={t("admin.actions.delete")}
+        onConfirm={confirmDeleteSubscriber}
+        onCancel={() => setDeleteSubscriberTarget(null)}
+      />
+      <NewsletterCampaignModal
+        open={campaignModalOpen}
+        recipientCount={stats?.newsletter_subscribers ?? 0}
+        sending={campaignSending}
+        onClose={() => setCampaignModalOpen(false)}
+        onSubmit={sendCampaign}
       />
       <CreateUserModal
         open={createUserModalOpen}

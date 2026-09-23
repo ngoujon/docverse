@@ -697,7 +697,8 @@
       "users": "Utilizadores",
       "spaces": "Espacos",
       "testimonials": "Testemunhos",
-      "invoices": "Faturas"
+      "invoices": "Faturas",
+      "newsletter": "Newsletter"
     },
     "invoices": {
       "number": "Numero",
@@ -737,6 +738,22 @@
       "unpublish": "Despublicar",
       "empty": "Ainda sem testemunhos.",
       "confirmDeleteTitle": "Eliminar este testemunho?",
+      "confirmDeleteMessage": "Esta acao e definitiva."
+    },
+    "newsletter": {
+      "hint": "Gerencie os assinantes e envie uma newsletter aos assinantes confirmados.",
+      "compose": "Nova newsletter",
+      "composeTitle": "Escrever uma newsletter",
+      "composeHint": "Este email sera enviado a {{count}} assinante(s) confirmado(s).",
+      "subject": "Assunto",
+      "message": "Mensagem",
+      "send": "Enviar",
+      "sending": "Enviando...",
+      "sent": "Newsletter enviada a {{count}} assinante(s).",
+      "confirmed": "Confirmado",
+      "pending": "Pendente",
+      "empty": "Ainda nao ha assinantes.",
+      "confirmDeleteTitle": "Excluir este assinante?",
       "confirmDeleteMessage": "Esta acao e definitiva."
     },
     "table": {

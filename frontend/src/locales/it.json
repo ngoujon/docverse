@@ -697,7 +697,8 @@
       "users": "Utenti",
       "spaces": "Spazi",
       "testimonials": "Recensioni",
-      "invoices": "Fatture"
+      "invoices": "Fatture",
+      "newsletter": "Newsletter"
     },
     "invoices": {
       "number": "Numero",
@@ -737,6 +738,22 @@
       "unpublish": "Rimuovi pubblicazione",
       "empty": "Ancora nessuna recensione.",
       "confirmDeleteTitle": "Eliminare questa recensione?",
+      "confirmDeleteMessage": "Questa azione e definitiva."
+    },
+    "newsletter": {
+      "hint": "Gestisci gli iscritti e invia una newsletter agli iscritti confermati.",
+      "compose": "Nuova newsletter",
+      "composeTitle": "Scrivi una newsletter",
+      "composeHint": "Questa email sara inviata a {{count}} iscritto/i confermato/i.",
+      "subject": "Oggetto",
+      "message": "Messaggio",
+      "send": "Invia",
+      "sending": "Invio...",
+      "sent": "Newsletter inviata a {{count}} iscritto/i.",
+      "confirmed": "Confermato",
+      "pending": "In attesa",
+      "empty": "Nessun iscritto per ora.",
+      "confirmDeleteTitle": "Eliminare questo iscritto?",
       "confirmDeleteMessage": "Questa azione e definitiva."
     },
     "table": {
