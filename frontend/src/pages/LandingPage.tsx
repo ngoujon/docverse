@@ -82,7 +82,7 @@ export default function LandingPage() {
           <a href="#top" className="flex items-center gap-2">
             <Sparkles size={20} className="text-retro-pink" />
             <span className="font-mono text-sm font-bold tracking-widest text-slate-900">
-              HYA<span className="text-retro-cyan">::</span>IDES
+              DOC<span className="text-retro-cyan">::</span>VERSE
               <span className="ml-0.5 inline-block h-3.5 w-[7px] animate-blink bg-retro-pink align-middle" />
             </span>
           </a>

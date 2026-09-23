@@ -17,7 +17,7 @@ export default function DashboardNav({ active }: { active: "client" | "admin" })
     <header className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 border-b border-surface-border px-3 py-3 sm:px-6">
       <Link to="/dashboard" className="flex items-center gap-2 text-slate-900 dark:text-slate-100">
         <Sparkles size={18} className="text-accent" />
-        <span className="hidden font-mono text-sm font-bold uppercase tracking-widest sm:inline">Hya::Ides</span>
+        <span className="hidden font-mono text-sm font-bold uppercase tracking-widest sm:inline">Doc::Verse</span>
       </Link>
 
       <nav className="order-3 flex w-full items-center justify-center gap-1 rounded-lg border border-surface-border p-1 sm:order-none sm:w-auto">
