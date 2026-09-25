@@ -552,6 +552,39 @@
         "particulier": "Privati",
         "pro": "Pro",
         "entreprise": "Azienda"
+      },
+      "usage": {
+        "title": "Utilizzo",
+        "storage": "Archiviazione",
+        "spaces": "Spazi",
+        "documents": "Documenti",
+        "conversations": "Conversazioni"
+      },
+      "billingProfile": {
+        "title": "Profilo di fatturazione",
+        "hint": "Queste informazioni compaiono sulle tue fatture. Compilale per ricevere fatture conformi (formato Factur-X).",
+        "individual": "Privato",
+        "business": "Azienda",
+        "companyName": "Ragione sociale",
+        "siret": "Numero SIRET",
+        "vatNumber": "Partita IVA intracomunitaria",
+        "addressLine1": "Indirizzo",
+        "addressLine2": "Indirizzo (riga 2)",
+        "postalCode": "CAP",
+        "city": "Citta",
+        "save": "Salva",
+        "saved": "Profilo di fatturazione salvato.",
+        "saveError": "Impossibile salvare il profilo di fatturazione."
+      },
+      "invoices": {
+        "title": "Storico fatturazione",
+        "empty": "Nessuna fattura per ora.",
+        "download": "Scarica"
+      },
+      "gdpr": {
+        "title": "I tuoi dati e i tuoi diritti (RGPD)",
+        "hint": "Hai il diritto di accesso, rettifica, cancellazione, limitazione, opposizione e portabilita dei tuoi dati personali. Puoi esportare i tuoi dati o eliminare il tuo account qui sotto; per qualsiasi altra richiesta, usa il modulo di contatto. I dettagli di questi diritti e dei trattamenti effettuati sono disponibili nella nostra",
+        "privacyLink": "informativa sulla privacy"
       }
     },
     "verify": {

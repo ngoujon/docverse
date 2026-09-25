@@ -230,6 +230,7 @@ def me_stats(user: models_db.User = Depends(get_current_user), db: Session = Dep
         conversation_count=conversation_count,
         message_count=message_count,
         storage_bytes=storage_bytes,
+        storage_limit_bytes=plan_quota(user.plan, "storage_bytes"),
     )
 
 

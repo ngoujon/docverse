@@ -552,6 +552,39 @@
         "particulier": "Individual",
         "pro": "Pro",
         "entreprise": "Enterprise"
+      },
+      "usage": {
+        "title": "Usage",
+        "storage": "Storage",
+        "spaces": "Spaces",
+        "documents": "Documents",
+        "conversations": "Conversations"
+      },
+      "billingProfile": {
+        "title": "Billing profile",
+        "hint": "This information appears on your invoices. Fill it in to receive compliant invoices (Factur-X format).",
+        "individual": "Individual",
+        "business": "Business",
+        "companyName": "Company name",
+        "siret": "SIRET number",
+        "vatNumber": "EU VAT number",
+        "addressLine1": "Address",
+        "addressLine2": "Address line 2",
+        "postalCode": "Postal code",
+        "city": "City",
+        "save": "Save",
+        "saved": "Billing profile saved.",
+        "saveError": "Could not save the billing profile."
+      },
+      "invoices": {
+        "title": "Billing history",
+        "empty": "No invoices yet.",
+        "download": "Download"
+      },
+      "gdpr": {
+        "title": "Your data and your rights (GDPR)",
+        "hint": "You have the right to access, rectify, erase, restrict, object to, and port your personal data. You can export your data or delete your account below; for any other request, use the contact form. Full details on these rights and on how your data is processed are available in our",
+        "privacyLink": "privacy policy"
       }
     },
     "verify": {

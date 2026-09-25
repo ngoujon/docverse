@@ -552,6 +552,39 @@
         "particulier": "Particular",
         "pro": "Pro",
         "entreprise": "Empresa"
+      },
+      "usage": {
+        "title": "Uso",
+        "storage": "Almacenamiento",
+        "spaces": "Espacios",
+        "documents": "Documentos",
+        "conversations": "Conversaciones"
+      },
+      "billingProfile": {
+        "title": "Perfil de facturacion",
+        "hint": "Esta informacion aparece en sus facturas. Complete estos datos para recibir facturas conformes (formato Factur-X).",
+        "individual": "Particular",
+        "business": "Empresa",
+        "companyName": "Razon social",
+        "siret": "Numero SIRET",
+        "vatNumber": "N.º de IVA intracomunitario",
+        "addressLine1": "Direccion",
+        "addressLine2": "Direccion (linea 2)",
+        "postalCode": "Codigo postal",
+        "city": "Ciudad",
+        "save": "Guardar",
+        "saved": "Perfil de facturacion guardado.",
+        "saveError": "No se pudo guardar el perfil de facturacion."
+      },
+      "invoices": {
+        "title": "Historial de facturacion",
+        "empty": "Todavia no hay facturas.",
+        "download": "Descargar"
+      },
+      "gdpr": {
+        "title": "Sus datos y sus derechos (RGPD)",
+        "hint": "Tiene derecho de acceso, rectificacion, supresion, limitacion, oposicion y portabilidad sobre sus datos personales. Puede exportar sus datos o eliminar su cuenta a continuacion; para cualquier otra solicitud, use el formulario de contacto. Encontrara el detalle de estos derechos y de los tratamientos realizados en nuestra",
+        "privacyLink": "politica de privacidad"
       }
     },
     "verify": {

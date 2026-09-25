@@ -2,12 +2,14 @@ import type {
   AdminHealthStatus,
   AdminStats,
   AuthResponse,
+  BillingProfile,
   CaptchaChallenge,
   CaptchaSolution,
   Conversation,
   DocumentItem,
   HealthStatus,
   Invoice,
+  LocalInvoice,
   LoginResponse,
   MeStats,
   Message,
@@ -37,7 +39,22 @@ export class UnauthorizedError extends Error {
 async function readDetail(res: Response, fallback: string): Promise<string> {
   try {
     const data = await res.json();
-    return data.detail || fallback;
+    if (typeof data.detail === "string" && data.detail) return data.detail;
+    // FastAPI's automatic request-validation errors (raised directly by a
+    // Pydantic validator, e.g. an invalid SIRET) never go through our own
+    // HTTPException(...) calls, so `detail` there is the raw Pydantic error
+    // list, not a string - pull the human-readable message back out of it
+    // instead of stringifying the array as "[object Object]".
+    if (Array.isArray(data.detail) && data.detail.length) {
+      const messages = data.detail
+        .map((item: unknown) => {
+          const msg = (item as { msg?: unknown })?.msg;
+          return typeof msg === "string" ? msg.replace(/^Value error,\s*/, "") : null;
+        })
+        .filter((msg: string | null): msg is string => Boolean(msg));
+      if (messages.length) return messages.join(" ");
+    }
+    return fallback;
   } catch {
     return fallback;
   }
@@ -155,6 +172,34 @@ export const api = {
       body: JSON.stringify({ plan }),
     }),
   billingPortal: () => request<{ url: string }>("/billing/portal", { method: "POST" }),
+  billingProfile: () => request<BillingProfile>("/billing/profile"),
+  updateBillingProfile: (payload: BillingProfile) =>
+    request<BillingProfile>("/billing/profile", { method: "PUT", body: JSON.stringify(payload) }),
+  myInvoices: (limit = 20, offset = 0) =>
+    request<{ items: LocalInvoice[]; total: number }>(
+      `/billing/invoices/mine?limit=${limit}&offset=${offset}`
+    ),
+  downloadMyInvoice: async (invoiceId: string, filenameFallback: string): Promise<void> => {
+    const res = await fetch(`${BASE}/billing/invoices/mine/${invoiceId}/download`, {
+      headers: authHeaders(),
+    });
+    if (res.status === 401) throw new UnauthorizedError(await readDetail(res, "Acces non autorise"));
+    if (!res.ok) throw new Error(await readDetail(res, res.statusText));
+
+    const disposition = res.headers.get("Content-Disposition") || "";
+    const match = disposition.match(/filename="([^"]+)"/);
+    const filename = match ? match[1] : `${filenameFallback}.pdf`;
+
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  },
 
   // --- Captcha --------------------------------------------------------
   captchaChallenge: () => request<CaptchaChallenge>("/captcha/challenge"),

@@ -552,6 +552,39 @@
         "particulier": "Particulier",
         "pro": "Pro",
         "entreprise": "Entreprise"
+      },
+      "usage": {
+        "title": "Utilisation",
+        "storage": "Stockage",
+        "spaces": "Espaces",
+        "documents": "Documents",
+        "conversations": "Conversations"
+      },
+      "billingProfile": {
+        "title": "Profil de facturation",
+        "hint": "Ces informations apparaissent sur vos factures. Completez-les pour recevoir des factures conformes (format Factur-X).",
+        "individual": "Particulier",
+        "business": "Professionnel",
+        "companyName": "Raison sociale",
+        "siret": "Numero SIRET",
+        "vatNumber": "N° TVA intracommunautaire",
+        "addressLine1": "Adresse",
+        "addressLine2": "Complement d'adresse",
+        "postalCode": "Code postal",
+        "city": "Ville",
+        "save": "Enregistrer",
+        "saved": "Profil de facturation enregistre.",
+        "saveError": "Impossible d'enregistrer le profil de facturation."
+      },
+      "invoices": {
+        "title": "Historique de facturation",
+        "empty": "Aucune facture pour le moment.",
+        "download": "Telecharger"
+      },
+      "gdpr": {
+        "title": "Vos donnees et vos droits (RGPD)",
+        "hint": "Vous disposez d'un droit d'acces, de rectification, d'effacement, de limitation, d'opposition et de portabilite sur vos donnees personnelles. Vous pouvez exporter vos donnees ou supprimer votre compte ci-dessous ; pour toute autre demande, utilisez le formulaire de contact. Le detail de ces droits et des traitements effectues est disponible dans notre",
+        "privacyLink": "politique de confidentialite"
       }
     },
     "verify": {

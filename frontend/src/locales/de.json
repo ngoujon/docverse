@@ -552,6 +552,39 @@
         "particulier": "Privat",
         "pro": "Pro",
         "entreprise": "Enterprise"
+      },
+      "usage": {
+        "title": "Nutzung",
+        "storage": "Speicher",
+        "spaces": "Bereiche",
+        "documents": "Dokumente",
+        "conversations": "Unterhaltungen"
+      },
+      "billingProfile": {
+        "title": "Rechnungsprofil",
+        "hint": "Diese Angaben erscheinen auf Ihren Rechnungen. Fullen Sie sie aus, um konforme Rechnungen (Factur-X-Format) zu erhalten.",
+        "individual": "Privatperson",
+        "business": "Unternehmen",
+        "companyName": "Firmenname",
+        "siret": "SIRET-Nummer",
+        "vatNumber": "USt-IdNr.",
+        "addressLine1": "Adresse",
+        "addressLine2": "Adresszusatz",
+        "postalCode": "Postleitzahl",
+        "city": "Ort",
+        "save": "Speichern",
+        "saved": "Rechnungsprofil gespeichert.",
+        "saveError": "Rechnungsprofil konnte nicht gespeichert werden."
+      },
+      "invoices": {
+        "title": "Rechnungsverlauf",
+        "empty": "Noch keine Rechnungen.",
+        "download": "Herunterladen"
+      },
+      "gdpr": {
+        "title": "Ihre Daten und Ihre Rechte (DSGVO)",
+        "hint": "Sie haben das Recht auf Auskunft, Berichtigung, Loschung, Einschrankung, Widerspruch und Ubertragbarkeit Ihrer personenbezogenen Daten. Sie konnen Ihre Daten unten exportieren oder Ihr Konto loschen; fur alle anderen Anfragen nutzen Sie bitte das Kontaktformular. Alle Einzelheiten zu diesen Rechten und zur Datenverarbeitung finden Sie in unserer",
+        "privacyLink": "Datenschutzerklarung"
       }
     },
     "verify": {

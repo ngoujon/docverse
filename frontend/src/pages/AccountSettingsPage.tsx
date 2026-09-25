@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
@@ -6,9 +6,12 @@ import {
   BadgeX,
   CreditCard,
   Download,
+  FileText,
+  HardDrive,
   KeyRound,
   Loader2,
   LogOut,
+  Scale,
   ShieldAlert,
   ShieldCheck,
   ShieldOff,
@@ -20,7 +23,9 @@ import { useAuth } from "../hooks/useAuth";
 import { usePageMeta } from "../hooks/usePageMeta";
 import DashboardNav from "../components/DashboardNav";
 import ConfirmDialog from "../components/ConfirmDialog";
-import type { TwoFactorSetup } from "../types";
+import BillingProfileForm from "../components/BillingProfileForm";
+import { formatBytes } from "../utils/format";
+import type { LocalInvoice, MeStats, TwoFactorSetup } from "../types";
 import { BRAND, pageTitle } from "../brand";
 
 export default function AccountSettingsPage() {
@@ -46,6 +51,27 @@ export default function AccountSettingsPage() {
 
   const [billingBusy, setBillingBusy] = useState(false);
   const [billingError, setBillingError] = useState<string | null>(null);
+
+  const [stats, setStats] = useState<MeStats | null>(null);
+  const [invoices, setInvoices] = useState<LocalInvoice[] | null>(null);
+  const [downloadingInvoiceId, setDownloadingInvoiceId] = useState<string | null>(null);
+
+  useEffect(() => {
+    api.meStats().then(setStats).catch(() => setStats(null));
+    api
+      .myInvoices()
+      .then((res) => setInvoices(res.items))
+      .catch(() => setInvoices([]));
+  }, []);
+
+  const handleDownloadInvoice = async (invoice: LocalInvoice) => {
+    setDownloadingInvoiceId(invoice.id);
+    try {
+      await api.downloadMyInvoice(invoice.id, `facture-${invoice.number}`);
+    } finally {
+      setDownloadingInvoiceId(null);
+    }
+  };
 
   const [deletePassword, setDeletePassword] = useState("");
   const [deleteError, setDeleteError] = useState<string | null>(null);
@@ -207,6 +233,99 @@ export default function AccountSettingsPage() {
           {billingError && <p className="mt-2 text-xs text-red-500">{billingError}</p>}
         </div>
 
+        {stats && (
+          <div className="mt-3 rounded-xl border border-surface-border bg-surface-1 p-5">
+            <div className="flex items-center gap-2">
+              <HardDrive size={15} className="text-slate-500 dark:text-slate-400" />
+              <p className="text-sm text-slate-800 dark:text-slate-200">{t("auth.account.usage.title")}</p>
+            </div>
+            <div className="mt-3 space-y-1">
+              <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                <span>{t("auth.account.usage.storage")}</span>
+                <span>
+                  {formatBytes(stats.storage_bytes)}
+                  {stats.storage_limit_bytes != null && ` / ${formatBytes(stats.storage_limit_bytes)}`}
+                </span>
+              </div>
+              {stats.storage_limit_bytes != null && stats.storage_limit_bytes > 0 && (
+                <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-3">
+                  <div
+                    className="h-full rounded-full bg-accent"
+                    style={{
+                      width: `${Math.min(100, (stats.storage_bytes / stats.storage_limit_bytes) * 100)}%`,
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+            <div className="mt-3 grid grid-cols-3 gap-2 text-center">
+              <div>
+                <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+                  {stats.owned_spaces}
+                  {stats.space_limit != null && <span className="text-slate-400"> / {stats.space_limit}</span>}
+                </p>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400">{t("auth.account.usage.spaces")}</p>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">{stats.document_count}</p>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400">{t("auth.account.usage.documents")}</p>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">{stats.conversation_count}</p>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400">{t("auth.account.usage.conversations")}</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <h2 className="mt-8 font-mono text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          {t("auth.account.billingProfile.title")}
+        </h2>
+        <div className="mt-3 rounded-xl border border-surface-border bg-surface-1 p-5">
+          <p className="mb-4 text-xs text-slate-500 dark:text-slate-400">
+            {t("auth.account.billingProfile.hint")}
+          </p>
+          <BillingProfileForm />
+        </div>
+
+        <h2 className="mt-8 font-mono text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          {t("auth.account.invoices.title")}
+        </h2>
+        <div className="mt-3 rounded-xl border border-surface-border bg-surface-1 p-5">
+          {!invoices || invoices.length === 0 ? (
+            <p className="text-xs text-slate-500 dark:text-slate-400">{t("auth.account.invoices.empty")}</p>
+          ) : (
+            <ul className="divide-y divide-surface-border">
+              {invoices.map((invoice) => (
+                <li key={invoice.id} className="flex items-center justify-between gap-3 py-2.5 first:pt-0 last:pb-0">
+                  <div className="flex items-center gap-2 overflow-hidden">
+                    <FileText size={14} className="shrink-0 text-slate-400" />
+                    <div className="min-w-0">
+                      <p className="truncate text-sm text-slate-800 dark:text-slate-200">{invoice.number}</p>
+                      <p className="truncate text-xs text-slate-500 dark:text-slate-400">
+                        {new Date(invoice.issue_date).toLocaleDateString()} ·{" "}
+                        {(invoice.amount_ttc_cents / 100).toFixed(2)} {invoice.currency.toUpperCase()}
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => handleDownloadInvoice(invoice)}
+                    disabled={downloadingInvoiceId === invoice.id}
+                    className="flex shrink-0 items-center gap-1.5 rounded-lg border border-surface-border px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-surface-3 disabled:opacity-40"
+                  >
+                    {downloadingInvoiceId === invoice.id ? (
+                      <Loader2 size={12} className="animate-spin" />
+                    ) : (
+                      <Download size={12} />
+                    )}
+                    {t("auth.account.invoices.download")}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
         <h2 className="mt-8 font-mono text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
           {t("auth.account.security")}
         </h2>
@@ -342,8 +461,21 @@ export default function AccountSettingsPage() {
           )}
         </div>
 
+        <h2 className="mt-8 font-mono text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          {t("auth.account.gdpr.title")}
+        </h2>
         <div className="mt-3 rounded-xl border border-surface-border bg-surface-1 p-5">
-          <div className="flex items-center justify-between gap-3">
+          <div className="flex items-start gap-2">
+            <Scale size={15} className="mt-0.5 shrink-0 text-slate-500 dark:text-slate-400" />
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              {t("auth.account.gdpr.hint")}{" "}
+              <Link to="/confidentialite" className="text-accent hover:underline">
+                {t("auth.account.gdpr.privacyLink")}
+              </Link>
+              .
+            </p>
+          </div>
+          <div className="mt-4 flex items-center justify-between gap-3 border-t border-surface-border pt-4">
             <div className="flex items-center gap-2">
               <Download size={15} className="text-slate-500 dark:text-slate-400" />
               <span className="text-sm text-slate-800 dark:text-slate-200">{t("auth.account.exportData")}</span>

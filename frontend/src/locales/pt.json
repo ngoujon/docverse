@@ -552,6 +552,39 @@
         "particulier": "Particular",
         "pro": "Pro",
         "entreprise": "Empresa"
+      },
+      "usage": {
+        "title": "Utilizacao",
+        "storage": "Armazenamento",
+        "spaces": "Espacos",
+        "documents": "Documentos",
+        "conversations": "Conversas"
+      },
+      "billingProfile": {
+        "title": "Perfil de faturacao",
+        "hint": "Estas informacoes aparecem nas suas faturas. Preencha-as para receber faturas conformes (formato Factur-X).",
+        "individual": "Particular",
+        "business": "Empresa",
+        "companyName": "Razao social",
+        "siret": "Numero SIRET",
+        "vatNumber": "N.º de IVA intracomunitario",
+        "addressLine1": "Morada",
+        "addressLine2": "Morada (linha 2)",
+        "postalCode": "Codigo postal",
+        "city": "Cidade",
+        "save": "Guardar",
+        "saved": "Perfil de faturacao guardado.",
+        "saveError": "Nao foi possivel guardar o perfil de faturacao."
+      },
+      "invoices": {
+        "title": "Historico de faturacao",
+        "empty": "Ainda sem faturas.",
+        "download": "Transferir"
+      },
+      "gdpr": {
+        "title": "Os seus dados e os seus direitos (RGPD)",
+        "hint": "Tem direito de acesso, retificacao, apagamento, limitacao, oposicao e portabilidade dos seus dados pessoais. Pode exportar os seus dados ou eliminar a sua conta abaixo; para qualquer outro pedido, utilize o formulario de contacto. Os detalhes destes direitos e do tratamento de dados estao disponiveis na nossa",
+        "privacyLink": "politica de privacidade"
       }
     },
     "verify": {
