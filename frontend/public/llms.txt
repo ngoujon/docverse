@@ -1,0 +1,21 @@
+# Docverse
+
+> RAG souverain hébergé en France : vos documents (PDF, scans, images, DOCX, pages web) sont interrogés par une IA française (Mistral AI), sur une infrastructure hébergée en France (OVHcloud). Un espace cloisonné par client ou projet, réponses toujours sourcées, questions illimitées sur tous les paliers, aucune donnée transférée hors Union européenne.
+
+## Pages
+
+- [Accueil](https://example.com/) : présentation du produit et de l'hébergement souverain
+- [Tarifs](https://example.com/tarifs) : paliers Découverte (gratuit), Particulier (9€/mois), Pro (29€/mois), Entreprise (devis sur mesure)
+- [Démo](https://example.com/demo) : essai sans création de compte, sur des documents types
+- [Entreprise](https://example.com/entreprise) : espaces et membres illimités, SSO, SLA, support dédié
+- [FAQ](https://example.com/faq) : questions fréquentes sur les comptes, espaces, partage et confidentialité
+- [Confidentialité](https://example.com/confidentialite) : ce qui est stocké et pourquoi
+
+## Faits clés
+
+- Hébergement en France (OVHcloud), hors du champ du CLOUD Act américain
+- Moteur d'IA français (Mistral AI) : aucune requête ne quitte l'Union européenne
+- Documents et questions jamais utilisés pour entraîner un modèle
+- Espaces cloisonnés par client, accès révocable, rôles lecture seule ou édition
+- Formats ingérés : PDF, images (OCR par vision IA), DOCX, TXT, Markdown, pages web, audio (transcription auto-hébergée)
+- Authentification Google SSO et vérification en deux étapes (2FA)

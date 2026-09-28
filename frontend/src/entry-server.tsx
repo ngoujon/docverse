@@ -3,6 +3,7 @@ import { StaticRouter } from "react-router-dom";
 import App from "./App";
 import { AuthProvider } from "./hooks/useAuth";
 import { __setSSRMetaSink } from "./hooks/usePageMeta";
+import { __setSSRJsonLdSink } from "./hooks/useJsonLd";
 import i18n from "./i18n";
 
 interface RenderedPage {
@@ -11,6 +12,7 @@ interface RenderedPage {
   description?: string;
   canonicalPath?: string;
   noindex?: boolean;
+  jsonLd: object[];
 }
 
 /** Renders a single route to static markup for the build-time prerender
@@ -19,8 +21,10 @@ interface RenderedPage {
 export function render(url: string): RenderedPage {
   i18n.changeLanguage("fr");
 
-  const meta: RenderedPage = { appHtml: "", title: "" };
+  const meta: Omit<RenderedPage, "jsonLd"> = { appHtml: "", title: "" };
+  const jsonLd: object[] = [];
   __setSSRMetaSink(meta);
+  __setSSRJsonLdSink(jsonLd);
   try {
     meta.appHtml = renderToStaticMarkup(
       <StaticRouter location={url}>
@@ -31,6 +35,7 @@ export function render(url: string): RenderedPage {
     );
   } finally {
     __setSSRMetaSink(null);
+    __setSSRJsonLdSink(null);
   }
-  return meta;
+  return { ...meta, jsonLd };
 }

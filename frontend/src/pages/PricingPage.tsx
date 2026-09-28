@@ -3,9 +3,10 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, ArrowRight, Check, Loader2 } from "lucide-react";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { useJsonLd } from "../hooks/useJsonLd";
 import { useAuth } from "../hooks/useAuth";
 import { api } from "../api/client";
-import { pageTitle } from "../brand";
+import { pageTitle, BRAND } from "../brand";
 
 interface PricingTier {
   name: string;
@@ -33,6 +34,26 @@ export default function PricingPage() {
     title: pageTitle(t("pricing.title")),
     description: t("pricing.subtitle"),
     canonicalPath: "/tarifs",
+  });
+
+  // Paliers a prix fixe uniquement (Entreprise est un devis sur mesure,
+  // sans prix public - donc sans Offer schema.org, comme deja le cas dans
+  // le SoftwareApplication schema statique de index.html).
+  useJsonLd({
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: BRAND.name,
+    description: t("pricing.subtitle"),
+    offers: tiers
+      .filter((tier) => tier.price)
+      .map((tier) => ({
+        "@type": "Offer",
+        name: tier.name,
+        price: tier.price,
+        priceCurrency: "EUR",
+        description: tier.tagline,
+        url: "https://example.com/tarifs",
+      })),
   });
 
   const startCheckout = async (plan: "particulier" | "pro") => {

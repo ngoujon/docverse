@@ -14,7 +14,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const redirectTo = (location.state as { from?: string } | null)?.from || "/dashboard";
-  usePageMeta({ title: pageTitle(t("auth.login.title")), noindex: true });
+  usePageMeta({ title: pageTitle(t("auth.login.title")), description: t("auth.login.subtitle"), noindex: true });
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

@@ -17,7 +17,7 @@ export default function RegisterPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const redirectTo = (location.state as { from?: string } | null)?.from || "/dashboard";
-  usePageMeta({ title: pageTitle(t("auth.register.title")), noindex: true });
+  usePageMeta({ title: pageTitle(t("auth.register.title")), description: t("auth.register.subtitle"), noindex: true });
 
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");

@@ -48,8 +48,8 @@ async function main() {
     const { render } = await vite.ssrLoadModule("/src/entry-server.tsx");
 
     for (const route of ROUTES) {
-      const { appHtml, title, description, canonicalPath } = render(route);
-      const html = injectPage(template, { appHtml, title, description, canonicalPath });
+      const { appHtml, title, description, canonicalPath, jsonLd } = render(route);
+      const html = injectPage(template, { appHtml, title, description, canonicalPath, jsonLd });
 
       const outDir = route === "/" ? distDir : path.join(distDir, route);
       await mkdir(outDir, { recursive: true });
@@ -82,7 +82,7 @@ async function writeSitemap() {
   console.log(`sitemap ${ROUTES.length} routes -> ${siteOrigin}`);
 }
 
-function injectPage(template, { appHtml, title, description, canonicalPath }) {
+function injectPage(template, { appHtml, title, description, canonicalPath, jsonLd }) {
   let html = template.replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`);
 
   if (title) {
@@ -114,6 +114,23 @@ function injectPage(template, { appHtml, title, description, canonicalPath }) {
   if (canonicalUrl) {
     html = html.replace(/(<link\s+rel="canonical"\s+href=").*?(")/s, `$1${escapeHtml(canonicalUrl)}$2`);
     html = html.replace(/(<meta\s+property="og:url"\s+content=").*?(")/s, `$1${escapeHtml(canonicalUrl)}$2`);
+  }
+
+  // Per-route structured data (e.g. FaqPage's FAQPage schema, collected via
+  // useJsonLd's SSR sink) baked in statically, so a crawler reading this
+  // HTML without executing JS sees it too - not just a real browser after
+  // hydration. data-prerendered lets useJsonLd's client-side effect
+  // recognize and reuse these instead of appending a duplicate.
+  if (jsonLd && jsonLd.length > 0) {
+    const scripts = jsonLd
+      .map((data) => {
+        // Guards against a "</script>" substring inside the JSON (e.g. an
+        // FAQ answer mentioning a <script> tag) breaking out of the tag.
+        const json = JSON.stringify(data).replace(/<\/script/gi, "<\\/script");
+        return `    <script type="application/ld+json" data-prerendered>${json}</script>`;
+      })
+      .join("\n");
+    html = html.replace("</head>", `${scripts}\n  </head>`);
   }
 
   return html;

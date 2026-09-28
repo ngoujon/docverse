@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { ArrowLeft, ChevronDown, HelpCircle } from "lucide-react";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { useJsonLd } from "../hooks/useJsonLd";
-import { pageTitle } from "../brand";
 
 interface FaqItem {
   question: string;
@@ -16,8 +15,10 @@ export default function FaqPage() {
   const items = t("faq.items", { returnObjects: true }) as FaqItem[];
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
+  // t("faq.title") interpole deja {{brand}} (voir locales/*.json) - le
+  // passer a pageTitle() dupliquerait le nom de marque ("... - Docverse").
   usePageMeta({
-    title: pageTitle(t("faq.title")),
+    title: t("faq.title"),
     description: t("faq.subtitle"),
     canonicalPath: "/faq",
   });

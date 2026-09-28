@@ -9,7 +9,7 @@ import { pageTitle } from "../brand";
 
 export default function ForgotPasswordPage() {
   const { t } = useTranslation();
-  usePageMeta({ title: pageTitle(t("auth.forgot.title")), noindex: true });
+  usePageMeta({ title: pageTitle(t("auth.forgot.title")), description: t("auth.forgot.subtitle"), noindex: true });
 
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
