@@ -212,7 +212,7 @@
       },
       {
         "question": "Resuma os pontos-chave da reuniao.",
-        "answer": "De acordo com as notas da reuniao [2], foram tomadas tres decisoes: lancamento de um plano Pro, migracao para a Stripe, e lancamento previsto para setembro.",
+        "answer": "De acordo com as notas da reuniao [2], foram tomadas tres decisoes: lancamento de um plano Pro, migracao para um novo CRM, e lancamento previsto para setembro.",
         "sourceIndex": 2
       },
       {
