@@ -12,7 +12,6 @@
     "features": "Funcionalidades",
     "sovereignty": "Soberania",
     "demo": "Demo",
-    "pricing": "Precos",
     "contact": "Contacto",
     "register": "Registar",
     "launchApp": "Abrir a app"
@@ -21,14 +20,14 @@
     "badges": [
       "Alojado em Franca",
       "IA francesa - Mistral",
-      "100% gratuito",
-      "Sem cartao bancario"
+      "Respostas com fontes",
+      "Espacos isolados"
     ],
     "title1": "A sua solucao cloud RAG soberana,",
     "title2": "alojada em Franca.",
     "subtitle": "Carregue os seus documentos, interrogue-os em linguagem natural e obtenha respostas com fontes. Toda a cadeia e europeia: alojamento {{hostingProvider}} em {{hostingCountry}}, motor de IA {{aiProvider}}, editor frances. Os seus dados nunca saem da Uniao Europeia.",
-    "ctaTry": "Experimentar agora",
-    "ctaDiscover": "Ver a oferta gratuita"
+    "ctaTry": "Usar a aplicacao",
+    "ctaDiscover": "Ver um exemplo"
   },
   "sovereignty": {
     "eyebrow": "Soberania digital",
@@ -65,7 +64,7 @@
   "features": {
     "eyebrow": "O que obtem",
     "title": "O RAG soberano para estruturas que gerem varios clientes ou processos",
-    "subtitle": "Escritorios, agencias, equipas de projeto: um espaco isolado por cliente, acesso controlado por pessoa, um servico totalmente gratuito - e uma conformidade com o RGPD que nao depende de qualquer transferencia para fora da Uniao Europeia.",
+    "subtitle": "Escritorios, agencias, equipas de projeto: um espaco isolado por cliente, acesso controlado por pessoa - e uma conformidade com o RGPD que nao depende de qualquer transferencia para fora da Uniao Europeia.",
     "items": [
       {
         "title": "Um espaco por cliente, um acesso por pessoa",
@@ -80,8 +79,8 @@
         "desc": "Veja quem tem acesso a cada espaco, remova um acesso com um clique, e um prazo de seguranca impede que alguem seja readicionado de imediato."
       },
       {
-        "title": "100% gratuito, sem cartao bancario",
-        "desc": "Sem subscricao nem faturacao por utilizacao: cada conta dispoe gratuitamente de limites generosos (espacos, armazenamento, perguntas por dia), existentes apenas para evitar abusos."
+        "title": "Audio transcrito nos nossos servidores",
+        "desc": "Carregue uma gravacao: e transcrita nos nossos servidores, sem servicos de terceiros, e depois indexada como qualquer outro documento."
       },
       {
         "title": "Pesquisa web sem fugas para terceiros",
@@ -142,36 +141,7 @@
     "privacy": "Privacidade",
     "terms": "Termos",
     "legal": "Aviso legal",
-    "pricing": "Precos",
     "launchApp": "Abrir a app"
-  },
-  "pricing": {
-    "eyebrow": "Precos",
-    "title": "100% gratuito, para todos",
-    "subtitle": "Sem subscricao, sem cartao bancario, sem planos pagos. Cada conta tem os mesmos limites de utilizacao, pensados para uma utilizacao normal e para evitar abusos.",
-    "planName": "Gratuito",
-    "tagline": "Todas as funcionalidades, para cada conta",
-    "period": "para sempre",
-    "featuresTitle": "Incluido",
-    "limitsTitle": "Limites por conta",
-    "features": [
-      "Respostas de IA com fontes",
-      "Todos os formatos: PDF, digitalizacoes, imagens, DOCX, paginas web, audio",
-      "Links de partilha e funcoes",
-      "Copias de seguranca automaticas",
-      "Alojado em Franca, IA francesa"
-    ],
-    "limits": [
-      "3 espacos de trabalho",
-      "5 membros por espaco",
-      "500 MB de armazenamento por espaco",
-      "50 perguntas a IA por dia"
-    ],
-    "cta": "Criar a minha conta gratuita",
-    "ctaLoggedIn": "Ir para os meus espacos",
-    "fairUseNote": "Os limites servem apenas para evitar abusos e podem mudar. O contador de perguntas e reposto todos os dias.",
-    "faqNote": "Tem perguntas?",
-    "faqLink": "Consulte as FAQ"
   },
   "demo": {
     "question": "Resuma os pontos-chave do contrato do fornecedor.",
@@ -182,7 +152,7 @@
   "demoPage": {
     "back": "Voltar ao inicio",
     "eyebrow": "Demonstracao",
-    "title": "Experimente sem criar conta",
+    "title": "Veja como funciona",
     "subtitle": "Um espaco simulado com documentos de exemplo. Clique numa pergunta para ver como a IA responde com fontes.",
     "banner": "Isto e uma simulacao com respostas pre-escritas - nenhum documento e realmente analisado aqui.",
     "documentsTitle": "Documentos do espaco",
@@ -221,11 +191,11 @@
         "sourceIndex": 1
       }
     ],
-    "inputPlaceholder": "Experimente uma das perguntas sugeridas abaixo",
+    "inputPlaceholder": "Escolha uma das perguntas sugeridas abaixo",
     "typing": "a escrever...",
-    "ctaTitle": "Convencido?",
-    "ctaText": "Crie a sua conta para carregar os seus proprios documentos e obter respostas reais.",
-    "ctaButton": "Criar a minha conta gratuita",
+    "ctaTitle": "A sua vez",
+    "ctaText": "Carregue os seus proprios documentos e obtenha respostas com fontes.",
+    "ctaButton": "Usar a aplicacao",
     "resetLabel": "Recomecar"
   },
   "cookies": {
@@ -298,7 +268,7 @@
       },
       {
         "title": "4. Espacos de trabalho e partilha",
-        "body": "Cada espaco de trabalho pertence a um proprietario, que pode convidar outros utilizadores atraves de um link de partilha (apenas leitura ou leitura/escrita consoante a funcao escolhida). O proprietario de um espaco e responsavel pelas pessoas que convida e pelo conteudo ali depositado. O numero de espacos, de membros por espaco, o armazenamento e o numero de perguntas por dia sao limitados por conta (ver a pagina Precos)."
+        "body": "Cada espaco de trabalho pertence a um proprietario, que pode convidar outros utilizadores atraves de um link de partilha (apenas leitura ou leitura/escrita consoante a funcao escolhida). O proprietario de um espaco e responsavel pelas pessoas que convida e pelo conteudo ali depositado. O numero de espacos, de membros por espaco, o armazenamento e o numero de perguntas por dia sao limitados por conta (ver as FAQ)."
       },
       {
         "title": "5. Utilizacao aceitavel",
@@ -309,8 +279,8 @@
         "body": "As respostas geradas pelo assistente de IA podem ser incompletas, imprecisas ou conter erros (alucinacoes), mesmo quando citam fontes. Nao constituem, em caso algum, aconselhamento profissional, juridico, medico ou financeiro. E o unico responsavel pela forma como utiliza as respostas fornecidas."
       },
       {
-        "title": "7. Gratuitidade e limites de utilizacao",
-        "body": "O servico e totalmente gratuito: nunca e exigida qualquer subscricao ou pagamento. Para garantir uma utilizacao justa e prevenir abusos, cada conta esta sujeita a limites de utilizacao (espacos, membros por espaco, armazenamento, perguntas feitas a IA por dia), indicados na pagina Precos e sujeitos a alteracao. Contornar estes limites (por exemplo, criando varias contas) pode levar a suspensao das contas em causa. Pode eliminar a sua conta a qualquer momento, o que implica a eliminacao definitiva dos seus espacos e dados associados."
+        "title": "7. Limites de utilizacao",
+        "body": "Para garantir uma utilizacao justa e prevenir abusos, cada conta esta sujeita a limites de utilizacao (espacos, membros por espaco, armazenamento, perguntas feitas a IA por dia), indicados nas FAQ e sujeitos a alteracao. Contornar estes limites (por exemplo, criando varias contas) pode levar a suspensao das contas em causa. Pode eliminar a sua conta a qualquer momento, o que implica a eliminacao definitiva dos seus espacos e dados associados."
       },
       {
         "title": "8. Disponibilidade do servico",
@@ -384,7 +354,7 @@
     },
     "register": {
       "title": "Criar uma conta",
-      "subtitle": "Gratuito, em poucos segundos.",
+      "subtitle": "Em poucos segundos.",
       "hasAccount": "Ja tem conta?",
       "loginLink": "Iniciar sessao",
       "passwordHint": "Minimo de 8 caracteres.",
@@ -448,7 +418,7 @@
         "spaces": "Espacos",
         "documents": "Documentos",
         "conversations": "Conversas",
-        "freeNote": "Conta gratuita - limites de utilizacao",
+        "freeNote": "Limites de utilizacao da sua conta",
         "questionsToday": "Perguntas hoje"
       },
       "gdpr": {
@@ -495,7 +465,7 @@
       },
       {
         "question": "Preciso de uma conta para a utilizar?",
-        "answer": "Sim, e necessaria uma conta gratuita para usar o {{brand}}, incluindo para abrir um link de partilha. E isso que permite a cada espaco saber exatamente quem acedeu e com que funcao."
+        "answer": "Sim, e necessaria uma conta para usar o {{brand}}, incluindo para abrir um link de partilha. E isso que permite a cada espaco saber exatamente quem acedeu e com que funcao."
       },
       {
         "question": "O que e um espaco de trabalho?",
@@ -507,7 +477,7 @@
       },
       {
         "question": "Como funcionam os links de partilha?",
-        "answer": "A partir de um espaco de que e proprietario, gere um link com a funcao de leitor ou editor. Qualquer pessoa autenticada que abra esse link acede ao espaco com essa funcao - quem ainda nao tem conta e convidado a criar uma gratuitamente primeiro. Pode revogar um link a qualquer momento."
+        "answer": "A partir de um espaco de que e proprietario, gere um link com a funcao de leitor ou editor. Qualquer pessoa autenticada que abra esse link acede ao espaco com essa funcao - quem ainda nao tem conta e convidado a criar uma primeiro. Pode revogar um link a qualquer momento."
       },
       {
         "question": "Que formatos de documentos sao aceites?",
@@ -530,8 +500,8 @@
         "answer": "Cada espaco tem uma copia de seguranca automatica (no maximo uma vez por dia, conservada durante 7 dias moveis). Um administrador da instancia pode restaurar o espaco a um estado anterior a partir do painel de administracao."
       },
       {
-        "question": "Quanto custa o {{brand}}?",
-        "answer": "{{brand}} e totalmente gratuito, sem cartao bancario nem subscricao. Para evitar abusos, cada conta tem limites de utilizacao: 3 espacos de trabalho, 5 membros por espaco, 500 MB de armazenamento por espaco e 50 perguntas a IA por dia."
+        "question": "Existem limites de utilizacao?",
+        "answer": "Sim, para evitar abusos, cada conta tem limites de utilizacao: 3 espacos de trabalho, 5 membros por espaco, 500 MB de armazenamento por espaco e 50 perguntas a IA por dia. O contador de perguntas e reposto todos os dias."
       }
     ]
   },

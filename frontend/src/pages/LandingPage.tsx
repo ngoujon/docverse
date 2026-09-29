@@ -103,12 +103,6 @@ export default function LandingPage() {
             >
               {t("nav.demo")}
             </Link>
-            <Link
-              to="/tarifs"
-              className="font-mono text-xs uppercase tracking-wider text-slate-600 transition hover:text-retro-cyan"
-            >
-              {t("nav.pricing")}
-            </Link>
             <a
               href="#contact"
               className="font-mono text-xs uppercase tracking-wider text-slate-600 transition hover:text-retro-cyan"
@@ -174,13 +168,6 @@ export default function LandingPage() {
                 className="font-mono text-xs uppercase tracking-wider text-slate-600"
               >
                 {t("nav.demo")}
-              </Link>
-              <Link
-                to="/tarifs"
-                onClick={() => setMobileMenuOpen(false)}
-                className="font-mono text-xs uppercase tracking-wider text-slate-600"
-              >
-                {t("nav.pricing")}
               </Link>
               <a
                 href="#contact"
@@ -269,13 +256,13 @@ export default function LandingPage() {
 
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-start">
               <Link
-                to="/register"
+                to="/app"
                 className="flex w-full items-center justify-center gap-2 rounded-lg border border-retro-pink bg-retro-pink px-6 py-3 font-mono text-xs uppercase tracking-wider text-white shadow-neon-light transition hover:bg-retro-pink/90 sm:w-auto"
               >
                 {t("hero.ctaTry")} <ArrowRight size={14} />
               </Link>
               <Link
-                to="/tarifs"
+                to="/demo"
                 className="flex w-full items-center justify-center gap-2 rounded-lg border border-retro-border px-6 py-3 font-mono text-xs uppercase tracking-wider text-slate-700 transition hover:border-retro-cyan hover:text-retro-cyan sm:w-auto"
               >
                 {t("hero.ctaDiscover")}
@@ -436,12 +423,6 @@ export default function LandingPage() {
             <span />
           )}
           <div className="flex items-center gap-4">
-            <Link
-              to="/tarifs"
-              className="font-mono text-[11px] uppercase tracking-wider text-slate-600 hover:text-retro-cyan"
-            >
-              {t("footer.pricing")}
-            </Link>
             <Link
               to="/faq"
               className="font-mono text-[11px] uppercase tracking-wider text-slate-600 hover:text-retro-cyan"

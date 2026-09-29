@@ -12,7 +12,6 @@
     "features": "Funciones",
     "sovereignty": "Soberania",
     "demo": "Demo",
-    "pricing": "Precios",
     "contact": "Contacto",
     "register": "Registrarse",
     "launchApp": "Abrir la app"
@@ -21,14 +20,14 @@
     "badges": [
       "Alojado en Francia",
       "IA francesa - Mistral",
-      "100% gratis",
-      "Sin tarjeta bancaria"
+      "Respuestas con fuentes",
+      "Espacios aislados"
     ],
     "title1": "Tu solucion cloud RAG soberana,",
     "title2": "alojada en Francia.",
     "subtitle": "Sube tus documentos, consultalos en lenguaje natural y obten respuestas con fuentes. Toda la cadena es europea: alojamiento {{hostingProvider}} en {{hostingCountry}}, motor de IA {{aiProvider}}, editor frances. Tus datos nunca salen de la Union Europea.",
-    "ctaTry": "Probar ahora",
-    "ctaDiscover": "Ver la oferta gratuita"
+    "ctaTry": "Usar la aplicacion",
+    "ctaDiscover": "Ver un ejemplo"
   },
   "sovereignty": {
     "eyebrow": "Soberania digital",
@@ -65,7 +64,7 @@
   "features": {
     "eyebrow": "Lo que obtienes",
     "title": "El RAG soberano para estructuras que gestionan varios clientes o expedientes",
-    "subtitle": "Despachos, agencias, equipos de proyecto: un espacio aislado por cliente, acceso controlado por persona, un servicio totalmente gratuito - y un cumplimiento del RGPD que no depende de ninguna transferencia fuera de la Union Europea.",
+    "subtitle": "Despachos, agencias, equipos de proyecto: un espacio aislado por cliente, acceso controlado por persona - y un cumplimiento del RGPD que no depende de ninguna transferencia fuera de la Union Europea.",
     "items": [
       {
         "title": "Un espacio por cliente, un acceso por persona",
@@ -80,8 +79,8 @@
         "desc": "Ve quien tiene acceso a cada espacio, retira un acceso con un clic, y un plazo de seguridad impide volver a dar acceso a alguien de inmediato."
       },
       {
-        "title": "100% gratis, sin tarjeta bancaria",
-        "desc": "Sin suscripcion ni facturacion por uso: cada cuenta dispone gratis de limites generosos (espacios, almacenamiento, preguntas por dia), solo para evitar abusos."
+        "title": "Audio transcrito en nuestros servidores",
+        "desc": "Sube una grabacion: se transcribe en nuestros servidores, sin servicios de terceros, y luego se indexa como cualquier otro documento."
       },
       {
         "title": "Busqueda web sin fugas a terceros",
@@ -142,36 +141,7 @@
     "privacy": "Privacidad",
     "terms": "Condiciones",
     "legal": "Aviso legal",
-    "pricing": "Precios",
     "launchApp": "Abrir la app"
-  },
-  "pricing": {
-    "eyebrow": "Precios",
-    "title": "100% gratis, para todos",
-    "subtitle": "Sin suscripcion, sin tarjeta bancaria, sin planes de pago. Cada cuenta tiene los mismos limites de uso, pensados para un uso normal y para evitar abusos.",
-    "planName": "Gratis",
-    "tagline": "Todas las funciones, para cada cuenta",
-    "period": "para siempre",
-    "featuresTitle": "Incluido",
-    "limitsTitle": "Limites por cuenta",
-    "features": [
-      "Respuestas de IA con fuentes",
-      "Todos los formatos: PDF, escaneos, imagenes, DOCX, paginas web, audio",
-      "Enlaces para compartir y roles",
-      "Copias de seguridad automaticas",
-      "Alojado en Francia, IA francesa"
-    ],
-    "limits": [
-      "3 espacios de trabajo",
-      "5 miembros por espacio",
-      "500 MB de almacenamiento por espacio",
-      "50 preguntas a la IA por dia"
-    ],
-    "cta": "Crear mi cuenta gratis",
-    "ctaLoggedIn": "Ir a mis espacios",
-    "fairUseNote": "Los limites solo sirven para evitar abusos y pueden cambiar. El contador de preguntas se reinicia cada dia.",
-    "faqNote": "Tienes preguntas?",
-    "faqLink": "Consulta las preguntas frecuentes"
   },
   "demo": {
     "question": "Resume los puntos clave del contrato del proveedor.",
@@ -182,7 +152,7 @@
   "demoPage": {
     "back": "Volver al inicio",
     "eyebrow": "Demostracion",
-    "title": "Pruebalo sin crear una cuenta",
+    "title": "Mira como funciona",
     "subtitle": "Un espacio simulado con documentos de ejemplo. Haz clic en una pregunta para ver como responde la IA con fuentes.",
     "banner": "Esto es una simulacion con respuestas preescritas - ningun documento se analiza realmente aqui.",
     "documentsTitle": "Documentos del espacio",
@@ -221,11 +191,11 @@
         "sourceIndex": 1
       }
     ],
-    "inputPlaceholder": "Prueba una de las preguntas sugeridas abajo",
+    "inputPlaceholder": "Elige una de las preguntas sugeridas abajo",
     "typing": "escribiendo...",
-    "ctaTitle": "¿Convencido?",
-    "ctaText": "Crea tu cuenta para subir tus propios documentos y obtener respuestas reales.",
-    "ctaButton": "Crear mi cuenta gratis",
+    "ctaTitle": "Te toca",
+    "ctaText": "Sube tus propios documentos y obten respuestas con fuentes.",
+    "ctaButton": "Usar la aplicacion",
     "resetLabel": "Reiniciar"
   },
   "cookies": {
@@ -298,7 +268,7 @@
       },
       {
         "title": "4. Espacios de trabajo y colaboracion",
-        "body": "Cada espacio de trabajo pertenece a un propietario, que puede invitar a otros usuarios mediante un enlace para compartir (solo lectura o lectura/escritura segun el rol elegido). El propietario de un espacio es responsable de las personas que invita y del contenido que se deposita en el. El numero de espacios, de miembros por espacio, el almacenamiento y el numero de preguntas por dia estan limitados por cuenta (ver la pagina Precios)."
+        "body": "Cada espacio de trabajo pertenece a un propietario, que puede invitar a otros usuarios mediante un enlace para compartir (solo lectura o lectura/escritura segun el rol elegido). El propietario de un espacio es responsable de las personas que invita y del contenido que se deposita en el. El numero de espacios, de miembros por espacio, el almacenamiento y el numero de preguntas por dia estan limitados por cuenta (ver las preguntas frecuentes)."
       },
       {
         "title": "5. Uso aceptable",
@@ -309,8 +279,8 @@
         "body": "Las respuestas generadas por el asistente de IA pueden ser incompletas, inexactas o contener errores (alucinaciones), incluso citando fuentes. No constituyen en ningun caso asesoramiento profesional, legal, medico o financiero. Eres el unico responsable del uso que hagas de las respuestas proporcionadas."
       },
       {
-        "title": "7. Gratuidad y limites de uso",
-        "body": "El servicio es totalmente gratuito: nunca se exige suscripcion ni pago. Para garantizar un uso justo y prevenir abusos, cada cuenta esta sujeta a limites de uso (espacios, miembros por espacio, almacenamiento, preguntas a la IA por dia), indicados en la pagina Precios y susceptibles de cambiar. Eludir estos limites (por ejemplo, creando varias cuentas) puede conllevar la suspension de las cuentas afectadas. Puedes eliminar tu cuenta en cualquier momento, lo que supone la eliminacion definitiva de tus espacios y datos asociados."
+        "title": "7. Limites de uso",
+        "body": "Para garantizar un uso justo y prevenir abusos, cada cuenta esta sujeta a limites de uso (espacios, miembros por espacio, almacenamiento, preguntas a la IA por dia), indicados en las preguntas frecuentes y susceptibles de cambiar. Eludir estos limites (por ejemplo, creando varias cuentas) puede conllevar la suspension de las cuentas afectadas. Puedes eliminar tu cuenta en cualquier momento, lo que supone la eliminacion definitiva de tus espacios y datos asociados."
       },
       {
         "title": "8. Disponibilidad del servicio",
@@ -384,7 +354,7 @@
     },
     "register": {
       "title": "Crear una cuenta",
-      "subtitle": "Gratis, en unos segundos.",
+      "subtitle": "En unos segundos.",
       "hasAccount": "¿Ya tienes cuenta?",
       "loginLink": "Iniciar sesion",
       "passwordHint": "Minimo 8 caracteres.",
@@ -448,7 +418,7 @@
         "spaces": "Espacios",
         "documents": "Documentos",
         "conversations": "Conversaciones",
-        "freeNote": "Cuenta gratuita - limites de uso",
+        "freeNote": "Limites de uso de tu cuenta",
         "questionsToday": "Preguntas hoy"
       },
       "gdpr": {
@@ -495,7 +465,7 @@
       },
       {
         "question": "Necesito una cuenta para usarla?",
-        "answer": "Si, se necesita una cuenta gratuita para usar {{brand}}, incluso para abrir un enlace de invitacion. Esto permite que cada espacio sepa exactamente quien accedio y con que rol."
+        "answer": "Si, se necesita una cuenta para usar {{brand}}, incluso para abrir un enlace de invitacion. Esto permite que cada espacio sepa exactamente quien accedio y con que rol."
       },
       {
         "question": "Que es un espacio de trabajo?",
@@ -507,7 +477,7 @@
       },
       {
         "question": "Como funcionan los enlaces de invitacion?",
-        "answer": "Desde un espacio del que eres propietario, genera un enlace con el rol de lector o editor. Cualquier persona conectada que abra ese enlace accede al espacio con ese rol - si aun no tiene cuenta, se le pide crear una gratis primero. Puedes revocar un enlace en cualquier momento."
+        "answer": "Desde un espacio del que eres propietario, genera un enlace con el rol de lector o editor. Cualquier persona conectada que abra ese enlace accede al espacio con ese rol - si aun no tiene cuenta, se le pide crear una primero. Puedes revocar un enlace en cualquier momento."
       },
       {
         "question": "Que formatos de documentos se admiten?",
@@ -530,8 +500,8 @@
         "answer": "Cada espacio cuenta con una copia de seguridad automatica (como maximo una vez al dia, conservada durante 7 dias moviles). Un administrador de la instancia puede restaurar el espacio a un estado anterior desde el panel de administracion."
       },
       {
-        "question": "Cuanto cuesta {{brand}}?",
-        "answer": "{{brand}} es totalmente gratuito, sin tarjeta bancaria ni suscripcion. Para evitar abusos, cada cuenta tiene limites de uso: 3 espacios de trabajo, 5 miembros por espacio, 500 MB de almacenamiento por espacio y 50 preguntas a la IA por dia."
+        "question": "Hay limites de uso?",
+        "answer": "Si, para evitar abusos, cada cuenta tiene limites de uso: 3 espacios de trabajo, 5 miembros por espacio, 500 MB de almacenamiento por espacio y 50 preguntas a la IA por dia. El contador de preguntas se reinicia cada dia."
       }
     ]
   },

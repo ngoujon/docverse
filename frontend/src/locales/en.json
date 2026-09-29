@@ -12,7 +12,6 @@
     "features": "Features",
     "sovereignty": "Sovereignty",
     "demo": "Demo",
-    "pricing": "Pricing",
     "contact": "Contact",
     "register": "Sign up",
     "launchApp": "Launch app"
@@ -21,14 +20,14 @@
     "badges": [
       "Hosted in France",
       "French AI - Mistral",
-      "100% free",
-      "No credit card"
+      "Sourced answers",
+      "Walled-off spaces"
     ],
     "title1": "Your sovereign cloud RAG,",
     "title2": "hosted in France.",
     "subtitle": "Drop your documents, query them in plain language, get sourced answers. The whole chain is European: {{hostingProvider}} hosting in {{hostingCountry}}, {{aiProvider}} as the AI engine, a French publisher. Your data never leaves the European Union.",
-    "ctaTry": "Try it now",
-    "ctaDiscover": "See the free plan"
+    "ctaTry": "Use the app",
+    "ctaDiscover": "See an example"
   },
   "sovereignty": {
     "eyebrow": "Digital sovereignty",
@@ -65,7 +64,7 @@
   "features": {
     "eyebrow": "What you get",
     "title": "Sovereign RAG for teams juggling multiple clients or cases",
-    "subtitle": "Firms, agencies, project teams: one walled-off space per client, per-person access control, an entirely free service - and GDPR compliance that relies on no transfer outside the European Union.",
+    "subtitle": "Firms, agencies, project teams: one walled-off space per client, per-person access control - and GDPR compliance that relies on no transfer outside the European Union.",
     "items": [
       {
         "title": "One space per client, one access per person",
@@ -80,8 +79,8 @@
         "desc": "See who has access to each space, remove access in one click, and a safety delay stops someone from being re-added right away."
       },
       {
-        "title": "100% free, no credit card",
-        "desc": "No subscription, no usage-based billing: every account gets generous limits for free (spaces, storage, questions per day), there only to prevent abuse."
+        "title": "Audio transcribed on our servers",
+        "desc": "Upload a recording: it is transcribed on our servers, with no third-party service, then indexed like any other document."
       },
       {
         "title": "Web search with no leak to third parties",
@@ -142,36 +141,7 @@
     "privacy": "Privacy",
     "terms": "Terms",
     "legal": "Legal notice",
-    "pricing": "Pricing",
     "launchApp": "Launch app"
-  },
-  "pricing": {
-    "eyebrow": "Pricing",
-    "title": "100% free, for everyone",
-    "subtitle": "No subscription, no credit card, no paid tier. Every account gets the same usage limits, designed for normal use and to prevent abuse.",
-    "planName": "Free",
-    "tagline": "Every feature, for every account",
-    "period": "forever",
-    "featuresTitle": "Included",
-    "limitsTitle": "Limits per account",
-    "features": [
-      "Sourced AI answers",
-      "All formats: PDF, scans, images, DOCX, web pages, audio",
-      "Share links and roles",
-      "Automatic backups",
-      "Hosted in France, French AI"
-    ],
-    "limits": [
-      "3 workspaces",
-      "5 members per workspace",
-      "500 MB of storage per workspace",
-      "50 AI questions per day"
-    ],
-    "cta": "Create my free account",
-    "ctaLoggedIn": "Go to my workspaces",
-    "fairUseNote": "Limits are only there to prevent abuse and may change. The question counter resets every day.",
-    "faqNote": "Questions?",
-    "faqLink": "Read the FAQ"
   },
   "demo": {
     "question": "Summarize the key points of the vendor contract.",
@@ -182,7 +152,7 @@
   "demoPage": {
     "back": "Back to home",
     "eyebrow": "Demo",
-    "title": "Try it without creating an account",
+    "title": "See how it works",
     "subtitle": "A simulated workspace with sample documents. Click a question to see how the AI answers with sources.",
     "banner": "This is a simulation with pre-written answers - no document is actually being analyzed here.",
     "documentsTitle": "Workspace documents",
@@ -221,11 +191,11 @@
         "sourceIndex": 1
       }
     ],
-    "inputPlaceholder": "Try one of the suggested questions below",
+    "inputPlaceholder": "Pick one of the suggested questions below",
     "typing": "typing...",
-    "ctaTitle": "Convinced?",
-    "ctaText": "Create your account to upload your own documents and get real answers.",
-    "ctaButton": "Create my free account",
+    "ctaTitle": "Your turn",
+    "ctaText": "Upload your own documents and get sourced answers.",
+    "ctaButton": "Use the app",
     "resetLabel": "Reset"
   },
   "cookies": {
@@ -298,7 +268,7 @@
       },
       {
         "title": "4. Workspaces and sharing",
-        "body": "Each workspace belongs to an owner, who may invite other users via a share link (read-only or read/write depending on the chosen role). The owner of a workspace is responsible for the people they invite and the content uploaded there. The number of workspaces, members per workspace, storage and questions per day are limited per account (see the Pricing page)."
+        "body": "Each workspace belongs to an owner, who may invite other users via a share link (read-only or read/write depending on the chosen role). The owner of a workspace is responsible for the people they invite and the content uploaded there. The number of workspaces, members per workspace, storage and questions per day are limited per account (see the FAQ)."
       },
       {
         "title": "5. Acceptable use",
@@ -309,8 +279,8 @@
         "body": "Responses generated by the AI assistant may be incomplete, inaccurate, or contain errors (hallucinations), even when citing sources. They are in no way professional, legal, medical, or financial advice. You remain solely responsible for how you use the responses provided."
       },
       {
-        "title": "7. Free service and usage limits",
-        "body": "The service is entirely free: no subscription or payment is ever required. To ensure fair use and prevent abuse, each account is subject to usage limits (workspaces, members per workspace, storage, questions asked to the AI per day), shown on the Pricing page and subject to change. Circumventing these limits (for example by creating multiple accounts) may lead to the suspension of the accounts involved. You can delete your account at any time, which permanently deletes your workspaces and associated data."
+        "title": "7. Usage limits",
+        "body": "To ensure fair use and prevent abuse, each account is subject to usage limits (workspaces, members per workspace, storage, questions asked to the AI per day), listed in the FAQ and subject to change. Circumventing these limits (for example by creating multiple accounts) may lead to the suspension of the accounts involved. You can delete your account at any time, which permanently deletes your workspaces and associated data."
       },
       {
         "title": "8. Service availability",
@@ -384,7 +354,7 @@
     },
     "register": {
       "title": "Create an account",
-      "subtitle": "Free, takes a few seconds.",
+      "subtitle": "Takes a few seconds.",
       "hasAccount": "Already have an account?",
       "loginLink": "Log in",
       "passwordHint": "At least 8 characters.",
@@ -448,7 +418,7 @@
         "spaces": "Spaces",
         "documents": "Documents",
         "conversations": "Conversations",
-        "freeNote": "Free account - usage limits",
+        "freeNote": "Your account's usage limits",
         "questionsToday": "Questions today"
       },
       "gdpr": {
@@ -495,7 +465,7 @@
       },
       {
         "question": "Do I need an account to use it?",
-        "answer": "Yes, a free account is required to use {{brand}}, including to open a share link. That's what lets each space know exactly who accessed it and with which role."
+        "answer": "Yes, an account is required to use {{brand}}, including to open a share link. That's what lets each space know exactly who accessed it and with which role."
       },
       {
         "question": "What is a workspace?",
@@ -507,7 +477,7 @@
       },
       {
         "question": "How do share links work?",
-        "answer": "From a space you own, generate a link with the viewer or editor role. Anyone signed in who opens that link gets access to the space with that role - if they don't have an account yet, they're prompted to create one for free first. You can revoke a link at any time."
+        "answer": "From a space you own, generate a link with the viewer or editor role. Anyone signed in who opens that link gets access to the space with that role - if they don't have an account yet, they're prompted to create one first. You can revoke a link at any time."
       },
       {
         "question": "Which document formats are supported?",
@@ -530,8 +500,8 @@
         "answer": "Every workspace gets an automatic backup (at most once a day, kept on a 7-day rolling window). An instance administrator can restore the space to an earlier state from the admin dashboard."
       },
       {
-        "question": "How much does {{brand}} cost?",
-        "answer": "{{brand}} is entirely free, with no credit card and no subscription. To prevent abuse, each account has usage limits: 3 workspaces, 5 members per workspace, 500 MB of storage per workspace and 50 AI questions per day."
+        "question": "Are there usage limits?",
+        "answer": "Yes, to prevent abuse, each account has usage limits: 3 workspaces, 5 members per workspace, 500 MB of storage per workspace and 50 AI questions per day. The question counter resets every day."
       }
     ]
   },

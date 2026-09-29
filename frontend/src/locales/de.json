@@ -12,7 +12,6 @@
     "features": "Funktionen",
     "sovereignty": "Souveranitat",
     "demo": "Demo",
-    "pricing": "Preise",
     "contact": "Kontakt",
     "register": "Registrieren",
     "launchApp": "App starten"
@@ -21,14 +20,14 @@
     "badges": [
       "In Frankreich gehostet",
       "Franzosische KI - Mistral",
-      "100% kostenlos",
-      "Ohne Kreditkarte"
+      "Antworten mit Quellen",
+      "Abgeschottete Bereiche"
     ],
     "title1": "Ihre souverane Cloud-RAG-Losung,",
     "title2": "gehostet in Frankreich.",
     "subtitle": "Laden Sie Ihre Dokumente hoch, befragen Sie sie in naturlicher Sprache, erhalten Sie belegte Antworten. Die gesamte Kette ist europaisch: Hosting bei {{hostingProvider}} in {{hostingCountry}}, KI-Engine von {{aiProvider}}, franzosischer Anbieter. Ihre Daten verlassen die Europaische Union nie.",
-    "ctaTry": "Jetzt testen",
-    "ctaDiscover": "Kostenloses Angebot ansehen"
+    "ctaTry": "App nutzen",
+    "ctaDiscover": "Beispiel ansehen"
   },
   "sovereignty": {
     "eyebrow": "Digitale Souveranitat",
@@ -65,7 +64,7 @@
   "features": {
     "eyebrow": "Das bekommen Sie",
     "title": "Souveranes RAG fur Organisationen mit mehreren Kunden oder Akten",
-    "subtitle": "Kanzleien, Agenturen, Projektteams: ein abgeschotteter Bereich pro Kunde, gesteuerter Zugriff pro Person, ein vollig kostenloser Dienst - und DSGVO-Konformitat ohne jede Ubermittlung ausserhalb der Europaischen Union.",
+    "subtitle": "Kanzleien, Agenturen, Projektteams: ein abgeschotteter Bereich pro Kunde, gesteuerter Zugriff pro Person - und DSGVO-Konformitat ohne jede Ubermittlung ausserhalb der Europaischen Union.",
     "items": [
       {
         "title": "Ein Bereich pro Kunde, ein Zugriff pro Person",
@@ -80,8 +79,8 @@
         "desc": "Sehen Sie, wer Zugriff auf jeden Bereich hat, entziehen Sie Zugriff mit einem Klick, und eine Sicherheitsfrist verhindert, dass jemand sofort wieder hinzugefugt wird."
       },
       {
-        "title": "100% kostenlos, ohne Kreditkarte",
-        "desc": "Kein Abonnement, keine nutzungsbasierte Abrechnung: Jedes Konto erhalt kostenlos grosszugige Limits (Bereiche, Speicher, Fragen pro Tag), die nur Missbrauch verhindern sollen."
+        "title": "Audio auf unseren Servern transkribiert",
+        "desc": "Laden Sie eine Aufnahme hoch: Sie wird auf unseren Servern ohne Drittanbieter transkribiert und dann wie jedes andere Dokument indexiert."
       },
       {
         "title": "Websuche ohne Datenabfluss an Dritte",
@@ -142,36 +141,7 @@
     "privacy": "Datenschutz",
     "terms": "AGB",
     "legal": "Impressum",
-    "pricing": "Preise",
     "launchApp": "App starten"
-  },
-  "pricing": {
-    "eyebrow": "Preise",
-    "title": "100% kostenlos, fur alle",
-    "subtitle": "Kein Abonnement, keine Kreditkarte, keine kostenpflichtige Stufe. Jedes Konto hat dieselben Nutzungslimits, ausgelegt fur normale Nutzung und zur Vermeidung von Missbrauch.",
-    "planName": "Kostenlos",
-    "tagline": "Alle Funktionen, fur jedes Konto",
-    "period": "fur immer",
-    "featuresTitle": "Enthalten",
-    "limitsTitle": "Limits pro Konto",
-    "features": [
-      "KI-Antworten mit Quellen",
-      "Alle Formate: PDF, Scans, Bilder, DOCX, Webseiten, Audio",
-      "Freigabelinks und Rollen",
-      "Automatische Backups",
-      "In Frankreich gehostet, franzosische KI"
-    ],
-    "limits": [
-      "3 Arbeitsbereiche",
-      "5 Mitglieder pro Bereich",
-      "500 MB Speicher pro Bereich",
-      "50 KI-Fragen pro Tag"
-    ],
-    "cta": "Kostenloses Konto erstellen",
-    "ctaLoggedIn": "Zu meinen Bereichen",
-    "fairUseNote": "Die Limits dienen nur der Vermeidung von Missbrauch und konnen sich andern. Der Fragenzahler wird jeden Tag zuruckgesetzt.",
-    "faqNote": "Fragen?",
-    "faqLink": "Zur FAQ"
   },
   "demo": {
     "question": "Fasse die wichtigsten Punkte des Lieferantenvertrags zusammen.",
@@ -182,7 +152,7 @@
   "demoPage": {
     "back": "Zuruck zur Startseite",
     "eyebrow": "Demo",
-    "title": "Testen Sie es ohne Konto",
+    "title": "So funktioniert es",
     "subtitle": "Ein simulierter Arbeitsbereich mit Beispieldokumenten. Klicken Sie auf eine Frage, um zu sehen, wie die KI mit Quellen antwortet.",
     "banner": "Dies ist eine Simulation mit vorgeschriebenen Antworten - hier wird kein Dokument wirklich analysiert.",
     "documentsTitle": "Dokumente des Bereichs",
@@ -221,11 +191,11 @@
         "sourceIndex": 1
       }
     ],
-    "inputPlaceholder": "Probieren Sie unten eine der vorgeschlagenen Fragen aus",
+    "inputPlaceholder": "Wahlen Sie eine der vorgeschlagenen Fragen unten",
     "typing": "tippt...",
-    "ctaTitle": "Uberzeugt?",
-    "ctaText": "Erstellen Sie Ihr Konto, um Ihre eigenen Dokumente hochzuladen und echte Antworten zu erhalten.",
-    "ctaButton": "Kostenloses Konto erstellen",
+    "ctaTitle": "Jetzt sind Sie dran",
+    "ctaText": "Laden Sie Ihre eigenen Dokumente hoch und erhalten Sie Antworten mit Quellen.",
+    "ctaButton": "App nutzen",
     "resetLabel": "Zurucksetzen"
   },
   "cookies": {
@@ -298,7 +268,7 @@
       },
       {
         "title": "4. Arbeitsbereiche und Freigabe",
-        "body": "Jeder Arbeitsbereich gehort einem Eigentumer, der andere Nutzer uber einen Freigabelink einladen kann (nur lesen oder lesen/schreiben je nach gewahlter Rolle). Der Eigentumer eines Bereichs ist fur die eingeladenen Personen und die dort hochgeladenen Inhalte verantwortlich. Die Anzahl der Bereiche, der Mitglieder pro Bereich, der Speicher und die Zahl der Fragen pro Tag sind pro Konto begrenzt (siehe Seite Preise)."
+        "body": "Jeder Arbeitsbereich gehort einem Eigentumer, der andere Nutzer uber einen Freigabelink einladen kann (nur lesen oder lesen/schreiben je nach gewahlter Rolle). Der Eigentumer eines Bereichs ist fur die eingeladenen Personen und die dort hochgeladenen Inhalte verantwortlich. Die Anzahl der Bereiche, der Mitglieder pro Bereich, der Speicher und die Zahl der Fragen pro Tag sind pro Konto begrenzt (siehe FAQ)."
       },
       {
         "title": "5. Zulassige Nutzung",
@@ -309,8 +279,8 @@
         "body": "Vom KI-Assistenten generierte Antworten konnen unvollstandig oder ungenau sein oder Fehler enthalten (Halluzinationen), selbst wenn Quellen zitiert werden. Sie stellen in keinem Fall eine professionelle, rechtliche, medizinische oder finanzielle Beratung dar. Sie allein sind fur die Verwendung der bereitgestellten Antworten verantwortlich."
       },
       {
-        "title": "7. Kostenloser Dienst und Nutzungslimits",
-        "body": "Der Dienst ist vollig kostenlos: Es wird nie ein Abonnement oder eine Zahlung verlangt. Um eine faire Nutzung zu gewahrleisten und Missbrauch zu verhindern, unterliegt jedes Konto Nutzungslimits (Bereiche, Mitglieder pro Bereich, Speicher, Fragen an die KI pro Tag), die auf der Seite Preise angegeben sind und sich andern konnen. Die Umgehung dieser Limits (z. B. durch das Anlegen mehrerer Konten) kann zur Sperrung der betroffenen Konten fuhren. Sie konnen Ihr Konto jederzeit loschen, wodurch Ihre Bereiche und zugehorigen Daten endgultig geloscht werden."
+        "title": "7. Nutzungslimits",
+        "body": "Um eine faire Nutzung zu gewahrleisten und Missbrauch zu verhindern, unterliegt jedes Konto Nutzungslimits (Bereiche, Mitglieder pro Bereich, Speicher, Fragen an die KI pro Tag), die in der FAQ angegeben sind und sich andern konnen. Die Umgehung dieser Limits (z. B. durch das Anlegen mehrerer Konten) kann zur Sperrung der betroffenen Konten fuhren. Sie konnen Ihr Konto jederzeit loschen, wodurch Ihre Bereiche und zugehorigen Daten endgultig geloscht werden."
       },
       {
         "title": "8. Verfugbarkeit des Dienstes",
@@ -384,7 +354,7 @@
     },
     "register": {
       "title": "Konto erstellen",
-      "subtitle": "Kostenlos, in wenigen Sekunden.",
+      "subtitle": "In wenigen Sekunden.",
       "hasAccount": "Bereits ein Konto?",
       "loginLink": "Anmelden",
       "passwordHint": "Mindestens 8 Zeichen.",
@@ -448,7 +418,7 @@
         "spaces": "Bereiche",
         "documents": "Dokumente",
         "conversations": "Unterhaltungen",
-        "freeNote": "Kostenloses Konto - Nutzungslimits",
+        "freeNote": "Nutzungslimits Ihres Kontos",
         "questionsToday": "Fragen heute"
       },
       "gdpr": {
@@ -495,7 +465,7 @@
       },
       {
         "question": "Brauche ich ein Konto, um es zu nutzen?",
-        "answer": "Ja, ein kostenloses Konto ist erforderlich, um {{brand}} zu nutzen, auch um einen Freigabelink zu offnen. So weiss jeder Bereich genau, wer darauf zugegriffen hat und mit welcher Rolle."
+        "answer": "Ja, ein Konto ist erforderlich, um {{brand}} zu nutzen, auch um einen Freigabelink zu offnen. So weiss jeder Bereich genau, wer darauf zugegriffen hat und mit welcher Rolle."
       },
       {
         "question": "Was ist ein Arbeitsbereich?",
@@ -507,7 +477,7 @@
       },
       {
         "question": "Wie funktionieren Freigabelinks?",
-        "answer": "Erstelle in einem Bereich, dessen Eigentumer du bist, einen Link mit der Rolle Betrachter oder Bearbeiter. Jede angemeldete Person, die diesen Link offnet, erhalt Zugriff auf den Bereich mit dieser Rolle - wer noch kein Konto hat, wird zuerst gebeten, kostenlos eines zu erstellen. Du kannst einen Link jederzeit widerrufen."
+        "answer": "Erstelle in einem Bereich, dessen Eigentumer du bist, einen Link mit der Rolle Betrachter oder Bearbeiter. Jede angemeldete Person, die diesen Link offnet, erhalt Zugriff auf den Bereich mit dieser Rolle - wer noch kein Konto hat, wird zuerst gebeten, eines zu erstellen. Du kannst einen Link jederzeit widerrufen."
       },
       {
         "question": "Welche Dokumentformate werden unterstutzt?",
@@ -530,8 +500,8 @@
         "answer": "Jeder Arbeitsbereich erhalt ein automatisches Backup (hochstens einmal pro Tag, 7 Tage gleitend aufbewahrt). Ein Administrator der Instanz kann den Bereich uber das Admin-Dashboard auf einen fruheren Zustand zuruckstellen."
       },
       {
-        "question": "Was kostet {{brand}}?",
-        "answer": "{{brand}} ist vollig kostenlos, ohne Kreditkarte und ohne Abonnement. Um Missbrauch zu verhindern, hat jedes Konto Nutzungslimits: 3 Arbeitsbereiche, 5 Mitglieder pro Bereich, 500 MB Speicher pro Bereich und 50 KI-Fragen pro Tag."
+        "question": "Gibt es Nutzungslimits?",
+        "answer": "Ja, um Missbrauch zu verhindern, hat jedes Konto Nutzungslimits: 3 Arbeitsbereiche, 5 Mitglieder pro Bereich, 500 MB Speicher pro Bereich und 50 KI-Fragen pro Tag. Der Fragenzahler wird jeden Tag zuruckgesetzt."
       }
     ]
   },

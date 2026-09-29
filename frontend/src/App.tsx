@@ -5,7 +5,6 @@ import LandingPage from "./pages/LandingPage";
 import WorkspaceApp from "./pages/WorkspaceApp";
 import PrivacyPage from "./pages/PrivacyPage";
 import FaqPage from "./pages/FaqPage";
-import PricingPage from "./pages/PricingPage";
 import TermsPage from "./pages/TermsPage";
 import LegalNoticePage from "./pages/LegalNoticePage";
 import DemoPage from "./pages/DemoPage";
@@ -103,7 +102,6 @@ export default function App() {
           }
         />
         <Route path="/confidentialite" element={<PrivacyPage />} />
-        <Route path="/tarifs" element={<PricingPage />} />
         <Route path="/cgu" element={<TermsPage />} />
         <Route path="/mentions-legales" element={<LegalNoticePage />} />
         <Route path="/demo" element={<DemoPage />} />

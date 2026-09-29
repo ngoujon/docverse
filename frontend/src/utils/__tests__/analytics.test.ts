@@ -18,7 +18,7 @@ afterEach(() => {
 describe("isTrackablePath", () => {
   it("accepts the public marketing pages", () => {
     expect(isTrackablePath("/")).toBe(true);
-    expect(isTrackablePath("/tarifs")).toBe(true);
+    expect(isTrackablePath("/faq")).toBe(true);
     expect(isTrackablePath("/confidentialite")).toBe(true);
   });
 
@@ -60,7 +60,7 @@ describe("beacons", () => {
 
   it("sends nothing without consent", () => {
     const fetchMock = stubFetch();
-    trackPageView("/tarifs");
+    trackPageView("/faq");
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
@@ -75,15 +75,15 @@ describe("beacons", () => {
   it("drops a time on page under a second as noise", () => {
     const fetchMock = stubFetch();
     setConsent("granted");
-    trackTimeOnPage("/tarifs", 0.4);
+    trackTimeOnPage("/faq", 0.4);
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it("posts form-encoded events with a reusable session id once consent is granted", () => {
     const fetchMock = stubFetch();
     setConsent("granted");
-    trackPageView("/tarifs");
-    trackTimeOnPage("/tarifs", 3.14);
+    trackPageView("/faq");
+    trackTimeOnPage("/faq", 3.14);
 
     expect(fetchMock).toHaveBeenCalledTimes(2);
     const [url, init] = fetchMock.mock.calls[0];
@@ -98,7 +98,7 @@ describe("beacons", () => {
 
     const first = new URLSearchParams(String(init?.body));
     const second = new URLSearchParams(String(fetchMock.mock.calls[1][1]?.body));
-    expect(first.get("payload[path]")).toBe("/tarifs");
+    expect(first.get("payload[path]")).toBe("/faq");
     expect(second.get("payload[time_on_page]")).toBe("3.1");
     expect(first.get("session_id")).toBe(second.get("session_id"));
     expect(first.get("site_key")).toMatch(/^tk_/);

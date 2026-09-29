@@ -12,7 +12,6 @@
     "features": "Fonctionnalites",
     "sovereignty": "Souverainete",
     "demo": "Demo",
-    "pricing": "Tarifs",
     "contact": "Contact",
     "register": "Inscription",
     "launchApp": "Lancer l'app"
@@ -21,14 +20,14 @@
     "badges": [
       "Heberge en France",
       "IA francaise Mistral",
-      "100% gratuit",
-      "Sans carte bancaire"
+      "Reponses sourcees",
+      "Espaces cloisonnes"
     ],
     "title1": "Votre solution cloud RAG souveraine,",
     "title2": "hebergee en France.",
     "subtitle": "Deposez vos documents, interrogez-les en langage naturel, obtenez des reponses sourcees. Toute la chaine est europeenne : hebergement {{hostingProvider}} en {{hostingCountry}}, moteur d'IA {{aiProvider}}, editeur francais. Vos donnees ne quittent jamais l'Union europeenne.",
-    "ctaTry": "Essayer maintenant",
-    "ctaDiscover": "Voir l'offre gratuite"
+    "ctaTry": "Utiliser l'application",
+    "ctaDiscover": "Voir un exemple"
   },
   "sovereignty": {
     "eyebrow": "Souverainete numerique",
@@ -65,7 +64,7 @@
   "features": {
     "eyebrow": "Ce que vous obtenez",
     "title": "Le RAG souverain des structures qui gerent plusieurs clients ou dossiers",
-    "subtitle": "Cabinets, agences, equipes projet : un espace cloisonne par client, un acces maitrise par personne, un service entierement gratuit - et une conformite RGPD qui ne repose sur aucun transfert hors Union europeenne.",
+    "subtitle": "Cabinets, agences, equipes projet : un espace cloisonne par client, un acces maitrise par personne - et une conformite RGPD qui ne repose sur aucun transfert hors Union europeenne.",
     "items": [
       {
         "title": "Un espace par client, un acces par personne",
@@ -80,8 +79,8 @@
         "desc": "Voyez qui a acces a chaque espace, retirez un acces en un clic, et un delai de securite empeche de recrediter quelqu'un immediatement apres."
       },
       {
-        "title": "100% gratuit, sans carte bancaire",
-        "desc": "Aucun abonnement, aucune facturation a l'usage : chaque compte dispose gratuitement de limites genereuses (espaces, stockage, questions par jour), simplement la pour eviter les abus."
+        "title": "Audio transcrit sur nos serveurs",
+        "desc": "Deposez un enregistrement : il est transcrit sur nos serveurs, sans service tiers, puis indexe comme n'importe quel autre document."
       },
       {
         "title": "Recherche web sans fuite vers un tiers",
@@ -142,36 +141,7 @@
     "privacy": "Confidentialite",
     "terms": "CGU",
     "legal": "Mentions legales",
-    "pricing": "Tarifs",
     "launchApp": "Lancer l'app"
-  },
-  "pricing": {
-    "eyebrow": "Tarifs",
-    "title": "100% gratuit, pour tout le monde",
-    "subtitle": "Pas d'abonnement, pas de carte bancaire, pas de palier payant. Chaque compte dispose des memes limites d'utilisation, pensees pour un usage normal et pour eviter les abus.",
-    "planName": "Gratuit",
-    "tagline": "Toutes les fonctionnalites, pour chaque compte",
-    "period": "pour toujours",
-    "featuresTitle": "Inclus",
-    "limitsTitle": "Limites par compte",
-    "features": [
-      "Reponses IA sourcees",
-      "Tous les formats : PDF, scans, images, DOCX, pages web, audio",
-      "Liens de partage et roles",
-      "Sauvegardes automatiques",
-      "Hebergement en France, IA francaise"
-    ],
-    "limits": [
-      "3 espaces de travail",
-      "5 membres par espace",
-      "500 Mo de stockage par espace",
-      "50 questions a l'IA par jour"
-    ],
-    "cta": "Creer mon compte gratuit",
-    "ctaLoggedIn": "Acceder a mes espaces",
-    "fairUseNote": "Les limites servent uniquement a eviter les abus et peuvent evoluer. Le compteur de questions repart a zero chaque jour.",
-    "faqNote": "Des questions ?",
-    "faqLink": "Consultez la FAQ"
   },
   "demo": {
     "question": "Resume les points cles du contrat fournisseur.",
@@ -182,7 +152,7 @@
   "demoPage": {
     "back": "Retour a l'accueil",
     "eyebrow": "Demonstration",
-    "title": "Essayez sans creer de compte",
+    "title": "Voyez comment ca marche",
     "subtitle": "Un espace simule avec des documents types. Cliquez sur une question pour voir comment l'IA repond avec des sources.",
     "banner": "Ceci est une simulation avec des reponses pre-ecrites - aucun document n'est vraiment analyse ici.",
     "documentsTitle": "Documents de l'espace",
@@ -221,11 +191,11 @@
         "sourceIndex": 1
       }
     ],
-    "inputPlaceholder": "Essayez une des questions suggerees ci-dessous",
+    "inputPlaceholder": "Choisissez une des questions suggerees ci-dessous",
     "typing": "en train d'ecrire...",
-    "ctaTitle": "Convaincu ?",
-    "ctaText": "Creez votre compte pour deposer vos propres documents et obtenir de vraies reponses.",
-    "ctaButton": "Creer mon compte gratuitement",
+    "ctaTitle": "A vous de jouer",
+    "ctaText": "Deposez vos propres documents et obtenez des reponses sourcees.",
+    "ctaButton": "Utiliser l'application",
     "resetLabel": "Recommencer"
   },
   "cookies": {
@@ -298,7 +268,7 @@
       },
       {
         "title": "4. Espaces de travail et partage",
-        "body": "Chaque espace de travail appartient a un proprietaire, qui peut inviter d'autres utilisateurs via un lien de partage (lecture seule ou lecture/ecriture selon le role choisi). Le proprietaire d'un espace est responsable des personnes qu'il y invite et du contenu qui y est depose. Le nombre d'espaces, de membres par espace, le stockage et le nombre de questions par jour sont limites par compte (voir la page Tarifs)."
+        "body": "Chaque espace de travail appartient a un proprietaire, qui peut inviter d'autres utilisateurs via un lien de partage (lecture seule ou lecture/ecriture selon le role choisi). Le proprietaire d'un espace est responsable des personnes qu'il y invite et du contenu qui y est depose. Le nombre d'espaces, de membres par espace, le stockage et le nombre de questions par jour sont limites par compte (voir la FAQ)."
       },
       {
         "title": "5. Usage acceptable",
@@ -309,8 +279,8 @@
         "body": "Les reponses generees par l'assistant IA peuvent etre incompletes, inexactes, ou contenir des erreurs (hallucinations), meme lorsqu'elles citent des sources. Elles ne constituent en aucun cas un conseil professionnel, juridique, medical ou financier. Vous restez seul responsable de l'usage que vous faites des reponses fournies."
       },
       {
-        "title": "7. Gratuite et limites d'utilisation",
-        "body": "Le service est entierement gratuit : aucun abonnement ni paiement n'est demande. Pour garantir un usage equitable et prevenir les abus, chaque compte est soumis a des limites d'utilisation (espaces, membres par espace, stockage, questions posees a l'IA par jour), indiquees sur la page Tarifs et susceptibles d'evoluer. Tout contournement de ces limites (par exemple par la creation de comptes multiples) peut entrainer la suspension des comptes concernes. Vous pouvez supprimer votre compte a tout moment, ce qui entraine la suppression definitive de vos espaces et donnees associees."
+        "title": "7. Limites d'utilisation",
+        "body": "Pour garantir un usage equitable et prevenir les abus, chaque compte est soumis a des limites d'utilisation (espaces, membres par espace, stockage, questions posees a l'IA par jour), indiquees dans la FAQ et susceptibles d'evoluer. Tout contournement de ces limites (par exemple par la creation de comptes multiples) peut entrainer la suspension des comptes concernes. Vous pouvez supprimer votre compte a tout moment, ce qui entraine la suppression definitive de vos espaces et donnees associees."
       },
       {
         "title": "8. Disponibilite du service",
@@ -384,7 +354,7 @@
     },
     "register": {
       "title": "Creer un compte",
-      "subtitle": "Gratuit, en quelques secondes.",
+      "subtitle": "En quelques secondes.",
       "hasAccount": "Deja un compte ?",
       "loginLink": "Se connecter",
       "passwordHint": "8 caracteres minimum.",
@@ -448,7 +418,7 @@
         "spaces": "Espaces",
         "documents": "Documents",
         "conversations": "Conversations",
-        "freeNote": "Compte gratuit - limites d'utilisation",
+        "freeNote": "Limites d'utilisation de votre compte",
         "questionsToday": "Questions aujourd'hui"
       },
       "gdpr": {
@@ -495,7 +465,7 @@
       },
       {
         "question": "Ai-je besoin d'un compte pour l'utiliser ?",
-        "answer": "Oui, un compte gratuit est necessaire pour utiliser {{brand}}, y compris pour ouvrir un lien de partage. C'est ce qui permet a chaque espace de savoir precisement qui y a accede et avec quel role."
+        "answer": "Oui, un compte est necessaire pour utiliser {{brand}}, y compris pour ouvrir un lien de partage. C'est ce qui permet a chaque espace de savoir precisement qui y a accede et avec quel role."
       },
       {
         "question": "Qu'est-ce qu'un espace de travail ?",
@@ -507,7 +477,7 @@
       },
       {
         "question": "Comment fonctionnent les liens de partage ?",
-        "answer": "Depuis un espace dont vous etes proprietaire, generez un lien avec le role lecteur ou editeur. Toute personne connectee qui ouvre ce lien accede a l'espace avec ce role - si elle n'a pas encore de compte, elle est invitee a en creer un gratuitement d'abord. Vous pouvez revoquer un lien a tout moment."
+        "answer": "Depuis un espace dont vous etes proprietaire, generez un lien avec le role lecteur ou editeur. Toute personne connectee qui ouvre ce lien accede a l'espace avec ce role - si elle n'a pas encore de compte, elle est invitee a en creer un d'abord. Vous pouvez revoquer un lien a tout moment."
       },
       {
         "question": "Quels formats de documents sont acceptes ?",
@@ -530,8 +500,8 @@
         "answer": "Chaque espace beneficie d'une sauvegarde automatique (au maximum une fois par jour, conservee 7 jours glissants). Un administrateur de l'instance peut restaurer l'espace a un etat anterieur depuis le tableau de bord d'administration."
       },
       {
-        "question": "Combien coute {{brand}} ?",
-        "answer": "{{brand}} est entierement gratuit, sans carte bancaire ni abonnement. Pour eviter les abus, chaque compte dispose de limites d'utilisation : 3 espaces de travail, 5 membres par espace, 500 Mo de stockage par espace et 50 questions a l'IA par jour."
+        "question": "Y a-t-il des limites d'utilisation ?",
+        "answer": "Oui, pour eviter les abus, chaque compte dispose de limites d'utilisation : 3 espaces de travail, 5 membres par espace, 500 Mo de stockage par espace et 50 questions a l'IA par jour. Le compteur de questions repart a zero chaque jour."
       }
     ]
   },
