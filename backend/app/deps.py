@@ -111,8 +111,8 @@ def _resolve_role(
         if member:
             return SpaceAccess(space, "member", user, can_upload=member.can_upload)
         # A share link grants access, but only to a signed-in visitor - an
-        # anonymous seat doesn't count against the owner's plan quota
-        # (config.PLAN_QUOTAS) and would make member limits meaningless.
+        # anonymous seat doesn't count against the owner's member quota
+        # (config.FREE_QUOTAS) and would make member limits meaningless.
         # The visitor's own account is what's checked here, not the space
         # owner's, so anyone with an account can follow a share link.
         if share_token:

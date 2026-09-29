@@ -2,7 +2,7 @@ import re
 from datetime import datetime
 from typing import Optional, Any, Literal
 
-from pydantic import BaseModel, EmailStr, Field, field_validator, model_validator
+from pydantic import BaseModel, EmailStr, Field, field_validator
 
 
 def _validate_password_complexity(value: str) -> str:
@@ -46,7 +46,6 @@ class UserOut(BaseModel):
     is_active: bool
     email_verified: bool
     totp_enabled: bool
-    plan: str
     created_at: datetime
 
     class Config:
@@ -189,6 +188,8 @@ class MeStatsOut(BaseModel):
     message_count: int
     storage_bytes: int
     storage_limit_bytes: Optional[int] = None
+    messages_today: int = 0
+    messages_per_day_limit: Optional[int] = None
 
 
 class VectorGraphNode(BaseModel):
@@ -249,113 +250,6 @@ class PaginatedSpaces(BaseModel):
     total: int
     limit: int
     offset: int
-
-
-class InvoiceOut(BaseModel):
-    id: str
-    number: Optional[str] = None
-    customer_email: Optional[str] = None
-    customer_name: Optional[str] = None
-    is_business: bool
-    tax_ids: list[str] = []
-    amount_paid: int
-    currency: str
-    status: Optional[str] = None
-    created: int
-    hosted_invoice_url: Optional[str] = None
-    invoice_pdf: Optional[str] = None
-
-
-class PaginatedInvoices(BaseModel):
-    items: list[InvoiceOut]
-    has_more: bool
-
-
-# --- Billing profile & local (Factur-X) invoices -------------------------
-
-class BillingProfileOut(BaseModel):
-    is_business: bool
-    company_name: str
-    siret: str
-    vat_number: str
-    address_line1: str
-    address_line2: str
-    postal_code: str
-    city: str
-    country_code: str
-
-
-class BillingProfileUpdate(BaseModel):
-    is_business: bool = False
-    company_name: str = Field(default="", max_length=200)
-    siret: str = Field(default="", max_length=20)
-    vat_number: str = Field(default="", max_length=20)
-    address_line1: str = Field(default="", max_length=200)
-    address_line2: str = Field(default="", max_length=200)
-    postal_code: str = Field(default="", max_length=20)
-    city: str = Field(default="", max_length=120)
-    country_code: str = Field(default="FR", min_length=2, max_length=2)
-
-    @field_validator("siret")
-    @classmethod
-    def _normalize_siret(cls, v: str) -> str:
-        return re.sub(r"\s+", "", v)
-
-    @field_validator("vat_number")
-    @classmethod
-    def _normalize_vat(cls, v: str) -> str:
-        return re.sub(r"\s+", "", v).upper()
-
-    @field_validator("country_code")
-    @classmethod
-    def _normalize_country(cls, v: str) -> str:
-        return v.upper()
-
-    @model_validator(mode="after")
-    def _validate_business_fields(self):
-        # Mentions obligatoires sur une facture destinee a un professionnel
-        # (art. 242 nonies A du CGI) : raison sociale, SIRET et adresse de
-        # facturation complete. Verifie ici (plutot que de laisser passer
-        # un profil "pro" incomplet) car c'est ce profil qui sera recopie
-        # tel quel sur chaque facture emise ensuite.
-        if not self.is_business:
-            return self
-        from .services.facturx_service import validate_siret, validate_vat_number
-
-        if not self.company_name.strip():
-            raise ValueError("La raison sociale est obligatoire pour un compte professionnel")
-        if not self.address_line1.strip() or not self.postal_code.strip() or not self.city.strip():
-            raise ValueError(
-                "L'adresse de facturation complete (adresse, code postal, ville) "
-                "est obligatoire pour un compte professionnel"
-            )
-        if not self.siret:
-            raise ValueError("Le numero SIRET est obligatoire pour un compte professionnel")
-        if not validate_siret(self.siret):
-            raise ValueError("Le numero SIRET saisi est invalide")
-        if self.vat_number and not validate_vat_number(self.vat_number):
-            raise ValueError("Le numero de TVA intracommunautaire saisi est invalide")
-        return self
-
-
-class LocalInvoiceOut(BaseModel):
-    id: str
-    number: str
-    issue_date: datetime
-    currency: str
-    amount_ht_cents: int
-    amount_vat_cents: int
-    amount_ttc_cents: int
-    description: str
-    is_business: bool
-
-    class Config:
-        from_attributes = True
-
-
-class PaginatedLocalInvoices(BaseModel):
-    items: list[LocalInvoiceOut]
-    total: int
 
 
 class AdminStatsOut(BaseModel):

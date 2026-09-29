@@ -57,12 +57,9 @@ def create_space(
     db: Session = Depends(get_db),
 ):
     owned_count = db.query(models_db.Space).filter_by(owner_id=user.id).count()
-    plan_limit = config.plan_quota(user.plan, "spaces")
-    effective_limit = min(plan_limit, settings.max_spaces_per_user) if plan_limit is not None else settings.max_spaces_per_user
+    effective_limit = min(config.quota("spaces"), settings.max_spaces_per_user)
     if owned_count >= effective_limit:
-        raise HTTPException(
-            400, f"Limite de {effective_limit} espaces atteinte pour votre palier ({user.plan})"
-        )
+        raise HTTPException(400, f"Limite de {effective_limit} espaces atteinte pour votre compte")
     space = models_db.Space(
         name=payload.name.strip() or "Espace sans nom",
         description=payload.description,
@@ -123,16 +120,14 @@ def space_stats(access: SpaceAccess = Depends(require_space_access), db: Session
         .order_by(models_db.Conversation.updated_at.desc())
         .first()
     )
-    owner = db.get(models_db.User, space.owner_id)
-    plan = owner.plan if owner else config.DEFAULT_PLAN
-    member_limit = config.plan_quota(plan, "members_per_space")
+    member_limit = config.quota("members_per_space")
     return schemas.SpaceStatsOut(
         space_id=space.id,
         document_count=len(space.documents),
         conversation_count=len(space.conversations),
         message_count=message_count or 0,
         storage_bytes=storage_bytes or 0,
-        storage_limit_bytes=config.plan_quota(plan, "storage_bytes"),
+        storage_limit_bytes=config.quota("storage_bytes"),
         member_count=len(space.members) + 1,  # +1 for the owner, matches add_member's headcount
         member_limit=member_limit,
         active_share_links=sum(1 for l in space.share_links if not l.revoked),
@@ -235,19 +230,17 @@ def add_member(
         db.commit()
         member = existing
     else:
-        owner = db.get(models_db.User, access.space.owner_id)
-        plan_limit = config.plan_quota(owner.plan if owner else config.DEFAULT_PLAN, "members_per_space")
-        if plan_limit is not None:
-            # +1 for the owner - the plan's "members per space" figure is a
-            # total headcount, not just invited members.
-            current_count = (
-                db.query(models_db.SpaceMember).filter_by(space_id=access.space.id).count() + 1
+        member_limit = config.quota("members_per_space")
+        # +1 for the owner - the "members per space" figure is a total
+        # headcount, not just invited members.
+        current_count = (
+            db.query(models_db.SpaceMember).filter_by(space_id=access.space.id).count() + 1
+        )
+        if current_count >= member_limit:
+            raise HTTPException(
+                400,
+                f"Limite de {member_limit} membres par espace atteinte",
             )
-            if current_count >= plan_limit:
-                raise HTTPException(
-                    400,
-                    f"Limite de {plan_limit} membres par espace atteinte pour ce palier",
-                )
         member = models_db.SpaceMember(
             space_id=access.space.id, user_id=target.id, can_upload=payload.can_upload
         )

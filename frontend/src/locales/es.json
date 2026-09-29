@@ -21,14 +21,14 @@
     "badges": [
       "Alojado en Francia",
       "IA francesa - Mistral",
-      "Preguntas ilimitadas",
-      "Plan gratuito"
+      "100% gratis",
+      "Sin tarjeta bancaria"
     ],
     "title1": "Tu solucion cloud RAG soberana,",
     "title2": "alojada en Francia.",
     "subtitle": "Sube tus documentos, consultalos en lenguaje natural y obten respuestas con fuentes. Toda la cadena es europea: alojamiento {{hostingProvider}} en {{hostingCountry}}, motor de IA {{aiProvider}}, editor frances. Tus datos nunca salen de la Union Europea.",
     "ctaTry": "Probar ahora",
-    "ctaDiscover": "Ver precios"
+    "ctaDiscover": "Ver la oferta gratuita"
   },
   "sovereignty": {
     "eyebrow": "Soberania digital",
@@ -65,7 +65,7 @@
   "features": {
     "eyebrow": "Lo que obtienes",
     "title": "El RAG soberano para estructuras que gestionan varios clientes o expedientes",
-    "subtitle": "Despachos, agencias, equipos de proyecto: un espacio aislado por cliente, acceso controlado por persona, un coste que no varia con el numero de preguntas - y un cumplimiento del RGPD que no depende de ninguna transferencia fuera de la Union Europea.",
+    "subtitle": "Despachos, agencias, equipos de proyecto: un espacio aislado por cliente, acceso controlado por persona, un servicio totalmente gratuito - y un cumplimiento del RGPD que no depende de ninguna transferencia fuera de la Union Europea.",
     "items": [
       {
         "title": "Un espacio por cliente, un acceso por persona",
@@ -80,8 +80,8 @@
         "desc": "Ve quien tiene acceso a cada espacio, retira un acceso con un clic, y un plazo de seguridad impide volver a dar acceso a alguien de inmediato."
       },
       {
-        "title": "Preguntas ilimitadas, coste fijo",
-        "desc": "Haz tantas preguntas como quieras, en todos los planes: sin contador de mensajes, sin facturacion por uso que suba con la actividad del equipo."
+        "title": "100% gratis, sin tarjeta bancaria",
+        "desc": "Sin suscripcion ni facturacion por uso: cada cuenta dispone gratis de limites generosos (espacios, almacenamiento, preguntas por dia), solo para evitar abusos."
       },
       {
         "title": "Busqueda web sin fugas a terceros",
@@ -108,28 +108,9 @@
       },
       {
         "title": "Comparte y haz tus preguntas",
-        "desc": "Invita a quien quieras con el rol adecuado, preguntas ilimitadas, respuestas siempre con fuentes."
+        "desc": "Invita a quien quieras con el rol adecuado, respuestas siempre con fuentes."
       }
     ]
-  },
-  "enterprise": {
-    "back": "Volver a precios",
-    "eyebrow": "Plan Empresa",
-    "title": "Un presupuesto a medida para tu empresa",
-    "subtitle": "Espacios y miembros ilimitados, almacenamiento a medida, SSO y SLA, soporte dedicado. Describe tu necesidad y te responderemos rapidamente.",
-    "teamSize": "Tamano del equipo",
-    "teamSizeOptions": [
-      "1-10 usuarios",
-      "11-50 usuarios",
-      "51-200 usuarios",
-      "200+ usuarios"
-    ],
-    "needs": "Describe tu necesidad",
-    "needsPlaceholder": "Numero de espacios necesarios, requisitos de seguridad o cumplimiento, plazo deseado...",
-    "send": "Enviar solicitud",
-    "messagePrefix": "Tamano de equipo estimado",
-    "sentTitle": "¡Solicitud enviada!",
-    "sentDesc": "Nuestro equipo te respondera pronto para preparar tu presupuesto."
   },
   "contact": {
     "eyebrow": "Contacto",
@@ -160,74 +141,37 @@
     "tagline": "Sitio web creado por",
     "privacy": "Privacidad",
     "terms": "Condiciones",
-    "sale": "Condiciones de venta",
     "legal": "Aviso legal",
     "pricing": "Precios",
     "launchApp": "Abrir la app"
   },
   "pricing": {
     "eyebrow": "Precios",
-    "title": "Un plan para cada uso",
-    "subtitle": "Tres cifras a recordar por plan: espacios de trabajo, miembros por espacio, almacenamiento por espacio. Haz tantas preguntas como quieras, en todos los planes: sin limite en las respuestas de la IA.",
-    "billingNote": "Sin permanencia - cancela cuando quieras.",
-    "popular": "Recomendado",
-    "tiers": [
-      {
-        "name": "Descubrimiento",
-        "price": "0",
-        "period": "",
-        "tagline": "Para probar sin riesgo",
-        "features": [
-          "1 espacio de trabajo",
-          "1 miembro",
-          "200 MB de almacenamiento",
-          "Preguntas ilimitadas"
-        ],
-        "cta": "Empezar gratis"
-      },
-      {
-        "name": "Particular",
-        "price": "9",
-        "period": "/mes IVA incl.",
-        "tagline": "Para uso personal o freelance",
-        "features": [
-          "3 espacios de trabajo",
-          "Enlaces de invitacion ilimitados",
-          "2 GB de almacenamiento por espacio",
-          "Copias de seguridad automaticas"
-        ],
-        "cta": "Elegir Particular"
-      },
-      {
-        "name": "Pro",
-        "price": "29",
-        "period": "/mes IVA incl.",
-        "tagline": "Para un equipo que comparte espacios",
-        "features": [
-          "10 espacios de trabajo",
-          "10 miembros por espacio",
-          "10 GB de almacenamiento por espacio",
-          "Soporte prioritario"
-        ],
-        "cta": "Elegir Pro"
-      },
-      {
-        "name": "Empresa",
-        "price": "",
-        "period": "",
-        "tagline": "Para una organizacion con necesidades de gobernanza",
-        "features": [
-          "Espacios y miembros ilimitados",
-          "Almacenamiento a medida",
-          "SSO y SLA",
-          "Soporte dedicado"
-        ],
-        "cta": "Contactanos"
-      }
+    "title": "100% gratis, para todos",
+    "subtitle": "Sin suscripcion, sin tarjeta bancaria, sin planes de pago. Cada cuenta tiene los mismos limites de uso, pensados para un uso normal y para evitar abusos.",
+    "planName": "Gratis",
+    "tagline": "Todas las funciones, para cada cuenta",
+    "period": "para siempre",
+    "featuresTitle": "Incluido",
+    "limitsTitle": "Limites por cuenta",
+    "features": [
+      "Respuestas de IA con fuentes",
+      "Todos los formatos: PDF, escaneos, imagenes, DOCX, paginas web, audio",
+      "Enlaces para compartir y roles",
+      "Copias de seguridad automaticas",
+      "Alojado en Francia, IA francesa"
     ],
-    "faqNote": "¿Dudas sobre los precios?",
-    "faqLink": "Consulta la FAQ",
-    "customPriceLabel": "A medida"
+    "limits": [
+      "3 espacios de trabajo",
+      "5 miembros por espacio",
+      "500 MB de almacenamiento por espacio",
+      "50 preguntas a la IA por dia"
+    ],
+    "cta": "Crear mi cuenta gratis",
+    "ctaLoggedIn": "Ir a mis espacios",
+    "fairUseNote": "Los limites solo sirven para evitar abusos y pueden cambiar. El contador de preguntas se reinicia cada dia.",
+    "faqNote": "Tienes preguntas?",
+    "faqLink": "Consulta las preguntas frecuentes"
   },
   "demo": {
     "question": "Resume los puntos clave del contrato del proveedor.",
@@ -319,11 +263,11 @@
       },
       {
         "title": "Proveedores tecnicos",
-        "body": "Para funcionar, el servicio se apoya en un pequeno numero de proveedores que actuan como encargados del tratamiento y estan vinculados por contrato: un proveedor de alojamiento (OVHcloud, servidores situados en Francia), un proveedor de inferencia de IA (Mistral AI, empresa francesa, tratamientos realizados dentro de la Union Europea), un proveedor de pago certificado para los planes de pago (nunca almacenamos tu numero de tarjeta), un servicio de envio de correos (verificacion de direccion, restablecimiento de contrasena, newsletter) y una herramienta de medicion de audiencia ([credit], solo si la aceptas). Cada uno recibe unicamente los datos estrictamente necesarios para su prestacion y no esta autorizado a usarlos con otros fines, ni publicitarios, ni para entrenar sus propios modelos. Tus documentos, tus conversaciones y el indice vectorial asociado se alojan y tratan exclusivamente dentro de la Union Europea. Los proveedores de pago y de correo, en cambio, pueden estar establecidos fuera de la Union Europea: no reciben ningun contenido de tus documentos, y las transferencias correspondientes se rigen por las clausulas contractuales tipo de la Comision Europea. La lista nominativa y actualizada de estos encargados se te comunica a peticion a traves del formulario de contacto."
+        "body": "Para funcionar, el servicio se apoya en un pequeno numero de proveedores que actuan como encargados del tratamiento y estan vinculados por contrato: un proveedor de alojamiento (OVHcloud, servidores situados en Francia), un proveedor de inferencia de IA (Mistral AI, empresa francesa, tratamientos realizados en la Union Europea), un servicio de envio de correos (verificacion de direccion, restablecimiento de contrasena, newsletter) y una herramienta de medicion de audiencia ([credit], solo si la aceptas). Cada uno recibe unicamente los datos estrictamente necesarios para su servicio y no esta autorizado a usarlos para otros fines, con fines publicitarios ni para entrenar sus propios modelos. Tus documentos, tus conversaciones y el indice vectorial asociado se alojan y tratan exclusivamente dentro de la Union Europea. El proveedor de envio de correos, en cambio, puede estar establecido fuera de la Union Europea: no recibe ningun contenido de tus documentos, y las transferencias correspondientes estan reguladas por las clausulas contractuales tipo de la Comision Europea. La lista nominativa y actualizada de estos encargados se te facilita previa solicitud a traves del formulario de contacto."
       },
       {
         "title": "Responsable del tratamiento y plazos de conservacion",
-        "body": "El responsable del tratamiento es el editor del servicio, cuya identidad completa figura en la pagina de Aviso legal; se le puede contactar a traves del formulario de contacto. Los datos de tu cuenta, tus documentos y tus conversaciones se conservan mientras exista tu cuenta y se eliminan en cuanto la suprimes. Los mensajes enviados a traves del formulario de contacto se conservan el tiempo necesario para atender tu solicitud. Los datos necesarios para la facturacion se conservan durante el plazo legal de conservacion de los documentos contables. Una suscripcion a la newsletter se conserva hasta que te des de baja."
+        "body": "El responsable del tratamiento es el editor del servicio, cuya identidad completa figura en la pagina de Aviso legal; se le puede contactar a traves del formulario de contacto. Los datos de tu cuenta, tus documentos y tus conversaciones se conservan mientras exista tu cuenta y se eliminan en cuanto la suprimes. Los mensajes enviados a traves del formulario de contacto se conservan el tiempo necesario para atender tu solicitud. Una suscripcion a la newsletter se conserva hasta que te des de baja."
       },
       {
         "title": "Tus derechos (RGPD)",
@@ -354,7 +298,7 @@
       },
       {
         "title": "4. Espacios de trabajo y colaboracion",
-        "body": "Cada espacio de trabajo pertenece a un propietario, que puede invitar a otros usuarios mediante un enlace de invitacion (solo lectura o lectura/escritura segun el rol elegido). El propietario de un espacio es responsable de las personas que invita y del contenido subido alli. El numero de espacios y de miembros por espacio depende del plan de suscripcion del propietario."
+        "body": "Cada espacio de trabajo pertenece a un propietario, que puede invitar a otros usuarios mediante un enlace para compartir (solo lectura o lectura/escritura segun el rol elegido). El propietario de un espacio es responsable de las personas que invita y del contenido que se deposita en el. El numero de espacios, de miembros por espacio, el almacenamiento y el numero de preguntas por dia estan limitados por cuenta (ver la pagina Precios)."
       },
       {
         "title": "5. Uso aceptable",
@@ -365,8 +309,8 @@
         "body": "Las respuestas generadas por el asistente de IA pueden ser incompletas, inexactas o contener errores (alucinaciones), incluso citando fuentes. No constituyen en ningun caso asesoramiento profesional, legal, medico o financiero. Eres el unico responsable del uso que hagas de las respuestas proporcionadas."
       },
       {
-        "title": "7. Suscripciones y cancelacion",
-        "body": "Algunos planes son de pago e implican una suscripcion recurrente (ver la pagina de Precios y las Condiciones Generales de Venta). Puedes cancelar tu suscripcion en cualquier momento desde los ajustes de tu cuenta; el acceso al plan de pago sigue disponible hasta el final del periodo ya facturado. Tambien puedes eliminar tu cuenta en cualquier momento, lo que borra definitivamente tus espacios y datos asociados."
+        "title": "7. Gratuidad y limites de uso",
+        "body": "El servicio es totalmente gratuito: nunca se exige suscripcion ni pago. Para garantizar un uso justo y prevenir abusos, cada cuenta esta sujeta a limites de uso (espacios, miembros por espacio, almacenamiento, preguntas a la IA por dia), indicados en la pagina Precios y susceptibles de cambiar. Eludir estos limites (por ejemplo, creando varias cuentas) puede conllevar la suspension de las cuentas afectadas. Puedes eliminar tu cuenta en cualquier momento, lo que supone la eliminacion definitiva de tus espacios y datos asociados."
       },
       {
         "title": "8. Disponibilidad del servicio",
@@ -379,51 +323,6 @@
       {
         "title": "10. Legislacion aplicable y contacto",
         "body": "Estas condiciones se rigen por el derecho frances. Para cualquier pregunta, utiliza el formulario de contacto del sitio."
-      }
-    ]
-  },
-  "sale": {
-    "back": "Volver al inicio",
-    "eyebrow": "Condiciones de venta",
-    "title": "Condiciones Generales de Venta",
-    "subtitle": "Estas condiciones se aplican a la suscripcion a los planes de pago de {{brand}} (Particular, Pro). El plan Descubrimiento es gratuito y no esta cubierto. El plan Empresa se vende mediante presupuesto personalizado con condiciones propias.",
-    "updated": "Ultima actualizacion: {{date}}",
-    "sections": [
-      {
-        "title": "1. Vendedor",
-        "body": "Las suscripciones de pago son vendidas por [editeur], empresario individual que opera bajo el nombre comercial \"[credit]\" (SIREN [immatriculation]) - consulta el Aviso Legal para la identidad completa."
-      },
-      {
-        "title": "2. Ofertas y precios",
-        "body": "Los planes disponibles, sus limites (espacios, miembros, almacenamiento) y sus precios se muestran en la pagina de Precios en el momento de la suscripcion. Los precios se expresan en euros e incluyen todos los impuestos: se cobra exactamente el precio mostrado, sin gastos ni impuestos anadidos en el momento del pago. IVA no aplicable, articulo 293 B del Codigo General de Impuestos frances: no se factura ningun IVA y las facturas emitidas no muestran por tanto IVA deducible."
-      },
-      {
-        "title": "3. Suscripcion y pago",
-        "body": "La suscripcion se realiza en linea, con tarjeta, a traves de nuestro proveedor de pagos Stripe. La suscripcion se renueva automaticamente cada mes: el importe del plan elegido se cobra cada mes en la misma fecha, hasta su cancelacion. {{brand}} no almacena ningun dato bancario - Stripe gestiona todo el pago de forma segura."
-      },
-      {
-        "title": "4. Derecho de desistimiento",
-        "body": "De acuerdo con el articulo L221-28 13 del Codigo de Consumo frances, el derecho de desistimiento de 14 dias aplicable a las ventas a distancia no puede ejercerse una vez que el servicio digital se ha ejecutado completamente, cuando la ejecucion comenzo tras el acuerdo previo expreso del consumidor y su renuncia expresa al derecho de desistimiento. Al suscribirte a un plan de pago, solicitas el acceso inmediato al servicio y reconoces renunciar a tu derecho de desistimiento en cuanto la suscripcion este activa."
-      },
-      {
-        "title": "5. Duracion y cancelacion",
-        "body": "La suscripcion no tiene permanencia minima y puede cancelarse en cualquier momento desde los ajustes de la cuenta (seccion Suscripcion). La cancelacion surte efecto al final del periodo ya pagado: no se realiza ningun reembolso prorrateado por el periodo en curso, pero el acceso al plan permanece activo hasta su fin."
-      },
-      {
-        "title": "6. Cambio de plan",
-        "body": "Puedes cambiar de plan (mejora o degradacion) en cualquier momento desde la gestion de la suscripcion. El nuevo precio se aplica segun las reglas de prorrateo de Stripe para el resto del periodo en curso."
-      },
-      {
-        "title": "7. Facturas",
-        "body": "Se emite automaticamente una factura por cada pago, disponible en cualquier momento desde la gestion de la suscripcion (portal de facturacion)."
-      },
-      {
-        "title": "8. Mediador de consumo",
-        "body": "Conforme a los articulos L612-1 y siguientes del Codigo de consumo frances, todo consumidor tiene derecho a recurrir gratuitamente a un mediador de consumo para la resolucion amistosa de un litigio, tras haber enviado una reclamacion escrita al vendedor y no haber recibido una respuesta satisfactoria en el plazo de un mes. El mediador competente para {{brand}} es: [POR COMPLETAR - nombre, direccion postal y sitio web del mediador de consumo]."
-      },
-      {
-        "title": "9. Legislacion aplicable y litigios",
-        "body": "Estas condiciones se rigen por el derecho frances. En caso de litigio, se buscara primero una solucion amistosa a traves del formulario de contacto; en su defecto, seran competentes exclusivamente los tribunales franceses."
       }
     ]
   },
@@ -542,44 +441,14 @@
       "exportData": "Exportar mis datos",
       "emailVerified": "Correo verificado",
       "emailNotVerified": "Correo no verificado",
-      "billingTitle": "Suscripcion",
-      "billingCurrentPlan": "Plan actual",
-      "billingManage": "Gestionar suscripcion",
-      "billingUpgrade": "Ver precios",
-      "billingError": "No se pudo abrir la gestion de la suscripcion.",
-      "planNames": {
-        "decouverte": "Descubrimiento",
-        "particulier": "Particular",
-        "pro": "Pro",
-        "entreprise": "Empresa"
-      },
       "usage": {
         "title": "Uso",
         "storage": "Almacenamiento",
         "spaces": "Espacios",
         "documents": "Documentos",
-        "conversations": "Conversaciones"
-      },
-      "billingProfile": {
-        "title": "Perfil de facturacion",
-        "hint": "Esta informacion aparece en sus facturas. Complete estos datos para recibir facturas conformes (formato Factur-X).",
-        "individual": "Particular",
-        "business": "Empresa",
-        "companyName": "Razon social",
-        "siret": "Numero SIRET",
-        "vatNumber": "N.º de IVA intracomunitario",
-        "addressLine1": "Direccion",
-        "addressLine2": "Direccion (linea 2)",
-        "postalCode": "Codigo postal",
-        "city": "Ciudad",
-        "save": "Guardar",
-        "saved": "Perfil de facturacion guardado.",
-        "saveError": "No se pudo guardar el perfil de facturacion."
-      },
-      "invoices": {
-        "title": "Historial de facturacion",
-        "empty": "Todavia no hay facturas.",
-        "download": "Descargar"
+        "conversations": "Conversaciones",
+        "freeNote": "Cuenta gratuita - limites de uso",
+        "questionsToday": "Preguntas hoy"
       },
       "gdpr": {
         "title": "Sus datos y sus derechos (RGPD)",
@@ -661,7 +530,7 @@
       },
       {
         "question": "Cuanto cuesta {{brand}}?",
-        "answer": "Existe un plan gratuito para probar (1 espacio, 1 miembro, 200 MB). Los planes de pago empiezan en 9€ IVA incl./mes. En todos los planes, las preguntas a la IA son ilimitadas: los unicos limites son el numero de espacios, de miembros por espacio y el almacenamiento."
+        "answer": "{{brand}} es totalmente gratuito, sin tarjeta bancaria ni suscripcion. Para evitar abusos, cada cuenta tiene limites de uso: 3 espacios de trabajo, 5 miembros por espacio, 500 MB de almacenamiento por espacio y 50 preguntas a la IA por dia."
       }
     ]
   },
@@ -730,19 +599,7 @@
       "users": "Usuarios",
       "spaces": "Espacios",
       "testimonials": "Opiniones",
-      "invoices": "Facturas",
       "newsletter": "Newsletter"
-    },
-    "invoices": {
-      "number": "Numero",
-      "customer": "Cliente",
-      "amount": "Importe",
-      "type": "Tipo",
-      "business": "Empresa",
-      "individual": "Particular",
-      "viewPdf": "Ver PDF",
-      "empty": "Todavia no hay facturas.",
-      "unavailable": "La facturacion no esta configurada en esta instancia."
     },
     "users": {
       "createButton": "Nuevo usuario",

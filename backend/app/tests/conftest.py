@@ -82,17 +82,9 @@ def auth_headers(token: str) -> dict:
     return {"Authorization": f"Bearer {token}"}
 
 
-def set_plan(user_id: str, plan: str) -> None:
-    """New accounts default to the 'decouverte' plan (1 member per space) -
-    tests that need to add multiple members to one space must bump the
-    owner's plan first, same as a real upgrade would."""
-    from app.database import SessionLocal
-    from app import models_db
+def set_quota(monkeypatch, key: str, value: int) -> None:
+    """Every account shares config.FREE_QUOTAS - tests that need to hit a
+    limit quickly lower it for the duration of the test."""
+    from app import config
 
-    db = SessionLocal()
-    try:
-        user = db.get(models_db.User, user_id)
-        user.plan = plan
-        db.commit()
-    finally:
-        db.close()
+    monkeypatch.setitem(config.FREE_QUOTAS, key, value)

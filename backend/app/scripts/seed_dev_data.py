@@ -1,6 +1,6 @@
-"""Dev-only seed data: one admin account and one account per pricing plan,
-so the plan-based quotas (config.PLAN_QUOTAS) can be exercised locally
-without going through real signups. Idempotent - safe to run more than
+"""Dev-only seed data: one admin account and one regular account, so the
+account quotas (config.FREE_QUOTAS) can be exercised locally without going
+through real signups. Idempotent - safe to run more than
 once, existing accounts are left untouched.
 
 Usage (inside the backend container):
@@ -19,11 +19,8 @@ logger = logging.getLogger("docverse.seed")
 DEV_PASSWORD = "ChangeMe123!"
 
 SEED_ACCOUNTS = [
-    {"email": "admin@example.com", "display_name": "Admin", "role": "admin", "plan": "entreprise"},
-    {"email": "decouverte@example.com", "display_name": "Compte Decouverte", "role": "user", "plan": "decouverte"},
-    {"email": "particulier@example.com", "display_name": "Compte Particulier", "role": "user", "plan": "particulier"},
-    {"email": "pro@example.com", "display_name": "Compte Pro", "role": "user", "plan": "pro"},
-    {"email": "entreprise@example.com", "display_name": "Compte Entreprise", "role": "user", "plan": "entreprise"},
+    {"email": "admin@example.com", "display_name": "Admin", "role": "admin"},
+    {"email": "user@example.com", "display_name": "Compte utilisateur", "role": "user"},
 ]
 
 
@@ -42,11 +39,10 @@ def seed() -> None:
                 role=account["role"],
                 is_active=True,
                 email_verified=True,
-                plan=account["plan"],
             )
             db.add(user)
             db.commit()
-            logger.info("Cree : %s (palier %s, mot de passe %s)", account["email"], account["plan"], DEV_PASSWORD)
+            logger.info("Cree : %s (mot de passe %s)", account["email"], DEV_PASSWORD)
     finally:
         db.close()
 

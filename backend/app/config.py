@@ -11,13 +11,11 @@ CHROMA_DIR = DATA_DIR / "chroma"
 DB_PATH = DATA_DIR / "app.db"
 BACKUP_DIR = DATA_DIR / "backups"
 WHISPER_MODEL_DIR = DATA_DIR / "whisper_models"
-INVOICE_DIR = DATA_DIR / "invoices"
 
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 CHROMA_DIR.mkdir(parents=True, exist_ok=True)
 BACKUP_DIR.mkdir(parents=True, exist_ok=True)
 WHISPER_MODEL_DIR.mkdir(parents=True, exist_ok=True)
-INVOICE_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def _parse_origins(raw: str) -> list[str]:
@@ -112,54 +110,15 @@ class Settings:
     linkedin_oauth_client_id: str = os.environ.get("LINKEDIN_OAUTH_CLIENT_ID", "")
     linkedin_oauth_client_secret: str = os.environ.get("LINKEDIN_OAUTH_CLIENT_SECRET", "")
 
-    # --- Billing (Stripe) --------------------------------------------------
-    # Checkout/portal routes 503 instead of crashing when these are unset,
-    # so the app still runs fine without billing configured (e.g. local dev).
-    stripe_secret_key: str = os.environ.get("STRIPE_SECRET_KEY", "")
-    stripe_publishable_key: str = os.environ.get("STRIPE_PUBLISHABLE_KEY", "")
-    stripe_webhook_secret: str = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
-    # Recurring Stripe Price ids - one per paid plan. Entreprise is sur
-    # devis (sales-assisted), not self-serve, so it has none; Decouverte is
-    # free and never touches Stripe.
-    stripe_price_particulier: str = os.environ.get("STRIPE_PRICE_PARTICULIER", "")
-    stripe_price_pro: str = os.environ.get("STRIPE_PRICE_PRO", "")
-
     # Where the backend's own OAuth callback routes live - used to build the
     # redirect_uri sent to each provider, which must exactly match what's
     # registered there.
     backend_base_url: str = os.environ.get("BACKEND_BASE_URL", "http://localhost:8000")
 
-    # --- Facturation (Factur-X) --------------------------------------------
-    # Identite legale du vendeur (nous), imprimee sur chaque facture et
-    # encodee dans le XML Factur-X embarque. Volontairement vide par defaut :
-    # tant que ces variables ne sont pas renseignees, la generation de
-    # facture refuse de tourner (voir services/facturx_service.py) plutot que
-    # d'imprimer des mentions legales inventees ou incompletes. A definir
-    # dans tools/production.env avant la bascule Stripe en mode Live.
-    seller_legal_name: str = os.environ.get("SELLER_LEGAL_NAME", "")
-    seller_legal_form: str = os.environ.get("SELLER_LEGAL_FORM", "")
-    seller_siren: str = os.environ.get("SELLER_SIREN", "")
-    seller_siret: str = os.environ.get("SELLER_SIRET", "")
-    seller_vat_number: str = os.environ.get("SELLER_VAT_NUMBER", "")
-    seller_address_line1: str = os.environ.get("SELLER_ADDRESS_LINE1", "")
-    seller_postal_code: str = os.environ.get("SELLER_POSTAL_CODE", "")
-    seller_city: str = os.environ.get("SELLER_CITY", "")
-    seller_country_code: str = os.environ.get("SELLER_COUNTRY_CODE", "FR")
-    seller_iban: str = os.environ.get("SELLER_IBAN", "")
-    # Franchise en base de TVA (art. 293 B du CGI) : aucune TVA collectee.
-    # A desactiver (SELLER_VAT_EXEMPT=false) le jour ou l'entreprise en
-    # sort et doit se mettre a facturer la TVA - non gere automatiquement
-    # ici, decision volontairement humaine.
-    seller_vat_exempt: bool = os.environ.get("SELLER_VAT_EXEMPT", "true").lower() != "false"
-    seller_vat_exemption_reason: str = os.environ.get(
-        "SELLER_VAT_EXEMPTION_REASON", "TVA non applicable, art. 293 B du CGI"
-    )
-
     # --- Abuse limits -----------------------------------------------------
     # A compromised or malicious account shouldn't be able to spam an
-    # unbounded number of spaces or share links, regardless of plan - this
-    # is a hard ceiling even for entreprise. PLAN_QUOTAS below is the real,
-    # product-facing limit for everyone under that ceiling.
+    # unbounded number of share links - this is a hard ceiling on top of
+    # FREE_QUOTAS below, which is the real, product-facing limit.
     max_spaces_per_user: int = int(os.environ.get("MAX_SPACES_PER_USER", "50"))
     max_share_links_per_space: int = int(os.environ.get("MAX_SHARE_LINKS_PER_SPACE", "20"))
 
@@ -256,44 +215,18 @@ if not settings.secret_key:
     )
 
 
-# Product-facing plan quotas (see the business plan): not yet tied to real
-# billing, but the limits themselves are enforced today. `None` means
-# unlimited (still capped by the absolute abuse ceilings above).
-PLAN_QUOTAS: dict[str, dict[str, int | None]] = {
-    "decouverte": {"spaces": 1, "members_per_space": 1, "storage_bytes": 200 * 1024 * 1024},
-    "particulier": {"spaces": 3, "members_per_space": 1, "storage_bytes": 2 * 1024 * 1024 * 1024},
-    "pro": {"spaces": 10, "members_per_space": 10, "storage_bytes": 10 * 1024 * 1024 * 1024},
-    "entreprise": {"spaces": None, "members_per_space": None, "storage_bytes": None},
-}
-DEFAULT_PLAN = "decouverte"
-
-
-def plan_quota(plan: str, key: str) -> int | None:
-    return PLAN_QUOTAS.get(plan, PLAN_QUOTAS[DEFAULT_PLAN]).get(key)
-
-
-# Self-serve paid plans only - Decouverte is free (no Stripe involved) and
-# Entreprise is sales-assisted (sur devis, no Stripe Price of its own).
-PLAN_PRICE_IDS: dict[str, str] = {
-    "particulier": settings.stripe_price_particulier,
-    "pro": settings.stripe_price_pro,
+# Docverse is entirely free: every account gets the same limits, sized to
+# keep one account from monopolizing the box or running up the LLM bill.
+# Tunable per instance from the environment without a code change.
+FREE_QUOTAS: dict[str, int] = {
+    "spaces": int(os.environ.get("FREE_MAX_SPACES", "3")),
+    "members_per_space": int(os.environ.get("FREE_MAX_MEMBERS_PER_SPACE", "5")),
+    "storage_bytes": int(os.environ.get("FREE_STORAGE_MB_PER_SPACE", "500")) * 1024 * 1024,
+    # Questions posed to the AI per account and per UTC day - the only
+    # usage-based cost of the service, hence the tightest limit.
+    "messages_per_day": int(os.environ.get("FREE_MESSAGES_PER_DAY", "50")),
 }
 
 
-def plan_for_price_id(price_id: str) -> str | None:
-    for plan, pid in PLAN_PRICE_IDS.items():
-        if pid and pid == price_id:
-            return plan
-    return None
-
-
-def seller_configured() -> bool:
-    """Whether the minimal legal identity needed to issue a Factur-X
-    invoice has been provided - see the "Facturation" settings above."""
-    return bool(
-        settings.seller_legal_name
-        and settings.seller_siren
-        and settings.seller_address_line1
-        and settings.seller_postal_code
-        and settings.seller_city
-    )
+def quota(key: str) -> int:
+    return FREE_QUOTAS[key]

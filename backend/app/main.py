@@ -8,7 +8,7 @@ from . import models_db
 from .config import UPLOAD_DIR, settings
 from .database import Base, SessionLocal, engine, ensure_schema
 from .deps import require_admin
-from .routers import admin, auth, billing, captcha, chat, conversations, contact, documents, newsletter, oauth, spaces, support, testimonials
+from .routers import admin, auth, captcha, chat, conversations, contact, documents, newsletter, oauth, spaces, support, testimonials
 from .services import llm_provider, vectorstore
 
 logging.basicConfig(level=logging.INFO)
@@ -140,7 +140,6 @@ async def cache_and_security_headers(request: Request, call_next):
 
 app.include_router(auth.router)
 app.include_router(oauth.router)
-app.include_router(billing.router)
 app.include_router(admin.router)
 app.include_router(captcha.router)
 app.include_router(newsletter.router)

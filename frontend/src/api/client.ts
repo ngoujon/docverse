@@ -2,14 +2,11 @@ import type {
   AdminHealthStatus,
   AdminStats,
   AuthResponse,
-  BillingProfile,
   CaptchaChallenge,
   CaptchaSolution,
   Conversation,
   DocumentItem,
   HealthStatus,
-  Invoice,
-  LocalInvoice,
   LoginResponse,
   MeStats,
   Message,
@@ -35,6 +32,10 @@ export class UnauthorizedError extends Error {
     super(message);
   }
 }
+
+/** A 429 whose detail is meant for the user as-is (e.g. the daily
+ * question quota), unlike a generic server error. */
+export class RateLimitedError extends Error {}
 
 async function readDetail(res: Response, fallback: string): Promise<string> {
   try {
@@ -165,41 +166,6 @@ export const api = {
   oauthLoginUrl: (provider: "google" | "apple" | "github" | "linkedin", next: string) =>
     `${BASE}/auth/oauth/${provider}/login?next=${encodeURIComponent(next)}`,
 
-  // --- Billing (Stripe) -------------------------------------------------
-  billingCheckout: (plan: "particulier" | "pro") =>
-    request<{ url: string }>("/billing/checkout", {
-      method: "POST",
-      body: JSON.stringify({ plan }),
-    }),
-  billingPortal: () => request<{ url: string }>("/billing/portal", { method: "POST" }),
-  billingProfile: () => request<BillingProfile>("/billing/profile"),
-  updateBillingProfile: (payload: BillingProfile) =>
-    request<BillingProfile>("/billing/profile", { method: "PUT", body: JSON.stringify(payload) }),
-  myInvoices: (limit = 20, offset = 0) =>
-    request<{ items: LocalInvoice[]; total: number }>(
-      `/billing/invoices/mine?limit=${limit}&offset=${offset}`
-    ),
-  downloadMyInvoice: async (invoiceId: string, filenameFallback: string): Promise<void> => {
-    const res = await fetch(`${BASE}/billing/invoices/mine/${invoiceId}/download`, {
-      headers: authHeaders(),
-    });
-    if (res.status === 401) throw new UnauthorizedError(await readDetail(res, "Acces non autorise"));
-    if (!res.ok) throw new Error(await readDetail(res, res.statusText));
-
-    const disposition = res.headers.get("Content-Disposition") || "";
-    const match = disposition.match(/filename="([^"]+)"/);
-    const filename = match ? match[1] : `${filenameFallback}.pdf`;
-
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    URL.revokeObjectURL(url);
-  },
 
   // --- Captcha --------------------------------------------------------
   captchaChallenge: () => request<CaptchaChallenge>("/captcha/challenge"),
@@ -238,10 +204,6 @@ export const api = {
   adminUpdateTestimonial: (id: string, patch: Partial<TestimonialInput>) =>
     request<Testimonial>(`/admin/testimonials/${id}`, { method: "PATCH", body: JSON.stringify(patch) }),
   adminDeleteTestimonial: (id: string) => request(`/admin/testimonials/${id}`, { method: "DELETE" }),
-  adminInvoices: (limit = 20, startingAfter?: string) =>
-    request<{ items: Invoice[]; has_more: boolean }>(
-      `/admin/invoices?limit=${limit}${startingAfter ? `&starting_after=${startingAfter}` : ""}`
-    ),
   listTestimonials: () => request<Testimonial[]>("/testimonials"),
   adminListSnapshots: (spaceId: string) =>
     request<SpaceSnapshot[]>(`/admin/spaces/${spaceId}/snapshots`),
@@ -411,6 +373,7 @@ export async function streamChat(
     signal,
   });
   if (res.status === 401) throw new UnauthorizedError();
+  if (res.status === 429) throw new RateLimitedError(await readDetail(res, "Trop de messages envoyes"));
   if (!res.ok || !res.body) {
     throw new Error(`Erreur serveur (${res.status})`);
   }

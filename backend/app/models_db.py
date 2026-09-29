@@ -27,16 +27,12 @@ class User(Base):
     token_version = Column(Integer, nullable=False, default=0)
     totp_secret = Column(String, nullable=True)
     totp_enabled = Column(Boolean, nullable=False, default=False)
-    # decouverte | particulier | pro | entreprise - see config.PLAN_QUOTAS.
-    # Not yet tied to real billing (no Stripe integration), but the quotas
-    # it drives are already enforced.
-    plan = Column(String, nullable=False, default="decouverte")
-    # Set once the user has gone through Stripe Checkout at least once -
-    # reused across plan changes so we're not creating a new Stripe
-    # customer every time. Both stay null for accounts on the free plan
-    # that never subscribed.
-    stripe_customer_id = Column(String, nullable=True)
-    stripe_subscription_id = Column(String, nullable=True)
+    # Daily AI-question counter backing config.FREE_QUOTAS
+    # ["messages_per_day"]: messages_today only counts for the UTC date
+    # stored in messages_day, and silently restarts from zero on the
+    # first question of a new day.
+    messages_day = Column(String, nullable=True)
+    messages_today = Column(Integer, nullable=False, default=0)
     # When this account explicitly accepted the CGU + privacy policy (the
     # required checkbox on the signup form, or the notice shown next to the
     # SSO buttons). Kept as a timestamp rather than a boolean because what
@@ -45,22 +41,6 @@ class User(Base):
     # accounts created before this was introduced.
     terms_accepted_at = Column(DateTime, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
-
-    # --- Profil de facturation (Factur-X) ---------------------------------
-    # Renseigne depuis /account. billing_is_business bascule le formulaire
-    # cote frontend et rend siret/company_name obligatoires cote backend -
-    # une facture pro sans ces informations ne serait pas conforme. Ces
-    # champs sont recopies (jamais relus) dans chaque facture au moment de
-    # son emission : voir Invoice.buyer_snapshot_json.
-    billing_is_business = Column(Boolean, nullable=False, default=False)
-    billing_company_name = Column(String, default="")
-    billing_siret = Column(String, default="")
-    billing_vat_number = Column(String, default="")
-    billing_address_line1 = Column(String, default="")
-    billing_address_line2 = Column(String, default="")
-    billing_postal_code = Column(String, default="")
-    billing_city = Column(String, default="")
-    billing_country_code = Column(String, default="FR")
 
     owned_spaces = relationship("Space", back_populates="owner")
 
@@ -246,44 +226,6 @@ class SpaceSnapshot(Base):
     conversation_count = Column(Integer, default=0)
     document_count = Column(Integer, default=0)
     path = Column(String, nullable=False)
-
-
-class Invoice(Base):
-    """A locally generated, Factur-X-compliant invoice for one Stripe
-    subscription payment. Created from the Stripe webhook rather than
-    relying on Stripe's own hosted PDF, for two legal reasons: French law
-    requires a continuous, gap-free numbering sequence chosen by the
-    issuer (art. 242 nonies A, Annexe II du CGI) - Stripe's own invoice
-    numbers don't guarantee that across plan/price changes - and the
-    buyer/seller details must reflect what they were at issuance, frozen
-    in *_snapshot_json, even if the account's billing profile changes
-    later."""
-
-    __tablename__ = "invoices"
-
-    id = Column(String, primary_key=True, default=gen_id)
-    user_id = Column(String, ForeignKey("users.id"), nullable=False, index=True)
-    number = Column(String, nullable=False, unique=True, index=True)
-    # Null for invoices created before Stripe was involved, if any - never
-    # expected in practice, but keeps the column honest rather than faked.
-    stripe_invoice_id = Column(String, nullable=True, unique=True, index=True)
-    issue_date = Column(DateTime, nullable=False, default=datetime.utcnow)
-    currency = Column(String, nullable=False, default="eur")
-    amount_ht_cents = Column(Integer, nullable=False, default=0)
-    amount_vat_cents = Column(Integer, nullable=False, default=0)
-    amount_ttc_cents = Column(Integer, nullable=False, default=0)
-    description = Column(String, nullable=False, default="")
-    is_business = Column(Boolean, nullable=False, default=False)
-    buyer_snapshot_json = Column(Text, nullable=False, default="{}")
-    seller_snapshot_json = Column(Text, nullable=False, default="{}")
-    # Path on disk to the generated Factur-X PDF (see config.INVOICE_DIR).
-    # Regenerated on demand from the two snapshots above if the file is
-    # ever missing - the DB row + snapshots are the source of truth, the
-    # file is a cache of them.
-    pdf_path = Column(String, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
-
-    user = relationship("User")
 
 
 class NewsletterSubscriber(Base):

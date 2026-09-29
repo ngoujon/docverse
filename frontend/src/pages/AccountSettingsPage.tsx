@@ -4,9 +4,7 @@ import { useTranslation } from "react-i18next";
 import {
   BadgeCheck,
   BadgeX,
-  CreditCard,
   Download,
-  FileText,
   HardDrive,
   KeyRound,
   Loader2,
@@ -23,9 +21,8 @@ import { useAuth } from "../hooks/useAuth";
 import { usePageMeta } from "../hooks/usePageMeta";
 import DashboardNav from "../components/DashboardNav";
 import ConfirmDialog from "../components/ConfirmDialog";
-import BillingProfileForm from "../components/BillingProfileForm";
 import { formatBytes } from "../utils/format";
-import type { LocalInvoice, MeStats, TwoFactorSetup } from "../types";
+import type { MeStats, TwoFactorSetup } from "../types";
 import { BRAND, pageTitle } from "../brand";
 
 export default function AccountSettingsPage() {
@@ -49,29 +46,11 @@ export default function AccountSettingsPage() {
 
   const [exportBusy, setExportBusy] = useState(false);
 
-  const [billingBusy, setBillingBusy] = useState(false);
-  const [billingError, setBillingError] = useState<string | null>(null);
-
   const [stats, setStats] = useState<MeStats | null>(null);
-  const [invoices, setInvoices] = useState<LocalInvoice[] | null>(null);
-  const [downloadingInvoiceId, setDownloadingInvoiceId] = useState<string | null>(null);
 
   useEffect(() => {
     api.meStats().then(setStats).catch(() => setStats(null));
-    api
-      .myInvoices()
-      .then((res) => setInvoices(res.items))
-      .catch(() => setInvoices([]));
   }, []);
-
-  const handleDownloadInvoice = async (invoice: LocalInvoice) => {
-    setDownloadingInvoiceId(invoice.id);
-    try {
-      await api.downloadMyInvoice(invoice.id, `facture-${invoice.number}`);
-    } finally {
-      setDownloadingInvoiceId(null);
-    }
-  };
 
   const [deletePassword, setDeletePassword] = useState("");
   const [deleteError, setDeleteError] = useState<string | null>(null);
@@ -126,18 +105,6 @@ export default function AccountSettingsPage() {
       setDisableError(err instanceof Error ? err.message : "Erreur");
     } finally {
       setDisabling(false);
-    }
-  };
-
-  const handleManageBilling = async () => {
-    setBillingBusy(true);
-    setBillingError(null);
-    try {
-      const { url } = await api.billingPortal();
-      window.location.href = url;
-    } catch (err) {
-      setBillingError(err instanceof Error ? err.message : t("auth.account.billingError"));
-      setBillingBusy(false);
     }
   };
 
@@ -198,46 +165,14 @@ export default function AccountSettingsPage() {
         </div>
 
         <h2 className="mt-8 font-mono text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-          {t("auth.account.billingTitle")}
+          {t("auth.account.usage.title")}
         </h2>
-
-        <div className="mt-3 rounded-xl border border-surface-border bg-surface-1 p-5">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <CreditCard size={15} className="text-slate-500 dark:text-slate-400" />
-              <div>
-                <p className="text-sm text-slate-800 dark:text-slate-200">{t("auth.account.billingCurrentPlan")}</p>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  {t(`auth.account.planNames.${user.plan}`)}
-                </p>
-              </div>
-            </div>
-            {user.plan === "decouverte" ? (
-              <Link
-                to="/tarifs"
-                className="rounded-lg bg-accent px-3 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-white hover:bg-accent-hover"
-              >
-                {t("auth.account.billingUpgrade")}
-              </Link>
-            ) : (
-              <button
-                onClick={handleManageBilling}
-                disabled={billingBusy}
-                className="flex items-center gap-1.5 rounded-lg border border-surface-border px-3 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-surface-3 disabled:opacity-40"
-              >
-                {billingBusy && <Loader2 size={12} className="animate-spin" />}
-                {t("auth.account.billingManage")}
-              </button>
-            )}
-          </div>
-          {billingError && <p className="mt-2 text-xs text-red-500">{billingError}</p>}
-        </div>
 
         {stats && (
           <div className="mt-3 rounded-xl border border-surface-border bg-surface-1 p-5">
             <div className="flex items-center gap-2">
               <HardDrive size={15} className="text-slate-500 dark:text-slate-400" />
-              <p className="text-sm text-slate-800 dark:text-slate-200">{t("auth.account.usage.title")}</p>
+              <p className="text-sm text-slate-800 dark:text-slate-200">{t("auth.account.usage.freeNote")}</p>
             </div>
             <div className="mt-3 space-y-1">
               <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
@@ -258,7 +193,7 @@ export default function AccountSettingsPage() {
                 </div>
               )}
             </div>
-            <div className="mt-3 grid grid-cols-3 gap-2 text-center">
+            <div className="mt-3 grid grid-cols-2 gap-2 text-center sm:grid-cols-4">
               <div>
                 <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">
                   {stats.owned_spaces}
@@ -274,57 +209,18 @@ export default function AccountSettingsPage() {
                 <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">{stats.conversation_count}</p>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400">{t("auth.account.usage.conversations")}</p>
               </div>
+              <div>
+                <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+                  {stats.messages_today ?? 0}
+                  {stats.messages_per_day_limit != null && (
+                    <span className="text-slate-400"> / {stats.messages_per_day_limit}</span>
+                  )}
+                </p>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400">{t("auth.account.usage.questionsToday")}</p>
+              </div>
             </div>
           </div>
         )}
-
-        <h2 className="mt-8 font-mono text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-          {t("auth.account.billingProfile.title")}
-        </h2>
-        <div className="mt-3 rounded-xl border border-surface-border bg-surface-1 p-5">
-          <p className="mb-4 text-xs text-slate-500 dark:text-slate-400">
-            {t("auth.account.billingProfile.hint")}
-          </p>
-          <BillingProfileForm />
-        </div>
-
-        <h2 className="mt-8 font-mono text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-          {t("auth.account.invoices.title")}
-        </h2>
-        <div className="mt-3 rounded-xl border border-surface-border bg-surface-1 p-5">
-          {!invoices || invoices.length === 0 ? (
-            <p className="text-xs text-slate-500 dark:text-slate-400">{t("auth.account.invoices.empty")}</p>
-          ) : (
-            <ul className="divide-y divide-surface-border">
-              {invoices.map((invoice) => (
-                <li key={invoice.id} className="flex items-center justify-between gap-3 py-2.5 first:pt-0 last:pb-0">
-                  <div className="flex items-center gap-2 overflow-hidden">
-                    <FileText size={14} className="shrink-0 text-slate-400" />
-                    <div className="min-w-0">
-                      <p className="truncate text-sm text-slate-800 dark:text-slate-200">{invoice.number}</p>
-                      <p className="truncate text-xs text-slate-500 dark:text-slate-400">
-                        {new Date(invoice.issue_date).toLocaleDateString()} ·{" "}
-                        {(invoice.amount_ttc_cents / 100).toFixed(2)} {invoice.currency.toUpperCase()}
-                      </p>
-                    </div>
-                  </div>
-                  <button
-                    onClick={() => handleDownloadInvoice(invoice)}
-                    disabled={downloadingInvoiceId === invoice.id}
-                    className="flex shrink-0 items-center gap-1.5 rounded-lg border border-surface-border px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-surface-3 disabled:opacity-40"
-                  >
-                    {downloadingInvoiceId === invoice.id ? (
-                      <Loader2 size={12} className="animate-spin" />
-                    ) : (
-                      <Download size={12} />
-                    )}
-                    {t("auth.account.invoices.download")}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
 
         <h2 className="mt-8 font-mono text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
           {t("auth.account.security")}

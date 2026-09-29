@@ -7,7 +7,7 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 
-from .. import models_db, schemas
+from .. import config, models_db, schemas
 from ..database import get_db, SessionLocal
 from ..deps import ConversationAccess, require_conversation_access, client_ip
 from ..services import backup, llm_provider, queue_manager, rag, rate_limiter
@@ -16,6 +16,26 @@ logger = logging.getLogger("docverse.chat")
 router = APIRouter(prefix="/api", tags=["chat"])
 
 _HISTORY_LIMIT = 20
+
+
+def _consume_daily_message(user: models_db.User, db: Session) -> None:
+    """Counts one AI question against the account's daily quota
+    (config.FREE_QUOTAS["messages_per_day"]), or refuses it with a 429
+    once the quota is used up. The service is free, so this - not a
+    bill - is what keeps one account from running up the LLM cost for
+    everyone; unlike the per-IP chat_limiter it survives IP rotation and
+    restarts because it lives in the database."""
+    today = datetime.utcnow().date().isoformat()
+    if user.messages_day != today:
+        user.messages_day = today
+        user.messages_today = 0
+    limit = config.quota("messages_per_day")
+    if user.messages_today >= limit:
+        raise HTTPException(
+            429,
+            f"Limite de {limit} questions par jour atteinte pour votre compte, reessayez demain",
+        )
+    user.messages_today += 1
 
 
 def _sse(event: dict) -> str:
@@ -42,6 +62,12 @@ async def chat(
     user_message = payload.message.strip()
     if not user_message:
         raise HTTPException(400, "Message vide")
+
+    # Charged to whoever asks; a share-link visitor always has an account
+    # (see deps._resolve_role), but fall back to the space owner anyway.
+    quota_user = access.user or db.get(models_db.User, space.owner_id)
+    if quota_user:
+        _consume_daily_message(quota_user, db)
 
     # Trust nothing from the client about which documents it's allowed to
     # scope retrieval to - drop any id that isn't actually in this space,

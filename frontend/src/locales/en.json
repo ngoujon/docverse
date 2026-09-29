@@ -21,14 +21,14 @@
     "badges": [
       "Hosted in France",
       "French AI - Mistral",
-      "Unlimited questions",
-      "Free tier"
+      "100% free",
+      "No credit card"
     ],
     "title1": "Your sovereign cloud RAG,",
     "title2": "hosted in France.",
     "subtitle": "Drop your documents, query them in plain language, get sourced answers. The whole chain is European: {{hostingProvider}} hosting in {{hostingCountry}}, {{aiProvider}} as the AI engine, a French publisher. Your data never leaves the European Union.",
     "ctaTry": "Try it now",
-    "ctaDiscover": "See pricing"
+    "ctaDiscover": "See the free plan"
   },
   "sovereignty": {
     "eyebrow": "Digital sovereignty",
@@ -65,7 +65,7 @@
   "features": {
     "eyebrow": "What you get",
     "title": "Sovereign RAG for teams juggling multiple clients or cases",
-    "subtitle": "Firms, agencies, project teams: one walled-off space per client, per-person access control, a cost that does not move with the number of questions - and GDPR compliance that relies on no transfer outside the European Union.",
+    "subtitle": "Firms, agencies, project teams: one walled-off space per client, per-person access control, an entirely free service - and GDPR compliance that relies on no transfer outside the European Union.",
     "items": [
       {
         "title": "One space per client, one access per person",
@@ -80,8 +80,8 @@
         "desc": "See who has access to each space, remove access in one click, and a safety delay stops someone from being re-added right away."
       },
       {
-        "title": "Unlimited questions, fixed cost",
-        "desc": "Ask as many questions as you want, on every tier: no message counter, no usage-based billing that climbs with team activity."
+        "title": "100% free, no credit card",
+        "desc": "No subscription, no usage-based billing: every account gets generous limits for free (spaces, storage, questions per day), there only to prevent abuse."
       },
       {
         "title": "Web search with no leak to third parties",
@@ -108,28 +108,9 @@
       },
       {
         "title": "Share and ask your questions",
-        "desc": "Invite whoever you want with the right role, unlimited questions, always-sourced answers."
+        "desc": "Invite whoever you want with the right role, always-sourced answers."
       }
     ]
-  },
-  "enterprise": {
-    "back": "Back to pricing",
-    "eyebrow": "Enterprise tier",
-    "title": "A custom quote for your company",
-    "subtitle": "Unlimited spaces and members, custom storage, SSO and SLA, dedicated support. Describe your needs and we'll get back to you quickly.",
-    "teamSize": "Team size",
-    "teamSizeOptions": [
-      "1-10 users",
-      "11-50 users",
-      "51-200 users",
-      "200+ users"
-    ],
-    "needs": "Describe your needs",
-    "needsPlaceholder": "Number of spaces needed, security or compliance requirements, desired timeline...",
-    "send": "Send request",
-    "messagePrefix": "Estimated team size",
-    "sentTitle": "Request sent!",
-    "sentDesc": "Our team will get back to you shortly to build your quote."
   },
   "contact": {
     "eyebrow": "Contact",
@@ -160,74 +141,37 @@
     "tagline": "Website built by",
     "privacy": "Privacy",
     "terms": "Terms",
-    "sale": "Terms of sale",
     "legal": "Legal notice",
     "pricing": "Pricing",
     "launchApp": "Launch app"
   },
   "pricing": {
     "eyebrow": "Pricing",
-    "title": "A tier for every use case",
-    "subtitle": "Three numbers to remember per tier: workspaces, members per space, storage per space. Ask as many questions as you want, on every tier - no limit on AI replies.",
-    "billingNote": "No commitment - cancel anytime.",
-    "popular": "Recommended",
-    "tiers": [
-      {
-        "name": "Discovery",
-        "price": "0",
-        "period": "",
-        "tagline": "Try it risk-free",
-        "features": [
-          "1 workspace",
-          "1 member",
-          "200 MB storage",
-          "Unlimited questions"
-        ],
-        "cta": "Start for free"
-      },
-      {
-        "name": "Individual",
-        "price": "9",
-        "period": "/mo incl. VAT",
-        "tagline": "For personal or freelance use",
-        "features": [
-          "3 workspaces",
-          "Unlimited share links",
-          "2 GB storage per space",
-          "Automatic backups"
-        ],
-        "cta": "Choose Individual"
-      },
-      {
-        "name": "Pro",
-        "price": "29",
-        "period": "/mo incl. VAT",
-        "tagline": "For a team sharing workspaces",
-        "features": [
-          "10 workspaces",
-          "10 members per space",
-          "10 GB storage per space",
-          "Priority support"
-        ],
-        "cta": "Choose Pro"
-      },
-      {
-        "name": "Enterprise",
-        "price": "",
-        "period": "",
-        "tagline": "For an organization with governance needs",
-        "features": [
-          "Unlimited workspaces and members",
-          "Custom storage",
-          "SSO and SLA",
-          "Dedicated support"
-        ],
-        "cta": "Contact us"
-      }
+    "title": "100% free, for everyone",
+    "subtitle": "No subscription, no credit card, no paid tier. Every account gets the same usage limits, designed for normal use and to prevent abuse.",
+    "planName": "Free",
+    "tagline": "Every feature, for every account",
+    "period": "forever",
+    "featuresTitle": "Included",
+    "limitsTitle": "Limits per account",
+    "features": [
+      "Sourced AI answers",
+      "All formats: PDF, scans, images, DOCX, web pages, audio",
+      "Share links and roles",
+      "Automatic backups",
+      "Hosted in France, French AI"
     ],
-    "faqNote": "Questions about pricing?",
-    "faqLink": "Check the FAQ",
-    "customPriceLabel": "Custom"
+    "limits": [
+      "3 workspaces",
+      "5 members per workspace",
+      "500 MB of storage per workspace",
+      "50 AI questions per day"
+    ],
+    "cta": "Create my free account",
+    "ctaLoggedIn": "Go to my workspaces",
+    "fairUseNote": "Limits are only there to prevent abuse and may change. The question counter resets every day.",
+    "faqNote": "Questions?",
+    "faqLink": "Read the FAQ"
   },
   "demo": {
     "question": "Summarize the key points of the vendor contract.",
@@ -319,11 +263,11 @@
       },
       {
         "title": "Technical providers",
-        "body": "To operate, the service relies on a small number of providers acting as processors and bound by contract: a host (OVHcloud, servers located in France), an AI inference provider (Mistral AI, a French company, processing carried out within the European Union), a certified payment provider for paid plans (we never store your card number), an email delivery service (address verification, password reset, newsletter) and an analytics tool ([credit], only if you accept it). Each receives only the data strictly necessary for its service and is not allowed to use it for other purposes, for advertising, or to train its own models. Your documents, conversations and the associated vector index are hosted and processed exclusively within the European Union. The payment and email providers, however, may be established outside the European Union: they receive no content from your documents, and the corresponding transfers are governed by the European Commission's standard contractual clauses. The current, named list of these processors is available on request via the contact form."
+        "body": "To operate, the service relies on a small number of providers acting as processors and bound by contract: a host (OVHcloud, servers located in France), an AI inference provider (Mistral AI, a French company, processing carried out within the European Union), an email delivery service (address verification, password reset, newsletter) and an analytics tool ([credit], only if you accept it). Each receives only the data strictly necessary for its service and is not allowed to use it for other purposes, for advertising, or to train its own models. Your documents, conversations and the associated vector index are hosted and processed exclusively within the European Union. The email provider, however, may be established outside the European Union: it receives no content from your documents, and the corresponding transfers are governed by the European Commission's standard contractual clauses. The current, named list of these processors is available on request via the contact form."
       },
       {
         "title": "Data controller and retention periods",
-        "body": "The data controller is the publisher of the service, whose full identity appears on the Legal notice page; they can be reached through the contact form. Your account data, documents and conversations are kept for as long as your account exists, then deleted as soon as you delete your account. Messages sent through the contact form are kept for the time needed to handle your request. Data required for billing is kept for the legal retention period applying to accounting records. A newsletter subscription is kept until you unsubscribe."
+        "body": "The data controller is the publisher of the service, whose full identity appears on the Legal notice page; they can be reached through the contact form. Your account data, documents and conversations are kept for as long as your account exists, then deleted as soon as you delete your account. Messages sent through the contact form are kept for the time needed to handle your request. A newsletter subscription is kept until you unsubscribe."
       },
       {
         "title": "Your rights (GDPR)",
@@ -354,7 +298,7 @@
       },
       {
         "title": "4. Workspaces and sharing",
-        "body": "Each workspace belongs to an owner, who may invite other users via a share link (read-only or read/write depending on the chosen role). The owner of a workspace is responsible for the people they invite and the content uploaded there. The number of workspaces and members per workspace depends on the owner's subscription tier."
+        "body": "Each workspace belongs to an owner, who may invite other users via a share link (read-only or read/write depending on the chosen role). The owner of a workspace is responsible for the people they invite and the content uploaded there. The number of workspaces, members per workspace, storage and questions per day are limited per account (see the Pricing page)."
       },
       {
         "title": "5. Acceptable use",
@@ -365,8 +309,8 @@
         "body": "Responses generated by the AI assistant may be incomplete, inaccurate, or contain errors (hallucinations), even when citing sources. They are in no way professional, legal, medical, or financial advice. You remain solely responsible for how you use the responses provided."
       },
       {
-        "title": "7. Subscriptions and cancellation",
-        "body": "Some tiers are paid and involve a recurring subscription (see the Pricing page and Terms of Sale). You may cancel your subscription at any time from your account settings; access to the paid tier remains available until the end of the period already billed. You may also delete your account at any time, which permanently deletes your workspaces and associated data."
+        "title": "7. Free service and usage limits",
+        "body": "The service is entirely free: no subscription or payment is ever required. To ensure fair use and prevent abuse, each account is subject to usage limits (workspaces, members per workspace, storage, questions asked to the AI per day), shown on the Pricing page and subject to change. Circumventing these limits (for example by creating multiple accounts) may lead to the suspension of the accounts involved. You can delete your account at any time, which permanently deletes your workspaces and associated data."
       },
       {
         "title": "8. Service availability",
@@ -379,51 +323,6 @@
       {
         "title": "10. Governing law and contact",
         "body": "These terms are governed by French law. For any question, use the site's contact form."
-      }
-    ]
-  },
-  "sale": {
-    "back": "Back to home",
-    "eyebrow": "Terms of sale",
-    "title": "Terms of Sale",
-    "subtitle": "These terms apply to subscribing to {{brand}}'s paid tiers (Individual, Pro). The Discovery tier is free and not covered. The Enterprise tier is sold on a custom quote with its own terms.",
-    "updated": "Last updated: {{date}}",
-    "sections": [
-      {
-        "title": "1. Seller",
-        "body": "Paid subscriptions are sold by [editeur], sole trader operating under the trade name \"[credit]\" (SIREN [immatriculation]) - see the Legal Notice page for the full identity."
-      },
-      {
-        "title": "2. Offers and prices",
-        "body": "Available tiers, their limits (workspaces, members, storage) and their prices are displayed on the Pricing page at the time of subscription. Prices are in euros and shown inclusive of all taxes: the amount charged is exactly the price displayed, with no fees or taxes added at payment time. VAT is not applicable under article 293 B of the French General Tax Code: no VAT is charged, and the invoices issued therefore show no deductible VAT."
-      },
-      {
-        "title": "3. Subscribing and payment",
-        "body": "Subscribing happens online, by card, through our payment provider Stripe. The subscription auto-renews monthly: the chosen tier's amount is charged each month on the same date, until cancelled. No card data is stored by {{brand}} - Stripe handles the entire payment securely."
-      },
-      {
-        "title": "4. Right of withdrawal",
-        "body": "Under article L221-28 13 of the French Consumer Code, the 14-day right of withdrawal for distance sales cannot be exercised once a digital service has been fully performed, when performance began after the consumer's prior express agreement and express waiver of their right of withdrawal. By subscribing to a paid tier, you request immediate access to the service and acknowledge waiving your right of withdrawal once the subscription is active."
-      },
-      {
-        "title": "5. Duration and cancellation",
-        "body": "The subscription has no minimum term and can be cancelled at any time from account settings (Subscription section). Cancellation takes effect at the end of the period already paid for: no prorated refund is issued for the current period, but access to the tier stays active until it ends."
-      },
-      {
-        "title": "6. Changing tiers",
-        "body": "You can change tiers (upgrade or downgrade) at any time from subscription management. The new price applies according to Stripe's proration rules for the remainder of the current period."
-      },
-      {
-        "title": "7. Invoices",
-        "body": "An invoice is issued automatically for each payment and remains available at any time from subscription management (billing portal)."
-      },
-      {
-        "title": "8. Consumer mediation",
-        "body": "Under articles L612-1 and following of the French Consumer Code, every consumer has the right to free recourse to a consumer mediator for the amicable resolution of a dispute, after having sent a written complaint to the seller and received no satisfactory reply within one month. The mediator competent for {{brand}} is: [TO BE COMPLETED - name, postal address and website of the consumer mediator]."
-      },
-      {
-        "title": "9. Governing law and disputes",
-        "body": "These terms are governed by French law. In case of a dispute, an amicable resolution will be sought first via the contact form; failing that, the competent French courts will have sole jurisdiction."
       }
     ]
   },
@@ -542,44 +441,14 @@
       "exportData": "Export my data",
       "emailVerified": "Email verified",
       "emailNotVerified": "Email not verified",
-      "billingTitle": "Subscription",
-      "billingCurrentPlan": "Current plan",
-      "billingManage": "Manage subscription",
-      "billingUpgrade": "See pricing",
-      "billingError": "Couldn't open subscription management right now.",
-      "planNames": {
-        "decouverte": "Discovery",
-        "particulier": "Individual",
-        "pro": "Pro",
-        "entreprise": "Enterprise"
-      },
       "usage": {
         "title": "Usage",
         "storage": "Storage",
         "spaces": "Spaces",
         "documents": "Documents",
-        "conversations": "Conversations"
-      },
-      "billingProfile": {
-        "title": "Billing profile",
-        "hint": "This information appears on your invoices. Fill it in to receive compliant invoices (Factur-X format).",
-        "individual": "Individual",
-        "business": "Business",
-        "companyName": "Company name",
-        "siret": "SIRET number",
-        "vatNumber": "EU VAT number",
-        "addressLine1": "Address",
-        "addressLine2": "Address line 2",
-        "postalCode": "Postal code",
-        "city": "City",
-        "save": "Save",
-        "saved": "Billing profile saved.",
-        "saveError": "Could not save the billing profile."
-      },
-      "invoices": {
-        "title": "Billing history",
-        "empty": "No invoices yet.",
-        "download": "Download"
+        "conversations": "Conversations",
+        "freeNote": "Free account - usage limits",
+        "questionsToday": "Questions today"
       },
       "gdpr": {
         "title": "Your data and your rights (GDPR)",
@@ -661,7 +530,7 @@
       },
       {
         "question": "How much does {{brand}} cost?",
-        "answer": "A free tier exists to try it out (1 space, 1 member, 200 MB). Paid tiers start at €9/mo incl. VAT. On every tier, AI questions are unlimited - the only limits are the number of spaces, members per space, and storage."
+        "answer": "{{brand}} is entirely free, with no credit card and no subscription. To prevent abuse, each account has usage limits: 3 workspaces, 5 members per workspace, 500 MB of storage per workspace and 50 AI questions per day."
       }
     ]
   },
@@ -730,19 +599,7 @@
       "users": "Users",
       "spaces": "Spaces",
       "testimonials": "Testimonials",
-      "invoices": "Invoices",
       "newsletter": "Newsletter"
-    },
-    "invoices": {
-      "number": "Number",
-      "customer": "Customer",
-      "amount": "Amount",
-      "type": "Type",
-      "business": "Business",
-      "individual": "Individual",
-      "viewPdf": "View PDF",
-      "empty": "No invoices yet.",
-      "unavailable": "Billing is not configured on this instance."
     },
     "users": {
       "createButton": "New user",

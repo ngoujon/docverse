@@ -5,7 +5,7 @@ import { usePageMeta } from "../hooks/usePageMeta";
 import { useTheme } from "../hooks/useTheme";
 import { useAuth } from "../hooks/useAuth";
 import { useEscapeToClose } from "../hooks/useEscapeToClose";
-import { api, streamChat } from "../api/client";
+import { api, RateLimitedError, streamChat } from "../api/client";
 import type { Conversation, DocumentItem, Message, Space } from "../types";
 import SpaceRail from "../components/SpaceRail";
 import ConversationSidebar from "../components/ConversationSidebar";
@@ -260,7 +260,12 @@ export default function WorkspaceApp() {
       setMessages((prev) =>
         prev.map((m) =>
           m.id === tempAssistantId
-            ? { ...m, content: m.content || `*${t("app.chat.connectionError")}*` }
+            ? {
+                ...m,
+                content:
+                  m.content ||
+                  `*${err instanceof RateLimitedError ? err.message : t("app.chat.connectionError")}*`,
+              }
             : m
         )
       );

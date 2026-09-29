@@ -1,7 +1,6 @@
 import shutil
 from datetime import datetime, timedelta
 
-import stripe
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query
 from sqlalchemy import func
 from sqlalchemy.orm import Session
@@ -292,45 +291,3 @@ def send_newsletter_campaign(
         )
         background_tasks.add_task(mail_service.send_email, sub.email, subject, html, text)
     return schemas.NewsletterCampaignResult(sent=len(subscribers))
-
-
-@router.get("/invoices", response_model=schemas.PaginatedInvoices)
-def list_invoices(
-    limit: int = Query(20, ge=1, le=100),
-    starting_after: str | None = None,
-    _: models_db.User = Depends(require_admin),
-):
-    """Invoices live in Stripe, not our DB - Stripe already generates one
-    per subscription payment. A customer is treated as "pro" the moment
-    they've attached a VAT/SIRET number at checkout (tax_id_collection,
-    see routers/billing.py), which Stripe then prints on the invoice."""
-    if not settings.stripe_secret_key:
-        raise HTTPException(503, "Facturation non configuree sur cette instance")
-    stripe.api_key = settings.stripe_secret_key
-
-    kwargs: dict = {"limit": limit, "expand": ["data.customer"]}
-    if starting_after:
-        kwargs["starting_after"] = starting_after
-    invoices = stripe.Invoice.list(**kwargs)
-
-    items = []
-    for inv in invoices.data:
-        customer = inv.customer if isinstance(inv.customer, stripe.Customer) else None
-        tax_ids = [t["value"] for t in (inv.customer_tax_ids or [])]
-        items.append(
-            schemas.InvoiceOut(
-                id=inv.id,
-                number=inv.number,
-                customer_email=inv.customer_email or (customer.email if customer else None),
-                customer_name=inv.customer_name or (customer.name if customer else None),
-                is_business=bool(tax_ids),
-                tax_ids=tax_ids,
-                amount_paid=inv.amount_paid,
-                currency=inv.currency,
-                status=inv.status,
-                created=inv.created,
-                hosted_invoice_url=inv.hosted_invoice_url,
-                invoice_pdf=inv.invoice_pdf,
-            )
-        )
-    return schemas.PaginatedInvoices(items=items, has_more=invoices.has_more)

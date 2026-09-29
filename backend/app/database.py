@@ -67,6 +67,31 @@ def ensure_schema() -> None:
                         {"val": default_value},
                     )
 
+        # Docverse went fully free: the paid plans, Stripe and the billing
+        # profile are gone. Drop their columns rather than leave them
+        # behind - plan was created NOT NULL, so an unmapped leftover would
+        # make every INSERT into users fail. The invoices table itself is
+        # deliberately kept (issued invoices must be retained 10 years).
+        if "users" in inspector.get_table_names():
+            user_columns = {c["name"] for c in inspector.get_columns("users")}
+            for column_name in (
+                "plan",
+                "stripe_customer_id",
+                "stripe_subscription_id",
+                "billing_is_business",
+                "billing_company_name",
+                "billing_siret",
+                "billing_vat_number",
+                "billing_address_line1",
+                "billing_address_line2",
+                "billing_postal_code",
+                "billing_city",
+                "billing_country_code",
+            ):
+                if column_name in user_columns:
+                    logger.warning("Migration : suppression de la colonne users.%s", column_name)
+                    conn.execute(text(f"ALTER TABLE users DROP COLUMN {column_name}"))
+
         # One-off data migration: the old editor/viewer per-member role was
         # replaced by a single "member" role plus a separate can_upload
         # flag. Former editors keep write access (can_upload=true); former

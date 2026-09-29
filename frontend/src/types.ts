@@ -74,8 +74,6 @@ export interface AdminHealthStatus extends HealthStatus {
   hosting: string;
 }
 
-export type UserPlan = "decouverte" | "particulier" | "pro" | "entreprise";
-
 export interface User {
   id: string;
   email: string;
@@ -84,7 +82,6 @@ export interface User {
   is_active: boolean;
   email_verified: boolean;
   totp_enabled: boolean;
-  plan: UserPlan;
   created_at: string;
 }
 
@@ -162,6 +159,8 @@ export interface MeStats {
   message_count: number;
   storage_bytes: number;
   storage_limit_bytes?: number | null;
+  messages_today?: number;
+  messages_per_day_limit?: number | null;
 }
 
 export interface AdminStats {
@@ -234,43 +233,4 @@ export interface TestimonialInput {
   rating?: number;
   published?: boolean;
   display_order?: number;
-}
-
-export interface Invoice {
-  id: string;
-  number: string | null;
-  customer_email: string | null;
-  customer_name: string | null;
-  is_business: boolean;
-  tax_ids: string[];
-  amount_paid: number;
-  currency: string;
-  status: string | null;
-  created: number;
-  hosted_invoice_url: string | null;
-  invoice_pdf: string | null;
-}
-
-export interface BillingProfile {
-  is_business: boolean;
-  company_name: string;
-  siret: string;
-  vat_number: string;
-  address_line1: string;
-  address_line2: string;
-  postal_code: string;
-  city: string;
-  country_code: string;
-}
-
-export interface LocalInvoice {
-  id: string;
-  number: string;
-  issue_date: string;
-  currency: string;
-  amount_ht_cents: number;
-  amount_vat_cents: number;
-  amount_ttc_cents: number;
-  description: string;
-  is_business: boolean;
 }

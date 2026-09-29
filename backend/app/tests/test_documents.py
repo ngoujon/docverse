@@ -32,12 +32,13 @@ def _seed_fake_storage(space_id: str, size_bytes: int) -> None:
         db.close()
 
 
-def test_storage_quota_blocks_upload_past_plan_limit(client):
+def test_storage_quota_blocks_upload_past_limit(client):
     owner = register_user(client, "owner@example.com")
     space = create_space(client, owner["access_token"])
 
-    # decouverte plan = 200 MB storage limit per space
-    _seed_fake_storage(space["id"], 200 * 1024 * 1024 - 100)
+    from app import config
+
+    _seed_fake_storage(space["id"], config.quota("storage_bytes") - 100)
 
     res = client.post(
         f"/api/spaces/{space['id']}/documents/upload",
@@ -48,7 +49,7 @@ def test_storage_quota_blocks_upload_past_plan_limit(client):
     assert "stockage" in res.json()["detail"].lower()
 
 
-def test_storage_quota_allows_upload_under_plan_limit(client):
+def test_storage_quota_allows_upload_under_limit(client):
     owner = register_user(client, "owner@example.com")
     space = create_space(client, owner["access_token"])
 

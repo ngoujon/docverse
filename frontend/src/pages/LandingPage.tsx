@@ -453,12 +453,6 @@ export default function LandingPage() {
               {t("footer.terms")}
             </Link>
             <Link
-              to="/cgv"
-              className="font-mono text-[11px] uppercase tracking-wider text-slate-600 hover:text-retro-cyan"
-            >
-              {t("footer.sale")}
-            </Link>
-            <Link
               to="/mentions-legales"
               className="font-mono text-[11px] uppercase tracking-wider text-slate-600 hover:text-retro-cyan"
             >

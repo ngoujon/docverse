@@ -21,14 +21,14 @@
     "badges": [
       "In Frankreich gehostet",
       "Franzosische KI - Mistral",
-      "Unbegrenzte Fragen",
-      "Kostenlose Stufe"
+      "100% kostenlos",
+      "Ohne Kreditkarte"
     ],
     "title1": "Ihre souverane Cloud-RAG-Losung,",
     "title2": "gehostet in Frankreich.",
     "subtitle": "Laden Sie Ihre Dokumente hoch, befragen Sie sie in naturlicher Sprache, erhalten Sie belegte Antworten. Die gesamte Kette ist europaisch: Hosting bei {{hostingProvider}} in {{hostingCountry}}, KI-Engine von {{aiProvider}}, franzosischer Anbieter. Ihre Daten verlassen die Europaische Union nie.",
     "ctaTry": "Jetzt testen",
-    "ctaDiscover": "Preise ansehen"
+    "ctaDiscover": "Kostenloses Angebot ansehen"
   },
   "sovereignty": {
     "eyebrow": "Digitale Souveranitat",
@@ -65,7 +65,7 @@
   "features": {
     "eyebrow": "Das bekommen Sie",
     "title": "Souveranes RAG fur Organisationen mit mehreren Kunden oder Akten",
-    "subtitle": "Kanzleien, Agenturen, Projektteams: ein abgeschotteter Bereich pro Kunde, gesteuerter Zugriff pro Person, konstante Kosten unabhangig von der Zahl der Fragen - und DSGVO-Konformitat ohne jede Ubermittlung ausserhalb der Europaischen Union.",
+    "subtitle": "Kanzleien, Agenturen, Projektteams: ein abgeschotteter Bereich pro Kunde, gesteuerter Zugriff pro Person, ein vollig kostenloser Dienst - und DSGVO-Konformitat ohne jede Ubermittlung ausserhalb der Europaischen Union.",
     "items": [
       {
         "title": "Ein Bereich pro Kunde, ein Zugriff pro Person",
@@ -80,8 +80,8 @@
         "desc": "Sehen Sie, wer Zugriff auf jeden Bereich hat, entziehen Sie Zugriff mit einem Klick, und eine Sicherheitsfrist verhindert, dass jemand sofort wieder hinzugefugt wird."
       },
       {
-        "title": "Unbegrenzte Fragen, feste Kosten",
-        "desc": "Stellen Sie so viele Fragen wie Sie mochten, in jeder Stufe: kein Nachrichtenzahler, keine nutzungsbasierte Abrechnung, die mit der Teamaktivitat steigt."
+        "title": "100% kostenlos, ohne Kreditkarte",
+        "desc": "Kein Abonnement, keine nutzungsbasierte Abrechnung: Jedes Konto erhalt kostenlos grosszugige Limits (Bereiche, Speicher, Fragen pro Tag), die nur Missbrauch verhindern sollen."
       },
       {
         "title": "Websuche ohne Datenabfluss an Dritte",
@@ -108,28 +108,9 @@
       },
       {
         "title": "Teilen und Fragen stellen",
-        "desc": "Laden Sie ein, wen Sie mochten, mit der passenden Rolle, unbegrenzte Fragen, immer belegte Antworten."
+        "desc": "Laden Sie ein, wen Sie mochten, mit der passenden Rolle, immer belegte Antworten."
       }
     ]
-  },
-  "enterprise": {
-    "back": "Zuruck zu den Preisen",
-    "eyebrow": "Enterprise-Stufe",
-    "title": "Ein individuelles Angebot fur Ihr Unternehmen",
-    "subtitle": "Unbegrenzte Bereiche und Mitglieder, individueller Speicher, SSO und SLA, dedizierter Support. Beschreiben Sie Ihren Bedarf, wir melden uns schnell zuruck.",
-    "teamSize": "Teamgrosse",
-    "teamSizeOptions": [
-      "1-10 Nutzer",
-      "11-50 Nutzer",
-      "51-200 Nutzer",
-      "200+ Nutzer"
-    ],
-    "needs": "Beschreiben Sie Ihren Bedarf",
-    "needsPlaceholder": "Benotigte Anzahl Bereiche, Sicherheits- oder Compliance-Anforderungen, gewunschter Zeitrahmen...",
-    "send": "Anfrage senden",
-    "messagePrefix": "Geschatzte Teamgrosse",
-    "sentTitle": "Anfrage gesendet!",
-    "sentDesc": "Unser Team meldet sich in Kurze, um Ihr Angebot zu erstellen."
   },
   "contact": {
     "eyebrow": "Kontakt",
@@ -160,74 +141,37 @@
     "tagline": "Website erstellt von",
     "privacy": "Datenschutz",
     "terms": "AGB",
-    "sale": "Verkaufsbedingungen",
     "legal": "Impressum",
     "pricing": "Preise",
     "launchApp": "App starten"
   },
   "pricing": {
     "eyebrow": "Preise",
-    "title": "Fur jeden Bedarf die passende Stufe",
-    "subtitle": "Drei Zahlen pro Stufe, die man sich merken muss: Arbeitsbereiche, Mitglieder pro Bereich, Speicher pro Bereich. Stellen Sie so viele Fragen wie Sie mochten, in jeder Stufe: keine Begrenzung bei KI-Antworten.",
-    "billingNote": "Keine Mindestlaufzeit - jederzeit kundbar.",
-    "popular": "Empfohlen",
-    "tiers": [
-      {
-        "name": "Entdecken",
-        "price": "0",
-        "period": "",
-        "tagline": "Risikofrei testen",
-        "features": [
-          "1 Arbeitsbereich",
-          "1 Mitglied",
-          "200 MB Speicher",
-          "Unbegrenzte Fragen"
-        ],
-        "cta": "Kostenlos starten"
-      },
-      {
-        "name": "Privat",
-        "price": "9",
-        "period": "/Monat inkl. MwSt.",
-        "tagline": "Fur privaten oder freiberuflichen Gebrauch",
-        "features": [
-          "3 Arbeitsbereiche",
-          "Unbegrenzte Freigabelinks",
-          "2 GB Speicher pro Bereich",
-          "Automatische Backups"
-        ],
-        "cta": "Privat wahlen"
-      },
-      {
-        "name": "Pro",
-        "price": "29",
-        "period": "/Monat inkl. MwSt.",
-        "tagline": "Fur ein Team, das Bereiche teilt",
-        "features": [
-          "10 Arbeitsbereiche",
-          "10 Mitglieder pro Bereich",
-          "10 GB Speicher pro Bereich",
-          "Prioritats-Support"
-        ],
-        "cta": "Pro wahlen"
-      },
-      {
-        "name": "Enterprise",
-        "price": "",
-        "period": "",
-        "tagline": "Fur Organisationen mit Governance-Anforderungen",
-        "features": [
-          "Unbegrenzte Bereiche und Mitglieder",
-          "Speicher nach Mass",
-          "SSO und SLA",
-          "Dedizierter Support"
-        ],
-        "cta": "Kontaktieren Sie uns"
-      }
+    "title": "100% kostenlos, fur alle",
+    "subtitle": "Kein Abonnement, keine Kreditkarte, keine kostenpflichtige Stufe. Jedes Konto hat dieselben Nutzungslimits, ausgelegt fur normale Nutzung und zur Vermeidung von Missbrauch.",
+    "planName": "Kostenlos",
+    "tagline": "Alle Funktionen, fur jedes Konto",
+    "period": "fur immer",
+    "featuresTitle": "Enthalten",
+    "limitsTitle": "Limits pro Konto",
+    "features": [
+      "KI-Antworten mit Quellen",
+      "Alle Formate: PDF, Scans, Bilder, DOCX, Webseiten, Audio",
+      "Freigabelinks und Rollen",
+      "Automatische Backups",
+      "In Frankreich gehostet, franzosische KI"
     ],
-    "faqNote": "Fragen zu den Preisen?",
-    "faqLink": "FAQ ansehen",
-    "customPriceLabel": "Auf Anfrage"
+    "limits": [
+      "3 Arbeitsbereiche",
+      "5 Mitglieder pro Bereich",
+      "500 MB Speicher pro Bereich",
+      "50 KI-Fragen pro Tag"
+    ],
+    "cta": "Kostenloses Konto erstellen",
+    "ctaLoggedIn": "Zu meinen Bereichen",
+    "fairUseNote": "Die Limits dienen nur der Vermeidung von Missbrauch und konnen sich andern. Der Fragenzahler wird jeden Tag zuruckgesetzt.",
+    "faqNote": "Fragen?",
+    "faqLink": "Zur FAQ"
   },
   "demo": {
     "question": "Fasse die wichtigsten Punkte des Lieferantenvertrags zusammen.",
@@ -319,11 +263,11 @@
       },
       {
         "title": "Technische Dienstleister",
-        "body": "Fur den Betrieb stutzt sich der Dienst auf wenige Dienstleister, die als Auftragsverarbeiter handeln und vertraglich gebunden sind: einen Hoster (OVHcloud, Server in Frankreich), einen KI-Inferenzanbieter (Mistral AI, franzosisches Unternehmen, Verarbeitung innerhalb der Europaischen Union), einen zertifizierten Zahlungsdienstleister fur kostenpflichtige Stufen (wir speichern Ihre Kartennummer nie), einen E-Mail-Versanddienst (Adressbestatigung, Passwort-Zurucksetzung, Newsletter) und ein Analysewerkzeug ([credit], nur mit Ihrer Zustimmung). Jeder erhalt nur die fur seine Leistung unbedingt erforderlichen Daten und darf sie weder zu anderen Zwecken noch fur Werbung noch zum Training eigener Modelle verwenden. Ihre Dokumente, Unterhaltungen und der zugehorige Vektorindex werden ausschliesslich innerhalb der Europaischen Union gehostet und verarbeitet. Die Zahlungs- und E-Mail-Dienstleister konnen dagegen ausserhalb der Europaischen Union ansassig sein: Sie erhalten keine Inhalte aus Ihren Dokumenten, und die entsprechenden Ubermittlungen erfolgen auf Grundlage der Standardvertragsklauseln der Europaischen Kommission. Die aktuelle namentliche Liste dieser Auftragsverarbeiter erhalten Sie auf Anfrage uber das Kontaktformular."
+        "body": "Fur seinen Betrieb stutzt sich der Dienst auf eine kleine Zahl von Dienstleistern, die als vertraglich gebundene Auftragsverarbeiter handeln: ein Hoster (OVHcloud, Server in Frankreich), ein KI-Inferenzanbieter (Mistral AI, franzosisches Unternehmen, Verarbeitung innerhalb der Europaischen Union), ein E-Mail-Versanddienst (Adressbestatigung, Passwort-Zurucksetzung, Newsletter) und ein Reichweitenmessungs-Tool ([credit], nur mit Ihrer Zustimmung). Jeder erhalt nur die fur seine Leistung unbedingt erforderlichen Daten und darf sie weder fur andere Zwecke noch fur Werbung noch zum Training eigener Modelle verwenden. Ihre Dokumente, Unterhaltungen und der zugehorige Vektorindex werden ausschliesslich innerhalb der Europaischen Union gehostet und verarbeitet. Der E-Mail-Dienstleister kann hingegen ausserhalb der Europaischen Union ansassig sein: Er erhalt keinerlei Inhalte Ihrer Dokumente, und die entsprechenden Ubermittlungen sind durch die Standardvertragsklauseln der Europaischen Kommission abgesichert. Die aktuelle, namentliche Liste dieser Auftragsverarbeiter erhalten Sie auf Anfrage uber das Kontaktformular."
       },
       {
         "title": "Verantwortlicher und Speicherfristen",
-        "body": "Verantwortlicher fur die Verarbeitung ist der Betreiber des Dienstes, dessen vollstandige Identitat auf der Seite Impressum angegeben ist; er ist uber das Kontaktformular erreichbar. Ihre Kontodaten, Dokumente und Unterhaltungen werden gespeichert, solange Ihr Konto besteht, und geloscht, sobald Sie Ihr Konto loschen. Uber das Kontaktformular gesendete Nachrichten werden so lange aufbewahrt, wie es zur Bearbeitung Ihrer Anfrage notig ist. Fur die Rechnungsstellung erforderliche Daten werden fur die gesetzliche Aufbewahrungsfrist von Buchhaltungsunterlagen gespeichert. Eine Newsletter-Anmeldung wird bis zu Ihrer Abmeldung gespeichert."
+        "body": "Verantwortlicher fur die Verarbeitung ist der Betreiber des Dienstes, dessen vollstandige Identitat auf der Seite Impressum angegeben ist; er ist uber das Kontaktformular erreichbar. Ihre Kontodaten, Dokumente und Unterhaltungen werden gespeichert, solange Ihr Konto besteht, und geloscht, sobald Sie Ihr Konto loschen. Uber das Kontaktformular gesendete Nachrichten werden so lange aufbewahrt, wie es zur Bearbeitung Ihrer Anfrage notig ist. Eine Newsletter-Anmeldung wird bis zu Ihrer Abmeldung gespeichert."
       },
       {
         "title": "Ihre Rechte (DSGVO)",
@@ -354,7 +298,7 @@
       },
       {
         "title": "4. Arbeitsbereiche und Freigabe",
-        "body": "Jeder Arbeitsbereich gehort einem Eigentumer, der andere Nutzer uber einen Freigabelink einladen kann (Nur-Lese- oder Lese-/Schreibzugriff je nach gewahlter Rolle). Der Eigentumer eines Bereichs ist verantwortlich fur die eingeladenen Personen und die dort hochgeladenen Inhalte. Die Anzahl der Bereiche und Mitglieder pro Bereich hangt von der Abonnementstufe des Eigentumers ab."
+        "body": "Jeder Arbeitsbereich gehort einem Eigentumer, der andere Nutzer uber einen Freigabelink einladen kann (nur lesen oder lesen/schreiben je nach gewahlter Rolle). Der Eigentumer eines Bereichs ist fur die eingeladenen Personen und die dort hochgeladenen Inhalte verantwortlich. Die Anzahl der Bereiche, der Mitglieder pro Bereich, der Speicher und die Zahl der Fragen pro Tag sind pro Konto begrenzt (siehe Seite Preise)."
       },
       {
         "title": "5. Zulassige Nutzung",
@@ -365,8 +309,8 @@
         "body": "Vom KI-Assistenten generierte Antworten konnen unvollstandig oder ungenau sein oder Fehler enthalten (Halluzinationen), selbst wenn Quellen zitiert werden. Sie stellen in keinem Fall eine professionelle, rechtliche, medizinische oder finanzielle Beratung dar. Sie allein sind fur die Verwendung der bereitgestellten Antworten verantwortlich."
       },
       {
-        "title": "7. Abonnements und Kundigung",
-        "body": "Manche Stufen sind kostenpflichtig und beinhalten ein wiederkehrendes Abonnement (siehe Preise-Seite und Allgemeine Verkaufsbedingungen). Sie konnen Ihr Abonnement jederzeit in den Kontoeinstellungen kundigen; der Zugang zur bezahlten Stufe bleibt bis zum Ende des bereits abgerechneten Zeitraums bestehen. Sie konnen Ihr Konto auch jederzeit loschen, wodurch Ihre Arbeitsbereiche und zugehorigen Daten endgultig geloscht werden."
+        "title": "7. Kostenloser Dienst und Nutzungslimits",
+        "body": "Der Dienst ist vollig kostenlos: Es wird nie ein Abonnement oder eine Zahlung verlangt. Um eine faire Nutzung zu gewahrleisten und Missbrauch zu verhindern, unterliegt jedes Konto Nutzungslimits (Bereiche, Mitglieder pro Bereich, Speicher, Fragen an die KI pro Tag), die auf der Seite Preise angegeben sind und sich andern konnen. Die Umgehung dieser Limits (z. B. durch das Anlegen mehrerer Konten) kann zur Sperrung der betroffenen Konten fuhren. Sie konnen Ihr Konto jederzeit loschen, wodurch Ihre Bereiche und zugehorigen Daten endgultig geloscht werden."
       },
       {
         "title": "8. Verfugbarkeit des Dienstes",
@@ -379,51 +323,6 @@
       {
         "title": "10. Anwendbares Recht und Kontakt",
         "body": "Diese Bedingungen unterliegen franzosischem Recht. Fur Fragen nutzen Sie bitte das Kontaktformular der Website."
-      }
-    ]
-  },
-  "sale": {
-    "back": "Zuruck zur Startseite",
-    "eyebrow": "Verkaufsbedingungen",
-    "title": "Allgemeine Verkaufsbedingungen",
-    "subtitle": "Diese Bedingungen gelten fur den Abschluss der kostenpflichtigen Stufen von {{brand}} (Privat, Pro). Die Stufe Entdecken ist kostenlos und nicht betroffen. Die Stufe Enterprise wird per individuellem Angebot mit eigenen Bedingungen verkauft.",
-    "updated": "Zuletzt aktualisiert: {{date}}",
-    "sections": [
-      {
-        "title": "1. Verkaufer",
-        "body": "Kostenpflichtige Abonnements werden verkauft von [editeur], Einzelunternehmer, tatig unter dem Handelsnamen \"[credit]\" (SIREN [immatriculation]) - vollstandige Angaben siehe Impressum."
-      },
-      {
-        "title": "2. Angebote und Preise",
-        "body": "Die verfugbaren Stufen, ihre Grenzen (Bereiche, Mitglieder, Speicher) und ihre Preise werden zum Zeitpunkt des Abschlusses auf der Preise-Seite angezeigt. Die Preise sind in Euro und inklusive aller Steuern angegeben: abgebucht wird genau der angezeigte Preis, ohne zusatzliche Gebuhren oder Steuern beim Bezahlvorgang. Keine Umsatzsteuer gemass Artikel 293 B des franzosischen Steuergesetzbuchs: es wird keine Mehrwertsteuer berechnet, und die ausgestellten Rechnungen weisen daher keine abziehbare Mehrwertsteuer aus."
-      },
-      {
-        "title": "3. Abschluss und Zahlung",
-        "body": "Der Abschluss erfolgt online per Karte uber unseren Zahlungsdienstleister Stripe. Das Abonnement verlangert sich automatisch monatlich: Der Betrag der gewahlten Stufe wird jeden Monat am selben Datum abgebucht, bis zur Kundigung. Es werden keine Kartendaten von {{brand}} gespeichert - Stripe wickelt die gesamte Zahlung sicher ab."
-      },
-      {
-        "title": "4. Widerrufsrecht",
-        "body": "Gemass Artikel L221-28 13 des franzosischen Verbraucherschutzgesetzbuchs kann das 14-tagige Widerrufsrecht bei Fernabsatzvertragen nicht mehr ausgeubt werden, sobald eine digitale Dienstleistung vollstandig erbracht wurde, wenn die Erbringung nach ausdrucklicher vorheriger Zustimmung des Verbrauchers und ausdrucklichem Verzicht auf sein Widerrufsrecht begonnen hat. Mit dem Abschluss einer kostenpflichtigen Stufe verlangen Sie den sofortigen Zugang zum Dienst und erkennen an, auf Ihr Widerrufsrecht zu verzichten, sobald das Abonnement aktiv ist."
-      },
-      {
-        "title": "5. Laufzeit und Kundigung",
-        "body": "Das Abonnement hat keine Mindestlaufzeit und kann jederzeit in den Kontoeinstellungen (Abschnitt Abonnement) gekundigt werden. Die Kundigung wird zum Ende des bereits bezahlten Zeitraums wirksam: Fur den laufenden Zeitraum erfolgt keine anteilige Ruckerstattung, der Zugang zur Stufe bleibt jedoch bis zu deren Ende aktiv."
-      },
-      {
-        "title": "6. Stufenwechsel",
-        "body": "Sie konnen jederzeit in der Abonnementverwaltung die Stufe wechseln (Upgrade oder Downgrade). Der neue Preis gilt gemass den Proration-Regeln von Stripe fur den Rest des laufenden Zeitraums."
-      },
-      {
-        "title": "7. Rechnungen",
-        "body": "Fur jede Zahlung wird automatisch eine Rechnung ausgestellt, die jederzeit in der Abonnementverwaltung (Rechnungsportal) verfugbar ist."
-      },
-      {
-        "title": "8. Verbraucherschlichtung",
-        "body": "Gemass den Artikeln L612-1 ff. des franzosischen Verbrauchergesetzbuchs hat jeder Verbraucher das Recht, kostenlos eine Verbraucherschlichtungsstelle zur gutlichen Beilegung eines Streitfalls anzurufen, nachdem er eine schriftliche Beschwerde an den Verkaufer gerichtet und innerhalb eines Monats keine zufriedenstellende Antwort erhalten hat. Zustandige Schlichtungsstelle fur {{brand}} ist: [NOCH AUSZUFULLEN - Name, Postanschrift und Website der Verbraucherschlichtungsstelle]."
-      },
-      {
-        "title": "9. Anwendbares Recht und Streitigkeiten",
-        "body": "Diese Bedingungen unterliegen franzosischem Recht. Im Streitfall wird zunachst eine gutliche Einigung uber das Kontaktformular angestrebt; andernfalls sind ausschliesslich die zustandigen franzosischen Gerichte zustandig."
       }
     ]
   },
@@ -542,44 +441,14 @@
       "exportData": "Meine Daten exportieren",
       "emailVerified": "E-Mail bestatigt",
       "emailNotVerified": "E-Mail nicht bestatigt",
-      "billingTitle": "Abonnement",
-      "billingCurrentPlan": "Aktuelle Stufe",
-      "billingManage": "Abonnement verwalten",
-      "billingUpgrade": "Preise ansehen",
-      "billingError": "Die Abonnementverwaltung konnte gerade nicht geoffnet werden.",
-      "planNames": {
-        "decouverte": "Entdecken",
-        "particulier": "Privat",
-        "pro": "Pro",
-        "entreprise": "Enterprise"
-      },
       "usage": {
         "title": "Nutzung",
         "storage": "Speicher",
         "spaces": "Bereiche",
         "documents": "Dokumente",
-        "conversations": "Unterhaltungen"
-      },
-      "billingProfile": {
-        "title": "Rechnungsprofil",
-        "hint": "Diese Angaben erscheinen auf Ihren Rechnungen. Fullen Sie sie aus, um konforme Rechnungen (Factur-X-Format) zu erhalten.",
-        "individual": "Privatperson",
-        "business": "Unternehmen",
-        "companyName": "Firmenname",
-        "siret": "SIRET-Nummer",
-        "vatNumber": "USt-IdNr.",
-        "addressLine1": "Adresse",
-        "addressLine2": "Adresszusatz",
-        "postalCode": "Postleitzahl",
-        "city": "Ort",
-        "save": "Speichern",
-        "saved": "Rechnungsprofil gespeichert.",
-        "saveError": "Rechnungsprofil konnte nicht gespeichert werden."
-      },
-      "invoices": {
-        "title": "Rechnungsverlauf",
-        "empty": "Noch keine Rechnungen.",
-        "download": "Herunterladen"
+        "conversations": "Unterhaltungen",
+        "freeNote": "Kostenloses Konto - Nutzungslimits",
+        "questionsToday": "Fragen heute"
       },
       "gdpr": {
         "title": "Ihre Daten und Ihre Rechte (DSGVO)",
@@ -661,7 +530,7 @@
       },
       {
         "question": "Was kostet {{brand}}?",
-        "answer": "Die Software ist kostenlos und Open Source. Die einzigen Kosten sind deine eigene Infrastruktur (Server, VPS...) und, falls du dich dafur entscheidest, ein Abonnement bei einem Cloud-KI-Anbieter fur schnellere Antworten."
+        "answer": "{{brand}} ist vollig kostenlos, ohne Kreditkarte und ohne Abonnement. Um Missbrauch zu verhindern, hat jedes Konto Nutzungslimits: 3 Arbeitsbereiche, 5 Mitglieder pro Bereich, 500 MB Speicher pro Bereich und 50 KI-Fragen pro Tag."
       }
     ]
   },
@@ -730,19 +599,7 @@
       "users": "Nutzer",
       "spaces": "Bereiche",
       "testimonials": "Bewertungen",
-      "invoices": "Rechnungen",
       "newsletter": "Newsletter"
-    },
-    "invoices": {
-      "number": "Nummer",
-      "customer": "Kunde",
-      "amount": "Betrag",
-      "type": "Typ",
-      "business": "Geschaeftlich",
-      "individual": "Privat",
-      "viewPdf": "PDF ansehen",
-      "empty": "Noch keine Rechnungen.",
-      "unavailable": "Abrechnung ist auf dieser Instanz nicht konfiguriert."
     },
     "users": {
       "createButton": "Neuer Benutzer",

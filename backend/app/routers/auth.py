@@ -6,7 +6,7 @@ from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from .. import models_db, schemas
-from ..config import UPLOAD_DIR, plan_quota, settings
+from ..config import UPLOAD_DIR, quota, settings
 from ..database import get_db
 from ..deps import client_ip, get_current_user
 from ..services import auth, backup, captcha, email_templates, mail_service, rate_limiter, twofa, vectorstore
@@ -224,13 +224,15 @@ def me_stats(user: models_db.User = Depends(get_current_user), db: Session = Dep
 
     return schemas.MeStatsOut(
         owned_spaces=len(owned),
-        space_limit=plan_quota(user.plan, "spaces"),
+        space_limit=quota("spaces"),
         member_spaces=len(member_space_ids),
         document_count=document_count,
         conversation_count=conversation_count,
         message_count=message_count,
         storage_bytes=storage_bytes,
-        storage_limit_bytes=plan_quota(user.plan, "storage_bytes"),
+        storage_limit_bytes=quota("storage_bytes"),
+        messages_today=user.messages_today if user.messages_day == datetime.utcnow().date().isoformat() else 0,
+        messages_per_day_limit=quota("messages_per_day"),
     )
 
 

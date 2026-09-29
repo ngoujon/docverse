@@ -1,6 +1,6 @@
 import io
 
-from .conftest import auth_headers, register_user, set_plan
+from .conftest import auth_headers, register_user, set_quota
 
 
 def create_space(client, token, name="Test space"):
@@ -59,7 +59,7 @@ def share_headers(token: str, share_id: str) -> dict:
 
 def test_anonymous_share_link_access_is_rejected(client):
     """A share link alone is no longer enough - the visitor must also be
-    signed in, so the space owner's plan quota (members per space) means
+    signed in, so the space owner's quota (members per space) means
     something and every access is attributable to a real account."""
     owner = register_user(client, "owner@example.com")
     space = create_space(client, owner["access_token"])
@@ -128,7 +128,6 @@ def test_member_can_always_chat_but_upload_is_opt_in(client):
     owner = register_user(client, "owner@example.com")
     uploader = register_user(client, "uploader@example.com")
     chatter = register_user(client, "chatter@example.com")
-    set_plan(owner["user"]["id"], "pro")  # 3 members needed on this space
     space = create_space(client, owner["access_token"])
 
     add_uploader = client.post(
@@ -168,7 +167,6 @@ def test_member_can_always_chat_but_upload_is_opt_in(client):
 def test_non_owner_member_cannot_manage_members_or_links(client):
     owner = register_user(client, "owner@example.com")
     member = register_user(client, "member@example.com")
-    set_plan(owner["user"]["id"], "pro")
     space = create_space(client, owner["access_token"])
     client.post(
         f"/api/spaces/{space['id']}/members",
@@ -187,7 +185,6 @@ def test_non_owner_member_cannot_manage_members_or_links(client):
 def test_only_owner_can_delete_space(client):
     owner = register_user(client, "owner@example.com")
     member = register_user(client, "member@example.com")
-    set_plan(owner["user"]["id"], "pro")
     space = create_space(client, owner["access_token"])
     client.post(
         f"/api/spaces/{space['id']}/members",
@@ -202,20 +199,13 @@ def test_only_owner_can_delete_space(client):
     assert allowed.status_code == 200
 
 
-def test_member_quota_follows_owner_plan(client):
+def test_member_quota_is_enforced(client, monkeypatch):
     owner = register_user(client, "owner@example.com")
-    member = register_user(client, "member@example.com")
+    register_user(client, "member@example.com")
+    register_user(client, "other@example.com")
+    set_quota(monkeypatch, "members_per_space", 2)  # the owner + one member
     space = create_space(client, owner["access_token"])
 
-    # default plan is "decouverte" -> 1 member per space (the owner only)
-    rejected = client.post(
-        f"/api/spaces/{space['id']}/members",
-        json={"email": "member@example.com", "can_upload": False},
-        headers=auth_headers(owner["access_token"]),
-    )
-    assert rejected.status_code == 400
-
-    set_plan(owner["user"]["id"], "pro")
     allowed = client.post(
         f"/api/spaces/{space['id']}/members",
         json={"email": "member@example.com", "can_upload": False},
@@ -223,11 +213,17 @@ def test_member_quota_follows_owner_plan(client):
     )
     assert allowed.status_code == 200
 
+    rejected = client.post(
+        f"/api/spaces/{space['id']}/members",
+        json={"email": "other@example.com", "can_upload": False},
+        headers=auth_headers(owner["access_token"]),
+    )
+    assert rejected.status_code == 400
+
 
 def test_removed_member_faces_reinvite_cooldown(client):
     owner = register_user(client, "owner@example.com")
     member = register_user(client, "member@example.com")
-    set_plan(owner["user"]["id"], "pro")
     space = create_space(client, owner["access_token"])
 
     added = client.post(
@@ -253,11 +249,11 @@ def test_removed_member_faces_reinvite_cooldown(client):
     assert "reinvit" in blocked.json()["detail"].lower()
 
 
-def test_space_quota_follows_owner_plan(client):
+def test_space_quota_is_enforced(client, monkeypatch):
     owner = register_user(client, "owner@example.com")
+    set_quota(monkeypatch, "spaces", 1)
     create_space(client, owner["access_token"], name="First space")
 
-    # default plan is "decouverte" -> 1 space total
     rejected = client.post(
         "/api/spaces",
         json={"name": "Second space", "description": "", "color": "#000"},
@@ -265,13 +261,24 @@ def test_space_quota_follows_owner_plan(client):
     )
     assert rejected.status_code == 400
 
-    set_plan(owner["user"]["id"], "particulier")  # 3 spaces
-    allowed = client.post(
-        "/api/spaces",
-        json={"name": "Second space", "description": "", "color": "#000"},
+
+def test_daily_message_quota_is_enforced(client, monkeypatch):
+    owner = register_user(client, "owner@example.com")
+    set_quota(monkeypatch, "messages_per_day", 0)
+    space = create_space(client, owner["access_token"])
+    conv = client.post(
+        f"/api/spaces/{space['id']}/conversations",
+        json={"title": "Hello"},
+        headers=auth_headers(owner["access_token"]),
+    ).json()
+
+    res = client.post(
+        f"/api/conversations/{conv['id']}/chat",
+        json={"message": "Bonjour"},
         headers=auth_headers(owner["access_token"]),
     )
-    assert allowed.status_code == 200
+    assert res.status_code == 429
+    assert "par jour" in res.json()["detail"]
 
 
 def test_admin_cannot_write_to_spaces_they_do_not_own(client):

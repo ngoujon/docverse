@@ -21,14 +21,14 @@
     "badges": [
       "Heberge en France",
       "IA francaise Mistral",
-      "Questions illimitees",
-      "Palier gratuit"
+      "100% gratuit",
+      "Sans carte bancaire"
     ],
     "title1": "Votre solution cloud RAG souveraine,",
     "title2": "hebergee en France.",
     "subtitle": "Deposez vos documents, interrogez-les en langage naturel, obtenez des reponses sourcees. Toute la chaine est europeenne : hebergement {{hostingProvider}} en {{hostingCountry}}, moteur d'IA {{aiProvider}}, editeur francais. Vos donnees ne quittent jamais l'Union europeenne.",
     "ctaTry": "Essayer maintenant",
-    "ctaDiscover": "Voir les tarifs"
+    "ctaDiscover": "Voir l'offre gratuite"
   },
   "sovereignty": {
     "eyebrow": "Souverainete numerique",
@@ -65,7 +65,7 @@
   "features": {
     "eyebrow": "Ce que vous obtenez",
     "title": "Le RAG souverain des structures qui gerent plusieurs clients ou dossiers",
-    "subtitle": "Cabinets, agences, equipes projet : un espace cloisonne par client, un acces maitrise par personne, un cout qui ne bouge pas avec le nombre de questions - et une conformite RGPD qui ne repose sur aucun transfert hors Union europeenne.",
+    "subtitle": "Cabinets, agences, equipes projet : un espace cloisonne par client, un acces maitrise par personne, un service entierement gratuit - et une conformite RGPD qui ne repose sur aucun transfert hors Union europeenne.",
     "items": [
       {
         "title": "Un espace par client, un acces par personne",
@@ -80,8 +80,8 @@
         "desc": "Voyez qui a acces a chaque espace, retirez un acces en un clic, et un delai de securite empeche de recrediter quelqu'un immediatement apres."
       },
       {
-        "title": "Questions illimitees, cout fixe",
-        "desc": "Posez autant de questions que vous voulez, sur tous les paliers : aucun compteur de messages, aucune facturation a l'usage qui grimpe avec l'activite de l'equipe."
+        "title": "100% gratuit, sans carte bancaire",
+        "desc": "Aucun abonnement, aucune facturation a l'usage : chaque compte dispose gratuitement de limites genereuses (espaces, stockage, questions par jour), simplement la pour eviter les abus."
       },
       {
         "title": "Recherche web sans fuite vers un tiers",
@@ -108,28 +108,9 @@
       },
       {
         "title": "Partagez et posez vos questions",
-        "desc": "Invitez qui vous voulez avec le bon role, questions illimitees, reponses toujours sourcees."
+        "desc": "Invitez qui vous voulez avec le bon role, reponses toujours sourcees."
       }
     ]
-  },
-  "enterprise": {
-    "back": "Retour aux tarifs",
-    "eyebrow": "Palier Entreprise",
-    "title": "Un devis sur mesure pour votre entreprise",
-    "subtitle": "Espaces et membres illimites, stockage sur mesure, SSO et SLA, support dedie. Decrivez votre besoin, nous revenons vers vous rapidement.",
-    "teamSize": "Taille de l'equipe",
-    "teamSizeOptions": [
-      "1-10 utilisateurs",
-      "11-50 utilisateurs",
-      "51-200 utilisateurs",
-      "200+ utilisateurs"
-    ],
-    "needs": "Decrivez votre besoin",
-    "needsPlaceholder": "Nombre d'espaces necessaires, exigences de securite ou de conformite, delai souhaite...",
-    "send": "Envoyer la demande",
-    "messagePrefix": "Taille d'equipe estimee",
-    "sentTitle": "Demande envoyee !",
-    "sentDesc": "Notre equipe vous recontacte rapidement pour construire votre devis."
   },
   "contact": {
     "eyebrow": "Contact",
@@ -160,74 +141,37 @@
     "tagline": "Site internet realise par",
     "privacy": "Confidentialite",
     "terms": "CGU",
-    "sale": "CGV",
     "legal": "Mentions legales",
     "pricing": "Tarifs",
     "launchApp": "Lancer l'app"
   },
   "pricing": {
     "eyebrow": "Tarifs",
-    "title": "Un palier pour chaque usage",
-    "subtitle": "Trois chiffres a retenir par palier : espaces de travail, membres par espace, stockage par espace. Posez autant de questions que vous voulez, sur tous les paliers : aucune limite sur les reponses de l'IA.",
-    "billingNote": "Sans engagement - resiliable a tout moment.",
-    "popular": "Recommande",
-    "tiers": [
-      {
-        "name": "Decouverte",
-        "price": "0",
-        "period": "",
-        "tagline": "Pour tester sans risque",
-        "features": [
-          "1 espace de travail",
-          "1 membre",
-          "200 Mo de stockage",
-          "Questions illimitees"
-        ],
-        "cta": "Commencer gratuitement"
-      },
-      {
-        "name": "Particulier",
-        "price": "9",
-        "period": "/mois TTC",
-        "tagline": "Pour un usage personnel ou freelance",
-        "features": [
-          "3 espaces de travail",
-          "Liens de partage illimites",
-          "2 Go de stockage par espace",
-          "Sauvegardes automatiques"
-        ],
-        "cta": "Choisir Particulier"
-      },
-      {
-        "name": "Pro",
-        "price": "29",
-        "period": "/mois TTC",
-        "tagline": "Pour une equipe qui partage ses espaces",
-        "features": [
-          "10 espaces de travail",
-          "10 membres par espace",
-          "10 Go de stockage par espace",
-          "Support prioritaire"
-        ],
-        "cta": "Choisir Pro"
-      },
-      {
-        "name": "Entreprise",
-        "price": "",
-        "period": "",
-        "tagline": "Pour une organisation avec des besoins de gouvernance",
-        "features": [
-          "Espaces et membres illimites",
-          "Stockage sur mesure",
-          "SSO et SLA",
-          "Support dedie"
-        ],
-        "cta": "Nous contacter"
-      }
+    "title": "100% gratuit, pour tout le monde",
+    "subtitle": "Pas d'abonnement, pas de carte bancaire, pas de palier payant. Chaque compte dispose des memes limites d'utilisation, pensees pour un usage normal et pour eviter les abus.",
+    "planName": "Gratuit",
+    "tagline": "Toutes les fonctionnalites, pour chaque compte",
+    "period": "pour toujours",
+    "featuresTitle": "Inclus",
+    "limitsTitle": "Limites par compte",
+    "features": [
+      "Reponses IA sourcees",
+      "Tous les formats : PDF, scans, images, DOCX, pages web, audio",
+      "Liens de partage et roles",
+      "Sauvegardes automatiques",
+      "Hebergement en France, IA francaise"
     ],
-    "faqNote": "Des questions sur les tarifs ?",
-    "faqLink": "Consultez la FAQ",
-    "customPriceLabel": "Sur devis"
+    "limits": [
+      "3 espaces de travail",
+      "5 membres par espace",
+      "500 Mo de stockage par espace",
+      "50 questions a l'IA par jour"
+    ],
+    "cta": "Creer mon compte gratuit",
+    "ctaLoggedIn": "Acceder a mes espaces",
+    "fairUseNote": "Les limites servent uniquement a eviter les abus et peuvent evoluer. Le compteur de questions repart a zero chaque jour.",
+    "faqNote": "Des questions ?",
+    "faqLink": "Consultez la FAQ"
   },
   "demo": {
     "question": "Resume les points cles du contrat fournisseur.",
@@ -319,11 +263,11 @@
       },
       {
         "title": "Prestataires techniques",
-        "body": "Pour fonctionner, le service s'appuie sur un petit nombre de prestataires, qui agissent comme sous-traitants et sont lies par contrat : un hebergeur (OVHcloud, serveurs situes en France), un fournisseur d'inference IA (Mistral AI, societe francaise, traitements realises dans l'Union europeenne), un prestataire de paiement certifie pour les abonnements payants (nous ne stockons jamais votre numero de carte bancaire), un service d'envoi d'emails (verification d'adresse, reinitialisation de mot de passe, newsletter) et un outil de mesure d'audience ([credit], uniquement si vous l'acceptez). Chacun ne recoit que les donnees strictement necessaires a sa prestation et n'est autorise ni a les utiliser a d'autres fins, ni a des fins publicitaires, ni pour entrainer ses propres modeles. Vos documents, vos conversations et l'index vectoriel associe sont heberges et traites exclusivement au sein de l'Union europeenne. Les prestataires de paiement et d'envoi d'emails peuvent en revanche etre etablis hors de l'Union europeenne : ils ne recoivent aucun contenu de vos documents, et les transferts correspondants sont encadres par les clauses contractuelles types de la Commission europeenne. La liste nominative et a jour de ces sous-traitants vous est communiquee sur simple demande via le formulaire de contact."
+        "body": "Pour fonctionner, le service s'appuie sur un petit nombre de prestataires, qui agissent comme sous-traitants et sont lies par contrat : un hebergeur (OVHcloud, serveurs situes en France), un fournisseur d'inference IA (Mistral AI, societe francaise, traitements realises dans l'Union europeenne), un service d'envoi d'emails (verification d'adresse, reinitialisation de mot de passe, newsletter) et un outil de mesure d'audience ([credit], uniquement si vous l'acceptez). Chacun ne recoit que les donnees strictement necessaires a sa prestation et n'est autorise ni a les utiliser a d'autres fins, ni a des fins publicitaires, ni pour entrainer ses propres modeles. Vos documents, vos conversations et l'index vectoriel associe sont heberges et traites exclusivement au sein de l'Union europeenne. Le prestataire d'envoi d'emails peut en revanche etre etabli hors de l'Union europeenne : il ne recoit aucun contenu de vos documents, et les transferts correspondants sont encadres par les clauses contractuelles types de la Commission europeenne. La liste nominative et a jour de ces sous-traitants vous est communiquee sur simple demande via le formulaire de contact."
       },
       {
         "title": "Responsable du traitement et durees de conservation",
-        "body": "Le responsable du traitement est l'editeur du service, dont l'identite complete figure sur la page Mentions legales ; il peut etre contacte via le formulaire de contact. Vos donnees de compte, vos documents et vos conversations sont conserves tant que votre compte existe, puis supprimes des que vous supprimez votre compte. Les messages envoyes via le formulaire de contact sont conserves le temps de traiter votre demande. Les donnees necessaires a la facturation sont conservees pendant la duree legale de conservation des pieces comptables. Une inscription a la newsletter est conservee jusqu'a votre desabonnement."
+        "body": "Le responsable du traitement est l'editeur du service, dont l'identite complete figure sur la page Mentions legales ; il peut etre contacte via le formulaire de contact. Vos donnees de compte, vos documents et vos conversations sont conserves tant que votre compte existe, puis supprimes des que vous supprimez votre compte. Les messages envoyes via le formulaire de contact sont conserves le temps de traiter votre demande. Une inscription a la newsletter est conservee jusqu'a votre desabonnement."
       },
       {
         "title": "Vos droits (RGPD)",
@@ -354,7 +298,7 @@
       },
       {
         "title": "4. Espaces de travail et partage",
-        "body": "Chaque espace de travail appartient a un proprietaire, qui peut inviter d'autres utilisateurs via un lien de partage (lecture seule ou lecture/ecriture selon le role choisi). Le proprietaire d'un espace est responsable des personnes qu'il y invite et du contenu qui y est depose. Le nombre d'espaces et de membres par espace depend du palier d'abonnement du proprietaire."
+        "body": "Chaque espace de travail appartient a un proprietaire, qui peut inviter d'autres utilisateurs via un lien de partage (lecture seule ou lecture/ecriture selon le role choisi). Le proprietaire d'un espace est responsable des personnes qu'il y invite et du contenu qui y est depose. Le nombre d'espaces, de membres par espace, le stockage et le nombre de questions par jour sont limites par compte (voir la page Tarifs)."
       },
       {
         "title": "5. Usage acceptable",
@@ -365,8 +309,8 @@
         "body": "Les reponses generees par l'assistant IA peuvent etre incompletes, inexactes, ou contenir des erreurs (hallucinations), meme lorsqu'elles citent des sources. Elles ne constituent en aucun cas un conseil professionnel, juridique, medical ou financier. Vous restez seul responsable de l'usage que vous faites des reponses fournies."
       },
       {
-        "title": "7. Abonnements et resiliation",
-        "body": "Certains paliers sont payants et donnent lieu a un abonnement recurrent (voir la page Tarifs et les Conditions Generales de Vente). Vous pouvez resilier votre abonnement a tout moment depuis les parametres de votre compte ; l'acces au palier paye reste disponible jusqu'a la fin de la periode deja facturee. Vous pouvez egalement supprimer votre compte a tout moment, ce qui entraine la suppression definitive de vos espaces et donnees associees."
+        "title": "7. Gratuite et limites d'utilisation",
+        "body": "Le service est entierement gratuit : aucun abonnement ni paiement n'est demande. Pour garantir un usage equitable et prevenir les abus, chaque compte est soumis a des limites d'utilisation (espaces, membres par espace, stockage, questions posees a l'IA par jour), indiquees sur la page Tarifs et susceptibles d'evoluer. Tout contournement de ces limites (par exemple par la creation de comptes multiples) peut entrainer la suspension des comptes concernes. Vous pouvez supprimer votre compte a tout moment, ce qui entraine la suppression definitive de vos espaces et donnees associees."
       },
       {
         "title": "8. Disponibilite du service",
@@ -379,51 +323,6 @@
       {
         "title": "10. Droit applicable et contact",
         "body": "Ces conditions sont regies par le droit francais. Pour toute question, utilisez le formulaire de contact du site."
-      }
-    ]
-  },
-  "sale": {
-    "back": "Retour a l'accueil",
-    "eyebrow": "Conditions de vente",
-    "title": "Conditions Generales de Vente",
-    "subtitle": "Ces conditions s'appliquent a la souscription des paliers payants de la plateforme {{brand}} (Particulier, Pro). Le palier Decouverte est gratuit et n'est pas concerne. Le palier Entreprise fait l'objet d'un devis et de conditions specifiques.",
-    "updated": "Derniere mise a jour : {{date}}",
-    "sections": [
-      {
-        "title": "1. Vendeur",
-        "body": "Les abonnements payants sont vendus par [editeur], entrepreneur individuel exercant sous le nom commercial \"[credit]\" (SIREN [immatriculation]) - voir la page Mentions legales pour l'identite complete."
-      },
-      {
-        "title": "2. Offres et prix",
-        "body": "Les paliers disponibles, leurs limites (espaces, membres, stockage) et leurs prix sont affiches sur la page Tarifs au moment de la souscription. Les prix sont exprimes en euros et affiches toutes taxes comprises : le montant preleve est exactement le prix affiche, sans frais ni taxe ajoutes au moment du paiement. TVA non applicable, article 293 B du Code general des impots : aucune TVA n'est facturee, et les factures emises ne font donc apparaitre aucune TVA deductible."
-      },
-      {
-        "title": "3. Souscription et paiement",
-        "body": "La souscription se fait en ligne, par carte bancaire, via notre prestataire de paiement Stripe. L'abonnement est a reconduction automatique mensuelle : le montant du palier choisi est preleve chaque mois a la meme date, jusqu'a resiliation. Aucune donnee bancaire n'est stockee par {{brand}} - Stripe gere l'integralite du paiement de maniere securisee."
-      },
-      {
-        "title": "4. Droit de retractation",
-        "body": "Conformement a l'article L221-28 13 du Code de la consommation, le droit de retractation de 14 jours applicable aux ventes a distance ne peut etre exerce une fois le service numerique pleinement execute, lorsque son execution a commence apres accord prealable expres du consommateur et renoncement exprès a son droit de retractation. En souscrivant a un palier payant, vous demandez l'acces immediat au service et reconnaissez renoncer a votre droit de retractation des lors que l'abonnement est actif."
-      },
-      {
-        "title": "5. Duree et resiliation",
-        "body": "L'abonnement est sans engagement de duree et peut etre resilie a tout moment depuis les parametres du compte (section Abonnement). La resiliation prend effet a la fin de la periode deja payee : aucun remboursement au prorata n'est effectue pour la periode en cours, mais l'acces au palier reste actif jusqu'a son terme."
-      },
-      {
-        "title": "6. Changement de palier",
-        "body": "Vous pouvez changer de palier (mise a niveau ou retrogradation) a tout moment depuis la gestion de l'abonnement. Le nouveau tarif s'applique selon les regles de proratisation appliquees par Stripe pour le reste de la periode en cours."
-      },
-      {
-        "title": "7. Factures",
-        "body": "Une facture est emise automatiquement pour chaque paiement et reste consultable a tout moment depuis la gestion de l'abonnement (portail de facturation)."
-      },
-      {
-        "title": "8. Mediateur de la consommation",
-        "body": "Conformement aux articles L612-1 et suivants du Code de la consommation, tout consommateur a le droit de recourir gratuitement a un mediateur de la consommation en vue de la resolution amiable d'un litige, apres avoir adresse une reclamation ecrite au vendeur et en l'absence de reponse satisfaisante dans un delai d'un mois. Le mediateur competent pour {{brand}} est : [A COMPLETER - nom, adresse postale et site web du mediateur de la consommation]."
-      },
-      {
-        "title": "9. Droit applicable et litiges",
-        "body": "Ces conditions sont regies par le droit francais. En cas de litige, une solution amiable sera recherchee en priorite via le formulaire de contact ; a defaut, les tribunaux francais competents seront seuls saisis."
       }
     ]
   },
@@ -542,44 +441,14 @@
       "exportData": "Exporter mes donnees",
       "emailVerified": "Email verifie",
       "emailNotVerified": "Email non verifie",
-      "billingTitle": "Abonnement",
-      "billingCurrentPlan": "Palier actuel",
-      "billingManage": "Gerer mon abonnement",
-      "billingUpgrade": "Voir les tarifs",
-      "billingError": "Impossible d'ouvrir la gestion de l'abonnement pour le moment.",
-      "planNames": {
-        "decouverte": "Decouverte",
-        "particulier": "Particulier",
-        "pro": "Pro",
-        "entreprise": "Entreprise"
-      },
       "usage": {
         "title": "Utilisation",
         "storage": "Stockage",
         "spaces": "Espaces",
         "documents": "Documents",
-        "conversations": "Conversations"
-      },
-      "billingProfile": {
-        "title": "Profil de facturation",
-        "hint": "Ces informations apparaissent sur vos factures. Completez-les pour recevoir des factures conformes (format Factur-X).",
-        "individual": "Particulier",
-        "business": "Professionnel",
-        "companyName": "Raison sociale",
-        "siret": "Numero SIRET",
-        "vatNumber": "N° TVA intracommunautaire",
-        "addressLine1": "Adresse",
-        "addressLine2": "Complement d'adresse",
-        "postalCode": "Code postal",
-        "city": "Ville",
-        "save": "Enregistrer",
-        "saved": "Profil de facturation enregistre.",
-        "saveError": "Impossible d'enregistrer le profil de facturation."
-      },
-      "invoices": {
-        "title": "Historique de facturation",
-        "empty": "Aucune facture pour le moment.",
-        "download": "Telecharger"
+        "conversations": "Conversations",
+        "freeNote": "Compte gratuit - limites d'utilisation",
+        "questionsToday": "Questions aujourd'hui"
       },
       "gdpr": {
         "title": "Vos donnees et vos droits (RGPD)",
@@ -661,7 +530,7 @@
       },
       {
         "question": "Combien coute {{brand}} ?",
-        "answer": "Un palier gratuit existe pour tester (1 espace, 1 membre, 200 Mo). Les paliers payants commencent a 9€ TTC/mois. Sur tous les paliers, les questions posees a l'IA sont illimitees : les seules limites sont le nombre d'espaces, de membres par espace et le stockage."
+        "answer": "{{brand}} est entierement gratuit, sans carte bancaire ni abonnement. Pour eviter les abus, chaque compte dispose de limites d'utilisation : 3 espaces de travail, 5 membres par espace, 500 Mo de stockage par espace et 50 questions a l'IA par jour."
       }
     ]
   },
@@ -730,19 +599,7 @@
       "users": "Utilisateurs",
       "spaces": "Espaces",
       "testimonials": "Avis",
-      "invoices": "Factures",
       "newsletter": "Newsletter"
-    },
-    "invoices": {
-      "number": "Numero",
-      "customer": "Client",
-      "amount": "Montant",
-      "type": "Type",
-      "business": "Pro",
-      "individual": "Particulier",
-      "viewPdf": "Voir le PDF",
-      "empty": "Aucune facture pour l'instant.",
-      "unavailable": "Facturation non configuree sur cette instance."
     },
     "users": {
       "createButton": "Nouvel utilisateur",

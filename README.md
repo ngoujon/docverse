@@ -36,13 +36,11 @@ illimitees sur tous les paliers.
   Sign in with Apple est pret mais reste inactif tant que l'app n'a pas de
   nom de domaine HTTPS et de compte Apple Developer payant ; Microsoft a
   ete retire (aucun tenant Azure disponible pour l'instant).
-- **Paliers d'abonnement** (Decouverte / Particulier / Pro / Entreprise) :
-  chaque palier limite reellement le nombre d'espaces de travail possedes,
-  le nombre de membres par espace et le stockage par espace (voir
-  `PLAN_QUOTAS` dans `backend/app/config.py`) - aucune limite en revanche
-  sur le nombre de questions posees a l'IA. Paiement et gestion
-  d'abonnement via Stripe (Checkout, portail de facturation,
-  synchronisation par webhook).
+- **Entierement gratuit, avec limites par compte** : pas d'abonnement ni
+  de paiement. Chaque compte est limite en espaces possedes, membres par
+  espace, stockage par espace et questions posees a l'IA par jour, pour
+  eviter les abus (voir `FREE_QUOTAS` dans `backend/app/config.py`,
+  reglable par variables d'environnement `FREE_*`).
 - **RGPD** : export et suppression de compte en libre-service,
   desabonnement newsletter en un clic, page confidentialite dediee.
 
@@ -210,8 +208,8 @@ docker compose -f docker-compose.staging.yml --env-file .env.staging.local up -d
 
 Interface disponible sur http://localhost:8081 (ou via Caddy sur le
 sous-domaine `DOMAIN`, par defaut `example.com`). Utilisez des
-comptes de test partout ou c'est possible (Stripe en mode test, apps
-OAuth dediees "staging") : ne jamais reutiliser des identifiants ou des
+comptes de test partout ou c'est possible (apps OAuth dediees
+"staging") : ne jamais reutiliser des identifiants ou des
 secrets de production ici.
 
 ### Workflow dev -> staging -> prod
@@ -452,9 +450,8 @@ transcription audio s'execute sur le serveur, sans appel externe.
 Le contenu des documents et des questions n'est transmis qu'a **Mistral
 AI** (societe francaise, traitements dans l'Union europeenne) pour generer
 les reponses, et n'est jamais utilise pour entrainer un modele. La
-connexion SSO (Google) et le paiement (Stripe) sont les seuls autres
-appels a des services tiers, uniquement pour ce qui les concerne
-directement (identite, facturation) - jamais pour le contenu des documents
+connexion SSO (Google) est le seul autre appel a un service tiers,
+uniquement pour ce qui la concerne directement (identite) - jamais pour le contenu des documents
 ou des conversations.
 Voir la page "Confidentialite" de l'application pour le detail RGPD
 (export et suppression de compte, desabonnement newsletter).

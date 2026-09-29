@@ -33,7 +33,7 @@ globalThis.document = dom.window.document;
 Object.defineProperty(globalThis, "navigator", { value: dom.window.navigator, configurable: true });
 globalThis.localStorage = dom.window.localStorage;
 
-const ROUTES = ["/", "/tarifs", "/demo", "/entreprise", "/faq", "/confidentialite", "/cgu", "/cgv", "/mentions-legales"];
+const ROUTES = ["/", "/tarifs", "/demo", "/faq", "/confidentialite", "/cgu", "/mentions-legales"];
 
 async function main() {
   const template = await readFile(path.join(distDir, "index.html"), "utf-8");
@@ -64,7 +64,7 @@ async function main() {
 }
 
 // Priorites par route pour le sitemap. Une route absente prend 0.7.
-const ROUTE_PRIORITY = { "/": "1.0", "/tarifs": "0.9", "/entreprise": "0.8", "/faq": "0.8" };
+const ROUTE_PRIORITY = { "/": "1.0", "/tarifs": "0.9", "/faq": "0.8" };
 
 // Genere dist/sitemap.xml a partir de ROUTES plutot que de maintenir a la
 // main un fichier statique dans public/ : le domaine y etait code en dur et
