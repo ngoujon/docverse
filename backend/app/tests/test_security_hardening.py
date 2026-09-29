@@ -256,7 +256,7 @@ def test_api_responses_carry_the_baseline_security_headers(client):
 
 # --- Signing key ---------------------------------------------------------
 
-@pytest.mark.parametrize("weak", ["secret", "docverse", "[credit]", "changeme", "short-key-123"])
+@pytest.mark.parametrize("weak", ["secret", "docverse", "changeme", "short-key-123"])
 def test_config_refuses_to_boot_on_a_weak_secret_key(weak, monkeypatch):
     """HS256 is only as strong as its key: a guessable SECRET_KEY lets
     anyone mint a token with role=admin. A warning in the logs is the

@@ -1,12 +1,16 @@
-/** Audience measurement through [credit] (https://example.com).
+/** Opt-in audience measurement, sent to the collector configured at build
+ * time (VITE_ANALYTICS_ENDPOINT + VITE_ANALYTICS_SITE_KEY). Without both,
+ * measurement is disabled entirely and no consent banner is shown.
  *
  * Opt-in only: nothing leaves the browser until the visitor accepts the
  * consent banner, and only public marketing pages are tracked - never the
  * workspace app, whose paths carry space identifiers.
  */
 
-const ENDPOINT = "https://analytics.example.com/api/tracking/collect";
-const SITE_KEY = "[site-key]";
+const ENDPOINT: string = import.meta.env.VITE_ANALYTICS_ENDPOINT || "";
+const SITE_KEY: string = import.meta.env.VITE_ANALYTICS_SITE_KEY || "";
+
+export const analyticsEnabled = Boolean(ENDPOINT && SITE_KEY);
 
 const CONSENT_KEY = "hyaides:analytics-consent";
 const SESSION_KEY = "hyaides:analytics-session";
@@ -63,7 +67,7 @@ function sessionId(): string {
   }
 }
 
-/** The collect endpoint answers CORS preflights only for example.com origins,
+/** The collect endpoint doesn't answer CORS preflights from this origin,
  * so the beacon has to stay a "simple" cross-origin request: form encoding
  * (a safelisted content type, hence no preflight) and no custom header. */
 function encode(payload: Record<string, unknown>): URLSearchParams {
@@ -81,10 +85,9 @@ function encode(payload: Record<string, unknown>): URLSearchParams {
 /** `no-cors` because the API answers `Cross-Origin-Resource-Policy:
  * same-origin`: its response is unreadable from here, and asking for it would
  * only log a network error next to a hit that was in fact recorded.
- * `keepalive` replaces sendBeacon, whose requests never reach this collector
- * (same finding as the [autre-site] integration). */
+ * `keepalive` replaces sendBeacon, whose requests never reach this collector. */
 function send(payload: Record<string, unknown>): void {
-  if (typeof window === "undefined" || readConsent() !== "granted") return;
+  if (!analyticsEnabled || typeof window === "undefined" || readConsent() !== "granted") return;
   try {
     void fetch(ENDPOINT, {
       method: "POST",

@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { BarChart3 } from "lucide-react";
 import { readConsent, setConsent } from "../utils/analytics";
 
-/** Opt-in banner for the [credit] audience measurement. Nothing is measured
+/** Opt-in banner for the audience measurement. Nothing is measured
  * until "accept" is clicked, and the answer is remembered so the banner is
  * shown once. */
 export default function CookieConsentBanner() {

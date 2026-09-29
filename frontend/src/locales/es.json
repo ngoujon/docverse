@@ -230,7 +230,7 @@
   },
   "cookies": {
     "title": "Medicion de audiencia",
-    "body": "Con tu consentimiento, contamos las paginas vistas con [credit] para saber que interesa a los visitantes. Sin cookies publicitarias y sin seguimiento dentro de la aplicacion.",
+    "body": "Con tu consentimiento, contamos las paginas vistas para saber que interesa a los visitantes. Sin cookies publicitarias y sin seguimiento dentro de la aplicacion.",
     "accept": "Aceptar",
     "decline": "Rechazar",
     "learnMore": "Mas informacion"
@@ -243,7 +243,7 @@
     "sections": [
       {
         "title": "Cookies",
-        "body": "Este sitio no utiliza cookies publicitarias ni cookies de terceros para segmentacion. Una herramienta de medicion de audiencia ([credit]) registra las paginas vistas, el tiempo de permanencia y un pais aproximado deducido de la direccion IP, unicamente si lo aceptas en el aviso que aparece en tu primera visita: se basa en un identificador de sesion temporal que se borra al cerrar la pestana. Tu eleccion se guarda en el almacenamiento local del navegador y puedes cambiarla borrando los datos del sitio. Las paginas de la aplicacion (espacios, enlaces compartidos, panel) nunca se rastrean."
+        "body": "Este sitio no utiliza cookies publicitarias ni cookies de terceros para segmentacion. Una herramienta de medicion de audiencia registra las paginas vistas, el tiempo de permanencia y un pais aproximado deducido de la direccion IP, unicamente si lo aceptas en el aviso que aparece en tu primera visita: se basa en un identificador de sesion temporal que se borra al cerrar la pestana. Tu eleccion se guarda en el almacenamiento local del navegador y puedes cambiarla borrando los datos del sitio. Las paginas de la aplicacion (espacios, enlaces compartidos, panel) nunca se rastrean."
       },
       {
         "title": "Almacenamiento local (localStorage)",
@@ -263,7 +263,7 @@
       },
       {
         "title": "Proveedores tecnicos",
-        "body": "Para funcionar, el servicio se apoya en un pequeno numero de proveedores que actuan como encargados del tratamiento y estan vinculados por contrato: un proveedor de alojamiento (OVHcloud, servidores situados en Francia), un proveedor de inferencia de IA (Mistral AI, empresa francesa, tratamientos realizados en la Union Europea), un servicio de envio de correos (verificacion de direccion, restablecimiento de contrasena, newsletter) y una herramienta de medicion de audiencia ([credit], solo si la aceptas). Cada uno recibe unicamente los datos estrictamente necesarios para su servicio y no esta autorizado a usarlos para otros fines, con fines publicitarios ni para entrenar sus propios modelos. Tus documentos, tus conversaciones y el indice vectorial asociado se alojan y tratan exclusivamente dentro de la Union Europea. El proveedor de envio de correos, en cambio, puede estar establecido fuera de la Union Europea: no recibe ningun contenido de tus documentos, y las transferencias correspondientes estan reguladas por las clausulas contractuales tipo de la Comision Europea. La lista nominativa y actualizada de estos encargados se te facilita previa solicitud a traves del formulario de contacto."
+        "body": "Para funcionar, el servicio se apoya en un pequeno numero de proveedores que actuan como encargados del tratamiento y estan vinculados por contrato: un proveedor de alojamiento (OVHcloud, servidores situados en Francia), un proveedor de inferencia de IA (Mistral AI, empresa francesa, tratamientos realizados en la Union Europea), un servicio de envio de correos (verificacion de direccion, restablecimiento de contrasena, newsletter) y una herramienta de medicion de audiencia (solo si la aceptas). Cada uno recibe unicamente los datos estrictamente necesarios para su servicio y no esta autorizado a usarlos para otros fines, con fines publicitarios ni para entrenar sus propios modelos. Tus documentos, tus conversaciones y el indice vectorial asociado se alojan y tratan exclusivamente dentro de la Union Europea. El proveedor de envio de correos, en cambio, puede estar establecido fuera de la Union Europea: no recibe ningun contenido de tus documentos, y las transferencias correspondientes estan reguladas por las clausulas contractuales tipo de la Comision Europea. La lista nominativa y actualizada de estos encargados se te facilita previa solicitud a traves del formulario de contacto."
       },
       {
         "title": "Responsable del tratamiento y plazos de conservacion",
@@ -334,11 +334,11 @@
     "sections": [
       {
         "title": "Editor del sitio",
-        "body": "[editeur], empresario individual (entrepreneur individuel) que opera bajo el nombre comercial \"[credit]\".\nSIREN: [immatriculation] - SIRET: [immatriculation]\nCodigo APE: [APE] (Programacion informatica)\nIVA no aplicable, articulo 293 B del Codigo General de Impuestos frances (regimen de franquicia de IVA) - numero de IVA intracomunitario: [TVA]\nRegistrado en el RNE el [date] - RCS [ville]\nDomicilio social: [adresse], [CP] [ville], Francia"
+        "body": "{{publisher}}"
       },
       {
         "title": "Director de la publicacion",
-        "body": "[editeur]."
+        "body": "{{director}}"
       },
       {
         "title": "Alojamiento",
@@ -352,7 +352,8 @@
         "title": "Contacto y litigios",
         "body": "Para cualquier pregunta, utiliza el formulario de contacto del sitio. En caso de litigio, se buscara una solucion amistosa antes de cualquier accion judicial; en su defecto, seran competentes exclusivamente los tribunales franceses."
       }
-    ]
+    ],
+    "notConfigured": "No configurado en esta instancia."
   },
   "auth": {
     "email": "Correo electronico",

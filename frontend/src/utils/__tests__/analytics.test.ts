@@ -87,9 +87,9 @@ describe("beacons", () => {
 
     expect(fetchMock).toHaveBeenCalledTimes(2);
     const [url, init] = fetchMock.mock.calls[0];
-    expect(url).toBe("https://analytics.example.com/api/tracking/collect");
+    expect(url).toBe("https://analytics.example.test/collect");
     // A "simple" cross-origin request: safelisted content type, so no
-    // preflight - the collect endpoint only answers preflights for example.com.
+    // preflight - the collect endpoint does not answer preflights from this origin.
     expect(init?.headers).toEqual({
       "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
     });

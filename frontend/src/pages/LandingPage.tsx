@@ -416,17 +416,25 @@ export default function LandingPage() {
         </div>
 
         <div className="mx-auto mt-6 flex max-w-6xl flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
-          <p className="font-mono text-[11px] text-slate-600">
-            {t("footer.tagline")}{" "}
-            <a
-              href="https://example.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-retro-cyan hover:underline"
-            >
-              [credit]
-            </a>
-          </p>
+          {BRAND.creditName ? (
+            <p className="font-mono text-[11px] text-slate-600">
+              {t("footer.tagline")}{" "}
+              {BRAND.creditUrl ? (
+                <a
+                  href={BRAND.creditUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-retro-cyan hover:underline"
+                >
+                  {BRAND.creditName}
+                </a>
+              ) : (
+                BRAND.creditName
+              )}
+            </p>
+          ) : (
+            <span />
+          )}
           <div className="flex items-center gap-4">
             <Link
               to="/tarifs"

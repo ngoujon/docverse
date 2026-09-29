@@ -8,7 +8,7 @@ import {
   type ConsentChoice,
 } from "../utils/analytics";
 
-/** Sends one [credit] page view per route change, plus the time spent on the
+/** Sends one page view per route change, plus the time spent on the
  * page when the visitor leaves it. Renders nothing. */
 export default function AnalyticsTracker() {
   const { pathname } = useLocation();

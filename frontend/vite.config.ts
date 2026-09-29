@@ -1,8 +1,23 @@
 import { defineConfig } from "vitest/config";
+import { loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 
-export default defineConfig({
-  plugins: [react()],
+/** Public origin of the deployment (canonical/OG URLs in index.html), taken
+ * from SITE_ORIGIN or VITE_BRAND_DOMAIN at build time - never hardcoded. */
+export function siteOriginFromEnv(env: Record<string, string>): string {
+  if (env.SITE_ORIGIN) return env.SITE_ORIGIN.replace(/\/$/, "");
+  return env.VITE_BRAND_DOMAIN ? `https://${env.VITE_BRAND_DOMAIN}` : "http://localhost";
+}
+
+function siteOriginPlugin(origin: string): Plugin {
+  return {
+    name: "site-origin",
+    transformIndexHtml: (html) => html.split("__SITE_ORIGIN__").join(origin),
+  };
+}
+
+export default defineConfig(({ mode }) => ({
+  plugins: [react(), siteOriginPlugin(siteOriginFromEnv(loadEnv(mode, process.cwd(), "")))],
   build: {
     rollupOptions: {
       output: {
@@ -27,6 +42,10 @@ export default defineConfig({
     },
   },
   test: {
+    env: {
+      VITE_ANALYTICS_ENDPOINT: "https://analytics.example.test/collect",
+      VITE_ANALYTICS_SITE_KEY: "tk_test",
+    },
     environment: "jsdom",
     globals: true,
     setupFiles: ["./src/test-setup.ts"],
@@ -49,4 +68,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));

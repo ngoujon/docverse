@@ -23,7 +23,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import SupportChatWidget from "./components/SupportChatWidget";
 import AnalyticsTracker from "./components/AnalyticsTracker";
 import CookieConsentBanner from "./components/CookieConsentBanner";
-import { isTrackablePath } from "./utils/analytics";
+import { analyticsEnabled, isTrackablePath } from "./utils/analytics";
 
 // The support widget helps visitors use the site/app - shown on the public
 // marketing pages, not inside the real product (workspace app) where it
@@ -40,7 +40,7 @@ export default function App() {
 
   const showSupportWidget = !SUPPORT_WIDGET_EXCLUDED_PREFIXES.some((p) => location.pathname.startsWith(p));
   // Only the pages the audience measurement actually covers ask for consent.
-  const showConsentBanner = isTrackablePath(location.pathname);
+  const showConsentBanner = analyticsEnabled && isTrackablePath(location.pathname);
 
   return (
     <>

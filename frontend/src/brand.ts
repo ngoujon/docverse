@@ -18,13 +18,20 @@ export const BRAND = {
   /** Nom commercial affiche partout dans l'interface et les titres de page. */
   name: env.VITE_BRAND_NAME || "Docverse",
   /** Domaine public, utilise dans les meta, les liens canoniques et les emails. */
-  domain: env.VITE_BRAND_DOMAIN || "example.com",
+  domain: env.VITE_BRAND_DOMAIN || "localhost",
   /** Pays d'hebergement des donnees - argument commercial central. */
   hostingCountry: env.VITE_HOSTING_COUNTRY || "France",
   /** Hebergeur, cite dans les mentions legales et la page confidentialite. */
   hostingProvider: env.VITE_HOSTING_PROVIDER || "OVHcloud",
   /** Fournisseur du modele d'IA, cite dans la page produit. */
   aiProvider: env.VITE_AI_PROVIDER || "Mistral AI",
+  /** Optional "site made by" credit in the landing page footer. */
+  creditName: env.VITE_CREDIT_NAME || "",
+  creditUrl: env.VITE_CREDIT_URL || "",
+  /** Legal notice identity (publisher, publication director) - set per
+   * deployment, never committed. */
+  legalPublisher: (env.VITE_LEGAL_PUBLISHER || "").replace(/\\n/g, "\n"),
+  legalDirector: (env.VITE_LEGAL_DIRECTOR || "").replace(/\\n/g, "\n"),
 } as const;
 
 /** Titre de page normalise : "Section - Marque". */

@@ -230,7 +230,7 @@
   },
   "cookies": {
     "title": "Reichweitenmessung",
-    "body": "Mit Ihrer Einwilligung zahlen wir Seitenaufrufe uber [credit], um zu sehen, was Besucher interessiert. Keine Werbe-Cookies und kein Tracking in der Anwendung.",
+    "body": "Mit Ihrer Einwilligung zahlen wir Seitenaufrufe, um zu sehen, was Besucher interessiert. Keine Werbe-Cookies und kein Tracking in der Anwendung.",
     "accept": "Akzeptieren",
     "decline": "Ablehnen",
     "learnMore": "Mehr erfahren"
@@ -243,7 +243,7 @@
     "sections": [
       {
         "title": "Cookies",
-        "body": "Diese Website verwendet keine Werbe-Cookies und keine Tracking-Cookies von Drittanbietern. Ein Reichweitenmessdienst ([credit]) erfasst Seitenaufrufe, Verweildauer und ein aus der IP-Adresse abgeleitetes ungefahres Land - aber nur, wenn Sie beim ersten Besuch im Banner zustimmen: Grundlage ist eine temporare Sitzungskennung, die beim Schliessen des Tabs geloscht wird. Ihre Entscheidung wird im lokalen Speicher Ihres Browsers gespeichert und lasst sich durch Loschen der Websitedaten andern. Seiten der Anwendung (Arbeitsbereiche, Freigaben, Dashboard) werden nie erfasst."
+        "body": "Diese Website verwendet keine Werbe-Cookies und keine Tracking-Cookies von Drittanbietern. Ein Reichweitenmessdienst erfasst Seitenaufrufe, Verweildauer und ein aus der IP-Adresse abgeleitetes ungefahres Land - aber nur, wenn Sie beim ersten Besuch im Banner zustimmen: Grundlage ist eine temporare Sitzungskennung, die beim Schliessen des Tabs geloscht wird. Ihre Entscheidung wird im lokalen Speicher Ihres Browsers gespeichert und lasst sich durch Loschen der Websitedaten andern. Seiten der Anwendung (Arbeitsbereiche, Freigaben, Dashboard) werden nie erfasst."
       },
       {
         "title": "Lokaler Speicher (localStorage)",
@@ -263,7 +263,7 @@
       },
       {
         "title": "Technische Dienstleister",
-        "body": "Fur seinen Betrieb stutzt sich der Dienst auf eine kleine Zahl von Dienstleistern, die als vertraglich gebundene Auftragsverarbeiter handeln: ein Hoster (OVHcloud, Server in Frankreich), ein KI-Inferenzanbieter (Mistral AI, franzosisches Unternehmen, Verarbeitung innerhalb der Europaischen Union), ein E-Mail-Versanddienst (Adressbestatigung, Passwort-Zurucksetzung, Newsletter) und ein Reichweitenmessungs-Tool ([credit], nur mit Ihrer Zustimmung). Jeder erhalt nur die fur seine Leistung unbedingt erforderlichen Daten und darf sie weder fur andere Zwecke noch fur Werbung noch zum Training eigener Modelle verwenden. Ihre Dokumente, Unterhaltungen und der zugehorige Vektorindex werden ausschliesslich innerhalb der Europaischen Union gehostet und verarbeitet. Der E-Mail-Dienstleister kann hingegen ausserhalb der Europaischen Union ansassig sein: Er erhalt keinerlei Inhalte Ihrer Dokumente, und die entsprechenden Ubermittlungen sind durch die Standardvertragsklauseln der Europaischen Kommission abgesichert. Die aktuelle, namentliche Liste dieser Auftragsverarbeiter erhalten Sie auf Anfrage uber das Kontaktformular."
+        "body": "Fur seinen Betrieb stutzt sich der Dienst auf eine kleine Zahl von Dienstleistern, die als vertraglich gebundene Auftragsverarbeiter handeln: ein Hoster (OVHcloud, Server in Frankreich), ein KI-Inferenzanbieter (Mistral AI, franzosisches Unternehmen, Verarbeitung innerhalb der Europaischen Union), ein E-Mail-Versanddienst (Adressbestatigung, Passwort-Zurucksetzung, Newsletter) und ein Reichweitenmessungs-Tool (nur mit Ihrer Zustimmung). Jeder erhalt nur die fur seine Leistung unbedingt erforderlichen Daten und darf sie weder fur andere Zwecke noch fur Werbung noch zum Training eigener Modelle verwenden. Ihre Dokumente, Unterhaltungen und der zugehorige Vektorindex werden ausschliesslich innerhalb der Europaischen Union gehostet und verarbeitet. Der E-Mail-Dienstleister kann hingegen ausserhalb der Europaischen Union ansassig sein: Er erhalt keinerlei Inhalte Ihrer Dokumente, und die entsprechenden Ubermittlungen sind durch die Standardvertragsklauseln der Europaischen Kommission abgesichert. Die aktuelle, namentliche Liste dieser Auftragsverarbeiter erhalten Sie auf Anfrage uber das Kontaktformular."
       },
       {
         "title": "Verantwortlicher und Speicherfristen",
@@ -334,11 +334,11 @@
     "sections": [
       {
         "title": "Betreiber der Website",
-        "body": "[editeur], Einzelunternehmer (entrepreneur individuel), tatig unter dem Handelsnamen \"[credit]\".\nSIREN: [immatriculation] - SIRET: [immatriculation]\nAPE-Code: [APE] (Softwareentwicklung)\nKeine Umsatzsteuer, Artikel 293 B des franzosischen Steuergesetzbuchs (Kleinunternehmerregelung) - USt-IdNr.: [TVA]\nEingetragen im RNE am [date] - RCS [ville]\nSitz: [adresse], [CP] [ville], Frankreich"
+        "body": "{{publisher}}"
       },
       {
         "title": "Verantwortlicher fur die Veroffentlichung",
-        "body": "[editeur]."
+        "body": "{{director}}"
       },
       {
         "title": "Hosting",
@@ -352,7 +352,8 @@
         "title": "Kontakt und Streitigkeiten",
         "body": "Fur Fragen nutzen Sie bitte das Kontaktformular der Website. Im Streitfall wird vor jedem gerichtlichen Vorgehen eine gutliche Einigung angestrebt; andernfalls sind ausschliesslich die zustandigen franzosischen Gerichte zustandig."
       }
-    ]
+    ],
+    "notConfigured": "Auf dieser Instanz nicht angegeben."
   },
   "auth": {
     "email": "E-Mail",

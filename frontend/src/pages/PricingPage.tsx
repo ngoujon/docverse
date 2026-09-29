@@ -29,7 +29,7 @@ export default function PricingPage() {
       price: "0",
       priceCurrency: "EUR",
       description: t("pricing.tagline"),
-      url: "https://example.com/tarifs",
+      url: `https://${BRAND.domain}/tarifs`,
     },
   });
 

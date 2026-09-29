@@ -230,7 +230,7 @@
   },
   "cookies": {
     "title": "Audience measurement",
-    "body": "With your consent, we count page views through [credit] to see what visitors are interested in. No advertising cookies, and no tracking inside the app.",
+    "body": "With your consent, we count page views to see what visitors are interested in. No advertising cookies, and no tracking inside the app.",
     "accept": "Accept",
     "decline": "Decline",
     "learnMore": "Learn more"
@@ -243,7 +243,7 @@
     "sections": [
       {
         "title": "Cookies",
-        "body": "This site uses no advertising cookies and no third-party targeting cookies. An audience measurement tool ([credit]) records page views, time spent and an approximate country derived from your IP address, but only if you accept it in the banner shown on your first visit: it relies on a temporary session id that is cleared when you close the tab. Your choice is kept in your browser's local storage and you can change it by clearing this site's data. App pages (spaces, share links, dashboard) are never tracked."
+        "body": "This site uses no advertising cookies and no third-party targeting cookies. An audience measurement tool records page views, time spent and an approximate country derived from your IP address, but only if you accept it in the banner shown on your first visit: it relies on a temporary session id that is cleared when you close the tab. Your choice is kept in your browser's local storage and you can change it by clearing this site's data. App pages (spaces, share links, dashboard) are never tracked."
       },
       {
         "title": "Local storage (localStorage)",
@@ -263,7 +263,7 @@
       },
       {
         "title": "Technical providers",
-        "body": "To operate, the service relies on a small number of providers acting as processors and bound by contract: a host (OVHcloud, servers located in France), an AI inference provider (Mistral AI, a French company, processing carried out within the European Union), an email delivery service (address verification, password reset, newsletter) and an analytics tool ([credit], only if you accept it). Each receives only the data strictly necessary for its service and is not allowed to use it for other purposes, for advertising, or to train its own models. Your documents, conversations and the associated vector index are hosted and processed exclusively within the European Union. The email provider, however, may be established outside the European Union: it receives no content from your documents, and the corresponding transfers are governed by the European Commission's standard contractual clauses. The current, named list of these processors is available on request via the contact form."
+        "body": "To operate, the service relies on a small number of providers acting as processors and bound by contract: a host (OVHcloud, servers located in France), an AI inference provider (Mistral AI, a French company, processing carried out within the European Union), an email delivery service (address verification, password reset, newsletter) and an analytics tool (only if you accept it). Each receives only the data strictly necessary for its service and is not allowed to use it for other purposes, for advertising, or to train its own models. Your documents, conversations and the associated vector index are hosted and processed exclusively within the European Union. The email provider, however, may be established outside the European Union: it receives no content from your documents, and the corresponding transfers are governed by the European Commission's standard contractual clauses. The current, named list of these processors is available on request via the contact form."
       },
       {
         "title": "Data controller and retention periods",
@@ -334,11 +334,11 @@
     "sections": [
       {
         "title": "Site publisher",
-        "body": "[editeur], sole trader (entrepreneur individuel) operating under the trade name \"[credit]\".\nSIREN: [immatriculation] - SIRET: [immatriculation]\nAPE code: [APE] (Computer programming)\nVAT not applicable, article 293 B of the French General Tax Code (small-business VAT exemption) - intra-community VAT number: [TVA]\nRegistered with the RNE on [date] - RCS [ville]\nRegistered address: [adresse], [CP] [ville], France"
+        "body": "{{publisher}}"
       },
       {
         "title": "Publication director",
-        "body": "[editeur]."
+        "body": "{{director}}"
       },
       {
         "title": "Hosting",
@@ -352,7 +352,8 @@
         "title": "Contact and disputes",
         "body": "For any question, use the site's contact form. In case of a dispute, an amicable resolution will be sought before any legal action; failing that, the competent French courts will have sole jurisdiction."
       }
-    ]
+    ],
+    "notConfigured": "Not configured on this instance."
   },
   "auth": {
     "email": "Email",

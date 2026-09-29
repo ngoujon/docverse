@@ -30,7 +30,11 @@ class Settings:
     # mentions legales, et le produit doit pouvoir etre renomme sans
     # rechercher/remplacer dans tout le code.
     brand_name: str = os.environ.get("BRAND_NAME", "Docverse")
-    brand_domain: str = os.environ.get("BRAND_DOMAIN", "example.com")
+    brand_domain: str = os.environ.get("BRAND_DOMAIN", "localhost")
+    # Legal identity line printed at the bottom of every email (publisher
+    # name, registration number, address...). Kept out of the code on
+    # purpose: set it per deployment, the footer line is omitted if empty.
+    legal_email_footer: str = os.environ.get("LEGAL_EMAIL_FOOTER", "")
     # Pays d'hebergement affiche dans l'UI et les documents contractuels.
     hosting_country: str = os.environ.get("HOSTING_COUNTRY", "France")
     hosting_provider: str = os.environ.get("HOSTING_PROVIDER", "OVHcloud")
@@ -87,7 +91,7 @@ class Settings:
     smtp_user: str = os.environ.get("SMTP_USER", "")
     smtp_password: str = os.environ.get("SMTP_PASSWORD", "")
     smtp_use_tls: bool = os.environ.get("SMTP_USE_TLS", "true").lower() != "false"
-    smtp_from: str = os.environ.get("SMTP_FROM", "Docverse <no-reply@example.com>")
+    smtp_from: str = os.environ.get("SMTP_FROM", "Docverse <no-reply@localhost>")
 
     # --- SSO (Google / Apple) --------------------------------------------
     # Each provider is only offered on the login/register pages once its
@@ -159,7 +163,6 @@ _WEAK_SECRET_KEYS = {
     "change_me",
     "password",
     "docverse",
-    "[credit]",
     "dev",
     "development",
     "test",

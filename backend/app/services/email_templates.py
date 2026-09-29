@@ -18,6 +18,19 @@ _MUTED = "#6b6178"
 
 
 def _layout(preheader: str, body_html: str) -> str:
+    contact_line = ""
+    if settings.contact_email:
+        email = escape(settings.contact_email)
+        contact_line = (
+            f'Une question ? Ecrivez-nous a <a href="mailto:{email}" style="color:{_CYAN};">{email}</a>.'
+        )
+    legal_footer = ""
+    if settings.legal_email_footer:
+        legal_footer = (
+            f'<p style="margin:0;font-size:11px;color:{_MUTED};'
+            f'font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;">'
+            f"{escape(settings.legal_email_footer)}</p>"
+        )
     return f"""<!doctype html>
 <html lang="fr">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
@@ -34,9 +47,6 @@ def _layout(preheader: str, body_html: str) -> str:
             <span style="font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;font-weight:700;letter-spacing:.12em;color:{_PURPLE};text-transform:uppercase;">
               &#10022;&#10022; DOC::VERSE
             </span>
-            <span style="font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;font-weight:600;letter-spacing:.08em;color:{_MUTED};text-transform:uppercase;">
-              &nbsp;by [credit]
-            </span>
           </td>
         </tr>
         <tr><td style="padding:8px 32px 32px;">{body_html}</td></tr>
@@ -44,12 +54,9 @@ def _layout(preheader: str, body_html: str) -> str:
           <td style="padding:18px 32px;background:{_BG2};border-top:1px solid {_BORDER};">
             <p style="margin:0 0 6px;font-size:12px;color:{_MUTED};font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;">
               Vous recevez cet email car une action lui correspond a ete initiee sur votre compte Docverse.
-              Une question ? Ecrivez-nous a
-              <a href="mailto:{settings.contact_email or 'contact@example.com'}" style="color:{_CYAN};">{settings.contact_email or 'contact@example.com'}</a>.
+              {contact_line}
             </p>
-            <p style="margin:0;font-size:11px;color:{_MUTED};font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;">
-              Docverse est un service edite par [credit] ([editeur], SIREN [immatriculation]) - [adresse], [CP] [ville], France.
-            </p>
+            {legal_footer}
           </td>
         </tr>
       </table>

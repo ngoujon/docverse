@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft } from "lucide-react";
 import { usePageMeta } from "../hooks/usePageMeta";
-import { pageTitle } from "../brand";
+import { BRAND, pageTitle } from "../brand";
 
 interface LegalSection {
   title: string;
@@ -11,7 +11,11 @@ interface LegalSection {
 
 export default function LegalNoticePage() {
   const { t } = useTranslation();
-  const sections = t("legal.sections", { returnObjects: true }) as LegalSection[];
+  const sections = t("legal.sections", {
+    returnObjects: true,
+    publisher: BRAND.legalPublisher || t("legal.notConfigured"),
+    director: BRAND.legalDirector || t("legal.notConfigured"),
+  }) as LegalSection[];
 
   usePageMeta({
     title: pageTitle(t("legal.title")),

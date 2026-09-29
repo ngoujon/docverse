@@ -230,7 +230,7 @@
   },
   "cookies": {
     "title": "Misurazione del pubblico",
-    "body": "Con il tuo consenso, contiamo le pagine viste tramite [credit] per capire cosa interessa ai visitatori. Nessun cookie pubblicitario e nessun tracciamento nell'applicazione.",
+    "body": "Con il tuo consenso, contiamo le pagine viste per capire cosa interessa ai visitatori. Nessun cookie pubblicitario e nessun tracciamento nell'applicazione.",
     "accept": "Accetta",
     "decline": "Rifiuta",
     "learnMore": "Scopri di piu"
@@ -243,7 +243,7 @@
     "sections": [
       {
         "title": "Cookie",
-        "body": "Questo sito non utilizza cookie pubblicitari ne cookie di terze parti per il targeting. Uno strumento di misurazione del pubblico ([credit]) registra le pagine viste, il tempo trascorso e un paese approssimativo dedotto dall'indirizzo IP, solo se lo accetti nel banner mostrato alla prima visita: si basa su un identificativo di sessione temporaneo, cancellato alla chiusura della scheda. La tua scelta viene conservata nell'archiviazione locale del browser e puoi modificarla cancellando i dati del sito. Le pagine dell'applicazione (spazi, condivisioni, dashboard) non vengono mai tracciate."
+        "body": "Questo sito non utilizza cookie pubblicitari ne cookie di terze parti per il targeting. Uno strumento di misurazione del pubblico registra le pagine viste, il tempo trascorso e un paese approssimativo dedotto dall'indirizzo IP, solo se lo accetti nel banner mostrato alla prima visita: si basa su un identificativo di sessione temporaneo, cancellato alla chiusura della scheda. La tua scelta viene conservata nell'archiviazione locale del browser e puoi modificarla cancellando i dati del sito. Le pagine dell'applicazione (spazi, condivisioni, dashboard) non vengono mai tracciate."
       },
       {
         "title": "Archiviazione locale (localStorage)",
@@ -263,7 +263,7 @@
       },
       {
         "title": "Fornitori tecnici",
-        "body": "Per funzionare, il servizio si avvale di un numero ridotto di fornitori, che agiscono come responsabili del trattamento e sono vincolati da contratto: un hosting provider (OVHcloud, server situati in Francia), un fornitore di inferenza IA (Mistral AI, societa francese, trattamenti effettuati nell'Unione europea), un servizio di invio email (verifica dell'indirizzo, reimpostazione della password, newsletter) e uno strumento di misurazione dell'audience ([credit], solo se lo accetti). Ciascuno riceve solo i dati strettamente necessari alla propria prestazione e non e autorizzato a usarli per altri scopi, per fini pubblicitari o per addestrare i propri modelli. I tuoi documenti, le tue conversazioni e l'indice vettoriale associato sono ospitati e trattati esclusivamente all'interno dell'Unione europea. Il fornitore di invio email puo invece essere stabilito fuori dall'Unione europea: non riceve alcun contenuto dei tuoi documenti e i relativi trasferimenti sono disciplinati dalle clausole contrattuali tipo della Commissione europea. L'elenco nominativo e aggiornato di questi responsabili ti viene comunicato su semplice richiesta tramite il modulo di contatto."
+        "body": "Per funzionare, il servizio si avvale di un numero ridotto di fornitori, che agiscono come responsabili del trattamento e sono vincolati da contratto: un hosting provider (OVHcloud, server situati in Francia), un fornitore di inferenza IA (Mistral AI, societa francese, trattamenti effettuati nell'Unione europea), un servizio di invio email (verifica dell'indirizzo, reimpostazione della password, newsletter) e uno strumento di misurazione dell'audience (solo se lo accetti). Ciascuno riceve solo i dati strettamente necessari alla propria prestazione e non e autorizzato a usarli per altri scopi, per fini pubblicitari o per addestrare i propri modelli. I tuoi documenti, le tue conversazioni e l'indice vettoriale associato sono ospitati e trattati esclusivamente all'interno dell'Unione europea. Il fornitore di invio email puo invece essere stabilito fuori dall'Unione europea: non riceve alcun contenuto dei tuoi documenti e i relativi trasferimenti sono disciplinati dalle clausole contrattuali tipo della Commissione europea. L'elenco nominativo e aggiornato di questi responsabili ti viene comunicato su semplice richiesta tramite il modulo di contatto."
       },
       {
         "title": "Titolare del trattamento e periodi di conservazione",
@@ -334,11 +334,11 @@
     "sections": [
       {
         "title": "Editore del sito",
-        "body": "[editeur], imprenditore individuale (entrepreneur individuel), operante con il nome commerciale \"[credit]\".\nSIREN: [immatriculation] - SIRET: [immatriculation]\nCodice APE: [APE] (Programmazione informatica)\nIVA non applicabile, articolo 293 B del Codice generale delle imposte francese (regime di franchigia IVA) - partita IVA intracomunitaria: [TVA]\nIscritto al RNE il [date] - RCS [ville]\nSede legale: [adresse], [CP] [ville], Francia"
+        "body": "{{publisher}}"
       },
       {
         "title": "Direttore della pubblicazione",
-        "body": "[editeur]."
+        "body": "{{director}}"
       },
       {
         "title": "Hosting",
@@ -352,7 +352,8 @@
         "title": "Contatti e controversie",
         "body": "Per qualsiasi domanda, utilizza il modulo di contatto del sito. In caso di controversia, si cerchera una soluzione amichevole prima di qualsiasi azione legale; in mancanza di accordo, saranno competenti in via esclusiva i tribunali francesi."
       }
-    ]
+    ],
+    "notConfigured": "Non configurato su questa istanza."
   },
   "auth": {
     "email": "Email",

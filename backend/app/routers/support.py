@@ -14,7 +14,7 @@ router = APIRouter(prefix="/api/support", tags=["support"])
 _HISTORY_LIMIT = 12
 
 _SYSTEM_PROMPT = """Tu es l'assistant d'accueil du site Docverse, un service \
-SaaS souverain edite par [credit] permettant de discuter avec ses documents grace \
+SaaS souverain permettant de discuter avec ses documents grace \
 a une IA (RAG, propulse par Mistral AI, editeur francais) - aucune installation \
 requise, tout est heberge en France chez OVHcloud. Les donnees des clients ne \
 quittent jamais l'Union europeenne et ne sont jamais utilisees pour entrainer \

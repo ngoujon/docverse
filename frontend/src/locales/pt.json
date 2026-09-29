@@ -230,7 +230,7 @@
   },
   "cookies": {
     "title": "Medicao de audiencia",
-    "body": "Com o seu consentimento, contamos as paginas vistas atraves do [credit] para saber o que interessa aos visitantes. Sem cookies publicitarios e sem rastreio dentro da aplicacao.",
+    "body": "Com o seu consentimento, contamos as paginas vistas para saber o que interessa aos visitantes. Sem cookies publicitarios e sem rastreio dentro da aplicacao.",
     "accept": "Aceitar",
     "decline": "Recusar",
     "learnMore": "Saber mais"
@@ -243,7 +243,7 @@
     "sections": [
       {
         "title": "Cookies",
-        "body": "Este site nao utiliza cookies publicitarios nem cookies de terceiros para segmentacao. Uma ferramenta de medicao de audiencia ([credit]) regista as paginas vistas, o tempo de permanencia e um pais aproximado deduzido do endereco IP, apenas se o aceitar no aviso apresentado na primeira visita: baseia-se num identificador de sessao temporario, apagado ao fechar o separador. A sua escolha e guardada no armazenamento local do navegador e pode altera-la limpando os dados do site. As paginas da aplicacao (espacos, partilhas, painel) nunca sao rastreadas."
+        "body": "Este site nao utiliza cookies publicitarios nem cookies de terceiros para segmentacao. Uma ferramenta de medicao de audiencia regista as paginas vistas, o tempo de permanencia e um pais aproximado deduzido do endereco IP, apenas se o aceitar no aviso apresentado na primeira visita: baseia-se num identificador de sessao temporario, apagado ao fechar o separador. A sua escolha e guardada no armazenamento local do navegador e pode altera-la limpando os dados do site. As paginas da aplicacao (espacos, partilhas, painel) nunca sao rastreadas."
       },
       {
         "title": "Armazenamento local (localStorage)",
@@ -263,7 +263,7 @@
       },
       {
         "title": "Fornecedores tecnicos",
-        "body": "Para funcionar, o servico recorre a um pequeno numero de prestadores, que atuam como subcontratantes e estao vinculados por contrato: um fornecedor de alojamento (OVHcloud, servidores situados em Franca), um fornecedor de inferencia de IA (Mistral AI, empresa francesa, tratamentos realizados na Uniao Europeia), um servico de envio de emails (verificacao de endereco, reposicao de palavra-passe, newsletter) e uma ferramenta de medicao de audiencia ([credit], apenas se a aceitar). Cada um recebe apenas os dados estritamente necessarios a sua prestacao e nao esta autorizado a utiliza-los para outros fins, para fins publicitarios ou para treinar os seus proprios modelos. Os seus documentos, as suas conversas e o indice vetorial associado sao alojados e tratados exclusivamente na Uniao Europeia. O prestador de envio de emails pode, no entanto, estar estabelecido fora da Uniao Europeia: nao recebe qualquer conteudo dos seus documentos, e as transferencias correspondentes sao enquadradas pelas clausulas contratuais-tipo da Comissao Europeia. A lista nominativa e atualizada destes subcontratantes e-lhe comunicada mediante simples pedido atraves do formulario de contacto."
+        "body": "Para funcionar, o servico recorre a um pequeno numero de prestadores, que atuam como subcontratantes e estao vinculados por contrato: um fornecedor de alojamento (OVHcloud, servidores situados em Franca), um fornecedor de inferencia de IA (Mistral AI, empresa francesa, tratamentos realizados na Uniao Europeia), um servico de envio de emails (verificacao de endereco, reposicao de palavra-passe, newsletter) e uma ferramenta de medicao de audiencia (apenas se a aceitar). Cada um recebe apenas os dados estritamente necessarios a sua prestacao e nao esta autorizado a utiliza-los para outros fins, para fins publicitarios ou para treinar os seus proprios modelos. Os seus documentos, as suas conversas e o indice vetorial associado sao alojados e tratados exclusivamente na Uniao Europeia. O prestador de envio de emails pode, no entanto, estar estabelecido fora da Uniao Europeia: nao recebe qualquer conteudo dos seus documentos, e as transferencias correspondentes sao enquadradas pelas clausulas contratuais-tipo da Comissao Europeia. A lista nominativa e atualizada destes subcontratantes e-lhe comunicada mediante simples pedido atraves do formulario de contacto."
       },
       {
         "title": "Responsavel pelo tratamento e prazos de conservacao",
@@ -334,11 +334,11 @@
     "sections": [
       {
         "title": "Editor do site",
-        "body": "[editeur], empresario em nome individual (entrepreneur individuel), a operar sob o nome comercial \"[credit]\".\nSIREN: [immatriculation] - SIRET: [immatriculation]\nCodigo APE: [APE] (Programacao informatica)\nIVA nao aplicavel, artigo 293 B do Codigo Geral dos Impostos frances (regime de isencao de IVA) - numero de IVA intracomunitario: [TVA]\nRegistado no RNE em [date] - RCS [ville]\nSede: [adresse], [CP] [ville], Franca"
+        "body": "{{publisher}}"
       },
       {
         "title": "Diretor de publicacao",
-        "body": "[editeur]."
+        "body": "{{director}}"
       },
       {
         "title": "Alojamento",
@@ -352,7 +352,8 @@
         "title": "Contacto e litigios",
         "body": "Para qualquer questao, utilize o formulario de contacto do site. Em caso de litigio, sera procurada uma solucao amigavel antes de qualquer acao judicial; na sua falta, os tribunais franceses competentes terao competencia exclusiva."
       }
-    ]
+    ],
+    "notConfigured": "Nao configurado nesta instancia."
   },
   "auth": {
     "email": "Email",

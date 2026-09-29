@@ -14,7 +14,7 @@ search:
     - json
 
 server:
-  secret_key: "docverse-local-searxng-secret-key-change-if-exposed"
+  secret_key: "local-searxng-secret-key-change-if-exposed"
   limiter: false
   image_proxy: false
 

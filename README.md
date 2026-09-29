@@ -111,17 +111,12 @@ backend (FastAPI)
    └── SearXNG           → recherche web locale (optionnelle)
 ```
 
-Deux variantes de la stack sont fournies :
-
-- **`docker-compose.yml`** (par defaut) : mode **developpement**, avec
-  rechargement a chaud. Le frontend tourne avec le serveur de dev Vite
-  (port **3000**) et le backend avec `uvicorn --reload` : le code source
-  est monte en volume, donc modifier un fichier dans `frontend/src` ou
-  `backend/app` se repercute immediatement dans le navigateur, **sans
-  rebuild ni redemarrage de conteneur**.
-- **`docker-compose.prod.yml`** : mode **production**, frontend compile et
-  servi par Nginx (port 8080 par defaut), sans montage de code ni outillage
-  de dev. A utiliser pour un vrai deploiement (VPS, etc.).
+La stack de developpement est decrite dans **`docker-compose.yml`**, avec
+rechargement a chaud. Le frontend tourne avec le serveur de dev Vite
+(port **3000**) et le backend avec `uvicorn --reload` : le code source
+est monte en volume, donc modifier un fichier dans `frontend/src` ou
+`backend/app` se repercute immediatement dans le navigateur, **sans
+rebuild ni redemarrage de conteneur**.
 
 ## Prerequis
 
@@ -155,81 +150,26 @@ necessaire : ensuite, tant que vous ne touchez pas a `requirements.txt` ou
 prises en compte automatiquement grace au montage de volume + hot-reload,
 il suffit de recharger la page.
 
-## Deploiement (production)
+## Construction pour la production
 
-En local (sans domaine ni HTTPS) :
+`backend/Dockerfile` et `frontend/Dockerfile` produisent les images de
+production (frontend compile, prerendu et servi par Nginx). La
+configuration propre a un deploiement (domaine, orchestration, reverse
+proxy, secrets) n'est volontairement pas versionnee dans ce depot.
 
-```bash
-cp .env.example .env
-docker compose -f docker-compose.prod.yml up -d --build
-```
+Tout ce qui identifie une instance est injecte par variables
+d'environnement, jamais code en dur :
 
-Interface disponible sur http://localhost:8080 (ou `FRONTEND_PORT`). Cette
-variante compile le frontend une bonne fois pour toutes (image Nginx) : il
-faut relancer `--build` a chaque changement de code.
-
-### Deploiement sur un VPS avec nom de domaine
-
-`docker-compose.prod.yml` inclut Caddy, qui obtient et renouvelle
-automatiquement un certificat HTTPS (Let's Encrypt) pour le domaine
-configure - aucune manipulation de certificat a faire a la main.
-
-Deux scripts dans `tools/` automatisent le deploiement depuis cette
-machine (aucune commande a taper sur le VPS) :
-
-```bash
-cp tools/deploy.env.example tools/deploy.env   # SSH, domaine, chemin distant
-cp .env.example tools/production.env           # vrais secrets de production
-
-tools/deploy.sh   # premier deploiement complet (installe Docker si besoin,
-                   # clone le depot, envoie le .env, demarre la stack)
-tools/update.sh   # mises a jour suivantes (git pull + rebuild sur le VPS)
-```
-
-Prerequis avant `deploy.sh` : le DNS du domaine doit deja pointer (A/AAAA)
-vers l'IP du VPS, sinon Caddy ne pourra pas valider le certificat.
-`tools/deploy.env` et `tools/production.env` contiennent des secrets et ne
-sont jamais commites (voir `.gitignore`).
-
-## Environnement de staging
-
-`docker-compose.staging.yml` reprend exactement la meme forme que
-`docker-compose.prod.yml` (frontend pre-compile servi par Nginx, Caddy en
-entree HTTPS) mais avec son propre nom de projet, ses propres volumes et
-des ports differents (`8081`/`8443` au lieu de `8080`/`443`) : il peut donc
-tourner sur la meme machine que la prod sans collision. C'est l'etape ou
-l'on valide un changement dans des conditions proches du reel avant de
-le pousser en production.
-
-```bash
-cp .env.staging .env.staging.local   # completez les secrets localement
-docker compose -f docker-compose.staging.yml --env-file .env.staging.local up -d --build
-```
-
-Interface disponible sur http://localhost:8081 (ou via Caddy sur le
-sous-domaine `DOMAIN`, par defaut `example.com`). Utilisez des
-comptes de test partout ou c'est possible (apps OAuth dediees
-"staging") : ne jamais reutiliser des identifiants ou des
-secrets de production ici.
-
-### Workflow dev -> staging -> prod
-
-1. **Dev** (`docker-compose.yml`) : hot-reload, base et modeles locaux,
-   iteration rapide sur le code (voir "Demarrage (developpement)"
-   ci-dessus).
-2. **Staging** (`docker-compose.staging.yml`) : image compilee comme en
-   prod, memes variables d'environnement (issues de `.env.staging`), mais
-   isolee (volumes, ports, domaine et secrets propres). On y verifie
-   qu'un changement se comporte bien une fois construit "pour de vrai"
-   (build Docker complet, pas de bind mount, vrais emails/paiements en
-   mode test) avant d'y toucher en production.
-3. **Prod** (`docker-compose.prod.yml`) : une fois valide en staging, le
-   meme changement est deploye en production via `tools/update.sh` (ou
-   `tools/deploy.sh` pour un premier deploiement).
-
-Les fichiers `.env.staging` et `.env.example` doivent rester synchronises
-quand une nouvelle variable d'environnement est ajoutee au backend, pour
-que le staging reste representatif de la prod.
+- **Frontend (a la construction)** - fichier `frontend/.env.production.local`
+  (non versionne), voir `frontend/.env.example` : domaine
+  (`VITE_BRAND_DOMAIN` / `SITE_ORIGIN`), mentions legales
+  (`VITE_LEGAL_PUBLISHER`, `VITE_LEGAL_DIRECTOR`), mesure d'audience
+  optionnelle (`VITE_ANALYTICS_ENDPOINT`, `VITE_ANALYTICS_SITE_KEY` - sans
+  elles, aucune mesure ni bandeau de consentement), credit de pied de
+  page optionnel (`VITE_CREDIT_NAME`, `VITE_CREDIT_URL`).
+- **Backend (a l'execution)** - voir `.env.example` : secrets, SMTP,
+  OAuth, `BRAND_*`, `LEGAL_EMAIL_FOOTER` (ligne d'identite legale en bas
+  des emails), limites `FREE_*`.
 
 ## Choix des modeles
 
@@ -301,10 +241,9 @@ l'orchestration, du stockage et de la recherche vectorielle.
   plages privees/loopback/link-local (ex. `169.254.169.254`, `localhost`,
   les services Docker internes) sont bloquees, y compris a travers les
   redirections HTTP.
-- **Ports internes non exposes publiquement en production**
-  (`docker-compose.prod.yml`) : l'API backend (8000, debug) est liee a
-  `127.0.0.1` par defaut - seul le frontend (Nginx) est cense etre expose
-  sur Internet.
+- **Ports internes non exposes publiquement en production** : seul le
+  frontend (Nginx) est cense etre expose sur Internet, l'API backend est
+  jointe via son proxy `/api/`.
 - **Cle API Mistral cote serveur uniquement** : elle ne transite jamais
   par le navigateur, aucun appel a Mistral n'est fait depuis le frontend.
 - Le limiteur de debit identifie le vrai client via l'en-tete `X-Real-IP`
@@ -381,15 +320,10 @@ une panne disque.
 
 ## SEO
 
-La page d'accueil et la page confidentialite portent des balises meta
-(titre, description, Open Graph, donnees structurees JSON-LD) et un
-`robots.txt`/`sitemap.xml` (`frontend/public/`). **Avant un vrai
-deploiement**, remplacez `REPLACE_WITH_YOUR_DOMAIN` dans
-`frontend/public/sitemap.xml` par votre nom de domaine reel, et completez
-`og:url` dans `frontend/index.html` si besoin. L'application etant une
-SPA (rendu cote client), son referencement par des robots qui n'executent
-pas JavaScript reste limite ; un rendu cote serveur (SSR/prerendering)
-serait necessaire pour aller plus loin, ce qui depasse le cadre actuel.
+Les pages publiques sont prerendues a la construction
+(`frontend/scripts/prerender.mjs`) avec leurs balises meta, Open Graph et
+JSON-LD ; le `sitemap.xml` est genere au meme moment. L'origine utilisee
+pour les URL canoniques vient de `SITE_ORIGIN` ou `VITE_BRAND_DOMAIN`.
 
 ## Developpement sans Docker (optionnel)
 
@@ -434,11 +368,10 @@ VITE_API_PROXY_TARGET=http://localhost:8000 npm run dev
   dans l'ordre d'arrivee.
 - **Mes changements de code n'apparaissent pas** : en mode developpement
   (`docker compose.yml`), aucun rebuild n'est necessaire — verifiez que
-  vous etes bien sur http://localhost:3000 (et pas 8080, qui correspond au
-  mode production) et que le conteneur `frontend` tourne
-  (`docker compose logs -f frontend` doit montrer Vite pret). Si vous avez
-  lance le mode production (`docker-compose.prod.yml`), il faut relancer
-  `--build` a chaque changement puisque le frontend y est compile en dur.
+  vous etes bien sur http://localhost:3000 et que le conteneur `frontend`
+  tourne (`docker compose logs -f frontend` doit montrer Vite pret). Une
+  image de production, elle, doit etre reconstruite a chaque changement
+  puisque le frontend y est compile en dur.
 
 ## Confidentialite
 

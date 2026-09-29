@@ -52,7 +52,8 @@ services:
       - LLM_MAX_CONCURRENCY=${LLM_MAX_CONCURRENCY:-8}
       # --- Marque (permet de renommer le produit sans toucher au code) ---
       - BRAND_NAME=${BRAND_NAME:-Docverse}
-      - BRAND_DOMAIN=${BRAND_DOMAIN:-example.com}
+      - BRAND_DOMAIN=${BRAND_DOMAIN:-localhost}
+      - LEGAL_EMAIL_FOOTER=${LEGAL_EMAIL_FOOTER:-}
       - HOSTING_COUNTRY=${HOSTING_COUNTRY:-France}
       - HOSTING_PROVIDER=${HOSTING_PROVIDER:-OVHcloud}
       # SSO (Google/Microsoft/Apple): a provider is only offered on the

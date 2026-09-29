@@ -27,3 +27,18 @@ docker-compose.override.yml
 .vscode/
 .idea/
 .claude/
+nginx.generated.conf
+frontend/.env.*.local
+
+# Deployment configuration and internal docs - kept locally, never public
+tools/
+Caddyfile
+docker-compose.prod.yml
+docker-compose.staging.yml
+.env.staging
+CLAUDE.md
+MISE_EN_PROD.md
+TODO.md
+AUDIT_*.md
+ACCESSIBILITY_AUDIT_*.md
+OPENGRAPH_TWITTER_CARD_AUDIT.md

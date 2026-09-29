@@ -7,7 +7,7 @@
 // title/description/canonical baked into <head>. The client bundle still
 // loads and takes over normally - this only changes what a non-JS reader of
 // the initial response sees.
-import { createServer } from "vite";
+import { createServer, loadEnv } from "vite";
 import { JSDOM } from "jsdom";
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import path from "node:path";
@@ -19,9 +19,12 @@ const distDir = path.join(root, "dist");
 // Pilote par l'environnement pour que le prerendu suive un changement de
 // nom de domaine sans edition de code (meme logique que VITE_BRAND_DOMAIN
 // cote application - voir frontend/src/brand.ts).
-const siteOrigin =
-  process.env.SITE_ORIGIN ||
-  `https://${process.env.VITE_BRAND_DOMAIN || "example.com"}`;
+const env = loadEnv("production", root, "");
+const siteOrigin = env.SITE_ORIGIN
+  ? env.SITE_ORIGIN.replace(/\/$/, "")
+  : env.VITE_BRAND_DOMAIN
+    ? `https://${env.VITE_BRAND_DOMAIN}`
+    : "http://localhost";
 
 // i18next-browser-languagedetector (pulled in by src/i18n.ts) reads
 // window/navigator/localStorage at init time; give it a minimal jsdom global
@@ -58,6 +61,7 @@ async function main() {
     }
 
     await writeSitemap();
+    await writeNginxConf();
   } finally {
     await vite.close();
   }
@@ -70,6 +74,16 @@ const ROUTE_PRIORITY = { "/": "1.0", "/tarifs": "0.9", "/faq": "0.8" };
 // main un fichier statique dans public/ : le domaine y etait code en dur et
 // devenait faux des qu'il changeait, et une route prerendue pouvait etre
 // oubliee du sitemap.
+// nginx.conf's CSP must allow the analytics collector, whose address is
+// deployment configuration rather than code: fill it in here and let the
+// Dockerfile ship the generated file.
+async function writeNginxConf() {
+  const endpoint = env.VITE_ANALYTICS_ENDPOINT;
+  const origin = endpoint ? ` ${new URL(endpoint).origin}` : "";
+  const conf = await readFile(path.join(root, "nginx.conf"), "utf-8");
+  await writeFile(path.join(root, "nginx.generated.conf"), conf.replaceAll("__ANALYTICS_ORIGIN__", origin), "utf-8");
+}
+
 async function writeSitemap() {
   const urls = ROUTES.map((route) => {
     const loc = `${siteOrigin}${route === "/" ? "/" : route}`;
