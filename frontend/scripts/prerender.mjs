@@ -43,6 +43,9 @@ async function main() {
 
   const vite = await createServer({
     root,
+    // Same env files as the client build (.env.production[.local]), so the
+    // prerendered HTML matches what the bundle renders once hydrated.
+    mode: "production",
     server: { middlewareMode: true },
     appType: "custom",
   });
