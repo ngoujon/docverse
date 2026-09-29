@@ -22,6 +22,16 @@ palier d'abonnement qui determine ses limites (nombre d'espaces, membres
 par espace, stockage) - les questions posees a l'IA, elles, sont
 illimitees sur tous les paliers.
 
+## Apercu
+
+*Captures d'une instance locale avec des donnees fictives (compte, espaces, documents et conversation inventes).*
+
+![Conversation sourcee dans un espace](docs/screenshots/conversation.jpg)
+
+| Page d'accueil | Tableau de bord |
+| --- | --- |
+| ![Page d'accueil](docs/screenshots/landing.jpg) | ![Tableau de bord](docs/screenshots/dashboard.jpg) |
+
 ## Fonctionnalites
 
 ### Comptes et acces
