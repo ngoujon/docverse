@@ -6,6 +6,7 @@ import { useTheme } from "../hooks/useTheme";
 import { useAuth } from "../hooks/useAuth";
 import { useEscapeToClose } from "../hooks/useEscapeToClose";
 import { api, RateLimitedError, streamChat } from "../api/client";
+import { forgetSharedLink, rememberSharedLink } from "../api/shareTokens";
 import type { Conversation, DocumentItem, Message, Space } from "../types";
 import SpaceRail from "../components/SpaceRail";
 import ConversationSidebar from "../components/ConversationSidebar";
@@ -94,8 +95,14 @@ export default function WorkspaceApp() {
         .then((space) => {
           setSpaces([space]);
           setActiveSpaceId(space.id);
+          if (user) {
+            rememberSharedLink(user.id, { token: shareToken, spaceId: space.id, name: space.name, color: space.color });
+          }
         })
-        .catch(() => setLoadError(t("app.share.invalid")));
+        .catch(() => {
+          setLoadError(t("app.share.invalid"));
+          if (user) forgetSharedLink(user.id, shareToken);
+        });
       return;
     }
     if (!user) return;

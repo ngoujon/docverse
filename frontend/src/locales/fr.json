@@ -425,7 +425,24 @@
         "title": "Vos donnees et vos droits (RGPD)",
         "hint": "Vous disposez d'un droit d'acces, de rectification, d'effacement, de limitation, d'opposition et de portabilite sur vos donnees personnelles. Vous pouvez exporter vos donnees ou supprimer votre compte ci-dessous ; pour toute autre demande, utilisez le formulaire de contact. Le detail de ces droits et des traitements effectues est disponible dans notre",
         "privacyLink": "politique de confidentialite"
-      }
+      },
+      "profile": {
+        "title": "Profil",
+        "displayName": "Nom affiche",
+        "save": "Enregistrer",
+        "saved": "Profil mis a jour.",
+        "resendVerification": "Renvoyer l'email de confirmation",
+        "resendDone": "Email de confirmation envoye."
+      },
+      "password": {
+        "title": "Changer le mot de passe",
+        "current": "Mot de passe actuel",
+        "new": "Nouveau mot de passe",
+        "changed": "Mot de passe modifie. Vos autres sessions ont ete deconnectees.",
+        "ssoHint": "Compte cree avec Google ? Utilisez « mot de passe oublie » pour definir un mot de passe."
+      },
+      "twofaPasswordLabel": "Mot de passe",
+      "deletePasswordLabel": "Mot de passe de confirmation"
     },
     "verify": {
       "title": "Verification de l'email",
@@ -552,7 +569,16 @@
     "mySpaces": "Mes espaces de travail",
     "newSpace": "Nouvel espace",
     "noSpaces": "Vous n'avez pas encore d'espace de travail.",
-    "spaceCounts": "{{docs}} documents · {{convs}} conversations"
+    "spaceCounts": "{{docs}} · {{convs}}",
+    "spaceDocs_one": "{{count}} document",
+    "spaceDocs_other": "{{count}} documents",
+    "spaceConvs_one": "{{count}} conversation",
+    "spaceConvs_other": "{{count}} conversations",
+    "viaLink": {
+      "title": "Ouverts via un lien de partage",
+      "hint": "Espaces auxquels vous avez accede par un lien (memorises sur cet appareil).",
+      "badge": "Lien"
+    }
   },
   "admin": {
     "title": "Administration",
@@ -704,7 +730,8 @@
       "urlPlaceholder": "Coller un lien (https://...)",
       "addUrl": "Ajouter le lien",
       "empty": "Aucun document pour l'instant.",
-      "statusReady": "{{count}} extraits",
+      "statusReady_one": "{{count}} extrait",
+      "statusReady_other": "{{count}} extraits",
       "statusPending": "En attente",
       "statusProcessing": "Analyse en cours...",
       "statusError": "Erreur"
@@ -765,7 +792,8 @@
     "vectorGraph": {
       "openTitle": "Visualiser la base vectorielle",
       "title": "Reseau de la base vectorielle",
-      "nodeCount": "{{count}} extraits",
+      "nodeCount_one": "{{count}} extrait",
+      "nodeCount_other": "{{count}} extraits",
       "truncated": "affichage limite aux premiers extraits",
       "empty": "Aucun document indexe pour l'instant.",
       "error": "Impossible de charger la visualisation.",

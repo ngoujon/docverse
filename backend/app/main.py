@@ -2,7 +2,10 @@ import logging
 import shutil
 
 from fastapi import Depends, FastAPI, Request
+from fastapi.exception_handlers import request_validation_exception_handler
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from . import models_db
 from .config import UPLOAD_DIR, settings
@@ -136,6 +139,20 @@ async def cache_and_security_headers(request: Request, call_next):
     response.headers["Pragma"] = "no-cache"
     response.headers["Expires"] = "0"
     return response
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_error_handler(request: Request, exc: RequestValidationError):
+    # email-validator's messages are English and very technical ("The part
+    # after the @-sign is a special-use or reserved name...") and the
+    # frontend shows `detail` as-is, so a malformed email gets one plain
+    # French message instead. Every other validation error keeps FastAPI's
+    # default shape (our own validators already raise French messages).
+    for err in exc.errors():
+        loc = err.get("loc") or ()
+        if loc and "email" in str(loc[-1]) and err.get("type") == "value_error":
+            return JSONResponse(status_code=422, content={"detail": "Adresse email invalide"})
+    return await request_validation_exception_handler(request, exc)
 
 
 app.include_router(auth.router)

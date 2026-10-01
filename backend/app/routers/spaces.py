@@ -1,7 +1,7 @@
 import shutil
 from datetime import datetime, timedelta
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
@@ -9,7 +9,7 @@ from .. import config, models_db, schemas
 from ..config import UPLOAD_DIR, settings
 from ..database import get_db
 from ..deps import SpaceAccess, get_current_user, require_space_access, require_space_owner
-from ..services import backup, vector_graph, vectorstore
+from ..services import backup, email_templates, mail_service, vector_graph, vectorstore
 
 router = APIRouter(prefix="/api/spaces", tags=["spaces"])
 
@@ -191,6 +191,7 @@ def list_members(access: SpaceAccess = Depends(require_space_access), db: Sessio
 @router.post("/{space_id}/members", response_model=schemas.SpaceMemberOut)
 def add_member(
     payload: schemas.SpaceMemberCreate,
+    background_tasks: BackgroundTasks,
     access: SpaceAccess = Depends(require_space_owner),
     db: Session = Depends(get_db),
 ):
@@ -247,6 +248,13 @@ def add_member(
         db.add(member)
         db.commit()
         db.refresh(member)
+        # Only on a new membership - updating an existing member's upload
+        # permission isn't news worth an email.
+        inviter = access.user.display_name or access.user.email
+        subject, html, text = email_templates.space_member_added_email(
+            inviter, access.space.name, f"{settings.frontend_base_url}/app/{access.space.id}"
+        )
+        background_tasks.add_task(mail_service.send_email, target.email, subject, html, text)
     return schemas.SpaceMemberOut(
         id=member.id,
         user_id=target.id,

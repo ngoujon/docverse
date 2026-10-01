@@ -425,7 +425,24 @@
         "title": "Ihre Daten und Ihre Rechte (DSGVO)",
         "hint": "Sie haben das Recht auf Auskunft, Berichtigung, Loschung, Einschrankung, Widerspruch und Ubertragbarkeit Ihrer personenbezogenen Daten. Sie konnen Ihre Daten unten exportieren oder Ihr Konto loschen; fur alle anderen Anfragen nutzen Sie bitte das Kontaktformular. Alle Einzelheiten zu diesen Rechten und zur Datenverarbeitung finden Sie in unserer",
         "privacyLink": "Datenschutzerklarung"
-      }
+      },
+      "profile": {
+        "title": "Profil",
+        "displayName": "Anzeigename",
+        "save": "Speichern",
+        "saved": "Profil aktualisiert.",
+        "resendVerification": "Bestatigungs-E-Mail erneut senden",
+        "resendDone": "Bestatigungs-E-Mail gesendet."
+      },
+      "password": {
+        "title": "Passwort andern",
+        "current": "Aktuelles Passwort",
+        "new": "Neues Passwort",
+        "changed": "Passwort geandert. Ihre anderen Sitzungen wurden abgemeldet.",
+        "ssoHint": "Mit Google registriert? Nutzen Sie \"Passwort vergessen\", um ein Passwort festzulegen."
+      },
+      "twofaPasswordLabel": "Passwort",
+      "deletePasswordLabel": "Passwort zur Bestatigung"
     },
     "verify": {
       "title": "E-Mail-Bestatigung",
@@ -552,7 +569,16 @@
     "mySpaces": "Meine Arbeitsbereiche",
     "newSpace": "Neuer Bereich",
     "noSpaces": "Sie haben noch keinen Arbeitsbereich.",
-    "spaceCounts": "{{docs}} Dokumente · {{convs}} Unterhaltungen"
+    "spaceCounts": "{{docs}} · {{convs}}",
+    "spaceDocs_one": "{{count}} Dokument",
+    "spaceDocs_other": "{{count}} Dokumente",
+    "spaceConvs_one": "{{count}} Unterhaltung",
+    "spaceConvs_other": "{{count}} Unterhaltungen",
+    "viaLink": {
+      "title": "Uber einen Freigabelink geoffnet",
+      "hint": "Bereiche, auf die Sie uber einen Link zugegriffen haben (auf diesem Gerat gespeichert).",
+      "badge": "Link"
+    }
   },
   "admin": {
     "title": "Verwaltung",
@@ -704,7 +730,8 @@
       "urlPlaceholder": "Link einfugen (https://...)",
       "addUrl": "Link hinzufugen",
       "empty": "Noch keine Dokumente.",
-      "statusReady": "{{count}} Abschnitte",
+      "statusReady_one": "{{count}} Abschnitt",
+      "statusReady_other": "{{count}} Abschnitte",
       "statusPending": "Ausstehend",
       "statusProcessing": "Analyse lauft...",
       "statusError": "Fehler"
@@ -765,7 +792,8 @@
     "vectorGraph": {
       "openTitle": "Vektordatenbank visualisieren",
       "title": "Netzwerk der Vektordatenbank",
-      "nodeCount": "{{count}} Abschnitte",
+      "nodeCount_one": "{{count}} Abschnitt",
+      "nodeCount_other": "{{count}} Abschnitte",
       "truncated": "nur die ersten Abschnitte werden angezeigt",
       "empty": "Noch keine indexierten Dokumente.",
       "error": "Visualisierung konnte nicht geladen werden.",

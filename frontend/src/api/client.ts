@@ -140,6 +140,17 @@ export const api = {
   logoutEverywhere: () =>
     request<{ access_token: string }>("/auth/logout-everywhere", { method: "POST" }),
   me: () => request<User>("/auth/me"),
+  updateProfile: (displayName: string) =>
+    request<User>("/auth/me", {
+      method: "PATCH",
+      body: JSON.stringify({ display_name: displayName }),
+    }),
+  changePassword: (currentPassword: string, newPassword: string) =>
+    request<AuthResponse>("/auth/change-password", {
+      method: "POST",
+      body: JSON.stringify({ current_password: currentPassword, new_password: newPassword }),
+    }),
+  resendVerification: () => request<{ ok: boolean }>("/auth/resend-verification", { method: "POST" }),
   meStats: () => request<MeStats>("/auth/me/stats"),
   deleteAccount: (password: string) =>
     request<{ ok: boolean }>("/auth/me", {

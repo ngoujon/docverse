@@ -9,6 +9,7 @@ import {
   KeyRound,
   Loader2,
   LogOut,
+  Mail,
   Scale,
   ShieldAlert,
   ShieldCheck,
@@ -21,6 +22,7 @@ import { useAuth } from "../hooks/useAuth";
 import { usePageMeta } from "../hooks/usePageMeta";
 import DashboardNav from "../components/DashboardNav";
 import ConfirmDialog from "../components/ConfirmDialog";
+import PasswordStrengthMeter from "../components/PasswordStrengthMeter";
 import { formatBytes } from "../utils/format";
 import type { MeStats, TwoFactorSetup } from "../types";
 import { BRAND, pageTitle } from "../brand";
@@ -30,6 +32,19 @@ export default function AccountSettingsPage() {
   const { user, logout, refresh } = useAuth();
   const navigate = useNavigate();
   usePageMeta({ title: pageTitle(t("auth.account.title")), noindex: true });
+
+  const [displayName, setDisplayName] = useState(user?.display_name ?? "");
+  const [profileBusy, setProfileBusy] = useState(false);
+  const [profileMessage, setProfileMessage] = useState<{ ok: boolean; text: string } | null>(null);
+  const [resendBusy, setResendBusy] = useState(false);
+  const [resendMessage, setResendMessage] = useState<{ ok: boolean; text: string } | null>(null);
+
+  const [showPasswordForm, setShowPasswordForm] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [passwordBusy, setPasswordBusy] = useState(false);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
+  const [passwordDone, setPasswordDone] = useState(false);
 
   const [logoutDone, setLogoutDone] = useState(false);
   const [logoutBusy, setLogoutBusy] = useState(false);
@@ -58,6 +73,51 @@ export default function AccountSettingsPage() {
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
 
   if (!user) return null;
+
+  const handleSaveProfile = async () => {
+    setProfileBusy(true);
+    setProfileMessage(null);
+    try {
+      await api.updateProfile(displayName.trim());
+      await refresh();
+      setProfileMessage({ ok: true, text: t("auth.account.profile.saved") });
+    } catch (err) {
+      setProfileMessage({ ok: false, text: err instanceof Error ? err.message : "Erreur" });
+    } finally {
+      setProfileBusy(false);
+    }
+  };
+
+  const handleResendVerification = async () => {
+    setResendBusy(true);
+    setResendMessage(null);
+    try {
+      await api.resendVerification();
+      setResendMessage({ ok: true, text: t("auth.account.profile.resendDone") });
+    } catch (err) {
+      setResendMessage({ ok: false, text: err instanceof Error ? err.message : "Erreur" });
+    } finally {
+      setResendBusy(false);
+    }
+  };
+
+  const handleChangePassword = async () => {
+    if (!currentPassword || newPassword.length < 8 || passwordBusy) return;
+    setPasswordBusy(true);
+    setPasswordError(null);
+    try {
+      const res = await api.changePassword(currentPassword, newPassword);
+      setUserToken(res.access_token);
+      setShowPasswordForm(false);
+      setCurrentPassword("");
+      setNewPassword("");
+      setPasswordDone(true);
+    } catch (err) {
+      setPasswordError(err instanceof Error ? err.message : "Erreur");
+    } finally {
+      setPasswordBusy(false);
+    }
+  };
 
   const handleLogoutEverywhere = async () => {
     setLogoutBusy(true);
@@ -148,18 +208,63 @@ export default function AccountSettingsPage() {
 
         <div className="mt-6 rounded-xl border border-surface-border bg-surface-1 p-5">
           <p className="text-sm text-slate-800 dark:text-slate-200">{user.email}</p>
-          <p className="text-sm text-slate-500 dark:text-slate-400">{user.display_name}</p>
-          <div className="mt-2 flex items-center gap-1.5 text-xs">
+          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
             {user.email_verified ? (
-              <>
+              <span className="flex items-center gap-1.5">
                 <BadgeCheck size={14} className="text-emerald-500" />
                 <span className="text-emerald-600 dark:text-emerald-400">{t("auth.account.emailVerified")}</span>
-              </>
+              </span>
             ) : (
               <>
-                <BadgeX size={14} className="text-amber-500" />
-                <span className="text-amber-600 dark:text-amber-400">{t("auth.account.emailNotVerified")}</span>
+                <span className="flex items-center gap-1.5">
+                  <BadgeX size={14} className="text-amber-500" />
+                  <span className="text-amber-600 dark:text-amber-400">{t("auth.account.emailNotVerified")}</span>
+                </span>
+                <button
+                  onClick={handleResendVerification}
+                  disabled={resendBusy}
+                  className="flex items-center gap-1 text-accent hover:underline disabled:opacity-40"
+                >
+                  <Mail size={12} />
+                  {t("auth.account.profile.resendVerification")}
+                </button>
               </>
+            )}
+          </div>
+          {resendMessage && (
+            <p className={`mt-1.5 text-xs ${resendMessage.ok ? "text-emerald-600 dark:text-emerald-400" : "text-red-500"}`}>
+              {resendMessage.text}
+            </p>
+          )}
+
+          <div className="mt-4 border-t border-surface-border pt-4">
+            <label htmlFor="account-display-name" className="text-xs font-medium text-slate-600 dark:text-slate-400">
+              {t("auth.account.profile.displayName")}
+            </label>
+            <div className="mt-1.5 flex items-center gap-2">
+              <input
+                id="account-display-name"
+                value={displayName}
+                maxLength={120}
+                onChange={(e) => {
+                  setDisplayName(e.target.value);
+                  setProfileMessage(null);
+                }}
+                onKeyDown={(e) => e.key === "Enter" && handleSaveProfile()}
+                className="w-full flex-1 rounded-lg border border-surface-border bg-surface-0 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-accent"
+              />
+              <button
+                onClick={handleSaveProfile}
+                disabled={profileBusy || displayName.trim() === user.display_name}
+                className="rounded-lg bg-accent px-3 py-2 font-mono text-[11px] font-semibold uppercase tracking-wider text-white hover:bg-accent-hover disabled:opacity-40"
+              >
+                {t("auth.account.profile.save")}
+              </button>
+            </div>
+            {profileMessage && (
+              <p className={`mt-1.5 text-xs ${profileMessage.ok ? "text-emerald-600 dark:text-emerald-400" : "text-red-500"}`}>
+                {profileMessage.text}
+              </p>
             )}
           </div>
         </div>
@@ -247,6 +352,83 @@ export default function AccountSettingsPage() {
           )}
         </div>
 
+        <div className="mt-3 rounded-xl border border-surface-border bg-surface-1 p-5">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <KeyRound size={15} className="text-slate-500 dark:text-slate-400" />
+              <span className="text-sm text-slate-800 dark:text-slate-200">{t("auth.account.password.title")}</span>
+            </div>
+            {!showPasswordForm && (
+              <button
+                onClick={() => {
+                  setShowPasswordForm(true);
+                  setPasswordDone(false);
+                }}
+                className="rounded-lg border border-surface-border px-3 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-surface-3"
+              >
+                {t("auth.account.password.title")}
+              </button>
+            )}
+          </div>
+          {passwordDone && (
+            <p className="mt-2 text-xs text-emerald-600 dark:text-emerald-400">{t("auth.account.password.changed")}</p>
+          )}
+          {showPasswordForm && (
+            <div className="mt-4 space-y-3 border-t border-surface-border pt-4">
+              <div>
+                <label htmlFor="account-current-password" className="text-xs font-medium text-slate-600 dark:text-slate-400">
+                  {t("auth.account.password.current")}
+                </label>
+                <input
+                  id="account-current-password"
+                  type="password"
+                  autoComplete="current-password"
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+                  className="mt-1.5 w-full rounded-lg border border-surface-border bg-surface-0 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-accent"
+                />
+              </div>
+              <div>
+                <label htmlFor="account-new-password" className="text-xs font-medium text-slate-600 dark:text-slate-400">
+                  {t("auth.account.password.new")}
+                </label>
+                <input
+                  id="account-new-password"
+                  type="password"
+                  autoComplete="new-password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleChangePassword()}
+                  className="mt-1.5 w-full rounded-lg border border-surface-border bg-surface-0 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-accent"
+                />
+                <PasswordStrengthMeter password={newPassword} />
+              </div>
+              <p className="text-xs text-slate-500 dark:text-slate-400">{t("auth.account.password.ssoHint")}</p>
+              {passwordError && <p className="text-xs text-red-500">{passwordError}</p>}
+              <div className="flex gap-2">
+                <button
+                  onClick={handleChangePassword}
+                  disabled={!currentPassword || newPassword.length < 8 || passwordBusy}
+                  className="flex-1 rounded-lg bg-accent px-3 py-2 font-mono text-[11px] font-semibold uppercase tracking-wider text-white hover:bg-accent-hover disabled:opacity-40"
+                >
+                  {t("auth.account.password.title")}
+                </button>
+                <button
+                  onClick={() => {
+                    setShowPasswordForm(false);
+                    setCurrentPassword("");
+                    setNewPassword("");
+                    setPasswordError(null);
+                  }}
+                  className="rounded-lg px-3 py-2 text-xs text-slate-600 dark:text-slate-400 hover:bg-surface-3"
+                >
+                  {t("common.cancel")}
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+
         {user.role === "admin" && !user.totp_enabled && (
           <div className="mt-3 flex items-start gap-2 rounded-xl border border-amber-400/50 bg-amber-50 p-4 text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-300">
             <ShieldAlert size={16} className="mt-0.5 shrink-0" />
@@ -329,6 +511,7 @@ export default function AccountSettingsPage() {
               <p className="text-xs text-slate-500 dark:text-slate-400">{t("auth.account.twofaDisablePasswordHint")}</p>
               <input
                 type="password"
+                aria-label={t("auth.account.twofaPasswordLabel")}
                 value={disablePassword}
                 onChange={(e) => setDisablePassword(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && confirmTwoFactorDisable()}
@@ -405,6 +588,7 @@ export default function AccountSettingsPage() {
               />
               <input
                 type="password"
+                aria-label={t("auth.account.deletePasswordLabel")}
                 value={deletePassword}
                 onChange={(e) => setDeletePassword(e.target.value)}
                 className="w-full rounded-lg border border-surface-border bg-surface-0 py-2 pl-8 pr-3 text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-red-400"

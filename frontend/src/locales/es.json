@@ -425,7 +425,24 @@
         "title": "Sus datos y sus derechos (RGPD)",
         "hint": "Tiene derecho de acceso, rectificacion, supresion, limitacion, oposicion y portabilidad sobre sus datos personales. Puede exportar sus datos o eliminar su cuenta a continuacion; para cualquier otra solicitud, use el formulario de contacto. Encontrara el detalle de estos derechos y de los tratamientos realizados en nuestra",
         "privacyLink": "politica de privacidad"
-      }
+      },
+      "profile": {
+        "title": "Perfil",
+        "displayName": "Nombre visible",
+        "save": "Guardar",
+        "saved": "Perfil actualizado.",
+        "resendVerification": "Reenviar el correo de confirmacion",
+        "resendDone": "Correo de confirmacion enviado."
+      },
+      "password": {
+        "title": "Cambiar la contrasena",
+        "current": "Contrasena actual",
+        "new": "Nueva contrasena",
+        "changed": "Contrasena cambiada. Se han cerrado tus otras sesiones.",
+        "ssoHint": "¿Te registraste con Google? Usa \"olvide mi contrasena\" para definir una."
+      },
+      "twofaPasswordLabel": "Contrasena",
+      "deletePasswordLabel": "Contrasena de confirmacion"
     },
     "verify": {
       "title": "Verificacion de correo",
@@ -552,7 +569,16 @@
     "mySpaces": "Mis espacios de trabajo",
     "newSpace": "Nuevo espacio",
     "noSpaces": "Aun no tienes ningun espacio de trabajo.",
-    "spaceCounts": "{{docs}} documentos · {{convs}} conversaciones"
+    "spaceCounts": "{{docs}} · {{convs}}",
+    "spaceDocs_one": "{{count}} documento",
+    "spaceDocs_other": "{{count}} documentos",
+    "spaceConvs_one": "{{count}} conversacion",
+    "spaceConvs_other": "{{count}} conversaciones",
+    "viaLink": {
+      "title": "Abiertos mediante un enlace",
+      "hint": "Espacios a los que accediste con un enlace (guardados en este dispositivo).",
+      "badge": "Enlace"
+    }
   },
   "admin": {
     "title": "Administracion",
@@ -704,7 +730,8 @@
       "urlPlaceholder": "Pega un enlace (https://...)",
       "addUrl": "Anadir enlace",
       "empty": "Aun no hay documentos.",
-      "statusReady": "{{count}} fragmentos",
+      "statusReady_one": "{{count}} fragmento",
+      "statusReady_other": "{{count}} fragmentos",
       "statusPending": "Pendiente",
       "statusProcessing": "Analizando...",
       "statusError": "Error"
@@ -765,7 +792,8 @@
     "vectorGraph": {
       "openTitle": "Visualizar la base vectorial",
       "title": "Red de la base vectorial",
-      "nodeCount": "{{count}} fragmentos",
+      "nodeCount_one": "{{count}} fragmento",
+      "nodeCount_other": "{{count}} fragmentos",
       "truncated": "mostrando solo los primeros fragmentos",
       "empty": "Aun no hay documentos indexados.",
       "error": "No se pudo cargar la visualizacion.",

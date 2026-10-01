@@ -90,6 +90,17 @@ class DeleteAccountRequest(BaseModel):
     password: str
 
 
+class ProfileUpdate(BaseModel):
+    display_name: str = Field(max_length=120)
+
+
+class ChangePasswordRequest(BaseModel):
+    current_password: str
+    new_password: str = Field(min_length=8, max_length=200)
+
+    _validate_password = field_validator("new_password")(_validate_password_complexity)
+
+
 class LogoutEverywhereResponse(BaseModel):
     access_token: str
 

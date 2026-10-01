@@ -96,7 +96,7 @@ def welcome_email(display_name: str, app_url: str) -> tuple[str, str, str]:
     subject = "Bienvenue sur Docverse"
     name = display_name or "vous"
     body = f"""
-      <h1 style="margin:0 0 12px;font-size:22px;color:{_INK};">Bienvenue, {name} !</h1>
+      <h1 style="margin:0 0 12px;font-size:22px;color:{_INK};">Bienvenue, {escape(name)} !</h1>
       <p style="margin:0;font-size:14px;line-height:1.6;color:{_INK};">
         Votre compte est cree. Vous pouvez maintenant creer des espaces de travail,
         y deposer des documents, et generer des liens de partage en lecture seule ou
@@ -106,6 +106,24 @@ def welcome_email(display_name: str, app_url: str) -> tuple[str, str, str]:
     """
     text = f"Bienvenue sur Docverse, {name} ! Votre compte est cree. Lancer l'application : {app_url}"
     return subject, _layout("Votre compte Docverse est pret", body), text
+
+
+def space_member_added_email(inviter_name: str, space_name: str, app_url: str) -> tuple[str, str, str]:
+    # Both names are user-chosen: collapse whitespace so a newline can never
+    # reach the Subject header.
+    inviter_name, space_name = " ".join(inviter_name.split()), " ".join(space_name.split())
+    subject = f"{inviter_name} vous a ajoute a l'espace « {space_name} » - Docverse"
+    body = f"""
+      <h1 style="margin:0 0 12px;font-size:22px;color:{_INK};">Nouvel espace partage avec vous</h1>
+      <p style="margin:0;font-size:14px;line-height:1.6;color:{_INK};">
+        <strong>{escape(inviter_name)}</strong> vous a ajoute comme membre de l'espace de travail
+        <strong>{escape(space_name)}</strong>. Vous pouvez des maintenant y poser vos questions
+        sur les documents partages.
+      </p>
+      {_button(app_url, "Ouvrir l'espace")}
+    """
+    text = f"{inviter_name} vous a ajoute a l'espace « {space_name} » sur Docverse. Ouvrir l'espace : {app_url}"
+    return subject, _layout("Un espace de travail a ete partage avec vous", body), text
 
 
 def verify_email_email(verify_url: str) -> tuple[str, str, str]:

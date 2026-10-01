@@ -425,7 +425,24 @@
         "title": "Your data and your rights (GDPR)",
         "hint": "You have the right to access, rectify, erase, restrict, object to, and port your personal data. You can export your data or delete your account below; for any other request, use the contact form. Full details on these rights and on how your data is processed are available in our",
         "privacyLink": "privacy policy"
-      }
+      },
+      "profile": {
+        "title": "Profile",
+        "displayName": "Display name",
+        "save": "Save",
+        "saved": "Profile updated.",
+        "resendVerification": "Resend confirmation email",
+        "resendDone": "Confirmation email sent."
+      },
+      "password": {
+        "title": "Change password",
+        "current": "Current password",
+        "new": "New password",
+        "changed": "Password changed. Your other sessions have been signed out.",
+        "ssoHint": "Signed up with Google? Use \"forgot password\" to set a password."
+      },
+      "twofaPasswordLabel": "Password",
+      "deletePasswordLabel": "Confirmation password"
     },
     "verify": {
       "title": "Email verification",
@@ -552,7 +569,16 @@
     "mySpaces": "My workspaces",
     "newSpace": "New space",
     "noSpaces": "You don't have any workspace yet.",
-    "spaceCounts": "{{docs}} documents · {{convs}} conversations"
+    "spaceCounts": "{{docs}} · {{convs}}",
+    "spaceDocs_one": "{{count}} document",
+    "spaceDocs_other": "{{count}} documents",
+    "spaceConvs_one": "{{count}} conversation",
+    "spaceConvs_other": "{{count}} conversations",
+    "viaLink": {
+      "title": "Opened via a share link",
+      "hint": "Spaces you accessed through a link (remembered on this device).",
+      "badge": "Link"
+    }
   },
   "admin": {
     "title": "Admin",
@@ -704,7 +730,8 @@
       "urlPlaceholder": "Paste a link (https://...)",
       "addUrl": "Add link",
       "empty": "No documents yet.",
-      "statusReady": "{{count}} chunks",
+      "statusReady_one": "{{count}} chunk",
+      "statusReady_other": "{{count}} chunks",
       "statusPending": "Pending",
       "statusProcessing": "Analyzing...",
       "statusError": "Error"
@@ -765,7 +792,8 @@
     "vectorGraph": {
       "openTitle": "Visualize the vector database",
       "title": "Vector database network",
-      "nodeCount": "{{count}} chunks",
+      "nodeCount_one": "{{count}} chunk",
+      "nodeCount_other": "{{count}} chunks",
       "truncated": "showing only the first chunks",
       "empty": "No indexed documents yet.",
       "error": "Couldn't load the visualization.",

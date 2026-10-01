@@ -425,7 +425,24 @@
         "title": "I tuoi dati e i tuoi diritti (RGPD)",
         "hint": "Hai il diritto di accesso, rettifica, cancellazione, limitazione, opposizione e portabilita dei tuoi dati personali. Puoi esportare i tuoi dati o eliminare il tuo account qui sotto; per qualsiasi altra richiesta, usa il modulo di contatto. I dettagli di questi diritti e dei trattamenti effettuati sono disponibili nella nostra",
         "privacyLink": "informativa sulla privacy"
-      }
+      },
+      "profile": {
+        "title": "Profilo",
+        "displayName": "Nome visualizzato",
+        "save": "Salva",
+        "saved": "Profilo aggiornato.",
+        "resendVerification": "Invia di nuovo l'email di conferma",
+        "resendDone": "Email di conferma inviata."
+      },
+      "password": {
+        "title": "Cambia password",
+        "current": "Password attuale",
+        "new": "Nuova password",
+        "changed": "Password modificata. Le altre sessioni sono state disconnesse.",
+        "ssoHint": "Registrato con Google? Usa \"password dimenticata\" per impostare una password."
+      },
+      "twofaPasswordLabel": "Password",
+      "deletePasswordLabel": "Password di conferma"
     },
     "verify": {
       "title": "Verifica email",
@@ -552,7 +569,16 @@
     "mySpaces": "I miei spazi di lavoro",
     "newSpace": "Nuovo spazio",
     "noSpaces": "Non hai ancora nessuno spazio di lavoro.",
-    "spaceCounts": "{{docs}} documenti · {{convs}} conversazioni"
+    "spaceCounts": "{{docs}} · {{convs}}",
+    "spaceDocs_one": "{{count}} documento",
+    "spaceDocs_other": "{{count}} documenti",
+    "spaceConvs_one": "{{count}} conversazione",
+    "spaceConvs_other": "{{count}} conversazioni",
+    "viaLink": {
+      "title": "Aperti tramite un link di condivisione",
+      "hint": "Spazi a cui hai avuto accesso tramite un link (memorizzati su questo dispositivo).",
+      "badge": "Link"
+    }
   },
   "admin": {
     "title": "Amministrazione",
@@ -704,7 +730,8 @@
       "urlPlaceholder": "Incolla un link (https://...)",
       "addUrl": "Aggiungi link",
       "empty": "Ancora nessun documento.",
-      "statusReady": "{{count}} estratti",
+      "statusReady_one": "{{count}} estratto",
+      "statusReady_other": "{{count}} estratti",
       "statusPending": "In attesa",
       "statusProcessing": "Analisi in corso...",
       "statusError": "Errore"
@@ -765,7 +792,8 @@
     "vectorGraph": {
       "openTitle": "Visualizza il database vettoriale",
       "title": "Rete del database vettoriale",
-      "nodeCount": "{{count}} estratti",
+      "nodeCount_one": "{{count}} estratto",
+      "nodeCount_other": "{{count}} estratti",
       "truncated": "vengono mostrati solo i primi estratti",
       "empty": "Ancora nessun documento indicizzato.",
       "error": "Impossibile caricare la visualizzazione.",

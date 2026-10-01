@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Eye, Files, Folders, MessagesSquare, Plus, Star, Users2, HardDrive } from "lucide-react";
+import { Eye, Files, Folders, Link2, MessagesSquare, Plus, Star, Users2, HardDrive } from "lucide-react";
 import clsx from "clsx";
 import { api } from "../api/client";
+import { listSharedLinks } from "../api/shareTokens";
 import { useAuth } from "../hooks/useAuth";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { formatBytes } from "../utils/format";
@@ -49,6 +50,12 @@ export default function DashboardPage() {
       })
       .finally(() => setLoading(false));
   }, []);
+
+  // Spaces opened through a share link, minus any the user has since been
+  // made a member of (those already appear in the main list).
+  const sharedLinks = user
+    ? listSharedLinks(user.id).filter((l) => !spaces.some((s) => s.id === l.spaceId))
+    : [];
 
   const handleCreate = async (data: SpaceFormData) => {
     const space = await api.createSpace(data.name, data.description, data.color);
@@ -127,13 +134,45 @@ export default function DashboardPage() {
                 )}
                 <p className="text-[11px] text-slate-500 dark:text-slate-400">
                   {t("dashboard.spaceCounts", {
-                    docs: s.document_count,
-                    convs: s.conversation_count,
+                    docs: t("dashboard.spaceDocs", { count: s.document_count }),
+                    convs: t("dashboard.spaceConvs", { count: s.conversation_count }),
                   })}
                 </p>
               </button>
             ))}
           </div>
+        )}
+
+        {!loading && sharedLinks.length > 0 && (
+          <>
+            <h2 className="mt-8 text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              {t("dashboard.viaLink.title")}
+            </h2>
+            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{t("dashboard.viaLink.hint")}</p>
+            <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {sharedLinks.map((l) => (
+                <button
+                  key={l.token}
+                  onClick={() => navigate(`/share/${l.token}`)}
+                  className="flex flex-col items-start gap-2 rounded-xl border border-surface-border bg-surface-1 p-4 text-left transition hover:border-accent"
+                >
+                  <div className="flex w-full items-center justify-between gap-2">
+                    <div
+                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-sm font-semibold text-white"
+                      style={{ backgroundColor: l.color }}
+                    >
+                      {l.name.slice(0, 2).toUpperCase()}
+                    </div>
+                    <span className="flex items-center gap-1 rounded-full bg-surface-3 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">
+                      <Link2 size={10} />
+                      {t("dashboard.viaLink.badge")}
+                    </span>
+                  </div>
+                  <p className="truncate text-sm font-semibold text-slate-900 dark:text-slate-100">{l.name}</p>
+                </button>
+              ))}
+            </div>
+          </>
         )}
       </main>
 

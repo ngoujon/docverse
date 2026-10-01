@@ -124,6 +124,9 @@ chat_limiter = RateLimiter(max_requests=20, window_seconds=60)
 register_limiter = RateLimiter(max_requests=10, window_seconds=3600)
 login_limiter = RateLimiter(max_requests=10, window_seconds=300)
 password_reset_limiter = RateLimiter(max_requests=5, window_seconds=3600)
+# Re-sending the confirmation email, per account - each call sends a real
+# email, so a handful per hour is enough for a lost or delayed message.
+verify_email_resend_limiter = RateLimiter(max_requests=3, window_seconds=3600)
 
 # Per-IP limits alone don't stop a patient attacker who rotates addresses
 # (a botnet, or just a cloud provider's IP pool) against one known account.

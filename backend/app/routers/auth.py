@@ -180,6 +180,59 @@ def me(user: models_db.User = Depends(get_current_user)):
     return user
 
 
+@router.patch("/me", response_model=schemas.UserOut)
+def update_profile(
+    payload: schemas.ProfileUpdate,
+    user: models_db.User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    user.display_name = payload.display_name.strip()
+    db.commit()
+    db.refresh(user)
+    return user
+
+
+@router.post("/change-password", response_model=schemas.AuthResponse)
+def change_password(
+    payload: schemas.ChangePasswordRequest,
+    request: Request,
+    user: models_db.User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    rate_limiter.enforce(rate_limiter.login_limiter, client_ip(request))
+    if not auth.verify_password(payload.current_password, user.password_hash):
+        # 400 rather than 401: the session itself is valid, only the
+        # confirmation is wrong - a 401 would read as "logged out".
+        raise HTTPException(400, "Mot de passe actuel incorrect")
+    user.password_hash = auth.hash_password(payload.new_password)
+    # Same as a reset: other sessions (possibly opened with the old
+    # password) stop working, and this one gets a fresh token.
+    user.token_version += 1
+    db.commit()
+    db.refresh(user)
+    token = auth.issue_user_token(user.id, user.role, user.token_version)
+    return schemas.AuthResponse(access_token=token, user=user)
+
+
+@router.post("/resend-verification")
+def resend_verification(
+    background_tasks: BackgroundTasks,
+    user: models_db.User = Depends(get_current_user),
+):
+    if user.email_verified:
+        return {"ok": True}
+    rate_limiter.enforce(
+        rate_limiter.verify_email_resend_limiter,
+        user.id,
+        "Un email de confirmation vient deja d'etre envoye, reessayez plus tard",
+    )
+    verify_token = auth.issue_purpose_token(user.id, "email_verify", ttl_minutes=60 * 48)
+    verify_url = f"{settings.frontend_base_url}/verify-email?token={verify_token}"
+    subject, html, text = email_templates.verify_email_email(verify_url)
+    background_tasks.add_task(mail_service.send_email, user.email, subject, html, text)
+    return {"ok": True}
+
+
 @router.get("/me/stats", response_model=schemas.MeStatsOut)
 def me_stats(user: models_db.User = Depends(get_current_user), db: Session = Depends(get_db)):
     owned = db.query(models_db.Space).filter_by(owner_id=user.id).all()

@@ -1,39 +1,47 @@
-// Share-link tokens (X-Share-Token) let an anonymous visitor access one
-// space at a role fixed by whoever generated the link - replaces the old
-// per-space password/unlock-token flow entirely. Keyed by space id so a
-// visitor who followed links to several shared spaces keeps access to all
-// of them.
-const STORAGE_KEY = "hyaides:share-tokens";
+// Share links grant access by token only - following one doesn't make the
+// visitor a member, so the space never shows up in their own space list.
+// To keep it reachable from the dashboard afterwards, each link a signed-in
+// user opens is remembered here, per user (a shared computer must not show
+// one account's links to the next) and on this device only.
+const STORAGE_PREFIX = "hyaides:shared-links:";
 
-function readAll(): Record<string, string> {
+export interface RememberedShareLink {
+  token: string;
+  spaceId: string;
+  name: string;
+  color: string;
+}
+
+function storageKey(userId: string) {
+  return `${STORAGE_PREFIX}${userId}`;
+}
+
+export function listSharedLinks(userId: string): RememberedShareLink[] {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : {};
+    const raw = localStorage.getItem(storageKey(userId));
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
   } catch {
-    return {};
+    return [];
   }
 }
 
-function writeAll(tokens: Record<string, string>) {
+function writeAll(userId: string, links: RememberedShareLink[]) {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(tokens));
+    localStorage.setItem(storageKey(userId), JSON.stringify(links));
   } catch {
     /* localStorage unavailable (private mode, etc.) - degrade silently */
   }
 }
 
-export function getShareToken(spaceId: string): string | null {
-  return readAll()[spaceId] ?? null;
+export function rememberSharedLink(userId: string, link: RememberedShareLink) {
+  const others = listSharedLinks(userId).filter((l) => l.token !== link.token);
+  writeAll(userId, [link, ...others]);
 }
 
-export function setShareToken(spaceId: string, token: string) {
-  const tokens = readAll();
-  tokens[spaceId] = token;
-  writeAll(tokens);
-}
-
-export function clearShareToken(spaceId: string) {
-  const tokens = readAll();
-  delete tokens[spaceId];
-  writeAll(tokens);
+export function forgetSharedLink(userId: string, token: string) {
+  writeAll(
+    userId,
+    listSharedLinks(userId).filter((l) => l.token !== token)
+  );
 }

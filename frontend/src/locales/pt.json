@@ -425,7 +425,24 @@
         "title": "Os seus dados e os seus direitos (RGPD)",
         "hint": "Tem direito de acesso, retificacao, apagamento, limitacao, oposicao e portabilidade dos seus dados pessoais. Pode exportar os seus dados ou eliminar a sua conta abaixo; para qualquer outro pedido, utilize o formulario de contacto. Os detalhes destes direitos e do tratamento de dados estao disponiveis na nossa",
         "privacyLink": "politica de privacidade"
-      }
+      },
+      "profile": {
+        "title": "Perfil",
+        "displayName": "Nome de exibicao",
+        "save": "Guardar",
+        "saved": "Perfil atualizado.",
+        "resendVerification": "Reenviar o email de confirmacao",
+        "resendDone": "Email de confirmacao enviado."
+      },
+      "password": {
+        "title": "Alterar a palavra-passe",
+        "current": "Palavra-passe atual",
+        "new": "Nova palavra-passe",
+        "changed": "Palavra-passe alterada. As outras sessoes foram terminadas.",
+        "ssoHint": "Registou-se com o Google? Use \"esqueci a palavra-passe\" para definir uma."
+      },
+      "twofaPasswordLabel": "Palavra-passe",
+      "deletePasswordLabel": "Palavra-passe de confirmacao"
     },
     "verify": {
       "title": "Verificacao de email",
@@ -552,7 +569,16 @@
     "mySpaces": "Os meus espacos de trabalho",
     "newSpace": "Novo espaco",
     "noSpaces": "Ainda nao tem nenhum espaco de trabalho.",
-    "spaceCounts": "{{docs}} documentos · {{convs}} conversas"
+    "spaceCounts": "{{docs}} · {{convs}}",
+    "spaceDocs_one": "{{count}} documento",
+    "spaceDocs_other": "{{count}} documentos",
+    "spaceConvs_one": "{{count}} conversa",
+    "spaceConvs_other": "{{count}} conversas",
+    "viaLink": {
+      "title": "Abertos atraves de um link",
+      "hint": "Espacos a que acedeu atraves de um link (memorizados neste dispositivo).",
+      "badge": "Link"
+    }
   },
   "admin": {
     "title": "Administracao",
@@ -704,7 +730,8 @@
       "urlPlaceholder": "Cole um link (https://...)",
       "addUrl": "Adicionar link",
       "empty": "Ainda sem documentos.",
-      "statusReady": "{{count}} fragmentos",
+      "statusReady_one": "{{count}} fragmento",
+      "statusReady_other": "{{count}} fragmentos",
       "statusPending": "Pendente",
       "statusProcessing": "A analisar...",
       "statusError": "Erro"
@@ -765,7 +792,8 @@
     "vectorGraph": {
       "openTitle": "Visualizar a base vetorial",
       "title": "Rede da base vetorial",
-      "nodeCount": "{{count}} fragmentos",
+      "nodeCount_one": "{{count}} fragmento",
+      "nodeCount_other": "{{count}} fragmentos",
       "truncated": "a mostrar apenas os primeiros fragmentos",
       "empty": "Ainda nao ha documentos indexados.",
       "error": "Nao foi possivel carregar a visualizacao.",

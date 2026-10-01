@@ -217,3 +217,52 @@ def test_admin_without_2fa_is_denied_admin_routes(client):
 
     allowed = client.get("/api/admin/users", headers=auth_headers(token))
     assert allowed.status_code == 200
+
+
+def test_update_profile_changes_display_name(client):
+    data = register_user(client, "profile@example.com", display_name="Avant")
+    headers = auth_headers(data["access_token"])
+    res = client.patch("/api/auth/me", json={"display_name": "  Apres  "}, headers=headers)
+    assert res.status_code == 200
+    assert res.json()["display_name"] == "Apres"
+    assert client.get("/api/auth/me", headers=headers).json()["display_name"] == "Apres"
+
+
+def test_change_password_requires_current_password(client):
+    data = register_user(client, "chpw@example.com")
+    res = client.post(
+        "/api/auth/change-password",
+        json={"current_password": "Wrong-password-1", "new_password": "New-horse-battery2"},
+        headers=auth_headers(data["access_token"]),
+    )
+    assert res.status_code == 400
+
+
+def test_change_password_rotates_sessions_and_new_password_works(client):
+    data = register_user(client, "chpw2@example.com")
+    old_token = data["access_token"]
+    res = client.post(
+        "/api/auth/change-password",
+        json={"current_password": "Correct-horse-battery1", "new_password": "New-horse-battery2"},
+        headers=auth_headers(old_token),
+    )
+    assert res.status_code == 200
+    new_token = res.json()["access_token"]
+    assert client.get("/api/auth/me", headers=auth_headers(old_token)).status_code == 401
+    assert client.get("/api/auth/me", headers=auth_headers(new_token)).status_code == 200
+    login = client.post("/api/auth/login", json={"email": "chpw2@example.com", "password": "New-horse-battery2"})
+    assert login.status_code == 200
+
+
+def test_resend_verification_is_rate_limited(client):
+    data = register_user(client, "resend@example.com")
+    headers = auth_headers(data["access_token"])
+    for _ in range(3):
+        assert client.post("/api/auth/resend-verification", headers=headers).status_code == 200
+    assert client.post("/api/auth/resend-verification", headers=headers).status_code == 429
+
+
+def test_invalid_email_error_is_plain_french(client):
+    res = client.post("/api/auth/login", json={"email": "someone@example.test", "password": "x"})
+    assert res.status_code == 422
+    assert res.json()["detail"] == "Adresse email invalide"

@@ -171,6 +171,10 @@ export default function DocumentPanel({
                       </span>
                       {doc.size_bytes > 0 && <span>· {formatSize(doc.size_bytes)}</span>}
                     </div>
+                    {/* The reason was only in the hover tooltip - unreachable on touch screens. */}
+                    {doc.status === "error" && doc.error_message && (
+                      <p className="mt-0.5 line-clamp-2 text-[10px] text-red-500">{doc.error_message}</p>
+                    )}
                   </div>
                   {!readOnly && (
                     <button
