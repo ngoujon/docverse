@@ -61,16 +61,8 @@ def get_current_user(
 def require_admin(user: models_db.User = Depends(get_current_user)) -> models_db.User:
     if user.role != "admin":
         raise HTTPException(403, "Reserve aux administrateurs")
-    # Admin routes grant elevated access over every user and space, so
-    # two-factor authentication is mandatory here rather than opt-in - an
-    # admin who hasn't set it up yet must do so (via /api/auth/2fa/setup and
-    # /2fa/enable, both only requiring a plain authenticated user) before
-    # exercising any admin privilege.
-    if not user.totp_enabled:
-        raise HTTPException(
-            403,
-            "La double authentification est obligatoire pour les comptes administrateurs. Configurez-la depuis votre compte avant de continuer.",
-        )
+    # 2FA stays available but optional for admins too (owner's choice) - the
+    # instance has a single admin account, set with app.scripts.set_admin.
     return user
 
 

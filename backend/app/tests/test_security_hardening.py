@@ -238,6 +238,7 @@ def test_public_health_reveals_nothing_about_the_stack(client):
 
 
 def test_detailed_health_requires_an_admin(client):
+    register_user(client, "admin@example.com")  # first account = admin
     data = register_user(client, "plain@example.com")
 
     assert client.get("/api/admin/health").status_code == 401

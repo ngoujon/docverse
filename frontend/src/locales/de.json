@@ -396,7 +396,6 @@
       "logoutEverywhere": "Uberall abmelden",
       "logoutEverywhereDone": "Auf allen Geraten abgemeldet.",
       "twofaTitle": "Zwei-Faktor-Verifizierung (2FA)",
-      "twofaAdminRequired": "Fur Administratorkonten ist die Zwei-Faktor-Authentifizierung erforderlich, um auf den Administrationsbereich zuzugreifen. Richten Sie sie unten ein.",
       "twofaEnabled": "Aktiviert",
       "twofaDisabled": "Deaktiviert",
       "twofaEnable": "Aktivieren",

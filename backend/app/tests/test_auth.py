@@ -196,27 +196,18 @@ def test_2fa_setup_enable_and_login_flow(client):
     assert verify.json()["access_token"]
 
 
-def test_admin_without_2fa_is_denied_admin_routes(client):
-    import pyotp
-
-    # First registered user becomes admin.
+def test_admin_without_2fa_can_use_admin_routes(client):
+    # First registered user becomes admin - 2FA is optional, even for admins.
     data = register_user(client, "admin@example.com", password="Right-password1")
-    token = data["access_token"]
-
-    blocked = client.get("/api/admin/users", headers=auth_headers(token))
-    assert blocked.status_code == 403
-
-    setup = client.post("/api/auth/2fa/setup", headers=auth_headers(token))
-    secret = setup.json()["secret"]
-    enable = client.post(
-        "/api/auth/2fa/enable",
-        json={"code": pyotp.TOTP(secret).now()},
-        headers=auth_headers(token),
-    )
-    assert enable.status_code == 200
-
-    allowed = client.get("/api/admin/users", headers=auth_headers(token))
+    allowed = client.get("/api/admin/users", headers=auth_headers(data["access_token"]))
     assert allowed.status_code == 200
+
+
+def test_non_admin_is_denied_admin_routes(client):
+    register_user(client, "admin@example.com")
+    data = register_user(client, "user@example.com")
+    blocked = client.get("/api/admin/users", headers=auth_headers(data["access_token"]))
+    assert blocked.status_code == 403
 
 
 def test_update_profile_changes_display_name(client):

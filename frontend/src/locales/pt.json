@@ -396,7 +396,6 @@
       "logoutEverywhere": "Terminar sessao em todo o lado",
       "logoutEverywhereDone": "Sessao terminada em todos os dispositivos.",
       "twofaTitle": "Verificacao em duas etapas (2FA)",
-      "twofaAdminRequired": "A verificacao em duas etapas e obrigatoria para contas de administrador antes de aceder a area de administracao. Configure-a abaixo.",
       "twofaEnabled": "Ativada",
       "twofaDisabled": "Desativada",
       "twofaEnable": "Ativar",

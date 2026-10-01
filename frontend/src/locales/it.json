@@ -396,7 +396,6 @@
       "logoutEverywhere": "Esci ovunque",
       "logoutEverywhereDone": "Disconnesso da tutti i dispositivi.",
       "twofaTitle": "Verifica in due passaggi (2FA)",
-      "twofaAdminRequired": "Per gli account amministratore la verifica in due passaggi e obbligatoria per accedere all'area di amministrazione. Configurala qui sotto.",
       "twofaEnabled": "Attivata",
       "twofaDisabled": "Disattivata",
       "twofaEnable": "Attiva",

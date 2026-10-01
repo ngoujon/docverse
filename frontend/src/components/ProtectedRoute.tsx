@@ -26,12 +26,5 @@ export default function ProtectedRoute({
   }
   if (adminOnly && user.role !== "admin") return <Navigate to="/dashboard" replace />;
 
-  // Two-factor authentication is mandatory for admin privileges - until one
-  // is configured, the backend rejects every admin-only request, so send
-  // the admin to set it up instead of letting them hit a dead-end 403.
-  if (adminOnly && !user.totp_enabled) {
-    return <Navigate to="/account" replace />;
-  }
-
   return <>{children}</>;
 }

@@ -396,7 +396,6 @@
       "logoutEverywhere": "Cerrar sesion en todas partes",
       "logoutEverywhereDone": "Sesion cerrada en todos los dispositivos.",
       "twofaTitle": "Verificacion en dos pasos (2FA)",
-      "twofaAdminRequired": "La verificacion en dos pasos es obligatoria para las cuentas de administrador antes de acceder al area de administracion. Configurela a continuacion.",
       "twofaEnabled": "Activada",
       "twofaDisabled": "Desactivada",
       "twofaEnable": "Activar",
