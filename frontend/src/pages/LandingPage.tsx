@@ -98,7 +98,7 @@ export default function LandingPage() {
               </a>
             ))}
             <Link
-              to="/demo"
+              to="/demo/"
               className="font-mono text-xs uppercase tracking-wider text-slate-600 transition hover:text-retro-cyan"
             >
               {t("nav.demo")}
@@ -110,7 +110,7 @@ export default function LandingPage() {
               {t("nav.contact")}
             </a>
             <Link
-              to="/faq"
+              to="/faq/"
               className="font-mono text-xs uppercase tracking-wider text-slate-600 transition hover:text-retro-cyan"
             >
               FAQ
@@ -163,7 +163,7 @@ export default function LandingPage() {
                 </a>
               ))}
               <Link
-                to="/demo"
+                to="/demo/"
                 onClick={() => setMobileMenuOpen(false)}
                 className="font-mono text-xs uppercase tracking-wider text-slate-600"
               >
@@ -177,7 +177,7 @@ export default function LandingPage() {
                 {t("nav.contact")}
               </a>
               <Link
-                to="/faq"
+                to="/faq/"
                 onClick={() => setMobileMenuOpen(false)}
                 className="font-mono text-xs uppercase tracking-wider text-slate-600"
               >
@@ -262,7 +262,7 @@ export default function LandingPage() {
                 {t("hero.ctaTry")} <ArrowRight size={14} />
               </Link>
               <Link
-                to="/demo"
+                to="/demo/"
                 className="flex w-full items-center justify-center gap-2 rounded-lg border border-retro-border px-6 py-3 font-mono text-xs uppercase tracking-wider text-slate-700 transition hover:border-retro-cyan hover:text-retro-cyan sm:w-auto"
               >
                 {t("hero.ctaDiscover")}
@@ -270,7 +270,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <Link to="/demo" className="block transition hover:-translate-y-0.5">
+          <Link to="/demo/" className="block transition hover:-translate-y-0.5">
             <ChatMockup />
           </Link>
         </div>
@@ -424,25 +424,25 @@ export default function LandingPage() {
           )}
           <div className="flex items-center gap-4">
             <Link
-              to="/faq"
+              to="/faq/"
               className="font-mono text-[11px] uppercase tracking-wider text-slate-600 hover:text-retro-cyan"
             >
               FAQ
             </Link>
             <Link
-              to="/confidentialite"
+              to="/confidentialite/"
               className="font-mono text-[11px] uppercase tracking-wider text-slate-600 hover:text-retro-cyan"
             >
               {t("footer.privacy")}
             </Link>
             <Link
-              to="/cgu"
+              to="/cgu/"
               className="font-mono text-[11px] uppercase tracking-wider text-slate-600 hover:text-retro-cyan"
             >
               {t("footer.terms")}
             </Link>
             <Link
-              to="/mentions-legales"
+              to="/mentions-legales/"
               className="font-mono text-[11px] uppercase tracking-wider text-slate-600 hover:text-retro-cyan"
             >
               {t("footer.legal")}

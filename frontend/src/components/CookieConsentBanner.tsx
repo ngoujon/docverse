@@ -40,7 +40,7 @@ export default function CookieConsentBanner() {
       </div>
       <p className="mt-2 text-xs leading-relaxed text-slate-600">
         {t("cookies.body")}{" "}
-        <Link to="/confidentialite" className="text-retro-cyan underline">
+        <Link to="/confidentialite/" className="text-retro-cyan underline">
           {t("cookies.learnMore")}
         </Link>
       </p>

@@ -540,7 +540,7 @@ export default function AccountSettingsPage() {
             <Scale size={15} className="mt-0.5 shrink-0 text-slate-500 dark:text-slate-400" />
             <p className="text-xs text-slate-500 dark:text-slate-400">
               {t("auth.account.gdpr.hint")}{" "}
-              <Link to="/confidentialite" className="text-accent hover:underline">
+              <Link to="/confidentialite/" className="text-accent hover:underline">
                 {t("auth.account.gdpr.privacyLink")}
               </Link>
               .

@@ -16,7 +16,7 @@ export default function TermsPage() {
   usePageMeta({
     title: pageTitle(t("terms.title")),
     description: t("terms.subtitle"),
-    canonicalPath: "/cgu",
+    canonicalPath: "/cgu/",
   });
 
   return (

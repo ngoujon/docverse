@@ -5,8 +5,8 @@
 ## Pages
 
 - [Accueil](/) : présentation du produit et de l'hébergement souverain
-- [Démo](/demo) : essai sans création de compte, sur des documents types
-- [FAQ](/faq) : questions fréquentes sur les comptes, espaces, partage et confidentialité
+- [Démo](/demo/) : essai sans création de compte, sur des documents types
+- [FAQ](/faq/) : questions fréquentes sur les comptes, espaces, partage et confidentialité
 - [Confidentialité](/confidentialite) : ce qui est stocké et pourquoi
 
 ## Faits clés

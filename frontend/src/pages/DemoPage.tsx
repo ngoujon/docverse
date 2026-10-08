@@ -38,7 +38,7 @@ export default function DemoPage() {
   usePageMeta({
     title: pageTitle(t("demoPage.title")),
     description: t("demoPage.subtitle"),
-    canonicalPath: "/demo",
+    canonicalPath: "/demo/",
   });
 
   const askSuggestion = (i: number) => {

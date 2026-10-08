@@ -20,7 +20,7 @@ export default function FaqPage() {
   usePageMeta({
     title: t("faq.title"),
     description: t("faq.subtitle"),
-    canonicalPath: "/faq",
+    canonicalPath: "/faq/",
   });
 
   useJsonLd({

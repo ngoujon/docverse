@@ -20,4 +20,5 @@ Disallow: /verify-email
 Disallow: /newsletter/confirm
 Disallow: /newsletter/unsubscribe
 
-Sitemap: /sitemap.xml
+# The origin placeholder below is filled in at build time by scripts/prerender.mjs.
+Sitemap: __SITE_ORIGIN__/sitemap.xml

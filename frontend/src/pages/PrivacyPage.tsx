@@ -38,7 +38,7 @@ export default function PrivacyPage() {
   usePageMeta({
     title: pageTitle(t("privacy.title")),
     description: t("privacy.subtitle"),
-    canonicalPath: "/confidentialite",
+    canonicalPath: "/confidentialite/",
   });
 
   return (

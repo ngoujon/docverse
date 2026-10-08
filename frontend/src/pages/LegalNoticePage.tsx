@@ -20,7 +20,7 @@ export default function LegalNoticePage() {
   usePageMeta({
     title: pageTitle(t("legal.title")),
     description: t("legal.subtitle"),
-    canonicalPath: "/mentions-legales",
+    canonicalPath: "/mentions-legales/",
   });
 
   return (

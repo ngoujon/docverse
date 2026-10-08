@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { withTrailingSlash } from "../utils/canonical";
 
 interface PageMeta {
   title: string;
@@ -24,7 +25,11 @@ export function __setSSRMetaSink(sink: PageMeta | null) {
  * canonical URL and description to crawlers that execute JS). Restores
  * the previous values on unmount so navigating back to another page
  * doesn't leak this page's meta. */
-export function usePageMeta({ title, description, canonicalPath, noindex }: PageMeta) {
+export function usePageMeta({ title, description, canonicalPath: rawCanonicalPath, noindex }: PageMeta) {
+  // Normalized here rather than trusted from each caller, so a page can't
+  // declare a canonical URL that nginx would redirect.
+  const canonicalPath =
+    rawCanonicalPath && !rawCanonicalPath.startsWith("http") ? withTrailingSlash(rawCanonicalPath) : rawCanonicalPath;
   if (ssrMetaSink) {
     ssrMetaSink.title = title;
     ssrMetaSink.description = description;

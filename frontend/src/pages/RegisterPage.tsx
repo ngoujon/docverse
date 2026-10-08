@@ -121,11 +121,11 @@ export default function RegisterPage() {
           />
           <span>
             {t("auth.register.terms")}{" "}
-            <Link to="/cgu" target="_blank" className="text-accent hover:underline">
+            <Link to="/cgu/" target="_blank" className="text-accent hover:underline">
               {t("auth.register.termsLinkTerms")}
             </Link>{" "}
             &middot;{" "}
-            <Link to="/confidentialite" target="_blank" className="text-accent hover:underline">
+            <Link to="/confidentialite/" target="_blank" className="text-accent hover:underline">
               {t("auth.register.termsLinkPrivacy")}
             </Link>
           </span>

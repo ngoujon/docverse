@@ -36,7 +36,10 @@ globalThis.document = dom.window.document;
 Object.defineProperty(globalThis, "navigator", { value: dom.window.navigator, configurable: true });
 globalThis.localStorage = dom.window.localStorage;
 
-const ROUTES = ["/", "/demo", "/faq", "/confidentialite", "/cgu", "/mentions-legales"];
+// Trailing slash on purpose: each route is written as a directory
+// (dist/faq/index.html), so nginx 301-redirects /faq to /faq/ and only the
+// slashed form answers 200. Sitemap and canonicals derive from this list.
+const ROUTES = ["/", "/demo/", "/faq/", "/confidentialite/", "/cgu/", "/mentions-legales/"];
 
 async function main() {
   const template = await readFile(path.join(distDir, "index.html"), "utf-8");
@@ -55,6 +58,11 @@ async function main() {
 
     for (const route of ROUTES) {
       const { appHtml, title, description, canonicalPath, jsonLd } = render(route);
+      // A canonical that differs from the URL actually served (e.g. missing
+      // its trailing slash) points crawlers at a redirect: fail the build.
+      if (canonicalPath !== route) {
+        throw new Error(`${route}: canonical path is ${canonicalPath ?? "missing"}, expected ${route}`);
+      }
       const html = injectPage(template, { appHtml, title, description, canonicalPath, jsonLd });
 
       const outDir = route === "/" ? distDir : path.join(distDir, route);
@@ -64,6 +72,7 @@ async function main() {
     }
 
     await writeSitemap();
+    await writeRobots();
     await writeNginxConf();
   } finally {
     await vite.close();
@@ -71,7 +80,7 @@ async function main() {
 }
 
 // Priorites par route pour le sitemap. Une route absente prend 0.7.
-const ROUTE_PRIORITY = { "/": "1.0", "/demo": "0.9", "/faq": "0.8" };
+const ROUTE_PRIORITY = { "/": "1.0", "/demo/": "0.9", "/faq/": "0.8" };
 
 // Genere dist/sitemap.xml a partir de ROUTES plutot que de maintenir a la
 // main un fichier statique dans public/ : le domaine y etait code en dur et
@@ -89,7 +98,7 @@ async function writeNginxConf() {
 
 async function writeSitemap() {
   const urls = ROUTES.map((route) => {
-    const loc = `${siteOrigin}${route === "/" ? "/" : route}`;
+    const loc = `${siteOrigin}${route}`;
     const priority = ROUTE_PRIORITY[route] ?? "0.7";
     return `  <url>\n    <loc>${loc}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
   }).join("\n");
@@ -97,6 +106,14 @@ async function writeSitemap() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
   await writeFile(path.join(distDir, "sitemap.xml"), xml, "utf-8");
   console.log(`sitemap ${ROUTES.length} routes -> ${siteOrigin}`);
+}
+
+// The Sitemap directive must be an absolute URL (a bare /sitemap.xml is
+// ignored by crawlers), and the origin is deployment configuration.
+async function writeRobots() {
+  const file = path.join(distDir, "robots.txt");
+  const robots = await readFile(file, "utf-8");
+  await writeFile(file, robots.replaceAll("__SITE_ORIGIN__", siteOrigin), "utf-8");
 }
 
 function injectPage(template, { appHtml, title, description, canonicalPath, jsonLd }) {

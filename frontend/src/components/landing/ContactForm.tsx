@@ -170,7 +170,7 @@ export default function ContactForm() {
         />
         <span>
           {t("contact.consent")}{" "}
-          <Link to="/confidentialite" target="_blank" className="text-retro-cyan hover:underline">
+          <Link to="/confidentialite/" target="_blank" className="text-retro-cyan hover:underline">
             {t("contact.consentLink")}
           </Link>
         </span>
