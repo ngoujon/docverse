@@ -200,7 +200,7 @@
   },
   "cookies": {
     "title": "Medicion de audiencia",
-    "body": "Con tu consentimiento, contamos las paginas vistas para saber que interesa a los visitantes. Sin cookies publicitarias y sin seguimiento dentro de la aplicacion.",
+    "body": "Con tu consentimiento, contamos las paginas vistas para saber que interesa a los visitantes. Sin cookies publicitarias.",
     "accept": "Aceptar",
     "decline": "Rechazar",
     "learnMore": "Mas informacion"
@@ -213,7 +213,7 @@
     "sections": [
       {
         "title": "Cookies",
-        "body": "Este sitio no utiliza cookies publicitarias ni cookies de terceros para segmentacion. Una herramienta de medicion de audiencia registra las paginas vistas, el tiempo de permanencia y un pais aproximado deducido de la direccion IP, unicamente si lo aceptas en el aviso que aparece en tu primera visita: se basa en un identificador de sesion temporal que se borra al cerrar la pestana. Tu eleccion se guarda en el almacenamiento local del navegador y puedes cambiarla borrando los datos del sitio. Las paginas de la aplicacion (espacios, enlaces compartidos, panel) nunca se rastrean."
+        "body": "Este sitio no utiliza cookies publicitarias ni cookies de terceros para segmentacion. Se usan dos herramientas de medicion de audiencia. La primera, SEO Monitor, esta exenta de consentimiento y se describe en la seccion Medicion de audiencia mas abajo. La segunda registra las paginas vistas, el tiempo de permanencia y un pais aproximado deducido de la direccion IP, unicamente si lo aceptas en el aviso que aparece en tu primera visita: se basa en un identificador de sesion temporal que se borra al cerrar la pestana, y nunca rastrea las paginas de la aplicacion (espacios, enlaces compartidos, panel). Tu eleccion se guarda en el almacenamiento local del navegador y puedes cambiarla borrando los datos del sitio."
       },
       {
         "title": "Almacenamiento local (localStorage)",
@@ -245,7 +245,24 @@
       }
     ],
     "footnote": "Esta pagina describe el servicio tal y como se explota en este sitio. Como el software tambien puede autoalojarse, una instancia instalada y administrada por otra organizacion es responsabilidad de esa organizacion.",
-    "rightsLinkCta": "Gestionar mis datos en Mi cuenta"
+    "rightsLinkCta": "Gestionar mis datos en Mi cuenta",
+    "audience": {
+      "title": "Medicion de audiencia",
+      "paragraphs": [
+        "Este sitio utiliza SEO Monitor, una herramienta de medicion de audiencia autoalojada, para elaborar estadisticas de visitas anonimas (paginas consultadas, procedencia de las visitas, duracion de la consulta, tipo de dispositivo). Estos datos sirven unicamente para el buen funcionamiento y la mejora del sitio.",
+        "Se conserva un identificador aleatorio en tu navegador durante 13 meses como maximo. Tu direccion IP nunca se registra: solo se usa, de forma efimera, para deducir un pais y una ciudad aproximados. Los datos no se cruzan con otros tratamientos ni se transmiten a terceros, y se conservan 25 meses como maximo.",
+        "Responsable del tratamiento: {{publisher}}",
+        "Finalidad y base juridica: medicion de audiencia del sitio, basada en el interes legitimo del editor (articulo 6.1.f del RGPD). Este tratamiento esta exento de consentimiento en virtud del articulo 82 de la ley francesa de proteccion de datos y de las directrices de la CNIL sobre rastreadores.",
+        "Datos recogidos: paginas vistas, procedencia de la visita, duracion, profundidad de desplazamiento, tipo de dispositivo, navegador, idioma, pais y ciudad aproximados. La direccion IP no se conserva.",
+        "Rastreador y plazos de conservacion: identificador sm_vid, guardado en el almacenamiento local del navegador, para medir la audiencia, durante 13 meses como maximo (exento de consentimiento). Las estadisticas se conservan 25 meses como maximo.",
+        "Destinatarios: ningun tercero. Los datos se alojan en un servidor de OVH situado en Francia.",
+        "Tus derechos: tienes derecho de acceso, rectificacion, supresion, oposicion y limitacion del tratamiento, que puedes ejercer mediante el formulario de contacto. Tambien puedes presentar una reclamacion ante la CNIL (www.cnil.fr)."
+      ],
+      "optOutLead": "Conforme a las directrices de la CNIL, este tratamiento esta exento de consentimiento. No obstante, puedes oponerte en cualquier momento:",
+      "optOut": "dejar de ser medido",
+      "optedOut": "Tus visitas ya no se miden.",
+      "unavailable": "La herramienta de medicion no esta cargada en esta pagina (bloqueador de contenido?): tus visitas no se estan midiendo."
+    }
   },
   "terms": {
     "back": "Volver al inicio",
@@ -317,6 +334,10 @@
       {
         "title": "Propiedad intelectual",
         "body": "Todos los elementos de este sitio (textos, logotipo, codigo fuente, interfaz) estan protegidos por derechos de autor. Queda prohibida su reproduccion sin autorizacion previa, salvo para los componentes publicados explicitamente bajo licencia libre."
+      },
+      {
+        "title": "Datos personales",
+        "body": "El tratamiento de tus datos personales, incluida la medicion de audiencia del sitio, se describe en la politica de privacidad (pagina Privacidad, enlazada al pie de cada pagina)."
       },
       {
         "title": "Contacto y litigios",

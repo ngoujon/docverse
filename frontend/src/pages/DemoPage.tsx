@@ -6,6 +6,7 @@ import { usePageMeta } from "../hooks/usePageMeta";
 import { useInvisibleCaptcha } from "../hooks/useInvisibleCaptcha";
 import AnimatedText from "../components/AnimatedText";
 import { pageTitle } from "../brand";
+import LegalFooterLinks from "../components/LegalFooterLinks";
 
 interface DemoDocument {
   name: string;
@@ -190,6 +191,7 @@ export default function DemoPage() {
             {t("demoPage.ctaButton")} <ArrowRight size={14} />
           </Link>
         </div>
+        <LegalFooterLinks className="mt-10" />
       </div>
     </div>
   );

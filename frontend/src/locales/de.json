@@ -200,7 +200,7 @@
   },
   "cookies": {
     "title": "Reichweitenmessung",
-    "body": "Mit Ihrer Einwilligung zahlen wir Seitenaufrufe, um zu sehen, was Besucher interessiert. Keine Werbe-Cookies und kein Tracking in der Anwendung.",
+    "body": "Mit Ihrer Einwilligung zahlen wir Seitenaufrufe, um zu sehen, was Besucher interessiert. Keine Werbe-Cookies.",
     "accept": "Akzeptieren",
     "decline": "Ablehnen",
     "learnMore": "Mehr erfahren"
@@ -213,7 +213,7 @@
     "sections": [
       {
         "title": "Cookies",
-        "body": "Diese Website verwendet keine Werbe-Cookies und keine Tracking-Cookies von Drittanbietern. Ein Reichweitenmessdienst erfasst Seitenaufrufe, Verweildauer und ein aus der IP-Adresse abgeleitetes ungefahres Land - aber nur, wenn Sie beim ersten Besuch im Banner zustimmen: Grundlage ist eine temporare Sitzungskennung, die beim Schliessen des Tabs geloscht wird. Ihre Entscheidung wird im lokalen Speicher Ihres Browsers gespeichert und lasst sich durch Loschen der Websitedaten andern. Seiten der Anwendung (Arbeitsbereiche, Freigaben, Dashboard) werden nie erfasst."
+        "body": "Diese Website verwendet keine Werbe-Cookies und keine Tracking-Cookies von Drittanbietern. Es werden zwei Reichweitenmessungen eingesetzt. Die erste, SEO Monitor, ist einwilligungsfrei und im Abschnitt Reichweitenmessung unten beschrieben. Die zweite erfasst Seitenaufrufe, Verweildauer und ein aus der IP-Adresse abgeleitetes ungefahres Land - aber nur, wenn Sie beim ersten Besuch im Banner zustimmen: Grundlage ist eine temporare Sitzungskennung, die beim Schliessen des Tabs geloscht wird, und Seiten der Anwendung (Arbeitsbereiche, Freigaben, Dashboard) werden dabei nie erfasst. Ihre Entscheidung wird im lokalen Speicher Ihres Browsers gespeichert und lasst sich durch Loschen der Websitedaten andern."
       },
       {
         "title": "Lokaler Speicher (localStorage)",
@@ -245,7 +245,24 @@
       }
     ],
     "footnote": "Diese Seite beschreibt den Dienst, wie er auf dieser Website betrieben wird. Da die Software auch selbst gehostet werden kann, liegt eine von einer anderen Organisation installierte und verwaltete Instanz in deren Verantwortung.",
-    "rightsLinkCta": "Meine Daten in Mein Konto verwalten"
+    "rightsLinkCta": "Meine Daten in Mein Konto verwalten",
+    "audience": {
+      "title": "Reichweitenmessung",
+      "paragraphs": [
+        "Diese Website verwendet SEO Monitor, ein selbst gehostetes Werkzeug zur Reichweitenmessung, um anonyme Besuchsstatistiken zu erstellen (aufgerufene Seiten, Herkunft der Besuche, Verweildauer, Geratetyp). Diese Daten dienen ausschliesslich dem reibungslosen Betrieb und der Verbesserung der Website.",
+        "Eine zufallige Kennung wird hochstens 13 Monate in Ihrem Browser gespeichert. Ihre IP-Adresse wird nie gespeichert: Sie dient nur kurzzeitig dazu, ein ungefahres Land und eine ungefahre Stadt abzuleiten. Die Daten werden weder mit anderen Verarbeitungen verknupft noch an Dritte weitergegeben und hochstens 25 Monate aufbewahrt.",
+        "Verantwortlicher: {{publisher}}",
+        "Zweck und Rechtsgrundlage: Reichweitenmessung der Website auf Grundlage des berechtigten Interesses des Herausgebers (Art. 6 Abs. 1 lit. f DSGVO). Diese Verarbeitung ist nach Artikel 82 des franzosischen Datenschutzgesetzes und den Leitlinien der CNIL zu Trackern einwilligungsfrei.",
+        "Erfasste Daten: aufgerufene Seiten, Herkunft des Besuchs, Verweildauer, Scrolltiefe, Geratetyp, Browser, Sprache, ungefahres Land und ungefahre Stadt. Die IP-Adresse wird nicht gespeichert.",
+        "Tracker und Speicherdauer: Kennung sm_vid im lokalen Speicher des Browsers, zur Reichweitenmessung, hochstens 13 Monate (einwilligungsfrei). Die Statistiken werden hochstens 25 Monate aufbewahrt.",
+        "Empfanger: keine Dritten. Die Daten werden auf einem OVH-Server in Frankreich gehostet.",
+        "Ihre Rechte: Sie haben das Recht auf Auskunft, Berichtigung, Loschung, Widerspruch und Einschrankung der Verarbeitung, das Sie uber das Kontaktformular ausuben konnen. Sie konnen ausserdem Beschwerde bei der CNIL (www.cnil.fr) einlegen."
+      ],
+      "optOutLead": "Gemass den Leitlinien der CNIL ist diese Verarbeitung einwilligungsfrei. Sie konnen ihr dennoch jederzeit widersprechen:",
+      "optOut": "nicht mehr erfassen",
+      "optedOut": "Ihre Besuche werden nicht mehr erfasst.",
+      "unavailable": "Das Messwerkzeug ist auf dieser Seite nicht geladen (Inhaltsblocker?): Ihre Besuche werden derzeit nicht erfasst."
+    }
   },
   "terms": {
     "back": "Zuruck zur Startseite",
@@ -317,6 +334,10 @@
       {
         "title": "Geistiges Eigentum",
         "body": "Alle Elemente dieser Website (Texte, Logo, Quellcode, Oberflache) sind urheberrechtlich geschutzt. Jede Vervielfaltigung ohne vorherige Genehmigung ist untersagt, ausser fur Komponenten, die ausdrucklich unter einer Open-Source-Lizenz veroffentlicht wurden."
+      },
+      {
+        "title": "Personenbezogene Daten",
+        "body": "Die Verarbeitung Ihrer personenbezogenen Daten, einschliesslich der Reichweitenmessung der Website, ist in der Datenschutzerklarung beschrieben (Seite Datenschutz, am Ende jeder Seite verlinkt)."
       },
       {
         "title": "Kontakt und Streitigkeiten",

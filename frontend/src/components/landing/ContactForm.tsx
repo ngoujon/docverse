@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Send, CheckCircle2, AlertCircle } from "lucide-react";
 import { api } from "../../api/client";
 import { useCaptchaSolution } from "../../hooks/useCaptchaSolution";
+import { trackConversion } from "../../utils/seoMonitor";
 
 export default function ContactForm() {
   const { t } = useTranslation();
@@ -40,6 +41,7 @@ export default function ContactForm() {
         captcha,
       });
       setStatus("sent");
+      trackConversion("Contact");
       setName("");
       setEmail("");
       setSubject("");

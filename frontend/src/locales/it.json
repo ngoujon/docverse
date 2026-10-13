@@ -200,7 +200,7 @@
   },
   "cookies": {
     "title": "Misurazione del pubblico",
-    "body": "Con il tuo consenso, contiamo le pagine viste per capire cosa interessa ai visitatori. Nessun cookie pubblicitario e nessun tracciamento nell'applicazione.",
+    "body": "Con il tuo consenso, contiamo le pagine viste per capire cosa interessa ai visitatori. Nessun cookie pubblicitario.",
     "accept": "Accetta",
     "decline": "Rifiuta",
     "learnMore": "Scopri di piu"
@@ -213,7 +213,7 @@
     "sections": [
       {
         "title": "Cookie",
-        "body": "Questo sito non utilizza cookie pubblicitari ne cookie di terze parti per il targeting. Uno strumento di misurazione del pubblico registra le pagine viste, il tempo trascorso e un paese approssimativo dedotto dall'indirizzo IP, solo se lo accetti nel banner mostrato alla prima visita: si basa su un identificativo di sessione temporaneo, cancellato alla chiusura della scheda. La tua scelta viene conservata nell'archiviazione locale del browser e puoi modificarla cancellando i dati del sito. Le pagine dell'applicazione (spazi, condivisioni, dashboard) non vengono mai tracciate."
+        "body": "Questo sito non utilizza cookie pubblicitari ne cookie di terze parti per il targeting. Sono utilizzati due strumenti di misurazione del pubblico. Il primo, SEO Monitor, e esente da consenso ed e descritto nella sezione Misurazione del pubblico qui sotto. Il secondo registra le pagine viste, il tempo trascorso e un paese approssimativo dedotto dall'indirizzo IP, solo se lo accetti nel banner mostrato alla prima visita: si basa su un identificativo di sessione temporaneo, cancellato alla chiusura della scheda, e non traccia mai le pagine dell'applicazione (spazi, condivisioni, dashboard). La tua scelta viene conservata nell'archiviazione locale del browser e puoi modificarla cancellando i dati del sito."
       },
       {
         "title": "Archiviazione locale (localStorage)",
@@ -245,7 +245,24 @@
       }
     ],
     "footnote": "Questa pagina descrive il servizio cosi come viene gestito su questo sito. Poiche il software puo anche essere auto-ospitato, un'istanza installata e amministrata da un'altra organizzazione ricade sotto la responsabilita di quest'ultima.",
-    "rightsLinkCta": "Gestisci i miei dati in Il mio account"
+    "rightsLinkCta": "Gestisci i miei dati in Il mio account",
+    "audience": {
+      "title": "Misurazione del pubblico",
+      "paragraphs": [
+        "Questo sito utilizza SEO Monitor, uno strumento di misurazione del pubblico ospitato in proprio, per produrre statistiche di frequentazione anonime (pagine consultate, provenienza delle visite, durata della consultazione, tipo di dispositivo). Questi dati servono unicamente al buon funzionamento e al miglioramento del sito.",
+        "Un identificativo casuale viene conservato nel tuo browser per un massimo di 13 mesi. Il tuo indirizzo IP non viene mai registrato: serve solo, in modo effimero, a dedurre un paese e una citta approssimativi. I dati non vengono incrociati con altri trattamenti ne trasmessi a terzi, e sono conservati per un massimo di 25 mesi.",
+        "Titolare del trattamento: {{publisher}}",
+        "Finalita e base giuridica: misurazione del pubblico del sito, basata sul legittimo interesse dell'editore (articolo 6.1.f del GDPR). Questo trattamento e esente da consenso ai sensi dell'articolo 82 della legge francese sulla protezione dei dati e delle linee guida della CNIL sui traccianti.",
+        "Dati raccolti: pagine viste, provenienza della visita, durata, profondita di scorrimento, tipo di dispositivo, browser, lingua, paese e citta approssimativi. L'indirizzo IP non viene conservato.",
+        "Tracciante e tempi di conservazione: identificativo sm_vid, salvato nell'archiviazione locale del browser, per la misurazione del pubblico, per un massimo di 13 mesi (esente da consenso). Le statistiche sono conservate per un massimo di 25 mesi.",
+        "Destinatari: nessun terzo. I dati sono ospitati su un server OVH situato in Francia.",
+        "I tuoi diritti: hai diritto di accesso, rettifica, cancellazione, opposizione e limitazione del trattamento, esercitabili tramite il modulo di contatto. Puoi anche presentare un reclamo alla CNIL (www.cnil.fr)."
+      ],
+      "optOutLead": "In conformita con le linee guida della CNIL, questo trattamento e esente da consenso. Puoi comunque opporti in qualsiasi momento:",
+      "optOut": "non essere piu misurato",
+      "optedOut": "Le tue visite non vengono piu misurate.",
+      "unavailable": "Lo strumento di misurazione non e caricato su questa pagina (blocco dei contenuti?): le tue visite al momento non vengono misurate."
+    }
   },
   "terms": {
     "back": "Torna alla home",
@@ -317,6 +334,10 @@
       {
         "title": "Proprieta intellettuale",
         "body": "Tutti gli elementi di questo sito (testi, logo, codice sorgente, interfaccia) sono protetti dal diritto d'autore. Qualsiasi riproduzione senza autorizzazione preventiva e vietata, salvo per i componenti esplicitamente pubblicati con licenza open-source."
+      },
+      {
+        "title": "Dati personali",
+        "body": "Il trattamento dei tuoi dati personali, inclusa la misurazione del pubblico del sito, e descritto nell'informativa sulla privacy (pagina Privacy, collegata in fondo a ogni pagina)."
       },
       {
         "title": "Contatti e controversie",

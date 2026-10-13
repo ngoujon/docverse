@@ -10,6 +10,7 @@ import PasswordStrengthMeter from "../components/PasswordStrengthMeter";
 import { usePageMeta } from "../hooks/usePageMeta";
 import type { CaptchaSolution } from "../types";
 import { pageTitle } from "../brand";
+import { trackConversion } from "../utils/seoMonitor";
 
 export default function RegisterPage() {
   const { t } = useTranslation();
@@ -37,6 +38,7 @@ export default function RegisterPage() {
     setError(null);
     try {
       await register(email, password, displayName, captcha!, termsAccepted);
+      trackConversion("Inscription", { methode: "email" });
       navigate(redirectTo);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erreur");

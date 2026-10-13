@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { ArrowLeft, ChevronDown, HelpCircle } from "lucide-react";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { useJsonLd } from "../hooks/useJsonLd";
+import LegalFooterLinks from "../components/LegalFooterLinks";
 
 interface FaqItem {
   question: string;
@@ -78,6 +79,7 @@ export default function FaqPage() {
         </div>
 
         <p className="mt-10 text-xs text-slate-500">{t("faq.contactCta")}</p>
+        <LegalFooterLinks className="mt-10" />
       </div>
     </div>
   );

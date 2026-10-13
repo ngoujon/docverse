@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { ArrowLeft } from "lucide-react";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { pageTitle } from "../brand";
+import LegalFooterLinks from "../components/LegalFooterLinks";
 
 interface TermsSection {
   title: string;
@@ -46,6 +47,7 @@ export default function TermsPage() {
             </div>
           ))}
         </div>
+        <LegalFooterLinks className="mt-10" />
       </div>
     </div>
   );

@@ -200,7 +200,7 @@
   },
   "cookies": {
     "title": "Audience measurement",
-    "body": "With your consent, we count page views to see what visitors are interested in. No advertising cookies, and no tracking inside the app.",
+    "body": "With your consent, we count page views to see what visitors are interested in. No advertising cookies.",
     "accept": "Accept",
     "decline": "Decline",
     "learnMore": "Learn more"
@@ -213,7 +213,7 @@
     "sections": [
       {
         "title": "Cookies",
-        "body": "This site uses no advertising cookies and no third-party targeting cookies. An audience measurement tool records page views, time spent and an approximate country derived from your IP address, but only if you accept it in the banner shown on your first visit: it relies on a temporary session id that is cleared when you close the tab. Your choice is kept in your browser's local storage and you can change it by clearing this site's data. App pages (spaces, share links, dashboard) are never tracked."
+        "body": "This site uses no advertising cookies and no third-party targeting cookies. Two audience measurement tools are used. The first, SEO Monitor, is exempt from consent and described in the Audience measurement section below. The second records page views, time spent and an approximate country derived from your IP address, but only if you accept it in the banner shown on your first visit: it relies on a temporary session id that is cleared when you close the tab, and never tracks app pages (spaces, share links, dashboard). Your choice is kept in your browser's local storage and you can change it by clearing this site's data."
       },
       {
         "title": "Local storage (localStorage)",
@@ -245,7 +245,24 @@
       }
     ],
     "footnote": "This page describes the service as operated on this website. Since the software can also be self-hosted, an instance installed and administered by another organisation is that organisation's responsibility.",
-    "rightsLinkCta": "Manage my data in My Account"
+    "rightsLinkCta": "Manage my data in My Account",
+    "audience": {
+      "title": "Audience measurement",
+      "paragraphs": [
+        "This site uses SEO Monitor, a self-hosted audience measurement tool, to produce anonymous traffic statistics (pages viewed, where visits come from, time spent, device type). This data is used solely to keep the site running properly and to improve it.",
+        "A random identifier is kept in your browser for up to 13 months. Your IP address is never stored: it is only used, transiently, to derive an approximate country and city. The data is neither combined with other processing nor shared with third parties, and is kept for up to 25 months.",
+        "Data controller: {{publisher}}",
+        "Purpose and legal basis: audience measurement of the site, based on the publisher's legitimate interest in knowing how the site is used (Article 6(1)(f) GDPR). This processing is exempt from consent under Article 82 of the French Data Protection Act and the CNIL guidelines on trackers.",
+        "Data collected: pages viewed, visit source, time spent, scroll depth, device type, browser, language, approximate country and city. The IP address is not stored.",
+        "Tracker and retention periods: sm_vid identifier, saved in the browser's local storage for audience measurement, for up to 13 months (exempt from consent). Statistics are kept for up to 25 months.",
+        "Recipients: no third parties. The data is hosted on an OVH server located in France.",
+        "Your rights: you have the right to access, rectify, erase, object to and restrict the processing, which you can exercise through the contact form. You may also lodge a complaint with the CNIL (www.cnil.fr)."
+      ],
+      "optOutLead": "In line with the CNIL guidelines, this processing is exempt from consent. You can nevertheless object to it at any time:",
+      "optOut": "stop measuring my visits",
+      "optedOut": "Your visits are no longer measured.",
+      "unavailable": "The measurement tool is not loaded on this page (content blocker?): your visits are currently not measured."
+    }
   },
   "terms": {
     "back": "Back to home",
@@ -317,6 +334,10 @@
       {
         "title": "Intellectual property",
         "body": "All elements of this site (text, logo, source code, interface) are protected by copyright. Any reproduction without prior authorization is prohibited, except for components explicitly published under an open-source license."
+      },
+      {
+        "title": "Personal data",
+        "body": "How your personal data is processed, including the site's audience measurement, is described in the privacy policy (Privacy page, linked at the bottom of every page)."
       },
       {
         "title": "Contact and disputes",

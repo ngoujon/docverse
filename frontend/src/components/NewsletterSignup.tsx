@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Mail, CheckCircle2 } from "lucide-react";
 import { api } from "../api/client";
 import { useCaptchaSolution } from "../hooks/useCaptchaSolution";
+import { trackConversion } from "../utils/seoMonitor";
 
 export default function NewsletterSignup() {
   const { t } = useTranslation();
@@ -17,6 +18,7 @@ export default function NewsletterSignup() {
     setState("submitting");
     try {
       await api.newsletterSubscribe(email, captcha!);
+      trackConversion("Newsletter");
       setState("done");
     } catch {
       setState("error");

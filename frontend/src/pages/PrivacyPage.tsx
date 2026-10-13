@@ -1,7 +1,9 @@
+import { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   ArrowLeft,
+  BarChart3,
   Clock,
   Cookie,
   Database,
@@ -12,7 +14,9 @@ import {
   UserCheck,
 } from "lucide-react";
 import { usePageMeta } from "../hooks/usePageMeta";
-import { pageTitle } from "../brand";
+import { BRAND, pageTitle } from "../brand";
+import LegalFooterLinks from "../components/LegalFooterLinks";
+import { optOutOfAudience } from "../utils/seoMonitor";
 
 // One icon per section, in the order they appear in the locale files.
 const SECTION_ICONS = [
@@ -29,6 +33,61 @@ const SECTION_ICONS = [
 interface PrivacySection {
   title: string;
   body: string;
+}
+
+interface AudienceSection {
+  title: string;
+  paragraphs: string[];
+  optOutLead: string;
+  optOut: string;
+  optedOut: string;
+  unavailable: string;
+}
+
+/** The SEO Monitor section (CNIL-exempt audience measurement), with its
+ * opt-out. A React handler rather than the vendor's inline onclick, which
+ * the CSP (script-src without 'unsafe-inline') would block. */
+function AudienceMeasurementSection() {
+  const { t } = useTranslation();
+  const a = t("privacy.audience", {
+    returnObjects: true,
+    publisher: BRAND.legalPublisher || t("legal.notConfigured"),
+  }) as AudienceSection;
+  const [optOutState, setOptOutState] = useState<"idle" | "done" | "unavailable">("idle");
+
+  return (
+    <div
+      id="mesure-audience"
+      className="rounded-2xl border border-retro-border bg-retro-panel/40 p-5"
+    >
+      <div className="flex items-center gap-2">
+        <BarChart3 size={17} className="text-retro-cyan" />
+        <h2 className="text-sm font-semibold text-slate-900">{a.title}</h2>
+      </div>
+      {a.paragraphs.map((p) => (
+        <p key={p} className="mt-2 whitespace-pre-line text-xs leading-relaxed text-slate-600">
+          {p}
+        </p>
+      ))}
+      <p className="mt-2 text-xs leading-relaxed text-slate-600">
+        {a.optOutLead}{" "}
+        {optOutState === "idle" ? (
+          <button
+            type="button"
+            onClick={() => setOptOutState(optOutOfAudience() ? "done" : "unavailable")}
+            className="text-retro-cyan underline hover:no-underline"
+          >
+            {a.optOut}
+          </button>
+        ) : (
+          <span role="status" className="font-semibold text-slate-900">
+            {optOutState === "done" ? a.optedOut : a.unavailable}
+          </span>
+        )}
+        {optOutState === "idle" && "."}
+      </p>
+    </div>
+  );
 }
 
 export default function PrivacyPage() {
@@ -54,9 +113,7 @@ export default function PrivacyPage() {
         <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-retro-pink">
           {t("privacy.eyebrow")}
         </p>
-        <h1 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
-          {t("privacy.title")}
-        </h1>
+        <h1 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">{t("privacy.title")}</h1>
         <p className="mt-3 text-sm text-slate-600">{t("privacy.subtitle")}</p>
 
         <div className="mt-10 space-y-6">
@@ -65,16 +122,17 @@ export default function PrivacyPage() {
             // added to the locales without an icon here.
             const Icon = SECTION_ICONS[i] ?? ShieldCheck;
             return (
-              <div
-                key={s.title}
-                className="rounded-2xl border border-retro-border bg-retro-panel/40 p-5"
-              >
-                <div className="flex items-center gap-2">
-                  <Icon size={17} className="text-retro-cyan" />
-                  <h2 className="text-sm font-semibold text-slate-900">{s.title}</h2>
+              <Fragment key={s.title}>
+                <div className="rounded-2xl border border-retro-border bg-retro-panel/40 p-5">
+                  <div className="flex items-center gap-2">
+                    <Icon size={17} className="text-retro-cyan" />
+                    <h2 className="text-sm font-semibold text-slate-900">{s.title}</h2>
+                  </div>
+                  <p className="mt-2 text-xs leading-relaxed text-slate-600">{s.body}</p>
                 </div>
-                <p className="mt-2 text-xs leading-relaxed text-slate-600">{s.body}</p>
-              </div>
+                {/* Right after "Cookies", which points to it. */}
+                {i === 0 && <AudienceMeasurementSection />}
+              </Fragment>
             );
           })}
         </div>
@@ -87,6 +145,7 @@ export default function PrivacyPage() {
         </Link>
 
         <p className="mt-10 text-xs text-slate-500">{t("privacy.footnote")}</p>
+        <LegalFooterLinks className="mt-10" />
       </div>
     </div>
   );

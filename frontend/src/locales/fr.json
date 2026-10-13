@@ -200,7 +200,7 @@
   },
   "cookies": {
     "title": "Mesure d'audience",
-    "body": "Avec votre accord, nous comptons les pages vues pour savoir ce qui interesse les visiteurs. Aucun cookie publicitaire, aucun suivi dans l'application.",
+    "body": "Avec votre accord, nous comptons les pages vues pour savoir ce qui interesse les visiteurs. Aucun cookie publicitaire.",
     "accept": "Accepter",
     "decline": "Refuser",
     "learnMore": "En savoir plus"
@@ -213,7 +213,7 @@
     "sections": [
       {
         "title": "Cookies",
-        "body": "Ce site n'utilise aucun cookie publicitaire ni aucun cookie tiers de ciblage. Une mesure d'audience enregistre les pages vues, le temps passe et un pays approximatif deduit de l'adresse IP, uniquement si vous l'acceptez via le bandeau affiche a votre premiere visite : elle repose sur un identifiant de session temporaire, efface a la fermeture de l'onglet. Votre choix est conserve dans le stockage local de votre navigateur et vous pouvez le changer en effacant les donnees du site. Les pages de l'application (espaces, partages, tableau de bord) ne sont jamais suivies."
+        "body": "Ce site n'utilise aucun cookie publicitaire ni aucun cookie tiers de ciblage. Deux mesures d'audience coexistent. La premiere, SEO Monitor, est exemptee de consentement et detaillee dans la section Mesure d'audience ci-dessous. La seconde enregistre les pages vues, le temps passe et un pays approximatif deduit de l'adresse IP, uniquement si vous l'acceptez via le bandeau affiche a votre premiere visite : elle repose sur un identifiant de session temporaire, efface a la fermeture de l'onglet, et ne suit jamais les pages de l'application (espaces, partages, tableau de bord). Votre choix est conserve dans le stockage local de votre navigateur et vous pouvez le changer en effacant les donnees du site."
       },
       {
         "title": "Stockage local (localStorage)",
@@ -245,7 +245,24 @@
       }
     ],
     "footnote": "Cette page decrit le service tel qu'il est exploite sur ce site. Le logiciel pouvant aussi etre auto-heberge, une instance installee et administree par une autre organisation releve de la responsabilite de celle-ci.",
-    "rightsLinkCta": "Gerer mes donnees dans Mon compte"
+    "rightsLinkCta": "Gerer mes donnees dans Mon compte",
+    "audience": {
+      "title": "Mesure d'audience",
+      "paragraphs": [
+        "Ce site utilise SEO Monitor, un outil de mesure d'audience auto-heberge, afin d'etablir des statistiques de frequentation anonymes (pages consultees, provenance des visites, duree de consultation, type d'appareil). Ces donnees servent uniquement au bon fonctionnement et a l'amelioration du site.",
+        "Un identifiant aleatoire est conserve dans votre navigateur pendant 13 mois au maximum. Votre adresse IP n'est jamais enregistree : elle sert uniquement, de maniere ephemere, a deduire un pays et une ville approximatifs. Les donnees ne sont ni recoupees avec d'autres traitements, ni transmises a des tiers, et sont conservees 25 mois au maximum.",
+        "Responsable du traitement : {{publisher}}",
+        "Finalite et base legale : mesure d'audience du site, fondee sur l'interet legitime de l'editeur a connaitre la frequentation de son site (article 6.1.f du RGPD). Ce traitement est exempte de consentement au titre de l'article 82 de la loi Informatique et Libertes et des lignes directrices de la CNIL relatives aux traceurs.",
+        "Donnees collectees : pages vues, provenance de la visite, duree de consultation, profondeur de defilement, type d'appareil, navigateur, langue, pays et ville approximatifs. L'adresse IP n'est pas conservee.",
+        "Traceur et durees de conservation : identifiant sm_vid, enregistre dans le stockage local du navigateur, a des fins de mesure d'audience, pendant 13 mois au maximum (exempte de consentement). Les statistiques sont conservees 25 mois au maximum.",
+        "Destinataires : aucun tiers. Les donnees sont hebergees sur un serveur OVH situe en France.",
+        "Vos droits : vous disposez d'un droit d'acces, de rectification, d'effacement, d'opposition et de limitation du traitement, que vous pouvez exercer via le formulaire de contact. Vous pouvez aussi introduire une reclamation aupres de la CNIL (www.cnil.fr)."
+      ],
+      "optOutLead": "Conformement aux lignes directrices de la CNIL, ce traitement est exempte de consentement. Vous pouvez neanmoins vous y opposer a tout moment :",
+      "optOut": "ne plus etre mesure",
+      "optedOut": "Vos visites ne sont plus mesurees.",
+      "unavailable": "L'outil de mesure n'est pas charge sur cette page (bloqueur de contenu ?) : vos visites ne sont actuellement pas mesurees."
+    }
   },
   "terms": {
     "back": "Retour a l'accueil",
@@ -317,6 +334,10 @@
       {
         "title": "Propriete intellectuelle",
         "body": "L'ensemble des elements de ce site (textes, logo, code source, interface) est protege au titre du droit d'auteur. Toute reproduction sans autorisation prealable est interdite, sauf mention contraire pour les composants explicitement publies sous licence libre."
+      },
+      {
+        "title": "Donnees personnelles",
+        "body": "Le traitement de vos donnees personnelles, y compris la mesure d'audience du site, est decrit dans la politique de confidentialite (page Confidentialite, accessible en bas de chaque page)."
       },
       {
         "title": "Contact et litiges",
