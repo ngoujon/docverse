@@ -1,13 +1,15 @@
+"""Public contact form (honeypot + captcha + rate limit)."""
+
 import logging
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 
-from .. import models_db, schemas
+from .. import models, schemas
 from ..config import settings
 from ..database import get_db
 from ..deps import client_ip
-from ..services import captcha, email_templates, mail_service, rate_limiter
+from ..services import captcha, mailer, rate_limiter
 
 logger = logging.getLogger("docverse.contact")
 router = APIRouter(prefix="/api", tags=["contact"])
@@ -30,7 +32,7 @@ def submit_contact(
     if not captcha.verify_solution(payload.captcha_salt, payload.captcha_nonce):
         raise HTTPException(400, "Verification anti-robot invalide ou expiree")
 
-    msg = models_db.ContactMessage(
+    msg = models.ContactMessage(
         name=payload.name.strip(),
         email=payload.email,
         subject=payload.subject.strip(),
@@ -44,9 +46,9 @@ def submit_contact(
     logger.info("Nouveau message de contact de %s <%s>", msg.name, msg.email)
 
     if settings.contact_email:
-        subject, html, text = email_templates.contact_notification_email(
+        notification = mailer.contact_notification_email(
             msg.name, msg.email, msg.subject, msg.phone, msg.company, msg.message
         )
-        background_tasks.add_task(mail_service.send_email, settings.contact_email, subject, html, text)
+        mailer.send_later(background_tasks, settings.contact_email, notification)
 
     return {"ok": True}

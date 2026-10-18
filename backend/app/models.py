@@ -1,3 +1,6 @@
+"""SQLAlchemy ORM models (one table per class). Ids are random hex UUIDs
+and timestamps are naive UTC datetimes."""
+
 import uuid
 from datetime import datetime
 

@@ -1,3 +1,6 @@
+"""Conversation export to PDF (fpdf2, bundled DejaVu fonts for full
+Unicode) and DOCX (python-docx), with cited sources under each answer."""
+
 import io
 import json
 from datetime import datetime
@@ -7,7 +10,7 @@ from docx import Document as DocxDocument
 from docx.shared import Pt
 from fpdf import FPDF, XPos, YPos
 
-from .. import models_db
+from .. import models
 
 _FONTS_DIR = Path(__file__).resolve().parent.parent / "assets" / "fonts"
 _DEJAVU_REGULAR = str(_FONTS_DIR / "DejaVuSans.ttf")
@@ -28,14 +31,14 @@ def _source_line(source: dict, index: int) -> str:
     return f"[{index}] {source.get('label', 'document')}"
 
 
-def _load_sources(message: models_db.Message) -> list[dict]:
+def _load_sources(message: models.Message) -> list[dict]:
     try:
         return json.loads(message.sources_json or "[]")
     except (json.JSONDecodeError, TypeError):
         return []
 
 
-def build_pdf(conversation: models_db.Conversation, space_name: str) -> bytes:
+def build_pdf(conversation: models.Conversation, space_name: str) -> bytes:
     pdf = FPDF()
     pdf.add_font("DejaVu", "", _DEJAVU_REGULAR)
     pdf.add_font("DejaVu", "B", _DEJAVU_BOLD)
@@ -79,7 +82,7 @@ def build_pdf(conversation: models_db.Conversation, space_name: str) -> bytes:
     return bytes(pdf.output())
 
 
-def build_docx(conversation: models_db.Conversation, space_name: str) -> bytes:
+def build_docx(conversation: models.Conversation, space_name: str) -> bytes:
     doc = DocxDocument()
 
     doc.add_heading(conversation.title or "Conversation", level=1)

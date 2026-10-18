@@ -1,4 +1,6 @@
-import json
+"""Public help-desk chatbot shown on the marketing pages (no account, no
+access to user data): a tightly scoped system prompt plus strict limits."""
+
 import logging
 
 from fastapi import APIRouter, HTTPException, Request
@@ -64,10 +66,6 @@ avant d'acceder a l'espace partage.
 """
 
 
-def _sse(event: dict) -> str:
-    return f"data: {json.dumps(event, ensure_ascii=False)}\n\n"
-
-
 @router.post("/chat")
 async def support_chat(payload: schemas.SupportChatRequest, request: Request):
     ip = client_ip(request)
@@ -88,21 +86,22 @@ async def support_chat(payload: schemas.SupportChatRequest, request: Request):
     if not message:
         raise HTTPException(400, "Message vide")
 
-    messages = [{"role": "system", "content": _SYSTEM_PROMPT}]
-    for m in payload.history[-_HISTORY_LIMIT:]:
-        messages.append({"role": m.role, "content": m.content})
-    messages.append({"role": "user", "content": message})
+    messages = [
+        {"role": "system", "content": _SYSTEM_PROMPT},
+        *({"role": m.role, "content": m.content} for m in payload.history[-_HISTORY_LIMIT:]),
+        {"role": "user", "content": message},
+    ]
 
     async def event_stream():
         full_text = ""
         try:
             async for token in llm_provider.chat_stream(messages, temperature=0.3):
                 full_text += token
-                yield _sse({"type": "token", "content": token})
+                yield llm_provider.sse_event({"type": "token", "content": token})
         except Exception:
             logger.exception("Erreur pendant la generation de la reponse du chatbot d'aide")
             error_text = "Desole, une erreur est survenue. Reessayez dans un instant."
-            yield _sse({"type": "token", "content": error_text})
-        yield _sse({"type": "done"})
+            yield llm_provider.sse_event({"type": "token", "content": error_text})
+        yield llm_provider.sse_event({"type": "done"})
 
     return StreamingResponse(event_stream(), media_type="text/event-stream")

@@ -1,7 +1,15 @@
+"""Document ingestion pipeline: validates an upload, extracts its text
+(PDF, scanned pages and images through the vision model, audio through a
+local Whisper model, DOCX, plain text, web pages) and splits it into
+overlapping chunks ready to be embedded."""
+
 import asyncio
 import base64
 import ipaddress
+import logging
+import re
 import socket
+from functools import lru_cache
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -10,7 +18,10 @@ import httpx
 import trafilatura
 from docx import Document as DocxDocument
 
-from . import llm_provider, transcription
+from ..config import WHISPER_MODEL_DIR, settings
+from . import llm_provider
+
+logger = logging.getLogger("docverse.documents")
 
 IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".gif", ".bmp"}
 AUDIO_EXTENSIONS = {".mp3", ".wav", ".m4a", ".ogg", ".flac", ".webm"}
@@ -79,8 +90,34 @@ async def extract_text_from_image(path: Path) -> str:
     )
 
 
+@lru_cache(maxsize=1)
+def _whisper_model():
+    """Loaded lazily on first transcription (not at import time) so the
+    model download/load doesn't block API startup, and cached process-wide
+    since it holds the weights in memory. "small" on CPU balances accuracy
+    and speed on a GPU-less box; weights live in WHISPER_MODEL_DIR."""
+    from faster_whisper import WhisperModel
+
+    logger.info("Chargement du modele Whisper '%s'...", settings.whisper_model_size)
+    return WhisperModel(
+        settings.whisper_model_size,
+        device="cpu",
+        compute_type=settings.whisper_compute_type,
+        download_root=str(WHISPER_MODEL_DIR),
+    )
+
+
+def _transcribe_sync(path: Path) -> str:
+    segments, _info = _whisper_model().transcribe(str(path), beam_size=5, vad_filter=True)
+    return " ".join(segment.text.strip() for segment in segments).strip()
+
+
 async def extract_text_from_audio(path: Path) -> str:
-    return await transcription.transcribe_audio(path)
+    """Self-hosted transcription (faster-whisper). Runs on a thread since it
+    is blocking CPU work, and through the shared queue slot so it competes
+    fairly with the rest of the app for the same CPU."""
+    async with llm_provider.queue_slot():
+        return await asyncio.to_thread(_transcribe_sync, path)
 
 
 def extract_text_from_docx(path: Path) -> str:
@@ -129,8 +166,8 @@ async def _assert_public_url(url: str) -> None:
     loop = asyncio.get_running_loop()
     try:
         infos = await loop.getaddrinfo(parsed.hostname, None)
-    except socket.gaierror:
-        raise UnsafeUrlError("Impossible de resoudre ce nom de domaine")
+    except socket.gaierror as exc:
+        raise UnsafeUrlError("Impossible de resoudre ce nom de domaine") from exc
 
     if not infos or not all(_is_public_ip(info[4][0]) for info in infos):
         raise UnsafeUrlError("Cette adresse n'est pas autorisee")
@@ -165,46 +202,54 @@ async def extract_text_from_url(url: str) -> tuple[str, str]:
     return title, (extracted or "").strip()
 
 
+async def _extract_text_file(path: Path) -> str:
+    return extract_text_from_txt(path)
+
+
+async def _extract_docx(path: Path) -> str:
+    return extract_text_from_docx(path)
+
+
+# doc_type -> extractor for every file-based type ("url" is handled apart).
+_FILE_EXTRACTORS = {
+    "pdf": extract_text_from_pdf,
+    "image": extract_text_from_image,
+    "audio": extract_text_from_audio,
+    "docx": _extract_docx,
+    "txt": _extract_text_file,
+    "md": _extract_text_file,
+}
+
+# File extension -> doc_type accepted at upload.
+_EXTENSION_TYPES = {
+    ".pdf": "pdf",
+    ".docx": "docx",
+    ".md": "md",
+    **{ext: "image" for ext in IMAGE_EXTENSIONS},
+    **{ext: "audio" for ext in AUDIO_EXTENSIONS},
+    **{ext: "txt" for ext in (".txt", ".csv", ".json", ".log")},
+}
+
+
 async def process_document(
     doc_type: str, file_path: Path | None = None, url: str | None = None
 ) -> tuple[str, str]:
     """Returns (title, extracted_text)."""
-    if doc_type == "pdf":
-        assert file_path is not None
-        return file_path.name, await extract_text_from_pdf(file_path)
-    if doc_type == "image":
-        assert file_path is not None
-        return file_path.name, await extract_text_from_image(file_path)
-    if doc_type == "audio":
-        assert file_path is not None
-        return file_path.name, await extract_text_from_audio(file_path)
-    if doc_type == "docx":
-        assert file_path is not None
-        return file_path.name, extract_text_from_docx(file_path)
-    if doc_type in ("txt", "md"):
-        assert file_path is not None
-        return file_path.name, extract_text_from_txt(file_path)
     if doc_type == "url":
         assert url is not None
         return await extract_text_from_url(url)
-    raise ValueError(f"Type de document non supporte: {doc_type}")
+    extractor = _FILE_EXTRACTORS.get(doc_type)
+    if extractor is None:
+        raise ValueError(f"Type de document non supporte: {doc_type}")
+    assert file_path is not None
+    return file_path.name, await extractor(file_path)
 
 
 def guess_doc_type(filename: str) -> str:
     ext = Path(filename).suffix.lower()
-    if ext == ".pdf":
-        return "pdf"
-    if ext in IMAGE_EXTENSIONS:
-        return "image"
-    if ext in AUDIO_EXTENSIONS:
-        return "audio"
-    if ext == ".docx":
-        return "docx"
-    if ext == ".md":
-        return "md"
-    if ext in (".txt", ".csv", ".json", ".log"):
-        return "txt"
-    raise ValueError(f"Extension de fichier non supportee: {ext}")
+    if ext not in _EXTENSION_TYPES:
+        raise ValueError(f"Extension de fichier non supportee: {ext}")
+    return _EXTENSION_TYPES[ext]
 
 
 _IMAGE_SIGNATURES = (
@@ -258,3 +303,65 @@ def content_matches_type(doc_type: str, content: bytes) -> bool:
                 continue
         return False
     return True
+
+
+# --- Chunking -------------------------------------------------------------------
+
+
+def split_text(text: str, chunk_size: int = 1200, overlap: int = 150) -> list[str]:
+    """Split text into overlapping chunks, trying to break on paragraph /
+    sentence boundaries so chunks stay semantically coherent."""
+    text = re.sub(r"\n{3,}", "\n\n", text).strip()
+    if not text:
+        return []
+    if len(text) <= chunk_size:
+        return [text]
+
+    paragraphs = text.split("\n\n")
+    chunks: list[str] = []
+    current = ""
+
+    for para in paragraphs:
+        para = para.strip()
+        if not para:
+            continue
+        if len(current) + len(para) + 2 <= chunk_size:
+            current = f"{current}\n\n{para}" if current else para
+            continue
+
+        if current:
+            chunks.append(current)
+            current = ""
+
+        if len(para) <= chunk_size:
+            current = para
+            continue
+
+        sentences = re.split(r"(?<=[.!?])\s+", para)
+        buf = ""
+        for sent in sentences:
+            if len(buf) + len(sent) + 1 <= chunk_size:
+                buf = f"{buf} {sent}" if buf else sent
+            else:
+                if buf:
+                    chunks.append(buf)
+                if len(sent) > chunk_size:
+                    for i in range(0, len(sent), chunk_size - overlap):
+                        chunks.append(sent[i : i + chunk_size])
+                    buf = ""
+                else:
+                    buf = sent
+        if buf:
+            current = buf
+
+    if current:
+        chunks.append(current)
+
+    if overlap > 0 and len(chunks) > 1:
+        overlapped = [chunks[0]]
+        for i in range(1, len(chunks)):
+            tail = overlapped[-1][-overlap:]
+            overlapped.append(f"{tail} {chunks[i]}")
+        return overlapped
+
+    return chunks

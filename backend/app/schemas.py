@@ -1,8 +1,28 @@
+"""Pydantic request/response models of the public API, grouped by domain."""
+
+import json
 import re
 from datetime import datetime
-from typing import Optional, Any, Literal
+from typing import Any, Generic, Literal, Optional, TypeVar
 
-from pydantic import BaseModel, EmailStr, Field, field_validator
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
+
+T = TypeVar("T")
+
+
+class ORMModel(BaseModel):
+    """Response model that can be built straight from a SQLAlchemy row."""
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class Page(BaseModel, Generic[T]):
+    """One page of an offset-paginated admin listing."""
+
+    items: list[T]
+    total: int
+    limit: int
+    offset: int
 
 
 def _validate_password_complexity(value: str) -> str:
@@ -38,7 +58,7 @@ class LoginRequest(BaseModel):
     password: str
 
 
-class UserOut(BaseModel):
+class UserOut(ORMModel):
     id: str
     email: str
     display_name: str
@@ -47,9 +67,6 @@ class UserOut(BaseModel):
     email_verified: bool
     totp_enabled: bool
     created_at: datetime
-
-    class Config:
-        from_attributes = True
 
 
 class AuthResponse(BaseModel):
@@ -126,7 +143,7 @@ class SpaceUpdate(BaseModel):
     color: Optional[str] = None
 
 
-class SpaceOut(BaseModel):
+class SpaceOut(ORMModel):
     id: str
     name: str
     description: str
@@ -138,8 +155,22 @@ class SpaceOut(BaseModel):
     document_count: int = 0
     conversation_count: int = 0
 
-    class Config:
-        from_attributes = True
+    @classmethod
+    def from_space(cls, space: Any, role: str, can_upload: bool = False) -> "SpaceOut":
+        """`role`/`can_upload` depend on who is asking, so they're resolved
+        per request rather than stored on the row."""
+        return cls(
+            id=space.id,
+            name=space.name,
+            description=space.description or "",
+            color=space.color or "#6366f1",
+            owner_id=space.owner_id,
+            my_role=role,
+            can_upload=can_upload,
+            created_at=space.created_at,
+            document_count=len(space.documents),
+            conversation_count=len(space.conversations),
+        )
 
 
 class SpaceMemberCreate(BaseModel):
@@ -157,6 +188,17 @@ class SpaceMemberOut(BaseModel):
     can_upload: bool
     created_at: datetime
 
+    @classmethod
+    def from_member(cls, member: Any) -> "SpaceMemberOut":
+        return cls(
+            id=member.id,
+            user_id=member.user_id,
+            email=member.user.email,
+            display_name=member.user.display_name,
+            can_upload=member.can_upload,
+            created_at=member.created_at,
+        )
+
 
 class ShareLinkCreate(BaseModel):
     can_upload: bool = False
@@ -164,7 +206,7 @@ class ShareLinkCreate(BaseModel):
     expires_in_days: Optional[int] = Field(default=None, ge=1, le=365)
 
 
-class ShareLinkOut(BaseModel):
+class ShareLinkOut(ORMModel):
     id: str
     space_id: str
     can_upload: bool
@@ -172,9 +214,6 @@ class ShareLinkOut(BaseModel):
     created_at: datetime
     expires_at: Optional[datetime] = None
     revoked: bool = False
-
-    class Config:
-        from_attributes = True
 
 
 class SpaceStatsOut(BaseModel):
@@ -237,30 +276,13 @@ class AdminCreateUserRequest(BaseModel):
     _validate_password = field_validator("password")(_validate_password_complexity)
 
 
-class SpaceSnapshotOut(BaseModel):
+class SpaceSnapshotOut(ORMModel):
     id: str
     space_id: str
     created_at: datetime
     size_bytes: int
     conversation_count: int
     document_count: int
-
-    class Config:
-        from_attributes = True
-
-
-class PaginatedUsers(BaseModel):
-    items: list[UserOut]
-    total: int
-    limit: int
-    offset: int
-
-
-class PaginatedSpaces(BaseModel):
-    items: list[SpaceOut]
-    total: int
-    limit: int
-    offset: int
 
 
 class AdminStatsOut(BaseModel):
@@ -283,18 +305,15 @@ class ConversationUpdate(BaseModel):
     title: Optional[str] = None
 
 
-class ConversationOut(BaseModel):
+class ConversationOut(ORMModel):
     id: str
     space_id: str
     title: str
     created_at: datetime
     updated_at: datetime
 
-    class Config:
-        from_attributes = True
 
-
-class MessageOut(BaseModel):
+class MessageOut(ORMModel):
     id: str
     conversation_id: str
     role: str
@@ -302,8 +321,17 @@ class MessageOut(BaseModel):
     sources: list[Any] = []
     created_at: datetime
 
-    class Config:
-        from_attributes = True
+    @classmethod
+    def from_message(cls, message: Any) -> "MessageOut":
+        # Citations are stored as a JSON string column (sources_json).
+        return cls(
+            id=message.id,
+            conversation_id=message.conversation_id,
+            role=message.role,
+            content=message.content,
+            sources=json.loads(message.sources_json or "[]"),
+            created_at=message.created_at,
+        )
 
 
 class ChatRequest(BaseModel):
@@ -315,7 +343,7 @@ class ChatRequest(BaseModel):
     doc_ids: list[str] = []
 
 
-class DocumentOut(BaseModel):
+class DocumentOut(ORMModel):
     id: str
     space_id: str
     name: str
@@ -327,9 +355,6 @@ class DocumentOut(BaseModel):
     preview: str
     size_bytes: int
     created_at: datetime
-
-    class Config:
-        from_attributes = True
 
 
 class UrlIngestRequest(BaseModel):
@@ -378,22 +403,12 @@ class NewsletterSubscribeRequest(BaseModel):
     captcha_nonce: int
 
 
-class NewsletterSubscriberOut(BaseModel):
+class NewsletterSubscriberOut(ORMModel):
     id: str
     email: str
     confirmed: bool
     created_at: datetime
     confirmed_at: Optional[datetime] = None
-
-    class Config:
-        from_attributes = True
-
-
-class PaginatedNewsletterSubscribers(BaseModel):
-    items: list[NewsletterSubscriberOut]
-    total: int
-    limit: int
-    offset: int
 
 
 class NewsletterCampaignRequest(BaseModel):
@@ -407,7 +422,7 @@ class NewsletterCampaignResult(BaseModel):
 
 # --- Testimonials -------------------------------------------------------
 
-class TestimonialOut(BaseModel):
+class TestimonialOut(ORMModel):
     id: str
     author_name: str
     author_role: str
@@ -417,9 +432,6 @@ class TestimonialOut(BaseModel):
     published: bool
     display_order: int
     created_at: datetime
-
-    class Config:
-        from_attributes = True
 
 
 class TestimonialCreate(BaseModel):

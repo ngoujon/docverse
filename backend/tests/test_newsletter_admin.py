@@ -3,11 +3,11 @@ from .conftest import auth_headers, register_user
 
 def _make_admin(user_id: str) -> None:
     from app.database import SessionLocal
-    from app import models_db
+    from app import models
 
     db = SessionLocal()
     try:
-        user = db.get(models_db.User, user_id)
+        user = db.get(models.User, user_id)
         user.role = "admin"
         user.totp_enabled = True
         db.commit()
@@ -17,11 +17,11 @@ def _make_admin(user_id: str) -> None:
 
 def _add_subscriber(email: str, confirmed: bool = True) -> str:
     from app.database import SessionLocal
-    from app import models_db
+    from app import models
 
     db = SessionLocal()
     try:
-        sub = models_db.NewsletterSubscriber(email=email, confirmed=confirmed)
+        sub = models.NewsletterSubscriber(email=email, confirmed=confirmed)
         db.add(sub)
         db.commit()
         db.refresh(sub)

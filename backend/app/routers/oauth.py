@@ -1,3 +1,6 @@
+"""SSO login/registration (Google, GitHub, LinkedIn, Apple) via the OAuth2
+authorization-code flow; the frontend receives a session token on return."""
+
 import json
 import logging
 from datetime import datetime
@@ -7,7 +10,7 @@ from fastapi import APIRouter, Depends, Form, HTTPException, Query
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 
-from .. import models_db
+from .. import models
 from ..config import settings
 from ..database import get_db
 from ..services import auth, oauth_providers
@@ -27,14 +30,23 @@ def _safe_next_path(raw: str | None) -> str:
     return raw
 
 
+def _next_path(state: str | None) -> str:
+    """The post-login path travels inside the signed `state` parameter."""
+    return _safe_next_path(auth.verify_purpose_token(state, _STATE_PURPOSE) if state else None)
+
+
+def _frontend_error() -> str:
+    return f"{settings.frontend_base_url}/login?sso_error=1"
+
+
 def _login_or_create_user(db: Session, email: str, name: str, next_path: str) -> str:
     """Shared by every provider's callback once it has a verified email:
     find-or-create the account and build the frontend redirect URL. Returns
     the login-error redirect if the account is disabled."""
-    user = db.query(models_db.User).filter_by(email=email).first()
+    user = db.query(models.User).filter_by(email=email).first()
     if not user:
-        is_first_user = db.query(models_db.User).count() == 0
-        user = models_db.User(
+        is_first_user = db.query(models.User).count() == 0
+        user = models.User(
             email=email,
             # SSO accounts never use a password - a random unusable hash
             # keeps password_hash NOT NULL without inventing a real one the
@@ -64,12 +76,8 @@ def _login_or_create_user(db: Session, email: str, name: str, next_path: str) ->
 def list_providers():
     """Lets the frontend show only the SSO buttons that are actually
     configured, instead of a button that 500s when clicked."""
-    return {
-        "google": oauth_providers.google.configured,
-        "apple": oauth_providers.apple.configured,
-        "github": oauth_providers.github.configured,
-        "linkedin": oauth_providers.linkedin.configured,
-    }
+    providers = {**oauth_providers.PROVIDERS, "apple": oauth_providers.apple}
+    return {name: providers[name].configured for name in ("google", "apple", "github", "linkedin")}
 
 
 @router.get("/{provider}/login")
@@ -98,8 +106,8 @@ async def oauth_callback(
     if not p or not p.configured:
         raise HTTPException(404, "Fournisseur SSO inconnu")
 
-    next_path = _safe_next_path(auth.verify_purpose_token(state, _STATE_PURPOSE) if state else None)
-    frontend_error = f"{settings.frontend_base_url}/login?sso_error=1"
+    next_path = _next_path(state)
+    frontend_error = _frontend_error()
 
     if error or not code:
         logger.warning("Echec OAuth %s : %s", provider, error or "code manquant")
@@ -136,8 +144,8 @@ async def apple_callback(
     if not p.configured:
         raise HTTPException(404, "Fournisseur SSO inconnu")
 
-    next_path = _safe_next_path(auth.verify_purpose_token(state, _STATE_PURPOSE) if state else None)
-    frontend_error = f"{settings.frontend_base_url}/login?sso_error=1"
+    next_path = _next_path(state)
+    frontend_error = _frontend_error()
 
     # A redirect in response to a POST must use 303 so the browser follows
     # up with a GET - the default 307 would re-POST to the frontend.

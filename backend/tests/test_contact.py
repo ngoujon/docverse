@@ -32,11 +32,11 @@ def test_submit_contact_persists_message(client: TestClient):
     assert res.json() == {"ok": True}
 
     from app.database import SessionLocal
-    from app import models_db
+    from app import models
 
     db = SessionLocal()
     try:
-        stored = db.query(models_db.ContactMessage).one()
+        stored = db.query(models.ContactMessage).one()
         assert stored.name == payload["name"]
         assert stored.email == payload["email"]
         assert stored.subject == payload["subject"]
@@ -62,11 +62,11 @@ def test_submit_contact_with_invalid_captcha_is_rejected(client: TestClient):
     assert res.status_code == 400
 
     from app.database import SessionLocal
-    from app import models_db
+    from app import models
 
     db = SessionLocal()
     try:
-        assert db.query(models_db.ContactMessage).count() == 0
+        assert db.query(models.ContactMessage).count() == 0
     finally:
         db.close()
 
@@ -80,11 +80,11 @@ def test_submit_contact_honeypot_pretends_success_but_does_not_persist(client: T
     assert res.json() == {"ok": True}
 
     from app.database import SessionLocal
-    from app import models_db
+    from app import models
 
     db = SessionLocal()
     try:
-        assert db.query(models_db.ContactMessage).count() == 0
+        assert db.query(models.ContactMessage).count() == 0
     finally:
         db.close()
 

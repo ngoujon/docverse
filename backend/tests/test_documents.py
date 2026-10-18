@@ -14,12 +14,12 @@ def _seed_fake_storage(space_id: str, size_bytes: int) -> None:
     an actual file on disk - enough to make the storage-sum query reflect
     near-quota usage without uploading hundreds of MB in a test."""
     from app.database import SessionLocal
-    from app import models_db
+    from app import models
 
     db = SessionLocal()
     try:
         db.add(
-            models_db.Document(
+            models.Document(
                 space_id=space_id,
                 name="filler.txt",
                 doc_type="txt",

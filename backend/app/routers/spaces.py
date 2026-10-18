@@ -1,51 +1,38 @@
-import shutil
+"""Workspaces ("spaces"): CRUD, usage statistics, the vector-graph view,
+account-holder members and share links."""
+
 from datetime import datetime, timedelta
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
-from .. import config, models_db, schemas
-from ..config import UPLOAD_DIR, settings
+from .. import models, schemas
+from ..config import quota, settings
 from ..database import get_db
 from ..deps import SpaceAccess, get_current_user, require_space_access, require_space_owner
-from ..services import backup, email_templates, mail_service, vector_graph, vectorstore
+from ..services import accounts, mailer, vectorstore
 
 router = APIRouter(prefix="/api/spaces", tags=["spaces"])
 
 
-def _to_out(space: models_db.Space, role: str, can_upload: bool = False) -> schemas.SpaceOut:
-    return schemas.SpaceOut(
-        id=space.id,
-        name=space.name,
-        description=space.description or "",
-        color=space.color or "#6366f1",
-        owner_id=space.owner_id,
-        my_role=role,
-        can_upload=can_upload,
-        created_at=space.created_at,
-        document_count=len(space.documents),
-        conversation_count=len(space.conversations),
-    )
-
-
 @router.get("", response_model=list[schemas.SpaceOut])
 def list_my_spaces(
-    user: models_db.User = Depends(get_current_user), db: Session = Depends(get_db)
+    user: models.User = Depends(get_current_user), db: Session = Depends(get_db)
 ):
     """Spaces the current user owns or is a member of (the client
     dashboard's "my spaces" list). Admins do NOT see every space here -
     that's a deliberate privacy default; see /api/admin/spaces."""
-    owned = db.query(models_db.Space).filter_by(owner_id=user.id).all()
-    member_rows = db.query(models_db.SpaceMember).filter_by(user_id=user.id).all()
+    owned = db.query(models.Space).filter_by(owner_id=user.id).all()
+    member_rows = db.query(models.SpaceMember).filter_by(user_id=user.id).all()
     member_upload = {m.space_id: m.can_upload for m in member_rows}
     members_spaces_objs = (
-        db.query(models_db.Space).filter(models_db.Space.id.in_(member_upload.keys())).all()
+        db.query(models.Space).filter(models.Space.id.in_(member_upload.keys())).all()
         if member_upload
         else []
     )
-    out = [_to_out(s, "owner", can_upload=True) for s in owned]
-    out += [_to_out(s, "member", can_upload=member_upload[s.id]) for s in members_spaces_objs]
+    out = [schemas.SpaceOut.from_space(s, "owner", can_upload=True) for s in owned]
+    out += [schemas.SpaceOut.from_space(s, "member", can_upload=member_upload[s.id]) for s in members_spaces_objs]
     out.sort(key=lambda s: s.created_at, reverse=True)
     return out
 
@@ -53,14 +40,14 @@ def list_my_spaces(
 @router.post("", response_model=schemas.SpaceOut)
 def create_space(
     payload: schemas.SpaceCreate,
-    user: models_db.User = Depends(get_current_user),
+    user: models.User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    owned_count = db.query(models_db.Space).filter_by(owner_id=user.id).count()
-    effective_limit = min(config.quota("spaces"), settings.max_spaces_per_user)
+    owned_count = db.query(models.Space).filter_by(owner_id=user.id).count()
+    effective_limit = min(quota("spaces"), settings.max_spaces_per_user)
     if owned_count >= effective_limit:
         raise HTTPException(400, f"Limite de {effective_limit} espaces atteinte pour votre compte")
-    space = models_db.Space(
+    space = models.Space(
         name=payload.name.strip() or "Espace sans nom",
         description=payload.description,
         color=payload.color,
@@ -69,7 +56,7 @@ def create_space(
     db.add(space)
     db.commit()
     db.refresh(space)
-    return _to_out(space, "owner", can_upload=True)
+    return schemas.SpaceOut.from_space(space, "owner", can_upload=True)
 
 
 @router.get("/by-share/{token}", response_model=schemas.SpaceOut)
@@ -77,60 +64,55 @@ def get_space_by_share_token(token: str, db: Session = Depends(get_db)):
     """Resolves a share link to its space - the frontend's /share/:token
     route only has the token, not the space id, so this is how it finds
     out which space to load before making any further scoped requests."""
-    link = db.get(models_db.ShareLink, token)
+    link = db.get(models.ShareLink, token)
     if (
         not link
         or link.revoked
         or (link.expires_at and link.expires_at <= datetime.utcnow())
     ):
         raise HTTPException(404, "Lien de partage introuvable ou expire")
-    space = db.get(models_db.Space, link.space_id)
+    space = db.get(models.Space, link.space_id)
     if not space:
         raise HTTPException(404, "Espace introuvable")
-    return _to_out(space, "member", can_upload=link.can_upload)
+    return schemas.SpaceOut.from_space(space, "member", can_upload=link.can_upload)
 
 
 @router.get("/{space_id}", response_model=schemas.SpaceOut)
 def get_space(access: SpaceAccess = Depends(require_space_access)):
-    return _to_out(access.space, access.role, can_upload=access.can_upload)
+    return schemas.SpaceOut.from_space(access.space, access.role, can_upload=access.can_upload)
 
 
 @router.get("/{space_id}/vector-graph", response_model=schemas.VectorGraphOut)
 def space_vector_graph(access: SpaceAccess = Depends(require_space_access)):
-    return vector_graph.build_graph(access.space.id)
+    return vectorstore.build_graph(access.space.id)
 
 
 @router.get("/{space_id}/stats", response_model=schemas.SpaceStatsOut)
 def space_stats(access: SpaceAccess = Depends(require_space_access), db: Session = Depends(get_db)):
     space = access.space
     message_count = (
-        db.query(func.count(models_db.Message.id))
-        .join(models_db.Conversation, models_db.Message.conversation_id == models_db.Conversation.id)
-        .filter(models_db.Conversation.space_id == space.id)
-        .scalar()
-    )
-    storage_bytes = (
-        db.query(func.coalesce(func.sum(models_db.Document.size_bytes), 0))
-        .filter(models_db.Document.space_id == space.id)
+        db.query(func.count(models.Message.id))
+        .join(models.Conversation, models.Message.conversation_id == models.Conversation.id)
+        .filter(models.Conversation.space_id == space.id)
         .scalar()
     )
     last_conv = (
-        db.query(models_db.Conversation)
-        .filter(models_db.Conversation.space_id == space.id)
-        .order_by(models_db.Conversation.updated_at.desc())
+        db.query(models.Conversation)
+        .filter(models.Conversation.space_id == space.id)
+        .order_by(models.Conversation.updated_at.desc())
         .first()
     )
-    member_limit = config.quota("members_per_space")
+    member_limit = quota("members_per_space")
     return schemas.SpaceStatsOut(
         space_id=space.id,
         document_count=len(space.documents),
         conversation_count=len(space.conversations),
         message_count=message_count or 0,
-        storage_bytes=storage_bytes or 0,
-        storage_limit_bytes=config.quota("storage_bytes"),
+        storage_bytes=accounts.storage_bytes(db, [space.id]),
+        storage_limit_bytes=quota("storage_bytes"),
         member_count=len(space.members) + 1,  # +1 for the owner, matches add_member's headcount
         member_limit=member_limit,
-        active_share_links=sum(1 for l in space.share_links if not l.revoked),
+        active_share_links=sum(1 for link in space.share_links if not link.revoked),
         last_activity_at=last_conv.updated_at if last_conv else None,
     )
 
@@ -150,23 +132,12 @@ def update_space(
         space.color = payload.color
     db.commit()
     db.refresh(space)
-    return _to_out(space, "owner", can_upload=True)
+    return schemas.SpaceOut.from_space(space, "owner", can_upload=True)
 
 
 @router.delete("/{space_id}")
-def delete_space(
-    access: SpaceAccess = Depends(require_space_owner), db: Session = Depends(get_db)
-):
-    space_id = access.space.id
-    db.delete(access.space)
-    db.commit()
-
-    vectorstore.delete_space(space_id)
-    backup.delete_all_snapshots(space_id)
-    space_upload_dir = UPLOAD_DIR / space_id
-    if space_upload_dir.exists():
-        shutil.rmtree(space_upload_dir, ignore_errors=True)
-
+def delete_space(access: SpaceAccess = Depends(require_space_owner), db: Session = Depends(get_db)):
+    accounts.purge_space(db, access.space)
     return {"ok": True}
 
 
@@ -174,18 +145,8 @@ def delete_space(
 
 @router.get("/{space_id}/members", response_model=list[schemas.SpaceMemberOut])
 def list_members(access: SpaceAccess = Depends(require_space_access), db: Session = Depends(get_db)):
-    rows = db.query(models_db.SpaceMember).filter_by(space_id=access.space.id).all()
-    return [
-        schemas.SpaceMemberOut(
-            id=m.id,
-            user_id=m.user_id,
-            email=m.user.email,
-            display_name=m.user.display_name,
-            can_upload=m.can_upload,
-            created_at=m.created_at,
-        )
-        for m in rows
-    ]
+    rows = db.query(models.SpaceMember).filter_by(space_id=access.space.id).all()
+    return [schemas.SpaceMemberOut.from_member(m) for m in rows]
 
 
 @router.post("/{space_id}/members", response_model=schemas.SpaceMemberOut)
@@ -196,25 +157,26 @@ def add_member(
     db: Session = Depends(get_db),
 ):
     email = payload.email.lower().strip()
-    target = db.query(models_db.User).filter_by(email=email).first()
+    target = db.query(models.User).filter_by(email=email).first()
     if not target:
         raise HTTPException(404, "Aucun compte avec cet email")
     if target.id == access.space.owner_id:
         raise HTTPException(400, "Cet utilisateur est deja proprietaire de l'espace")
 
-    cooldown_cutoff = datetime.utcnow() - timedelta(hours=settings.member_reinvite_cooldown_hours)
+    cooldown = timedelta(hours=settings.member_reinvite_cooldown_hours)
+    cooldown_cutoff = datetime.utcnow() - cooldown
     recent_removal = (
-        db.query(models_db.SpaceMemberRemoval)
+        db.query(models.SpaceMemberRemoval)
         .filter(
-            models_db.SpaceMemberRemoval.space_id == access.space.id,
-            models_db.SpaceMemberRemoval.user_id == target.id,
-            models_db.SpaceMemberRemoval.removed_at > cooldown_cutoff,
+            models.SpaceMemberRemoval.space_id == access.space.id,
+            models.SpaceMemberRemoval.user_id == target.id,
+            models.SpaceMemberRemoval.removed_at > cooldown_cutoff,
         )
-        .order_by(models_db.SpaceMemberRemoval.removed_at.desc())
+        .order_by(models.SpaceMemberRemoval.removed_at.desc())
         .first()
     )
     if recent_removal:
-        remaining = recent_removal.removed_at + timedelta(hours=settings.member_reinvite_cooldown_hours) - datetime.utcnow()
+        remaining = recent_removal.removed_at + cooldown - datetime.utcnow()
         hours_left = max(1, int(remaining.total_seconds() // 3600) + 1)
         raise HTTPException(
             400,
@@ -222,7 +184,7 @@ def add_member(
         )
 
     existing = (
-        db.query(models_db.SpaceMember)
+        db.query(models.SpaceMember)
         .filter_by(space_id=access.space.id, user_id=target.id)
         .first()
     )
@@ -231,18 +193,18 @@ def add_member(
         db.commit()
         member = existing
     else:
-        member_limit = config.quota("members_per_space")
+        member_limit = quota("members_per_space")
         # +1 for the owner - the "members per space" figure is a total
         # headcount, not just invited members.
         current_count = (
-            db.query(models_db.SpaceMember).filter_by(space_id=access.space.id).count() + 1
+            db.query(models.SpaceMember).filter_by(space_id=access.space.id).count() + 1
         )
         if current_count >= member_limit:
             raise HTTPException(
                 400,
                 f"Limite de {member_limit} membres par espace atteinte",
             )
-        member = models_db.SpaceMember(
+        member = models.SpaceMember(
             space_id=access.space.id, user_id=target.id, can_upload=payload.can_upload
         )
         db.add(member)
@@ -251,18 +213,11 @@ def add_member(
         # Only on a new membership - updating an existing member's upload
         # permission isn't news worth an email.
         inviter = access.user.display_name or access.user.email
-        subject, html, text = email_templates.space_member_added_email(
-            inviter, access.space.name, f"{settings.frontend_base_url}/app/{access.space.id}"
+        app_url = f"{settings.frontend_base_url}/app/{access.space.id}"
+        mailer.send_later(
+            background_tasks, target.email, mailer.space_member_added_email(inviter, access.space.name, app_url)
         )
-        background_tasks.add_task(mail_service.send_email, target.email, subject, html, text)
-    return schemas.SpaceMemberOut(
-        id=member.id,
-        user_id=target.id,
-        email=target.email,
-        display_name=target.display_name,
-        can_upload=member.can_upload,
-        created_at=member.created_at,
-    )
+    return schemas.SpaceMemberOut.from_member(member)
 
 
 @router.delete("/{space_id}/members/{member_id}")
@@ -271,10 +226,10 @@ def remove_member(
     access: SpaceAccess = Depends(require_space_owner),
     db: Session = Depends(get_db),
 ):
-    member = db.get(models_db.SpaceMember, member_id)
+    member = db.get(models.SpaceMember, member_id)
     if not member or member.space_id != access.space.id:
         raise HTTPException(404, "Membre introuvable")
-    db.add(models_db.SpaceMemberRemoval(space_id=member.space_id, user_id=member.user_id))
+    db.add(models.SpaceMemberRemoval(space_id=member.space_id, user_id=member.user_id))
     db.delete(member)
     db.commit()
     return {"ok": True}
@@ -284,7 +239,7 @@ def remove_member(
 
 @router.get("/{space_id}/share-links", response_model=list[schemas.ShareLinkOut])
 def list_share_links(access: SpaceAccess = Depends(require_space_owner), db: Session = Depends(get_db)):
-    return db.query(models_db.ShareLink).filter_by(space_id=access.space.id).all()
+    return db.query(models.ShareLink).filter_by(space_id=access.space.id).all()
 
 
 @router.post("/{space_id}/share-links", response_model=schemas.ShareLinkOut)
@@ -294,7 +249,7 @@ def create_share_link(
     db: Session = Depends(get_db),
 ):
     active_count = (
-        db.query(models_db.ShareLink)
+        db.query(models.ShareLink)
         .filter_by(space_id=access.space.id, revoked=False)
         .count()
     )
@@ -308,7 +263,7 @@ def create_share_link(
         if payload.expires_in_days
         else None
     )
-    link = models_db.ShareLink(
+    link = models.ShareLink(
         space_id=access.space.id,
         can_upload=payload.can_upload,
         label=payload.label,
@@ -327,7 +282,7 @@ def revoke_share_link(
     access: SpaceAccess = Depends(require_space_owner),
     db: Session = Depends(get_db),
 ):
-    link = db.get(models_db.ShareLink, link_id)
+    link = db.get(models.ShareLink, link_id)
     if not link or link.space_id != access.space.id:
         raise HTTPException(404, "Lien introuvable")
     link.revoked = True

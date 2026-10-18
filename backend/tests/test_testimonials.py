@@ -3,11 +3,11 @@ from .conftest import auth_headers, register_user
 
 def _make_admin(user_id: str) -> None:
     from app.database import SessionLocal
-    from app import models_db
+    from app import models
 
     db = SessionLocal()
     try:
-        user = db.get(models_db.User, user_id)
+        user = db.get(models.User, user_id)
         user.role = "admin"
         # require_admin also mandates 2FA for admin routes - simulate an
         # admin who has already completed setup, since that's not what

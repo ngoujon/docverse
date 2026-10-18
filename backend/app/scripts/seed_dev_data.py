@@ -10,7 +10,7 @@ Usage (inside the backend container):
 import logging
 
 from ..database import SessionLocal
-from .. import models_db
+from .. import models
 from ..services import auth
 
 logging.basicConfig(level=logging.INFO)
@@ -28,11 +28,11 @@ def seed() -> None:
     db = SessionLocal()
     try:
         for account in SEED_ACCOUNTS:
-            existing = db.query(models_db.User).filter_by(email=account["email"]).first()
+            existing = db.query(models.User).filter_by(email=account["email"]).first()
             if existing:
                 logger.info("Deja present, ignore : %s", account["email"])
                 continue
-            user = models_db.User(
+            user = models.User(
                 email=account["email"],
                 password_hash=auth.hash_password(DEV_PASSWORD),
                 display_name=account["display_name"],

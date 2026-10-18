@@ -1,12 +1,12 @@
-import json
+"""Conversations of a space: CRUD, message history and PDF/DOCX export."""
 
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import Response
 from sqlalchemy.orm import Session
 
-from .. import models_db, schemas
+from .. import models, schemas
 from ..database import get_db
-from ..deps import ConversationAccess, SpaceAccess, require_conversation_access, require_space_access
+from ..deps import SpaceAccess, require_conversation_access, require_space_access
 from ..services import export as export_service
 
 router = APIRouter(prefix="/api", tags=["conversations"])
@@ -17,28 +17,16 @@ _EXPORT_CONTENT_TYPES = {
 }
 
 
-def _msg_out(m: models_db.Message) -> schemas.MessageOut:
-    return schemas.MessageOut(
-        id=m.id,
-        conversation_id=m.conversation_id,
-        role=m.role,
-        content=m.content,
-        sources=json.loads(m.sources_json or "[]"),
-        created_at=m.created_at,
-    )
-
-
 @router.get("/spaces/{space_id}/conversations", response_model=list[schemas.ConversationOut])
 def list_conversations(
     access: SpaceAccess = Depends(require_space_access), db: Session = Depends(get_db)
 ):
-    convs = (
-        db.query(models_db.Conversation)
-        .filter(models_db.Conversation.space_id == access.space.id)
-        .order_by(models_db.Conversation.updated_at.desc())
+    return (
+        db.query(models.Conversation)
+        .filter(models.Conversation.space_id == access.space.id)
+        .order_by(models.Conversation.updated_at.desc())
         .all()
     )
-    return convs
 
 
 @router.post("/spaces/{space_id}/conversations", response_model=schemas.ConversationOut)
@@ -47,9 +35,8 @@ def create_conversation(
     access: SpaceAccess = Depends(require_space_access),
     db: Session = Depends(get_db),
 ):
-    if not access.can_write:
-        raise HTTPException(403, "Acces en lecture seule a cet espace")
-    conv = models_db.Conversation(space_id=access.space.id, title=payload.title)
+    access.require_write()
+    conv = models.Conversation(space_id=access.space.id, title=payload.title)
     db.add(conv)
     db.commit()
     db.refresh(conv)
@@ -57,15 +44,15 @@ def create_conversation(
 
 
 @router.get("/conversations/{conversation_id}", response_model=schemas.ConversationOut)
-def get_conversation(access: ConversationAccess = Depends(require_conversation_access)):
+def get_conversation(access: SpaceAccess = Depends(require_conversation_access)):
     return access.conversation
 
 
 @router.get(
     "/conversations/{conversation_id}/messages", response_model=list[schemas.MessageOut]
 )
-def list_messages(access: ConversationAccess = Depends(require_conversation_access)):
-    return [_msg_out(m) for m in access.conversation.messages]
+def list_messages(access: SpaceAccess = Depends(require_conversation_access)):
+    return [schemas.MessageOut.from_message(m) for m in access.conversation.messages]
 
 
 def _safe_filename(title: str) -> str:
@@ -76,17 +63,14 @@ def _safe_filename(title: str) -> str:
 @router.get("/conversations/{conversation_id}/export")
 def export_conversation(
     format: str = "pdf",
-    access: ConversationAccess = Depends(require_conversation_access),
+    access: SpaceAccess = Depends(require_conversation_access),
 ):
     if format not in _EXPORT_CONTENT_TYPES:
         raise HTTPException(400, "Format d'export non supporte (pdf ou docx)")
 
     conv = access.conversation
-    space_name = conv.space.name if conv.space else ""
-    if format == "pdf":
-        content = export_service.build_pdf(conv, space_name)
-    else:
-        content = export_service.build_docx(conv, space_name)
+    build = export_service.build_pdf if format == "pdf" else export_service.build_docx
+    content = build(conv, access.space.name)
 
     filename = f"{_safe_filename(conv.title or 'conversation')}.{format}"
     return Response(
@@ -99,11 +83,10 @@ def export_conversation(
 @router.patch("/conversations/{conversation_id}", response_model=schemas.ConversationOut)
 def update_conversation(
     payload: schemas.ConversationUpdate,
-    access: ConversationAccess = Depends(require_conversation_access),
+    access: SpaceAccess = Depends(require_conversation_access),
     db: Session = Depends(get_db),
 ):
-    if not access.can_write:
-        raise HTTPException(403, "Acces en lecture seule a cet espace")
+    access.require_write()
     if payload.title is not None:
         access.conversation.title = payload.title
     db.commit()
@@ -113,11 +96,10 @@ def update_conversation(
 
 @router.delete("/conversations/{conversation_id}")
 def delete_conversation(
-    access: ConversationAccess = Depends(require_conversation_access),
+    access: SpaceAccess = Depends(require_conversation_access),
     db: Session = Depends(get_db),
 ):
-    if not access.can_write:
-        raise HTTPException(403, "Acces en lecture seule a cet espace")
+    access.require_write()
     db.delete(access.conversation)
     db.commit()
     return {"ok": True}

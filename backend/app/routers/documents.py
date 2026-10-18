@@ -1,16 +1,16 @@
+"""Documents of a space: listing, file upload / URL ingestion (processed in
+a background task: extract -> chunk -> embed -> index) and deletion."""
+
 import logging
 
-from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, BackgroundTasks
+from fastapi import APIRouter, BackgroundTasks, Depends, File, HTTPException, UploadFile
 from sqlalchemy.orm import Session
 
-from sqlalchemy import func
-
-from .. import config, models_db, schemas
-from ..config import UPLOAD_DIR, settings
-from ..database import get_db, SessionLocal
-from ..deps import DocumentAccess, SpaceAccess, require_space_access, require_document_access
-from ..services import backup, document_processor, llm_provider, vectorstore
-from ..utils.chunking import split_text
+from .. import models, schemas
+from ..config import UPLOAD_DIR, quota, settings
+from ..database import SessionLocal, get_db
+from ..deps import SpaceAccess, require_document_access, require_space_access
+from ..services import accounts, backup, document_processor, llm_provider, vectorstore
 
 logger = logging.getLogger("docverse.documents")
 router = APIRouter(prefix="/api", tags=["documents"])
@@ -20,19 +20,20 @@ router = APIRouter(prefix="/api", tags=["documents"])
 def list_documents(
     access: SpaceAccess = Depends(require_space_access), db: Session = Depends(get_db)
 ):
-    docs = (
-        db.query(models_db.Document)
-        .filter(models_db.Document.space_id == access.space.id)
-        .order_by(models_db.Document.created_at.desc())
+    return (
+        db.query(models.Document)
+        .filter(models.Document.space_id == access.space.id)
+        .order_by(models.Document.created_at.desc())
         .all()
     )
-    return docs
 
 
 async def _ingest(document_id: str) -> None:
+    """Background pipeline for one document; any failure is stored on the
+    row (status="error") so the UI can show it instead of spinning forever."""
     db = SessionLocal()
     try:
-        doc = db.get(models_db.Document, document_id)
+        doc = db.get(models.Document, document_id)
         if not doc:
             return
         doc.status = "processing"
@@ -48,7 +49,7 @@ async def _ingest(document_id: str) -> None:
             if doc.doc_type == "url":
                 doc.name = title or doc.name
 
-            chunks = split_text(text, settings.chunk_size, settings.chunk_overlap)
+            chunks = document_processor.split_text(text, settings.chunk_size, settings.chunk_overlap)
             if not chunks:
                 doc.status = "error"
                 doc.error_message = "Aucun contenu exploitable n'a ete extrait de ce document."
@@ -86,20 +87,20 @@ async def upload_document(
     access: SpaceAccess = Depends(require_space_access),
     db: Session = Depends(get_db),
 ):
-    if not access.can_upload:
-        raise HTTPException(403, "Vous n'avez pas la permission de gerer les documents de cet espace")
+    access.require_upload()
     space = access.space
     try:
         doc_type = document_processor.guess_doc_type(file.filename)
     except ValueError as exc:
-        raise HTTPException(400, str(exc))
+        raise HTTPException(400, str(exc)) from exc
 
+    # Read in 1 MiB slices so an oversized upload is rejected as soon as it
+    # crosses the limit, without buffering the whole thing first.
     max_bytes = settings.max_upload_mb * 1024 * 1024
-    chunk_size = 1024 * 1024
     chunks: list[bytes] = []
     total = 0
     while True:
-        chunk = await file.read(chunk_size)
+        chunk = await file.read(1024 * 1024)
         if not chunk:
             break
         total += len(chunk)
@@ -113,21 +114,15 @@ async def upload_document(
             400, "Le contenu du fichier ne correspond pas a son extension"
         )
 
-    storage_limit = config.quota("storage_bytes")
-    used = (
-        db.query(func.coalesce(func.sum(models_db.Document.size_bytes), 0))
-        .filter(models_db.Document.space_id == space.id)
-        .scalar()
-        or 0
-    )
-    if used + len(content) > storage_limit:
+    storage_limit = quota("storage_bytes")
+    if accounts.storage_bytes(db, [space.id]) + len(content) > storage_limit:
         limit_mb = storage_limit // (1024 * 1024)
         raise HTTPException(
             400,
             f"Limite de stockage de {limit_mb} Mo atteinte pour cet espace",
         )
 
-    doc = models_db.Document(
+    doc = models.Document(
         space_id=space.id,
         name=file.filename,
         doc_type=doc_type,
@@ -138,8 +133,7 @@ async def upload_document(
     db.commit()
     db.refresh(doc)
 
-    space_dir = UPLOAD_DIR / space.id
-    space_dir.mkdir(parents=True, exist_ok=True)
+    (UPLOAD_DIR / space.id).mkdir(parents=True, exist_ok=True)
     relative_path = f"{space.id}/{doc.id}_{file.filename}"
     (UPLOAD_DIR / relative_path).write_bytes(content)
     doc.file_path = relative_path
@@ -157,9 +151,8 @@ def ingest_url(
     access: SpaceAccess = Depends(require_space_access),
     db: Session = Depends(get_db),
 ):
-    if not access.can_upload:
-        raise HTTPException(403, "Vous n'avez pas la permission de gerer les documents de cet espace")
-    doc = models_db.Document(
+    access.require_upload()
+    doc = models.Document(
         space_id=access.space.id,
         name=payload.url,
         doc_type="url",
@@ -176,17 +169,14 @@ def ingest_url(
 
 @router.delete("/documents/{document_id}")
 def delete_document(
-    access: DocumentAccess = Depends(require_document_access),
+    access: SpaceAccess = Depends(require_document_access),
     db: Session = Depends(get_db),
 ):
-    if not access.can_upload:
-        raise HTTPException(403, "Vous n'avez pas la permission de gerer les documents de cet espace")
+    access.require_upload()
     doc = access.document
     vectorstore.delete_document(doc.space_id, doc.id)
     if doc.file_path:
-        path = UPLOAD_DIR / doc.file_path
-        if path.exists():
-            path.unlink()
+        (UPLOAD_DIR / doc.file_path).unlink(missing_ok=True)
 
     db.delete(doc)
     db.commit()

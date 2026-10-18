@@ -1,3 +1,7 @@
+"""Live web search through the self-hosted SearXNG instance, enriching the
+top hits with their full page text (fetched with the same SSRF guard as
+URL ingestion)."""
+
 import asyncio
 
 import httpx

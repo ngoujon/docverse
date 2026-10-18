@@ -1,0 +1,5 @@
+[tool.pytest.ini_options]
+# Tests live next to (not inside) the app package so they never ship in the
+# Docker image; the backend root is put on sys.path so `import app` works.
+testpaths = ["tests"]
+pythonpath = ["."]

@@ -19,7 +19,6 @@ from typing import AsyncGenerator, Optional
 import httpx
 
 from ..config import settings
-from . import queue_manager
 
 logger = logging.getLogger("docverse.llm")
 
@@ -35,6 +34,51 @@ _BACKOFF_BASE = 1.5
 # Taille de lot pour /v1/embeddings : l'API accepte plusieurs textes par
 # appel, ce qui divise d'autant le nombre de requetes a l'ingestion.
 _EMBED_BATCH_SIZE = 32
+
+
+# --- Concurrency -------------------------------------------------------------
+# Bounds simultaneous calls to the provider (and to local CPU-bound work such
+# as transcription) so we never trigger Mistral's 429s. The waiting counter
+# lets the chat UI show "N requests ahead of you" while a slot frees up.
+_semaphore = asyncio.Semaphore(settings.llm_max_concurrency)
+_waiting = 0
+_state_lock = asyncio.Lock()
+
+
+@contextlib.asynccontextmanager
+async def queue_slot():
+    """Holds one of the LLM_MAX_CONCURRENCY slots for the duration of the
+    `async with` block."""
+    global _waiting
+    async with _state_lock:
+        _waiting += 1
+    try:
+        await _semaphore.acquire()
+    finally:
+        async with _state_lock:
+            _waiting -= 1
+    try:
+        yield
+    finally:
+        _semaphore.release()
+
+
+def is_busy() -> bool:
+    return _semaphore.locked()
+
+
+async def waiting_count() -> int:
+    async with _state_lock:
+        return _waiting
+
+
+def sse_event(event: dict) -> str:
+    """Formats one Server-Sent Event, the framing both chat endpoints use to
+    stream tokens to the browser."""
+    return f"data: {json.dumps(event, ensure_ascii=False)}\n\n"
+
+
+# --- HTTP plumbing ------------------------------------------------------------
 
 
 class LLMNotConfigured(RuntimeError):
@@ -60,16 +104,6 @@ def _url(path: str) -> str:
 
 def _is_retryable(status: int) -> bool:
     return status == 429 or status >= 500
-
-
-@contextlib.asynccontextmanager
-async def _slot():
-    """Borne le nombre d'appels simultanes a l'API Mistral. Ce n'est plus
-    une protection contre la saturation d'un Ollama local (il n'y en a
-    plus), mais un garde-fou contre les 429 du fournisseur - d'ou une
-    limite bien plus haute qu'a l'epoque du mono-worker."""
-    async with queue_manager.queue_slot():
-        yield
 
 
 async def _post(client: httpx.AsyncClient, path: str, payload: dict) -> httpx.Response:
@@ -102,7 +136,7 @@ async def chat(
     temperature: float = 0.3,
 ) -> str:
     model = model or settings.mistral_chat_model
-    async with _slot():
+    async with queue_slot():
         async with httpx.AsyncClient(timeout=_TIMEOUT) as client:
             r = await _post(
                 client,
@@ -130,7 +164,7 @@ async def chat_stream(
     (`data: {...}`, termine par `data: [DONE]`), la ou Ollama renvoyait
     un JSON par ligne - d'ou le decoupage different de l'ancien client."""
     model = model or settings.mistral_chat_model
-    async with _slot():
+    async with queue_slot():
         async with httpx.AsyncClient(timeout=_TIMEOUT) as client:
             async with client.stream(
                 "POST",
@@ -180,7 +214,7 @@ async def embed_batch(texts: list[str], model: Optional[str] = None) -> list[lis
             # l'ingestion d'un gros document peut representer des dizaines
             # de requetes, et immobiliser un slot pendant tout ce temps
             # bloquerait les conversations en cours.
-            async with _slot():
+            async with queue_slot():
                 r = await _post(
                     client,
                     "/v1/embeddings",
@@ -213,37 +247,16 @@ async def describe_image(
 ) -> str:
     """Transcrit/decrit une image via Pixtral, pour indexer les PDF scannes
     et les images comme du texte. Mistral attend l'image dans un bloc de
-    contenu `image_url` en data-URI, la ou Ollama prenait un champ
-    `images` a part."""
-    model = model or settings.mistral_vision_model
-    async with _slot():
-        async with httpx.AsyncClient(timeout=_TIMEOUT) as client:
-            r = await _post(
-                client,
-                "/v1/chat/completions",
-                {
-                    "model": model,
-                    "temperature": 0.1,
-                    "stream": False,
-                    "messages": [
-                        {
-                            "role": "user",
-                            "content": [
-                                {"type": "text", "text": prompt},
-                                {
-                                    "type": "image_url",
-                                    "image_url": f"data:{mime_type};base64,{image_b64}",
-                                },
-                            ],
-                        }
-                    ],
-                },
-            )
-            data = r.json()
-            choices = data.get("choices") or []
-            if not choices:
-                return ""
-            return choices[0].get("message", {}).get("content", "") or ""
+    contenu `image_url` en data-URI."""
+    content = [
+        {"type": "text", "text": prompt},
+        {"type": "image_url", "image_url": f"data:{mime_type};base64,{image_b64}"},
+    ]
+    return await chat(
+        [{"role": "user", "content": content}],
+        model=model or settings.mistral_vision_model,
+        temperature=0.1,
+    )
 
 
 # --- Sante ------------------------------------------------------------------

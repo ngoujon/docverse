@@ -24,7 +24,7 @@ jobs:
 
       - name: Run tests
         working-directory: backend
-        run: python -m pytest app/tests -v
+        run: python -m pytest -v
 
   frontend:
     name: Frontend (typecheck, vitest, build)

@@ -51,12 +51,12 @@ def test_register_requires_accepting_terms(client):
 
 def test_register_records_terms_acceptance_date(client):
     from app.database import SessionLocal
-    from app import models_db
+    from app import models
 
     data = register_user(client, "terms@example.com")
     db = SessionLocal()
     try:
-        user = db.get(models_db.User, data["user"]["id"])
+        user = db.get(models.User, data["user"]["id"])
         assert user.terms_accepted_at is not None
     finally:
         db.close()
@@ -91,12 +91,12 @@ def test_me_returns_current_user(client):
 
 def test_disabled_account_cannot_use_its_token(client):
     from app.database import SessionLocal
-    from app import models_db
+    from app import models
 
     data = register_user(client, "todisable@example.com")
     db = SessionLocal()
     try:
-        user = db.get(models_db.User, data["user"]["id"])
+        user = db.get(models.User, data["user"]["id"])
         user.is_active = False
         db.commit()
     finally:
@@ -114,12 +114,12 @@ def test_password_reset_token_is_single_use(client):
     changes."""
     from app.services import auth as auth_service
     from app.database import SessionLocal
-    from app import models_db
+    from app import models
 
     data = register_user(client, "reset@example.com", password="Old-password-123")
     db = SessionLocal()
     try:
-        user = db.get(models_db.User, data["user"]["id"])
+        user = db.get(models.User, data["user"]["id"])
         token = auth_service.issue_password_reset_token(user.id, user.password_hash)
     finally:
         db.close()
@@ -147,11 +147,11 @@ def test_reset_password_bumps_token_version_and_revokes_old_sessions(client):
 
     from app.services import auth as auth_service
     from app.database import SessionLocal
-    from app import models_db
+    from app import models
 
     db = SessionLocal()
     try:
-        user = db.get(models_db.User, data["user"]["id"])
+        user = db.get(models.User, data["user"]["id"])
         reset_token = auth_service.issue_password_reset_token(user.id, user.password_hash)
     finally:
         db.close()

@@ -50,9 +50,7 @@ services:
       - MISTRAL_VISION_MODEL=${MISTRAL_VISION_MODEL:-mistral-medium-latest}
       - MISTRAL_EMBED_MODEL=${MISTRAL_EMBED_MODEL:-mistral-embed}
       - LLM_MAX_CONCURRENCY=${LLM_MAX_CONCURRENCY:-8}
-      # --- Marque (permet de renommer le produit sans toucher au code) ---
-      - BRAND_NAME=${BRAND_NAME:-Docverse}
-      - BRAND_DOMAIN=${BRAND_DOMAIN:-localhost}
+      # --- Identite legale et hebergement --------------------------------
       - LEGAL_EMAIL_FOOTER=${LEGAL_EMAIL_FOOTER:-}
       - HOSTING_COUNTRY=${HOSTING_COUNTRY:-France}
       - HOSTING_PROVIDER=${HOSTING_PROVIDER:-OVHcloud}

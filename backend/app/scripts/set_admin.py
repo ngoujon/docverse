@@ -19,7 +19,7 @@ from datetime import datetime
 
 from pydantic import ValidationError
 
-from .. import models_db, schemas
+from .. import models, schemas
 from ..database import SessionLocal
 from ..services import auth
 
@@ -47,9 +47,9 @@ def main() -> None:
 
     db = SessionLocal()
     try:
-        user = db.query(models_db.User).filter_by(email=email).first()
+        user = db.query(models.User).filter_by(email=email).first()
         if user is None:
-            user = models_db.User(email=email, display_name="", terms_accepted_at=datetime.utcnow())
+            user = models.User(email=email, display_name="", terms_accepted_at=datetime.utcnow())
             db.add(user)
             print(f"Compte cree : {email}")
         else:
@@ -64,8 +64,8 @@ def main() -> None:
         user.token_version = (user.token_version or 0) + 1
 
         demoted = (
-            db.query(models_db.User)
-            .filter(models_db.User.role == "admin", models_db.User.email != email)
+            db.query(models.User)
+            .filter(models.User.role == "admin", models.User.email != email)
             .all()
         )
         for other in demoted:

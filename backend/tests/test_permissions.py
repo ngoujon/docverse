@@ -223,7 +223,7 @@ def test_member_quota_is_enforced(client, monkeypatch):
 
 def test_removed_member_faces_reinvite_cooldown(client):
     owner = register_user(client, "owner@example.com")
-    member = register_user(client, "member@example.com")
+    register_user(client, "member@example.com")
     space = create_space(client, owner["access_token"])
 
     added = client.post(
@@ -290,11 +290,11 @@ def test_admin_cannot_write_to_spaces_they_do_not_own(client):
 
     admin2_data = register_user(client, "admin2@example.com")
     from app.database import SessionLocal
-    from app import models_db
+    from app import models
 
     db = SessionLocal()
     try:
-        u = db.get(models_db.User, admin2_data["user"]["id"])
+        u = db.get(models.User, admin2_data["user"]["id"])
         u.role = "admin"
         db.commit()
     finally:

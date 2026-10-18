@@ -1,3 +1,6 @@
+"""Runtime configuration: data directories, environment-driven settings,
+SECRET_KEY hardening and the per-account free-tier quotas."""
+
 import logging
 import os
 import secrets
@@ -19,18 +22,16 @@ WHISPER_MODEL_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def _parse_origins(raw: str) -> list[str]:
+    """CORS_ORIGINS is a comma-separated list; empty means "*"."""
     origins = [o.strip() for o in raw.split(",") if o.strip()]
     return origins or ["*"]
 
 
 class Settings:
-    # --- Marque -----------------------------------------------------------
-    # Le nom commercial et le domaine sont volontairement pilotes par
-    # l'environnement : ils apparaissent dans les emails, les meta et les
-    # mentions legales, et le produit doit pouvoir etre renomme sans
-    # rechercher/remplacer dans tout le code.
-    brand_name: str = os.environ.get("BRAND_NAME", "Docverse")
-    brand_domain: str = os.environ.get("BRAND_DOMAIN", "localhost")
+    """Every tunable of the backend, read once from the environment at
+    import time (12-factor style) with a safe default for local dev."""
+
+    # --- Identite legale et hebergement -----------------------------------
     # Legal identity line printed at the bottom of every email (publisher
     # name, registration number, address...). Kept out of the code on
     # purpose: set it per deployment, the footer line is omitted if empty.
@@ -84,7 +85,7 @@ class Settings:
     mistral_embed_model: str = os.environ.get("MISTRAL_EMBED_MODEL", "mistral-embed")
 
     # --- Outbound email ---------------------------------------------------
-    # Left empty until real SMTP credentials are provided; mail_service
+    # Left empty until real SMTP credentials are provided; mailer
     # falls back to logging the email instead of sending it.
     smtp_host: str = os.environ.get("SMTP_HOST", "")
     smtp_port: int = int(os.environ.get("SMTP_PORT", "587"))
@@ -232,4 +233,5 @@ FREE_QUOTAS: dict[str, int] = {
 
 
 def quota(key: str) -> int:
+    """Looked up at call time (not cached) so tests can lower a limit."""
     return FREE_QUOTAS[key]

@@ -1,3 +1,5 @@
+"""Issues proof-of-work captcha challenges (see services/captcha.py)."""
+
 from fastapi import APIRouter, Request
 
 from .. import schemas

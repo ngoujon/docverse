@@ -1,11 +1,16 @@
+"""FastAPI dependencies: client IP, the signed-in user, admin guard,
+per-space access control (owner / member / share link / admin view) and
+offset pagination."""
+
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Optional
+from typing import Any, Optional
 
-from fastapi import Depends, Header, HTTPException, Request
+from fastapi import Depends, Header, HTTPException, Query, Request
+from sqlalchemy.orm import Query as SQLQuery
 from sqlalchemy.orm import Session
 
-from . import models_db
+from . import models
 from .database import get_db
 from .services import auth
 
@@ -33,13 +38,13 @@ def client_ip(request: Request) -> str:
 def get_current_user_optional(
     authorization: Optional[str] = Header(default=None),
     db: Session = Depends(get_db),
-) -> Optional[models_db.User]:
+) -> Optional[models.User]:
     if not authorization or not authorization.lower().startswith("bearer "):
         return None
     payload = auth.verify_user_token(authorization[7:].strip())
     if not payload:
         return None
-    user = db.get(models_db.User, payload.get("sub"))
+    user = db.get(models.User, payload.get("sub"))
     if not user or not user.is_active:
         return None
     # Lets a password change or an explicit "log out everywhere" invalidate
@@ -51,14 +56,14 @@ def get_current_user_optional(
 
 
 def get_current_user(
-    user: Optional[models_db.User] = Depends(get_current_user_optional),
-) -> models_db.User:
+    user: Optional[models.User] = Depends(get_current_user_optional),
+) -> models.User:
     if not user:
         raise HTTPException(401, "Authentification requise")
     return user
 
 
-def require_admin(user: models_db.User = Depends(get_current_user)) -> models_db.User:
+def require_admin(user: models.User = Depends(get_current_user)) -> models.User:
     if user.role != "admin":
         raise HTTPException(403, "Reserve aux administrateurs")
     # 2FA stays available but optional for admins too (owner's choice) - the
@@ -68,10 +73,15 @@ def require_admin(user: models_db.User = Depends(get_current_user)) -> models_db
 
 @dataclass
 class SpaceAccess:
-    space: models_db.Space
+    """What the caller may do in one space. Routes scoped to a conversation
+    or a document get the same object, with that resource attached."""
+
+    space: models.Space
     role: str  # "owner" | "member" | "admin_view"
-    user: Optional[models_db.User]
+    user: Optional[models.User]
     can_upload: bool = False
+    conversation: Optional[models.Conversation] = None
+    document: Optional[models.Document] = None
 
     @property
     def can_write(self) -> bool:
@@ -85,21 +95,25 @@ class SpaceAccess:
     def is_owner(self) -> bool:
         return self.role == "owner"
 
+    def require_write(self) -> None:
+        if not self.can_write:
+            raise HTTPException(403, "Acces en lecture seule a cet espace")
+
+    def require_upload(self) -> None:
+        if not self.can_upload:
+            raise HTTPException(403, "Vous n'avez pas la permission de gerer les documents de cet espace")
+
 
 def _resolve_role(
-    space: models_db.Space,
-    user: Optional[models_db.User],
+    space: models.Space,
+    user: Optional[models.User],
     share_token: Optional[str],
     db: Session,
 ) -> SpaceAccess:
     if user:
         if space.owner_id == user.id:
             return SpaceAccess(space, "owner", user, can_upload=True)
-        member = (
-            db.query(models_db.SpaceMember)
-            .filter_by(space_id=space.id, user_id=user.id)
-            .first()
-        )
+        member = db.query(models.SpaceMember).filter_by(space_id=space.id, user_id=user.id).first()
         if member:
             return SpaceAccess(space, "member", user, can_upload=member.can_upload)
         # A share link grants access, but only to a signed-in visitor - an
@@ -108,7 +122,7 @@ def _resolve_role(
         # The visitor's own account is what's checked here, not the space
         # owner's, so anyone with an account can follow a share link.
         if share_token:
-            link = db.get(models_db.ShareLink, share_token)
+            link = db.get(models.ShareLink, share_token)
             if (
                 link
                 and link.space_id == space.id
@@ -124,16 +138,20 @@ def _resolve_role(
     raise HTTPException(401, "Acces non autorise a cet espace - connectez-vous pour utiliser ce lien de partage")
 
 
+def _space_access(space_id: str, user, share_token, db: Session) -> SpaceAccess:
+    space = db.get(models.Space, space_id)
+    if not space:
+        raise HTTPException(404, "Espace introuvable")
+    return _resolve_role(space, user, share_token, db)
+
+
 def require_space_access(
     space_id: str,
     x_share_token: Optional[str] = Header(default=None, alias=SHARE_TOKEN_HEADER),
-    user: Optional[models_db.User] = Depends(get_current_user_optional),
+    user: Optional[models.User] = Depends(get_current_user_optional),
     db: Session = Depends(get_db),
 ) -> SpaceAccess:
-    space = db.get(models_db.Space, space_id)
-    if not space:
-        raise HTTPException(404, "Espace introuvable")
-    return _resolve_role(space, user, x_share_token, db)
+    return _space_access(space_id, user, x_share_token, db)
 
 
 def require_space_owner(access: SpaceAccess = Depends(require_space_access)) -> SpaceAccess:
@@ -142,57 +160,51 @@ def require_space_owner(access: SpaceAccess = Depends(require_space_access)) -> 
     return access
 
 
-@dataclass
-class ConversationAccess:
-    conversation: models_db.Conversation
-    role: str
-    user: Optional[models_db.User]
-    can_upload: bool = False
-
-    @property
-    def can_write(self) -> bool:
-        return self.role in ("owner", "member")
-
-
 def require_conversation_access(
     conversation_id: str,
     x_share_token: Optional[str] = Header(default=None, alias=SHARE_TOKEN_HEADER),
-    user: Optional[models_db.User] = Depends(get_current_user_optional),
+    user: Optional[models.User] = Depends(get_current_user_optional),
     db: Session = Depends(get_db),
-) -> ConversationAccess:
-    conv = db.get(models_db.Conversation, conversation_id)
-    if not conv:
+) -> SpaceAccess:
+    conversation = db.get(models.Conversation, conversation_id)
+    if not conversation:
         raise HTTPException(404, "Conversation introuvable")
-    space = db.get(models_db.Space, conv.space_id)
-    if not space:
-        raise HTTPException(404, "Espace introuvable")
-    access = _resolve_role(space, user, x_share_token, db)
-    return ConversationAccess(conv, access.role, access.user, access.can_upload)
-
-
-@dataclass
-class DocumentAccess:
-    document: models_db.Document
-    role: str
-    user: Optional[models_db.User]
-    can_upload: bool = False
-
-    @property
-    def can_write(self) -> bool:
-        return self.role in ("owner", "member")
+    access = _space_access(conversation.space_id, user, x_share_token, db)
+    access.conversation = conversation
+    return access
 
 
 def require_document_access(
     document_id: str,
     x_share_token: Optional[str] = Header(default=None, alias=SHARE_TOKEN_HEADER),
-    user: Optional[models_db.User] = Depends(get_current_user_optional),
+    user: Optional[models.User] = Depends(get_current_user_optional),
     db: Session = Depends(get_db),
-) -> DocumentAccess:
-    doc = db.get(models_db.Document, document_id)
-    if not doc:
+) -> SpaceAccess:
+    document = db.get(models.Document, document_id)
+    if not document:
         raise HTTPException(404, "Document introuvable")
-    space = db.get(models_db.Space, doc.space_id)
-    if not space:
-        raise HTTPException(404, "Espace introuvable")
-    access = _resolve_role(space, user, x_share_token, db)
-    return DocumentAccess(doc, access.role, access.user, access.can_upload)
+    access = _space_access(document.space_id, user, x_share_token, db)
+    access.document = document
+    return access
+
+
+# --- Pagination -------------------------------------------------------------------
+
+
+@dataclass
+class Pagination:
+    limit: int
+    offset: int
+
+    def apply(self, query: SQLQuery) -> dict[str, Any]:
+        """Runs `query` for this page; the dict matches schemas.Page."""
+        total = query.count()
+        items = query.offset(self.offset).limit(self.limit).all()
+        return {"items": items, "total": total, "limit": self.limit, "offset": self.offset}
+
+
+def pagination(
+    limit: int = Query(50, ge=1, le=200),
+    offset: int = Query(0, ge=0),
+) -> Pagination:
+    return Pagination(limit, offset)

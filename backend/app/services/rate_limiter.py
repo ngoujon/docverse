@@ -1,3 +1,6 @@
+"""In-memory sliding-window rate limiting, plus the named limiters every
+abuse-prone endpoint draws from."""
+
 import math
 import time
 from collections import defaultdict, deque
@@ -66,9 +69,6 @@ class RateLimiter:
         self._sweep(now)
         return True
 
-    def remaining(self, key: str) -> int:
-        return max(0, self.max_requests - len(self._prune(key, time.monotonic())))
-
     def retry_after(self, key: str) -> int:
         """Seconds until the oldest recorded hit leaves the window, i.e.
         until this key gets its next slot back."""
@@ -107,10 +107,6 @@ def enforce_check(limiter: RateLimiter, key: str, detail: str) -> None:
     if not limiter.check(key):
         raise too_many_requests(limiter, key, detail)
 
-
-# A few attempts is plenty for a legitimate user who mistypes a password;
-# beyond that we're looking at brute-forcing.
-space_unlock_limiter = RateLimiter(max_requests=10, window_seconds=300)
 
 # The self-hosted PoW captcha (services/captcha.py) already raises the cost
 # of scripted abuse; this is a second, cheap backstop.

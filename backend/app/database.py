@@ -1,3 +1,6 @@
+"""SQLite engine/session setup and the lightweight auto-migration that adds
+new columns to an existing database file on startup."""
+
 import logging
 
 from sqlalchemy import create_engine, inspect, text

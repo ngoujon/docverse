@@ -12,24 +12,24 @@ def _seed_conversation_with_accented_content(space_id: str) -> str:
     cited source) directly in the DB - exercises the export code path
     without needing a live Mistral chat call in tests."""
     from app.database import SessionLocal
-    from app import models_db
+    from app import models
 
     db = SessionLocal()
     try:
-        conv = models_db.Conversation(space_id=space_id, title="Resume du contrat fournisseur")
+        conv = models.Conversation(space_id=space_id, title="Resume du contrat fournisseur")
         db.add(conv)
         db.commit()
         db.refresh(conv)
 
         db.add(
-            models_db.Message(
+            models.Message(
                 conversation_id=conv.id,
                 role="user",
                 content="Quelle est la durée du contrat ?",
             )
         )
         db.add(
-            models_db.Message(
+            models.Message(
                 conversation_id=conv.id,
                 role="assistant",
                 content="La durée est de 12 mois avec reconduction tacite. [1]",

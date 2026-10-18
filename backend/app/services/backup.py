@@ -16,7 +16,7 @@ from pathlib import Path
 
 from ..config import BACKUP_DIR, UPLOAD_DIR
 from ..database import SessionLocal
-from .. import models_db
+from .. import models
 from . import vectorstore
 
 logger = logging.getLogger("docverse.backup")
@@ -32,21 +32,21 @@ def _dir_size(path: Path) -> int:
 
 
 def _serialize_space(db, space_id: str) -> dict | None:
-    space = db.get(models_db.Space, space_id)
+    space = db.get(models.Space, space_id)
     if not space:
         return None
     conversations = (
-        db.query(models_db.Conversation).filter_by(space_id=space_id).all()
+        db.query(models.Conversation).filter_by(space_id=space_id).all()
     )
     conv_ids = [c.id for c in conversations]
     messages = (
-        db.query(models_db.Message)
-        .filter(models_db.Message.conversation_id.in_(conv_ids))
+        db.query(models.Message)
+        .filter(models.Message.conversation_id.in_(conv_ids))
         .all()
         if conv_ids
         else []
     )
-    documents = db.query(models_db.Document).filter_by(space_id=space_id).all()
+    documents = db.query(models.Document).filter_by(space_id=space_id).all()
 
     return {
         "space": {
@@ -105,9 +105,9 @@ def create_snapshot(space_id: str, force: bool = False) -> str | None:
     try:
         if not force:
             latest = (
-                db.query(models_db.SpaceSnapshot)
+                db.query(models.SpaceSnapshot)
                 .filter_by(space_id=space_id)
-                .order_by(models_db.SpaceSnapshot.created_at.desc())
+                .order_by(models.SpaceSnapshot.created_at.desc())
                 .first()
             )
             if latest and datetime.utcnow() - latest.created_at < _SNAPSHOT_INTERVAL:
@@ -126,7 +126,7 @@ def create_snapshot(space_id: str, force: bool = False) -> str | None:
             "metadatas": list(vectors["metadatas"]),
         }
 
-        snapshot_id = models_db.gen_id()
+        snapshot_id = models.gen_id()
         snapshot_dir = BACKUP_DIR / space_id / snapshot_id
         snapshot_dir.mkdir(parents=True, exist_ok=True)
         (snapshot_dir / "data.json").write_text(
@@ -138,7 +138,7 @@ def create_snapshot(space_id: str, force: bool = False) -> str | None:
             shutil.copytree(source_uploads, snapshot_dir / "uploads")
 
         size = _dir_size(snapshot_dir)
-        row = models_db.SpaceSnapshot(
+        row = models.SpaceSnapshot(
             id=snapshot_id,
             space_id=space_id,
             size_bytes=size,
@@ -163,9 +163,9 @@ def create_snapshot(space_id: str, force: bool = False) -> str | None:
 def _prune(db, space_id: str) -> None:
     cutoff = datetime.utcnow() - _RETENTION
     old = (
-        db.query(models_db.SpaceSnapshot)
-        .filter(models_db.SpaceSnapshot.space_id == space_id)
-        .filter(models_db.SpaceSnapshot.created_at < cutoff)
+        db.query(models.SpaceSnapshot)
+        .filter(models.SpaceSnapshot.space_id == space_id)
+        .filter(models.SpaceSnapshot.created_at < cutoff)
         .all()
     )
     for snap in old:
@@ -199,10 +199,10 @@ def restore_snapshot(space_id: str, snapshot_id: str) -> bool:
     only its content is restored."""
     db = SessionLocal()
     try:
-        snap = db.get(models_db.SpaceSnapshot, snapshot_id)
+        snap = db.get(models.SpaceSnapshot, snapshot_id)
         if not snap or snap.space_id != space_id:
             return False
-        space = db.get(models_db.Space, space_id)
+        space = db.get(models.Space, space_id)
         if not space:
             return False
 
@@ -220,23 +220,23 @@ def restore_snapshot(space_id: str, snapshot_id: str) -> bool:
         # left behind by the first restore.
         conv_ids = [
             row[0]
-            for row in db.query(models_db.Conversation.id).filter_by(space_id=space_id).all()
+            for row in db.query(models.Conversation.id).filter_by(space_id=space_id).all()
         ]
         if conv_ids:
-            db.query(models_db.Message).filter(
-                models_db.Message.conversation_id.in_(conv_ids)
+            db.query(models.Message).filter(
+                models.Message.conversation_id.in_(conv_ids)
             ).delete(synchronize_session=False)
-        db.query(models_db.Conversation).filter_by(space_id=space_id).delete(
+        db.query(models.Conversation).filter_by(space_id=space_id).delete(
             synchronize_session=False
         )
-        db.query(models_db.Document).filter_by(space_id=space_id).delete(
+        db.query(models.Document).filter_by(space_id=space_id).delete(
             synchronize_session=False
         )
         db.commit()
 
         for c in payload["conversations"]:
             db.add(
-                models_db.Conversation(
+                models.Conversation(
                     id=c["id"],
                     space_id=space_id,
                     title=c["title"],
@@ -246,7 +246,7 @@ def restore_snapshot(space_id: str, snapshot_id: str) -> bool:
             )
         for d in payload["documents"]:
             db.add(
-                models_db.Document(
+                models.Document(
                     id=d["id"],
                     space_id=space_id,
                     name=d["name"],
@@ -264,7 +264,7 @@ def restore_snapshot(space_id: str, snapshot_id: str) -> bool:
         db.commit()
         for m in payload["messages"]:
             db.add(
-                models_db.Message(
+                models.Message(
                     id=m["id"],
                     conversation_id=m["conversation_id"],
                     role=m["role"],
@@ -308,13 +308,13 @@ def restore_snapshot(space_id: str, snapshot_id: str) -> bool:
         db.close()
 
 
-def list_snapshots(space_id: str) -> list["models_db.SpaceSnapshot"]:
+def list_snapshots(space_id: str) -> list["models.SpaceSnapshot"]:
     db = SessionLocal()
     try:
         return (
-            db.query(models_db.SpaceSnapshot)
+            db.query(models.SpaceSnapshot)
             .filter_by(space_id=space_id)
-            .order_by(models_db.SpaceSnapshot.created_at.desc())
+            .order_by(models.SpaceSnapshot.created_at.desc())
             .all()
         )
     finally:

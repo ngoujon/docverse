@@ -1,3 +1,6 @@
+"""Workspace chat: answers a question from the space's documents (RAG) and
+streams the reply token by token over Server-Sent Events."""
+
 import asyncio
 import json
 import logging
@@ -7,10 +10,11 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 
-from .. import config, models_db, schemas
-from ..database import get_db, SessionLocal
-from ..deps import ConversationAccess, require_conversation_access, client_ip
-from ..services import backup, llm_provider, queue_manager, rag, rate_limiter
+from .. import models, schemas
+from ..config import quota
+from ..database import SessionLocal, get_db
+from ..deps import SpaceAccess, client_ip, require_conversation_access
+from ..services import accounts, backup, llm_provider, rag, rate_limiter
 
 logger = logging.getLogger("docverse.chat")
 router = APIRouter(prefix="/api", tags=["chat"])
@@ -18,18 +22,18 @@ router = APIRouter(prefix="/api", tags=["chat"])
 _HISTORY_LIMIT = 20
 
 
-def _consume_daily_message(user: models_db.User, db: Session) -> None:
+def _consume_daily_message(user: models.User, db: Session) -> None:
     """Counts one AI question against the account's daily quota
     (config.FREE_QUOTAS["messages_per_day"]), or refuses it with a 429
     once the quota is used up. The service is free, so this - not a
     bill - is what keeps one account from running up the LLM cost for
     everyone; unlike the per-IP chat_limiter it survives IP rotation and
     restarts because it lives in the database."""
-    today = datetime.utcnow().date().isoformat()
+    today = accounts.utc_today()
     if user.messages_day != today:
         user.messages_day = today
         user.messages_today = 0
-    limit = config.quota("messages_per_day")
+    limit = quota("messages_per_day")
     if user.messages_today >= limit:
         raise HTTPException(
             429,
@@ -38,26 +42,19 @@ def _consume_daily_message(user: models_db.User, db: Session) -> None:
     user.messages_today += 1
 
 
-def _sse(event: dict) -> str:
-    return f"data: {json.dumps(event, ensure_ascii=False)}\n\n"
-
-
 @router.post("/conversations/{conversation_id}/chat")
 async def chat(
     payload: schemas.ChatRequest,
     request: Request,
-    access: ConversationAccess = Depends(require_conversation_access),
+    access: SpaceAccess = Depends(require_conversation_access),
     db: Session = Depends(get_db),
 ):
-    if not access.can_write:
-        raise HTTPException(403, "Acces en lecture seule a cet espace")
+    access.require_write()
     rate_limiter.enforce(rate_limiter.chat_limiter, client_ip(request), "Trop de messages envoyes, patientez un instant")
 
     conv = access.conversation
     conversation_id = conv.id
-    space = db.get(models_db.Space, conv.space_id)
-    if not space:
-        raise HTTPException(404, "Espace introuvable")
+    space = access.space
 
     user_message = payload.message.strip()
     if not user_message:
@@ -65,7 +62,7 @@ async def chat(
 
     # Charged to whoever asks; a share-link visitor always has an account
     # (see deps._resolve_role), but fall back to the space owner anyway.
-    quota_user = access.user or db.get(models_db.User, space.owner_id)
+    quota_user = access.user or db.get(models.User, space.owner_id)
     if quota_user:
         _consume_daily_message(quota_user, db)
 
@@ -77,9 +74,9 @@ async def chat(
     if doc_ids:
         valid_ids = {
             row[0]
-            for row in db.query(models_db.Document.id).filter(
-                models_db.Document.space_id == conv.space_id,
-                models_db.Document.id.in_(doc_ids),
+            for row in db.query(models.Document.id).filter(
+                models.Document.space_id == conv.space_id,
+                models.Document.id.in_(doc_ids),
             )
         }
         doc_ids = [d for d in doc_ids if d in valid_ids]
@@ -89,7 +86,7 @@ async def chat(
     ]
     is_first_message = len(conv.messages) == 0
 
-    user_msg = models_db.Message(
+    user_msg = models.Message(
         conversation_id=conversation_id, role="user", content=user_message
     )
     db.add(user_msg)
@@ -107,10 +104,10 @@ async def chat(
     space_name = space.name
 
     async def event_stream():
-        yield _sse({"type": "user_message_id", "id": user_msg_id})
-        if queue_manager.is_busy():
-            waiting = await queue_manager.waiting_count()
-            yield _sse({"type": "queued", "position": waiting + 1})
+        yield llm_provider.sse_event({"type": "user_message_id", "id": user_msg_id})
+        if llm_provider.is_busy():
+            waiting = await llm_provider.waiting_count()
+            yield llm_provider.sse_event({"type": "queued", "position": waiting + 1})
         full_text = ""
         sources: list[dict] = []
         saved_id: str | None = None
@@ -127,14 +124,14 @@ async def chat(
             saved = True
             save_db = SessionLocal()
             try:
-                assistant_msg = models_db.Message(
+                assistant_msg = models.Message(
                     conversation_id=conversation_id,
                     role="assistant",
                     content=full_text,
                     sources_json=json.dumps(sources, ensure_ascii=False),
                 )
                 save_db.add(assistant_msg)
-                conv_row = save_db.get(models_db.Conversation, conversation_id)
+                conv_row = save_db.get(models.Conversation, conversation_id)
                 if conv_row:
                     conv_row.updated_at = datetime.utcnow()
                 save_db.commit()
@@ -159,7 +156,7 @@ async def chat(
                 )
                 async for token in llm_provider.chat_stream(messages):
                     full_text += token
-                    yield _sse({"type": "token", "content": token})
+                    yield llm_provider.sse_event({"type": "token", "content": token})
             except Exception as exc:  # noqa: BLE001
                 logger.exception("Erreur pendant la generation de la reponse")
                 error_text = (
@@ -168,10 +165,10 @@ async def chat(
                     "indisponible, reessayez dans quelques instants.*"
                 )
                 full_text += error_text
-                yield _sse({"type": "token", "content": error_text})
+                yield llm_provider.sse_event({"type": "token", "content": error_text})
 
             message_id = persist()
-            yield _sse({"type": "done", "message_id": message_id, "sources": sources})
+            yield llm_provider.sse_event({"type": "done", "message_id": message_id, "sources": sources})
         finally:
             # No-op if `persist()` above already ran; saves whatever was
             # generated so far if we get here via cancellation instead.
