@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 
+/** Calls `onClose` when Escape is pressed while `open` is true. */
 export function useEscapeToClose(open: boolean, onClose: () => void) {
   useEffect(() => {
     if (!open) return;

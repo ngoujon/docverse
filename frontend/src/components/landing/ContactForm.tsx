@@ -1,11 +1,34 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Send, CheckCircle2, AlertCircle } from "lucide-react";
-import { api } from "../../api/client";
-import { useCaptchaSolution } from "../../hooks/useCaptchaSolution";
+import { api, errorMessage } from "../../api/client";
+import { useCaptcha } from "../../hooks/useCaptcha";
 import { trackConversion } from "../../utils/seoMonitor";
 
+const retroInput =
+  "w-full rounded-lg border border-retro-border bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-retro-cyan focus:shadow-neon-light";
+
+function RetroField({ label, optional, children }: { label: string; optional?: boolean; children: ReactNode }) {
+  const { t } = useTranslation();
+  return (
+    <div>
+      <label className="mb-1 block font-mono text-[11px] uppercase tracking-wider text-retro-cyan/80">
+        {label}
+        {optional && (
+          <>
+            {" "}
+            <span className="normal-case tracking-normal text-slate-400">({t("contact.optional")})</span>
+          </>
+        )}
+      </label>
+      {children}
+    </div>
+  );
+}
+
+/** Landing page contact form: honeypot field + invisible captcha + the
+ * backend's own rate limit keep bots out without bothering humans. */
 export default function ContactForm() {
   const { t } = useTranslation();
   const [name, setName] = useState("");
@@ -16,12 +39,11 @@ export default function ContactForm() {
   const [message, setMessage] = useState("");
   const [consent, setConsent] = useState(false);
   const [website, setWebsite] = useState(""); // honeypot
-  const { solution: captcha, reset: resetCaptcha } = useCaptchaSolution();
+  const { solution: captcha, reset: resetCaptcha } = useCaptcha();
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
 
-  const canSubmit =
-    name.trim() && email.trim() && subject.trim() && message.trim() && consent && captcha;
+  const canSubmit = name.trim() && email.trim() && subject.trim() && message.trim() && consent && captcha;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,7 +73,7 @@ export default function ContactForm() {
       setConsent(false);
     } catch (err) {
       setStatus("error");
-      setError(err instanceof Error ? err.message : t("contact.genericError"));
+      setError(errorMessage(err, t("contact.genericError")));
       resetCaptcha();
     }
   };
@@ -80,87 +102,67 @@ export default function ContactForm() {
       />
 
       <div className="grid gap-3 sm:grid-cols-2">
-        <div>
-          <label className="mb-1 block font-mono text-[11px] uppercase tracking-wider text-retro-cyan/80">
-            {t("contact.name")}
-          </label>
+        <RetroField label={t("contact.name")}>
           <input
             required
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder={t("contact.namePlaceholder")}
-            className="w-full rounded-lg border border-retro-border bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-retro-cyan focus:shadow-neon-light"
+            className={retroInput}
           />
-        </div>
-        <div>
-          <label className="mb-1 block font-mono text-[11px] uppercase tracking-wider text-retro-cyan/80">
-            {t("contact.email")}
-          </label>
+        </RetroField>
+        <RetroField label={t("contact.email")}>
           <input
             required
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder={t("contact.emailPlaceholder")}
-            className="w-full rounded-lg border border-retro-border bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-retro-cyan focus:shadow-neon-light"
+            className={retroInput}
           />
-        </div>
+        </RetroField>
       </div>
 
-      <div>
-        <label className="mb-1 block font-mono text-[11px] uppercase tracking-wider text-retro-cyan/80">
-          {t("contact.subject")}
-        </label>
+      <RetroField label={t("contact.subject")}>
         <input
           required
           value={subject}
           onChange={(e) => setSubject(e.target.value)}
           placeholder={t("contact.subjectPlaceholder")}
-          className="w-full rounded-lg border border-retro-border bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-retro-cyan focus:shadow-neon-light"
+          className={retroInput}
         />
-      </div>
+      </RetroField>
 
       <div className="grid gap-3 sm:grid-cols-2">
-        <div>
-          <label className="mb-1 block font-mono text-[11px] uppercase tracking-wider text-retro-cyan/80">
-            {t("contact.company")}{" "}
-            <span className="normal-case tracking-normal text-slate-400">({t("contact.optional")})</span>
-          </label>
+        <RetroField label={t("contact.company")} optional>
           <input
             value={company}
             onChange={(e) => setCompany(e.target.value)}
             placeholder={t("contact.companyPlaceholder")}
-            className="w-full rounded-lg border border-retro-border bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-retro-cyan focus:shadow-neon-light"
+            className={retroInput}
           />
-        </div>
-        <div>
-          <label className="mb-1 block font-mono text-[11px] uppercase tracking-wider text-retro-cyan/80">
-            {t("contact.phone")}{" "}
-            <span className="normal-case tracking-normal text-slate-400">({t("contact.optional")})</span>
-          </label>
+        </RetroField>
+        <RetroField label={t("contact.phone")} optional>
           <input
             type="tel"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             placeholder={t("contact.phonePlaceholder")}
-            className="w-full rounded-lg border border-retro-border bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-retro-cyan focus:shadow-neon-light"
+            className={retroInput}
           />
-        </div>
+        </RetroField>
       </div>
 
-      <div>
-        <label className="mb-1 block font-mono text-[11px] uppercase tracking-wider text-retro-cyan/80">
-          {t("contact.message")}
-        </label>
+      <RetroField label={t("contact.message")}>
         <textarea
           required
           rows={4}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder={t("contact.messagePlaceholder")}
-          className="w-full resize-none rounded-lg border border-retro-border bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-retro-cyan focus:shadow-neon-light"
+          className={`${retroInput} resize-none`}
         />
-      </div>
+      </RetroField>
 
       <label className="flex items-start gap-2 text-xs text-slate-600">
         <input

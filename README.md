@@ -121,6 +121,39 @@ backend (FastAPI)
    └── SearXNG           → recherche web locale (optionnelle)
 ```
 
+### Organisation du code
+
+```
+backend/
+├── app/
+│   ├── main.py            point d'entree FastAPI (middlewares, routeurs)
+│   ├── config.py          parametres (variables d'environnement, quotas)
+│   ├── database.py        moteur SQLite + migration legere des colonnes
+│   ├── models.py          modeles SQLAlchemy
+│   ├── schemas.py         schemas Pydantic de l'API
+│   ├── deps.py            dependances : utilisateur, droits par espace, pagination
+│   ├── routers/           un module par domaine d'API (auth, spaces, chat...)
+│   ├── services/          logique metier (RAG, LLM, ingestion, emails, sauvegardes...)
+│   └── scripts/           commandes d'exploitation (set_admin, seed_dev_data)
+└── tests/                 tests pytest (hors image Docker)
+
+frontend/src/
+├── api/                   client HTTP type + stockage local (jeton, liens)
+├── hooks/                 hooks React (auth, captcha, meta SEO, theme...)
+├── components/
+│   ├── ui/                briques visuelles (Modal, boutons, badges, barres...)
+│   ├── layout/            gabarits et elements globaux (navigation, pied de page)
+│   ├── auth/              gabarit d'authentification, captcha, SSO
+│   ├── workspace/         application : chat, documents, espaces, partage
+│   ├── admin/             tableaux et modales d'administration
+│   └── landing/           sections du site marketing
+├── pages/
+│   ├── public/            accueil, demo, FAQ, pages legales (pre-rendues)
+│   ├── auth/              connexion, inscription, liens recus par email
+│   └── app/               tableau de bord, espace de travail, compte, admin
+└── locales/               traductions (6 langues)
+```
+
 La stack de developpement est decrite dans **`docker-compose.yml`**, avec
 rechargement a chaud. Le frontend tourne avec le serveur de dev Vite
 (port **3000**) et le backend avec `uvicorn --reload` : le code source
@@ -355,6 +388,15 @@ Frontend :
 cd frontend
 npm install
 VITE_API_PROXY_TARGET=http://localhost:8000 npm run dev
+```
+
+Tests et formatage :
+
+```bash
+cd backend && python -m pytest          # tests de l'API
+cd frontend && npm run test             # tests unitaires (Vitest)
+cd frontend && npm run build            # typecheck + build + pre-rendu
+cd frontend && npm run format           # formatage Prettier
 ```
 
 ## Depannage

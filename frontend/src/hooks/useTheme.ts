@@ -12,6 +12,8 @@ function readStored(): Theme {
   }
 }
 
+/** Light/dark theme, persisted in localStorage and applied as the "dark"
+ * class on <html> (Tailwind darkMode: "class"). */
 export function useTheme() {
   const [theme, setThemeState] = useState<Theme>(readStored);
 

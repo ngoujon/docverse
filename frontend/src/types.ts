@@ -1,3 +1,6 @@
+/** Shapes of the JSON payloads exchanged with the backend API (mirrors
+ * backend/app/schemas.py). */
+
 export type SpaceRole = "owner" | "member" | "admin_view";
 
 export interface Space {
@@ -53,27 +56,6 @@ export interface DocumentItem {
   created_at: string;
 }
 
-// What /api/health tells an anonymous caller: that the process is up, and
-// nothing else. Naming the inference provider and the exact models to the
-// public internet was free reconnaissance for an attacker.
-export interface HealthStatus {
-  status: string;
-}
-
-// The full picture, from /api/admin/health - admin session required.
-export interface AdminHealthStatus extends HealthStatus {
-  llm_provider: "mistral";
-  llm_reachable: boolean;
-  /** Renseigne uniquement quand llm_reachable vaut false. */
-  llm_error?: string | null;
-  models_available: string[];
-  chat_model: string;
-  vision_model: string;
-  embed_model: string;
-  /** Ex. "OVHcloud (France)" - affiche tel quel dans l'espace admin. */
-  hosting: string;
-}
-
 export interface User {
   id: string;
   email: string;
@@ -84,6 +66,8 @@ export interface User {
   totp_enabled: boolean;
   created_at: string;
 }
+
+export type OAuthProvider = "google" | "apple" | "github" | "linkedin";
 
 export interface AuthResponse {
   access_token: string;

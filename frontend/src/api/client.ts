@@ -1,16 +1,15 @@
 import type {
-  AdminHealthStatus,
   AdminStats,
   AuthResponse,
   CaptchaChallenge,
   CaptchaSolution,
   Conversation,
   DocumentItem,
-  HealthStatus,
   LoginResponse,
   MeStats,
   Message,
   NewsletterSubscriber,
+  OAuthProvider,
   Paginated,
   ShareLink,
   Space,
@@ -23,7 +22,14 @@ import type {
   User,
   VectorGraph,
 } from "../types";
-import { getUserToken } from "./userToken";
+import { getUserToken } from "./storage";
+
+/**
+ * Typed client for the backend REST API. Every call goes through
+ * `request()`, which attaches the session token (and the share-link token
+ * when browsing a shared space) and turns HTTP errors into exceptions
+ * carrying the backend's human-readable `detail`.
+ */
 
 const BASE = "/api";
 
@@ -36,6 +42,11 @@ export class UnauthorizedError extends Error {
 /** A 429 whose detail is meant for the user as-is (e.g. the daily
  * question quota), unlike a generic server error. */
 export class RateLimitedError extends Error {}
+
+/** User-facing message for anything caught from an API call. */
+export function errorMessage(err: unknown, fallback = "Erreur"): string {
+  return err instanceof Error ? err.message : fallback;
+}
 
 async function readDetail(res: Response, fallback: string): Promise<string> {
   try {
@@ -69,43 +80,29 @@ function authHeaders(shareToken?: string): Record<string, string> {
   return headers;
 }
 
-async function request<T>(
-  path: string,
-  options?: RequestInit,
-  shareToken?: string
-): Promise<T> {
+/** Throws the matching error for a non-2xx response. */
+async function ensureOk(res: Response): Promise<void> {
+  if (res.status === 401) throw new UnauthorizedError(await readDetail(res, "Acces non autorise"));
+  if (!res.ok) throw new Error(await readDetail(res, res.statusText));
+}
+
+async function request<T>(path: string, options?: RequestInit, shareToken?: string): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {
     ...options,
     headers: {
-      ...(options?.body && !(options.body instanceof FormData)
-        ? { "Content-Type": "application/json" }
-        : {}),
+      ...(options?.body && !(options.body instanceof FormData) ? { "Content-Type": "application/json" } : {}),
       ...authHeaders(shareToken),
       ...(options?.headers || {}),
     },
   });
-  if (res.status === 401) {
-    throw new UnauthorizedError(await readDetail(res, "Acces non autorise"));
-  }
-  if (!res.ok) {
-    throw new Error(await readDetail(res, res.statusText));
-  }
+  await ensureOk(res);
   if (res.status === 204) return undefined as T;
   return res.json();
 }
 
 export const api = {
-  health: () => request<HealthStatus>("/health"),
-  adminHealth: () => request<AdminHealthStatus>("/admin/health"),
-
   // --- Auth ---------------------------------------------------------
-  register: (
-    email: string,
-    password: string,
-    displayName: string,
-    captcha: CaptchaSolution,
-    termsAccepted: boolean
-  ) =>
+  register: (email: string, password: string, displayName: string, captcha: CaptchaSolution, termsAccepted: boolean) =>
     request<AuthResponse>("/auth/register", {
       method: "POST",
       body: JSON.stringify({
@@ -137,8 +134,7 @@ export const api = {
       method: "POST",
       body: JSON.stringify({ password }),
     }),
-  logoutEverywhere: () =>
-    request<{ access_token: string }>("/auth/logout-everywhere", { method: "POST" }),
+  logoutEverywhere: () => request<{ access_token: string }>("/auth/logout-everywhere", { method: "POST" }),
   me: () => request<User>("/auth/me"),
   updateProfile: (displayName: string) =>
     request<User>("/auth/me", {
@@ -158,8 +154,7 @@ export const api = {
       body: JSON.stringify({ password }),
     }),
   exportAccount: () => request<unknown>("/auth/me/export"),
-  verifyEmail: (token: string) =>
-    request<{ ok: boolean }>(`/auth/verify-email?token=${encodeURIComponent(token)}`),
+  verifyEmail: (token: string) => request<{ ok: boolean }>(`/auth/verify-email?token=${encodeURIComponent(token)}`),
   forgotPassword: (email: string) =>
     request<{ ok: boolean }>("/auth/forgot-password", {
       method: "POST",
@@ -170,13 +165,10 @@ export const api = {
       method: "POST",
       body: JSON.stringify({ token, password }),
     }),
-  oauthProviders: () =>
-    request<{ google: boolean; apple: boolean; github: boolean; linkedin: boolean }>(
-      "/auth/oauth/providers"
-    ),
-  oauthLoginUrl: (provider: "google" | "apple" | "github" | "linkedin", next: string) =>
+  /** Which SSO providers are configured on this instance. */
+  oauthProviders: () => request<Record<OAuthProvider, boolean>>("/auth/oauth/providers"),
+  oauthLoginUrl: (provider: OAuthProvider, next: string) =>
     `${BASE}/auth/oauth/${provider}/login?next=${encodeURIComponent(next)}`,
-
 
   // --- Captcha --------------------------------------------------------
   captchaChallenge: () => request<CaptchaChallenge>("/captcha/challenge"),
@@ -193,10 +185,8 @@ export const api = {
     request<{ ok: boolean }>(`/newsletter/unsubscribe?token=${encodeURIComponent(token)}`),
 
   // --- Admin ------------------------------------------------------------
-  adminUsers: (limit = 50, offset = 0) =>
-    request<Paginated<User>>(`/admin/users?limit=${limit}&offset=${offset}`),
-  adminSpaces: (limit = 50, offset = 0) =>
-    request<Paginated<Space>>(`/admin/spaces?limit=${limit}&offset=${offset}`),
+  adminUsers: (limit = 50, offset = 0) => request<Paginated<User>>(`/admin/users?limit=${limit}&offset=${offset}`),
+  adminSpaces: (limit = 50, offset = 0) => request<Paginated<Space>>(`/admin/spaces?limit=${limit}&offset=${offset}`),
   adminStats: () => request<AdminStats>("/admin/stats"),
   adminCreateUser: (payload: { email: string; password: string; display_name?: string; role?: "admin" | "user" }) =>
     request<User>("/admin/users", { method: "POST", body: JSON.stringify(payload) }),
@@ -216,8 +206,7 @@ export const api = {
     request<Testimonial>(`/admin/testimonials/${id}`, { method: "PATCH", body: JSON.stringify(patch) }),
   adminDeleteTestimonial: (id: string) => request(`/admin/testimonials/${id}`, { method: "DELETE" }),
   listTestimonials: () => request<Testimonial[]>("/testimonials"),
-  adminListSnapshots: (spaceId: string) =>
-    request<SpaceSnapshot[]>(`/admin/spaces/${spaceId}/snapshots`),
+  adminListSnapshots: (spaceId: string) => request<SpaceSnapshot[]>(`/admin/spaces/${spaceId}/snapshots`),
   adminCreateSnapshot: (spaceId: string) =>
     request<SpaceSnapshot>(`/admin/spaces/${spaceId}/snapshots`, { method: "POST" }),
   adminRestoreSnapshot: (spaceId: string, snapshotId: string) =>
@@ -236,8 +225,7 @@ export const api = {
   getSpaceByShareToken: (token: string) => request<Space>(`/spaces/by-share/${token}`),
   vectorGraph: (id: string, shareToken?: string) =>
     request<VectorGraph>(`/spaces/${id}/vector-graph`, undefined, shareToken),
-  spaceStats: (id: string, shareToken?: string) =>
-    request<SpaceStats>(`/spaces/${id}/stats`, undefined, shareToken),
+  spaceStats: (id: string, shareToken?: string) => request<SpaceStats>(`/spaces/${id}/stats`, undefined, shareToken),
   updateSpace: (id: string, patch: Partial<Pick<Space, "name" | "description" | "color">>) =>
     request<Space>(`/spaces/${id}`, { method: "PATCH", body: JSON.stringify(patch) }),
   deleteSpace: (id: string) => request(`/spaces/${id}`, { method: "DELETE" }),
@@ -254,12 +242,7 @@ export const api = {
 
   // --- Share links ----------------------------------------------------
   listShareLinks: (spaceId: string) => request<ShareLink[]>(`/spaces/${spaceId}/share-links`),
-  createShareLink: (
-    spaceId: string,
-    canUpload: boolean,
-    label: string,
-    expiresInDays?: number
-  ) =>
+  createShareLink: (spaceId: string, canUpload: boolean, label: string, expiresInDays?: number) =>
     request<ShareLink>(`/spaces/${spaceId}/share-links`, {
       method: "POST",
       body: JSON.stringify({ can_upload: canUpload, label, expires_in_days: expiresInDays ?? null }),
@@ -274,18 +257,10 @@ export const api = {
     request<Conversation>(
       `/spaces/${spaceId}/conversations`,
       { method: "POST", body: JSON.stringify({ title }) },
-      shareToken
+      shareToken,
     ),
-  updateConversation: (
-    id: string,
-    shareToken: string | undefined,
-    patch: Partial<Pick<Conversation, "title">>
-  ) =>
-    request<Conversation>(
-      `/conversations/${id}`,
-      { method: "PATCH", body: JSON.stringify(patch) },
-      shareToken
-    ),
+  updateConversation: (id: string, shareToken: string | undefined, patch: Partial<Pick<Conversation, "title">>) =>
+    request<Conversation>(`/conversations/${id}`, { method: "PATCH", body: JSON.stringify(patch) }, shareToken),
   deleteConversation: (id: string, shareToken?: string) =>
     request(`/conversations/${id}`, { method: "DELETE" }, shareToken),
   listMessages: (conversationId: string, shareToken?: string) =>
@@ -294,27 +269,18 @@ export const api = {
     conversationId: string,
     format: "pdf" | "docx",
     filenameFallback: string,
-    shareToken?: string
+    shareToken?: string,
   ): Promise<void> => {
     const res = await fetch(`${BASE}/conversations/${conversationId}/export?format=${format}`, {
       headers: authHeaders(shareToken),
     });
-    if (res.status === 401) throw new UnauthorizedError(await readDetail(res, "Acces non autorise"));
-    if (!res.ok) throw new Error(await readDetail(res, res.statusText));
+    await ensureOk(res);
 
     const disposition = res.headers.get("Content-Disposition") || "";
     const match = disposition.match(/filename="([^"]+)"/);
     const filename = match ? match[1] : `${filenameFallback}.${format}`;
 
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    URL.revokeObjectURL(url);
+    downloadBlob(await res.blob(), filename);
   },
 
   // --- Documents ------------------------------------------------------
@@ -323,20 +289,15 @@ export const api = {
   uploadDocument: (spaceId: string, file: File, shareToken?: string) => {
     const form = new FormData();
     form.append("file", file);
-    return request<DocumentItem>(
-      `/spaces/${spaceId}/documents/upload`,
-      { method: "POST", body: form },
-      shareToken
-    );
+    return request<DocumentItem>(`/spaces/${spaceId}/documents/upload`, { method: "POST", body: form }, shareToken);
   },
   ingestUrl: (spaceId: string, url: string, shareToken?: string) =>
     request<DocumentItem>(
       `/spaces/${spaceId}/documents/url`,
       { method: "POST", body: JSON.stringify({ url }) },
-      shareToken
+      shareToken,
     ),
-  deleteDocument: (id: string, shareToken?: string) =>
-    request(`/documents/${id}`, { method: "DELETE" }, shareToken),
+  deleteDocument: (id: string, shareToken?: string) => request(`/documents/${id}`, { method: "DELETE" }, shareToken),
 
   submitContact: (data: {
     name: string;
@@ -357,7 +318,21 @@ export const api = {
   },
 };
 
-export interface StreamEvent {
+/** Triggers a browser download of `blob` under `filename`. */
+export function downloadBlob(blob: Blob, filename: string): void {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+// --- Server-Sent Events -------------------------------------------------------
+
+interface StreamEvent {
   type: "user_message_id" | "queued" | "token" | "done" | "error";
   content?: string;
   id?: string;
@@ -366,13 +341,46 @@ export interface StreamEvent {
   sources?: Message["sources"];
 }
 
+/** Reads a `data: {...}` event stream until it closes, handing each parsed
+ * event to `onEvent`. Malformed chunks are skipped, not fatal. */
+async function readEventStream<E>(res: Response, onEvent: (event: E) => void): Promise<void> {
+  if (!res.ok || !res.body) {
+    throw new Error(`Erreur serveur (${res.status})`);
+  }
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = "";
+
+  while (true) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+
+    // Events are separated by a blank line; keep the trailing partial one.
+    const parts = buffer.split("\n\n");
+    buffer = parts.pop() || "";
+    for (const part of parts) {
+      const line = part.trim();
+      if (!line.startsWith("data:")) continue;
+      const jsonStr = line.slice(5).trim();
+      if (!jsonStr) continue;
+      try {
+        onEvent(JSON.parse(jsonStr));
+      } catch {
+        /* ignore malformed chunk */
+      }
+    }
+  }
+}
+
+/** Asks a question in a workspace conversation and streams the answer. */
 export async function streamChat(
   conversationId: string,
   message: string,
   onEvent: (event: StreamEvent) => void,
   shareToken?: string,
   signal?: AbortSignal,
-  docIds?: string[]
+  docIds?: string[],
 ): Promise<void> {
   const res = await fetch(`${BASE}/conversations/${conversationId}/chat`, {
     method: "POST",
@@ -385,45 +393,15 @@ export async function streamChat(
   });
   if (res.status === 401) throw new UnauthorizedError();
   if (res.status === 429) throw new RateLimitedError(await readDetail(res, "Trop de messages envoyes"));
-  if (!res.ok || !res.body) {
-    throw new Error(`Erreur serveur (${res.status})`);
-  }
-
-  const reader = res.body.getReader();
-  const decoder = new TextDecoder();
-  let buffer = "";
-
-  while (true) {
-    const { value, done } = await reader.read();
-    if (done) break;
-    buffer += decoder.decode(value, { stream: true });
-
-    const parts = buffer.split("\n\n");
-    buffer = parts.pop() || "";
-    for (const part of parts) {
-      const line = part.trim();
-      if (!line.startsWith("data:")) continue;
-      const jsonStr = line.slice(5).trim();
-      if (!jsonStr) continue;
-      try {
-        onEvent(JSON.parse(jsonStr));
-      } catch {
-        /* ignore malformed chunk */
-      }
-    }
-  }
+  await readEventStream(res, onEvent);
 }
 
-export interface SupportChatEvent {
-  type: "token" | "done";
-  content?: string;
-}
-
+/** Public help-desk chatbot (no account needed). */
 export async function streamSupportChat(
   message: string,
   history: { role: "user" | "assistant"; content: string }[],
-  onEvent: (event: SupportChatEvent) => void,
-  signal?: AbortSignal
+  onEvent: (event: { type: "token" | "done"; content?: string }) => void,
+  signal?: AbortSignal,
 ): Promise<void> {
   const res = await fetch(`${BASE}/support/chat`, {
     method: "POST",
@@ -431,31 +409,5 @@ export async function streamSupportChat(
     body: JSON.stringify({ message, history }),
     signal,
   });
-  if (!res.ok || !res.body) {
-    throw new Error(`Erreur serveur (${res.status})`);
-  }
-
-  const reader = res.body.getReader();
-  const decoder = new TextDecoder();
-  let buffer = "";
-
-  while (true) {
-    const { value, done } = await reader.read();
-    if (done) break;
-    buffer += decoder.decode(value, { stream: true });
-
-    const parts = buffer.split("\n\n");
-    buffer = parts.pop() || "";
-    for (const part of parts) {
-      const line = part.trim();
-      if (!line.startsWith("data:")) continue;
-      const jsonStr = line.slice(5).trim();
-      if (!jsonStr) continue;
-      try {
-        onEvent(JSON.parse(jsonStr));
-      } catch {
-        /* ignore malformed chunk */
-      }
-    }
-  }
+  await readEventStream(res, onEvent);
 }

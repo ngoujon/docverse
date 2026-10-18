@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 import { api, UnauthorizedError } from "../api/client";
-import { clearUserToken, getUserToken, setUserToken } from "../api/userToken";
+import { clearUserToken, getUserToken, setUserToken } from "../api/storage";
 import type { CaptchaSolution, User } from "../types";
 
 interface LoginResult {
@@ -18,7 +18,7 @@ interface AuthContextValue {
     password: string,
     displayName: string,
     captcha: CaptchaSolution,
-    termsAccepted: boolean
+    termsAccepted: boolean,
   ) => Promise<void>;
   logout: () => void;
   refresh: () => Promise<void>;
@@ -26,6 +26,8 @@ interface AuthContextValue {
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
+/** Holds the signed-in user for the whole app; the session token itself
+ * lives in localStorage (api/storage.ts). */
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -70,18 +72,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const register = useCallback(
-    async (
-      email: string,
-      password: string,
-      displayName: string,
-      captcha: CaptchaSolution,
-      termsAccepted: boolean
-    ) => {
+    async (email: string, password: string, displayName: string, captcha: CaptchaSolution, termsAccepted: boolean) => {
       const res = await api.register(email, password, displayName, captcha, termsAccepted);
       setUserToken(res.access_token);
       setUser(res.user);
     },
-    []
+    [],
   );
 
   const logout = useCallback(() => {

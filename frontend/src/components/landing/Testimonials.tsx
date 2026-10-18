@@ -4,12 +4,16 @@ import { Star } from "lucide-react";
 import { api } from "../../api/client";
 import type { Testimonial } from "../../types";
 
+/** Published customer testimonials; the section hides itself when empty. */
 export default function Testimonials() {
   const { t } = useTranslation();
   const [items, setItems] = useState<Testimonial[]>([]);
 
   useEffect(() => {
-    api.listTestimonials().then(setItems).catch(() => {});
+    api
+      .listTestimonials()
+      .then(setItems)
+      .catch(() => {});
   }, []);
 
   if (items.length === 0) return null;

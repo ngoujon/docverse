@@ -17,7 +17,7 @@ const SESSION_KEY = "hyaides:analytics-session";
 
 /** Routes of the product itself. Their paths leak space/share ids, so they
  * stay out of the audience measurement entirely. */
-export const UNTRACKED_PREFIXES = ["/app", "/share", "/dashboard", "/admin", "/account"];
+const UNTRACKED_PREFIXES = ["/app", "/share", "/dashboard", "/admin", "/account"];
 
 export type ConsentChoice = "granted" | "denied";
 

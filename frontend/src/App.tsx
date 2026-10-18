@@ -1,27 +1,27 @@
-import { useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import LandingPage from "./pages/LandingPage";
-import WorkspaceApp from "./pages/WorkspaceApp";
-import PrivacyPage from "./pages/PrivacyPage";
-import FaqPage from "./pages/FaqPage";
-import TermsPage from "./pages/TermsPage";
-import LegalNoticePage from "./pages/LegalNoticePage";
-import DemoPage from "./pages/DemoPage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import ForgotPasswordPage from "./pages/ForgotPasswordPage";
-import ResetPasswordPage from "./pages/ResetPasswordPage";
-import NewsletterConfirmPage from "./pages/NewsletterConfirmPage";
-import VerifyEmailPage from "./pages/VerifyEmailPage";
-import OAuthCallbackPage from "./pages/OAuthCallbackPage";
-import DashboardPage from "./pages/DashboardPage";
-import AdminDashboardPage from "./pages/AdminDashboardPage";
-import AccountSettingsPage from "./pages/AccountSettingsPage";
-import ProtectedRoute from "./components/ProtectedRoute";
-import SupportChatWidget from "./components/SupportChatWidget";
-import AnalyticsTracker from "./components/AnalyticsTracker";
-import CookieConsentBanner from "./components/CookieConsentBanner";
+import LandingPage from "./pages/public/LandingPage";
+import WorkspaceApp from "./pages/app/WorkspaceApp";
+import PrivacyPage from "./pages/public/PrivacyPage";
+import FaqPage from "./pages/public/FaqPage";
+import TermsPage from "./pages/public/TermsPage";
+import LegalNoticePage from "./pages/public/LegalNoticePage";
+import DemoPage from "./pages/public/DemoPage";
+import LoginPage from "./pages/auth/LoginPage";
+import RegisterPage from "./pages/auth/RegisterPage";
+import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
+import NewsletterConfirmPage from "./pages/auth/NewsletterConfirmPage";
+import VerifyEmailPage from "./pages/auth/VerifyEmailPage";
+import OAuthCallbackPage from "./pages/auth/OAuthCallbackPage";
+import DashboardPage from "./pages/app/DashboardPage";
+import AdminDashboardPage from "./pages/app/AdminDashboardPage";
+import AccountSettingsPage from "./pages/app/AccountSettingsPage";
+import ProtectedRoute from "./components/layout/ProtectedRoute";
+import SupportChatWidget from "./components/layout/SupportChatWidget";
+import AnalyticsTracker from "./components/layout/AnalyticsTracker";
+import CookieConsentBanner from "./components/layout/CookieConsentBanner";
 import { analyticsEnabled, isTrackablePath } from "./utils/analytics";
 
 // The support widget helps visitors use the site/app - shown on the public
@@ -29,6 +29,11 @@ import { analyticsEnabled, isTrackablePath } from "./utils/analytics";
 // would just be visual noise on top of the actual tool.
 const SUPPORT_WIDGET_EXCLUDED_PREFIXES = ["/app", "/share"];
 
+/** Signed-in only route (admin only with `adminOnly`). */
+const protect = (page: ReactNode, adminOnly = false) => <ProtectedRoute adminOnly={adminOnly}>{page}</ProtectedRoute>;
+
+/** Root component: route table plus the global widgets (support chat,
+ * audience measurement and its consent banner). */
 export default function App() {
   const { i18n } = useTranslation();
   const location = useLocation();
@@ -53,54 +58,12 @@ export default function App() {
         <Route path="/newsletter/unsubscribe" element={<NewsletterConfirmPage mode="unsubscribe" />} />
         <Route path="/verify-email" element={<VerifyEmailPage />} />
         <Route path="/oauth-callback" element={<OAuthCallbackPage />} />
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <DashboardPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/account"
-          element={
-            <ProtectedRoute>
-              <AccountSettingsPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute adminOnly>
-              <AdminDashboardPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/app"
-          element={
-            <ProtectedRoute>
-              <WorkspaceApp />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/app/:spaceId"
-          element={
-            <ProtectedRoute>
-              <WorkspaceApp />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/share/:shareToken"
-          element={
-            <ProtectedRoute>
-              <WorkspaceApp />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/dashboard" element={protect(<DashboardPage />)} />
+        <Route path="/account" element={protect(<AccountSettingsPage />)} />
+        <Route path="/admin" element={protect(<AdminDashboardPage />, true)} />
+        <Route path="/app" element={protect(<WorkspaceApp />)} />
+        <Route path="/app/:spaceId" element={protect(<WorkspaceApp />)} />
+        <Route path="/share/:shareToken" element={protect(<WorkspaceApp />)} />
         <Route path="/confidentialite" element={<PrivacyPage />} />
         <Route path="/cgu" element={<TermsPage />} />
         <Route path="/mentions-legales" element={<LegalNoticePage />} />

@@ -3,3 +3,13 @@
 # Docker image; the backend root is put on sys.path so `import app` works.
 testpaths = ["tests"]
 pythonpath = ["."]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+# Pyflakes (dead code / undefined names) + a few bug-prone patterns.
+select = ["F", "E9", "B"]
+# FastAPI's Depends()/Query() defaults are idiomatic, not a bug.
+ignore = ["B008"]

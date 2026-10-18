@@ -3,7 +3,7 @@ import { StaticRouter } from "react-router-dom";
 import App from "./App";
 import { AuthProvider } from "./hooks/useAuth";
 import { __setSSRMetaSink } from "./hooks/usePageMeta";
-import { __setSSRJsonLdSink } from "./hooks/useJsonLd";
+import { __setSSRJsonLdSink } from "./hooks/usePageMeta";
 import i18n from "./i18n";
 
 interface RenderedPage {
@@ -31,7 +31,7 @@ export function render(url: string): RenderedPage {
         <AuthProvider>
           <App />
         </AuthProvider>
-      </StaticRouter>
+      </StaticRouter>,
     );
   } finally {
     __setSSRMetaSink(null);

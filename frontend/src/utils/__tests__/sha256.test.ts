@@ -12,7 +12,7 @@ describe("sha256Hex", () => {
 
   it("matches the known SHA-256 vector for a 56-char string spanning two blocks", () => {
     expect(sha256Hex("abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq")).toBe(
-      "248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1"
+      "248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1",
     );
   });
 

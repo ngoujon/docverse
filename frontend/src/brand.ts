@@ -38,5 +38,3 @@ export const BRAND = {
 export function pageTitle(section?: string): string {
   return section ? `${section} - ${BRAND.name}` : BRAND.name;
 }
-
-export default BRAND;

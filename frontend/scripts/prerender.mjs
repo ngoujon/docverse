@@ -121,28 +121,13 @@ function injectPage(template, { appHtml, title, description, canonicalPath, json
 
   if (title) {
     html = html.replace(/<title>.*?<\/title>/s, `<title>${escapeHtml(title)}</title>`);
-    html = html.replace(
-      /(<meta\s+property="og:title"\s+content=").*?(")/s,
-      `$1${escapeHtml(title)}$2`
-    );
-    html = html.replace(
-      /(<meta\s+name="twitter:title"\s+content=").*?(")/s,
-      `$1${escapeHtml(title)}$2`
-    );
+    html = html.replace(/(<meta\s+property="og:title"\s+content=").*?(")/s, `$1${escapeHtml(title)}$2`);
+    html = html.replace(/(<meta\s+name="twitter:title"\s+content=").*?(")/s, `$1${escapeHtml(title)}$2`);
   }
   if (description) {
-    html = html.replace(
-      /(<meta\s+name="description"\s+content=").*?(")/s,
-      `$1${escapeHtml(description)}$2`
-    );
-    html = html.replace(
-      /(<meta\s+property="og:description"\s+content=").*?(")/s,
-      `$1${escapeHtml(description)}$2`
-    );
-    html = html.replace(
-      /(<meta\s+name="twitter:description"\s+content=").*?(")/s,
-      `$1${escapeHtml(description)}$2`
-    );
+    html = html.replace(/(<meta\s+name="description"\s+content=").*?(")/s, `$1${escapeHtml(description)}$2`);
+    html = html.replace(/(<meta\s+property="og:description"\s+content=").*?(")/s, `$1${escapeHtml(description)}$2`);
+    html = html.replace(/(<meta\s+name="twitter:description"\s+content=").*?(")/s, `$1${escapeHtml(description)}$2`);
   }
   const canonicalUrl = canonicalPath ? `${siteOrigin}${canonicalPath}` : undefined;
   if (canonicalUrl) {

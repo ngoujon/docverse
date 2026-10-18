@@ -2,7 +2,7 @@ import { act, renderHook, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { AuthProvider, useAuth } from "../useAuth";
 import { api } from "../../api/client";
-import { clearUserToken, getUserToken } from "../../api/userToken";
+import { clearUserToken, getUserToken } from "../../api/storage";
 
 vi.mock("../../api/client", () => ({
   api: {
@@ -25,7 +25,16 @@ describe("useAuth", () => {
   it("logs in directly when the account has no 2FA enabled", async () => {
     mockedApi.login.mockResolvedValue({
       access_token: "session-token",
-      user: { id: "u1", email: "a@b.com", display_name: "", role: "user", is_active: true, email_verified: true, totp_enabled: false, created_at: "" },
+      user: {
+        id: "u1",
+        email: "a@b.com",
+        display_name: "",
+        role: "user",
+        is_active: true,
+        email_verified: true,
+        totp_enabled: false,
+        created_at: "",
+      },
       requires_2fa: false,
       pending_token: null,
     });
@@ -67,7 +76,16 @@ describe("useAuth", () => {
   it("completes login after a successful 2FA code verification", async () => {
     mockedApi.verify2fa.mockResolvedValue({
       access_token: "session-token-after-2fa",
-      user: { id: "u1", email: "a@b.com", display_name: "", role: "user", is_active: true, email_verified: true, totp_enabled: true, created_at: "" },
+      user: {
+        id: "u1",
+        email: "a@b.com",
+        display_name: "",
+        role: "user",
+        is_active: true,
+        email_verified: true,
+        totp_enabled: true,
+        created_at: "",
+      },
     });
 
     const { result } = renderHook(() => useAuth(), { wrapper: AuthProvider });
@@ -85,7 +103,16 @@ describe("useAuth", () => {
   it("clears the session on logout", async () => {
     mockedApi.login.mockResolvedValue({
       access_token: "session-token",
-      user: { id: "u1", email: "a@b.com", display_name: "", role: "user", is_active: true, email_verified: true, totp_enabled: false, created_at: "" },
+      user: {
+        id: "u1",
+        email: "a@b.com",
+        display_name: "",
+        role: "user",
+        is_active: true,
+        email_verified: true,
+        totp_enabled: false,
+        created_at: "",
+      },
       requires_2fa: false,
       pending_token: null,
     });

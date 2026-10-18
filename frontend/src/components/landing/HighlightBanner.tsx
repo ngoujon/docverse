@@ -9,6 +9,7 @@ const NODES = [
   { Icon: FileCode, x: 6, y: 68, delay: "2s", color: "text-retro-purple", ring: "border-retro-purple/50" },
 ];
 
+/** Dark banner illustrating "every format becomes searchable knowledge". */
 export default function HighlightBanner() {
   const { t } = useTranslation();
 
@@ -16,9 +17,7 @@ export default function HighlightBanner() {
     <div className="border-y border-retro-border bg-slate-900">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-2 lg:items-center lg:py-12">
         <div className="text-center lg:text-left">
-          <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-retro-cyan">
-            {t("highlight.eyebrow")}
-          </p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-retro-cyan">{t("highlight.eyebrow")}</p>
           <h2 className="mt-2 text-xl font-bold text-white sm:text-2xl">{t("highlight.title")}</h2>
           <p className="mt-2 text-sm text-slate-400">{t("highlight.desc")}</p>
         </div>
