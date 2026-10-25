@@ -155,51 +155,482 @@
   "demoPage": {
     "back": "Voltar ao início",
     "eyebrow": "Demonstração",
-    "title": "Veja como funciona",
-    "subtitle": "Um espaço simulado com documentos de exemplo. Clique numa pergunta para ver como a IA responde com fontes.",
-    "banner": "Isto é uma simulação com respostas pré-escritas - nenhum documento é realmente analisado aqui.",
-    "documentsTitle": "Documentos do espaço",
-    "documents": [
+    "title": "Experimente o {{brand}} ao vivo",
+    "subtitle": "Um espaço de trabalho real, com documentos de exemplo reais. Troque de espaço, faça perguntas, abra as fontes, importe um ficheiro e partilhe o espaço, sem criar conta.",
+    "banner": "Demonstração simulada: as respostas são pré-escritas e nenhum ficheiro sai do seu navegador.",
+    "ctaTitle": "Pronto para usar os seus próprios documentos?",
+    "ctaText": "Crie o seu primeiro espaço em menos de um minuto. Os seus ficheiros continuam alojados em França.",
+    "ctaButton": "Criar o meu espaço",
+    "ctaSecondary": "Contacte-nos"
+  },
+  "demoApp": {
+    "tour": {
+      "title": "Visita guiada",
+      "progress": "{{done}} de {{total}} etapas",
+      "show": "Mostrar-me",
+      "steps": [
+        {
+          "title": "Escolha um espaço",
+          "desc": "Um espaço por cliente ou processo, totalmente isolado."
+        },
+        {
+          "title": "Faça uma pergunta",
+          "desc": "Em linguagem natural, como a um colega."
+        },
+        {
+          "title": "Verifique a fonte",
+          "desc": "Cada resposta remete para o excerto exato do documento."
+        },
+        {
+          "title": "Adicione um documento",
+          "desc": "É lido, dividido e indexado em segundos."
+        },
+        {
+          "title": "Partilhe o espaço",
+          "desc": "Convide como leitor ou editor, revogável a qualquer momento."
+        }
+      ],
+      "doneTitle": "Concluiu a visita!",
+      "doneText": "É exatamente assim que a aplicação funciona, com os seus próprios documentos.",
+      "restart": "Recomeçar a demo"
+    },
+    "ui": {
+      "spaces": "Espaços",
+      "documents": "Documentos",
+      "chat": "Conversa",
+      "docCount": "{{count}} documentos",
+      "share": "Partilhar",
+      "upload": "Importar um documento",
+      "uploading": "A enviar…",
+      "indexing": "Indexação · {{count}} excertos",
+      "ready": "{{count}} excertos",
+      "newBadge": "Novo",
+      "suggested": "Perguntas sugeridas",
+      "placeholder": "Faça uma pergunta sobre os documentos do espaço…",
+      "send": "Enviar",
+      "searching": "A pesquisar em {{count}} documentos…",
+      "found": "{{count}} excertos relevantes encontrados",
+      "sources": "Fontes",
+      "openSource": "Ver o excerto",
+      "sourceTitle": "Excerto citado",
+      "backToDocs": "Voltar aos documentos",
+      "openInDoc": "Excerto de {{name}}",
+      "emptyTitle": "Pergunte a «{{space}}»",
+      "emptyText": "Escolha uma pergunta abaixo ou escreva a sua.",
+      "fallback": "Nesta demo, respondo a perguntas sobre os documentos do espaço «{{space}}». Experimente uma das perguntas sugeridas: na aplicação, pode consultar livremente os seus próprios documentos.",
+      "reset": "Repor",
+      "audioNote": "Transcrito nos nossos servidores",
+      "visionNote": "Lido pela IA de visão",
+      "shareTitle": "Partilhar «{{space}}»",
+      "shareDesc": "Os membros só acedem a este espaço. Os seus outros espaços ficam invisíveis.",
+      "members": "Membros",
+      "you": "você",
+      "roleOwner": "Proprietário",
+      "roleEditor": "Editor",
+      "roleViewer": "Leitor",
+      "roleEditorDesc": "Faz perguntas e adiciona documentos",
+      "roleViewerDesc": "Consulta as conversas e os documentos",
+      "invitePlaceholder": "nome@cliente.pt",
+      "invite": "Convidar",
+      "invited": "Convite enviado (simulação)",
+      "linkTitle": "Link de partilha",
+      "copyLink": "Copiar link",
+      "linkCopied": "Link copiado (simulação)",
+      "revocable": "Revogável a qualquer momento",
+      "close": "Fechar"
+    },
+    "spaces": [
       {
-        "name": "relatorio_atividade_2025.pdf",
-        "type": "pdf"
+        "name": "Escritório Durand · Contratos",
+        "short": "ED",
+        "color": "#635bff",
+        "desc": "Contratos de fornecedores, aditamentos e faturas",
+        "docs": [
+          {
+            "name": "contrato_fornecedor_2025.pdf",
+            "type": "pdf",
+            "size": "2,4 MB",
+            "chunks": 42
+          },
+          {
+            "name": "aditamento_n2_assinado.pdf",
+            "type": "pdf",
+            "size": "380 KB",
+            "chunks": 9
+          },
+          {
+            "name": "fatura_marco_digitalizada.jpg",
+            "type": "image",
+            "size": "1,1 MB",
+            "chunks": 4
+          },
+          {
+            "name": "fornecedor.pt/condicoes-gerais",
+            "type": "web",
+            "size": "",
+            "chunks": 12
+          }
+        ],
+        "qa": [
+          {
+            "q": "Qual é a duração do contrato e o pré-aviso de rescisão?",
+            "keywords": [
+              "duracao",
+              "pre-aviso",
+              "aviso",
+              "rescisao",
+              "rescindir",
+              "renovacao"
+            ],
+            "answer": "O contrato é celebrado por **12 meses** a partir de 1 de janeiro de 2025, com **renovação automática** [1]. Para o terminar, é preciso enviar carta registada pelo menos **30 dias antes do termo** [1]. O aditamento n.º 2 não altera esta duração: apenas acrescenta uma cláusula de revisão de preços [2].",
+            "sources": [
+              {
+                "doc": 0,
+                "where": "p. 3 · artigo 4",
+                "passage": "O presente contrato é celebrado por um prazo de doze (12) meses a contar de 1 de janeiro de 2025. Renova-se automaticamente, salvo denúncia por qualquer das partes mediante carta registada com aviso de receção enviada pelo menos trinta (30) dias antes do seu termo.",
+                "highlight": "pelo menos trinta (30) dias antes do seu termo"
+              },
+              {
+                "doc": 1,
+                "where": "p. 1 · artigo 2",
+                "passage": "As demais cláusulas do contrato, nomeadamente a sua duração e as condições de rescisão, mantêm-se inalteradas. Os preços podem ser revistos uma vez por ano, até ao limite de 3 %.",
+                "highlight": "nomeadamente a sua duração e as condições de rescisão, mantêm-se inalteradas"
+              }
+            ]
+          },
+          {
+            "q": "Que penalidades existem por atraso na entrega?",
+            "keywords": [
+              "penalidade",
+              "penalidades",
+              "atraso",
+              "entrega",
+              "prazo",
+              "indemnizacao"
+            ],
+            "answer": "Em caso de atraso, o fornecedor deve **1 % do valor da encomenda por semana de atraso** [1], até ao máximo de **10 %** do total [1]. Após quatro semanas, pode cancelar a encomenda sem custos [1].",
+            "sources": [
+              {
+                "doc": 0,
+                "where": "p. 7 · artigo 9",
+                "passage": "Qualquer atraso de entrega imputável ao fornecedor dá lugar a penalidades iguais a 1 % do valor da encomenda sem IVA por semana de atraso, até ao limite de 10 % desse valor. Após quatro (4) semanas de atraso, o cliente pode cancelar a encomenda sem indemnização.",
+                "highlight": "1 % do valor da encomenda sem IVA por semana de atraso"
+              }
+            ]
+          },
+          {
+            "q": "O valor da fatura de março está conforme o contrato?",
+            "keywords": [
+              "fatura",
+              "marco",
+              "valor",
+              "conforme",
+              "preco",
+              "tarifa",
+              "verificar"
+            ],
+            "answer": "Quase. A fatura de março aplica um preço unitário de **52,50 €** [1], quando o contrato prevê **50,00 €** [2]. O aditamento n.º 2 permite uma revisão máxima de **3 %** por ano [3], ou seja 51,50 € no máximo: a diferença de **1,00 € por unidade** deve ser assinalada ao fornecedor.",
+            "sources": [
+              {
+                "doc": 2,
+                "where": "imagem · linha 2",
+                "passage": "Ref. PRD-118 — Tinteiros pack de 10 — Qtd. 40 — PU s/ IVA 52,50 € — Total s/ IVA 2.100,00 €",
+                "highlight": "PU s/ IVA 52,50 €"
+              },
+              {
+                "doc": 0,
+                "where": "p. 11 · anexo 1",
+                "passage": "Tabela de preços 2025: Ref. PRD-118, tinteiros pack de 10, preço unitário sem IVA: 50,00 €.",
+                "highlight": "preço unitário sem IVA: 50,00 €"
+              },
+              {
+                "doc": 1,
+                "where": "p. 1 · artigo 2",
+                "passage": "Os preços podem ser revistos uma vez por ano, na data de aniversário do contrato, até ao limite de 3 % da tarifa em vigor.",
+                "highlight": "até ao limite de 3 % da tarifa em vigor"
+              }
+            ]
+          }
+        ],
+        "upload": {
+          "doc": {
+            "name": "ata_reuniao_fornecedor.docx",
+            "type": "docx",
+            "size": "64 KB",
+            "chunks": 7
+          },
+          "qa": {
+            "q": "O que se decidiu na última reunião com o fornecedor?",
+            "keywords": [
+              "reuniao",
+              "decidiu",
+              "decisao",
+              "ata",
+              "fornecedor"
+            ],
+            "answer": "Na reunião de 14 de março foram tomadas três decisões [1]: o fornecedor **emitirá uma nota de crédito** pela diferença de preço de março, as entregas passam a ser **quinzenais** e fica marcado um ponto de situação para **30 de abril** [1].",
+            "sources": [
+              {
+                "doc": 4,
+                "where": "p. 1 · decisões",
+                "passage": "Decisões: 1) o fornecedor emite uma nota de crédito pela diferença de preço detetada na fatura de março; 2) entregas quinzenais a partir de abril; 3) próximo ponto de situação a 30 de abril.",
+                "highlight": "o fornecedor emite uma nota de crédito"
+              }
+            ]
+          }
+        }
       },
       {
-        "name": "fatura_fornecedor_digitalizada.jpg",
-        "type": "image"
+        "name": "Agência Nova · RH",
+        "short": "AN",
+        "color": "#0e8a4a",
+        "desc": "Políticas internas e acordos de empresa",
+        "docs": [
+          {
+            "name": "manual_acolhimento_2025.pdf",
+            "type": "pdf",
+            "size": "3,2 MB",
+            "chunks": 56
+          },
+          {
+            "name": "politica_teletrabalho.docx",
+            "type": "docx",
+            "size": "120 KB",
+            "chunks": 11
+          },
+          {
+            "name": "acordo_ferias.pdf",
+            "type": "pdf",
+            "size": "540 KB",
+            "chunks": 14
+          },
+          {
+            "name": "reuniao_comissao_marco.mp3",
+            "type": "audio",
+            "size": "18 MB",
+            "chunks": 23
+          }
+        ],
+        "qa": [
+          {
+            "q": "Quantos dias de teletrabalho são permitidos?",
+            "keywords": [
+              "teletrabalho",
+              "remoto",
+              "casa",
+              "distancia",
+              "dias"
+            ],
+            "answer": "Cada colaborador pode trabalhar à distância até **2 dias por semana** [1], após o período experimental [1]. Os dias são combinados com a chefia e **a terça-feira continua a ser dia presencial comum** a toda a equipa [1].",
+            "sources": [
+              {
+                "doc": 1,
+                "where": "p. 2 · secção 3",
+                "passage": "Terminado o período experimental, qualquer colaborador pode beneficiar de dois (2) dias de teletrabalho por semana, definidos em acordo com a sua chefia. A terça-feira é dia de presença obrigatória para todas as equipas.",
+                "highlight": "dois (2) dias de teletrabalho por semana"
+              }
+            ]
+          },
+          {
+            "q": "Como peço férias e com que antecedência?",
+            "keywords": [
+              "ferias",
+              "folga",
+              "pedir",
+              "pedido",
+              "ausencia",
+              "antecedencia"
+            ],
+            "answer": "As férias pedem-se na ferramenta de RH, **com pelo menos 4 semanas de antecedência** para mais de 5 dias, e **uma semana** nos restantes casos [1]. A chefia responde em **5 dias úteis** [1]. No verão, devem ser gozadas pelo menos **2 semanas seguidas** entre maio e outubro [1].",
+            "sources": [
+              {
+                "doc": 2,
+                "where": "p. 4 · artigo 6",
+                "passage": "Qualquer pedido de férias é feito na ferramenta de RH com pelo menos quatro semanas de antecedência para uma ausência superior a cinco dias, e com uma semana nos restantes casos. A chefia responde no prazo de cinco dias úteis. São gozadas pelo menos duas semanas consecutivas entre 1 de maio e 31 de outubro.",
+                "highlight": "com pelo menos quatro semanas de antecedência"
+              }
+            ]
+          },
+          {
+            "q": "O que se disse sobre o subsídio de refeição na última comissão?",
+            "keywords": [
+              "refeicao",
+              "subsidio",
+              "cartao",
+              "comissao",
+              "almoco",
+              "senha"
+            ],
+            "answer": "Segundo a gravação da reunião da comissão de trabalhadores, a direção anunciou **um aumento do valor para 11 €** a partir de junho, com **60 % suportados pela empresa** [1]. Um cartão digital vai substituir as senhas em papel até ao fim do ano [1].",
+            "sources": [
+              {
+                "doc": 3,
+                "where": "aos 12:40 · transcrição",
+                "passage": "[12:40] Direção: «No subsídio de refeição, o valor passa para onze euros a partir de junho, sempre com sessenta por cento a cargo da empresa. E passamos toda a gente para o cartão digital até dezembro.»",
+                "highlight": "o valor passa para onze euros a partir de junho"
+              }
+            ]
+          }
+        ],
+        "upload": {
+          "doc": {
+            "name": "seguro_saude_2025.pdf",
+            "type": "pdf",
+            "size": "890 KB",
+            "chunks": 18
+          },
+          "qa": {
+            "q": "Como o seguro de saúde comparticipa os óculos?",
+            "keywords": [
+              "seguro",
+              "saude",
+              "oculos",
+              "optica",
+              "comparticipa",
+              "reembolso"
+            ],
+            "answer": "O seguro de saúde comparticipa os óculos até **350 € de dois em dois anos** (armação + lentes), dos quais **no máximo 100 € para a armação** [1]. As lentes de contacto são reembolsadas até **150 € por ano** [1].",
+            "sources": [
+              {
+                "doc": 4,
+                "where": "p. 6 · tabela ótica",
+                "passage": "Equipamento ótico (armação + 2 lentes): 350 € por período de dois anos, dos quais no máximo 100 € para a armação. Lentes de contacto prescritas: 150 € por ano civil.",
+                "highlight": "350 € por período de dois anos"
+              }
+            ]
+          }
+        }
       },
       {
-        "name": "notas_reuniao.md",
-        "type": "text"
-      },
-      {
-        "name": "exemplo-clientes.com",
-        "type": "web"
+        "name": "Projeto Atlas · Lançamento",
+        "short": "PA",
+        "color": "#b25e09",
+        "desc": "Caderno de encargos, planeamento e comités de direção",
+        "docs": [
+          {
+            "name": "caderno_encargos_v3.pdf",
+            "type": "pdf",
+            "size": "4,8 MB",
+            "chunks": 71
+          },
+          {
+            "name": "planeamento_lotes.csv",
+            "type": "csv",
+            "size": "18 KB",
+            "chunks": 5
+          },
+          {
+            "name": "ata_comite_fevereiro.md",
+            "type": "md",
+            "size": "9 KB",
+            "chunks": 6
+          },
+          {
+            "name": "maquete_inicio.png",
+            "type": "image",
+            "size": "2,3 MB",
+            "chunks": 3
+          }
+        ],
+        "qa": [
+          {
+            "q": "Qual é a data prevista de entrada em produção?",
+            "keywords": [
+              "data",
+              "producao",
+              "lancamento",
+              "entrega",
+              "planeamento",
+              "quando"
+            ],
+            "answer": "A entrada em produção está prevista para **15 de setembro de 2025** [1]. Foi **adiada duas semanas** no comité de direção de fevereiro, para concluir os testes de carga [2].",
+            "sources": [
+              {
+                "doc": 1,
+                "where": "linha 9 · Lote 4",
+                "passage": "Lote 4 ; Entrada em produção ; início 08/09/2025 ; fim 15/09/2025 ; responsável: equipa Ops ; estado: planeado",
+                "highlight": "fim 15/09/2025"
+              },
+              {
+                "doc": 2,
+                "where": "§ Decisões",
+                "passage": "O comité aprova o adiamento da entrada em produção para 15 de setembro (inicialmente 1 de setembro) para concluir os testes de carga.",
+                "highlight": "adiamento da entrada em produção para 15 de setembro"
+              }
+            ]
+          },
+          {
+            "q": "Quais são os requisitos de segurança?",
+            "keywords": [
+              "seguranca",
+              "requisito",
+              "requisitos",
+              "autenticacao",
+              "cifra",
+              "rgpd"
+            ],
+            "answer": "O caderno de encargos impõe três requisitos principais [1]: **autenticação de dois fatores** para todas as contas de administração, **cifra dos dados em repouso** (AES-256) e **alojamento em França** [1]. É exigida uma auditoria de segurança externa antes da entrada em produção [1].",
+            "sources": [
+              {
+                "doc": 0,
+                "where": "p. 12 · secção 5.2",
+                "passage": "Requisitos de segurança: autenticação de dois fatores obrigatória para as contas privilegiadas; cifra AES-256 dos dados em repouso; alojamento dos dados em território francês; auditoria de segurança independente antes da entrada em produção.",
+                "highlight": "autenticação de dois fatores obrigatória"
+              }
+            ]
+          },
+          {
+            "q": "O que mostra a maquete do ecrã inicial?",
+            "keywords": [
+              "maquete",
+              "ecra",
+              "inicial",
+              "inicio",
+              "design",
+              "interface",
+              "imagem"
+            ],
+            "answer": "A maquete mostra um ecrã inicial em três zonas [1]: uma **barra de pesquisa** central, uma fila de **atalhos para os 4 módulos** principais e um **feed de atividade** recente à direita [1]. O botão principal «Nova pasta» está no canto superior direito [1].",
+            "sources": [
+              {
+                "doc": 3,
+                "where": "imagem · descrição",
+                "passage": "Ecrã inicial: cabeçalho com logótipo e botão «Nova pasta» no canto superior direito; barra de pesquisa centrada; quatro atalhos (Pastas, Planeamento, Documentos, Equipa); coluna «Atividade recente» à direita.",
+                "highlight": "barra de pesquisa centrada"
+              }
+            ]
+          }
+        ],
+        "upload": {
+          "doc": {
+            "name": "orcamento_previsional.csv",
+            "type": "csv",
+            "size": "12 KB",
+            "chunks": 4
+          },
+          "qa": {
+            "q": "Quanto orçamento resta no lote 2?",
+            "keywords": [
+              "orcamento",
+              "resta",
+              "restante",
+              "lote 2",
+              "custo",
+              "gasto"
+            ],
+            "answer": "No lote 2 foram gastos **38 000 €** de um orçamento de **52 000 €** [1]: restam **14 000 €**, cerca de 27 % do orçamento do lote [1].",
+            "sources": [
+              {
+                "doc": 4,
+                "where": "linha 3 · Lote 2",
+                "passage": "Lote 2 ; Desenvolvimento front-end ; orçamento 52000 ; comprometido 38000 ; restante 14000",
+                "highlight": "restante 14000"
+              }
+            ]
+          }
+        }
       }
-    ],
-    "suggestions": [
-      {
-        "question": "Qual foi a faturação de 2025?",
-        "answer": "De acordo com o relatório de atividade [1], a faturação de 2025 atingiu 1,2 M€, um aumento de 18% face a 2024.",
-        "sourceIndex": 0
-      },
-      {
-        "question": "Resuma os pontos-chave da reunião.",
-        "answer": "De acordo com as notas da reunião [2], foram tomadas três decisões: lançamento de um plano Pro, migração para um novo CRM, e lançamento previsto para setembro.",
-        "sourceIndex": 2
-      },
-      {
-        "question": "O que diz a fatura do fornecedor?",
-        "answer": "Segundo a fatura digitalizada [3], o valor total é de 4320 € com impostos incluídos, pagável em 30 dias.",
-        "sourceIndex": 1
-      }
-    ],
-    "inputPlaceholder": "Escolha uma das perguntas sugeridas abaixo",
-    "typing": "a escrever...",
-    "ctaTitle": "A sua vez",
-    "ctaText": "Carregue os seus próprios documentos e obtenha respostas com fontes.",
-    "ctaButton": "Usar a aplicação",
-    "resetLabel": "Recomeçar"
+    ]
   },
   "cookies": {
     "title": "Medição de audiência",
@@ -497,7 +928,21 @@
     "title": "Tudo sobre o {{brand}}",
     "subtitle": "As perguntas mais frequentes sobre contas, espaços, partilha e privacidade.",
     "backHome": "Voltar ao início",
-    "contactCta": "Outra pergunta? Escreva-nos a partir da página inicial.",
+    "searchPlaceholder": "Pesquisar uma pergunta (partilha, formatos, segurança…)",
+    "results": "{{count}} resultado(s)",
+    "noResults": "Nenhuma pergunta corresponde a «{{query}}».",
+    "clear": "Limpar",
+    "categories": {
+      "all": "Todas",
+      "start": "Primeiros passos",
+      "spaces": "Espaços e partilha",
+      "security": "Segurança e dados",
+      "account": "Conta e limites"
+    },
+    "contactTitle": "Não encontra a resposta?",
+    "contactText": "A nossa equipa responde-lhe, ou experimente já a aplicação na demo interativa.",
+    "contactButton": "Escreva-nos",
+    "demoButton": "Experimentar a demo",
     "items": [
       {
         "question": "O que é o {{brand}}?",

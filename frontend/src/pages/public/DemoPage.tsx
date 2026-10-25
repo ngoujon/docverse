@@ -1,49 +1,25 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowRight, FileText, Image, FileCode, Globe, Sparkles, RotateCcw, Info } from "lucide-react";
+import { ArrowRight, Info } from "lucide-react";
 import { usePageMeta } from "../../hooks/usePageMeta";
-import { useCaptcha } from "../../hooks/useCaptcha";
-import AnimatedText from "../../components/ui/AnimatedText";
 import PublicPageLayout from "../../components/layout/PublicPageLayout";
-import { BrandMark } from "../../components/ui/BrandLogo";
-import { BRAND, pageTitle } from "../../brand";
-
-interface DemoDocument {
-  name: string;
-  type: "pdf" | "image" | "text" | "web";
-}
-
-interface DemoSuggestion {
-  question: string;
-  answer: string;
-  sourceIndex: number;
-}
-
-interface DemoMessage {
-  role: "user" | "assistant";
-  content: string;
-  sourceIndex?: number;
-  streaming?: boolean;
-}
-
-const DOC_ICONS = { pdf: FileText, image: Image, text: FileCode, web: Globe };
+import DemoTour from "../../components/demo/DemoTour";
+import DemoWorkspace from "../../components/demo/DemoWorkspace";
+import type { StepIndex } from "../../components/demo/types";
+import { pageTitle } from "../../brand";
 
 /**
- * Scripted, offline product demo: canned questions with canned answers
- * "streamed" in, no backend call. Suggestions unlock once the invisible
- * proof-of-work captcha is solved, which a human never notices but makes
- * scripted spam of the page cost real CPU.
+ * Interactive, fully offline product demo: a scripted copy of the
+ * workspace (spaces, cited answers, source viewer, upload, sharing) driven
+ * by a guided tour. No backend call, no file ever leaves the browser.
  */
 export default function DemoPage() {
   const { t } = useTranslation();
-  const documents = t("demoPage.documents", { returnObjects: true }) as DemoDocument[];
-  const suggestions = t("demoPage.suggestions", { returnObjects: true }) as DemoSuggestion[];
-  // Fails open: the demo is purely cosmetic, never block it on an error.
-  const { status: captchaStatus } = useCaptcha();
-  const humanVerified = captchaStatus === "ready" || captchaStatus === "error";
-  const [messages, setMessages] = useState<DemoMessage[]>([]);
-  const [usedIndexes, setUsedIndexes] = useState<number[]>([]);
+  const [done, setDone] = useState<Set<StepIndex>>(() => new Set());
+  const [pointAt, setPointAt] = useState<StepIndex | null>(null);
+  const [resetKey, setResetKey] = useState(0);
+  const workspaceRef = useRef<HTMLDivElement>(null);
 
   usePageMeta({
     title: pageTitle(t("demoPage.title")),
@@ -51,28 +27,20 @@ export default function DemoPage() {
     canonicalPath: "/demo/",
   });
 
-  const updateLast = (patch: Partial<DemoMessage>) =>
-    setMessages((prev) => [...prev.slice(0, -1), { ...prev[prev.length - 1], ...patch }]);
-
-  const askSuggestion = (i: number) => {
-    if (!humanVerified || usedIndexes.includes(i)) return;
-    const s = suggestions[i];
-    setUsedIndexes((prev) => [...prev, i]);
-    setMessages((prev) => [
-      ...prev,
-      { role: "user", content: s.question },
-      { role: "assistant", content: "", sourceIndex: s.sourceIndex, streaming: true },
-    ]);
-    // "Typing..." for 500ms, then the answer fades in word by word for 900ms.
-    setTimeout(() => {
-      updateLast({ content: s.answer });
-      setTimeout(() => updateLast({ streaming: false }), 900);
-    }, 500);
+  const markDone = (step: StepIndex) => {
+    setDone((prev) => (prev.has(step) ? prev : new Set(prev).add(step)));
+    setPointAt((p) => (p === step ? null : p));
   };
 
-  const reset = () => {
-    setMessages([]);
-    setUsedIndexes([]);
+  const show = (step: StepIndex) => {
+    setPointAt(step);
+    workspaceRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  };
+
+  const restart = () => {
+    setDone(new Set());
+    setPointAt(null);
+    setResetKey((k) => k + 1);
   };
 
   return (
@@ -81,110 +49,43 @@ export default function DemoPage() {
       eyebrow={t("demoPage.eyebrow")}
       title={t("demoPage.title")}
       subtitle={t("demoPage.subtitle")}
-      width="max-w-4xl"
-      subtitleClassName="mt-4 max-w-xl leading-relaxed text-fluent-text"
+      width="max-w-6xl"
+      subtitleClassName="mt-4 max-w-3xl text-pretty leading-relaxed text-fluent-text sm:text-[17px]"
     >
-      <div className="mt-6 flex items-start gap-2 rounded-lg bg-fluent-indigo-soft px-4 py-3 text-sm text-fluent-navy">
-        <Info size={15} className="mt-0.5 shrink-0 text-fluent-indigo" />
+      <div className="mt-8">
+        <DemoTour done={done} onShow={show} onRestart={restart} />
+      </div>
+
+      <div ref={workspaceRef} className="mt-4 scroll-mt-6">
+        <DemoWorkspace done={done} onStep={markDone} pointAt={pointAt} resetKey={resetKey} />
+      </div>
+
+      <p className="mt-3 flex items-start gap-2 text-xs text-fluent-muted">
+        <Info size={13} className="mt-px shrink-0" />
         {t("demoPage.banner")}
-      </div>
+      </p>
 
-      <div className="mt-8 grid gap-6 lg:grid-cols-[250px_1fr]">
-        <div className="rounded-xl border border-fluent-line bg-white p-5 shadow-card lg:self-start">
-          <p className="text-sm font-semibold text-fluent-navy">{t("demoPage.documentsTitle")}</p>
-          <ul className="mt-3 space-y-2.5">
-            {documents.map((doc) => {
-              const Icon = DOC_ICONS[doc.type];
-              return (
-                <li key={doc.name} className="flex items-start gap-2 text-sm text-fluent-text">
-                  <Icon size={14} className="mt-[3px] shrink-0 text-fluent-indigo" />
-                  <span className="min-w-0 break-all">{doc.name}</span>
-                </li>
-              );
-            })}
-          </ul>
+      <div className="mt-14 flex flex-col items-start justify-between gap-6 rounded-xl bg-fluent-navy p-8 sm:flex-row sm:items-center sm:p-10">
+        <div>
+          <h2 className="text-balance text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+            {t("demoPage.ctaTitle")}
+          </h2>
+          <p className="mt-2 max-w-xl text-pretty text-[#adbdcc]">{t("demoPage.ctaText")}</p>
         </div>
-
-        <div className="flex min-h-[340px] flex-col sm:min-h-[420px] overflow-hidden rounded-xl border border-fluent-line bg-white shadow-card-lg">
-          <div className="flex items-center justify-between border-b border-fluent-line bg-fluent-soft px-4 py-2.5">
-            <span className="flex items-center gap-2 text-xs font-medium text-fluent-navy">
-              <BrandMark className="h-4 w-4" />
-              {BRAND.name}
-            </span>
-            <button
-              onClick={reset}
-              className="flex items-center gap-1 text-xs font-medium text-fluent-muted transition hover:text-fluent-indigo"
-            >
-              <RotateCcw size={11} /> {t("demoPage.resetLabel")}
-            </button>
-          </div>
-
-          <div className="flex-1 space-y-3 overflow-y-auto p-4">
-            {messages.length === 0 && (
-              <p className="mt-4 text-center text-xs text-slate-400">{t("demoPage.inputPlaceholder")}</p>
-            )}
-            {messages.map((m, i) =>
-              m.role === "user" ? (
-                <div key={i} className="flex justify-end">
-                  <div className="max-w-[85%] rounded-xl rounded-tr-sm bg-fluent-indigo px-3.5 py-2 text-sm text-white">
-                    {m.content}
-                  </div>
-                </div>
-              ) : (
-                <div key={i} className="flex items-start gap-2.5">
-                  <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-fluent-indigo-soft text-fluent-indigo">
-                    <Sparkles size={14} />
-                  </span>
-                  <div className="max-w-[88%] rounded-xl rounded-tl-sm border border-fluent-line bg-white px-3.5 py-2.5 text-sm leading-relaxed text-fluent-navy">
-                    {m.content ? (
-                      <>
-                        <AnimatedText text={m.content} animate={m.streaming} />
-                        {m.sourceIndex !== undefined && (
-                          <span className="mt-2.5 flex flex-wrap gap-1.5">
-                            <span className="inline-flex items-center gap-1 rounded-full bg-fluent-indigo-soft px-2.5 py-0.5 text-[11px] font-medium text-fluent-indigo-dark">
-                              <FileText size={11} /> {documents[m.sourceIndex]?.name}
-                            </span>
-                          </span>
-                        )}
-                      </>
-                    ) : (
-                      <span className="inline-flex items-center gap-1.5 text-xs text-fluent-muted">
-                        <span className="h-1.5 w-1.5 animate-pulse2 rounded-full bg-fluent-indigo" />
-                        {t("demoPage.typing")}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              ),
-            )}
-          </div>
-
-          <div className="border-t border-fluent-line bg-fluent-soft p-3">
-            <div className="flex flex-wrap gap-2">
-              {suggestions.map((s, i) => (
-                <button
-                  key={s.question}
-                  onClick={() => askSuggestion(i)}
-                  disabled={!humanVerified || usedIndexes.includes(i)}
-                  className="rounded-full border border-fluent-line bg-white px-3.5 py-1.5 text-sm text-fluent-navy shadow-card transition hover:border-fluent-indigo hover:text-fluent-indigo disabled:cursor-not-allowed disabled:opacity-40"
-                >
-                  {s.question}
-                </button>
-              ))}
-            </div>
-          </div>
+        <div className="flex flex-wrap gap-3 lg:shrink-0 lg:flex-nowrap">
+          <Link
+            to="/register"
+            className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-fluent-indigo px-5 py-2.5 text-[15px] font-semibold text-white transition hover:bg-white hover:text-fluent-navy"
+          >
+            {t("demoPage.ctaButton")} <ArrowRight size={15} />
+          </Link>
+          <Link
+            to="/#contact"
+            className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-white/20 px-5 py-2.5 text-[15px] font-semibold text-white transition hover:border-white/50"
+          >
+            {t("demoPage.ctaSecondary")}
+          </Link>
         </div>
-      </div>
-
-      <div className="mt-12 rounded-xl border-2 border-fluent-indigo bg-white p-8 text-center shadow-neon">
-        <h2 className="text-2xl font-semibold tracking-tight text-fluent-navy">{t("demoPage.ctaTitle")}</h2>
-        <p className="mx-auto mt-2 max-w-md text-fluent-text">{t("demoPage.ctaText")}</p>
-        <Link
-          to="/app"
-          className="mt-6 inline-flex items-center gap-1.5 rounded-full bg-fluent-indigo px-5 py-2.5 text-[15px] font-semibold text-white transition hover:bg-fluent-navy"
-        >
-          {t("demoPage.ctaButton")} <ArrowRight size={14} />
-        </Link>
       </div>
     </PublicPageLayout>
   );

@@ -155,51 +155,483 @@
   "demoPage": {
     "back": "Back to home",
     "eyebrow": "Demo",
-    "title": "See how it works",
-    "subtitle": "A simulated workspace with sample documents. Click a question to see how the AI answers with sources.",
-    "banner": "This is a simulation with pre-written answers - no document is actually being analyzed here.",
-    "documentsTitle": "Workspace documents",
-    "documents": [
+    "title": "Try {{brand}} live",
+    "subtitle": "A real workspace with real sample documents. Switch spaces, ask questions, open the sources, upload a file and share the space - no account needed.",
+    "banner": "Simulated demo: answers are pre-written and no file ever leaves your browser.",
+    "ctaTitle": "Ready to try it with your own documents?",
+    "ctaText": "Create your first space in under a minute. Your files stay hosted in France.",
+    "ctaButton": "Create my space",
+    "ctaSecondary": "Contact us"
+  },
+  "demoApp": {
+    "tour": {
+      "title": "Guided tour",
+      "progress": "{{done}} of {{total}} steps",
+      "show": "Show me",
+      "steps": [
+        {
+          "title": "Pick a space",
+          "desc": "One space per client or matter, fully walled off."
+        },
+        {
+          "title": "Ask a question",
+          "desc": "In plain language, as you would ask a colleague."
+        },
+        {
+          "title": "Check the source",
+          "desc": "Every answer points to the exact passage of the document."
+        },
+        {
+          "title": "Add a document",
+          "desc": "It is read, split and indexed in seconds."
+        },
+        {
+          "title": "Share the space",
+          "desc": "Invite as viewer or editor, revocable at any time."
+        }
+      ],
+      "doneTitle": "You've seen it all!",
+      "doneText": "This is exactly how the app works, with your own documents.",
+      "restart": "Restart the demo"
+    },
+    "ui": {
+      "spaces": "Spaces",
+      "documents": "Documents",
+      "chat": "Chat",
+      "docCount": "{{count}} documents",
+      "share": "Share",
+      "upload": "Upload a document",
+      "uploading": "Uploading…",
+      "indexing": "Indexing · {{count}} chunks",
+      "ready": "{{count}} chunks",
+      "newBadge": "New",
+      "suggested": "Suggested questions",
+      "placeholder": "Ask a question about this space's documents…",
+      "send": "Send",
+      "searching": "Searching {{count}} documents…",
+      "found": "{{count}} relevant passages found",
+      "sources": "Sources",
+      "openSource": "View passage",
+      "sourceTitle": "Cited passage",
+      "backToDocs": "Back to documents",
+      "openInDoc": "Excerpt from {{name}}",
+      "emptyTitle": "Ask “{{space}}”",
+      "emptyText": "Pick a question below or type your own.",
+      "fallback": "In this demo, I answer questions about the documents in the “{{space}}” space. Try one of the suggested questions: in the app, you can freely question your own documents.",
+      "reset": "Reset",
+      "audioNote": "Transcribed on our servers",
+      "visionNote": "Read by vision AI",
+      "shareTitle": "Share “{{space}}”",
+      "shareDesc": "Members only access this space. Nothing is visible from your other spaces.",
+      "members": "Members",
+      "you": "you",
+      "roleOwner": "Owner",
+      "roleEditor": "Editor",
+      "roleViewer": "Viewer",
+      "roleEditorDesc": "Asks questions and adds documents",
+      "roleViewerDesc": "Reads the conversations and documents",
+      "invitePlaceholder": "name@client.com",
+      "invite": "Invite",
+      "invited": "Invitation sent (simulation)",
+      "linkTitle": "Share link",
+      "copyLink": "Copy link",
+      "linkCopied": "Link copied (simulation)",
+      "revocable": "Revocable at any time",
+      "close": "Close"
+    },
+    "spaces": [
       {
-        "name": "annual_report_2025.pdf",
-        "type": "pdf"
+        "name": "Durand Firm · Contracts",
+        "short": "DF",
+        "color": "#635bff",
+        "desc": "Supplier contracts, amendments and invoices",
+        "docs": [
+          {
+            "name": "supplier_contract_2025.pdf",
+            "type": "pdf",
+            "size": "2.4 MB",
+            "chunks": 42
+          },
+          {
+            "name": "amendment_2_signed.pdf",
+            "type": "pdf",
+            "size": "380 KB",
+            "chunks": 9
+          },
+          {
+            "name": "march_invoice_scan.jpg",
+            "type": "image",
+            "size": "1.1 MB",
+            "chunks": 4
+          },
+          {
+            "name": "supplier.com/terms",
+            "type": "web",
+            "size": "",
+            "chunks": 12
+          }
+        ],
+        "qa": [
+          {
+            "q": "How long is the contract and what is the notice period?",
+            "keywords": [
+              "long",
+              "duration",
+              "term",
+              "notice",
+              "terminate",
+              "termination",
+              "renewal"
+            ],
+            "answer": "The contract runs for **12 months** from 1 January 2025, with **automatic renewal** [1]. To end it, a registered letter must be sent at least **30 days before expiry** [1]. Amendment no. 2 does not change this term, it only adds a price review clause [2].",
+            "sources": [
+              {
+                "doc": 0,
+                "where": "p. 3 · article 4",
+                "passage": "This contract is entered into for a term of twelve (12) months from 1 January 2025. It renews automatically unless terminated by either party by registered letter with acknowledgement of receipt sent at least thirty (30) days before its expiry.",
+                "highlight": "at least thirty (30) days before its expiry"
+              },
+              {
+                "doc": 1,
+                "where": "p. 1 · article 2",
+                "passage": "All other provisions of the contract, in particular its term and termination terms, remain unchanged. Prices may be reviewed once a year, up to 3%.",
+                "highlight": "in particular its term and termination terms, remain unchanged"
+              }
+            ]
+          },
+          {
+            "q": "What are the penalties for late delivery?",
+            "keywords": [
+              "penalty",
+              "penalties",
+              "late",
+              "delay",
+              "delivery",
+              "compensation"
+            ],
+            "answer": "For late delivery, the supplier owes **1% of the order amount per week of delay** [1], capped at **10%** of the total [1]. Beyond four weeks, you may cancel the order at no cost [1].",
+            "sources": [
+              {
+                "doc": 0,
+                "where": "p. 7 · article 9",
+                "passage": "Any late delivery attributable to the supplier shall give rise to penalties equal to 1% of the order amount excluding tax per week of delay, up to 10% of that amount. Beyond four (4) weeks of delay, the client may cancel the order concerned without compensation.",
+                "highlight": "1% of the order amount excluding tax per week of delay"
+              }
+            ]
+          },
+          {
+            "q": "Does the March invoice match the contract price?",
+            "keywords": [
+              "invoice",
+              "march",
+              "amount",
+              "match",
+              "price",
+              "rate",
+              "check"
+            ],
+            "answer": "Almost. The March invoice uses a unit price of **€52.50** [1], whereas the contract sets **€50.00** [2]. Amendment no. 2 allows a review of at most **3%** per year [3], i.e. €51.50 maximum: the **€1.00 per unit** gap is worth raising with the supplier.",
+            "sources": [
+              {
+                "doc": 2,
+                "where": "image · line 2",
+                "passage": "Ref. PRD-118 — Cartridges pack of 10 — Qty 40 — Unit price excl. tax €52.50 — Total excl. tax €2,100.00",
+                "highlight": "Unit price excl. tax €52.50"
+              },
+              {
+                "doc": 0,
+                "where": "p. 11 · appendix 1",
+                "passage": "2025 price list: Ref. PRD-118, cartridges pack of 10, unit price excluding tax: €50.00.",
+                "highlight": "unit price excluding tax: €50.00"
+              },
+              {
+                "doc": 1,
+                "where": "p. 1 · article 2",
+                "passage": "Prices may be reviewed once a year, on the contract anniversary date, up to 3% of the price in force.",
+                "highlight": "up to 3% of the price in force"
+              }
+            ]
+          }
+        ],
+        "upload": {
+          "doc": {
+            "name": "supplier_meeting_minutes.docx",
+            "type": "docx",
+            "size": "64 KB",
+            "chunks": 7
+          },
+          "qa": {
+            "q": "What was decided at the last supplier meeting?",
+            "keywords": [
+              "meeting",
+              "decided",
+              "decision",
+              "minutes",
+              "supplier"
+            ],
+            "answer": "At the 14 March meeting, three decisions were made [1]: the supplier **will issue a credit note** for the March price gap, deliveries will move to **every two weeks**, and a follow-up is set for **30 April** [1].",
+            "sources": [
+              {
+                "doc": 4,
+                "where": "p. 1 · decisions",
+                "passage": "Decisions: 1) the supplier issues a credit note for the price gap found on the March invoice; 2) fortnightly deliveries from April; 3) next follow-up on 30 April.",
+                "highlight": "the supplier issues a credit note"
+              }
+            ]
+          }
+        }
       },
       {
-        "name": "vendor_invoice_scan.jpg",
-        "type": "image"
+        "name": "Nova Agency · HR",
+        "short": "NA",
+        "color": "#0e8a4a",
+        "desc": "Internal policies and company agreements",
+        "docs": [
+          {
+            "name": "welcome_booklet_2025.pdf",
+            "type": "pdf",
+            "size": "3.2 MB",
+            "chunks": 56
+          },
+          {
+            "name": "remote_work_policy.docx",
+            "type": "docx",
+            "size": "120 KB",
+            "chunks": 11
+          },
+          {
+            "name": "paid_leave_agreement.pdf",
+            "type": "pdf",
+            "size": "540 KB",
+            "chunks": 14
+          },
+          {
+            "name": "works_council_march.mp3",
+            "type": "audio",
+            "size": "18 MB",
+            "chunks": 23
+          }
+        ],
+        "qa": [
+          {
+            "q": "How many remote work days are allowed?",
+            "keywords": [
+              "remote",
+              "home",
+              "telework",
+              "wfh",
+              "days"
+            ],
+            "answer": "Each employee may work remotely up to **2 days a week** [1], once the probation period is over [1]. Days are agreed with the manager and **Tuesday remains a shared office day** for the whole team [1].",
+            "sources": [
+              {
+                "doc": 1,
+                "where": "p. 2 · section 3",
+                "passage": "After the probation period, every employee may work remotely two (2) days per week, agreed with their manager. Tuesday is a mandatory office day for all teams.",
+                "highlight": "two (2) days per week"
+              }
+            ]
+          },
+          {
+            "q": "How do I request leave, and how far in advance?",
+            "keywords": [
+              "leave",
+              "holiday",
+              "vacation",
+              "request",
+              "absence",
+              "advance"
+            ],
+            "answer": "Leave is requested in the HR tool, **at least 4 weeks ahead** for more than 5 days off, and **one week** otherwise [1]. The manager replies within **5 working days** [1]. In summer, at least **2 consecutive weeks** must be taken between May and October [1].",
+            "sources": [
+              {
+                "doc": 2,
+                "where": "p. 4 · article 6",
+                "passage": "Leave requests are made in the HR tool at least four weeks in advance for an absence of more than five days, and one week in advance otherwise. The manager replies within five working days. A leave of at least two consecutive weeks is taken between 1 May and 31 October.",
+                "highlight": "at least four weeks in advance"
+              }
+            ]
+          },
+          {
+            "q": "What was said about meal vouchers at the last works council?",
+            "keywords": [
+              "meal",
+              "voucher",
+              "vouchers",
+              "council",
+              "lunch",
+              "food"
+            ],
+            "answer": "According to the works council recording, management announced a **face value increase to €11** from June, with **60% paid by the employer** [1]. A digital card will replace paper vouchers by the end of the year [1].",
+            "sources": [
+              {
+                "doc": 3,
+                "where": "at 12:40 · transcript",
+                "passage": "[12:40] Management: \"For meal vouchers, the face value goes up to eleven euros from June, still sixty percent paid by the company. And we move everyone to the digital card by December.\"",
+                "highlight": "the face value goes up to eleven euros from June"
+              }
+            ]
+          }
+        ],
+        "upload": {
+          "doc": {
+            "name": "health_plan_2025.pdf",
+            "type": "pdf",
+            "size": "890 KB",
+            "chunks": 18
+          },
+          "qa": {
+            "q": "How does the health plan cover glasses?",
+            "keywords": [
+              "health",
+              "plan",
+              "glasses",
+              "optical",
+              "cover",
+              "reimburse"
+            ],
+            "answer": "The health plan covers glasses up to **€350 every two years** (frames + lenses), including **€100 maximum for frames** [1]. Contact lenses are covered up to **€150 per year** [1].",
+            "sources": [
+              {
+                "doc": 4,
+                "where": "p. 6 · optical table",
+                "passage": "Optical equipment (frames + 2 lenses): €350 per two-year period, including €100 maximum for frames. Prescribed contact lenses: €150 per calendar year.",
+                "highlight": "€350 per two-year period"
+              }
+            ]
+          }
+        }
       },
       {
-        "name": "meeting_notes.md",
-        "type": "text"
-      },
-      {
-        "name": "example-clients.com",
-        "type": "web"
+        "name": "Project Atlas · Launch",
+        "short": "PA",
+        "color": "#b25e09",
+        "desc": "Specifications, schedule and steering committees",
+        "docs": [
+          {
+            "name": "specifications_v3.pdf",
+            "type": "pdf",
+            "size": "4.8 MB",
+            "chunks": 71
+          },
+          {
+            "name": "workstream_schedule.csv",
+            "type": "csv",
+            "size": "18 KB",
+            "chunks": 5
+          },
+          {
+            "name": "steering_minutes_feb.md",
+            "type": "md",
+            "size": "9 KB",
+            "chunks": 6
+          },
+          {
+            "name": "home_screen_mockup.png",
+            "type": "image",
+            "size": "2.3 MB",
+            "chunks": 3
+          }
+        ],
+        "qa": [
+          {
+            "q": "When is the go-live date?",
+            "keywords": [
+              "date",
+              "go-live",
+              "live",
+              "launch",
+              "release",
+              "schedule",
+              "when"
+            ],
+            "answer": "Go-live is planned for **15 September 2025** [1]. It was **pushed back two weeks** at the February steering committee, to leave time to finish load testing [2].",
+            "sources": [
+              {
+                "doc": 1,
+                "where": "row 9 · Workstream 4",
+                "passage": "Workstream 4 ; Go-live ; start 08/09/2025 ; end 15/09/2025 ; owner: Ops team ; status: planned",
+                "highlight": "end 15/09/2025"
+              },
+              {
+                "doc": 2,
+                "where": "§ Decisions",
+                "passage": "The steering committee approves moving go-live to 15 September (originally 1 September) to finish load testing.",
+                "highlight": "moving go-live to 15 September"
+              }
+            ]
+          },
+          {
+            "q": "What are the security requirements?",
+            "keywords": [
+              "security",
+              "requirement",
+              "requirements",
+              "authentication",
+              "encryption",
+              "gdpr"
+            ],
+            "answer": "The specifications set three main requirements [1]: **two-factor authentication** for all admin accounts, **encryption of data at rest** (AES-256) and **hosting in France** [1]. An external security audit is required before go-live [1].",
+            "sources": [
+              {
+                "doc": 0,
+                "where": "p. 12 · section 5.2",
+                "passage": "Security requirements: mandatory two-factor authentication for privileged accounts; AES-256 encryption of data at rest; data hosted in France; independent security audit before go-live.",
+                "highlight": "mandatory two-factor authentication"
+              }
+            ]
+          },
+          {
+            "q": "What does the home screen mockup show?",
+            "keywords": [
+              "mockup",
+              "screen",
+              "home",
+              "design",
+              "interface",
+              "image"
+            ],
+            "answer": "The mockup shows a home screen in three areas [1]: a central **search bar**, a row of **shortcuts to the 4 main modules**, and a recent **activity feed** on the right [1]. The main \"New folder\" button sits top right [1].",
+            "sources": [
+              {
+                "doc": 3,
+                "where": "image · description",
+                "passage": "Home screen: header with logo and \"New folder\" button top right; centred search bar; four shortcut tiles (Folders, Schedule, Documents, Team); \"Recent activity\" column on the right.",
+                "highlight": "centred search bar"
+              }
+            ]
+          }
+        ],
+        "upload": {
+          "doc": {
+            "name": "budget_forecast.csv",
+            "type": "csv",
+            "size": "12 KB",
+            "chunks": 4
+          },
+          "qa": {
+            "q": "How much budget is left on workstream 2?",
+            "keywords": [
+              "budget",
+              "left",
+              "remaining",
+              "workstream 2",
+              "cost",
+              "spent"
+            ],
+            "answer": "On workstream 2, **€38,000** has been spent out of a **€52,000** budget [1]: **€14,000** is left, about 27% of the workstream budget [1].",
+            "sources": [
+              {
+                "doc": 4,
+                "where": "row 3 · Workstream 2",
+                "passage": "Workstream 2 ; Front-end development ; budget 52000 ; committed 38000 ; remaining 14000",
+                "highlight": "remaining 14000"
+              }
+            ]
+          }
+        }
       }
-    ],
-    "suggestions": [
-      {
-        "question": "What was the 2025 revenue?",
-        "answer": "According to the annual report [1], 2025 revenue reached €1.2M, up 18% from 2024.",
-        "sourceIndex": 0
-      },
-      {
-        "question": "Summarize the meeting's key points.",
-        "answer": "According to the meeting notes [2], three decisions were made: launching a Pro tier, migrating to a new CRM, and a planned September launch.",
-        "sourceIndex": 2
-      },
-      {
-        "question": "What does the vendor invoice say?",
-        "answer": "According to the scanned invoice [3], the total amount is €4,320 incl. tax, payable within 30 days.",
-        "sourceIndex": 1
-      }
-    ],
-    "inputPlaceholder": "Pick one of the suggested questions below",
-    "typing": "typing...",
-    "ctaTitle": "Your turn",
-    "ctaText": "Upload your own documents and get sourced answers.",
-    "ctaButton": "Use the app",
-    "resetLabel": "Reset"
+    ]
   },
   "cookies": {
     "title": "Audience measurement",
@@ -497,7 +929,21 @@
     "title": "Everything about {{brand}}",
     "subtitle": "The most common questions about accounts, spaces, sharing, and privacy.",
     "backHome": "Back to home",
-    "contactCta": "Another question? Reach us from the home page.",
+    "searchPlaceholder": "Search a question (sharing, formats, security…)",
+    "results": "{{count}} result(s)",
+    "noResults": "No question matches “{{query}}”.",
+    "clear": "Clear",
+    "categories": {
+      "all": "All",
+      "start": "Getting started",
+      "spaces": "Spaces and sharing",
+      "security": "Security and data",
+      "account": "Account and limits"
+    },
+    "contactTitle": "Can't find your answer?",
+    "contactText": "Our team will get back to you, or try the app right away in the interactive demo.",
+    "contactButton": "Write to us",
+    "demoButton": "Try the demo",
     "items": [
       {
         "question": "What is {{brand}}?",

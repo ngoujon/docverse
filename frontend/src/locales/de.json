@@ -155,51 +155,483 @@
   "demoPage": {
     "back": "Zurück zur Startseite",
     "eyebrow": "Demo",
-    "title": "So funktioniert es",
-    "subtitle": "Ein simulierter Arbeitsbereich mit Beispieldokumenten. Klicken Sie auf eine Frage, um zu sehen, wie die KI mit Quellen antwortet.",
-    "banner": "Dies ist eine Simulation mit vorgeschriebenen Antworten - hier wird kein Dokument wirklich analysiert.",
-    "documentsTitle": "Dokumente des Bereichs",
-    "documents": [
+    "title": "{{brand}} live ausprobieren",
+    "subtitle": "Ein echter Arbeitsbereich mit echten Beispieldokumenten. Wechseln Sie den Bereich, stellen Sie Fragen, öffnen Sie die Quellen, laden Sie eine Datei hoch und teilen Sie den Bereich - ganz ohne Konto.",
+    "banner": "Simulierte Demo: Die Antworten sind vorformuliert und keine Datei verlässt Ihren Browser.",
+    "ctaTitle": "Bereit für Ihre eigenen Dokumente?",
+    "ctaText": "Erstellen Sie Ihren ersten Bereich in weniger als einer Minute. Ihre Dateien bleiben in Frankreich gehostet.",
+    "ctaButton": "Meinen Bereich erstellen",
+    "ctaSecondary": "Kontakt aufnehmen"
+  },
+  "demoApp": {
+    "tour": {
+      "title": "Geführte Tour",
+      "progress": "{{done}} von {{total}} Schritten",
+      "show": "Zeig es mir",
+      "steps": [
+        {
+          "title": "Bereich wählen",
+          "desc": "Ein Bereich pro Kunde oder Akte, vollständig abgeschottet."
+        },
+        {
+          "title": "Frage stellen",
+          "desc": "In natürlicher Sprache, wie bei einer Kollegin."
+        },
+        {
+          "title": "Quelle prüfen",
+          "desc": "Jede Antwort verweist auf die genaue Stelle im Dokument."
+        },
+        {
+          "title": "Dokument hinzufügen",
+          "desc": "Es wird in Sekunden gelesen, zerlegt und indexiert."
+        },
+        {
+          "title": "Bereich teilen",
+          "desc": "Mit Lese- oder Schreibrechten einladen, jederzeit widerrufbar."
+        }
+      ],
+      "doneTitle": "Sie haben alles gesehen!",
+      "doneText": "Genau so funktioniert die Anwendung - mit Ihren eigenen Dokumenten.",
+      "restart": "Demo neu starten"
+    },
+    "ui": {
+      "spaces": "Bereiche",
+      "documents": "Dokumente",
+      "chat": "Chat",
+      "docCount": "{{count}} Dokumente",
+      "share": "Teilen",
+      "upload": "Dokument hochladen",
+      "uploading": "Wird hochgeladen…",
+      "indexing": "Indexierung · {{count}} Abschnitte",
+      "ready": "{{count}} Abschnitte",
+      "newBadge": "Neu",
+      "suggested": "Vorgeschlagene Fragen",
+      "placeholder": "Stellen Sie eine Frage zu den Dokumenten dieses Bereichs…",
+      "send": "Senden",
+      "searching": "Suche in {{count}} Dokumenten…",
+      "found": "{{count}} relevante Stellen gefunden",
+      "sources": "Quellen",
+      "openSource": "Stelle ansehen",
+      "sourceTitle": "Zitierte Stelle",
+      "backToDocs": "Zurück zu den Dokumenten",
+      "openInDoc": "Auszug aus {{name}}",
+      "emptyTitle": "Fragen Sie „{{space}}“",
+      "emptyText": "Wählen Sie unten eine Frage oder schreiben Sie Ihre eigene.",
+      "fallback": "In dieser Demo beantworte ich Fragen zu den Dokumenten im Bereich „{{space}}“. Probieren Sie eine der vorgeschlagenen Fragen: In der Anwendung können Sie Ihre eigenen Dokumente frei befragen.",
+      "reset": "Zurücksetzen",
+      "audioNote": "Auf unseren Servern transkribiert",
+      "visionNote": "Von der Bild-KI gelesen",
+      "shareTitle": "„{{space}}“ teilen",
+      "shareDesc": "Mitglieder sehen nur diesen Bereich. Ihre anderen Bereiche bleiben unsichtbar.",
+      "members": "Mitglieder",
+      "you": "Sie",
+      "roleOwner": "Eigentümer",
+      "roleEditor": "Bearbeiter",
+      "roleViewer": "Leser",
+      "roleEditorDesc": "Stellt Fragen und fügt Dokumente hinzu",
+      "roleViewerDesc": "Sieht Unterhaltungen und Dokumente ein",
+      "invitePlaceholder": "name@kunde.de",
+      "invite": "Einladen",
+      "invited": "Einladung gesendet (Simulation)",
+      "linkTitle": "Freigabelink",
+      "copyLink": "Link kopieren",
+      "linkCopied": "Link kopiert (Simulation)",
+      "revocable": "Jederzeit widerrufbar",
+      "close": "Schließen"
+    },
+    "spaces": [
       {
-        "name": "jahresbericht_2025.pdf",
-        "type": "pdf"
+        "name": "Kanzlei Durand · Verträge",
+        "short": "KD",
+        "color": "#635bff",
+        "desc": "Lieferantenverträge, Nachträge und Rechnungen",
+        "docs": [
+          {
+            "name": "lieferantenvertrag_2025.pdf",
+            "type": "pdf",
+            "size": "2,4 MB",
+            "chunks": 42
+          },
+          {
+            "name": "nachtrag_2_unterzeichnet.pdf",
+            "type": "pdf",
+            "size": "380 KB",
+            "chunks": 9
+          },
+          {
+            "name": "rechnung_maerz_scan.jpg",
+            "type": "image",
+            "size": "1,1 MB",
+            "chunks": 4
+          },
+          {
+            "name": "lieferant.de/agb",
+            "type": "web",
+            "size": "",
+            "chunks": 12
+          }
+        ],
+        "qa": [
+          {
+            "q": "Wie lange läuft der Vertrag und welche Kündigungsfrist gilt?",
+            "keywords": [
+              "laufzeit",
+              "lange",
+              "kundigung",
+              "kundigungsfrist",
+              "frist",
+              "verlangerung"
+            ],
+            "answer": "Der Vertrag läuft **12 Monate** ab dem 1. Januar 2025 und **verlängert sich automatisch** [1]. Zur Kündigung ist ein Einschreiben spätestens **30 Tage vor Ablauf** nötig [1]. Nachtrag Nr. 2 ändert die Laufzeit nicht, er ergänzt nur eine Preisanpassungsklausel [2].",
+            "sources": [
+              {
+                "doc": 0,
+                "where": "S. 3 · Artikel 4",
+                "passage": "Dieser Vertrag wird für eine Laufzeit von zwölf (12) Monaten ab dem 1. Januar 2025 geschlossen. Er verlängert sich automatisch, sofern er nicht von einer Partei per Einschreiben mit Rückschein spätestens dreißig (30) Tage vor Ablauf gekündigt wird.",
+                "highlight": "spätestens dreißig (30) Tage vor Ablauf"
+              },
+              {
+                "doc": 1,
+                "where": "S. 1 · Artikel 2",
+                "passage": "Alle übrigen Bestimmungen des Vertrags, insbesondere Laufzeit und Kündigungsmodalitäten, bleiben unverändert. Die Preise können einmal jährlich um höchstens 3 % angepasst werden.",
+                "highlight": "insbesondere Laufzeit und Kündigungsmodalitäten, bleiben unverändert"
+              }
+            ]
+          },
+          {
+            "q": "Welche Vertragsstrafen gelten bei Lieferverzug?",
+            "keywords": [
+              "vertragsstrafe",
+              "strafe",
+              "verzug",
+              "verspatung",
+              "lieferung",
+              "entschadigung"
+            ],
+            "answer": "Bei Verzug schuldet der Lieferant **1 % des Auftragswerts pro Woche Verspätung** [1], begrenzt auf **10 %** des Gesamtbetrags [1]. Nach vier Wochen können Sie den Auftrag kostenfrei stornieren [1].",
+            "sources": [
+              {
+                "doc": 0,
+                "where": "S. 7 · Artikel 9",
+                "passage": "Jeder vom Lieferanten zu vertretende Lieferverzug führt zu einer Vertragsstrafe von 1 % des Nettoauftragswerts pro Woche Verspätung, höchstens 10 % dieses Betrags. Nach vier (4) Wochen Verzug kann der Kunde den betroffenen Auftrag ohne Entschädigung stornieren.",
+                "highlight": "1 % des Nettoauftragswerts pro Woche Verspätung"
+              }
+            ]
+          },
+          {
+            "q": "Entspricht die Märzrechnung dem Vertragspreis?",
+            "keywords": [
+              "rechnung",
+              "marz",
+              "betrag",
+              "entspricht",
+              "preis",
+              "tarif",
+              "prufen"
+            ],
+            "answer": "Fast. Die Märzrechnung setzt einen Stückpreis von **52,50 €** an [1], der Vertrag sieht **50,00 €** vor [2]. Nachtrag Nr. 2 erlaubt höchstens **3 %** Anpassung pro Jahr [3], also maximal 51,50 €: Die Differenz von **1,00 € pro Stück** sollten Sie beim Lieferanten ansprechen.",
+            "sources": [
+              {
+                "doc": 2,
+                "where": "Bild · Zeile 2",
+                "passage": "Art. PRD-118 — Patronen 10er-Pack — Menge 40 — Stückpreis netto 52,50 € — Summe netto 2.100,00 €",
+                "highlight": "Stückpreis netto 52,50 €"
+              },
+              {
+                "doc": 0,
+                "where": "S. 11 · Anlage 1",
+                "passage": "Preisliste 2025: Art. PRD-118, Patronen 10er-Pack, Stückpreis netto: 50,00 €.",
+                "highlight": "Stückpreis netto: 50,00 €"
+              },
+              {
+                "doc": 1,
+                "where": "S. 1 · Artikel 2",
+                "passage": "Die Preise können einmal jährlich zum Jahrestag des Vertrags um höchstens 3 % des geltenden Preises angepasst werden.",
+                "highlight": "um höchstens 3 % des geltenden Preises"
+              }
+            ]
+          }
+        ],
+        "upload": {
+          "doc": {
+            "name": "protokoll_lieferantentreffen.docx",
+            "type": "docx",
+            "size": "64 KB",
+            "chunks": 7
+          },
+          "qa": {
+            "q": "Was wurde beim letzten Lieferantentreffen beschlossen?",
+            "keywords": [
+              "treffen",
+              "beschlossen",
+              "beschluss",
+              "protokoll",
+              "lieferant"
+            ],
+            "answer": "Beim Treffen am 14. März wurden drei Beschlüsse gefasst [1]: Der Lieferant **stellt eine Gutschrift** für die Preisdifferenz im März aus, geliefert wird künftig **alle zwei Wochen**, und ein Folgetermin ist für den **30. April** angesetzt [1].",
+            "sources": [
+              {
+                "doc": 4,
+                "where": "S. 1 · Beschlüsse",
+                "passage": "Beschlüsse: 1) Der Lieferant stellt eine Gutschrift über die Preisdifferenz der Märzrechnung aus; 2) zweiwöchentliche Lieferungen ab April; 3) nächster Folgetermin am 30. April.",
+                "highlight": "Der Lieferant stellt eine Gutschrift"
+              }
+            ]
+          }
+        }
       },
       {
-        "name": "lieferantenrechnung_scan.jpg",
-        "type": "image"
+        "name": "Agentur Nova · Personal",
+        "short": "AN",
+        "color": "#0e8a4a",
+        "desc": "Interne Richtlinien und Betriebsvereinbarungen",
+        "docs": [
+          {
+            "name": "willkommensbroschuere_2025.pdf",
+            "type": "pdf",
+            "size": "3,2 MB",
+            "chunks": 56
+          },
+          {
+            "name": "richtlinie_homeoffice.docx",
+            "type": "docx",
+            "size": "120 KB",
+            "chunks": 11
+          },
+          {
+            "name": "vereinbarung_urlaub.pdf",
+            "type": "pdf",
+            "size": "540 KB",
+            "chunks": 14
+          },
+          {
+            "name": "betriebsrat_maerz.mp3",
+            "type": "audio",
+            "size": "18 MB",
+            "chunks": 23
+          }
+        ],
+        "qa": [
+          {
+            "q": "Wie viele Homeoffice-Tage sind erlaubt?",
+            "keywords": [
+              "homeoffice",
+              "home office",
+              "remote",
+              "zuhause",
+              "tage",
+              "mobil"
+            ],
+            "answer": "Alle Mitarbeitenden dürfen bis zu **2 Tage pro Woche** im Homeoffice arbeiten [1], nach Ende der Probezeit [1]. Die Tage werden mit der Führungskraft abgestimmt, und **dienstags ist für alle Präsenztag** [1].",
+            "sources": [
+              {
+                "doc": 1,
+                "where": "S. 2 · Abschnitt 3",
+                "passage": "Nach der Probezeit können alle Mitarbeitenden zwei (2) Tage pro Woche im Homeoffice arbeiten, in Absprache mit ihrer Führungskraft. Der Dienstag ist für alle Teams ein verpflichtender Präsenztag.",
+                "highlight": "zwei (2) Tage pro Woche im Homeoffice"
+              }
+            ]
+          },
+          {
+            "q": "Wie beantrage ich Urlaub und mit welchem Vorlauf?",
+            "keywords": [
+              "urlaub",
+              "ferien",
+              "beantragen",
+              "antrag",
+              "abwesenheit",
+              "vorlauf"
+            ],
+            "answer": "Urlaub wird im HR-Tool beantragt, **mindestens 4 Wochen vorher** bei mehr als 5 Tagen, sonst **eine Woche** vorher [1]. Die Führungskraft antwortet innerhalb von **5 Arbeitstagen** [1]. Im Sommer sind mindestens **2 zusammenhängende Wochen** zwischen Mai und Oktober zu nehmen [1].",
+            "sources": [
+              {
+                "doc": 2,
+                "where": "S. 4 · Artikel 6",
+                "passage": "Urlaubsanträge werden im HR-Tool mindestens vier Wochen im Voraus gestellt, wenn die Abwesenheit fünf Tage übersteigt, sonst eine Woche im Voraus. Die Führungskraft antwortet innerhalb von fünf Arbeitstagen. Ein Urlaub von mindestens zwei zusammenhängenden Wochen wird zwischen dem 1. Mai und dem 31. Oktober genommen.",
+                "highlight": "mindestens vier Wochen im Voraus"
+              }
+            ]
+          },
+          {
+            "q": "Was wurde in der letzten Betriebsratssitzung zu Essensgutscheinen gesagt?",
+            "keywords": [
+              "essen",
+              "gutschein",
+              "gutscheine",
+              "betriebsrat",
+              "mittag",
+              "kantine"
+            ],
+            "answer": "Laut der Aufzeichnung der Betriebsratssitzung kündigte die Geschäftsführung eine **Erhöhung des Nennwerts auf 11 €** ab Juni an, mit **60 % Arbeitgeberanteil** [1]. Eine digitale Karte ersetzt die Papiergutscheine bis Jahresende [1].",
+            "sources": [
+              {
+                "doc": 3,
+                "where": "bei 12:40 · Transkript",
+                "passage": "[12:40] Geschäftsführung: „Bei den Essensgutscheinen erhöhen wir den Nennwert ab Juni auf elf Euro, weiterhin zu sechzig Prozent vom Unternehmen getragen. Und bis Dezember stellen wir alle auf die digitale Karte um.“",
+                "highlight": "erhöhen wir den Nennwert ab Juni auf elf Euro"
+              }
+            ]
+          }
+        ],
+        "upload": {
+          "doc": {
+            "name": "zusatzversicherung_2025.pdf",
+            "type": "pdf",
+            "size": "890 KB",
+            "chunks": 18
+          },
+          "qa": {
+            "q": "Wie erstattet die Zusatzversicherung Brillen?",
+            "keywords": [
+              "versicherung",
+              "zusatzversicherung",
+              "brille",
+              "brillen",
+              "optik",
+              "erstattung"
+            ],
+            "answer": "Die Zusatzversicherung übernimmt Brillen bis **350 € alle zwei Jahre** (Fassung + Gläser), davon **höchstens 100 € für die Fassung** [1]. Kontaktlinsen werden bis **150 € pro Jahr** erstattet [1].",
+            "sources": [
+              {
+                "doc": 4,
+                "where": "S. 6 · Tabelle Optik",
+                "passage": "Sehhilfe (Fassung + 2 Gläser): 350 € je Zweijahreszeitraum, davon höchstens 100 € für die Fassung. Verordnete Kontaktlinsen: 150 € pro Kalenderjahr.",
+                "highlight": "350 € je Zweijahreszeitraum"
+              }
+            ]
+          }
+        }
       },
       {
-        "name": "besprechungsnotizen.md",
-        "type": "text"
-      },
-      {
-        "name": "beispiel-kunden.com",
-        "type": "web"
+        "name": "Projekt Atlas · Start",
+        "short": "PA",
+        "color": "#b25e09",
+        "desc": "Lastenheft, Zeitplan und Lenkungsausschüsse",
+        "docs": [
+          {
+            "name": "lastenheft_v3.pdf",
+            "type": "pdf",
+            "size": "4,8 MB",
+            "chunks": 71
+          },
+          {
+            "name": "zeitplan_arbeitspakete.csv",
+            "type": "csv",
+            "size": "18 KB",
+            "chunks": 5
+          },
+          {
+            "name": "protokoll_lenkungsausschuss_feb.md",
+            "type": "md",
+            "size": "9 KB",
+            "chunks": 6
+          },
+          {
+            "name": "entwurf_startseite.png",
+            "type": "image",
+            "size": "2,3 MB",
+            "chunks": 3
+          }
+        ],
+        "qa": [
+          {
+            "q": "Wann ist der geplante Go-live?",
+            "keywords": [
+              "datum",
+              "go-live",
+              "golive",
+              "start",
+              "produktiv",
+              "zeitplan",
+              "wann"
+            ],
+            "answer": "Der Go-live ist für den **15. September 2025** geplant [1]. Er wurde im Lenkungsausschuss im Februar **um zwei Wochen verschoben**, um die Lasttests abzuschließen [2].",
+            "sources": [
+              {
+                "doc": 1,
+                "where": "Zeile 9 · Paket 4",
+                "passage": "Paket 4 ; Go-live ; Beginn 08.09.2025 ; Ende 15.09.2025 ; verantwortlich: Ops-Team ; Status: geplant",
+                "highlight": "Ende 15.09.2025"
+              },
+              {
+                "doc": 2,
+                "where": "§ Beschlüsse",
+                "passage": "Der Lenkungsausschuss genehmigt die Verschiebung des Go-live auf den 15. September (ursprünglich 1. September), um die Lasttests abzuschließen.",
+                "highlight": "Verschiebung des Go-live auf den 15. September"
+              }
+            ]
+          },
+          {
+            "q": "Welche Sicherheitsanforderungen gibt es?",
+            "keywords": [
+              "sicherheit",
+              "anforderung",
+              "anforderungen",
+              "authentifizierung",
+              "verschlusselung",
+              "dsgvo"
+            ],
+            "answer": "Das Lastenheft nennt drei Hauptanforderungen [1]: **Zwei-Faktor-Authentifizierung** für alle Admin-Konten, **Verschlüsselung ruhender Daten** (AES-256) und **Hosting in Frankreich** [1]. Vor dem Go-live ist ein externes Sicherheitsaudit Pflicht [1].",
+            "sources": [
+              {
+                "doc": 0,
+                "where": "S. 12 · Abschnitt 5.2",
+                "passage": "Sicherheitsanforderungen: verpflichtende Zwei-Faktor-Authentifizierung für privilegierte Konten; AES-256-Verschlüsselung ruhender Daten; Datenhaltung in Frankreich; unabhängiges Sicherheitsaudit vor dem Go-live.",
+                "highlight": "verpflichtende Zwei-Faktor-Authentifizierung"
+              }
+            ]
+          },
+          {
+            "q": "Was zeigt der Entwurf der Startseite?",
+            "keywords": [
+              "entwurf",
+              "startseite",
+              "bildschirm",
+              "design",
+              "oberflache",
+              "bild"
+            ],
+            "answer": "Der Entwurf zeigt eine Startseite mit drei Zonen [1]: eine zentrale **Suchleiste**, eine Reihe von **Verknüpfungen zu den 4 Hauptmodulen** und rechts einen **Aktivitätsfeed** [1]. Der Hauptbutton „Neuer Ordner“ sitzt oben rechts [1].",
+            "sources": [
+              {
+                "doc": 3,
+                "where": "Bild · Beschreibung",
+                "passage": "Startseite: Kopfzeile mit Logo und Button „Neuer Ordner“ oben rechts; zentrierte Suchleiste; vier Kacheln (Ordner, Zeitplan, Dokumente, Team); Spalte „Letzte Aktivitäten“ rechts.",
+                "highlight": "zentrierte Suchleiste"
+              }
+            ]
+          }
+        ],
+        "upload": {
+          "doc": {
+            "name": "budgetplanung.csv",
+            "type": "csv",
+            "size": "12 KB",
+            "chunks": 4
+          },
+          "qa": {
+            "q": "Wie viel Budget bleibt für Paket 2?",
+            "keywords": [
+              "budget",
+              "bleibt",
+              "rest",
+              "paket 2",
+              "kosten",
+              "ausgegeben"
+            ],
+            "answer": "Für Paket 2 wurden **38.000 €** von **52.000 €** Budget ausgegeben [1]: Es bleiben **14.000 €**, rund 27 % des Paketbudgets [1].",
+            "sources": [
+              {
+                "doc": 4,
+                "where": "Zeile 3 · Paket 2",
+                "passage": "Paket 2 ; Frontend-Entwicklung ; Budget 52000 ; gebunden 38000 ; Rest 14000",
+                "highlight": "Rest 14000"
+              }
+            ]
+          }
+        }
       }
-    ],
-    "suggestions": [
-      {
-        "question": "Wie hoch war der Umsatz 2025?",
-        "answer": "Laut Jahresbericht [1] erreichte der Umsatz 2025 1,2 Mio. €, ein Plus von 18% gegenüber 2024.",
-        "sourceIndex": 0
-      },
-      {
-        "question": "Fasse die wichtigsten Punkte der Besprechung zusammen.",
-        "answer": "Laut den Besprechungsnotizen [2] wurden drei Entscheidungen getroffen: Einführung einer Pro-Stufe, Umstieg auf ein neues CRM und geplanter Start im September.",
-        "sourceIndex": 2
-      },
-      {
-        "question": "Was steht auf der Lieferantenrechnung?",
-        "answer": "Laut der gescannten Rechnung [3] beträgt der Gesamtbetrag 4.320 € inkl. MwSt., zahlbar innerhalb von 30 Tagen.",
-        "sourceIndex": 1
-      }
-    ],
-    "inputPlaceholder": "Wählen Sie eine der vorgeschlagenen Fragen unten",
-    "typing": "tippt...",
-    "ctaTitle": "Jetzt sind Sie dran",
-    "ctaText": "Laden Sie Ihre eigenen Dokumente hoch und erhalten Sie Antworten mit Quellen.",
-    "ctaButton": "App nutzen",
-    "resetLabel": "Zurücksetzen"
+    ]
   },
   "cookies": {
     "title": "Reichweitenmessung",
@@ -497,7 +929,21 @@
     "title": "Alles über {{brand}}",
     "subtitle": "Die häufigsten Fragen zu Konten, Bereichen, Freigabe und Datenschutz.",
     "backHome": "Zurück zur Startseite",
-    "contactCta": "Noch eine Frage? Schreib uns von der Startseite aus.",
+    "searchPlaceholder": "Frage suchen (Teilen, Formate, Sicherheit…)",
+    "results": "{{count}} Ergebnis(se)",
+    "noResults": "Keine Frage passt zu „{{query}}“.",
+    "clear": "Löschen",
+    "categories": {
+      "all": "Alle",
+      "start": "Erste Schritte",
+      "spaces": "Bereiche und Teilen",
+      "security": "Sicherheit und Daten",
+      "account": "Konto und Limits"
+    },
+    "contactTitle": "Keine Antwort gefunden?",
+    "contactText": "Unser Team antwortet Ihnen - oder testen Sie die Anwendung direkt in der interaktiven Demo.",
+    "contactButton": "Schreiben Sie uns",
+    "demoButton": "Demo ausprobieren",
     "items": [
       {
         "question": "Was ist {{brand}}?",

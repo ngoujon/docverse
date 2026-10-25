@@ -187,6 +187,32 @@ body {
   color: #d6d4ff;
 }
 
+/* Demo tour "show me": a soft indigo halo pulsing around the target. */
+@keyframes demo-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 2px rgba(99, 91, 255, 0.9),
+      0 0 0 6px rgba(99, 91, 255, 0.15);
+  }
+  50% {
+    box-shadow:
+      0 0 0 2px rgba(99, 91, 255, 0.9),
+      0 0 0 12px rgba(99, 91, 255, 0);
+  }
+}
+.demo-pulse {
+  position: relative;
+  z-index: 10;
+  animation: demo-pulse 1.4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-pulse {
+    animation: none;
+    box-shadow: 0 0 0 2px rgba(99, 91, 255, 0.9);
+  }
+}
+
 @keyframes word-fade-in {
   from {
     opacity: 0;

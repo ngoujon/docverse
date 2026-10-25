@@ -155,51 +155,482 @@
   "demoPage": {
     "back": "Retour à l'accueil",
     "eyebrow": "Démonstration",
-    "title": "Voyez comment ça marche",
-    "subtitle": "Un espace simulé avec des documents types. Cliquez sur une question pour voir comment l'IA répond avec des sources.",
-    "banner": "Ceci est une simulation avec des réponses pré-écrites - aucun document n'est vraiment analysé ici.",
-    "documentsTitle": "Documents de l'espace",
-    "documents": [
+    "title": "Essayez {{brand}} en direct",
+    "subtitle": "Un vrai espace de travail, avec de vrais documents types. Changez d'espace, posez vos questions, ouvrez les sources, importez un fichier et partagez l'espace - sans créer de compte.",
+    "banner": "Démonstration simulée : les réponses sont pré-écrites et aucun fichier ne quitte votre navigateur.",
+    "ctaTitle": "Prêt avec vos propres documents ?",
+    "ctaText": "Créez votre premier espace en moins d'une minute. Vos fichiers restent hébergés en France.",
+    "ctaButton": "Créer mon espace",
+    "ctaSecondary": "Nous contacter"
+  },
+  "demoApp": {
+    "tour": {
+      "title": "Visite guidée",
+      "progress": "{{done}} sur {{total}} étapes",
+      "show": "Me montrer",
+      "steps": [
+        {
+          "title": "Choisissez un espace",
+          "desc": "Un espace par client ou par dossier, totalement cloisonné."
+        },
+        {
+          "title": "Posez une question",
+          "desc": "En langage naturel, comme à un collègue."
+        },
+        {
+          "title": "Vérifiez la source",
+          "desc": "Chaque réponse renvoie au passage exact du document."
+        },
+        {
+          "title": "Ajoutez un document",
+          "desc": "Il est lu, découpé et indexé en quelques secondes."
+        },
+        {
+          "title": "Partagez l'espace",
+          "desc": "Invitez en lecture ou en édition, révocable à tout moment."
+        }
+      ],
+      "doneTitle": "Vous avez fait le tour !",
+      "doneText": "C'est exactement comme ça que fonctionne l'application, avec vos propres documents.",
+      "restart": "Recommencer la démo"
+    },
+    "ui": {
+      "spaces": "Espaces",
+      "documents": "Documents",
+      "chat": "Discussion",
+      "docCount": "{{count}} documents",
+      "share": "Partager",
+      "upload": "Importer un document",
+      "uploading": "Envoi…",
+      "indexing": "Indexation · {{count}} extraits",
+      "ready": "{{count}} extraits",
+      "newBadge": "Nouveau",
+      "suggested": "Questions suggérées",
+      "placeholder": "Posez une question sur les documents de l'espace…",
+      "send": "Envoyer",
+      "searching": "Recherche dans {{count}} documents…",
+      "found": "{{count}} passages pertinents trouvés",
+      "sources": "Sources",
+      "openSource": "Voir le passage",
+      "sourceTitle": "Passage cité",
+      "backToDocs": "Retour aux documents",
+      "openInDoc": "Extrait de {{name}}",
+      "emptyTitle": "Interrogez « {{space}} »",
+      "emptyText": "Choisissez une question ci-dessous ou écrivez la vôtre.",
+      "fallback": "Dans cette démo, je réponds aux questions sur les documents de l'espace « {{space}} ». Essayez une des questions suggérées : dans l'application, vous pouvez interroger librement vos propres documents.",
+      "reset": "Réinitialiser",
+      "audioNote": "Transcrit sur nos serveurs",
+      "visionNote": "Lu par l'IA de vision",
+      "shareTitle": "Partager « {{space}} »",
+      "shareDesc": "Les membres n'accèdent qu'à cet espace. Rien n'est visible depuis vos autres espaces.",
+      "members": "Membres",
+      "you": "Vous",
+      "roleOwner": "Propriétaire",
+      "roleEditor": "Éditeur",
+      "roleViewer": "Lecteur",
+      "roleEditorDesc": "Pose des questions et ajoute des documents",
+      "roleViewerDesc": "Consulte les échanges et les documents",
+      "invitePlaceholder": "adresse@client.fr",
+      "invite": "Inviter",
+      "invited": "Invitation envoyée (simulation)",
+      "linkTitle": "Lien de partage",
+      "copyLink": "Copier le lien",
+      "linkCopied": "Lien copié (simulation)",
+      "revocable": "Révocable à tout moment",
+      "close": "Fermer"
+    },
+    "spaces": [
       {
-        "name": "rapport_activite_2025.pdf",
-        "type": "pdf"
+        "name": "Cabinet Durand · Contrats",
+        "short": "CD",
+        "color": "#635bff",
+        "desc": "Contrats fournisseurs, avenants et factures",
+        "docs": [
+          {
+            "name": "contrat_fournisseur_2025.pdf",
+            "type": "pdf",
+            "size": "2,4 Mo",
+            "chunks": 42
+          },
+          {
+            "name": "avenant_n2_signe.pdf",
+            "type": "pdf",
+            "size": "380 Ko",
+            "chunks": 9
+          },
+          {
+            "name": "facture_mars_scan.jpg",
+            "type": "image",
+            "size": "1,1 Mo",
+            "chunks": 4
+          },
+          {
+            "name": "fournisseur.fr/conditions-generales",
+            "type": "web",
+            "size": "",
+            "chunks": 12
+          }
+        ],
+        "qa": [
+          {
+            "q": "Quelle est la durée du contrat et le préavis de résiliation ?",
+            "keywords": [
+              "duree",
+              "preavis",
+              "resiliation",
+              "resilier",
+              "engagement",
+              "reconduction"
+            ],
+            "answer": "Le contrat est conclu pour **12 mois** à compter du 1er janvier 2025, avec **reconduction tacite** [1]. Pour y mettre fin, il faut envoyer une lettre recommandée au moins **30 jours avant l'échéance** [1]. L'avenant n°2 ne modifie pas cette durée, il ajoute seulement une clause de révision tarifaire [2].",
+            "sources": [
+              {
+                "doc": 0,
+                "where": "p. 3 · article 4",
+                "passage": "Le présent contrat est conclu pour une durée de douze (12) mois à compter du 1er janvier 2025. Il est renouvelable par tacite reconduction, sauf dénonciation par l'une des parties par lettre recommandée avec accusé de réception adressée au moins trente (30) jours avant son échéance.",
+                "highlight": "au moins trente (30) jours avant son échéance"
+              },
+              {
+                "doc": 1,
+                "where": "p. 1 · article 2",
+                "passage": "Les autres stipulations du contrat, notamment sa durée et ses modalités de résiliation, demeurent inchangées. Les prix pourront être révisés une fois par an, dans la limite de 3 %.",
+                "highlight": "notamment sa durée et ses modalités de résiliation, demeurent inchangées"
+              }
+            ]
+          },
+          {
+            "q": "Quelles pénalités en cas de retard de livraison ?",
+            "keywords": [
+              "penalite",
+              "penalites",
+              "retard",
+              "livraison",
+              "delai",
+              "indemnite"
+            ],
+            "answer": "En cas de retard, le fournisseur doit **1 % du montant de la commande par semaine de retard** [1], plafonné à **10 %** du montant total [1]. Au-delà de quatre semaines, vous pouvez résilier la commande sans frais [1].",
+            "sources": [
+              {
+                "doc": 0,
+                "where": "p. 7 · article 9",
+                "passage": "Tout retard de livraison imputable au fournisseur donnera lieu à des pénalités égales à 1 % du montant hors taxes de la commande par semaine de retard, dans la limite de 10 % de ce montant. Au-delà de quatre (4) semaines de retard, le client pourra résilier la commande concernée sans indemnité.",
+                "highlight": "1 % du montant hors taxes de la commande par semaine de retard"
+              }
+            ]
+          },
+          {
+            "q": "Le montant de la facture de mars est-il conforme au contrat ?",
+            "keywords": [
+              "facture",
+              "mars",
+              "montant",
+              "conforme",
+              "prix",
+              "tarif",
+              "verifier"
+            ],
+            "answer": "Presque. La facture de mars applique un prix unitaire de **52,50 €** [1], alors que le contrat prévoit **50,00 €** [2]. L'avenant n°2 autorise une révision d'au plus **3 %** par an [3], soit 51,50 € maximum : l'écart de **1,00 € par unité** mérite d'être signalé au fournisseur.",
+            "sources": [
+              {
+                "doc": 2,
+                "where": "image · ligne 2",
+                "passage": "Réf. PRD-118 — Cartouches lot de 10 — Qté 40 — PU HT 52,50 € — Total HT 2 100,00 €",
+                "highlight": "PU HT 52,50 €"
+              },
+              {
+                "doc": 0,
+                "where": "p. 11 · annexe 1",
+                "passage": "Grille tarifaire 2025 : Réf. PRD-118, cartouches lot de 10, prix unitaire hors taxes : 50,00 €.",
+                "highlight": "prix unitaire hors taxes : 50,00 €"
+              },
+              {
+                "doc": 1,
+                "where": "p. 1 · article 2",
+                "passage": "Les prix pourront être révisés une fois par an, à la date anniversaire du contrat, dans la limite de 3 % du tarif en vigueur.",
+                "highlight": "dans la limite de 3 % du tarif en vigueur"
+              }
+            ]
+          }
+        ],
+        "upload": {
+          "doc": {
+            "name": "cr_reunion_fournisseur.docx",
+            "type": "docx",
+            "size": "64 Ko",
+            "chunks": 7
+          },
+          "qa": {
+            "q": "Qu'a-t-on décidé lors de la dernière réunion fournisseur ?",
+            "keywords": [
+              "reunion",
+              "decide",
+              "decision",
+              "compte rendu",
+              "fournisseur"
+            ],
+            "answer": "Lors de la réunion du 14 mars, trois décisions ont été prises [1] : le fournisseur **émettra un avoir** pour l'écart de prix de mars, les livraisons passeront à **un rythme bimensuel**, et un point de suivi est fixé au **30 avril** [1].",
+            "sources": [
+              {
+                "doc": 4,
+                "where": "p. 1 · décisions",
+                "passage": "Décisions : 1) le fournisseur émet un avoir correspondant à l'écart de prix constaté sur la facture de mars ; 2) passage à des livraisons bimensuelles à partir d'avril ; 3) prochain point de suivi le 30 avril.",
+                "highlight": "le fournisseur émet un avoir"
+              }
+            ]
+          }
+        }
       },
       {
-        "name": "facture_fournisseur_scan.jpg",
-        "type": "image"
+        "name": "Agence Nova · RH",
+        "short": "AN",
+        "color": "#0e8a4a",
+        "desc": "Politiques internes et accords d'entreprise",
+        "docs": [
+          {
+            "name": "livret_accueil_2025.pdf",
+            "type": "pdf",
+            "size": "3,2 Mo",
+            "chunks": 56
+          },
+          {
+            "name": "politique_teletravail.docx",
+            "type": "docx",
+            "size": "120 Ko",
+            "chunks": 11
+          },
+          {
+            "name": "accord_conges_payes.pdf",
+            "type": "pdf",
+            "size": "540 Ko",
+            "chunks": 14
+          },
+          {
+            "name": "reunion_cse_mars.mp3",
+            "type": "audio",
+            "size": "18 Mo",
+            "chunks": 23
+          }
+        ],
+        "qa": [
+          {
+            "q": "Combien de jours de télétravail sont autorisés ?",
+            "keywords": [
+              "teletravail",
+              "distance",
+              "maison",
+              "remote",
+              "jours"
+            ],
+            "answer": "Chaque salarié peut télétravailler jusqu'à **2 jours par semaine** [1], hors période d'essai [1]. Les jours sont fixés avec le manager et le **mardi reste un jour de présence commun** à toute l'équipe [1].",
+            "sources": [
+              {
+                "doc": 1,
+                "where": "p. 2 · section 3",
+                "passage": "À l'issue de la période d'essai, tout salarié peut bénéficier de deux (2) jours de télétravail par semaine, définis d'un commun accord avec son responsable. Le mardi est un jour de présence obligatoire pour l'ensemble des équipes.",
+                "highlight": "deux (2) jours de télétravail par semaine"
+              }
+            ]
+          },
+          {
+            "q": "Comment poser des congés et avec quel délai ?",
+            "keywords": [
+              "conge",
+              "conges",
+              "vacances",
+              "poser",
+              "absence",
+              "delai"
+            ],
+            "answer": "Les congés se demandent dans l'outil RH, **au moins 4 semaines à l'avance** pour une absence de plus de 5 jours, et **une semaine** sinon [1]. Le manager répond sous **5 jours ouvrés** [1]. L'été, au moins **2 semaines consécutives** doivent être prises entre mai et octobre [1].",
+            "sources": [
+              {
+                "doc": 2,
+                "where": "p. 4 · article 6",
+                "passage": "Toute demande de congé est formulée via l'outil RH au moins quatre semaines à l'avance pour une absence supérieure à cinq jours, et une semaine à l'avance dans les autres cas. Le responsable y répond dans un délai de cinq jours ouvrés. Un congé d'au moins deux semaines consécutives est pris entre le 1er mai et le 31 octobre.",
+                "highlight": "au moins quatre semaines à l'avance"
+              }
+            ]
+          },
+          {
+            "q": "Que s'est-il dit sur les tickets restaurant au dernier CSE ?",
+            "keywords": [
+              "ticket",
+              "tickets",
+              "restaurant",
+              "cse",
+              "repas",
+              "titre"
+            ],
+            "answer": "D'après l'enregistrement de la réunion CSE, la direction a annoncé une **hausse de la valeur faciale à 11 €** à partir de juin, avec une **prise en charge employeur de 60 %** [1]. La carte dématérialisée remplacera le papier d'ici la fin de l'année [1].",
+            "sources": [
+              {
+                "doc": 3,
+                "where": "à 12:40 · transcription",
+                "passage": "[12:40] Direction : « Pour les titres-restaurant, on passe la valeur faciale à onze euros dès le mois de juin, toujours pris en charge à soixante pour cent par l'entreprise. Et on bascule tout le monde sur la carte dématérialisée d'ici décembre. »",
+                "highlight": "on passe la valeur faciale à onze euros dès le mois de juin"
+              }
+            ]
+          }
+        ],
+        "upload": {
+          "doc": {
+            "name": "mutuelle_garanties_2025.pdf",
+            "type": "pdf",
+            "size": "890 Ko",
+            "chunks": 18
+          },
+          "qa": {
+            "q": "Comment la mutuelle rembourse-t-elle les lunettes ?",
+            "keywords": [
+              "mutuelle",
+              "optique",
+              "lunettes",
+              "rembourse",
+              "remboursement",
+              "sante"
+            ],
+            "answer": "La mutuelle prend en charge les lunettes jusqu'à **350 € tous les deux ans** (monture + verres), dont **100 € maximum pour la monture** [1]. Les lentilles sont remboursées à hauteur de **150 € par an** [1].",
+            "sources": [
+              {
+                "doc": 4,
+                "where": "p. 6 · tableau optique",
+                "passage": "Équipement optique (monture + 2 verres) : 350 € par période de deux ans, dont 100 € maximum pour la monture. Lentilles prescrites : 150 € par année civile.",
+                "highlight": "350 € par période de deux ans"
+              }
+            ]
+          }
+        }
       },
       {
-        "name": "notes_reunion.md",
-        "type": "text"
-      },
-      {
-        "name": "exemple-clients.com",
-        "type": "web"
+        "name": "Projet Atlas · Lancement",
+        "short": "PA",
+        "color": "#b25e09",
+        "desc": "Cahier des charges, planning et comités de pilotage",
+        "docs": [
+          {
+            "name": "cahier_des_charges_v3.pdf",
+            "type": "pdf",
+            "size": "4,8 Mo",
+            "chunks": 71
+          },
+          {
+            "name": "planning_lots.csv",
+            "type": "csv",
+            "size": "18 Ko",
+            "chunks": 5
+          },
+          {
+            "name": "cr_copil_fevrier.md",
+            "type": "md",
+            "size": "9 Ko",
+            "chunks": 6
+          },
+          {
+            "name": "maquette_accueil.png",
+            "type": "image",
+            "size": "2,3 Mo",
+            "chunks": 3
+          }
+        ],
+        "qa": [
+          {
+            "q": "Quelle est la date de mise en production prévue ?",
+            "keywords": [
+              "date",
+              "production",
+              "mise en production",
+              "lancement",
+              "livraison",
+              "planning",
+              "quand"
+            ],
+            "answer": "La mise en production est prévue le **15 septembre 2025** [1]. Elle a été **décalée de deux semaines** lors du comité de pilotage de février, pour laisser le temps de finaliser les tests de charge [2].",
+            "sources": [
+              {
+                "doc": 1,
+                "where": "ligne 9 · Lot 4",
+                "passage": "Lot 4 ; Mise en production ; début 08/09/2025 ; fin 15/09/2025 ; responsable : équipe Ops ; statut : planifié",
+                "highlight": "fin 15/09/2025"
+              },
+              {
+                "doc": 2,
+                "where": "§ Décisions",
+                "passage": "Le COPIL valide le report de la mise en production au 15 septembre (initialement 1er septembre) afin de finaliser les tests de charge.",
+                "highlight": "report de la mise en production au 15 septembre"
+              }
+            ]
+          },
+          {
+            "q": "Quelles sont les exigences de sécurité ?",
+            "keywords": [
+              "securite",
+              "exigence",
+              "exigences",
+              "authentification",
+              "chiffrement",
+              "rgpd"
+            ],
+            "answer": "Le cahier des charges impose trois exigences principales [1] : une **authentification à deux facteurs** pour tous les comptes administrateurs, le **chiffrement des données au repos** (AES-256) et un **hébergement en France** [1]. Un audit de sécurité externe est requis avant la mise en production [1].",
+            "sources": [
+              {
+                "doc": 0,
+                "where": "p. 12 · section 5.2",
+                "passage": "Exigences de sécurité : authentification à deux facteurs obligatoire pour les comptes à privilèges ; chiffrement AES-256 des données au repos ; hébergement des données sur le territoire français ; audit de sécurité indépendant préalable à la mise en production.",
+                "highlight": "authentification à deux facteurs obligatoire"
+              }
+            ]
+          },
+          {
+            "q": "Que montre la maquette de l'écran d'accueil ?",
+            "keywords": [
+              "maquette",
+              "ecran",
+              "accueil",
+              "design",
+              "interface",
+              "image"
+            ],
+            "answer": "La maquette montre un écran d'accueil en trois zones [1] : une **barre de recherche** centrale, une rangée de **raccourcis vers les 4 modules** principaux, et un **fil d'activité** récent à droite [1]. Le bouton principal « Nouveau dossier » est en haut à droite [1].",
+            "sources": [
+              {
+                "doc": 3,
+                "where": "image · description",
+                "passage": "Écran d'accueil : en-tête avec logo et bouton « Nouveau dossier » en haut à droite ; barre de recherche centrée ; quatre tuiles de raccourcis (Dossiers, Planning, Documents, Équipe) ; colonne « Activité récente » à droite.",
+                "highlight": "barre de recherche centrée"
+              }
+            ]
+          }
+        ],
+        "upload": {
+          "doc": {
+            "name": "budget_previsionnel.csv",
+            "type": "csv",
+            "size": "12 Ko",
+            "chunks": 4
+          },
+          "qa": {
+            "q": "Quel budget reste-t-il sur le lot 2 ?",
+            "keywords": [
+              "budget",
+              "reste",
+              "restant",
+              "lot 2",
+              "cout",
+              "depense"
+            ],
+            "answer": "Sur le lot 2, **38 000 €** ont été dépensés sur un budget de **52 000 €** [1] : il reste donc **14 000 €**, soit environ 27 % du budget du lot [1].",
+            "sources": [
+              {
+                "doc": 4,
+                "where": "ligne 3 · Lot 2",
+                "passage": "Lot 2 ; Développement front ; budget 52000 ; engagé 38000 ; reste 14000",
+                "highlight": "reste 14000"
+              }
+            ]
+          }
+        }
       }
-    ],
-    "suggestions": [
-      {
-        "question": "Quel est le chiffre d'affaires 2025 ?",
-        "answer": "D'après le rapport d'activité [1], le chiffre d'affaires 2025 s'élève à 1,2 M€, en hausse de 18% par rapport à 2024.",
-        "sourceIndex": 0
-      },
-      {
-        "question": "Résume les points clés de la réunion.",
-        "answer": "D'après les notes de réunion [2], trois décisions ont été prises : ouverture d'un palier Pro, migration vers un nouveau CRM, et lancement prévu en septembre.",
-        "sourceIndex": 2
-      },
-      {
-        "question": "Que dit la facture du fournisseur ?",
-        "answer": "Selon la facture scannée [3], le montant total est de 4 320 € TTC, payable sous 30 jours.",
-        "sourceIndex": 1
-      }
-    ],
-    "inputPlaceholder": "Choisissez une des questions suggérées ci-dessous",
-    "typing": "en train d'écrire...",
-    "ctaTitle": "À vous de jouer",
-    "ctaText": "Déposez vos propres documents et obtenez des réponses sourcées.",
-    "ctaButton": "Utiliser l'application",
-    "resetLabel": "Recommencer"
+    ]
   },
   "cookies": {
     "title": "Mesure d'audience",
@@ -497,7 +928,21 @@
     "title": "Tout comprendre sur {{brand}}",
     "subtitle": "Les questions les plus posées sur les comptes, les espaces, le partage et la confidentialité.",
     "backHome": "Retour à l'accueil",
-    "contactCta": "Une autre question ? Écrivez-nous depuis la page d'accueil.",
+    "searchPlaceholder": "Rechercher une question (partage, formats, sécurité…)",
+    "results": "{{count}} résultat(s)",
+    "noResults": "Aucune question ne correspond à « {{query}} ».",
+    "clear": "Effacer",
+    "categories": {
+      "all": "Toutes",
+      "start": "Découvrir",
+      "spaces": "Espaces et partage",
+      "security": "Sécurité et données",
+      "account": "Compte et limites"
+    },
+    "contactTitle": "Vous ne trouvez pas votre réponse ?",
+    "contactText": "Notre équipe vous répond, ou testez directement l'application dans la démo interactive.",
+    "contactButton": "Nous écrire",
+    "demoButton": "Essayer la démo",
     "items": [
       {
         "question": "Qu'est-ce que {{brand}} ?",
