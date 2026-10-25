@@ -70,7 +70,7 @@ export default function SnapshotsPanel({
         <button
           onClick={handleCreate}
           disabled={creating}
-          className="mt-4 flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-white hover:bg-accent-hover disabled:opacity-40"
+          className="mt-4 flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-sm font-semibold text-white hover:bg-accent-hover disabled:opacity-40"
         >
           <History size={12} /> {t("admin.snapshots.createNow")}
         </button>

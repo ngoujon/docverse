@@ -1,9 +1,10 @@
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, CheckCircle2, Sparkles, XCircle } from "lucide-react";
+import { ArrowLeft, CheckCircle2, XCircle } from "lucide-react";
 import { useTheme } from "../../hooks/useTheme";
 import ThemeToggle from "../ui/ThemeToggle";
+import BrandLogo from "../ui/BrandLogo";
 import LegalFooterLinks from "../layout/LegalFooterLinks";
 
 /** Centered card layout shared by every authentication / account page. */
@@ -22,32 +23,42 @@ export default function AuthLayout({
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <div className="flex min-h-[100dvh] w-full items-center justify-center bg-surface-0 px-4 py-10">
-      <Link
-        to="/"
-        className="absolute left-4 top-4 flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-slate-500 hover:text-accent dark:text-slate-400"
-      >
-        <ArrowLeft size={14} /> {t("common.backHome")}
-      </Link>
-      <div className="absolute right-4 top-4">
-        <ThemeToggle theme={theme} onToggle={toggleTheme} />
-      </div>
-
-      <div className="w-full max-w-sm">
-        <Link to="/" className="mb-6 flex items-center justify-center gap-2 text-slate-900 dark:text-slate-100">
-          <Sparkles size={18} className="text-accent" />
-          <span className="font-mono text-sm font-bold uppercase tracking-widest">Doc::Verse</span>
+    <div className="flex min-h-[100dvh] w-full flex-col bg-surface-0">
+      {/* Top bar: brand on the left, way back + theme on the right. */}
+      <header className="flex items-center justify-between px-4 py-4 sm:px-6">
+        <Link to="/" aria-label={t("common.backHome")} className="text-slate-900 dark:text-slate-100">
+          <BrandLogo />
         </Link>
-
-        <div className="rounded-xl border border-surface-border bg-surface-1 p-6 shadow-panel">
-          <h1 className="text-lg font-semibold text-slate-900 dark:text-slate-100">{title}</h1>
-          {subtitle && <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{subtitle}</p>}
-          <div className="mt-5">{children}</div>
+        <div className="flex items-center gap-2">
+          <Link
+            to="/"
+            className="hidden items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm font-medium text-slate-600 transition hover:text-accent dark:text-slate-400 sm:flex"
+          >
+            <ArrowLeft size={14} /> {t("common.backHome")}
+          </Link>
+          <ThemeToggle theme={theme} onToggle={toggleTheme} />
         </div>
+      </header>
 
-        {footer && <div className="mt-4 text-center text-sm text-slate-600 dark:text-slate-400">{footer}</div>}
-        <LegalFooterLinks className="mt-6" />
-      </div>
+      <main className="flex flex-1 items-start justify-center px-4 pb-10 pt-4 sm:items-center sm:pt-0">
+        <div className="w-full max-w-[400px] overflow-hidden rounded-xl border border-surface-border bg-surface-1 shadow-card-lg">
+          <div className="p-6 sm:p-8">
+            <h1 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">{title}</h1>
+            {subtitle && <p className="mt-1.5 text-sm text-slate-500 dark:text-slate-400">{subtitle}</p>}
+            <div className="mt-6">{children}</div>
+          </div>
+          {/* "No account yet? / Already registered?" switch, attached to
+              the card so it reads as part of the same form. */}
+          {footer && (
+            <div className="border-t border-surface-border bg-surface-2 px-6 py-4 text-center text-sm text-slate-600 dark:text-slate-400 sm:px-8">
+              {footer}
+            </div>
+          )}
+        </div>
+      </main>
+
+      {/* Bottom padding on mobile keeps the links clear of the help button. */}
+      <LegalFooterLinks className="px-4 pb-20 pt-2 sm:pb-6" />
     </div>
   );
 }

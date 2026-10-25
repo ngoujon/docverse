@@ -46,7 +46,7 @@ export default function ResetPasswordPage() {
           <p className="text-sm text-slate-600 dark:text-slate-400">{t("auth.reset.success")}</p>
           <button
             onClick={() => navigate("/login")}
-            className="mt-2 rounded-lg bg-accent px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider text-white shadow-neon-light hover:bg-accent-hover"
+            className="mt-2 rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white shadow-neon-light hover:bg-accent-hover"
           >
             {t("auth.reset.goToLogin")}
           </button>

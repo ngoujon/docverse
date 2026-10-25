@@ -27,9 +27,11 @@ export default function DataTable<T extends { id: string }>({
 }) {
   const last = columns.length - 1;
   return (
-    <div className={`${className} overflow-x-auto rounded-xl border border-surface-border`}>
-      <table className="w-full text-left text-sm">
-        <thead className="bg-surface-1 text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
+    <div className={`${className} overflow-x-auto rounded-xl border border-surface-border bg-surface-1 shadow-card`}>
+      {/* nowrap + horizontal scroll on phones, instead of e-mails and
+          dates broken over several lines. */}
+      <table className="w-full whitespace-nowrap text-left text-sm">
+        <thead className="bg-surface-2 text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
           <tr>
             {columns.map((col, i) => (
               <th key={col.header} className={i === last ? "px-4 py-2.5 text-right" : "px-4 py-2.5"}>

@@ -43,7 +43,7 @@ const DELETE_DIALOGS: Record<PendingDelete["kind"], { title: string; message: st
 };
 
 const primaryButton =
-  "flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-white shadow-neon-light hover:bg-accent-hover";
+  "flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-sm font-semibold text-white shadow-neon-light hover:bg-accent-hover";
 /** Instance administration: KPIs, users, spaces, testimonials, newsletter. */
 export default function AdminDashboardPage() {
   const { t } = useTranslation();
@@ -240,8 +240,8 @@ export default function AdminDashboardPage() {
     <div className="min-h-[100dvh] bg-surface-0">
       <DashboardNav active="admin" />
 
-      <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
-        <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">{t("admin.title")}</h1>
+      <main className="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-6 sm:pb-12 sm:pt-10">
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">{t("admin.title")}</h1>
 
         {stats && (
           <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -264,14 +264,16 @@ export default function AdminDashboardPage() {
           </div>
         )}
 
-        <div className="mt-8 flex gap-1 rounded-lg border border-surface-border p-1 w-fit">
+        <div className="mt-10 flex flex-wrap gap-2">
           {TABS.map((key) => (
             <button
               key={key}
               onClick={() => setTab(key)}
               className={clsx(
-                "rounded-md px-3 py-1.5 text-xs font-medium",
-                tab === key ? "bg-accent text-white" : "text-slate-600 dark:text-slate-400",
+                "rounded-full border px-4 py-1.5 text-sm font-semibold transition",
+                tab === key
+                  ? "border-slate-900 bg-slate-900 text-white dark:border-accent dark:bg-accent"
+                  : "border-surface-border bg-surface-1 text-slate-600 hover:border-slate-300 dark:text-slate-400 dark:hover:border-slate-600",
               )}
             >
               {t(`admin.tabs.${key}`)}

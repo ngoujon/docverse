@@ -29,6 +29,9 @@
     "ctaTry": "Utiliser l'application",
     "ctaDiscover": "Voir un exemple"
   },
+  "formats": {
+    "title": "Tous vos formats, une seule base de connaissances"
+  },
   "sovereignty": {
     "eyebrow": "Souveraineté numérique",
     "title": "De l'import à la réponse, tout reste en Europe",

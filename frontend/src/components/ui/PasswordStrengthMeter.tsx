@@ -55,9 +55,7 @@ export default function PasswordStrengthMeter({ password }: { password: string }
           />
         ))}
       </div>
-      <p className={clsx("mt-1 font-mono text-[10px] font-semibold uppercase tracking-wider", style.text)}>
-        {labels[score]}
-      </p>
+      <p className={clsx("mt-1 text-xs font-semibold", style.text)}>{labels[score]}</p>
     </div>
   );
 }

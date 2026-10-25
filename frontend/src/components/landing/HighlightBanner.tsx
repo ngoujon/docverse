@@ -1,28 +1,34 @@
 import { useTranslation } from "react-i18next";
-import { FileText, Image, FileCode, Sparkles, MessageSquareText, AudioLines } from "lucide-react";
+import { FileText, Image, FileCode, MessageSquareText, AudioLines } from "lucide-react";
+import { BrandMark } from "../ui/BrandLogo";
 
 const NODES = [
-  { Icon: FileText, x: 8, y: 12, delay: "0s", color: "text-retro-pink", ring: "border-retro-pink/50" },
-  { Icon: Image, x: 86, y: 6, delay: "0.5s", color: "text-retro-cyan", ring: "border-retro-cyan/50" },
-  { Icon: AudioLines, x: 92, y: 52, delay: "1s", color: "text-retro-yellow", ring: "border-retro-yellow/50" },
-  { Icon: MessageSquareText, x: 70, y: 82, delay: "1.5s", color: "text-retro-orange", ring: "border-retro-orange/50" },
-  { Icon: FileCode, x: 6, y: 68, delay: "2s", color: "text-retro-purple", ring: "border-retro-purple/50" },
+  // x/y are % of the box; x stays <= 86 so the 44px tiles never clip.
+  { Icon: FileText, x: 6, y: 10, delay: "0s" },
+  { Icon: Image, x: 80, y: 4, delay: "0.5s" },
+  { Icon: AudioLines, x: 86, y: 50, delay: "1s" },
+  { Icon: MessageSquareText, x: 64, y: 80, delay: "1.5s" },
+  { Icon: FileCode, x: 4, y: 66, delay: "2s" },
 ];
 
-/** Dark banner illustrating "every format becomes searchable knowledge". */
+/** Navy band illustrating "every format becomes searchable knowledge". */
 export default function HighlightBanner() {
   const { t } = useTranslation();
 
   return (
-    <div className="border-y border-retro-border bg-slate-900">
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-2 lg:items-center lg:py-12">
-        <div className="text-center lg:text-left">
-          <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-retro-cyan">{t("highlight.eyebrow")}</p>
-          <h2 className="mt-2 text-xl font-bold text-white sm:text-2xl">{t("highlight.title")}</h2>
-          <p className="mt-2 text-sm text-slate-400">{t("highlight.desc")}</p>
+    <div className="bg-fluent-navy px-4 sm:px-6">
+      <div className="mx-auto grid max-w-6xl gap-10 py-16 sm:py-20 lg:grid-cols-2 lg:items-center">
+        <div>
+          <p className="text-sm font-semibold text-[#a5a1ff]">{t("highlight.eyebrow")}</p>
+          <h2 className="mt-3 text-balance text-[1.75rem] font-semibold leading-[1.15] tracking-[-0.025em] text-white sm:text-4xl">
+            {t("highlight.title")}
+          </h2>
+          <p className="mt-4 max-w-xl text-pretty leading-relaxed text-[#adbdcc] sm:text-[17px]">
+            {t("highlight.desc")}
+          </p>
         </div>
 
-        <div className="relative mx-auto h-[220px] w-full max-w-sm lg:max-w-none" aria-hidden="true">
+        <div className="relative mx-auto h-[220px] w-full max-w-sm sm:h-[240px] lg:max-w-none" aria-hidden="true">
           <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 90" preserveAspectRatio="none">
             {NODES.map((n, i) => (
               <line
@@ -31,25 +37,25 @@ export default function HighlightBanner() {
                 y1={n.y + 4}
                 x2="50"
                 y2="45"
-                stroke="#8b2fd6"
-                strokeWidth="0.5"
+                stroke="#a5a1ff"
+                strokeWidth="0.4"
                 strokeDasharray="3 2"
-                opacity="0.4"
+                opacity="0.5"
               />
             ))}
           </svg>
 
-          <div className="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl bg-gradient-to-br from-retro-pink to-retro-purple shadow-[0_0_30px_rgba(224,28,192,0.5)] animate-glow-pulse">
-            <Sparkles size={24} className="text-white" />
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-[14px] shadow-[0_0_0_8px_rgba(99,91,255,0.15),0_20px_40px_-10px_rgba(99,91,255,0.6)]">
+            <BrandMark className="h-14 w-14" />
           </div>
 
-          {NODES.map(({ Icon, x, y, delay, color, ring }, i) => (
+          {NODES.map(({ Icon, x, y, delay }, i) => (
             <div
               key={i}
-              className={`absolute flex h-11 w-11 animate-float items-center justify-center rounded-xl border bg-slate-800 shadow-[0_6px_20px_rgba(0,0,0,0.5)] ${ring}`}
+              className="absolute flex h-11 w-11 animate-float items-center justify-center rounded-lg border border-white/10 bg-white/5 backdrop-blur"
               style={{ left: `${x}%`, top: `${y}%`, animationDelay: delay }}
             >
-              <Icon size={19} className={color} strokeWidth={2.25} />
+              <Icon size={19} className="text-white/85" strokeWidth={2} />
             </div>
           ))}
         </div>

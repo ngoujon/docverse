@@ -12,7 +12,8 @@ interface Props {
   onClose: () => void;
 }
 
-const PALETTE = ["#e01cc0", "#0891a8", "#e06a1f", "#b8860b", "#8b2fd6", "#10b981", "#3b82f6", "#f43f5e"];
+// Fluent Corp hero-gradient hues, readable on the navy background.
+const PALETTE = ["#635bff", "#00c4ff", "#ff6b8b", "#ffcb57", "#a960ee", "#34d399", "#90e0ff", "#f97316"];
 
 const toolbarButton = "rounded-lg border border-white/15 p-2 text-slate-300 hover:border-white/40 hover:text-white";
 const MIN_SCALE = 0.3;
@@ -88,9 +89,7 @@ export default function VectorGraphOverlay({ open, spaceId, shareToken, onClose 
     >
       <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
         <div>
-          <h2 className="font-mono text-sm font-semibold uppercase tracking-wider text-white">
-            {t("app.vectorGraph.title")}
-          </h2>
+          <h2 className="text-base font-semibold tracking-tight text-white">{t("app.vectorGraph.title")}</h2>
           {graph && (
             <p className="text-xs text-slate-400">
               {t("app.vectorGraph.nodeCount", { count: graph.nodes.length })}
@@ -188,10 +187,7 @@ export default function VectorGraphOverlay({ open, spaceId, shareToken, onClose 
 
         {hovered && (
           <div className="pointer-events-none absolute bottom-4 left-4 max-w-sm rounded-lg border border-white/15 bg-slate-900/95 p-3 shadow-panel">
-            <p
-              className="font-mono text-[10px] uppercase tracking-wider"
-              style={{ color: colorForDoc(hovered.doc_id) }}
-            >
+            <p className="text-xs font-semibold" style={{ color: colorForDoc(hovered.doc_id) }}>
               {hovered.doc_name}
             </p>
             <p className="mt-1 text-xs text-slate-300">{hovered.text_preview}</p>

@@ -1,8 +1,9 @@
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { FileText, Sparkles } from "lucide-react";
+import { ArrowUp, FileText, Search, Sparkles } from "lucide-react";
+import { BrandMark } from "../ui/BrandLogo";
 
-/** Retro window chrome (traffic lights + title bar) around landing content. */
+/** App-window card (title bar + body) around landing content. */
 export function TerminalWindow({
   title,
   children,
@@ -13,14 +14,13 @@ export function TerminalWindow({
   className?: string;
 }) {
   return (
-    <div
-      className={`overflow-hidden rounded-xl border border-retro-border bg-retro-panel shadow-[0_20px_60px_-15px_rgba(139,47,214,0.35)] ${className}`}
-    >
-      <div className="flex items-center gap-2 border-b border-retro-border bg-retro-bg2 px-3 py-2">
-        <span className="h-2.5 w-2.5 rounded-full bg-retro-pink/70" />
-        <span className="h-2.5 w-2.5 rounded-full bg-retro-yellow/70" />
-        <span className="h-2.5 w-2.5 rounded-full bg-retro-cyan/70" />
-        <span className="ml-2 truncate font-mono text-[10px] uppercase tracking-wider text-slate-500">{title}</span>
+    <div className={`overflow-hidden rounded-xl border border-fluent-line bg-white shadow-card-lg ${className}`}>
+      <div className="flex items-center gap-2 border-b border-fluent-line bg-fluent-soft px-4 py-2.5">
+        <BrandMark className="h-4 w-4" />
+        <span className="truncate text-xs font-medium text-fluent-navy">{title}</span>
+        <span className="ml-auto hidden items-center gap-1 rounded bg-white px-2 py-0.5 text-[11px] text-fluent-muted ring-1 ring-fluent-line sm:flex">
+          <Search size={10} /> ⌘K
+        </span>
       </div>
       {children}
     </div>
@@ -32,27 +32,23 @@ interface StepItem {
   desc: string;
 }
 
-/** "Get started in 3 steps" list, rendered as a terminal window. */
+/** "Get started in 3 steps": numbered columns separated by thin rules. */
 export function OnboardingTerminal() {
   const { t } = useTranslation();
   const steps = t("steps.items", { returnObjects: true }) as StepItem[];
 
   return (
-    <TerminalWindow title={t("steps.windowTitle")}>
-      <div className="divide-y divide-retro-border/60 bg-retro-panel">
-        {steps.map((s, i) => (
-          <div key={s.title} className="flex items-start gap-4 p-4 sm:p-5">
-            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-retro-pink/10 font-mono text-xs font-semibold text-retro-pink">
-              {i + 1}
-            </span>
-            <div>
-              <p className="text-sm font-semibold text-slate-900">{s.title}</p>
-              <p className="mt-1 text-xs leading-relaxed text-slate-600">{s.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </TerminalWindow>
+    <ol className="grid gap-8 md:grid-cols-3">
+      {steps.map((s, i) => (
+        <li key={s.title} className="border-l border-fluent-line pl-6">
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-fluent-indigo-soft text-sm font-bold text-fluent-indigo">
+            {i + 1}
+          </span>
+          <p className="mt-4 text-balance font-semibold leading-snug text-fluent-navy">{s.title}</p>
+          <p className="mt-2 text-pretty text-[15px] leading-relaxed text-fluent-text">{s.desc}</p>
+        </li>
+      ))}
+    </ol>
   );
 }
 
@@ -61,29 +57,37 @@ export function ChatMockup() {
   const { t } = useTranslation();
 
   return (
-    <TerminalWindow title="espace-qa.local/app/contrats">
-      <div className="space-y-3 bg-retro-bg2/60 p-4 sm:p-5">
+    <TerminalWindow title="Docverse · contrats">
+      <div className="space-y-4 p-5">
         <div className="flex justify-end">
-          <div className="max-w-[85%] rounded-xl rounded-tr-sm bg-retro-purple px-3.5 py-2 text-xs text-white sm:text-sm">
+          <div className="max-w-[85%] rounded-xl rounded-tr-sm bg-fluent-indigo px-3.5 py-2 text-sm text-white">
             {t("demo.question")}
           </div>
         </div>
-        <div className="flex items-start gap-2">
-          <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-retro-pink/15 text-retro-pink">
-            <Sparkles size={13} />
+        <div className="flex items-start gap-2.5">
+          <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-fluent-indigo-soft text-fluent-indigo">
+            <Sparkles size={14} />
           </span>
-          <div className="max-w-[88%] rounded-xl rounded-tl-sm border border-retro-border bg-white px-3.5 py-2 text-xs text-slate-700 sm:text-sm">
+          <div className="max-w-[88%] rounded-xl rounded-tl-sm border border-fluent-line bg-white px-3.5 py-2.5 text-sm leading-relaxed text-fluent-navy">
             {t("demo.answer")}
-            <span className="mt-2 flex flex-wrap gap-1.5">
-              <span className="inline-flex items-center gap-1 rounded-full border border-retro-border bg-retro-bg2 px-2 py-0.5 font-mono text-[10px] text-retro-cyan">
-                <FileText size={10} /> {t("demo.source")}
+            <span className="mt-2.5 flex flex-wrap gap-1.5">
+              <span className="inline-flex items-center gap-1 rounded-full bg-fluent-indigo-soft px-2.5 py-0.5 text-[11px] font-medium text-fluent-indigo-dark">
+                <FileText size={11} /> {t("demo.source")}
               </span>
             </span>
           </div>
         </div>
-        <div className="flex items-center gap-1.5 pl-8 font-mono text-[10px] text-slate-400">
-          <span className="inline-block h-3 w-[6px] animate-blink bg-retro-pink" />
+        <div className="flex items-center gap-1.5 pl-10 text-xs text-fluent-muted">
+          <span className="h-1.5 w-1.5 animate-pulse2 rounded-full bg-fluent-indigo" />
           {t("demo.typing")}
+        </div>
+      </div>
+      <div className="border-t border-fluent-line p-3">
+        <div className="flex items-center gap-2 rounded-lg border border-fluent-line bg-white py-1.5 pl-3 pr-1.5 shadow-card">
+          <span className="flex-1 truncate text-sm text-slate-400">{t("app.chat.placeholder")}</span>
+          <span className="flex h-7 w-7 items-center justify-center rounded-md bg-fluent-indigo text-white">
+            <ArrowUp size={14} />
+          </span>
         </div>
       </div>
     </TerminalWindow>

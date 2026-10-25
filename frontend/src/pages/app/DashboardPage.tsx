@@ -22,7 +22,7 @@ import { usePageMeta } from "../../hooks/usePageMeta";
 import { formatBytes } from "../../utils/format";
 import DashboardNav from "../../components/layout/DashboardNav";
 import StatCard from "../../components/ui/StatCard";
-import { Badge } from "../../components/ui/controls";
+import { Badge, buttonPrimary } from "../../components/ui/controls";
 import SpaceModal, { type SpaceFormData } from "../../components/workspace/SpaceModal";
 import type { MeStats, Space } from "../../types";
 import { pageTitle } from "../../brand";
@@ -54,7 +54,7 @@ function ActivationChecklist({ stats, onCreateSpace }: { stats: MeStats; onCreat
   };
 
   return (
-    <div className="relative mt-6 rounded-xl border border-accent/30 bg-accent/5 p-4">
+    <div className="relative mt-6 rounded-xl border border-accent/20 bg-fluent-indigo-soft/60 p-5 dark:bg-accent/10">
       <button
         onClick={dismiss}
         aria-label={t("common.close")}
@@ -111,25 +111,25 @@ function SpaceCard({
   return (
     <button
       onClick={onClick}
-      className="flex flex-col items-start gap-2 rounded-xl border border-surface-border bg-surface-1 p-4 text-left transition hover:border-accent"
+      className="flex min-w-0 flex-col items-start gap-2 rounded-xl border border-surface-border bg-surface-1 p-5 text-left shadow-card transition hover:-translate-y-0.5 hover:border-accent/50 hover:shadow-panel"
     >
-      <div className="flex w-full items-center justify-between gap-2">
+      <div className="mb-1 flex w-full items-center justify-between gap-2">
         <div
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-sm font-semibold text-white"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-sm font-semibold text-white"
           style={{ backgroundColor: color }}
         >
           {name.slice(0, 2).toUpperCase()}
         </div>
         {badge}
       </div>
-      <p className="truncate text-sm font-semibold text-slate-900 dark:text-slate-100">{name}</p>
+      <p className="w-full truncate font-semibold text-slate-900 dark:text-slate-100">{name}</p>
       {children}
     </button>
   );
 }
 
-const sectionTitle = "text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400";
-const cardGrid = "mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3";
+const sectionTitle = "text-lg font-semibold tracking-tight text-slate-900 dark:text-slate-100";
+const cardGrid = "mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3";
 
 /** Signed-in home: usage KPIs, onboarding checklist and the user's spaces. */
 export default function DashboardPage() {
@@ -166,13 +166,13 @@ export default function DashboardPage() {
     <div className="min-h-[100dvh] bg-surface-0">
       <DashboardNav active="client" />
 
-      <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
-        <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">
+      <main className="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-6 sm:pb-12 sm:pt-10">
+        <h1 className="break-words text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
           {t("dashboard.greeting", { name: user?.display_name || user?.email })}
         </h1>
 
         {stats && (
-          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6">
             <StatCard
               icon={<Folders size={14} />}
               label={t("dashboard.kpi.owned")}
@@ -202,13 +202,10 @@ export default function DashboardPage() {
 
         {stats && <ActivationChecklist stats={stats} onCreateSpace={() => setModalOpen(true)} />}
 
-        <div className="mt-8 flex items-center justify-between">
+        <div className="mt-10 flex items-center justify-between gap-3">
           <h2 className={sectionTitle}>{t("dashboard.mySpaces")}</h2>
-          <button
-            onClick={() => setModalOpen(true)}
-            className="flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-white shadow-neon-light hover:bg-accent-hover"
-          >
-            <Plus size={13} /> {t("dashboard.newSpace")}
+          <button onClick={() => setModalOpen(true)} className={`${buttonPrimary} flex shrink-0 items-center gap-1.5`}>
+            <Plus size={14} /> {t("dashboard.newSpace")}
           </button>
         </div>
 
@@ -234,9 +231,9 @@ export default function DashboardPage() {
                 }
               >
                 {s.description && (
-                  <p className="line-clamp-2 text-xs text-slate-500 dark:text-slate-400">{s.description}</p>
+                  <p className="line-clamp-2 text-sm text-slate-600 dark:text-slate-400">{s.description}</p>
                 )}
-                <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                <p className="mt-auto pt-1 text-xs text-slate-500 dark:text-slate-400">
                   {t("dashboard.spaceCounts", {
                     docs: t("dashboard.spaceDocs", { count: s.document_count }),
                     convs: t("dashboard.spaceConvs", { count: s.conversation_count }),

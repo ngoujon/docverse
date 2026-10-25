@@ -40,7 +40,7 @@ export default function VerifyEmailPage() {
         successAction={
           <Link
             to="/dashboard"
-            className="mt-2 rounded-lg bg-accent px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider text-white shadow-neon-light hover:bg-accent-hover"
+            className="mt-2 rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white shadow-neon-light hover:bg-accent-hover"
           >
             {t("auth.verify.goToDashboard")}
           </Link>

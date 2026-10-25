@@ -29,6 +29,9 @@
     "ctaTry": "Use the app",
     "ctaDiscover": "See an example"
   },
+  "formats": {
+    "title": "All your formats, one knowledge base"
+  },
   "sovereignty": {
     "eyebrow": "Digital sovereignty",
     "title": "From upload to answer, everything stays in Europe",

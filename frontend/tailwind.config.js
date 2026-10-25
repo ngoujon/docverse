@@ -20,21 +20,52 @@ export default {
           hover: "rgb(var(--accent-hover) / <alpha-value>)",
           soft: "rgb(var(--accent) / 0.1)",
         },
-        // Landing/privacy pages only - always light, not theme-toggled.
+        // "Fluent Corp" design system: navy text, indigo actions, thin
+        // grey borders. Landing/public pages - always light.
+        fluent: {
+          navy: "#0a2540",
+          text: "#425466",
+          muted: "#697386",
+          indigo: "#635bff",
+          "indigo-dark": "#4b44d6",
+          "indigo-soft": "#f0efff",
+          line: "#e6ebf1",
+          soft: "#f6f9fc",
+          green: "#0e8a4a",
+          "green-soft": "#e8f8ef",
+        },
+        // Legacy landing palette, remapped onto Fluent Corp so any page
+        // still using it stays on-brand.
         retro: {
-          bg: "#fbf9ff",
-          bg2: "#f3edff",
+          bg: "#ffffff",
+          bg2: "#f6f9fc",
           panel: "#ffffff",
-          border: "#e5daf7",
-          pink: "#e01cc0",
-          cyan: "#0891a8",
-          orange: "#e06a1f",
-          yellow: "#b8860b",
-          purple: "#8b2fd6",
+          border: "#e6ebf1",
+          pink: "#635bff",
+          cyan: "#4b44d6",
+          orange: "#b25e09",
+          yellow: "#b25e09",
+          purple: "#635bff",
+        },
+        // Blue-grey neutrals aligned on Fluent Corp (slate-900 = navy,
+        // slate-600 = secondary text) so the whole app shares the palette.
+        slate: {
+          50: "#f6f9fc",
+          100: "#eef2f7",
+          200: "#e3e8ee",
+          300: "#c1c9d2",
+          400: "#8792a2",
+          500: "#697386",
+          600: "#425466",
+          700: "#30445a",
+          800: "#1a3350",
+          900: "#0a2540",
+          950: "#061b31",
         },
       },
       fontFamily: {
         sans: [
+          "Inter Variable",
           "Inter",
           "-apple-system",
           "BlinkMacSystemFont",
@@ -50,9 +81,12 @@ export default {
         ],
       },
       boxShadow: {
-        panel: "0 8px 30px rgba(20,10,40,0.12)",
-        neon: "0 0 20px rgba(255,43,214,0.35), 0 0 60px rgba(0,240,255,0.15)",
-        "neon-light": "0 0 0 1px rgba(139,47,214,0.15), 0 6px 20px rgba(139,47,214,0.18)",
+        card: "0 2px 5px -1px rgba(50,50,93,0.08), 0 1px 3px -1px rgba(0,0,0,0.1)",
+        "card-lg": "0 50px 100px -20px rgba(50,50,93,0.25), 0 30px 60px -30px rgba(0,0,0,0.3)",
+        panel: "0 13px 27px -5px rgba(50,50,93,0.18), 0 8px 16px -8px rgba(0,0,0,0.2)",
+        neon: "0 30px 60px -25px rgba(99,91,255,0.45)",
+        "neon-light": "0 1px 2px rgba(10,37,64,0.12), 0 2px 6px -2px rgba(99,91,255,0.35)",
+        focus: "0 0 0 3px rgba(99,91,255,0.15)",
       },
       keyframes: {
         "fade-in": {

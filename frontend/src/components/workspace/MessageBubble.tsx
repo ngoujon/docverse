@@ -1,12 +1,19 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { FileText, Globe, User, Bot } from "lucide-react";
+import { FileText, Globe, User } from "lucide-react";
 import clsx from "clsx";
 import type { Message } from "../../types";
 import AnimatedText from "../ui/AnimatedText";
+import { BrandMark } from "../ui/BrandLogo";
 
+// A no-break space before and a word joiner (U+2060) after glue a citation
+// to its word and punctuation, so "recommandée [1]." never leaves the
+// badge or the "." alone on a new line.
 function withCitationLinks(content: string): string {
-  return content.replace(/\[(\d+)\]/g, (_m, n) => `[${n}](#cite-${n})`);
+  return content.replace(
+    /[ \t]?\[(\d+)\]([.,;:!?)])?/g,
+    (_m, n, punct) => ` [${n}](#cite-${n})${punct ? "⁠" + punct : ""}`,
+  );
 }
 
 /** One chat message. Assistant answers render as Markdown, with [n]
@@ -25,22 +32,21 @@ export default function MessageBubble({ message, isStreaming }: { message: Messa
 
   return (
     <div className={clsx("flex gap-3 px-2 animate-fade-in", isUser && "flex-row-reverse")}>
-      <div
-        className={clsx(
-          "mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full",
-          isUser ? "bg-accent/20 text-accent" : "bg-surface-3 text-slate-500 dark:text-slate-400",
-        )}
-      >
-        {isUser ? <User size={14} /> : <Bot size={14} />}
-      </div>
+      {isUser ? (
+        <div className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-fluent-indigo-soft text-accent dark:bg-accent/20">
+          <User size={14} />
+        </div>
+      ) : (
+        <BrandMark className="mt-1 h-7 w-7" />
+      )}
 
-      <div className={clsx("max-w-[75%] space-y-2", isUser && "flex flex-col items-end")}>
+      <div className={clsx("min-w-0 max-w-[85%] space-y-2 sm:max-w-[75%]", isUser && "flex flex-col items-end")}>
         <div
           className={clsx(
-            "markdown-body rounded-2xl px-4 py-2.5 text-[13.5px] leading-relaxed",
+            "markdown-body break-words rounded-2xl px-4 py-2.5 text-sm leading-relaxed",
             isUser
-              ? "bg-accent text-white rounded-tr-sm"
-              : "bg-surface-2 text-slate-800 dark:text-slate-200 rounded-tl-sm border border-surface-border",
+              ? "rounded-tr-sm bg-accent text-white"
+              : "rounded-tl-sm border border-surface-border bg-surface-1 text-slate-800 shadow-card dark:text-slate-200",
           )}
         >
           {isUser ? (

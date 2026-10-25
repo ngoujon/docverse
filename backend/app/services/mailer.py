@@ -65,15 +65,15 @@ def send_later(background_tasks, to: str, message: tuple[str, str, str]) -> None
 
 # --- Templates ----------------------------------------------------------------
 
-_BG = "#fbf9ff"
-_BG2 = "#f3edff"
+# "Fluent Corp" palette, same as the web app (frontend/tailwind.config.js).
+_BG = "#f6f9fc"
+_BG2 = "#f6f9fc"
 _PANEL = "#ffffff"
-_BORDER = "#e5daf7"
-_PINK = "#e01cc0"
-_CYAN = "#0891a8"
-_PURPLE = "#8b2fd6"
-_INK = "#1a1225"
-_MUTED = "#6b6178"
+_BORDER = "#e6ebf1"
+_ACCENT = "#635bff"
+_INK = "#0a2540"
+_MUTED = "#697386"
+_FONT = "Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif"
 
 
 def _layout(preheader: str, body_html: str) -> str:
@@ -81,37 +81,41 @@ def _layout(preheader: str, body_html: str) -> str:
     if settings.contact_email:
         email = escape(settings.contact_email)
         contact_line = (
-            f'Une question ? Écrivez-nous à <a href="mailto:{email}" style="color:{_CYAN};">{email}</a>.'
+            f'Une question ? Écrivez-nous à <a href="mailto:{email}" style="color:{_ACCENT};">{email}</a>.'
         )
     legal_footer = ""
     if settings.legal_email_footer:
         legal_footer = (
             f'<p style="margin:0;font-size:11px;color:{_MUTED};'
-            f'font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;">'
+            f'font-family:{_FONT};">'
             f"{escape(settings.legal_email_footer)}</p>"
         )
+    logo_url = escape(f"{settings.frontend_base_url.rstrip('/')}/apple-touch-icon.png")
     return f"""<!doctype html>
 <html lang="fr">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:{_BG};font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+<body style="margin:0;padding:0;background:{_BG};font-family:{_FONT};">
   <div style="display:none;max-height:0;overflow:hidden;opacity:0;">{preheader}</div>
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:{_BG};padding:32px 16px;">
     <tr><td align="center">
-      <table role="presentation" width="100%" style="max-width:520px;background:{_PANEL};border:1px solid {_BORDER};border-radius:16px;overflow:hidden;">
+      <table role="presentation" width="100%" style="max-width:520px;background:{_PANEL};border:1px solid {_BORDER};border-radius:12px;overflow:hidden;">
         <tr>
-          <td style="padding:0;height:6px;background:linear-gradient(90deg,{_PINK},{_PURPLE},{_CYAN});"></td>
+          <td style="padding:0;height:4px;background:{_ACCENT};background-image:linear-gradient(90deg,#635bff,#a960ee,#ff6b8b,#ffcb57,#90e0ff);"></td>
         </tr>
         <tr>
           <td style="padding:28px 32px 8px;">
-            <span style="font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;font-weight:700;letter-spacing:.12em;color:{_PURPLE};text-transform:uppercase;">
-              &#10022;&#10022; DOC::VERSE
-            </span>
+            <table role="presentation" cellpadding="0" cellspacing="0"><tr>
+              <td style="padding-right:10px;vertical-align:middle;">
+                <img src="{logo_url}" width="28" height="28" alt="" style="display:block;border:0;border-radius:7px;">
+              </td>
+              <td style="vertical-align:middle;font-family:{_FONT};font-size:20px;font-weight:700;letter-spacing:-.04em;color:{_INK};">docverse</td>
+            </tr></table>
           </td>
         </tr>
         <tr><td style="padding:8px 32px 32px;">{body_html}</td></tr>
         <tr>
           <td style="padding:18px 32px;background:{_BG2};border-top:1px solid {_BORDER};">
-            <p style="margin:0 0 6px;font-size:12px;color:{_MUTED};font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;">
+            <p style="margin:0 0 6px;font-size:12px;color:{_MUTED};font-family:{_FONT};">
               Vous recevez cet email car une action lui correspond a été initiée sur votre compte Docverse.
               {contact_line}
             </p>
@@ -127,8 +131,8 @@ def _layout(preheader: str, body_html: str) -> str:
 
 def _button(url: str, label: str) -> str:
     return f"""<table role="presentation" cellpadding="0" cellspacing="0" style="margin:24px 0;">
-      <tr><td style="border-radius:10px;background:{_PINK};">
-        <a href="{url}" style="display:inline-block;padding:13px 28px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#ffffff;text-decoration:none;border-radius:10px;">{label}</a>
+      <tr><td style="border-radius:999px;background:{_ACCENT};">
+        <a href="{url}" style="display:inline-block;padding:12px 24px;font-family:{_FONT};font-size:15px;font-weight:600;color:#ffffff;text-decoration:none;border-radius:999px;">{label}</a>
       </td></tr>
     </table>"""
 

@@ -56,23 +56,25 @@ function AudienceMeasurementSection() {
   const [optOutState, setOptOutState] = useState<"idle" | "done" | "unavailable">("idle");
 
   return (
-    <div id="mesure-audience" className="rounded-2xl border border-retro-border bg-retro-panel/40 p-5">
-      <div className="flex items-center gap-2">
-        <BarChart3 size={17} className="text-retro-cyan" />
-        <h2 className="text-sm font-semibold text-slate-900">{a.title}</h2>
+    <div id="mesure-audience" className="rounded-xl border border-fluent-line bg-white p-6 shadow-card">
+      <div className="flex items-center gap-2.5">
+        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-fluent-indigo-soft text-fluent-indigo">
+          <BarChart3 size={16} />
+        </span>
+        <h2 className="font-semibold text-fluent-navy">{a.title}</h2>
       </div>
       {a.paragraphs.map((p) => (
-        <p key={p} className="mt-2 whitespace-pre-line text-xs leading-relaxed text-slate-600">
+        <p key={p} className="mt-3 whitespace-pre-line text-sm leading-relaxed text-fluent-text">
           {p}
         </p>
       ))}
-      <p className="mt-2 text-xs leading-relaxed text-slate-600">
+      <p className="mt-3 text-sm leading-relaxed text-fluent-text">
         {a.optOutLead}{" "}
         {optOutState === "idle" ? (
           <button
             type="button"
             onClick={() => setOptOutState(optOutOfAudience() ? "done" : "unavailable")}
-            className="text-retro-cyan underline hover:no-underline"
+            className="font-medium text-fluent-indigo underline hover:text-fluent-navy"
           >
             {a.optOut}
           </button>
@@ -112,12 +114,14 @@ export default function PrivacyPage() {
           const Icon = SECTION_ICONS[i] ?? ShieldCheck;
           return (
             <Fragment key={s.title}>
-              <div className="rounded-2xl border border-retro-border bg-retro-panel/40 p-5">
-                <div className="flex items-center gap-2">
-                  <Icon size={17} className="text-retro-cyan" />
-                  <h2 className="text-sm font-semibold text-slate-900">{s.title}</h2>
+              <div className="rounded-xl border border-fluent-line bg-white p-6 shadow-card">
+                <div className="flex items-center gap-2.5">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-fluent-indigo-soft text-fluent-indigo">
+                    <Icon size={16} />
+                  </span>
+                  <h2 className="font-semibold text-fluent-navy">{s.title}</h2>
                 </div>
-                <p className="mt-2 text-xs leading-relaxed text-slate-600">{s.body}</p>
+                <p className="mt-3 text-sm leading-relaxed text-fluent-text">{s.body}</p>
               </div>
               {/* Right after "Cookies", which points to it. */}
               {i === 0 && <AudienceMeasurementSection />}
@@ -128,7 +132,7 @@ export default function PrivacyPage() {
 
       <Link
         to="/account"
-        className="mt-6 inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-retro-cyan hover:underline"
+        className="mt-8 inline-flex items-center gap-1.5 text-[15px] font-semibold text-fluent-indigo transition hover:text-fluent-navy"
       >
         {t("privacy.rightsLinkCta")} <ArrowLeft size={12} className="rotate-180" />
       </Link>

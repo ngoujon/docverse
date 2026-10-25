@@ -59,7 +59,7 @@ function AddRow({
       </label>
       <button
         onClick={onAdd}
-        className="flex items-center gap-1 rounded-lg bg-accent px-2.5 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-white hover:bg-accent-hover"
+        className="flex items-center gap-1 rounded-lg bg-accent px-2.5 py-1.5 text-sm font-semibold text-white hover:bg-accent-hover"
       >
         {icon} {label}
       </button>

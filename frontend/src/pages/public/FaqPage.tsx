@@ -40,33 +40,30 @@ export default function FaqPage() {
       title={t("faq.title")}
       subtitle={t("faq.subtitle")}
     >
-      <div className="mt-10 space-y-3">
+      <div className="mt-10 overflow-hidden rounded-xl border border-fluent-line bg-white shadow-card">
         {items.map((item, i) => {
           const isOpen = openIndex === i;
           return (
-            <div
-              key={item.question}
-              className="overflow-hidden rounded-2xl border border-retro-border bg-retro-panel/40"
-            >
+            <div key={item.question} className="border-b border-fluent-line last:border-b-0">
               <button
                 onClick={() => setOpenIndex(isOpen ? null : i)}
                 aria-expanded={isOpen}
-                className="flex w-full items-center gap-3 px-5 py-4 text-left"
+                className="flex w-full items-center gap-3 px-5 py-4 text-left transition hover:bg-fluent-soft"
               >
-                <HelpCircle size={16} className="shrink-0 text-retro-cyan" />
-                <span className="flex-1 text-sm font-semibold text-slate-900">{item.question}</span>
+                <HelpCircle size={16} className="shrink-0 text-fluent-indigo" />
+                <span className="flex-1 font-semibold text-fluent-navy">{item.question}</span>
                 <ChevronDown
                   size={16}
                   className={`shrink-0 text-slate-500 transition-transform ${isOpen ? "rotate-180" : ""}`}
                 />
               </button>
-              {isOpen && <p className="px-5 pb-4 pl-11 text-xs leading-relaxed text-slate-600">{item.answer}</p>}
+              {isOpen && <p className="px-5 pb-5 pl-12 text-[15px] leading-relaxed text-fluent-text">{item.answer}</p>}
             </div>
           );
         })}
       </div>
 
-      <p className="mt-10 text-xs text-slate-500">{t("faq.contactCta")}</p>
+      <p className="mt-10 text-sm text-fluent-muted">{t("faq.contactCta")}</p>
     </PublicPageLayout>
   );
 }

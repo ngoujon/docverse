@@ -30,30 +30,30 @@ export default function CookieConsentBanner() {
       aria-label={t("cookies.title")}
       // z-50 stays under the support chat widget (z-60), and the desktop
       // placement is bottom-left so the two never overlap.
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-retro-border bg-retro-panel/95 p-4 shadow-lg backdrop-blur sm:inset-x-auto sm:bottom-6 sm:left-6 sm:max-w-md sm:rounded-2xl sm:border"
+      className="fixed inset-x-0 bottom-0 z-50 border-t border-retro-border bg-white/95 p-5 shadow-panel backdrop-blur sm:inset-x-auto sm:bottom-6 sm:left-6 sm:max-w-md sm:rounded-xl sm:border"
     >
       <div className="flex items-center gap-2">
-        <BarChart3 size={16} className="shrink-0 text-retro-cyan" />
-        <h2 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-900">
-          {t("cookies.title")}
-        </h2>
+        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-fluent-indigo-soft text-fluent-indigo">
+          <BarChart3 size={15} />
+        </span>
+        <h2 className="text-sm font-semibold text-fluent-navy">{t("cookies.title")}</h2>
       </div>
-      <p className="mt-2 text-xs leading-relaxed text-slate-600">
+      <p className="mt-2 text-sm leading-relaxed text-fluent-text">
         {t("cookies.body")}{" "}
-        <Link to="/confidentialite/" className="text-retro-cyan underline">
+        <Link to="/confidentialite/" className="font-medium text-fluent-indigo hover:text-fluent-navy">
           {t("cookies.learnMore")}
         </Link>
       </p>
-      <div className="mt-3 flex gap-2">
+      <div className="mt-4 flex gap-2">
         <button
           onClick={() => answer("granted")}
-          className="rounded-md bg-retro-pink px-3 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-white"
+          className="rounded-full bg-fluent-indigo px-4 py-1.5 text-sm font-semibold text-white transition hover:bg-fluent-navy"
         >
           {t("cookies.accept")}
         </button>
         <button
           onClick={() => answer("denied")}
-          className="rounded-md border border-retro-border px-3 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-600 hover:text-slate-900"
+          className="rounded-full border border-fluent-line bg-white px-4 py-1.5 text-sm font-semibold text-fluent-navy transition hover:border-slate-300"
         >
           {t("cookies.decline")}
         </button>

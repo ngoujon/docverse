@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
  * page's full footer, so the privacy policy is reachable from every page. */
 export default function LegalFooterLinks({ className = "" }: { className?: string }) {
   const { t } = useTranslation();
-  const linkClass = "font-mono text-[11px] uppercase tracking-wider text-slate-500 hover:text-retro-cyan";
+  const linkClass = "text-xs text-slate-500 transition hover:text-slate-900 dark:hover:text-slate-200";
   return (
     <footer className={`flex flex-wrap items-center justify-center gap-4 ${className}`}>
       <Link to="/confidentialite/" className={linkClass}>

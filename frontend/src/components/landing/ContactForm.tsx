@@ -7,18 +7,18 @@ import { useCaptcha } from "../../hooks/useCaptcha";
 import { trackConversion } from "../../utils/seoMonitor";
 
 const retroInput =
-  "w-full rounded-lg border border-retro-border bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-retro-cyan focus:shadow-neon-light";
+  "w-full rounded-lg border border-fluent-line bg-white px-3 py-2.5 text-sm text-fluent-navy shadow-card placeholder:text-slate-400 outline-none transition focus:border-fluent-indigo focus:shadow-focus";
 
 function RetroField({ label, optional, children }: { label: string; optional?: boolean; children: ReactNode }) {
   const { t } = useTranslation();
   return (
     <div>
-      <label className="mb-1 block font-mono text-[11px] uppercase tracking-wider text-retro-cyan/80">
+      <label className="mb-1.5 block text-sm font-medium text-fluent-navy">
         {label}
         {optional && (
           <>
             {" "}
-            <span className="normal-case tracking-normal text-slate-400">({t("contact.optional")})</span>
+            <span className="font-normal text-fluent-muted">({t("contact.optional")})</span>
           </>
         )}
       </label>
@@ -80,16 +80,18 @@ export default function ContactForm() {
 
   if (status === "sent") {
     return (
-      <div className="flex flex-col items-center gap-3 rounded-2xl border border-retro-cyan/30 bg-retro-panel/60 px-6 py-10 text-center">
-        <CheckCircle2 size={32} className="text-retro-cyan" />
-        <p className="font-mono text-sm text-slate-800">{t("contact.sentTitle")}</p>
-        <p className="text-xs text-slate-600">{t("contact.sentDesc")}</p>
+      <div className="flex flex-col items-center gap-3 px-6 py-10 text-center">
+        <span className="flex h-12 w-12 items-center justify-center rounded-full bg-fluent-green-soft">
+          <CheckCircle2 size={26} className="text-fluent-green" />
+        </span>
+        <p className="font-semibold text-fluent-navy">{t("contact.sentTitle")}</p>
+        <p className="text-sm text-fluent-text">{t("contact.sentDesc")}</p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3">
+    <form onSubmit={handleSubmit} className="space-y-4">
       {/* Honeypot - hidden from real users, bots tend to fill every field */}
       <input
         type="text"
@@ -164,17 +166,21 @@ export default function ContactForm() {
         />
       </RetroField>
 
-      <label className="flex items-start gap-2 text-xs text-slate-600">
+      <label className="flex items-start gap-2 text-sm text-fluent-text">
         <input
           type="checkbox"
           required
           checked={consent}
           onChange={(e) => setConsent(e.target.checked)}
-          className="mt-0.5 shrink-0 accent-retro-pink"
+          className="mt-1 shrink-0 accent-fluent-indigo"
         />
         <span>
           {t("contact.consent")}{" "}
-          <Link to="/confidentialite/" target="_blank" className="text-retro-cyan hover:underline">
+          <Link
+            to="/confidentialite/"
+            target="_blank"
+            className="font-medium text-fluent-indigo hover:text-fluent-navy"
+          >
             {t("contact.consentLink")}
           </Link>
         </span>
@@ -189,7 +195,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === "sending" || !canSubmit}
-        className="group flex w-full items-center justify-center gap-2 rounded-lg border border-retro-pink bg-retro-pink/10 px-4 py-2.5 font-mono text-xs uppercase tracking-wider text-retro-pink transition hover:bg-retro-pink hover:text-white hover:shadow-neon-light disabled:opacity-50 sm:w-auto sm:px-6"
+        className="flex w-full items-center justify-center gap-2 rounded-full bg-fluent-indigo px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-fluent-navy disabled:opacity-50 disabled:hover:bg-fluent-indigo sm:w-auto"
       >
         <Send size={14} />
         {status === "sending" ? t("contact.sending") : t("contact.send")}

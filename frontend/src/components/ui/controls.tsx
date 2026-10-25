@@ -11,23 +11,23 @@ import clsx from "clsx";
 
 /** Main call to action inside cards and modals. */
 export const buttonPrimary =
-  "rounded-lg bg-accent px-3 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-white shadow-neon-light hover:bg-accent-hover disabled:opacity-40 disabled:shadow-none";
+  "whitespace-nowrap rounded-lg bg-accent px-3.5 py-1.5 text-sm font-semibold text-white shadow-neon-light transition hover:bg-accent-hover disabled:opacity-40 disabled:shadow-none";
 /** Full-width submit button of the auth forms. */
 export const buttonPrimaryWide =
-  "w-full rounded-lg bg-accent px-3 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-white shadow-neon-light hover:bg-accent-hover disabled:opacity-40 disabled:shadow-none";
+  "w-full rounded-lg bg-accent px-3 py-2.5 text-sm font-semibold text-white shadow-neon-light transition hover:bg-accent-hover disabled:opacity-40 disabled:shadow-none";
 /** Outlined secondary action. */
 export const buttonOutline =
-  "rounded-lg border border-surface-border px-3 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-surface-3 disabled:opacity-40";
+  "whitespace-nowrap rounded-lg border border-surface-border bg-surface-1 px-3 py-1.5 text-sm font-medium text-slate-700 shadow-card transition dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600 disabled:opacity-40";
 /** Text-only "Cancel"-style button. */
 export const buttonGhost = "rounded-lg px-3 py-1.5 text-sm text-slate-700 dark:text-slate-300 hover:bg-surface-3";
 /** Destructive confirmation. */
 export const buttonDanger =
-  "rounded-lg bg-red-600 px-3 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-white hover:bg-red-500";
+  "rounded-lg bg-red-600 px-3.5 py-1.5 text-sm font-semibold text-white transition hover:bg-red-500";
 
 /** Standard text input / select / textarea. */
 export const inputClass =
-  "w-full rounded-lg border border-surface-border bg-surface-1 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-accent";
-const labelClass = "mb-1 block text-xs font-medium text-slate-600 dark:text-slate-400";
+  "w-full rounded-lg border border-surface-border bg-surface-1 px-3 py-2 text-sm text-slate-900 shadow-card transition dark:text-slate-100 outline-none focus:border-accent focus:shadow-focus";
+const labelClass = "mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300";
 
 // --- Form fields -----------------------------------------------------------------
 
@@ -79,13 +79,13 @@ export function PasswordInput({
 // --- Indicators ----------------------------------------------------------------------
 
 const BADGE_TONES = {
-  accent: "bg-accent/15 text-accent",
+  accent: "bg-fluent-indigo-soft text-fluent-indigo-dark dark:bg-accent/20 dark:text-[#d6d4ff]",
   muted: "bg-surface-3 text-slate-600 dark:text-slate-300",
-  success: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400",
-  danger: "bg-red-500/15 text-red-600 dark:text-red-400",
+  success: "bg-fluent-green-soft text-fluent-green dark:bg-emerald-500/15 dark:text-emerald-400",
+  danger: "bg-red-50 text-red-700 dark:bg-red-500/15 dark:text-red-400",
 };
 
-/** Small uppercase pill (role, status...). An icon makes it a flex row. */
+/** Small rounded pill (role, status...). An icon makes it a flex row. */
 export function Badge({
   tone = "muted",
   icon,
@@ -98,7 +98,7 @@ export function Badge({
   return (
     <span
       className={clsx(
-        "rounded-full px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider",
+        "rounded-full px-2.5 py-0.5 text-xs font-semibold",
         icon !== undefined && "flex items-center gap-1",
         BADGE_TONES[tone],
       )}

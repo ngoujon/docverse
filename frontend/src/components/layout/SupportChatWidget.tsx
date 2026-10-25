@@ -68,9 +68,9 @@ export default function SupportChatWidget() {
         <button
           onClick={() => setOpen(true)}
           aria-label={t("support.openLabel")}
-          className="fixed bottom-4 right-4 z-[60] flex h-14 w-14 items-center justify-center rounded-full bg-retro-pink text-white shadow-[0_10px_30px_-8px_rgba(224,28,192,0.6)] transition hover:scale-105 sm:bottom-6 sm:right-6"
+          className="fixed bottom-4 right-4 z-[60] flex h-12 w-12 items-center justify-center rounded-full sm:h-14 sm:w-14 bg-fluent-indigo text-white shadow-neon transition hover:scale-105 hover:bg-fluent-navy sm:bottom-6 sm:right-6"
         >
-          <MessageCircle size={24} />
+          <MessageCircle size={22} />
         </button>
       )}
 
@@ -79,14 +79,15 @@ export default function SupportChatWidget() {
           role="dialog"
           aria-modal="true"
           aria-label={t("support.title")}
-          className="fixed inset-0 z-[60] flex flex-col bg-retro-bg sm:inset-auto sm:bottom-6 sm:right-6 sm:h-[560px] sm:w-[380px] sm:rounded-xl sm:border sm:border-retro-border sm:shadow-[0_20px_60px_-15px_rgba(139,47,214,0.35)]"
+          className="fixed inset-0 z-[60] flex flex-col bg-white sm:inset-auto sm:bottom-6 sm:right-6 sm:h-[560px] sm:w-[380px] sm:rounded-xl sm:border sm:border-fluent-line sm:shadow-card-lg"
         >
-          <div className="flex items-center gap-2 border-b border-retro-border bg-retro-bg2 px-3 py-2.5 sm:rounded-t-xl">
+          <div className="flex items-center gap-2.5 border-b border-fluent-line bg-white px-4 py-3 sm:rounded-t-xl">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-fluent-indigo-soft text-fluent-indigo">
+              <MessageCircle size={16} />
+            </span>
             <div className="min-w-0 flex-1">
-              <p className="truncate font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-700">
-                {t("support.title")}
-              </p>
-              <p className="truncate text-[10px] text-slate-500">{t("support.subtitle")}</p>
+              <p className="truncate text-sm font-semibold text-fluent-navy">{t("support.title")}</p>
+              <p className="truncate text-xs text-fluent-muted">{t("support.subtitle")}</p>
             </div>
             <button
               onClick={() => setOpen(false)}
@@ -97,8 +98,8 @@ export default function SupportChatWidget() {
             </button>
           </div>
 
-          <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto bg-retro-bg px-3 py-4">
-            <div className="max-w-[85%] rounded-xl rounded-tl-sm border border-retro-border bg-white px-3 py-2 text-xs text-slate-700">
+          <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto bg-fluent-soft px-4 py-4">
+            <div className="max-w-[85%] rounded-xl rounded-tl-sm border border-fluent-line bg-white px-3 py-2 text-sm text-fluent-navy shadow-card">
               {t("support.greeting")}
             </div>
             {messages.map((m, i) => (
@@ -106,8 +107,8 @@ export default function SupportChatWidget() {
                 key={i}
                 className={
                   m.role === "user"
-                    ? "ml-auto max-w-[85%] rounded-xl rounded-tr-sm bg-retro-purple px-3 py-2 text-xs text-white"
-                    : "max-w-[85%] whitespace-pre-wrap rounded-xl rounded-tl-sm border border-retro-border bg-white px-3 py-2 text-xs text-slate-700"
+                    ? "ml-auto max-w-[85%] rounded-xl rounded-tr-sm bg-fluent-indigo px-3 py-2 text-sm text-white"
+                    : "max-w-[85%] whitespace-pre-wrap rounded-xl rounded-tl-sm border border-fluent-line bg-white px-3 py-2 text-sm text-fluent-navy shadow-card"
                 }
               >
                 {m.content ? (
@@ -124,8 +125,8 @@ export default function SupportChatWidget() {
             ))}
           </div>
 
-          <div className="border-t border-retro-border bg-retro-bg2 p-2.5 sm:rounded-b-xl">
-            <div className="flex items-center gap-2 rounded-lg border border-retro-border bg-white px-2.5 py-2">
+          <div className="border-t border-fluent-line bg-white p-3 sm:rounded-b-xl">
+            <div className="flex items-center gap-2 rounded-lg border border-fluent-line bg-white px-2.5 py-2 shadow-card focus-within:border-fluent-indigo focus-within:shadow-focus">
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
@@ -137,13 +138,13 @@ export default function SupportChatWidget() {
                 }}
                 rows={1}
                 placeholder={t("support.placeholder")}
-                className="block max-h-24 flex-1 resize-none bg-transparent text-xs leading-5 text-slate-800 placeholder:text-slate-400 outline-none"
+                className="block max-h-24 flex-1 resize-none bg-transparent text-sm leading-5 text-fluent-navy placeholder:text-slate-400 outline-none"
               />
               <button
                 onClick={handleSend}
                 disabled={!input.trim() || streaming}
                 aria-label={t("support.send")}
-                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-retro-pink text-white transition hover:brightness-110 disabled:opacity-30"
+                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-fluent-indigo text-white transition hover:bg-fluent-navy disabled:opacity-30"
               >
                 <Send size={13} />
               </button>

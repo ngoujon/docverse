@@ -234,9 +234,13 @@ export default function ChatWindow({
           </div>
         </div>
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
-          <ThemeToggle theme={theme} onToggle={onToggleTheme} />
-          <LanguageSwitcher variant="light" />
-          <span className="mx-0.5 h-5 w-px bg-surface-border" aria-hidden="true" />
+          {/* Theme and language live on the dashboard on phones, leaving
+              room for the conversation title. */}
+          <div className="hidden items-center gap-1.5 sm:flex sm:gap-2">
+            <ThemeToggle theme={theme} onToggle={onToggleTheme} />
+            <LanguageSwitcher variant="light" />
+            <span className="mx-0.5 h-5 w-px bg-surface-border" aria-hidden="true" />
+          </div>
           {messages.length > 0 && (
             <ExportMenu conversationId={conversation.id} title={conversation.title} shareToken={shareToken} />
           )}
@@ -253,7 +257,7 @@ export default function ChatWindow({
         </div>
       </div>
 
-      <div ref={scrollRef} className="flex-1 space-y-4 overflow-y-auto px-3 py-5 sm:px-4">
+      <div ref={scrollRef} className="flex-1 space-y-5 overflow-y-auto px-2 py-6 sm:px-4 [&>*]:mx-auto [&>*]:max-w-3xl">
         {messages.length === 0 && (
           <div className="mx-auto mt-10 max-w-sm text-center text-sm text-slate-500 dark:text-slate-400">
             <Sparkles size={22} className="mx-auto mb-2 text-slate-300 dark:text-slate-600" />
@@ -273,7 +277,7 @@ export default function ChatWindow({
         )}
       </div>
 
-      <div className="border-t border-surface-border p-2.5 sm:p-3">
+      <div className="border-t border-surface-border p-2.5 sm:p-4 [&>*]:mx-auto [&>*]:max-w-3xl">
         {readOnly ? (
           <div className="flex items-center justify-center gap-2 rounded-xl border border-surface-border bg-surface-1 px-3 py-3 text-xs text-slate-500 dark:text-slate-400">
             <Eye size={14} /> {t("app.chat.readOnly")}
@@ -303,7 +307,7 @@ export default function ChatWindow({
                 ))}
               </div>
             )}
-            <div className="flex items-center gap-2 rounded-xl border border-surface-border bg-surface-1 px-3 py-2 focus-within:border-accent">
+            <div className="flex items-center gap-2 rounded-xl border border-surface-border bg-surface-1 py-2 pl-4 pr-2 shadow-card transition focus-within:border-accent focus-within:shadow-focus">
               <textarea
                 ref={textareaRef}
                 value={input}

@@ -89,7 +89,7 @@ export function ProfileCard({ user, refresh }: { user: User; refresh: () => Prom
           <button
             onClick={handleSaveProfile}
             disabled={profile.busy || displayName.trim() === user.display_name}
-            className="rounded-lg bg-accent px-3 py-2 font-mono text-[11px] font-semibold uppercase tracking-wider text-white hover:bg-accent-hover disabled:opacity-40"
+            className="rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-white hover:bg-accent-hover disabled:opacity-40"
           >
             {t("auth.account.profile.save")}
           </button>
@@ -232,7 +232,7 @@ export function DeleteAccountCard() {
         <button
           onClick={() => setConfirmOpen(true)}
           disabled={!password}
-          className="rounded-lg bg-red-600 px-3 py-2 font-mono text-[11px] font-semibold uppercase tracking-wider text-white hover:bg-red-500 disabled:opacity-40"
+          className="rounded-lg bg-red-600 px-3 py-2 text-sm font-semibold text-white hover:bg-red-500 disabled:opacity-40"
         >
           {t("auth.account.deleteAccount")}
         </button>

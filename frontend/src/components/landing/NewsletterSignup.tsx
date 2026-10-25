@@ -29,7 +29,7 @@ export default function NewsletterSignup() {
 
   if (state === "done") {
     return (
-      <div className="flex items-center gap-2 text-sm text-retro-purple">
+      <div className="flex items-center gap-2 text-sm font-medium text-fluent-green">
         <CheckCircle2 size={16} />
         {t("newsletter.signup.done")}
       </div>
@@ -37,25 +37,25 @@ export default function NewsletterSignup() {
   }
 
   return (
-    <div className="max-w-sm space-y-2">
-      <div className="flex items-center gap-2 rounded-lg border border-retro-border bg-white px-3 py-2">
-        <Mail size={15} className="shrink-0 text-slate-400" />
+    <div className="w-full max-w-sm space-y-2">
+      <div className="flex items-center gap-2 rounded-full border border-fluent-line bg-white py-1 pl-4 pr-1 shadow-card focus-within:border-fluent-indigo focus-within:shadow-focus">
+        <Mail size={15} className="shrink-0 text-fluent-muted" />
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder={t("newsletter.signup.placeholder")}
-          className="w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-400"
+          className="w-full bg-transparent text-sm text-fluent-navy outline-none placeholder:text-slate-400"
         />
         <button
           onClick={handleSubmit}
           disabled={!canSubmit}
-          className="shrink-0 rounded-md bg-retro-pink px-3 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-white disabled:opacity-40"
+          className="shrink-0 rounded-full bg-fluent-indigo px-4 py-1.5 text-sm font-semibold text-white transition hover:bg-fluent-navy disabled:opacity-40"
         >
           {t("newsletter.signup.submit")}
         </button>
       </div>
-      {state === "error" && <p className="text-xs text-red-500">{t("newsletter.signup.error")}</p>}
+      {state === "error" && <p className="text-xs text-red-600">{t("newsletter.signup.error")}</p>}
     </div>
   );
 }

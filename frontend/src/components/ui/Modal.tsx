@@ -36,19 +36,19 @@ export default function Modal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4 backdrop-blur-sm animate-fade-in"
       onClick={onClose}
       role="presentation"
     >
       <div
-        className={`w-full rounded-xl border border-surface-border bg-surface-2 p-5 shadow-panel ${className}`}
+        className={`max-h-[calc(100dvh-2rem)] w-full overflow-y-auto rounded-xl border border-surface-border bg-surface-1 p-6 shadow-card-lg ${className}`}
         onClick={(e) => e.stopPropagation()}
         role={role}
         aria-modal="true"
         aria-labelledby={titleId}
       >
         <div className="flex items-center justify-between">
-          <h3 id={titleId} className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+          <h3 id={titleId} className="text-base font-semibold tracking-tight text-slate-900 dark:text-slate-100">
             {title}
           </h3>
           {!hideClose && (

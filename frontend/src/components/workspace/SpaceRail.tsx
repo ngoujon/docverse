@@ -1,9 +1,10 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { Plus, Layers, ArrowLeft, LogOut } from "lucide-react";
+import { Plus, ArrowLeft, LogOut } from "lucide-react";
 import clsx from "clsx";
 import type { Space } from "../../types";
 import { useAuth } from "../../hooks/useAuth";
+import { BrandMark } from "../ui/BrandLogo";
 
 interface Props {
   spaces: Space[];
@@ -29,9 +30,9 @@ export default function SpaceRail({ spaces, activeSpaceId, onSelect, onCreate }:
 
   return (
     <aside className="flex w-[76px] shrink-0 flex-col items-center border-r border-surface-border bg-surface-1 py-4">
-      <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-xl bg-accent/20 text-accent">
-        <Layers size={18} />
-      </div>
+      <button onClick={() => navigate("/dashboard")} title={t("dashboard.nav.workspace")} className="mb-4 rounded-lg">
+        <BrandMark className="h-9 w-9" />
+      </button>
 
       <div className="flex-1 space-y-2 overflow-y-auto px-2">
         {spaces.map((s) => (

@@ -56,7 +56,11 @@ export default function WorkspaceApp() {
 
   const [streaming, setStreaming] = useState(false);
   const [queuedPosition, setQueuedPosition] = useState<number | null>(null);
-  const [docPanelOpen, setDocPanelOpen] = useState(true);
+  // Docked open on desktop; below lg it is an overlay drawer, so it starts
+  // closed instead of covering the chat on arrival.
+  const [docPanelOpen, setDocPanelOpen] = useState(
+    () => typeof window === "undefined" || window.matchMedia("(min-width: 1024px)").matches,
+  );
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   useEscapeToClose(mobileNavOpen, () => setMobileNavOpen(false));
@@ -338,7 +342,7 @@ export default function WorkspaceApp() {
     <div className="flex h-[100dvh] w-screen overflow-hidden bg-surface-0">
       {/* Mobile backdrop for the nav drawer */}
       {mobileNavOpen && (
-        <div className="fixed inset-0 z-30 bg-black/60 md:hidden" onClick={() => setMobileNavOpen(false)} />
+        <div className="fixed inset-0 z-30 bg-slate-900/50 md:hidden" onClick={() => setMobileNavOpen(false)} />
       )}
 
       <div
@@ -395,7 +399,7 @@ export default function WorkspaceApp() {
 
           {docPanelOpen && (
             <>
-              <div className="fixed inset-0 z-30 bg-black/60 lg:hidden" onClick={() => setDocPanelOpen(false)} />
+              <div className="fixed inset-0 z-30 bg-slate-900/50 lg:hidden" onClick={() => setDocPanelOpen(false)} />
               <div className="fixed inset-y-0 right-0 z-40 lg:static lg:z-auto">
                 <DocumentPanel
                   documents={documents}
@@ -415,7 +419,7 @@ export default function WorkspaceApp() {
           {!shareMode && (
             <button
               onClick={() => setSpaceModal({ open: true, editing: null })}
-              className="rounded-lg bg-accent px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider text-white shadow-neon-light hover:bg-accent-hover"
+              className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white shadow-neon-light hover:bg-accent-hover"
             >
               {t("app.workspace.newSpace")}
             </button>

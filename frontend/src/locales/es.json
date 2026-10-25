@@ -29,6 +29,9 @@
     "ctaTry": "Usar la aplicación",
     "ctaDiscover": "Ver un ejemplo"
   },
+  "formats": {
+    "title": "Todos sus formatos, una sola base de conocimiento"
+  },
   "sovereignty": {
     "eyebrow": "Soberanía digital",
     "title": "Desde la carga hasta la respuesta, todo permanece en Europa",

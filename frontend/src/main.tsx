@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { AuthProvider } from "./hooks/useAuth";
 import "./i18n";
+import "@fontsource-variable/inter";
 import "./index.css";
 
 // Sciemment createRoot, pas hydrateRoot, malgre le HTML deja rendu par

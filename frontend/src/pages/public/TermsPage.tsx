@@ -26,9 +26,7 @@ export default function TermsPage() {
       title={t("terms.title")}
       subtitle={t("terms.subtitle")}
     >
-      <p className="mt-4 font-mono text-[11px] uppercase tracking-wider text-slate-400">
-        {t("terms.updated", { date: "2026-08-10" })}
-      </p>
+      <p className="mt-4 text-sm text-fluent-muted">{t("terms.updated", { date: "2026-08-10" })}</p>
       <div className="mt-8 space-y-5">
         {sections.map((s) => (
           <LegalSection key={s.title} title={s.title} body={s.body} />

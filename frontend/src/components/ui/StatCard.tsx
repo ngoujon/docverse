@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
 import { ProgressBar } from "./controls";
 
-/** Dashboard KPI tile, optionally with a usage bar against a quota. */
+/** Dashboard KPI tile, optionally with a usage bar against a quota.
+ * Icon, then the value, then the label - so labels that wrap onto two
+ * lines never push the values out of alignment across the row. */
 export default function StatCard({
   icon,
   label,
@@ -19,16 +21,16 @@ export default function StatCard({
   const hasQuota = limit != null && used != null && limit > 0;
 
   return (
-    <div className="rounded-xl border border-surface-border bg-surface-1 p-4">
-      <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+    <div className="flex flex-col rounded-xl border border-surface-border bg-surface-1 p-4 shadow-card sm:p-5">
+      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-fluent-indigo-soft text-fluent-indigo dark:bg-accent/20 dark:text-[#d6d4ff]">
         {icon}
-        <span className="font-mono text-[11px] font-semibold uppercase tracking-wider">{label}</span>
-      </div>
-      <p className="mt-2 text-2xl font-bold text-slate-900 dark:text-slate-100">
+      </span>
+      <p className="mt-3 text-2xl font-semibold leading-none tracking-tight text-slate-900 dark:text-slate-100">
         {value}
         {hasQuota && <span className="text-sm font-medium text-slate-400 dark:text-slate-500"> / {limit}</span>}
       </p>
-      {hasQuota && <ProgressBar ratio={used / limit} />}
+      <p className="mt-1.5 text-sm leading-snug text-slate-500 dark:text-slate-400">{label}</p>
+      {hasQuota && <ProgressBar ratio={used / limit} className="mt-auto h-1 pt-0 [margin-top:0.75rem]" />}
     </div>
   );
 }
