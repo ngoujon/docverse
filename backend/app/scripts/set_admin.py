@@ -43,7 +43,7 @@ def main() -> None:
         # Same rules as the signup form (length + complexity).
         schemas.ResetPasswordRequest(token="-", password=password)
     except ValidationError as err:
-        sys.exit("Mot de passe refuse : " + "; ".join(e["msg"] for e in err.errors()))
+        sys.exit("Mot de passe refusé : " + "; ".join(e["msg"] for e in err.errors()))
 
     db = SessionLocal()
     try:
@@ -51,9 +51,9 @@ def main() -> None:
         if user is None:
             user = models.User(email=email, display_name="", terms_accepted_at=datetime.utcnow())
             db.add(user)
-            print(f"Compte cree : {email}")
+            print(f"Compte créé : {email}")
         else:
-            print(f"Compte existant mis a jour : {email}")
+            print(f"Compte existant mis à jour : {email}")
         user.password_hash = auth.hash_password(password)
         user.role = "admin"
         user.is_active = True
@@ -71,9 +71,9 @@ def main() -> None:
         for other in demoted:
             other.role = "user"
             other.token_version += 1
-            print(f"Admin retire : {other.email}")
+            print(f"Admin retiré : {other.email}")
         db.commit()
-        print(f"{email} est desormais le seul administrateur (sans 2FA).")
+        print(f"{email} est désormais le seul administrateur (sans 2FA).")
     finally:
         db.close()
 

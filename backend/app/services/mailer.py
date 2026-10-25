@@ -81,7 +81,7 @@ def _layout(preheader: str, body_html: str) -> str:
     if settings.contact_email:
         email = escape(settings.contact_email)
         contact_line = (
-            f'Une question ? Ecrivez-nous a <a href="mailto:{email}" style="color:{_CYAN};">{email}</a>.'
+            f'Une question ? Écrivez-nous à <a href="mailto:{email}" style="color:{_CYAN};">{email}</a>.'
         )
     legal_footer = ""
     if settings.legal_email_footer:
@@ -112,7 +112,7 @@ def _layout(preheader: str, body_html: str) -> str:
         <tr>
           <td style="padding:18px 32px;background:{_BG2};border-top:1px solid {_BORDER};">
             <p style="margin:0 0 6px;font-size:12px;color:{_MUTED};font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;">
-              Vous recevez cet email car une action lui correspond a ete initiee sur votre compte Docverse.
+              Vous recevez cet email car une action lui correspond a été initiée sur votre compte Docverse.
               {contact_line}
             </p>
             {legal_footer}
@@ -134,21 +134,21 @@ def _button(url: str, label: str) -> str:
 
 
 def password_reset_email(reset_url: str) -> tuple[str, str, str]:
-    subject = "Reinitialisation de votre mot de passe - Docverse"
+    subject = "Réinitialisation de votre mot de passe - Docverse"
     body = f"""
-      <h1 style="margin:0 0 12px;font-size:22px;color:{_INK};">Mot de passe oublie ?</h1>
+      <h1 style="margin:0 0 12px;font-size:22px;color:{_INK};">Mot de passe oublié ?</h1>
       <p style="margin:0 0 4px;font-size:14px;line-height:1.6;color:{_INK};">
         Cliquez sur le bouton ci-dessous pour choisir un nouveau mot de passe. Ce lien
         expire dans <strong>60 minutes</strong> et ne fonctionne qu'une fois.
       </p>
       {_button(reset_url, "Choisir un nouveau mot de passe")}
       <p style="margin:0;font-size:12px;line-height:1.6;color:{_MUTED};">
-        Si vous n'etes pas a l'origine de cette demande, ignorez simplement cet email -
+        Si vous n'êtes pas à l'origine de cette demande, ignorez simplement cet email -
         votre mot de passe actuel reste valide.
       </p>
     """
-    text = f"Reinitialisation de votre mot de passe Docverse : {reset_url} (expire dans 60 minutes)"
-    return subject, _layout("Reinitialisez votre mot de passe Docverse", body), text
+    text = f"Réinitialisation de votre mot de passe Docverse : {reset_url} (expire dans 60 minutes)"
+    return subject, _layout("Réinitialisez votre mot de passe Docverse", body), text
 
 
 def welcome_email(display_name: str, app_url: str) -> tuple[str, str, str]:
@@ -157,32 +157,32 @@ def welcome_email(display_name: str, app_url: str) -> tuple[str, str, str]:
     body = f"""
       <h1 style="margin:0 0 12px;font-size:22px;color:{_INK};">Bienvenue, {escape(name)} !</h1>
       <p style="margin:0;font-size:14px;line-height:1.6;color:{_INK};">
-        Votre compte est cree. Vous pouvez maintenant creer des espaces de travail,
-        y deposer des documents, et generer des liens de partage en lecture seule ou
-        en lecture/ecriture pour vos collaborateurs.
+        Votre compte est créé. Vous pouvez maintenant créer des espaces de travail,
+        y déposer des documents, et générer des liens de partage en lecture seule ou
+        en lecture/écriture pour vos collaborateurs.
       </p>
       {_button(app_url, "Lancer l'application")}
     """
-    text = f"Bienvenue sur Docverse, {name} ! Votre compte est cree. Lancer l'application : {app_url}"
-    return subject, _layout("Votre compte Docverse est pret", body), text
+    text = f"Bienvenue sur Docverse, {name} ! Votre compte est créé. Lancer l'application : {app_url}"
+    return subject, _layout("Votre compte Docverse est prêt", body), text
 
 
 def space_member_added_email(inviter_name: str, space_name: str, app_url: str) -> tuple[str, str, str]:
     # Both names are user-chosen: collapse whitespace so a newline can never
     # reach the Subject header.
     inviter_name, space_name = " ".join(inviter_name.split()), " ".join(space_name.split())
-    subject = f"{inviter_name} vous a ajoute a l'espace « {space_name} » - Docverse"
+    subject = f"{inviter_name} vous a ajouté à l'espace « {space_name} » - Docverse"
     body = f"""
-      <h1 style="margin:0 0 12px;font-size:22px;color:{_INK};">Nouvel espace partage avec vous</h1>
+      <h1 style="margin:0 0 12px;font-size:22px;color:{_INK};">Nouvel espace partagé avec vous</h1>
       <p style="margin:0;font-size:14px;line-height:1.6;color:{_INK};">
-        <strong>{escape(inviter_name)}</strong> vous a ajoute comme membre de l'espace de travail
-        <strong>{escape(space_name)}</strong>. Vous pouvez des maintenant y poser vos questions
-        sur les documents partages.
+        <strong>{escape(inviter_name)}</strong> vous a ajouté comme membre de l'espace de travail
+        <strong>{escape(space_name)}</strong>. Vous pouvez dès maintenant y poser vos questions
+        sur les documents partagés.
       </p>
       {_button(app_url, "Ouvrir l'espace")}
     """
-    text = f"{inviter_name} vous a ajoute a l'espace « {space_name} » sur Docverse. Ouvrir l'espace : {app_url}"
-    return subject, _layout("Un espace de travail a ete partage avec vous", body), text
+    text = f"{inviter_name} vous a ajouté à l'espace « {space_name} » sur Docverse. Ouvrir l'espace : {app_url}"
+    return subject, _layout("Un espace de travail a été partagé avec vous", body), text
 
 
 def verify_email_email(verify_url: str) -> tuple[str, str, str]:
@@ -195,7 +195,7 @@ def verify_email_email(verify_url: str) -> tuple[str, str, str]:
       </p>
       {_button(verify_url, "Confirmer mon email")}
       <p style="margin:0;font-size:12px;line-height:1.6;color:{_MUTED};">
-        Si vous n'etes pas a l'origine de la creation de ce compte, ignorez cet email.
+        Si vous n'êtes pas à l'origine de la création de ce compte, ignorez cet email.
       </p>
     """
     text = f"Confirmez votre email Docverse : {verify_url}"
@@ -209,8 +209,8 @@ def contact_notification_email(name: str, email: str, subject: str, phone: str, 
         for label, value in (
             ("Nom", name),
             ("Email", email),
-            ("Telephone", phone),
-            ("Societe", company),
+            ("Téléphone", phone),
+            ("Société", company),
         )
         if value
     )
@@ -221,30 +221,30 @@ def contact_notification_email(name: str, email: str, subject: str, phone: str, 
     """
     text = (
         f"Nouveau message de contact\nNom : {name}\nEmail : {email}\n"
-        f"Telephone : {phone}\nSociete : {company}\n\n{message}"
+        f"Téléphone : {phone}\nSociété : {company}\n\n{message}"
     )
-    return mail_subject, _layout("Nouveau message recu via le formulaire de contact", body), text
+    return mail_subject, _layout("Nouveau message reçu via le formulaire de contact", body), text
 
 
 def newsletter_confirm_email(confirm_url: str, unsubscribe_url: str) -> tuple[str, str, str]:
-    subject = "Confirmez votre inscription a la newsletter"
+    subject = "Confirmez votre inscription à la newsletter"
     body = f"""
-      <h1 style="margin:0 0 12px;font-size:22px;color:{_INK};">Plus qu'une etape</h1>
+      <h1 style="margin:0 0 12px;font-size:22px;color:{_INK};">Plus qu'une étape</h1>
       <p style="margin:0 0 4px;font-size:14px;line-height:1.6;color:{_INK};">
-        Confirmez votre adresse pour recevoir les actualites d'Docverse. Si vous n'avez
-        rien demande, ignorez cet email.
+        Confirmez votre adresse pour recevoir les actualités d'Docverse. Si vous n'avez
+        rien demandé, ignorez cet email.
       </p>
       {_button(confirm_url, "Confirmer mon inscription")}
       <p style="margin:16px 0 0;font-size:12px;line-height:1.6;color:{_MUTED};">
-        Vous pourrez vous desinscrire a tout moment :
-        <a href="{unsubscribe_url}" style="color:{_MUTED};">se desinscrire</a>.
+        Vous pourrez vous désinscrire à tout moment :
+        <a href="{unsubscribe_url}" style="color:{_MUTED};">se désinscrire</a>.
       </p>
     """
     text = (
-        f"Confirmez votre inscription a la newsletter Docverse : {confirm_url}\n"
-        f"Se desinscrire : {unsubscribe_url}"
+        f"Confirmez votre inscription à la newsletter Docverse : {confirm_url}\n"
+        f"Se désinscrire : {unsubscribe_url}"
     )
-    return subject, _layout("Confirmez votre inscription a la newsletter", body), text
+    return subject, _layout("Confirmez votre inscription à la newsletter", body), text
 
 
 def newsletter_campaign_email(subject: str, message: str, unsubscribe_url: str) -> tuple[str, str, str]:
@@ -257,9 +257,9 @@ def newsletter_campaign_email(subject: str, message: str, unsubscribe_url: str) 
       <h1 style="margin:0 0 12px;font-size:22px;color:{_INK};">{escape(subject)}</h1>
       {paragraphs}
       <p style="margin:16px 0 0;font-size:12px;line-height:1.6;color:{_MUTED};">
-        Vous recevez cet email car vous etes inscrit a la newsletter Docverse.
-        <a href="{unsubscribe_url}" style="color:{_MUTED};">Se desinscrire</a>.
+        Vous recevez cet email car vous êtes inscrit à la newsletter Docverse.
+        <a href="{unsubscribe_url}" style="color:{_MUTED};">Se désinscrire</a>.
       </p>
     """
-    text = f"{message.strip()}\n\nSe desinscrire : {unsubscribe_url}"
+    text = f"{message.strip()}\n\nSe désinscrire : {unsubscribe_url}"
     return subject, _layout(subject, body), text

@@ -37,7 +37,7 @@ def _consume_daily_message(user: models.User, db: Session) -> None:
     if user.messages_today >= limit:
         raise HTTPException(
             429,
-            f"Limite de {limit} questions par jour atteinte pour votre compte, reessayez demain",
+            f"Limite de {limit} questions par jour atteinte pour votre compte, réessayez demain",
         )
     user.messages_today += 1
 
@@ -50,7 +50,7 @@ async def chat(
     db: Session = Depends(get_db),
 ):
     access.require_write()
-    rate_limiter.enforce(rate_limiter.chat_limiter, client_ip(request), "Trop de messages envoyes, patientez un instant")
+    rate_limiter.enforce(rate_limiter.chat_limiter, client_ip(request), "Trop de messages envoyés, patientez un instant")
 
     conv = access.conversation
     conversation_id = conv.id
@@ -160,9 +160,9 @@ async def chat(
             except Exception as exc:  # noqa: BLE001
                 logger.exception("Erreur pendant la generation de la reponse")
                 error_text = (
-                    "\n\n*Une erreur est survenue pendant la generation "
-                    f"({exc}). Le service d'IA est momentanement "
-                    "indisponible, reessayez dans quelques instants.*"
+                    "\n\n*Une erreur est survenue pendant la génération "
+                    f"({exc}). Le service d'IA est momentanément "
+                    "indisponible, réessayez dans quelques instants.*"
                 )
                 full_text += error_text
                 yield llm_provider.sse_event({"type": "token", "content": error_text})

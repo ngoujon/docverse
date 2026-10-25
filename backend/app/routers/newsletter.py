@@ -39,10 +39,10 @@ def subscribe(
     rate_limiter.enforce(
         rate_limiter.newsletter_limiter,
         client_ip(request),
-        "Trop d'inscriptions depuis cette adresse, reessayez plus tard",
+        "Trop d'inscriptions depuis cette adresse, réessayez plus tard",
     )
     if not captcha.verify_solution(payload.captcha_salt, payload.captcha_nonce):
-        raise HTTPException(400, "Verification anti-robot invalide ou expiree")
+        raise HTTPException(400, "Vérification anti-robot invalide ou expirée")
 
     email = payload.email.lower().strip()
     existing = db.query(models.NewsletterSubscriber).filter_by(email=email).first()
@@ -62,7 +62,7 @@ def subscribe(
 def confirm(token: str, db: Session = Depends(get_db)):
     email = auth.verify_purpose_token(token, "newsletter_confirm")
     if not email:
-        raise HTTPException(400, "Lien de confirmation invalide ou expire")
+        raise HTTPException(400, "Lien de confirmation invalide ou expiré")
     sub = db.query(models.NewsletterSubscriber).filter_by(email=email).first()
     if not sub:
         raise HTTPException(404, "Inscription introuvable")
@@ -76,7 +76,7 @@ def confirm(token: str, db: Session = Depends(get_db)):
 def unsubscribe(token: str, db: Session = Depends(get_db)):
     email = auth.verify_purpose_token(token, "newsletter_unsubscribe")
     if not email:
-        raise HTTPException(400, "Lien de desinscription invalide")
+        raise HTTPException(400, "Lien de désinscription invalide")
     db.query(models.NewsletterSubscriber).filter_by(email=email).delete()
     db.commit()
     return {"ok": True}

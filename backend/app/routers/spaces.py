@@ -70,7 +70,7 @@ def get_space_by_share_token(token: str, db: Session = Depends(get_db)):
         or link.revoked
         or (link.expires_at and link.expires_at <= datetime.utcnow())
     ):
-        raise HTTPException(404, "Lien de partage introuvable ou expire")
+        raise HTTPException(404, "Lien de partage introuvable ou expiré")
     space = db.get(models.Space, link.space_id)
     if not space:
         raise HTTPException(404, "Espace introuvable")
@@ -161,7 +161,7 @@ def add_member(
     if not target:
         raise HTTPException(404, "Aucun compte avec cet email")
     if target.id == access.space.owner_id:
-        raise HTTPException(400, "Cet utilisateur est deja proprietaire de l'espace")
+        raise HTTPException(400, "Cet utilisateur est déjà propriétaire de l'espace")
 
     cooldown = timedelta(hours=settings.member_reinvite_cooldown_hours)
     cooldown_cutoff = datetime.utcnow() - cooldown
@@ -180,7 +180,7 @@ def add_member(
         hours_left = max(1, int(remaining.total_seconds() // 3600) + 1)
         raise HTTPException(
             400,
-            f"Cette personne a ete retiree recemment - elle pourra etre reinvitee dans {hours_left}h",
+            f"Cette personne a été retirée récemment - elle pourra être réinvitée dans {hours_left}h",
         )
 
     existing = (

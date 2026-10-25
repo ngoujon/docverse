@@ -86,7 +86,7 @@ def oauth_login(provider: str, next: str = Query(default="/dashboard")):
     if not p:
         raise HTTPException(404, "Fournisseur SSO inconnu")
     if not p.configured:
-        raise HTTPException(503, f"Connexion {provider} non configuree sur cette instance")
+        raise HTTPException(503, f"Connexion {provider} non configurée sur cette instance")
     state = auth.issue_purpose_token(_safe_next_path(next), _STATE_PURPOSE, _STATE_TTL_MINUTES)
     return RedirectResponse(p.build_authorize_url(state))
 

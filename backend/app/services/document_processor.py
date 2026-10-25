@@ -27,17 +27,17 @@ IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".gif", ".bmp"}
 AUDIO_EXTENSIONS = {".mp3", ".wav", ".m4a", ".ogg", ".flac", ".webm"}
 
 _IMAGE_PROMPT = (
-    "Tu analyses un document image. Transcris integralement tout le texte "
-    "visible (OCR precis, conserve la mise en forme en liste/tableau si "
-    "pertinent). Ensuite decris brievement les elements visuels importants "
-    "(graphiques, schemas, photos, logos). Reponds uniquement avec le "
-    "contenu extrait, sans commentaire meta."
+    "Tu analyses un document image. Transcris intégralement tout le texte "
+    "visible (OCR précis, conserve la mise en forme en liste/tableau si "
+    "pertinent). Ensuite décris brièvement les éléments visuels importants "
+    "(graphiques, schémas, photos, logos). Réponds uniquement avec le "
+    "contenu extrait, sans commentaire méta."
 )
 
 _SCANNED_PAGE_PROMPT = (
-    "Voici une page de document scannee. Transcris integralement tout le "
-    "texte visible (OCR precis). Si la page contient des tableaux, "
-    "restitue-les en texte structure. Reponds uniquement avec le texte "
+    "Voici une page de document scannée. Transcris intégralement tout le "
+    "texte visible (OCR précis). Si la page contient des tableaux, "
+    "restitue-les en texte structuré. Réponds uniquement avec le texte "
     "extrait, sans commentaire."
 )
 
@@ -159,7 +159,7 @@ async def _assert_public_url(url: str) -> None:
     that's also what actually gets connected to."""
     parsed = urlparse(url)
     if parsed.scheme not in ("http", "https"):
-        raise UnsafeUrlError("Seuls les liens http(s) sont autorises")
+        raise UnsafeUrlError("Seuls les liens http(s) sont autorisés")
     if not parsed.hostname:
         raise UnsafeUrlError("URL invalide")
 
@@ -167,10 +167,10 @@ async def _assert_public_url(url: str) -> None:
     try:
         infos = await loop.getaddrinfo(parsed.hostname, None)
     except socket.gaierror as exc:
-        raise UnsafeUrlError("Impossible de resoudre ce nom de domaine") from exc
+        raise UnsafeUrlError("Impossible de résoudre ce nom de domaine") from exc
 
     if not infos or not all(_is_public_ip(info[4][0]) for info in infos):
-        raise UnsafeUrlError("Cette adresse n'est pas autorisee")
+        raise UnsafeUrlError("Cette adresse n'est pas autorisée")
 
 
 async def extract_text_from_url(url: str) -> tuple[str, str]:
@@ -240,7 +240,7 @@ async def process_document(
         return await extract_text_from_url(url)
     extractor = _FILE_EXTRACTORS.get(doc_type)
     if extractor is None:
-        raise ValueError(f"Type de document non supporte: {doc_type}")
+        raise ValueError(f"Type de document non supporté: {doc_type}")
     assert file_path is not None
     return file_path.name, await extractor(file_path)
 
@@ -248,7 +248,7 @@ async def process_document(
 def guess_doc_type(filename: str) -> str:
     ext = Path(filename).suffix.lower()
     if ext not in _EXTENSION_TYPES:
-        raise ValueError(f"Extension de fichier non supportee: {ext}")
+        raise ValueError(f"Extension de fichier non supportée: {ext}")
     return _EXTENSION_TYPES[ext]
 
 

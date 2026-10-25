@@ -57,7 +57,7 @@ def list_users(page: Pagination = Depends(pagination), db: Session = Depends(get
 def create_user(payload: schemas.AdminCreateUserRequest, db: Session = Depends(get_db)):
     email = payload.email.lower().strip()
     if db.query(models.User).filter_by(email=email).first():
-        raise HTTPException(409, "Un compte existe deja avec cet email")
+        raise HTTPException(409, "Un compte existe déjà avec cet email")
 
     user = models.User(
         email=email,
@@ -82,7 +82,7 @@ def update_user(
     db: Session = Depends(get_db),
 ):
     if user_id == admin.id:
-        raise HTTPException(400, "Utilisez un autre compte administrateur pour modifier le votre")
+        raise HTTPException(400, "Utilisez un autre compte administrateur pour modifier le vôtre")
     target = _get_or_404(db, models.User, user_id, "Utilisateur introuvable")
 
     demoting = payload.role == "user" and target.role == "admin"
@@ -106,7 +106,7 @@ def update_user(
 @router.delete("/users/{user_id}")
 def delete_user(user_id: str, admin: models.User = Depends(require_admin), db: Session = Depends(get_db)):
     if user_id == admin.id:
-        raise HTTPException(400, "Utilisez un autre compte administrateur pour supprimer le votre")
+        raise HTTPException(400, "Utilisez un autre compte administrateur pour supprimer le vôtre")
     target = _get_or_404(db, models.User, user_id, "Utilisateur introuvable")
     if target.role == "admin" and accounts.other_active_admins(db, user_id) == 0:
         raise HTTPException(400, "Impossible de supprimer le dernier compte administrateur actif")
@@ -141,14 +141,14 @@ def create_space_snapshot(space_id: str, db: Session = Depends(get_db)):
     _get_or_404(db, models.Space, space_id, "Espace introuvable")
     snapshot_id = backup.create_snapshot(space_id, force=True)
     if not snapshot_id:
-        raise HTTPException(500, "Echec de la creation du snapshot")
+        raise HTTPException(500, "Échec de la création du snapshot")
     return db.get(models.SpaceSnapshot, snapshot_id)
 
 
 @router.post("/spaces/{space_id}/snapshots/{snapshot_id}/restore")
 def restore_space_snapshot(space_id: str, snapshot_id: str):
     if not backup.restore_snapshot(space_id, snapshot_id):
-        raise HTTPException(400, "Echec de la restauration du snapshot")
+        raise HTTPException(400, "Échec de la restauration du snapshot")
     return {"ok": True}
 
 
@@ -191,7 +191,7 @@ def list_newsletter_subscribers(
 
 @router.delete("/newsletter/{subscriber_id}")
 def delete_newsletter_subscriber(subscriber_id: str, db: Session = Depends(get_db)):
-    db.delete(_get_or_404(db, models.NewsletterSubscriber, subscriber_id, "Abonne introuvable"))
+    db.delete(_get_or_404(db, models.NewsletterSubscriber, subscriber_id, "Abonné introuvable"))
     db.commit()
     return {"ok": True}
 

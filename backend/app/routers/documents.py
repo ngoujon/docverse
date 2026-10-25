@@ -52,7 +52,7 @@ async def _ingest(document_id: str) -> None:
             chunks = document_processor.split_text(text, settings.chunk_size, settings.chunk_overlap)
             if not chunks:
                 doc.status = "error"
-                doc.error_message = "Aucun contenu exploitable n'a ete extrait de ce document."
+                doc.error_message = "Aucun contenu exploitable n'a été extrait de ce document."
                 db.commit()
                 return
 
@@ -111,7 +111,7 @@ async def upload_document(
 
     if not document_processor.content_matches_type(doc_type, content):
         raise HTTPException(
-            400, "Le contenu du fichier ne correspond pas a son extension"
+            400, "Le contenu du fichier ne correspond pas à son extension"
         )
 
     storage_limit = quota("storage_bytes")

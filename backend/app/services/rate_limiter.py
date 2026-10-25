@@ -95,7 +95,7 @@ def too_many_requests(limiter: RateLimiter, key: str, detail: str) -> HTTPExcept
     )
 
 
-def enforce(limiter: RateLimiter, key: str, detail: str = "Trop de tentatives, reessayez plus tard") -> None:
+def enforce(limiter: RateLimiter, key: str, detail: str = "Trop de tentatives, réessayez plus tard") -> None:
     """Consume one slot for `key`, or raise a 429 carrying Retry-After."""
     if not limiter.allow(key):
         raise too_many_requests(limiter, key, detail)

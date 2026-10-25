@@ -97,11 +97,11 @@ class SpaceAccess:
 
     def require_write(self) -> None:
         if not self.can_write:
-            raise HTTPException(403, "Acces en lecture seule a cet espace")
+            raise HTTPException(403, "Accès en lecture seule à cet espace")
 
     def require_upload(self) -> None:
         if not self.can_upload:
-            raise HTTPException(403, "Vous n'avez pas la permission de gerer les documents de cet espace")
+            raise HTTPException(403, "Vous n'avez pas la permission de gérer les documents de cet espace")
 
 
 def _resolve_role(
@@ -135,7 +135,7 @@ def _resolve_role(
             # doesn't imply chat/edit rights over content they don't own or
             # aren't a member of.
             return SpaceAccess(space, "admin_view", user, can_upload=False)
-    raise HTTPException(401, "Acces non autorise a cet espace - connectez-vous pour utiliser ce lien de partage")
+    raise HTTPException(401, "Accès non autorisé à cet espace - connectez-vous pour utiliser ce lien de partage")
 
 
 def _space_access(space_id: str, user, share_token, db: Session) -> SpaceAccess:
@@ -156,7 +156,7 @@ def require_space_access(
 
 def require_space_owner(access: SpaceAccess = Depends(require_space_access)) -> SpaceAccess:
     if not access.is_owner:
-        raise HTTPException(403, "Reserve au proprietaire de l'espace")
+        raise HTTPException(403, "Réservé au propriétaire de l'espace")
     return access
 
 

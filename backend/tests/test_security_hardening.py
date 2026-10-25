@@ -87,8 +87,8 @@ def test_register_does_not_confirm_that_an_email_is_taken(client):
     )
     assert res.status_code == 409
     detail = res.json()["detail"].lower()
-    assert "existe deja" not in detail
-    assert "deja" in detail  # still points the real owner at password reset
+    assert "existe déjà" not in detail
+    assert "déjà" in detail  # still points the real owner at password reset
 
 
 # --- Rate limiting -------------------------------------------------------

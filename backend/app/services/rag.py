@@ -11,9 +11,9 @@ from . import llm_provider, vectorstore, websearch
 
 _WEB_SEARCH_CLASSIFIER_PROMPT = (
     "Cette question porte-t-elle sur une information changeante ou "
-    "actuelle (meteo, actualite, prix, sport, evenement recent, "
-    "horaires...) qu'il faut verifier sur internet plutot que dans des "
-    "documents personnels ? Reponds uniquement par OUI ou NON.\n\n"
+    "actuelle (météo, actualité, prix, sport, événement récent, "
+    "horaires...) qu'il faut vérifier sur internet plutôt que dans des "
+    "documents personnels ? Réponds uniquement par OUI ou NON.\n\n"
     "Question : {query}"
 )
 
@@ -50,10 +50,10 @@ async def _should_auto_search_web(query: str) -> bool:
 # --- Reranking ---------------------------------------------------------------
 _RERANK_PROMPT = (
     "Question de l'utilisateur : {query}\n\n"
-    "Voici {count} extraits de documents numerotes, retrouves par recherche "
-    "vectorielle (l'ordre n'indique pas leur pertinence reelle). Choisis les "
-    "{top_k} extraits les PLUS PERTINENTS pour repondre a la question, du "
-    "plus au moins pertinent. Reponds uniquement avec leurs numeros separes "
+    "Voici {count} extraits de documents numérotés, retrouvés par recherche "
+    "vectorielle (l'ordre n'indique pas leur pertinence réelle). Choisis les "
+    "{top_k} extraits les PLUS PERTINENTS pour répondre à la question, du "
+    "plus au moins pertinent. Réponds uniquement avec leurs numéros séparés "
     "par des virgules (ex: 4,1,7), sans autre texte.\n\n"
     "{candidates_block}"
 )
@@ -134,25 +134,25 @@ async def rerank(query: str, candidates: list[dict], top_k: int) -> list[dict]:
 
 _SYSTEM_PROMPT_TEMPLATE = (
     "Tu es l'assistant de l'espace de travail « {space_name} ». "
-    "Tu aides l'utilisateur en t'appuyant en priorite sur les documents "
+    "Tu aides l'utilisateur en t'appuyant en priorité sur les documents "
     "fournis dans cet espace (PDF, images, pages web, fichiers). "
-    "Ces documents ont pu etre lus et transcrits par une IA de vision, "
-    "donc considere leur contenu comme du texte fiable.\n\n"
-    "Regles :\n"
-    "- Utilise en priorite le CONTEXTE ci-dessous pour repondre.\n"
+    "Ces documents ont pu être lus et transcrits par une IA de vision, "
+    "donc considère leur contenu comme du texte fiable.\n\n"
+    "Règles :\n"
+    "- Utilise en priorité le CONTEXTE ci-dessous pour répondre.\n"
     "- Cite tes sources avec les marqueurs [1], [2], ... correspondant aux "
-    "extraits fournis, directement dans ta reponse.\n"
-    "- Si le contexte ne contient pas la reponse et qu'aucune recherche web "
-    "n'est fournie, dis clairement que l'information n'est pas presente "
-    "dans les documents de l'espace, puis reponds avec tes connaissances "
-    "generales en le precisant explicitement.\n"
-    "- Si des extraits marques (web: ...) sont presents dans le CONTEXTE, "
-    "precise explicitement dans ta reponse que cette information a ete "
-    "trouvee via une recherche internet automatique, en dehors des "
-    "documents fournis dans cet espace - ne la presente jamais comme si "
+    "extraits fournis, directement dans ta réponse.\n"
+    "- Si le contexte ne contient pas la réponse et qu'aucune recherche web "
+    "n'est fournie, dis clairement que l'information n'est pas présente "
+    "dans les documents de l'espace, puis réponds avec tes connaissances "
+    "générales en le précisant explicitement.\n"
+    "- Si des extraits marqués (web: ...) sont présents dans le CONTEXTE, "
+    "précise explicitement dans ta réponse que cette information a été "
+    "trouvée via une recherche internet automatique, en dehors des "
+    "documents fournis dans cet espace - ne la présente jamais comme si "
     "elle venait des documents de l'espace.\n"
-    "- Reponds dans la langue de l'utilisateur, de maniere claire et "
-    "structuree (listes, markdown si utile)."
+    "- Réponds dans la langue de l'utilisateur, de manière claire et "
+    "structurée (listes, markdown si utile)."
 )
 
 
@@ -196,7 +196,7 @@ async def gather_context(
         context_lines.append(f"(web: {res['title']} - {res['url']})\n{res['content']}")
     context_lines = [f"[{i}] {line}" for i, line in enumerate(context_lines, start=1)]
 
-    context_block = "\n\n".join(context_lines) if context_lines else "(aucun contexte pertinent trouve)"
+    context_block = "\n\n".join(context_lines) if context_lines else "(aucun contexte pertinent trouvé)"
     return context_block, sources
 
 

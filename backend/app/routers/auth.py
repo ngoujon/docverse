@@ -36,7 +36,7 @@ def register(
 ):
     rate_limiter.enforce(rate_limiter.register_limiter, client_ip(request))
     if not captcha.verify_solution(payload.captcha_salt, payload.captcha_nonce):
-        raise HTTPException(400, "Verification anti-robot invalide ou expiree")
+        raise HTTPException(400, "Vérification anti-robot invalide ou expirée")
     if not payload.terms_accepted:
         raise HTTPException(400, "Vous devez accepter les conditions d'utilisation")
 
@@ -49,8 +49,8 @@ def register(
         # through the password-reset flow, which tells nobody anything.
         raise HTTPException(
             409,
-            "Impossible de creer un compte avec cet email. S'il vous appartient deja, "
-            "utilisez « mot de passe oublie » pour y acceder.",
+            "Impossible de créer un compte avec cet email. S'il vous appartient déjà, "
+            "utilisez « mot de passe oublié » pour y accéder.",
         )
 
     is_first_user = db.query(models.User).count() == 0
@@ -85,7 +85,7 @@ def login(payload: schemas.LoginRequest, request: Request, db: Session = Depends
     rate_limiter.enforce_check(
         rate_limiter.login_account_limiter,
         account_key,
-        "Trop de tentatives de connexion sur ce compte, reessayez plus tard",
+        "Trop de tentatives de connexion sur ce compte, réessayez plus tard",
     )
 
     user = db.query(models.User).filter_by(email=email).first()
@@ -98,7 +98,7 @@ def login(payload: schemas.LoginRequest, request: Request, db: Session = Depends
         rate_limiter.login_account_limiter.record(account_key)
         raise HTTPException(401, "Email ou mot de passe incorrect")
     if not user.is_active:
-        raise HTTPException(403, "Ce compte a ete desactive")
+        raise HTTPException(403, "Ce compte a été désactivé")
 
     rate_limiter.login_account_limiter.reset(account_key)
 
@@ -120,16 +120,16 @@ def verify_login_2fa(
     user_id = auth.verify_purpose_token(payload.pending_token, "2fa_pending")
     user = db.get(models.User, user_id) if user_id else None
     if not user or not user.totp_enabled:
-        raise HTTPException(400, "Session de connexion invalide ou expiree, reconnectez-vous")
+        raise HTTPException(400, "Session de connexion invalide ou expirée, reconnectez-vous")
     if not auth.verify_totp(user.totp_secret, payload.code):
-        raise HTTPException(401, "Code de verification incorrect")
+        raise HTTPException(401, "Code de vérification incorrect")
     return _auth_response(user)
 
 
 @router.post("/2fa/setup", response_model=schemas.TwoFactorSetupResponse)
 def setup_2fa(user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if user.totp_enabled:
-        raise HTTPException(400, "La verification en deux etapes est deja activee")
+        raise HTTPException(400, "La vérification en deux étapes est déjà activée")
     secret = auth.generate_totp_secret()
     user.totp_secret = secret  # not enabled until confirmed via /2fa/enable
     db.commit()
@@ -147,7 +147,7 @@ def enable_2fa(
     if not user.totp_secret:
         raise HTTPException(400, "Lancez d'abord la configuration (/2fa/setup)")
     if not auth.verify_totp(user.totp_secret, payload.code):
-        raise HTTPException(401, "Code de verification incorrect")
+        raise HTTPException(401, "Code de vérification incorrect")
     user.totp_enabled = True
     db.commit()
     return {"ok": True}
@@ -228,7 +228,7 @@ def resend_verification(
     rate_limiter.enforce(
         rate_limiter.verify_email_resend_limiter,
         user.id,
-        "Un email de confirmation vient deja d'etre envoye, reessayez plus tard",
+        "Un email de confirmation vient déjà d'être envoyé, réessayez plus tard",
     )
     accounts.send_verification_email(background_tasks, user)
     return {"ok": True}
@@ -266,10 +266,10 @@ def me_stats(user: models.User = Depends(get_current_user), db: Session = Depend
 def verify_email(token: str, db: Session = Depends(get_db)):
     user_id = auth.verify_purpose_token(token, "email_verify")
     if not user_id:
-        raise HTTPException(400, "Lien de confirmation invalide ou expire")
+        raise HTTPException(400, "Lien de confirmation invalide ou expiré")
     user = db.get(models.User, user_id)
     if not user:
-        raise HTTPException(400, "Lien de confirmation invalide ou expire")
+        raise HTTPException(400, "Lien de confirmation invalide ou expiré")
     user.email_verified = True
     db.commit()
     return {"ok": True}
@@ -311,7 +311,7 @@ def reset_password(payload: schemas.ResetPasswordRequest, db: Session = Depends(
         or not user
         or not auth.password_reset_token_is_current(token_payload, user.password_hash)
     ):
-        raise HTTPException(400, "Lien de reinitialisation invalide, expire ou deja utilise")
+        raise HTTPException(400, "Lien de réinitialisation invalide, expiré ou déjà utilisé")
     user.password_hash = auth.hash_password(payload.password)
     # A password reset is exactly the moment an attacker's still-valid
     # session (if the password leaked) should stop working too.

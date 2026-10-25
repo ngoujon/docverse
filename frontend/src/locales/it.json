@@ -9,8 +9,8 @@
     "backHome": "Torna alla home"
   },
   "nav": {
-    "features": "Funzionalita",
-    "sovereignty": "Sovranita",
+    "features": "Funzionalità",
+    "sovereignty": "Sovranità",
     "demo": "Demo",
     "contact": "Contatto",
     "register": "Registrati",
@@ -25,14 +25,14 @@
     ],
     "title1": "La tua soluzione cloud RAG sovrana,",
     "title2": "ospitata in Francia.",
-    "subtitle": "Carica i tuoi documenti, interrogali in linguaggio naturale e ottieni risposte con le fonti. Tutta la catena e europea: hosting {{hostingProvider}} in {{hostingCountry}}, motore di IA {{aiProvider}}, editore francese. I tuoi dati non lasciano mai l'Unione europea.",
+    "subtitle": "Carica i tuoi documenti, interrogali in linguaggio naturale e ottieni risposte con le fonti. Tutta la catena è europea: hosting {{hostingProvider}} in {{hostingCountry}}, motore di IA {{aiProvider}}, editore francese. I tuoi dati non lasciano mai l'Unione europea.",
     "ctaTry": "Usa l'applicazione",
     "ctaDiscover": "Guarda un esempio"
   },
   "sovereignty": {
-    "eyebrow": "Sovranita digitale",
+    "eyebrow": "Sovranità digitale",
     "title": "Dal caricamento alla risposta, tutto resta in Europa",
-    "subtitle": "La sovranita non si dichiara in una pagina legale: si verifica fornitore per fornitore. Ecco i nostri.",
+    "subtitle": "La sovranità non si dichiara in una pagina legale: si verifica fornitore per fornitore. Ecco i nostri.",
     "items": [
       {
         "title": "Ospitato in {{hostingCountry}}, presso {{hostingProvider}}",
@@ -44,7 +44,7 @@
       },
       {
         "title": "I tuoi dati non addestrano alcun modello",
-        "desc": "I tuoi documenti e le tue domande non vengono mai usati per addestrare un modello, ne da noi ne dal nostro fornitore di IA. Niente da deselezionare: e il comportamento predefinito."
+        "desc": "I tuoi documenti e le tue domande non vengono mai usati per addestrare un modello, né da noi né dal nostro fornitore di IA. Niente da deselezionare: è il comportamento predefinito."
       },
       {
         "title": "L'audio non lascia mai i nostri server",
@@ -63,8 +63,8 @@
   },
   "features": {
     "eyebrow": "Cosa ottieni",
-    "title": "Il RAG sovrano per le strutture che gestiscono piu clienti o pratiche",
-    "subtitle": "Studi professionali, agenzie, team di progetto: uno spazio isolato per cliente, accesso controllato per persona - e una conformita al GDPR che non si basa su alcun trasferimento fuori dall'Unione europea.",
+    "title": "Il RAG sovrano per le strutture che gestiscono più clienti o pratiche",
+    "subtitle": "Studi professionali, agenzie, team di progetto: uno spazio isolato per cliente, accesso controllato per persona - e una conformità al GDPR che non si basa su alcun trasferimento fuori dall'Unione europea.",
     "items": [
       {
         "title": "Uno spazio per cliente, un accesso per persona",
@@ -84,7 +84,7 @@
       },
       {
         "title": "Ricerca web senza fughe verso terzi",
-        "desc": "Quando una domanda richiede informazioni recenti, la ricerca passa da un motore self-hosted, senza chiave API ne tracker commerciali."
+        "desc": "Quando una domanda richiede informazioni recenti, la ricerca passa da un motore self-hosted, senza chiave API né tracker commerciali."
       },
       {
         "title": "Ospitato in Francia, fuori dal CLOUD Act",
@@ -114,7 +114,7 @@
   "contact": {
     "eyebrow": "Contatto",
     "title": "Una domanda? Scrivici",
-    "subtitle": "Bug, idee di funzionalita, feedback: tutto e benvenuto.",
+    "subtitle": "Bug, idee di funzionalità, feedback: tutto è benvenuto.",
     "name": "Nome",
     "namePlaceholder": "Il tuo nome",
     "email": "Email",
@@ -134,7 +134,7 @@
     "sending": "Invio...",
     "sentTitle": "Messaggio inviato!",
     "sentDesc": "Ti risponderemo il prima possibile.",
-    "genericError": "Si e verificato un errore"
+    "genericError": "Si è verificato un errore"
   },
   "footer": {
     "tagline": "Sito web realizzato da",
@@ -145,7 +145,7 @@
   },
   "demo": {
     "question": "Riassumi i punti chiave del contratto fornitore.",
-    "answer": "Secondo il contratto [1], la durata e di 12 mesi con rinnovo automatico. Il preavviso di recesso e di 30 giorni.",
+    "answer": "Secondo il contratto [1], la durata è di 12 mesi con rinnovo automatico. Il preavviso di recesso è di 30 giorni.",
     "source": "contratto_fornitore.pdf",
     "typing": "sta scrivendo..."
   },
@@ -154,7 +154,7 @@
     "eyebrow": "Demo",
     "title": "Guarda come funziona",
     "subtitle": "Uno spazio simulato con documenti di esempio. Clicca su una domanda per vedere come l'IA risponde con le fonti.",
-    "banner": "Questa e una simulazione con risposte pre-scritte - nessun documento viene realmente analizzato qui.",
+    "banner": "Questa è una simulazione con risposte pre-scritte - nessun documento viene realmente analizzato qui.",
     "documentsTitle": "Documenti dello spazio",
     "documents": [
       {
@@ -176,8 +176,8 @@
     ],
     "suggestions": [
       {
-        "question": "Qual e stato il fatturato 2025?",
-        "answer": "Secondo il rapporto di attivita [1], il fatturato 2025 ha raggiunto 1,2 M€, in crescita del 18% rispetto al 2024.",
+        "question": "Qual è stato il fatturato 2025?",
+        "answer": "Secondo il rapporto di attività [1], il fatturato 2025 ha raggiunto 1,2 M€, in crescita del 18% rispetto al 2024.",
         "sourceIndex": 0
       },
       {
@@ -187,7 +187,7 @@
       },
       {
         "question": "Cosa dice la fattura del fornitore?",
-        "answer": "Secondo la fattura scansionata [3], l'importo totale e di 4.320 € IVA inclusa, pagabile entro 30 giorni.",
+        "answer": "Secondo la fattura scansionata [3], l'importo totale è di 4.320 € IVA inclusa, pagabile entro 30 giorni.",
         "sourceIndex": 1
       }
     ],
@@ -203,17 +203,17 @@
     "body": "Con il tuo consenso, contiamo le pagine viste per capire cosa interessa ai visitatori. Nessun cookie pubblicitario.",
     "accept": "Accetta",
     "decline": "Rifiuta",
-    "learnMore": "Scopri di piu"
+    "learnMore": "Scopri di più"
   },
   "privacy": {
     "back": "Torna alla home",
     "eyebrow": "Privacy",
     "title": "Cookie e dati personali",
-    "subtitle": "I tuoi dati sono isolati per spazio di lavoro e non vengono mai venduti. Ecco, semplicemente, cosa viene memorizzato e perche.",
+    "subtitle": "I tuoi dati sono isolati per spazio di lavoro e non vengono mai venduti. Ecco, semplicemente, cosa viene memorizzato e perché.",
     "sections": [
       {
         "title": "Cookie",
-        "body": "Questo sito non utilizza cookie pubblicitari ne cookie di terze parti per il targeting. Sono utilizzati due strumenti di misurazione del pubblico. Il primo, SEO Monitor, e esente da consenso ed e descritto nella sezione Misurazione del pubblico qui sotto. Il secondo registra le pagine viste, il tempo trascorso e un paese approssimativo dedotto dall'indirizzo IP, solo se lo accetti nel banner mostrato alla prima visita: si basa su un identificativo di sessione temporaneo, cancellato alla chiusura della scheda, e non traccia mai le pagine dell'applicazione (spazi, condivisioni, dashboard). La tua scelta viene conservata nell'archiviazione locale del browser e puoi modificarla cancellando i dati del sito."
+        "body": "Questo sito non utilizza cookie pubblicitari né cookie di terze parti per il targeting. Sono utilizzati due strumenti di misurazione del pubblico. Il primo, SEO Monitor, è esente da consenso ed è descritto nella sezione Misurazione del pubblico qui sotto. Il secondo registra le pagine viste, il tempo trascorso e un paese approssimativo dedotto dall'indirizzo IP, solo se lo accetti nel banner mostrato alla prima visita: si basa su un identificativo di sessione temporaneo, cancellato alla chiusura della scheda, e non traccia mai le pagine dell'applicazione (spazi, condivisioni, dashboard). La tua scelta viene conservata nell'archiviazione locale del browser e puoi modificarla cancellando i dati del sito."
       },
       {
         "title": "Archiviazione locale (localStorage)",
@@ -221,47 +221,47 @@
       },
       {
         "title": "Account e dati dello spazio",
-        "body": "La tua email e la tua password (cifrata) sono necessarie per creare un account. I documenti che carichi, il loro contenuto indicizzato e le tue conversazioni sono archiviati sul server che ospita il servizio (database e database vettoriale dedicati), separati per spazio di lavoro, e non vengono mai rivenduti ne utilizzati per addestrare un modello di IA. Per generare una risposta, leggere un'immagine o indicizzare un documento, il testo interessato viene trasmesso al nostro fornitore di inferenza IA, Mistral AI, societa francese i cui trattamenti avvengono all'interno dell'Unione europea (vedi la sezione Fornitori tecnici piu sotto). La trascrizione dei tuoi file audio, invece, viene eseguita sui nostri server e non e trasmessa ad alcun terzo."
+        "body": "La tua email e la tua password (cifrata) sono necessarie per creare un account. I documenti che carichi, il loro contenuto indicizzato e le tue conversazioni sono archiviati sul server che ospita il servizio (database e database vettoriale dedicati), separati per spazio di lavoro, e non vengono mai rivenduti né utilizzati per addestrare un modello di IA. Per generare una risposta, leggere un'immagine o indicizzare un documento, il testo interessato viene trasmesso al nostro fornitore di inferenza IA, Mistral AI, società francese i cui trattamenti avvengono all'interno dell'Unione europea (vedi la sezione Fornitori tecnici più sotto). La trascrizione dei tuoi file audio, invece, viene eseguita sui nostri server e non è trasmessa ad alcun terzo."
       },
       {
-        "title": "Cio che carichi",
-        "body": "Resti responsabile dei documenti che carichi e delle informazioni che inserisci nelle conversazioni. Prima di importare un file, assicurati di averne il diritto: non caricare documenti appartenenti a terzi senza la loro autorizzazione ed evita i dati particolarmente sensibili (dati sanitari, documenti d'identita, coordinate bancarie, password) quando non sono indispensabili al tuo utilizzo. Il contenuto dei tuoi documenti viene trattato automaticamente per rispondere alle tue domande, e un link di condivisione da accesso a un intero spazio di lavoro: verifica cosa contiene prima di inviarlo e revoca il link appena non serve piu. Puoi eliminare un documento, uno spazio o l'intero account in qualsiasi momento."
+        "title": "Ciò che carichi",
+        "body": "Resti responsabile dei documenti che carichi e delle informazioni che inserisci nelle conversazioni. Prima di importare un file, assicurati di averne il diritto: non caricare documenti appartenenti a terzi senza la loro autorizzazione ed evita i dati particolarmente sensibili (dati sanitari, documenti d'identità, coordinate bancarie, password) quando non sono indispensabili al tuo utilizzo. Il contenuto dei tuoi documenti viene trattato automaticamente per rispondere alle tue domande, e un link di condivisione dà accesso a un intero spazio di lavoro: verifica cosa contiene prima di inviarlo e revoca il link appena non serve più. Puoi eliminare un documento, uno spazio o l'intero account in qualsiasi momento."
       },
       {
         "title": "Modulo di contatto",
-        "body": "Se utilizzi il modulo di contatto, il tuo nome, la tua email e il tuo messaggio vengono conservati per poterti rispondere. Queste informazioni non vengono mai rivendute ne condivise con terzi, ne utilizzate per scopi commerciali."
+        "body": "Se utilizzi il modulo di contatto, il tuo nome, la tua email e il tuo messaggio vengono conservati per poterti rispondere. Queste informazioni non vengono mai rivendute né condivise con terzi, né utilizzate per scopi commerciali."
       },
       {
         "title": "Fornitori tecnici",
-        "body": "Per funzionare, il servizio si avvale di un numero ridotto di fornitori, che agiscono come responsabili del trattamento e sono vincolati da contratto: un hosting provider (OVHcloud, server situati in Francia), un fornitore di inferenza IA (Mistral AI, societa francese, trattamenti effettuati nell'Unione europea), un servizio di invio email (verifica dell'indirizzo, reimpostazione della password, newsletter) e uno strumento di misurazione dell'audience (solo se lo accetti). Ciascuno riceve solo i dati strettamente necessari alla propria prestazione e non e autorizzato a usarli per altri scopi, per fini pubblicitari o per addestrare i propri modelli. I tuoi documenti, le tue conversazioni e l'indice vettoriale associato sono ospitati e trattati esclusivamente all'interno dell'Unione europea. Il fornitore di invio email puo invece essere stabilito fuori dall'Unione europea: non riceve alcun contenuto dei tuoi documenti e i relativi trasferimenti sono disciplinati dalle clausole contrattuali tipo della Commissione europea. L'elenco nominativo e aggiornato di questi responsabili ti viene comunicato su semplice richiesta tramite il modulo di contatto."
+        "body": "Per funzionare, il servizio si avvale di un numero ridotto di fornitori, che agiscono come responsabili del trattamento e sono vincolati da contratto: un hosting provider (OVHcloud, server situati in Francia), un fornitore di inferenza IA (Mistral AI, società francese, trattamenti effettuati nell'Unione europea), un servizio di invio email (verifica dell'indirizzo, reimpostazione della password, newsletter) e uno strumento di misurazione dell'audience (solo se lo accetti). Ciascuno riceve solo i dati strettamente necessari alla propria prestazione e non è autorizzato a usarli per altri scopi, per fini pubblicitari o per addestrare i propri modelli. I tuoi documenti, le tue conversazioni e l'indice vettoriale associato sono ospitati e trattati esclusivamente all'interno dell'Unione europea. Il fornitore di invio email può invece essere stabilito fuori dall'Unione europea: non riceve alcun contenuto dei tuoi documenti e i relativi trasferimenti sono disciplinati dalle clausole contrattuali tipo della Commissione europea. L'elenco nominativo e aggiornato di questi responsabili ti viene comunicato su semplice richiesta tramite il modulo di contatto."
       },
       {
         "title": "Titolare del trattamento e periodi di conservazione",
-        "body": "Il titolare del trattamento e l'editore del servizio, la cui identita completa figura nella pagina Note legali; puo essere contattato tramite il modulo di contatto. I dati del tuo account, i tuoi documenti e le tue conversazioni sono conservati finche il tuo account esiste, poi eliminati non appena lo elimini. I messaggi inviati tramite il modulo di contatto sono conservati per il tempo necessario a gestire la tua richiesta. Un'iscrizione alla newsletter e conservata fino alla tua cancellazione."
+        "body": "Il titolare del trattamento è l'editore del servizio, la cui identità completa figura nella pagina Note legali; può essere contattato tramite il modulo di contatto. I dati del tuo account, i tuoi documenti e le tue conversazioni sono conservati finché il tuo account esiste, poi eliminati non appena lo elimini. I messaggi inviati tramite il modulo di contatto sono conservati per il tempo necessario a gestire la tua richiesta. Un'iscrizione alla newsletter è conservata fino alla tua cancellazione."
       },
       {
         "title": "I tuoi diritti (GDPR)",
         "body": "Esporta i tuoi dati: da Il mio account, scarica un file con tutti i tuoi dati in un clic. Elimina il tuo account: da Il mio account (zona pericolosa), eliminazione immediata e definitiva del tuo account e dei tuoi spazi. Newsletter: ogni email include un link di disiscrizione in un clic, senza bisogno di accedere. Per qualsiasi altra richiesta (rettifica, opposizione), utilizza il modulo di contatto."
       }
     ],
-    "footnote": "Questa pagina descrive il servizio cosi come viene gestito su questo sito. Poiche il software puo anche essere auto-ospitato, un'istanza installata e amministrata da un'altra organizzazione ricade sotto la responsabilita di quest'ultima.",
+    "footnote": "Questa pagina descrive il servizio così come viene gestito su questo sito. Poiché il software può anche essere auto-ospitato, un'istanza installata e amministrata da un'altra organizzazione ricade sotto la responsabilità di quest'ultima.",
     "rightsLinkCta": "Gestisci i miei dati in Il mio account",
     "audience": {
       "title": "Misurazione del pubblico",
       "paragraphs": [
         "Questo sito utilizza SEO Monitor, uno strumento di misurazione del pubblico ospitato in proprio, per produrre statistiche di frequentazione anonime (pagine consultate, provenienza delle visite, durata della consultazione, tipo di dispositivo). Questi dati servono unicamente al buon funzionamento e al miglioramento del sito.",
-        "Un identificativo casuale viene conservato nel tuo browser per un massimo di 13 mesi. Il tuo indirizzo IP non viene mai registrato: serve solo, in modo effimero, a dedurre un paese e una citta approssimativi. I dati non vengono incrociati con altri trattamenti ne trasmessi a terzi, e sono conservati per un massimo di 25 mesi.",
+        "Un identificativo casuale viene conservato nel tuo browser per un massimo di 13 mesi. Il tuo indirizzo IP non viene mai registrato: serve solo, in modo effimero, a dedurre un paese e una città approssimativi. I dati non vengono incrociati con altri trattamenti né trasmessi a terzi, e sono conservati per un massimo di 25 mesi.",
         "Titolare del trattamento: {{publisher}}",
-        "Finalita e base giuridica: misurazione del pubblico del sito, basata sul legittimo interesse dell'editore (articolo 6.1.f del GDPR). Questo trattamento e esente da consenso ai sensi dell'articolo 82 della legge francese sulla protezione dei dati e delle linee guida della CNIL sui traccianti.",
-        "Dati raccolti: pagine viste, provenienza della visita, durata, profondita di scorrimento, tipo di dispositivo, browser, lingua, paese e citta approssimativi. L'indirizzo IP non viene conservato.",
+        "Finalità e base giuridica: misurazione del pubblico del sito, basata sul legittimo interesse dell'editore (articolo 6.1.f del GDPR). Questo trattamento è esente da consenso ai sensi dell'articolo 82 della legge francese sulla protezione dei dati e delle linee guida della CNIL sui traccianti.",
+        "Dati raccolti: pagine viste, provenienza della visita, durata, profondità di scorrimento, tipo di dispositivo, browser, lingua, paese e città approssimativi. L'indirizzo IP non viene conservato.",
         "Tracciante e tempi di conservazione: identificativo sm_vid, salvato nell'archiviazione locale del browser, per la misurazione del pubblico, per un massimo di 13 mesi (esente da consenso). Le statistiche sono conservate per un massimo di 25 mesi.",
         "Destinatari: nessun terzo. I dati sono ospitati su un server OVH situato in Francia.",
         "I tuoi diritti: hai diritto di accesso, rettifica, cancellazione, opposizione e limitazione del trattamento, esercitabili tramite il modulo di contatto. Puoi anche presentare un reclamo alla CNIL (www.cnil.fr)."
       ],
-      "optOutLead": "In conformita con le linee guida della CNIL, questo trattamento e esente da consenso. Puoi comunque opporti in qualsiasi momento:",
-      "optOut": "non essere piu misurato",
-      "optedOut": "Le tue visite non vengono piu misurate.",
-      "unavailable": "Lo strumento di misurazione non e caricato su questa pagina (blocco dei contenuti?): le tue visite al momento non vengono misurate."
+      "optOutLead": "In conformità con le linee guida della CNIL, questo trattamento è esente da consenso. Puoi comunque opporti in qualsiasi momento:",
+      "optOut": "non essere più misurato",
+      "optedOut": "Le tue visite non vengono più misurate.",
+      "unavailable": "Lo strumento di misurazione non è caricato su questa pagina (blocco dei contenuti?): le tue visite al momento non vengono misurate."
     }
   },
   "terms": {
@@ -277,19 +277,19 @@
       },
       {
         "title": "2. Account utente",
-        "body": "L'accesso al Servizio richiede la creazione di un account (email/password, oppure accesso tramite un provider terzo come Google). Sei responsabile della riservatezza delle tue credenziali e di qualsiasi attivita svolta dal tuo account. Un account e personale e non deve essere condiviso."
+        "body": "L'accesso al Servizio richiede la creazione di un account (email/password, oppure accesso tramite un provider terzo come Google). Sei responsabile della riservatezza delle tue credenziali e di qualsiasi attività svolta dal tuo account. Un account è personale e non deve essere condiviso."
       },
       {
         "title": "3. Contenuto caricato",
-        "body": "Rimani proprietario dei documenti che carichi. Garantisci di disporre dei diritti necessari su qualsiasi contenuto importato e di essere responsabile della sua liceita. Questo contenuto viene utilizzato unicamente per rispondere alle tue domande all'interno dei tuoi spazi di lavoro - non viene mai utilizzato per addestrare un modello di IA ne condiviso con altri utenti senza una tua azione esplicita (link di condivisione)."
+        "body": "Rimani proprietario dei documenti che carichi. Garantisci di disporre dei diritti necessari su qualsiasi contenuto importato e di essere responsabile della sua liceità. Questo contenuto viene utilizzato unicamente per rispondere alle tue domande all'interno dei tuoi spazi di lavoro - non viene mai utilizzato per addestrare un modello di IA né condiviso con altri utenti senza una tua azione esplicita (link di condivisione)."
       },
       {
         "title": "4. Spazi di lavoro e condivisione",
-        "body": "Ogni spazio di lavoro appartiene a un proprietario, che puo invitare altri utenti tramite un link di condivisione (sola lettura o lettura/scrittura a seconda del ruolo scelto). Il proprietario di uno spazio e responsabile delle persone che invita e dei contenuti che vi vengono caricati. Il numero di spazi, di membri per spazio, l'archiviazione e il numero di domande al giorno sono limitati per account (vedi le FAQ)."
+        "body": "Ogni spazio di lavoro appartiene a un proprietario, che può invitare altri utenti tramite un link di condivisione (sola lettura o lettura/scrittura a seconda del ruolo scelto). Il proprietario di uno spazio è responsabile delle persone che invita e dei contenuti che vi vengono caricati. Il numero di spazi, di membri per spazio, l'archiviazione e il numero di domande al giorno sono limitati per account (vedi le FAQ)."
       },
       {
         "title": "5. Utilizzo accettabile",
-        "body": "Ti impegni a non utilizzare il Servizio per caricare o generare contenuto illecito, a non tentare di aggirare i limiti tecnici (quote, limitazione delle richieste, misure di sicurezza), e a non disturbare il funzionamento del Servizio per gli altri utenti. Qualsiasi violazione puo comportare la sospensione o l'eliminazione dell'account."
+        "body": "Ti impegni a non utilizzare il Servizio per caricare o generare contenuto illecito, a non tentare di aggirare i limiti tecnici (quote, limitazione delle richieste, misure di sicurezza), e a non disturbare il funzionamento del Servizio per gli altri utenti. Qualsiasi violazione può comportare la sospensione o l'eliminazione dell'account."
       },
       {
         "title": "6. Limiti dell'intelligenza artificiale",
@@ -297,15 +297,15 @@
       },
       {
         "title": "7. Limiti di utilizzo",
-        "body": "Per garantire un uso equo e prevenire abusi, ogni account e soggetto a limiti di utilizzo (spazi, membri per spazio, archiviazione, domande poste all'IA al giorno), indicati nelle FAQ e soggetti a modifiche. L'aggiramento di questi limiti (ad esempio creando piu account) puo comportare la sospensione degli account interessati. Puoi eliminare il tuo account in qualsiasi momento, con la conseguente eliminazione definitiva dei tuoi spazi e dei dati associati."
+        "body": "Per garantire un uso equo e prevenire abusi, ogni account è soggetto a limiti di utilizzo (spazi, membri per spazio, archiviazione, domande poste all'IA al giorno), indicati nelle FAQ e soggetti a modifiche. L'aggiramento di questi limiti (ad esempio creando più account) può comportare la sospensione degli account interessati. Puoi eliminare il tuo account in qualsiasi momento, con la conseguente eliminazione definitiva dei tuoi spazi e dei dati associati."
       },
       {
-        "title": "8. Disponibilita del servizio",
-        "body": "Il Servizio e fornito cosi com'e, con un obiettivo di disponibilita ma senza garanzia di continuita assoluta. Possono verificarsi interruzioni temporanee (manutenzione, incidenti tecnici). I backup automatici riducono, senza eliminarlo del tutto, il rischio di perdita dei dati."
+        "title": "8. Disponibilità del servizio",
+        "body": "Il Servizio è fornito così com'è, con un obiettivo di disponibilità ma senza garanzia di continuità assoluta. Possono verificarsi interruzioni temporanee (manutenzione, incidenti tecnici). I backup automatici riducono, senza eliminarlo del tutto, il rischio di perdita dei dati."
       },
       {
         "title": "9. Modifica dei termini",
-        "body": "Questi termini possono evolvere, in particolare per riflettere nuove funzionalita o obblighi legali. Gli utenti saranno informati di qualsiasi modifica significativa tramite l'applicazione o via email. La prosecuzione dell'utilizzo del Servizio dopo la notifica equivale all'accettazione dei nuovi termini."
+        "body": "Questi termini possono evolvere, in particolare per riflettere nuove funzionalità o obblighi legali. Gli utenti saranno informati di qualsiasi modifica significativa tramite l'applicazione o via email. La prosecuzione dell'utilizzo del Servizio dopo la notifica equivale all'accettazione dei nuovi termini."
       },
       {
         "title": "10. Legge applicabile e contatti",
@@ -317,7 +317,7 @@
     "back": "Torna alla home",
     "eyebrow": "Note legali",
     "title": "Note Legali",
-    "subtitle": "Informazioni sull'editore del sito, in conformita con la legge francese.",
+    "subtitle": "Informazioni sull'editore del sito, in conformità con la legge francese.",
     "sections": [
       {
         "title": "Editore del sito",
@@ -332,16 +332,16 @@
         "body": "Questo sito e l'applicazione sono ospitati da OVH SAS, 2 rue Kellermann, 59100 Roubaix, Francia (ovhcloud.com). I server che ospitano il servizio e i tuoi dati si trovano in Francia."
       },
       {
-        "title": "Proprieta intellettuale",
-        "body": "Tutti gli elementi di questo sito (testi, logo, codice sorgente, interfaccia) sono protetti dal diritto d'autore. Qualsiasi riproduzione senza autorizzazione preventiva e vietata, salvo per i componenti esplicitamente pubblicati con licenza open-source."
+        "title": "Proprietà intellettuale",
+        "body": "Tutti gli elementi di questo sito (testi, logo, codice sorgente, interfaccia) sono protetti dal diritto d'autore. Qualsiasi riproduzione senza autorizzazione preventiva è vietata, salvo per i componenti esplicitamente pubblicati con licenza open-source."
       },
       {
         "title": "Dati personali",
-        "body": "Il trattamento dei tuoi dati personali, inclusa la misurazione del pubblico del sito, e descritto nell'informativa sulla privacy (pagina Privacy, collegata in fondo a ogni pagina)."
+        "body": "Il trattamento dei tuoi dati personali, inclusa la misurazione del pubblico del sito, è descritto nell'informativa sulla privacy (pagina Privacy, collegata in fondo a ogni pagina)."
       },
       {
         "title": "Contatti e controversie",
-        "body": "Per qualsiasi domanda, utilizza il modulo di contatto del sito. In caso di controversia, si cerchera una soluzione amichevole prima di qualsiasi azione legale; in mancanza di accordo, saranno competenti in via esclusiva i tribunali francesi."
+        "body": "Per qualsiasi domanda, utilizza il modulo di contatto del sito. In caso di controversia, si cercherà una soluzione amichevole prima di qualsiasi azione legale; in mancanza di accordo, saranno competenti in via esclusiva i tribunali francesi."
       }
     ],
     "notConfigured": "Non configurato su questa istanza."
@@ -376,7 +376,7 @@
     "register": {
       "title": "Crea un account",
       "subtitle": "In pochi secondi.",
-      "hasAccount": "Hai gia un account?",
+      "hasAccount": "Hai già un account?",
       "loginLink": "Accedi",
       "passwordHint": "Almeno 8 caratteri.",
       "submit": "Crea il mio account",
@@ -389,7 +389,7 @@
     "forgot": {
       "title": "Password dimenticata",
       "subtitle": "Ti inviamo un link di reimpostazione via email.",
-      "sent": "Se esiste un account con questa email, un link di reimpostazione e stato appena inviato.",
+      "sent": "Se esiste un account con questa email, un link di reimpostazione è stato appena inviato.",
       "backToLogin": "Torna all'accesso",
       "submit": "Invia link",
       "submitting": "Invio..."
@@ -399,7 +399,7 @@
       "subtitle": "Scegli una nuova password.",
       "missingToken": "Link di reimpostazione non valido.",
       "newPassword": "Nuova password",
-      "success": "La tua password e stata aggiornata.",
+      "success": "La tua password è stata aggiornata.",
       "goToLogin": "Accedi",
       "submit": "Reimposta password",
       "submitting": "Salvataggio..."
@@ -427,7 +427,7 @@
       "twofaDisablePasswordHint": "Inserisci la tua password per disattivare la 2FA.",
       "dangerZone": "Zona pericolosa",
       "deleteAccount": "Elimina il mio account",
-      "deleteAccountWarning": "Questa azione e irreversibile: il tuo account e tutti gli spazi di cui sei proprietario verranno eliminati definitivamente.",
+      "deleteAccountWarning": "Questa azione è irreversibile: il tuo account e tutti gli spazi di cui sei proprietario verranno eliminati definitivamente.",
       "deleteAccountConfirm": "Inserisci la tua password per confermare l'eliminazione.",
       "exportData": "Esporta i miei dati",
       "emailVerified": "Email verificata",
@@ -443,7 +443,7 @@
       },
       "gdpr": {
         "title": "I tuoi dati e i tuoi diritti (RGPD)",
-        "hint": "Hai il diritto di accesso, rettifica, cancellazione, limitazione, opposizione e portabilita dei tuoi dati personali. Puoi esportare i tuoi dati o eliminare il tuo account qui sotto; per qualsiasi altra richiesta, usa il modulo di contatto. I dettagli di questi diritti e dei trattamenti effettuati sono disponibili nella nostra",
+        "hint": "Hai il diritto di accesso, rettifica, cancellazione, limitazione, opposizione e portabilità dei tuoi dati personali. Puoi esportare i tuoi dati o eliminare il tuo account qui sotto; per qualsiasi altra richiesta, usa il modulo di contatto. I dettagli di questi diritti e dei trattamenti effettuati sono disponibili nella nostra",
         "privacyLink": "informativa sulla privacy"
       },
       "profile": {
@@ -467,7 +467,7 @@
     "verify": {
       "title": "Verifica email",
       "verifying": "Verifica in corso...",
-      "success": "Il tuo indirizzo email e stato verificato.",
+      "success": "Il tuo indirizzo email è stato verificato.",
       "error": "Link di verifica non valido o scaduto.",
       "goToDashboard": "Vai alla dashboard"
     }
@@ -486,31 +486,31 @@
     "greeting": "Ciao! Posso rispondere a domande sul funzionamento di {{brand}} (account, spazi, condivisione, documenti...). Cosa vorresti sapere?",
     "placeholder": "Scrivi la tua domanda...",
     "send": "Invia",
-    "errorGeneric": "Si e verificato un errore. Riprova tra un istante.",
+    "errorGeneric": "Si è verificato un errore. Riprova tra un istante.",
     "disclaimer": "Assistente automatico limitato all'uso del sito.\nPer tutto il resto, usa il modulo di contatto."
   },
   "faq": {
     "eyebrow": "Domande frequenti",
     "title": "Tutto su {{brand}}",
-    "subtitle": "Le domande piu frequenti su account, spazi, condivisione e privacy.",
+    "subtitle": "Le domande più frequenti su account, spazi, condivisione e privacy.",
     "backHome": "Torna alla home",
     "contactCta": "Un'altra domanda? Scrivici dalla pagina iniziale.",
     "items": [
       {
-        "question": "Cos'e {{brand}}?",
-        "answer": "{{brand}} collega i tuoi documenti professionali (PDF, immagini, pagine web, DOCX, TXT, Markdown) a un'IA con risposte con fonti, in spazi isolati per cliente o pratica. Pensato per studi, agenzie e team che gestiscono piu clienti."
+        "question": "Cos'è {{brand}}?",
+        "answer": "{{brand}} collega i tuoi documenti professionali (PDF, immagini, pagine web, DOCX, TXT, Markdown) a un'IA con risposte con fonti, in spazi isolati per cliente o pratica. Pensato per studi, agenzie e team che gestiscono più clienti."
       },
       {
         "question": "Serve un account per usarla?",
-        "answer": "Si, serve un account per usare {{brand}}, anche per aprire un link di condivisione. E questo che permette a ogni spazio di sapere esattamente chi vi ha avuto accesso e con quale ruolo."
+        "answer": "Sì, serve un account per usare {{brand}}, anche per aprire un link di condivisione. È questo che permette a ogni spazio di sapere esattamente chi vi ha avuto accesso e con quale ruolo."
       },
       {
-        "question": "Cos'e uno spazio di lavoro?",
-        "answer": "Uno spazio di lavoro raggruppa documenti e conversazioni su un determinato argomento. Ogni spazio e isolato: nulla viene condiviso tra due spazi diversi. Piu persone possono collaborare nello stesso spazio."
+        "question": "Cos'è uno spazio di lavoro?",
+        "answer": "Uno spazio di lavoro raggruppa documenti e conversazioni su un determinato argomento. Ogni spazio è isolato: nulla viene condiviso tra due spazi diversi. Piu persone possono collaborare nello stesso spazio."
       },
       {
         "question": "Quali ruoli esistono in uno spazio?",
-        "answer": "Proprietario (crea lo spazio, gestisce membri e link di condivisione, puo eliminarlo), editor (puo dialogare con l'assistente e aggiungere documenti) e lettore (puo solo consultare la cronologia e i documenti, senza scrivere)."
+        "answer": "Proprietario (crea lo spazio, gestisce membri e link di condivisione, può eliminarlo), editor (può dialogare con l'assistente e aggiungere documenti) e lettore (può solo consultare la cronologia e i documenti, senza scrivere)."
       },
       {
         "question": "Come funzionano i link di condivisione?",
@@ -521,12 +521,12 @@
         "answer": "PDF (testo nativo o scansionato, con OCR automatico tramite IA di visione), immagini (JPG, PNG, WEBP...), pagine web, DOCX, TXT e Markdown. I documenti vengono automaticamente suddivisi e indicizzati per la ricerca."
       },
       {
-        "question": "L'IA puo cercare su internet?",
-        "answer": "Si. Quando una domanda richiede informazioni aggiornate (notizie, meteo, prezzi...), l'assistente rileva automaticamente la necessita e completa la risposta tramite un motore di ricerca self-hosted, senza chiave API ne tracciamento."
+        "question": "L'IA può cercare su internet?",
+        "answer": "Sì. Quando una domanda richiede informazioni aggiornate (notizie, meteo, prezzi...), l'assistente rileva automaticamente la necessità e completa la risposta tramite un motore di ricerca self-hosted, senza chiave API né tracciamento."
       },
       {
         "question": "I miei dati restano privati?",
-        "answer": "Si, all'interno dell'Unione europea. I tuoi documenti, gli embedding e le conversazioni sono archiviati sui nostri server in Francia, presso OVHcloud. Per generare una risposta, il testo utile viene trasmesso a Mistral AI, editore francese i cui trattamenti avvengono nell'UE: nulla va a un fornitore fuori dall'Unione europea, e i tuoi dati non vengono mai usati per addestrare un modello. La trascrizione audio non lascia nemmeno i nostri server."
+        "answer": "Sì, all'interno dell'Unione europea. I tuoi documenti, gli embedding e le conversazioni sono archiviati sui nostri server in Francia, presso OVHcloud. Per generare una risposta, il testo utile viene trasmesso a Mistral AI, editore francese i cui trattamenti avvengono nell'UE: nulla va a un fornitore fuori dall'Unione europea, e i tuoi dati non vengono mai usati per addestrare un modello. La trascrizione audio non lascia nemmeno i nostri server."
       },
       {
         "question": "Come attivo la verifica in due passaggi (2FA)?",
@@ -534,11 +534,11 @@
       },
       {
         "question": "Cosa succede se elimino per errore un documento o una conversazione?",
-        "answer": "Ogni spazio di lavoro ha un backup automatico (al massimo una volta al giorno, conservato per 7 giorni mobili). Un amministratore dell'istanza puo ripristinare lo spazio a uno stato precedente dalla dashboard di amministrazione."
+        "answer": "Ogni spazio di lavoro ha un backup automatico (al massimo una volta al giorno, conservato per 7 giorni mobili). Un amministratore dell'istanza può ripristinare lo spazio a uno stato precedente dalla dashboard di amministrazione."
       },
       {
         "question": "Ci sono limiti di utilizzo?",
-        "answer": "Si, per evitare abusi, ogni account ha dei limiti di utilizzo: 3 spazi di lavoro, 5 membri per spazio, 500 MB di archiviazione per spazio e 50 domande all'IA al giorno. Il contatore delle domande si azzera ogni giorno."
+        "answer": "Sì, per evitare abusi, ogni account ha dei limiti di utilizzo: 3 spazi di lavoro, 5 membri per spazio, 500 MB di archiviazione per spazio e 50 domande all'IA al giorno. Il contatore delle domande si azzera ogni giorno."
       }
     ]
   },
@@ -546,7 +546,7 @@
     "backHome": "Torna alla home",
     "confirm": {
       "title": "Conferma newsletter",
-      "success": "La tua iscrizione alla newsletter e confermata.",
+      "success": "La tua iscrizione alla newsletter è confermata.",
       "error": "Link di conferma non valido o scaduto."
     },
     "unsubscribe": {
@@ -560,7 +560,7 @@
       "placeholder": "tu@esempio.com",
       "submit": "Iscriviti",
       "done": "Grazie! Controlla la tua email per confermare.",
-      "error": "Si e verificato un errore, riprova."
+      "error": "Si è verificato un errore, riprova."
     }
   },
   "activation": {
@@ -621,7 +621,7 @@
     "users": {
       "createButton": "Nuovo utente",
       "createTitle": "Nuovo utente",
-      "createError": "Impossibile creare questo account (email gia usata?)",
+      "createError": "Impossibile creare questo account (email già usata?)",
       "password": "Password",
       "generatePassword": "Genera",
       "copyPassword": "Copia",
@@ -645,13 +645,13 @@
       "unpublish": "Rimuovi pubblicazione",
       "empty": "Ancora nessuna recensione.",
       "confirmDeleteTitle": "Eliminare questa recensione?",
-      "confirmDeleteMessage": "Questa azione e definitiva."
+      "confirmDeleteMessage": "Questa azione è definitiva."
     },
     "newsletter": {
       "hint": "Gestisci gli iscritti e invia una newsletter agli iscritti confermati.",
       "compose": "Nuova newsletter",
       "composeTitle": "Scrivi una newsletter",
-      "composeHint": "Questa email sara inviata a {{count}} iscritto/i confermato/i.",
+      "composeHint": "Questa email sarà inviata a {{count}} iscritto/i confermato/i.",
       "subject": "Oggetto",
       "message": "Messaggio",
       "send": "Invia",
@@ -661,7 +661,7 @@
       "pending": "In attesa",
       "empty": "Nessun iscritto per ora.",
       "confirmDeleteTitle": "Eliminare questo iscritto?",
-      "confirmDeleteMessage": "Questa azione e definitiva."
+      "confirmDeleteMessage": "Questa azione è definitiva."
     },
     "table": {
       "email": "Email",
@@ -689,7 +689,7 @@
       "snapshots": "Backup",
       "loadMore": "Carica altri",
       "confirmDeleteUserTitle": "Eliminare questo account?",
-      "confirmDeleteUserMessage": "L'account e tutti gli spazi di cui e proprietario verranno eliminati definitivamente.",
+      "confirmDeleteUserMessage": "L'account e tutti gli spazi di cui è proprietario verranno eliminati definitivamente.",
       "confirmDeleteSpaceTitle": "Eliminare questo spazio?",
       "confirmDeleteSpaceMessage": "Tutti i documenti, le conversazioni e i backup associati verranno eliminati definitivamente."
     },
@@ -698,8 +698,8 @@
       "createNow": "Crea un backup ora",
       "restore": "Ripristina",
       "confirmRestoreTitle": "Ripristinare questo backup?",
-      "confirmRestoreMessage": "Il contenuto attuale dello spazio (conversazioni, documenti) verra sostituito con quello di questo backup.",
-      "empty": "Ancora nessun backup. Un backup automatico viene creato al massimo una volta al giorno, non appena c'e attivita.",
+      "confirmRestoreMessage": "Il contenuto attuale dello spazio (conversazioni, documenti) verrà sostituito con quello di questo backup.",
+      "empty": "Ancora nessun backup. Un backup automatico viene creato al massimo una volta al giorno, non appena c'è attività.",
       "retention": "Conservati per 7 giorni mobili"
     }
   },
@@ -736,14 +736,14 @@
       "queuedSuffix": " - il server elabora una richiesta alla volta",
       "placeholder": "Scrivi il tuo messaggio...",
       "readOnly": "Accesso in sola lettura - non puoi scrivere in questo spazio.",
-      "errorGeneric": "Si e verificato un errore durante la generazione ({{error}}). Il servizio di IA e temporaneamente non disponibile, riprova tra qualche istante.",
+      "errorGeneric": "Si è verificato un errore durante la generazione ({{error}}). Il servizio di IA è temporaneamente non disponibile, riprova tra qualche istante.",
       "connectionError": "Errore di connessione al server.",
       "send": "Invia",
       "openMenu": "Apri menu"
     },
     "documents": {
       "title": "Documenti dello spazio",
-      "subtitle": "Aggiungi file o link che il chatbot potra consultare.",
+      "subtitle": "Aggiungi file o link che il chatbot potrà consultare.",
       "dropActive": "Rilascia i file qui",
       "dropIdle": "Trascina e rilascia o clicca",
       "supportedFormats": "PDF, immagini, audio, DOCX, TXT, Markdown",
@@ -772,11 +772,11 @@
       "owner": "Proprietario",
       "member": "Membro",
       "admin_view": "Vista admin",
-      "canUpload": "Puo caricare file",
+      "canUpload": "Può caricare file",
       "chatOnly": "Solo chat",
       "canUploadLabel": "Consenti il caricamento di file",
       "linksTitle": "Link di condivisione",
-      "linksHelp": "Un link di condivisione da accesso alla chat di questo spazio a chiunque sia autenticato e lo apra; il caricamento di file resta facoltativo.",
+      "linksHelp": "Un link di condivisione dà accesso alla chat di questo spazio a chiunque sia autenticato e lo apra; il caricamento di file resta facoltativo.",
       "labelPlaceholder": "Nome del link (opzionale)",
       "createLink": "Crea",
       "noLinks": "Ancora nessun link di condivisione.",
@@ -785,7 +785,7 @@
       "copy": "Copia",
       "storageTitle": "Spazio utilizzato",
       "membersTitle": "Membri",
-      "membersHelp": "Aggiungi un utente che ha gia un account: potra sempre chattare e caricare file se glielo consenti.",
+      "membersHelp": "Aggiungi un utente che ha già un account: potrà sempre chattare e caricare file se glielo consenti.",
       "emailPlaceholder": "email@esempio.com",
       "addMember": "Aggiungi",
       "noMembers": "Ancora nessun membro."
@@ -796,7 +796,7 @@
     },
     "confirmDeleteConversation": {
       "title": "Eliminare questa conversazione?",
-      "message": "Questa azione non puo essere annullata."
+      "message": "Questa azione non può essere annullata."
     },
     "confirmDeleteDocument": {
       "title": "Eliminare questo documento?",
@@ -807,7 +807,7 @@
       "newSpace": "Nuovo spazio"
     },
     "share": {
-      "invalid": "Questo link di condivisione non e valido, e stato revocato o e scaduto."
+      "invalid": "Questo link di condivisione non è valido, è stato revocato o è scaduto."
     },
     "vectorGraph": {
       "openTitle": "Visualizza il database vettoriale",

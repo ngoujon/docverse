@@ -246,7 +246,7 @@ def test_removed_member_faces_reinvite_cooldown(client):
         headers=auth_headers(owner["access_token"]),
     )
     assert blocked.status_code == 400
-    assert "reinvit" in blocked.json()["detail"].lower()
+    assert "réinvit" in blocked.json()["detail"].lower()
 
 
 def test_space_quota_is_enforced(client, monkeypatch):

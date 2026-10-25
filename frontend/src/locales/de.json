@@ -2,15 +2,15 @@
   "common": {
     "cancel": "Abbrechen",
     "save": "Speichern",
-    "delete": "Loschen",
-    "confirm": "Bestatigen",
+    "delete": "Löschen",
+    "confirm": "Bestätigen",
     "loading": "Wird geladen...",
-    "close": "Schliessen",
-    "backHome": "Zuruck zur Startseite"
+    "close": "Schließen",
+    "backHome": "Zurück zur Startseite"
   },
   "nav": {
     "features": "Funktionen",
-    "sovereignty": "Souveranitat",
+    "sovereignty": "Souveränität",
     "demo": "Demo",
     "contact": "Kontakt",
     "register": "Registrieren",
@@ -19,36 +19,36 @@
   "hero": {
     "badges": [
       "In Frankreich gehostet",
-      "Franzosische KI - Mistral",
+      "Französische KI - Mistral",
       "Antworten mit Quellen",
       "Abgeschottete Bereiche"
     ],
-    "title1": "Ihre souverane Cloud-RAG-Losung,",
+    "title1": "Ihre souveräne Cloud-RAG-Lösung,",
     "title2": "gehostet in Frankreich.",
-    "subtitle": "Laden Sie Ihre Dokumente hoch, befragen Sie sie in naturlicher Sprache, erhalten Sie belegte Antworten. Die gesamte Kette ist europaisch: Hosting bei {{hostingProvider}} in {{hostingCountry}}, KI-Engine von {{aiProvider}}, franzosischer Anbieter. Ihre Daten verlassen die Europaische Union nie.",
+    "subtitle": "Laden Sie Ihre Dokumente hoch, befragen Sie sie in natürlicher Sprache, erhalten Sie belegte Antworten. Die gesamte Kette ist europäisch: Hosting bei {{hostingProvider}} in {{hostingCountry}}, KI-Engine von {{aiProvider}}, französischer Anbieter. Ihre Daten verlassen die Europäische Union nie.",
     "ctaTry": "App nutzen",
     "ctaDiscover": "Beispiel ansehen"
   },
   "sovereignty": {
-    "eyebrow": "Digitale Souveranitat",
+    "eyebrow": "Digitale Souveränität",
     "title": "Vom Upload bis zur Antwort bleibt alles in Europa",
-    "subtitle": "Souveranitat erklart man nicht auf einer Rechtsseite: Sie wird Anbieter fur Anbieter uberpruft. Hier sind unsere.",
+    "subtitle": "Souveränität erklärt man nicht auf einer Rechtsseite: Sie wird Anbieter für Anbieter überprüft. Hier sind unsere.",
     "items": [
       {
         "title": "Gehostet in {{hostingCountry}}, bei {{hostingProvider}}",
-        "desc": "Dokumente, Unterhaltungen und Vektorindex liegen auf Servern in {{hostingCountry}}, betrieben von einem europaischen Unternehmen, ausserhalb des Anwendungsbereichs des US-CLOUD-Act."
+        "desc": "Dokumente, Unterhaltungen und Vektorindex liegen auf Servern in {{hostingCountry}}, betrieben von einem europäischen Unternehmen, außerhalb des Anwendungsbereichs des US-CLOUD-Act."
       },
       {
-        "title": "Eine franzosische KI-Engine",
-        "desc": "Die Antworten werden von {{aiProvider}} erzeugt, einem franzosischen Anbieter von Sprachmodellen. Keine KI-Anfrage verlasst die Europaische Union."
+        "title": "Eine französische KI-Engine",
+        "desc": "Die Antworten werden von {{aiProvider}} erzeugt, einem französischen Anbieter von Sprachmodellen. Keine KI-Anfrage verlässt die Europäische Union."
       },
       {
         "title": "Ihre Daten trainieren kein Modell",
-        "desc": "Ihre Dokumente und Fragen werden nie zum Training eines Modells verwendet - weder von uns noch von unserem KI-Anbieter. Nichts abzuwahlen: Das ist das Standardverhalten."
+        "desc": "Ihre Dokumente und Fragen werden nie zum Training eines Modells verwendet - weder von uns noch von unserem KI-Anbieter. Nichts abzuwählen: Das ist das Standardverhalten."
       },
       {
-        "title": "Audio verlasst unsere Server nie",
-        "desc": "Die Transkription Ihrer Audiodateien lauft auf unserer eigenen Infrastruktur, ohne Aufruf eines Drittanbieters - nicht einmal des Chat-Modell-Anbieters."
+        "title": "Audio verlässt unsere Server nie",
+        "desc": "Die Transkription Ihrer Audiodateien läuft auf unserer eigenen Infrastruktur, ohne Aufruf eines Drittanbieters - nicht einmal des Chat-Modell-Anbieters."
       }
     ]
   },
@@ -59,16 +59,16 @@
   "highlight": {
     "eyebrow": "In der Praxis",
     "title": "Ihre Dokumente werden in Sekunden zu Antworten",
-    "desc": "PDFs, Bilder, Notizen, Webseiten: alles lauft an einem Ort zusammen, an dem eine Frage genugt."
+    "desc": "PDFs, Bilder, Notizen, Webseiten: alles läuft an einem Ort zusammen, an dem eine Frage genügt."
   },
   "features": {
     "eyebrow": "Das bekommen Sie",
-    "title": "Souveranes RAG fur Organisationen mit mehreren Kunden oder Akten",
-    "subtitle": "Kanzleien, Agenturen, Projektteams: ein abgeschotteter Bereich pro Kunde, gesteuerter Zugriff pro Person - und DSGVO-Konformitat ohne jede Ubermittlung ausserhalb der Europaischen Union.",
+    "title": "Souveränes RAG für Organisationen mit mehreren Kunden oder Akten",
+    "subtitle": "Kanzleien, Agenturen, Projektteams: ein abgeschotteter Bereich pro Kunde, gesteuerter Zugriff pro Person - und DSGVO-Konformität ohne jede Übermittlung außerhalb der Europäischen Union.",
     "items": [
       {
         "title": "Ein Bereich pro Kunde, ein Zugriff pro Person",
-        "desc": "Jeder Kunde oder jede Akte erhalt einen eigenen abgeschotteten Bereich - Dokumente und Unterhaltungen verlassen ihn nie. Teilen Sie Lese- oder Schreibzugriff, je nachdem wer worauf Zugriff braucht."
+        "desc": "Jeder Kunde oder jede Akte erhält einen eigenen abgeschotteten Bereich - Dokumente und Unterhaltungen verlassen ihn nie. Teilen Sie Lese- oder Schreibzugriff, je nachdem wer worauf Zugriff braucht."
       },
       {
         "title": "Alle Dokumente, KI-Bilderkennung inklusive",
@@ -76,7 +76,7 @@
       },
       {
         "title": "Nachvollziehbarer Zugriff, jederzeit widerrufbar",
-        "desc": "Sehen Sie, wer Zugriff auf jeden Bereich hat, entziehen Sie Zugriff mit einem Klick, und eine Sicherheitsfrist verhindert, dass jemand sofort wieder hinzugefugt wird."
+        "desc": "Sehen Sie, wer Zugriff auf jeden Bereich hat, entziehen Sie Zugriff mit einem Klick, und eine Sicherheitsfrist verhindert, dass jemand sofort wieder hinzugefügt wird."
       },
       {
         "title": "Audio auf unseren Servern transkribiert",
@@ -84,11 +84,11 @@
       },
       {
         "title": "Websuche ohne Datenabfluss an Dritte",
-        "desc": "Wenn eine Frage aktuelle Informationen braucht, lauft die Suche uber eine selbst gehostete Engine - ohne API-Schlussel und ohne kommerzielle Tracker."
+        "desc": "Wenn eine Frage aktuelle Informationen braucht, läuft die Suche über eine selbst gehostete Engine - ohne API-Schlüssel und ohne kommerzielle Tracker."
       },
       {
-        "title": "In Frankreich gehostet, ausserhalb des CLOUD Act",
-        "desc": "Ihre Dokumente, Unterhaltungen und der Vektorindex bleiben auf Servern in {{hostingCountry}} bei {{hostingProvider}} - einem europaischen Hoster ausserhalb des Anwendungsbereichs des US-CLOUD-Act."
+        "title": "In Frankreich gehostet, außerhalb des CLOUD Act",
+        "desc": "Ihre Dokumente, Unterhaltungen und der Vektorindex bleiben auf Servern in {{hostingCountry}} bei {{hostingProvider}} - einem europäischen Hoster außerhalb des Anwendungsbereichs des US-CLOUD-Act."
       }
     ]
   },
@@ -107,7 +107,7 @@
       },
       {
         "title": "Teilen und Fragen stellen",
-        "desc": "Laden Sie ein, wen Sie mochten, mit der passenden Rolle, immer belegte Antworten."
+        "desc": "Laden Sie ein, wen Sie möchten, mit der passenden Rolle, immer belegte Antworten."
       }
     ]
   },
@@ -128,12 +128,12 @@
     "optional": "optional",
     "message": "Nachricht",
     "messagePlaceholder": "Eine Frage, eine Idee, ein Fehler?",
-    "consent": "Ich stimme zu, dass meine personenbezogenen Daten verwendet werden, um mich bezuglich meiner Anfrage zu kontaktieren. Siehe unsere",
-    "consentLink": "Datenschutzerklarung",
+    "consent": "Ich stimme zu, dass meine personenbezogenen Daten verwendet werden, um mich bezüglich meiner Anfrage zu kontaktieren. Siehe unsere",
+    "consentLink": "Datenschutzerklärung",
     "send": "Nachricht senden",
     "sending": "Senden...",
     "sentTitle": "Nachricht gesendet!",
-    "sentDesc": "Wir antworten Ihnen so schnell wie moglich.",
+    "sentDesc": "Wir antworten Ihnen so schnell wie möglich.",
     "genericError": "Ein Fehler ist aufgetreten"
   },
   "footer": {
@@ -145,12 +145,12 @@
   },
   "demo": {
     "question": "Fasse die wichtigsten Punkte des Lieferantenvertrags zusammen.",
-    "answer": "Laut Vertrag [1] betragt die Laufzeit 12 Monate mit automatischer Verlangerung. Die Kundigungsfrist betragt 30 Tage.",
+    "answer": "Laut Vertrag [1] beträgt die Laufzeit 12 Monate mit automatischer Verlängerung. Die Kündigungsfrist beträgt 30 Tage.",
     "source": "lieferantenvertrag.pdf",
     "typing": "tippt..."
   },
   "demoPage": {
-    "back": "Zuruck zur Startseite",
+    "back": "Zurück zur Startseite",
     "eyebrow": "Demo",
     "title": "So funktioniert es",
     "subtitle": "Ein simulierter Arbeitsbereich mit Beispieldokumenten. Klicken Sie auf eine Frage, um zu sehen, wie die KI mit Quellen antwortet.",
@@ -177,71 +177,71 @@
     "suggestions": [
       {
         "question": "Wie hoch war der Umsatz 2025?",
-        "answer": "Laut Jahresbericht [1] erreichte der Umsatz 2025 1,2 Mio. €, ein Plus von 18% gegenuber 2024.",
+        "answer": "Laut Jahresbericht [1] erreichte der Umsatz 2025 1,2 Mio. €, ein Plus von 18% gegenüber 2024.",
         "sourceIndex": 0
       },
       {
         "question": "Fasse die wichtigsten Punkte der Besprechung zusammen.",
-        "answer": "Laut den Besprechungsnotizen [2] wurden drei Entscheidungen getroffen: Einfuhrung einer Pro-Stufe, Umstieg auf ein neues CRM und geplanter Start im September.",
+        "answer": "Laut den Besprechungsnotizen [2] wurden drei Entscheidungen getroffen: Einführung einer Pro-Stufe, Umstieg auf ein neues CRM und geplanter Start im September.",
         "sourceIndex": 2
       },
       {
         "question": "Was steht auf der Lieferantenrechnung?",
-        "answer": "Laut der gescannten Rechnung [3] betragt der Gesamtbetrag 4.320 € inkl. MwSt., zahlbar innerhalb von 30 Tagen.",
+        "answer": "Laut der gescannten Rechnung [3] beträgt der Gesamtbetrag 4.320 € inkl. MwSt., zahlbar innerhalb von 30 Tagen.",
         "sourceIndex": 1
       }
     ],
-    "inputPlaceholder": "Wahlen Sie eine der vorgeschlagenen Fragen unten",
+    "inputPlaceholder": "Wählen Sie eine der vorgeschlagenen Fragen unten",
     "typing": "tippt...",
     "ctaTitle": "Jetzt sind Sie dran",
     "ctaText": "Laden Sie Ihre eigenen Dokumente hoch und erhalten Sie Antworten mit Quellen.",
     "ctaButton": "App nutzen",
-    "resetLabel": "Zurucksetzen"
+    "resetLabel": "Zurücksetzen"
   },
   "cookies": {
     "title": "Reichweitenmessung",
-    "body": "Mit Ihrer Einwilligung zahlen wir Seitenaufrufe, um zu sehen, was Besucher interessiert. Keine Werbe-Cookies.",
+    "body": "Mit Ihrer Einwilligung zählen wir Seitenaufrufe, um zu sehen, was Besucher interessiert. Keine Werbe-Cookies.",
     "accept": "Akzeptieren",
     "decline": "Ablehnen",
     "learnMore": "Mehr erfahren"
   },
   "privacy": {
-    "back": "Zuruck zur Startseite",
+    "back": "Zurück zur Startseite",
     "eyebrow": "Datenschutz",
     "title": "Cookies und personenbezogene Daten",
-    "subtitle": "Ihre Daten sind pro Arbeitsbereich isoliert und werden niemals verkauft. Hier ist, einfach erklart, was gespeichert wird und warum.",
+    "subtitle": "Ihre Daten sind pro Arbeitsbereich isoliert und werden niemals verkauft. Hier ist, einfach erklärt, was gespeichert wird und warum.",
     "sections": [
       {
         "title": "Cookies",
-        "body": "Diese Website verwendet keine Werbe-Cookies und keine Tracking-Cookies von Drittanbietern. Es werden zwei Reichweitenmessungen eingesetzt. Die erste, SEO Monitor, ist einwilligungsfrei und im Abschnitt Reichweitenmessung unten beschrieben. Die zweite erfasst Seitenaufrufe, Verweildauer und ein aus der IP-Adresse abgeleitetes ungefahres Land - aber nur, wenn Sie beim ersten Besuch im Banner zustimmen: Grundlage ist eine temporare Sitzungskennung, die beim Schliessen des Tabs geloscht wird, und Seiten der Anwendung (Arbeitsbereiche, Freigaben, Dashboard) werden dabei nie erfasst. Ihre Entscheidung wird im lokalen Speicher Ihres Browsers gespeichert und lasst sich durch Loschen der Websitedaten andern."
+        "body": "Diese Website verwendet keine Werbe-Cookies und keine Tracking-Cookies von Drittanbietern. Es werden zwei Reichweitenmessungen eingesetzt. Die erste, SEO Monitor, ist einwilligungsfrei und im Abschnitt Reichweitenmessung unten beschrieben. Die zweite erfasst Seitenaufrufe, Verweildauer und ein aus der IP-Adresse abgeleitetes ungefähres Land - aber nur, wenn Sie beim ersten Besuch im Banner zustimmen: Grundlage ist eine temporäre Sitzungskennung, die beim Schließen des Tabs gelöscht wird, und Seiten der Anwendung (Arbeitsbereiche, Freigaben, Dashboard) werden dabei nie erfasst. Ihre Entscheidung wird im lokalen Speicher Ihres Browsers gespeichert und lässt sich durch Löschen der Websitedaten ändern."
       },
       {
         "title": "Lokaler Speicher (localStorage)",
-        "body": "Ihre Sitzung (nach der Anmeldung) und alle von Ihnen verwendeten Freigabelinks werden im lokalen Speicher Ihres Browsers (localStorage) gespeichert - nur damit Sie sich nicht auf jeder Seite erneut anmelden mussen. Sie werden niemals an Dritte ubertragen. Sie konnen sie jederzeit loschen, indem Sie die Websitedaten in Ihrem Browser leeren."
+        "body": "Ihre Sitzung (nach der Anmeldung) und alle von Ihnen verwendeten Freigabelinks werden im lokalen Speicher Ihres Browsers (localStorage) gespeichert - nur damit Sie sich nicht auf jeder Seite erneut anmelden müssen. Sie werden niemals an Dritte übertragen. Sie können sie jederzeit löschen, indem Sie die Websitedaten in Ihrem Browser leeren."
       },
       {
         "title": "Konto- und Bereichsdaten",
-        "body": "Ihre E-Mail-Adresse und Ihr Passwort (verschlusselt) sind fur die Erstellung eines Kontos erforderlich. Die von Ihnen hochgeladenen Dokumente, deren indexierte Inhalte und Ihre Unterhaltungen werden auf dem Server gespeichert, auf dem der Dienst lauft (eigene Datenbank und Vektordatenbank), nach Arbeitsbereich getrennt, und werden niemals weiterverkauft oder zum Training eines KI-Modells verwendet. Um eine Antwort zu erzeugen, ein Bild zu lesen oder ein Dokument zu indexieren, wird der betreffende Text an unseren KI-Inferenzanbieter Mistral AI ubermittelt, ein franzosisches Unternehmen, dessen Verarbeitung innerhalb der Europaischen Union stattfindet (siehe Abschnitt Technische Dienstleister). Die Transkription Ihrer Audiodateien lauft dagegen auf unseren eigenen Servern und wird an keinen Dritten ubermittelt."
+        "body": "Ihre E-Mail-Adresse und Ihr Passwort (verschlüsselt) sind für die Erstellung eines Kontos erforderlich. Die von Ihnen hochgeladenen Dokumente, deren indexierte Inhalte und Ihre Unterhaltungen werden auf dem Server gespeichert, auf dem der Dienst läuft (eigene Datenbank und Vektordatenbank), nach Arbeitsbereich getrennt, und werden niemals weiterverkauft oder zum Training eines KI-Modells verwendet. Um eine Antwort zu erzeugen, ein Bild zu lesen oder ein Dokument zu indexieren, wird der betreffende Text an unseren KI-Inferenzanbieter Mistral AI übermittelt, ein französisches Unternehmen, dessen Verarbeitung innerhalb der Europäischen Union stattfindet (siehe Abschnitt Technische Dienstleister). Die Transkription Ihrer Audiodateien läuft dagegen auf unseren eigenen Servern und wird an keinen Dritten übermittelt."
       },
       {
         "title": "Was Sie hochladen",
-        "body": "Sie bleiben fur die Dokumente, die Sie hochladen, und fur die Informationen, die Sie in Unterhaltungen eingeben, verantwortlich. Vergewissern Sie sich vor dem Hochladen, dass Sie dazu berechtigt sind: laden Sie keine Dokumente Dritter ohne deren Zustimmung hoch und vermeiden Sie besonders sensible Daten (Gesundheitsdaten, Ausweisdokumente, Bankdaten, Passworter), wenn sie fur Ihre Nutzung nicht unbedingt notig sind. Der Inhalt Ihrer Dokumente wird automatisch verarbeitet, um Ihre Fragen zu beantworten, und ein Freigabelink gewahrt Zugang zu einem gesamten Arbeitsbereich: prufen Sie vor dem Versenden, was er enthalt, und widerrufen Sie den Link, sobald er nicht mehr benotigt wird. Sie konnen ein Dokument, einen Arbeitsbereich oder Ihr gesamtes Konto jederzeit loschen."
+        "body": "Sie bleiben für die Dokumente, die Sie hochladen, und für die Informationen, die Sie in Unterhaltungen eingeben, verantwortlich. Vergewissern Sie sich vor dem Hochladen, dass Sie dazu berechtigt sind: laden Sie keine Dokumente Dritter ohne deren Zustimmung hoch und vermeiden Sie besonders sensible Daten (Gesundheitsdaten, Ausweisdokumente, Bankdaten, Passwörter), wenn sie für Ihre Nutzung nicht unbedingt nötig sind. Der Inhalt Ihrer Dokumente wird automatisch verarbeitet, um Ihre Fragen zu beantworten, und ein Freigabelink gewährt Zugang zu einem gesamten Arbeitsbereich: prüfen Sie vor dem Versenden, was er enthält, und widerrufen Sie den Link, sobald er nicht mehr benötigt wird. Sie können ein Dokument, einen Arbeitsbereich oder Ihr gesamtes Konto jederzeit löschen."
       },
       {
         "title": "Kontaktformular",
-        "body": "Wenn Sie das Kontaktformular verwenden, werden Ihr Name, Ihre E-Mail-Adresse und Ihre Nachricht gespeichert, damit wir Ihnen antworten konnen. Diese Informationen werden weder weiterverkauft noch an Dritte weitergegeben und nicht fur Werbezwecke genutzt."
+        "body": "Wenn Sie das Kontaktformular verwenden, werden Ihr Name, Ihre E-Mail-Adresse und Ihre Nachricht gespeichert, damit wir Ihnen antworten können. Diese Informationen werden weder weiterverkauft noch an Dritte weitergegeben und nicht für Werbezwecke genutzt."
       },
       {
         "title": "Technische Dienstleister",
-        "body": "Fur seinen Betrieb stutzt sich der Dienst auf eine kleine Zahl von Dienstleistern, die als vertraglich gebundene Auftragsverarbeiter handeln: ein Hoster (OVHcloud, Server in Frankreich), ein KI-Inferenzanbieter (Mistral AI, franzosisches Unternehmen, Verarbeitung innerhalb der Europaischen Union), ein E-Mail-Versanddienst (Adressbestatigung, Passwort-Zurucksetzung, Newsletter) und ein Reichweitenmessungs-Tool (nur mit Ihrer Zustimmung). Jeder erhalt nur die fur seine Leistung unbedingt erforderlichen Daten und darf sie weder fur andere Zwecke noch fur Werbung noch zum Training eigener Modelle verwenden. Ihre Dokumente, Unterhaltungen und der zugehorige Vektorindex werden ausschliesslich innerhalb der Europaischen Union gehostet und verarbeitet. Der E-Mail-Dienstleister kann hingegen ausserhalb der Europaischen Union ansassig sein: Er erhalt keinerlei Inhalte Ihrer Dokumente, und die entsprechenden Ubermittlungen sind durch die Standardvertragsklauseln der Europaischen Kommission abgesichert. Die aktuelle, namentliche Liste dieser Auftragsverarbeiter erhalten Sie auf Anfrage uber das Kontaktformular."
+        "body": "Für seinen Betrieb stützt sich der Dienst auf eine kleine Zahl von Dienstleistern, die als vertraglich gebundene Auftragsverarbeiter handeln: ein Hoster (OVHcloud, Server in Frankreich), ein KI-Inferenzanbieter (Mistral AI, französisches Unternehmen, Verarbeitung innerhalb der Europäischen Union), ein E-Mail-Versanddienst (Adressbestätigung, Passwort-Zurücksetzung, Newsletter) und ein Reichweitenmessungs-Tool (nur mit Ihrer Zustimmung). Jeder erhält nur die für seine Leistung unbedingt erforderlichen Daten und darf sie weder für andere Zwecke noch für Werbung noch zum Training eigener Modelle verwenden. Ihre Dokumente, Unterhaltungen und der zugehörige Vektorindex werden ausschließlich innerhalb der Europäischen Union gehostet und verarbeitet. Der E-Mail-Dienstleister kann hingegen außerhalb der Europäischen Union ansässig sein: Er erhält keinerlei Inhalte Ihrer Dokumente, und die entsprechenden Übermittlungen sind durch die Standardvertragsklauseln der Europäischen Kommission abgesichert. Die aktuelle, namentliche Liste dieser Auftragsverarbeiter erhalten Sie auf Anfrage über das Kontaktformular."
       },
       {
         "title": "Verantwortlicher und Speicherfristen",
-        "body": "Verantwortlicher fur die Verarbeitung ist der Betreiber des Dienstes, dessen vollstandige Identitat auf der Seite Impressum angegeben ist; er ist uber das Kontaktformular erreichbar. Ihre Kontodaten, Dokumente und Unterhaltungen werden gespeichert, solange Ihr Konto besteht, und geloscht, sobald Sie Ihr Konto loschen. Uber das Kontaktformular gesendete Nachrichten werden so lange aufbewahrt, wie es zur Bearbeitung Ihrer Anfrage notig ist. Eine Newsletter-Anmeldung wird bis zu Ihrer Abmeldung gespeichert."
+        "body": "Verantwortlicher für die Verarbeitung ist der Betreiber des Dienstes, dessen vollständige Identität auf der Seite Impressum angegeben ist; er ist über das Kontaktformular erreichbar. Ihre Kontodaten, Dokumente und Unterhaltungen werden gespeichert, solange Ihr Konto besteht, und gelöscht, sobald Sie Ihr Konto löschen. Über das Kontaktformular gesendete Nachrichten werden so lange aufbewahrt, wie es zur Bearbeitung Ihrer Anfrage nötig ist. Eine Newsletter-Anmeldung wird bis zu Ihrer Abmeldung gespeichert."
       },
       {
         "title": "Ihre Rechte (DSGVO)",
-        "body": "Daten exportieren: Laden Sie in Mein Konto mit einem Klick eine Datei mit allen Ihren Daten herunter. Konto loschen: In Mein Konto (Gefahrenzone) konnen Sie Ihr Konto und Ihre Arbeitsbereiche sofort und endgultig loschen. Newsletter: Jede E-Mail enthalt einen Ein-Klick-Abmeldelink, ohne dass eine Anmeldung erforderlich ist. Fur alle anderen Anliegen (Berichtigung, Widerspruch) nutzen Sie das Kontaktformular."
+        "body": "Daten exportieren: Laden Sie in Mein Konto mit einem Klick eine Datei mit allen Ihren Daten herunter. Konto löschen: In Mein Konto (Gefahrenzone) können Sie Ihr Konto und Ihre Arbeitsbereiche sofort und endgültig löschen. Newsletter: Jede E-Mail enthält einen Ein-Klick-Abmeldelink, ohne dass eine Anmeldung erforderlich ist. Für alle anderen Anliegen (Berichtigung, Widerspruch) nutzen Sie das Kontaktformular."
       }
     ],
     "footnote": "Diese Seite beschreibt den Dienst, wie er auf dieser Website betrieben wird. Da die Software auch selbst gehostet werden kann, liegt eine von einer anderen Organisation installierte und verwaltete Instanz in deren Verantwortung.",
@@ -249,82 +249,82 @@
     "audience": {
       "title": "Reichweitenmessung",
       "paragraphs": [
-        "Diese Website verwendet SEO Monitor, ein selbst gehostetes Werkzeug zur Reichweitenmessung, um anonyme Besuchsstatistiken zu erstellen (aufgerufene Seiten, Herkunft der Besuche, Verweildauer, Geratetyp). Diese Daten dienen ausschliesslich dem reibungslosen Betrieb und der Verbesserung der Website.",
-        "Eine zufallige Kennung wird hochstens 13 Monate in Ihrem Browser gespeichert. Ihre IP-Adresse wird nie gespeichert: Sie dient nur kurzzeitig dazu, ein ungefahres Land und eine ungefahre Stadt abzuleiten. Die Daten werden weder mit anderen Verarbeitungen verknupft noch an Dritte weitergegeben und hochstens 25 Monate aufbewahrt.",
+        "Diese Website verwendet SEO Monitor, ein selbst gehostetes Werkzeug zur Reichweitenmessung, um anonyme Besuchsstatistiken zu erstellen (aufgerufene Seiten, Herkunft der Besuche, Verweildauer, Gerätetyp). Diese Daten dienen ausschließlich dem reibungslosen Betrieb und der Verbesserung der Website.",
+        "Eine zufällige Kennung wird höchstens 13 Monate in Ihrem Browser gespeichert. Ihre IP-Adresse wird nie gespeichert: Sie dient nur kurzzeitig dazu, ein ungefähres Land und eine ungefähre Stadt abzuleiten. Die Daten werden weder mit anderen Verarbeitungen verknüpft noch an Dritte weitergegeben und höchstens 25 Monate aufbewahrt.",
         "Verantwortlicher: {{publisher}}",
-        "Zweck und Rechtsgrundlage: Reichweitenmessung der Website auf Grundlage des berechtigten Interesses des Herausgebers (Art. 6 Abs. 1 lit. f DSGVO). Diese Verarbeitung ist nach Artikel 82 des franzosischen Datenschutzgesetzes und den Leitlinien der CNIL zu Trackern einwilligungsfrei.",
-        "Erfasste Daten: aufgerufene Seiten, Herkunft des Besuchs, Verweildauer, Scrolltiefe, Geratetyp, Browser, Sprache, ungefahres Land und ungefahre Stadt. Die IP-Adresse wird nicht gespeichert.",
-        "Tracker und Speicherdauer: Kennung sm_vid im lokalen Speicher des Browsers, zur Reichweitenmessung, hochstens 13 Monate (einwilligungsfrei). Die Statistiken werden hochstens 25 Monate aufbewahrt.",
-        "Empfanger: keine Dritten. Die Daten werden auf einem OVH-Server in Frankreich gehostet.",
-        "Ihre Rechte: Sie haben das Recht auf Auskunft, Berichtigung, Loschung, Widerspruch und Einschrankung der Verarbeitung, das Sie uber das Kontaktformular ausuben konnen. Sie konnen ausserdem Beschwerde bei der CNIL (www.cnil.fr) einlegen."
+        "Zweck und Rechtsgrundlage: Reichweitenmessung der Website auf Grundlage des berechtigten Interesses des Herausgebers (Art. 6 Abs. 1 lit. f DSGVO). Diese Verarbeitung ist nach Artikel 82 des französischen Datenschutzgesetzes und den Leitlinien der CNIL zu Trackern einwilligungsfrei.",
+        "Erfasste Daten: aufgerufene Seiten, Herkunft des Besuchs, Verweildauer, Scrolltiefe, Gerätetyp, Browser, Sprache, ungefähres Land und ungefähre Stadt. Die IP-Adresse wird nicht gespeichert.",
+        "Tracker und Speicherdauer: Kennung sm_vid im lokalen Speicher des Browsers, zur Reichweitenmessung, höchstens 13 Monate (einwilligungsfrei). Die Statistiken werden höchstens 25 Monate aufbewahrt.",
+        "Empfänger: keine Dritten. Die Daten werden auf einem OVH-Server in Frankreich gehostet.",
+        "Ihre Rechte: Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Widerspruch und Einschränkung der Verarbeitung, das Sie über das Kontaktformular ausüben können. Sie können außerdem Beschwerde bei der CNIL (www.cnil.fr) einlegen."
       ],
-      "optOutLead": "Gemass den Leitlinien der CNIL ist diese Verarbeitung einwilligungsfrei. Sie konnen ihr dennoch jederzeit widersprechen:",
+      "optOutLead": "Gemäß den Leitlinien der CNIL ist diese Verarbeitung einwilligungsfrei. Sie können ihr dennoch jederzeit widersprechen:",
       "optOut": "nicht mehr erfassen",
       "optedOut": "Ihre Besuche werden nicht mehr erfasst.",
       "unavailable": "Das Messwerkzeug ist auf dieser Seite nicht geladen (Inhaltsblocker?): Ihre Besuche werden derzeit nicht erfasst."
     }
   },
   "terms": {
-    "back": "Zuruck zur Startseite",
+    "back": "Zurück zur Startseite",
     "eyebrow": "Nutzungsbedingungen",
     "title": "Allgemeine Nutzungsbedingungen",
-    "subtitle": "Mit der Erstellung eines Kontos oder der Nutzung von {{brand}} akzeptieren Sie die folgenden Regeln. Sie sollen einfach und verstandlich bleiben.",
+    "subtitle": "Mit der Erstellung eines Kontos oder der Nutzung von {{brand}} akzeptieren Sie die folgenden Regeln. Sie sollen einfach und verständlich bleiben.",
     "updated": "Zuletzt aktualisiert: {{date}}",
     "sections": [
       {
         "title": "1. Gegenstand",
-        "body": "Diese Bedingungen regeln den Zugang zu und die Nutzung von {{brand}} (der \"Dienst\"), einer Anwendung zum Hochladen von Dokumenten in Arbeitsbereiche und deren Abfrage uber einen KI-basierten Chat-Assistenten. Die Nutzung des Dienstes setzt die vollstandige Annahme dieser Bedingungen voraus."
+        "body": "Diese Bedingungen regeln den Zugang zu und die Nutzung von {{brand}} (der \"Dienst\"), einer Anwendung zum Hochladen von Dokumenten in Arbeitsbereiche und deren Abfrage über einen KI-basierten Chat-Assistenten. Die Nutzung des Dienstes setzt die vollständige Annahme dieser Bedingungen voraus."
       },
       {
         "title": "2. Benutzerkonto",
-        "body": "Fur die Nutzung des Dienstes ist ein Konto erforderlich (E-Mail/Passwort oder Anmeldung uber einen Drittanbieter wie Google). Sie sind fur die Vertraulichkeit Ihrer Zugangsdaten und alle uber Ihr Konto ausgefuhrten Aktivitaten verantwortlich. Ein Konto ist personlich und darf nicht geteilt werden."
+        "body": "Für die Nutzung des Dienstes ist ein Konto erforderlich (E-Mail/Passwort oder Anmeldung über einen Drittanbieter wie Google). Sie sind für die Vertraulichkeit Ihrer Zugangsdaten und alle über Ihr Konto ausgeführten Aktivitäten verantwortlich. Ein Konto ist persönlich und darf nicht geteilt werden."
       },
       {
         "title": "3. Hochgeladene Inhalte",
-        "body": "Sie bleiben Eigentumer der von Ihnen hochgeladenen Dokumente. Sie sichern zu, uber die erforderlichen Rechte an importierten Inhalten zu verfugen und fur deren Rechtmassigkeit verantwortlich zu sein. Diese Inhalte werden ausschliesslich zur Beantwortung Ihrer eigenen Fragen innerhalb Ihrer Arbeitsbereiche verwendet - sie werden niemals zum Training eines KI-Modells genutzt oder ohne Ihre ausdruckliche Handlung (Freigabelink) mit anderen Nutzern geteilt."
+        "body": "Sie bleiben Eigentümer der von Ihnen hochgeladenen Dokumente. Sie sichern zu, über die erforderlichen Rechte an importierten Inhalten zu verfügen und für deren Rechtmäßigkeit verantwortlich zu sein. Diese Inhalte werden ausschließlich zur Beantwortung Ihrer eigenen Fragen innerhalb Ihrer Arbeitsbereiche verwendet - sie werden niemals zum Training eines KI-Modells genutzt oder ohne Ihre ausdrückliche Handlung (Freigabelink) mit anderen Nutzern geteilt."
       },
       {
         "title": "4. Arbeitsbereiche und Freigabe",
-        "body": "Jeder Arbeitsbereich gehort einem Eigentumer, der andere Nutzer uber einen Freigabelink einladen kann (nur lesen oder lesen/schreiben je nach gewahlter Rolle). Der Eigentumer eines Bereichs ist fur die eingeladenen Personen und die dort hochgeladenen Inhalte verantwortlich. Die Anzahl der Bereiche, der Mitglieder pro Bereich, der Speicher und die Zahl der Fragen pro Tag sind pro Konto begrenzt (siehe FAQ)."
+        "body": "Jeder Arbeitsbereich gehört einem Eigentümer, der andere Nutzer über einen Freigabelink einladen kann (nur lesen oder lesen/schreiben je nach gewählter Rolle). Der Eigentümer eines Bereichs ist für die eingeladenen Personen und die dort hochgeladenen Inhalte verantwortlich. Die Anzahl der Bereiche, der Mitglieder pro Bereich, der Speicher und die Zahl der Fragen pro Tag sind pro Konto begrenzt (siehe FAQ)."
       },
       {
-        "title": "5. Zulassige Nutzung",
-        "body": "Sie verpflichten sich, den Dienst nicht zum Hochladen oder Erzeugen rechtswidriger Inhalte zu nutzen, nicht zu versuchen, technische Grenzen (Kontingente, Ratenbegrenzung, Sicherheitsmassnahmen) zu umgehen, und den Dienst nicht fur andere Nutzer zu storen. Ein Verstoss kann zur Sperrung oder Loschung des Kontos fuhren."
+        "title": "5. Zulässige Nutzung",
+        "body": "Sie verpflichten sich, den Dienst nicht zum Hochladen oder Erzeugen rechtswidriger Inhalte zu nutzen, nicht zu versuchen, technische Grenzen (Kontingente, Ratenbegrenzung, Sicherheitsmaßnahmen) zu umgehen, und den Dienst nicht für andere Nutzer zu stören. Ein Verstoß kann zur Sperrung oder Löschung des Kontos führen."
       },
       {
-        "title": "6. Grenzen der Kunstlichen Intelligenz",
-        "body": "Vom KI-Assistenten generierte Antworten konnen unvollstandig oder ungenau sein oder Fehler enthalten (Halluzinationen), selbst wenn Quellen zitiert werden. Sie stellen in keinem Fall eine professionelle, rechtliche, medizinische oder finanzielle Beratung dar. Sie allein sind fur die Verwendung der bereitgestellten Antworten verantwortlich."
+        "title": "6. Grenzen der Künstlichen Intelligenz",
+        "body": "Vom KI-Assistenten generierte Antworten können unvollständig oder ungenau sein oder Fehler enthalten (Halluzinationen), selbst wenn Quellen zitiert werden. Sie stellen in keinem Fall eine professionelle, rechtliche, medizinische oder finanzielle Beratung dar. Sie allein sind für die Verwendung der bereitgestellten Antworten verantwortlich."
       },
       {
         "title": "7. Nutzungslimits",
-        "body": "Um eine faire Nutzung zu gewahrleisten und Missbrauch zu verhindern, unterliegt jedes Konto Nutzungslimits (Bereiche, Mitglieder pro Bereich, Speicher, Fragen an die KI pro Tag), die in der FAQ angegeben sind und sich andern konnen. Die Umgehung dieser Limits (z. B. durch das Anlegen mehrerer Konten) kann zur Sperrung der betroffenen Konten fuhren. Sie konnen Ihr Konto jederzeit loschen, wodurch Ihre Bereiche und zugehorigen Daten endgultig geloscht werden."
+        "body": "Um eine faire Nutzung zu gewährleisten und Missbrauch zu verhindern, unterliegt jedes Konto Nutzungslimits (Bereiche, Mitglieder pro Bereich, Speicher, Fragen an die KI pro Tag), die in der FAQ angegeben sind und sich ändern können. Die Umgehung dieser Limits (z. B. durch das Anlegen mehrerer Konten) kann zur Sperrung der betroffenen Konten führen. Sie können Ihr Konto jederzeit löschen, wodurch Ihre Bereiche und zugehörigen Daten endgültig gelöscht werden."
       },
       {
-        "title": "8. Verfugbarkeit des Dienstes",
-        "body": "Der Dienst wird wie vorliegend bereitgestellt, mit einem Verfugbarkeitsziel, jedoch ohne Garantie absoluter Kontinuitat. Vorubergehende Unterbrechungen (Wartung, technische Vorfalle) konnen auftreten. Automatische Sicherungen verringern das Risiko von Datenverlust, ohne es vollstandig auszuschliessen."
+        "title": "8. Verfügbarkeit des Dienstes",
+        "body": "Der Dienst wird wie vorliegend bereitgestellt, mit einem Verfügbarkeitsziel, jedoch ohne Garantie absoluter Kontinuität. Vorübergehende Unterbrechungen (Wartung, technische Vorfälle) können auftreten. Automatische Sicherungen verringern das Risiko von Datenverlust, ohne es vollständig auszuschließen."
       },
       {
-        "title": "9. Anderung dieser Bedingungen",
-        "body": "Diese Bedingungen konnen sich weiterentwickeln, insbesondere um neue Funktionen oder rechtliche Pflichten widerzuspiegeln. Nutzer werden uber wesentliche Anderungen uber die Anwendung oder per E-Mail informiert. Die fortgesetzte Nutzung des Dienstes nach einer Mitteilung gilt als Annahme der neuen Bedingungen."
+        "title": "9. Änderung dieser Bedingungen",
+        "body": "Diese Bedingungen können sich weiterentwickeln, insbesondere um neue Funktionen oder rechtliche Pflichten widerzuspiegeln. Nutzer werden über wesentliche Änderungen über die Anwendung oder per E-Mail informiert. Die fortgesetzte Nutzung des Dienstes nach einer Mitteilung gilt als Annahme der neuen Bedingungen."
       },
       {
         "title": "10. Anwendbares Recht und Kontakt",
-        "body": "Diese Bedingungen unterliegen franzosischem Recht. Fur Fragen nutzen Sie bitte das Kontaktformular der Website."
+        "body": "Diese Bedingungen unterliegen französischem Recht. Für Fragen nutzen Sie bitte das Kontaktformular der Website."
       }
     ]
   },
   "legal": {
-    "back": "Zuruck zur Startseite",
+    "back": "Zurück zur Startseite",
     "eyebrow": "Impressum",
     "title": "Impressum",
-    "subtitle": "Angaben zum Betreiber dieser Website gemass franzosischem Recht.",
+    "subtitle": "Angaben zum Betreiber dieser Website gemäß französischem Recht.",
     "sections": [
       {
         "title": "Betreiber der Website",
         "body": "{{publisher}}"
       },
       {
-        "title": "Verantwortlicher fur die Veroffentlichung",
+        "title": "Verantwortlicher für die Veröffentlichung",
         "body": "{{director}}"
       },
       {
@@ -333,15 +333,15 @@
       },
       {
         "title": "Geistiges Eigentum",
-        "body": "Alle Elemente dieser Website (Texte, Logo, Quellcode, Oberflache) sind urheberrechtlich geschutzt. Jede Vervielfaltigung ohne vorherige Genehmigung ist untersagt, ausser fur Komponenten, die ausdrucklich unter einer Open-Source-Lizenz veroffentlicht wurden."
+        "body": "Alle Elemente dieser Website (Texte, Logo, Quellcode, Oberfläche) sind urheberrechtlich geschützt. Jede Vervielfältigung ohne vorherige Genehmigung ist untersagt, außer für Komponenten, die ausdrücklich unter einer Open-Source-Lizenz veröffentlicht wurden."
       },
       {
         "title": "Personenbezogene Daten",
-        "body": "Die Verarbeitung Ihrer personenbezogenen Daten, einschliesslich der Reichweitenmessung der Website, ist in der Datenschutzerklarung beschrieben (Seite Datenschutz, am Ende jeder Seite verlinkt)."
+        "body": "Die Verarbeitung Ihrer personenbezogenen Daten, einschließlich der Reichweitenmessung der Website, ist in der Datenschutzerklärung beschrieben (Seite Datenschutz, am Ende jeder Seite verlinkt)."
       },
       {
         "title": "Kontakt und Streitigkeiten",
-        "body": "Fur Fragen nutzen Sie bitte das Kontaktformular der Website. Im Streitfall wird vor jedem gerichtlichen Vorgehen eine gutliche Einigung angestrebt; andernfalls sind ausschliesslich die zustandigen franzosischen Gerichte zustandig."
+        "body": "Für Fragen nutzen Sie bitte das Kontaktformular der Website. Im Streitfall wird vor jedem gerichtlichen Vorgehen eine gütliche Einigung angestrebt; andernfalls sind ausschließlich die zuständigen französischen Gerichte zuständig."
       }
     ],
     "notConfigured": "Auf dieser Instanz nicht angegeben."
@@ -381,27 +381,27 @@
       "passwordHint": "Mindestens 8 Zeichen.",
       "submit": "Konto erstellen",
       "submitting": "Wird erstellt...",
-      "terms": "Ich habe die Nutzungsbedingungen und die Datenschutzerklarung gelesen und akzeptiere sie.",
+      "terms": "Ich habe die Nutzungsbedingungen und die Datenschutzerklärung gelesen und akzeptiere sie.",
       "termsLinkTerms": "Nutzungsbedingungen lesen",
-      "termsLinkPrivacy": "Datenschutzerklarung lesen",
+      "termsLinkPrivacy": "Datenschutzerklärung lesen",
       "ssoTerms": "Wenn Sie mit einem externen Anbieter fortfahren, akzeptieren Sie diese Bedingungen ebenfalls."
     },
     "forgot": {
       "title": "Passwort vergessen",
-      "subtitle": "Wir senden Ihnen einen Link zum Zurucksetzen per E-Mail.",
-      "sent": "Falls ein Konto mit dieser E-Mail existiert, wurde soeben ein Link zum Zurucksetzen gesendet.",
-      "backToLogin": "Zuruck zur Anmeldung",
+      "subtitle": "Wir senden Ihnen einen Link zum Zurücksetzen per E-Mail.",
+      "sent": "Falls ein Konto mit dieser E-Mail existiert, wurde soeben ein Link zum Zurücksetzen gesendet.",
+      "backToLogin": "Zurück zur Anmeldung",
       "submit": "Link senden",
       "submitting": "Wird gesendet..."
     },
     "reset": {
       "title": "Neues Passwort",
-      "subtitle": "Wahlen Sie ein neues Passwort.",
-      "missingToken": "Ungultiger Link zum Zurucksetzen.",
+      "subtitle": "Wählen Sie ein neues Passwort.",
+      "missingToken": "Ungültiger Link zum Zurücksetzen.",
       "newPassword": "Neues Passwort",
       "success": "Ihr Passwort wurde aktualisiert.",
       "goToLogin": "Anmelden",
-      "submit": "Passwort zurucksetzen",
+      "submit": "Passwort zurücksetzen",
       "submitting": "Wird gespeichert..."
     },
     "twofa": {
@@ -414,24 +414,24 @@
     "account": {
       "title": "Mein Konto",
       "security": "Sicherheit",
-      "logoutEverywhere": "Uberall abmelden",
-      "logoutEverywhereDone": "Auf allen Geraten abgemeldet.",
+      "logoutEverywhere": "Überall abmelden",
+      "logoutEverywhereDone": "Auf allen Geräten abgemeldet.",
       "twofaTitle": "Zwei-Faktor-Verifizierung (2FA)",
       "twofaEnabled": "Aktiviert",
       "twofaDisabled": "Deaktiviert",
       "twofaEnable": "Aktivieren",
       "twofaDisable": "Deaktivieren",
-      "twofaSetupHint": "Scannen Sie diesen Code mit Ihrer Authentifizierungs-App oder geben Sie den Schlussel manuell ein.",
+      "twofaSetupHint": "Scannen Sie diesen Code mit Ihrer Authentifizierungs-App oder geben Sie den Schlüssel manuell ein.",
       "twofaCodePlaceholder": "6-stelliger Code",
-      "twofaConfirm": "Aktivierung bestatigen",
+      "twofaConfirm": "Aktivierung bestätigen",
       "twofaDisablePasswordHint": "Geben Sie Ihr Passwort ein, um 2FA zu deaktivieren.",
       "dangerZone": "Gefahrenzone",
-      "deleteAccount": "Mein Konto loschen",
-      "deleteAccountWarning": "Diese Aktion ist unwiderruflich: Ihr Konto und alle Bereiche, deren Inhaber Sie sind, werden endgultig geloscht.",
-      "deleteAccountConfirm": "Geben Sie Ihr Passwort ein, um die Loschung zu bestatigen.",
+      "deleteAccount": "Mein Konto löschen",
+      "deleteAccountWarning": "Diese Aktion ist unwiderruflich: Ihr Konto und alle Bereiche, deren Inhaber Sie sind, werden endgültig gelöscht.",
+      "deleteAccountConfirm": "Geben Sie Ihr Passwort ein, um die Löschung zu bestätigen.",
       "exportData": "Meine Daten exportieren",
-      "emailVerified": "E-Mail bestatigt",
-      "emailNotVerified": "E-Mail nicht bestatigt",
+      "emailVerified": "E-Mail bestätigt",
+      "emailNotVerified": "E-Mail nicht bestätigt",
       "usage": {
         "title": "Nutzung",
         "storage": "Speicher",
@@ -443,123 +443,123 @@
       },
       "gdpr": {
         "title": "Ihre Daten und Ihre Rechte (DSGVO)",
-        "hint": "Sie haben das Recht auf Auskunft, Berichtigung, Loschung, Einschrankung, Widerspruch und Ubertragbarkeit Ihrer personenbezogenen Daten. Sie konnen Ihre Daten unten exportieren oder Ihr Konto loschen; fur alle anderen Anfragen nutzen Sie bitte das Kontaktformular. Alle Einzelheiten zu diesen Rechten und zur Datenverarbeitung finden Sie in unserer",
-        "privacyLink": "Datenschutzerklarung"
+        "hint": "Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung, Widerspruch und Übertragbarkeit Ihrer personenbezogenen Daten. Sie können Ihre Daten unten exportieren oder Ihr Konto löschen; für alle anderen Anfragen nutzen Sie bitte das Kontaktformular. Alle Einzelheiten zu diesen Rechten und zur Datenverarbeitung finden Sie in unserer",
+        "privacyLink": "Datenschutzerklärung"
       },
       "profile": {
         "title": "Profil",
         "displayName": "Anzeigename",
         "save": "Speichern",
         "saved": "Profil aktualisiert.",
-        "resendVerification": "Bestatigungs-E-Mail erneut senden",
-        "resendDone": "Bestatigungs-E-Mail gesendet."
+        "resendVerification": "Bestätigungs-E-Mail erneut senden",
+        "resendDone": "Bestätigungs-E-Mail gesendet."
       },
       "password": {
-        "title": "Passwort andern",
+        "title": "Passwort ändern",
         "current": "Aktuelles Passwort",
         "new": "Neues Passwort",
-        "changed": "Passwort geandert. Ihre anderen Sitzungen wurden abgemeldet.",
+        "changed": "Passwort geändert. Ihre anderen Sitzungen wurden abgemeldet.",
         "ssoHint": "Mit Google registriert? Nutzen Sie \"Passwort vergessen\", um ein Passwort festzulegen."
       },
       "twofaPasswordLabel": "Passwort",
-      "deletePasswordLabel": "Passwort zur Bestatigung"
+      "deletePasswordLabel": "Passwort zur Bestätigung"
     },
     "verify": {
-      "title": "E-Mail-Bestatigung",
-      "verifying": "Uberprufung lauft...",
-      "success": "Ihre E-Mail-Adresse wurde bestatigt.",
-      "error": "Ungultiger oder abgelaufener Bestatigungslink.",
+      "title": "E-Mail-Bestätigung",
+      "verifying": "Überprüfung läuft...",
+      "success": "Ihre E-Mail-Adresse wurde bestätigt.",
+      "error": "Ungültiger oder abgelaufener Bestätigungslink.",
       "goToDashboard": "Zum Dashboard"
     }
   },
   "captcha": {
     "loading": "Verifizierung wird geladen...",
-    "solving": "Anti-Bot-Verifizierung lauft...",
+    "solving": "Anti-Bot-Verifizierung läuft...",
     "ready": "Verifizierung erfolgreich",
-    "error": "Verifizierung nicht verfugbar, bitte erneut versuchen"
+    "error": "Verifizierung nicht verfügbar, bitte erneut versuchen"
   },
   "support": {
-    "openLabel": "Hilfe-Assistenten offnen",
-    "closeLabel": "Hilfe-Assistenten schliessen",
+    "openLabel": "Hilfe-Assistenten öffnen",
+    "closeLabel": "Hilfe-Assistenten schließen",
     "title": "{{brand}} Assistent",
     "subtitle": "Fragen zur Website oder zur App",
-    "greeting": "Hallo! Ich kann Fragen zur Funktionsweise von {{brand}} beantworten (Konten, Bereiche, Freigabe, Dokumente...). Was mochtest du wissen?",
+    "greeting": "Hallo! Ich kann Fragen zur Funktionsweise von {{brand}} beantworten (Konten, Bereiche, Freigabe, Dokumente...). Was möchtest du wissen?",
     "placeholder": "Stelle deine Frage...",
     "send": "Senden",
     "errorGeneric": "Etwas ist schiefgelaufen. Bitte versuche es gleich noch einmal.",
-    "disclaimer": "Automatischer Assistent, beschrankt auf Hilfe zur Website.\nFur alles andere nutze das Kontaktformular."
+    "disclaimer": "Automatischer Assistent, beschränkt auf Hilfe zur Website.\nFür alles andere nutze das Kontaktformular."
   },
   "faq": {
-    "eyebrow": "Haufig gestellte Fragen",
-    "title": "Alles uber {{brand}}",
-    "subtitle": "Die haufigsten Fragen zu Konten, Bereichen, Freigabe und Datenschutz.",
-    "backHome": "Zuruck zur Startseite",
+    "eyebrow": "Häufig gestellte Fragen",
+    "title": "Alles über {{brand}}",
+    "subtitle": "Die häufigsten Fragen zu Konten, Bereichen, Freigabe und Datenschutz.",
+    "backHome": "Zurück zur Startseite",
     "contactCta": "Noch eine Frage? Schreib uns von der Startseite aus.",
     "items": [
       {
         "question": "Was ist {{brand}}?",
-        "answer": "{{brand}} verbindet Ihre Geschaftsdokumente (PDF, Bilder, Webseiten, DOCX, TXT, Markdown) mit einer KI mit belegten Antworten, in Bereichen, die pro Kunde oder Akte abgeschottet sind. Gebaut fur Kanzleien, Agenturen und Teams mit mehreren Kunden."
+        "answer": "{{brand}} verbindet Ihre Geschäftsdokumente (PDF, Bilder, Webseiten, DOCX, TXT, Markdown) mit einer KI mit belegten Antworten, in Bereichen, die pro Kunde oder Akte abgeschottet sind. Gebaut für Kanzleien, Agenturen und Teams mit mehreren Kunden."
       },
       {
         "question": "Brauche ich ein Konto, um es zu nutzen?",
-        "answer": "Ja, ein Konto ist erforderlich, um {{brand}} zu nutzen, auch um einen Freigabelink zu offnen. So weiss jeder Bereich genau, wer darauf zugegriffen hat und mit welcher Rolle."
+        "answer": "Ja, ein Konto ist erforderlich, um {{brand}} zu nutzen, auch um einen Freigabelink zu öffnen. So weiß jeder Bereich genau, wer darauf zugegriffen hat und mit welcher Rolle."
       },
       {
         "question": "Was ist ein Arbeitsbereich?",
-        "answer": "Ein Arbeitsbereich buendelt Dokumente und Unterhaltungen zu einem bestimmten Thema. Jeder Bereich ist getrennt: Zwischen zwei verschiedenen Bereichen wird nichts geteilt. Mehrere Personen konnen im selben Bereich zusammenarbeiten."
+        "answer": "Ein Arbeitsbereich bündelt Dokumente und Unterhaltungen zu einem bestimmten Thema. Jeder Bereich ist getrennt: Zwischen zwei verschiedenen Bereichen wird nichts geteilt. Mehrere Personen können im selben Bereich zusammenarbeiten."
       },
       {
         "question": "Welche Rollen gibt es in einem Bereich?",
-        "answer": "Eigentumer (erstellt den Bereich, verwaltet Mitglieder und Freigabelinks, kann ihn loschen), Bearbeiter (kann mit dem Assistenten chatten und Dokumente hinzufugen) und Betrachter (kann nur Verlauf und Dokumente einsehen, ohne zu schreiben)."
+        "answer": "Eigentümer (erstellt den Bereich, verwaltet Mitglieder und Freigabelinks, kann ihn löschen), Bearbeiter (kann mit dem Assistenten chatten und Dokumente hinzufügen) und Betrachter (kann nur Verlauf und Dokumente einsehen, ohne zu schreiben)."
       },
       {
         "question": "Wie funktionieren Freigabelinks?",
-        "answer": "Erstelle in einem Bereich, dessen Eigentumer du bist, einen Link mit der Rolle Betrachter oder Bearbeiter. Jede angemeldete Person, die diesen Link offnet, erhalt Zugriff auf den Bereich mit dieser Rolle - wer noch kein Konto hat, wird zuerst gebeten, eines zu erstellen. Du kannst einen Link jederzeit widerrufen."
+        "answer": "Erstelle in einem Bereich, dessen Eigentümer du bist, einen Link mit der Rolle Betrachter oder Bearbeiter. Jede angemeldete Person, die diesen Link öffnet, erhält Zugriff auf den Bereich mit dieser Rolle - wer noch kein Konto hat, wird zuerst gebeten, eines zu erstellen. Du kannst einen Link jederzeit widerrufen."
       },
       {
-        "question": "Welche Dokumentformate werden unterstutzt?",
-        "answer": "PDF (nativer Text oder gescannt, mit automatischer OCR durch eine Bild-KI), Bilder (JPG, PNG, WEBP...), Webseiten, DOCX, TXT und Markdown. Dokumente werden automatisch in Abschnitte zerlegt und fur die Suche indexiert."
+        "question": "Welche Dokumentformate werden unterstützt?",
+        "answer": "PDF (nativer Text oder gescannt, mit automatischer OCR durch eine Bild-KI), Bilder (JPG, PNG, WEBP...), Webseiten, DOCX, TXT und Markdown. Dokumente werden automatisch in Abschnitte zerlegt und für die Suche indexiert."
       },
       {
         "question": "Kann die KI im Internet suchen?",
-        "answer": "Ja. Wenn eine Frage aktuelle Informationen benotigt (Nachrichten, Wetter, Preise...), erkennt der Assistent dies automatisch und erganzt seine Antwort uber eine selbstgehostete Suchmaschine, ohne API-Schlussel und ohne Tracking."
+        "answer": "Ja. Wenn eine Frage aktuelle Informationen benötigt (Nachrichten, Wetter, Preise...), erkennt der Assistent dies automatisch und ergänzt seine Antwort über eine selbstgehostete Suchmaschine, ohne API-Schlüssel und ohne Tracking."
       },
       {
         "question": "Bleiben meine Daten privat?",
-        "answer": "Ja, innerhalb der Europaischen Union. Ihre Dokumente, Embeddings und Unterhaltungen liegen auf unseren Servern in Frankreich bei OVHcloud. Zur Erzeugung einer Antwort wird der relevante Text an Mistral AI ubermittelt, einen franzosischen Anbieter, dessen Verarbeitung in der EU stattfindet - nichts geht an einen Anbieter ausserhalb der Europaischen Union, und Ihre Daten werden nie zum Training eines Modells verwendet. Die Audiotranskription verlasst unsere Server nicht einmal."
+        "answer": "Ja, innerhalb der Europäischen Union. Ihre Dokumente, Embeddings und Unterhaltungen liegen auf unseren Servern in Frankreich bei OVHcloud. Zur Erzeugung einer Antwort wird der relevante Text an Mistral AI übermittelt, einen französischen Anbieter, dessen Verarbeitung in der EU stattfindet - nichts geht an einen Anbieter außerhalb der Europäischen Union, und Ihre Daten werden nie zum Training eines Modells verwendet. Die Audiotranskription verlässt unsere Server nicht einmal."
       },
       {
         "question": "Wie aktiviere ich die Zwei-Faktor-Verifizierung (2FA)?",
-        "answer": "Klicke auf der Seite Mein Konto im Bereich Sicherheit auf Aktivieren neben \"Verifizierung in zwei Schritten\". Scanne den Code mit deiner Authentifizierungs-App und bestatige mit dem 6-stelligen Code."
+        "answer": "Klicke auf der Seite Mein Konto im Bereich Sicherheit auf Aktivieren neben \"Verifizierung in zwei Schritten\". Scanne den Code mit deiner Authentifizierungs-App und bestätige mit dem 6-stelligen Code."
       },
       {
-        "question": "Was passiert, wenn ich versehentlich ein Dokument oder eine Unterhaltung losche?",
-        "answer": "Jeder Arbeitsbereich erhalt ein automatisches Backup (hochstens einmal pro Tag, 7 Tage gleitend aufbewahrt). Ein Administrator der Instanz kann den Bereich uber das Admin-Dashboard auf einen fruheren Zustand zuruckstellen."
+        "question": "Was passiert, wenn ich versehentlich ein Dokument oder eine Unterhaltung lösche?",
+        "answer": "Jeder Arbeitsbereich erhält ein automatisches Backup (höchstens einmal pro Tag, 7 Tage gleitend aufbewahrt). Ein Administrator der Instanz kann den Bereich über das Admin-Dashboard auf einen früheren Zustand zurückstellen."
       },
       {
         "question": "Gibt es Nutzungslimits?",
-        "answer": "Ja, um Missbrauch zu verhindern, hat jedes Konto Nutzungslimits: 3 Arbeitsbereiche, 5 Mitglieder pro Bereich, 500 MB Speicher pro Bereich und 50 KI-Fragen pro Tag. Der Fragenzahler wird jeden Tag zuruckgesetzt."
+        "answer": "Ja, um Missbrauch zu verhindern, hat jedes Konto Nutzungslimits: 3 Arbeitsbereiche, 5 Mitglieder pro Bereich, 500 MB Speicher pro Bereich und 50 KI-Fragen pro Tag. Der Fragenzähler wird jeden Tag zurückgesetzt."
       }
     ]
   },
   "newsletter": {
-    "backHome": "Zuruck zur Startseite",
+    "backHome": "Zurück zur Startseite",
     "confirm": {
-      "title": "Newsletter-Bestatigung",
-      "success": "Ihre Newsletter-Anmeldung ist bestatigt.",
-      "error": "Ungultiger oder abgelaufener Bestatigungslink."
+      "title": "Newsletter-Bestätigung",
+      "success": "Ihre Newsletter-Anmeldung ist bestätigt.",
+      "error": "Ungültiger oder abgelaufener Bestätigungslink."
     },
     "unsubscribe": {
       "title": "Newsletter abbestellen",
       "success": "Sie wurden vom Newsletter abgemeldet.",
-      "error": "Ungultiger Abmeldelink."
+      "error": "Ungültiger Abmeldelink."
     },
     "sectionEyebrow": "Newsletter",
     "sectionTitle": "Bleiben Sie auf dem Laufenden",
     "signup": {
       "placeholder": "sie@beispiel.de",
       "submit": "Anmelden",
-      "done": "Danke! Bestatigen Sie per E-Mail.",
+      "done": "Danke! Bestätigen Sie per E-Mail.",
       "error": "Ein Fehler ist aufgetreten, bitte erneut versuchen."
     }
   },
@@ -595,8 +595,8 @@
     "spaceConvs_one": "{{count}} Unterhaltung",
     "spaceConvs_other": "{{count}} Unterhaltungen",
     "viaLink": {
-      "title": "Uber einen Freigabelink geoffnet",
-      "hint": "Bereiche, auf die Sie uber einen Link zugegriffen haben (auf diesem Gerat gespeichert).",
+      "title": "Über einen Freigabelink geöffnet",
+      "hint": "Bereiche, auf die Sie über einen Link zugegriffen haben (auf diesem Gerät gespeichert).",
       "badge": "Link"
     }
   },
@@ -621,7 +621,7 @@
     "users": {
       "createButton": "Neuer Benutzer",
       "createTitle": "Neuer Benutzer",
-      "createError": "Konto konnte nicht erstellt werden (E-Mail bereits vergeben?)",
+      "createError": "Konto könnte nicht erstellt werden (E-Mail bereits vergeben?)",
       "password": "Passwort",
       "generatePassword": "Generieren",
       "copyPassword": "Kopieren",
@@ -630,7 +630,7 @@
       "create": "Konto erstellen"
     },
     "testimonials": {
-      "hint": "Diese Bewertungen sind auf der offentlichen Seite erst nach Veroffentlichung sichtbar.",
+      "hint": "Diese Bewertungen sind auf der öffentlichen Seite erst nach Veröffentlichung sichtbar.",
       "create": "Neue Bewertung",
       "createTitle": "Neue Bewertung",
       "editTitle": "Bewertung bearbeiten",
@@ -639,29 +639,29 @@
       "authorCompany": "Unternehmen",
       "content": "Bewertung",
       "rating": "Bewertung (Sterne)",
-      "published": "Veroffentlicht",
+      "published": "Veröffentlicht",
       "draft": "Entwurf",
-      "publish": "Veroffentlichen",
-      "unpublish": "Zuruckziehen",
+      "publish": "Veröffentlichen",
+      "unpublish": "Zurückziehen",
       "empty": "Noch keine Bewertungen.",
-      "confirmDeleteTitle": "Diese Bewertung loschen?",
-      "confirmDeleteMessage": "Diese Aktion ist endgultig."
+      "confirmDeleteTitle": "Diese Bewertung löschen?",
+      "confirmDeleteMessage": "Diese Aktion ist endgültig."
     },
     "newsletter": {
-      "hint": "Verwalten Sie Abonnenten und senden Sie einen Newsletter an bestatigte Abonnenten.",
+      "hint": "Verwalten Sie Abonnenten und senden Sie einen Newsletter an bestätigte Abonnenten.",
       "compose": "Neuer Newsletter",
       "composeTitle": "Newsletter verfassen",
-      "composeHint": "Diese E-Mail wird an {{count}} bestatigte Abonnenten gesendet.",
+      "composeHint": "Diese E-Mail wird an {{count}} bestätigte Abonnenten gesendet.",
       "subject": "Betreff",
       "message": "Nachricht",
       "send": "Senden",
       "sending": "Wird gesendet...",
       "sent": "Newsletter an {{count}} Abonnenten gesendet.",
-      "confirmed": "Bestatigt",
+      "confirmed": "Bestätigt",
       "pending": "Ausstehend",
       "empty": "Noch keine Abonnenten.",
-      "confirmDeleteTitle": "Diesen Abonnenten loschen?",
-      "confirmDeleteMessage": "Diese Aktion ist endgultig."
+      "confirmDeleteTitle": "Diesen Abonnenten löschen?",
+      "confirmDeleteMessage": "Diese Aktion ist endgültig."
     },
     "table": {
       "email": "E-Mail",
@@ -681,17 +681,17 @@
     },
     "actions": {
       "view": "Ansehen",
-      "promote": "Zu Admin befordern",
+      "promote": "Zu Admin befördern",
       "demote": "Admin entfernen",
       "disable": "Deaktivieren",
       "enable": "Reaktivieren",
-      "delete": "Loschen",
+      "delete": "Löschen",
       "snapshots": "Backups",
       "loadMore": "Mehr laden",
-      "confirmDeleteUserTitle": "Dieses Konto loschen?",
-      "confirmDeleteUserMessage": "Das Konto und alle Bereiche, deren Inhaber es ist, werden endgultig geloscht.",
-      "confirmDeleteSpaceTitle": "Diesen Bereich loschen?",
-      "confirmDeleteSpaceMessage": "Alle zugehorigen Dokumente, Unterhaltungen und Backups werden endgultig geloscht."
+      "confirmDeleteUserTitle": "Dieses Konto löschen?",
+      "confirmDeleteUserMessage": "Das Konto und alle Bereiche, deren Inhaber es ist, werden endgültig gelöscht.",
+      "confirmDeleteSpaceTitle": "Diesen Bereich löschen?",
+      "confirmDeleteSpaceMessage": "Alle zugehörigen Dokumente, Unterhaltungen und Backups werden endgültig gelöscht."
     },
     "snapshots": {
       "title": "Backups - {{name}}",
@@ -699,7 +699,7 @@
       "restore": "Wiederherstellen",
       "confirmRestoreTitle": "Dieses Backup wiederherstellen?",
       "confirmRestoreMessage": "Der aktuelle Inhalt des Bereichs (Unterhaltungen, Dokumente) wird durch den dieses Backups ersetzt.",
-      "empty": "Noch keine Backups. Ein automatisches Backup wird hochstens einmal pro Tag erstellt, sobald Aktivitat stattfindet.",
+      "empty": "Noch keine Backups. Ein automatisches Backup wird höchstens einmal pro Tag erstellt, sobald Aktivität stattfindet.",
       "retention": "7 Tage rollierend aufbewahrt"
     }
   },
@@ -708,11 +708,11 @@
       "newSpace": "Neuer Bereich",
       "aiConnected": "KI verbunden",
       "aiUnreachable": "KI nicht erreichbar",
-      "checking": "Uberprufung..."
+      "checking": "Überprüfung..."
     },
     "sidebar": {
       "editSpace": "Bereich bearbeiten",
-      "deleteSpace": "Bereich loschen",
+      "deleteSpace": "Bereich löschen",
       "newConversation": "Neue Unterhaltung",
       "noConversations": "Noch keine Unterhaltungen.",
       "shareTitle": "Freigabe und Mitglieder",
@@ -724,45 +724,45 @@
       "daysAgo": "vor {{count}} T."
     },
     "chat": {
-      "selectConversation": "Wahlen oder erstellen Sie eine Unterhaltung, um zu beginnen.",
+      "selectConversation": "Wählen oder erstellen Sie eine Unterhaltung, um zu beginnen.",
       "space": "Bereich: {{name}}",
       "documentsTitle": "Dokumente des Bereichs",
       "exportTitle": "Unterhaltung exportieren",
       "exportPdf": "Als PDF exportieren",
       "exportWord": "Als Word exportieren",
-      "emptyHint": "Stellen Sie eine Frage zu den Dokumenten dieses Bereichs. Bei Bedarf wird automatisch eine Websuche durchgefuhrt.",
+      "emptyHint": "Stellen Sie eine Frage zu den Dokumenten dieses Bereichs. Bei Bedarf wird automatisch eine Websuche durchgeführt.",
       "queued": "In Warteschlange",
       "queuedPosition": " ({{count}} vor Ihnen)",
       "queuedSuffix": " - der Server verarbeitet jeweils eine Anfrage",
       "placeholder": "Nachricht eingeben...",
-      "readOnly": "Nur Lesezugriff - Sie konnen in diesem Bereich nicht schreiben.",
-      "errorGeneric": "Bei der Erzeugung der Antwort ist ein Fehler aufgetreten ({{error}}). Der KI-Dienst ist vorubergehend nicht verfugbar, bitte versuchen Sie es gleich erneut.",
+      "readOnly": "Nur Lesezugriff - Sie können in diesem Bereich nicht schreiben.",
+      "errorGeneric": "Bei der Erzeugung der Antwort ist ein Fehler aufgetreten ({{error}}). Der KI-Dienst ist vorübergehend nicht verfügbar, bitte versuchen Sie es gleich erneut.",
       "connectionError": "Verbindungsfehler zum Server.",
       "send": "Senden",
-      "openMenu": "Menu offnen"
+      "openMenu": "Menü öffnen"
     },
     "documents": {
       "title": "Dokumente des Bereichs",
-      "subtitle": "Fugen Sie Dateien oder Links hinzu, die der Chatbot einsehen kann.",
+      "subtitle": "Fügen Sie Dateien oder Links hinzu, die der Chatbot einsehen kann.",
       "dropActive": "Dateien hier ablegen",
-      "dropIdle": "Per Drag & Drop hinzufugen oder klicken",
+      "dropIdle": "Per Drag & Drop hinzufügen oder klicken",
       "supportedFormats": "PDF, Bilder, Audio, DOCX, TXT, Markdown",
-      "urlPlaceholder": "Link einfugen (https://...)",
-      "addUrl": "Link hinzufugen",
+      "urlPlaceholder": "Link einfügen (https://...)",
+      "addUrl": "Link hinzufügen",
       "empty": "Noch keine Dokumente.",
       "statusReady_one": "{{count}} Abschnitt",
       "statusReady_other": "{{count}} Abschnitte",
       "statusPending": "Ausstehend",
-      "statusProcessing": "Analyse lauft...",
+      "statusProcessing": "Analyse läuft...",
       "statusError": "Fehler"
     },
     "spaceModal": {
       "editTitle": "Bereich bearbeiten",
       "createTitle": "Neuer Arbeitsbereich",
       "name": "Name",
-      "namePlaceholder": "Z. B.: Rechtsuberwachung, Projekt Kunde X...",
+      "namePlaceholder": "Z. B.: Rechtsüberwachung, Projekt Kunde X...",
       "description": "Beschreibung (optional)",
-      "descriptionPlaceholder": "Wofur dient dieser Bereich?",
+      "descriptionPlaceholder": "Wofür dient dieser Bereich?",
       "color": "Farbe",
       "save": "Speichern",
       "create": "Bereich erstellen"
@@ -776,7 +776,7 @@
       "chatOnly": "Nur Chat",
       "canUploadLabel": "Datei-Upload erlauben",
       "linksTitle": "Freigabelinks",
-      "linksHelp": "Ein Freigabelink gewahrt jeder angemeldeten Person, die ihn offnet, Chat-Zugriff auf diesen Bereich; Datei-Uploads bleiben optional.",
+      "linksHelp": "Ein Freigabelink gewährt jeder angemeldeten Person, die ihn öffnet, Chat-Zugriff auf diesen Bereich; Datei-Uploads bleiben optional.",
       "labelPlaceholder": "Name des Links (optional)",
       "createLink": "Erstellen",
       "noLinks": "Noch keine Freigabelinks.",
@@ -785,29 +785,29 @@
       "copy": "Kopieren",
       "storageTitle": "Genutzter Speicher",
       "membersTitle": "Mitglieder",
-      "membersHelp": "Fugen Sie einen Nutzer mit vorhandenem Konto hinzu: er kann immer chatten und Dateien hochladen, wenn Sie es erlauben.",
+      "membersHelp": "Fügen Sie einen Nutzer mit vorhandenem Konto hinzu: er kann immer chatten und Dateien hochladen, wenn Sie es erlauben.",
       "emailPlaceholder": "email@beispiel.de",
-      "addMember": "Hinzufugen",
+      "addMember": "Hinzufügen",
       "noMembers": "Noch keine Mitglieder."
     },
     "confirmDeleteSpace": {
-      "title": "Diesen Bereich loschen?",
-      "message": "Alle zugehorigen Dokumente, Unterhaltungen und Nachrichten werden endgultig geloscht."
+      "title": "Diesen Bereich löschen?",
+      "message": "Alle zugehörigen Dokumente, Unterhaltungen und Nachrichten werden endgültig gelöscht."
     },
     "confirmDeleteConversation": {
-      "title": "Diese Unterhaltung loschen?",
-      "message": "Diese Aktion kann nicht ruckgangig gemacht werden."
+      "title": "Diese Unterhaltung löschen?",
+      "message": "Diese Aktion kann nicht rückgängig gemacht werden."
     },
     "confirmDeleteDocument": {
-      "title": "Dieses Dokument loschen?",
-      "message": "Das Dokument und sein indexierter Inhalt werden endgultig aus diesem Bereich entfernt."
+      "title": "Dieses Dokument löschen?",
+      "message": "Das Dokument und sein indexierter Inhalt werden endgültig aus diesem Bereich entfernt."
     },
     "workspace": {
       "createFirstSpace": "Erstellen Sie Ihren ersten Arbeitsbereich, um loszulegen.",
       "newSpace": "Neuer Bereich"
     },
     "share": {
-      "invalid": "Dieser Freigabelink ist ungultig, widerrufen oder abgelaufen."
+      "invalid": "Dieser Freigabelink ist ungültig, widerrufen oder abgelaufen."
     },
     "vectorGraph": {
       "openTitle": "Vektordatenbank visualisieren",
@@ -816,10 +816,10 @@
       "nodeCount_other": "{{count}} Abschnitte",
       "truncated": "nur die ersten Abschnitte werden angezeigt",
       "empty": "Noch keine indexierten Dokumente.",
-      "error": "Visualisierung konnte nicht geladen werden.",
-      "zoomIn": "Vergroessern",
+      "error": "Visualisierung könnte nicht geladen werden.",
+      "zoomIn": "Vergrößern",
       "zoomOut": "Verkleinern",
-      "resetView": "Ansicht zurucksetzen"
+      "resetView": "Ansicht zurücksetzen"
     }
   }
 }

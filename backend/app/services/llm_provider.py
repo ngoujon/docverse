@@ -88,7 +88,7 @@ class LLMNotConfigured(RuntimeError):
 def _headers() -> dict:
     if not settings.mistral_api_key:
         raise LLMNotConfigured(
-            "MISTRAL_API_KEY n'est pas definie - configurez une cle API "
+            "MISTRAL_API_KEY n'est pas définie - configurez une clé API "
             "Mistral pour activer le chat, la vision et l'indexation."
         )
     return {
@@ -124,7 +124,7 @@ async def _post(client: httpx.AsyncClient, path: str, payload: dict) -> httpx.Re
             if attempt < _MAX_ATTEMPTS - 1:
                 await asyncio.sleep(_BACKOFF_BASE ** attempt)
                 continue
-    raise last_exc if last_exc else RuntimeError("Appel Mistral echoue")
+    raise last_exc if last_exc else RuntimeError("Appel Mistral échoué")
 
 
 # --- Chat ------------------------------------------------------------------
@@ -232,7 +232,7 @@ async def embed_batch(texts: list[str], model: Optional[str] = None) -> list[lis
 async def embed(text: str, model: Optional[str] = None) -> list[float]:
     vectors = await embed_batch([text], model=model)
     if not vectors:
-        raise RuntimeError("L'API Mistral n'a renvoye aucun vecteur.")
+        raise RuntimeError("L'API Mistral n'a renvoyé aucun vecteur.")
     return vectors[0]
 
 

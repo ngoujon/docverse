@@ -34,7 +34,7 @@ import { getUserToken } from "./storage";
 const BASE = "/api";
 
 export class UnauthorizedError extends Error {
-  constructor(message = "Acces non autorise") {
+  constructor(message = "Accès non autorisé") {
     super(message);
   }
 }
@@ -82,7 +82,7 @@ function authHeaders(shareToken?: string): Record<string, string> {
 
 /** Throws the matching error for a non-2xx response. */
 async function ensureOk(res: Response): Promise<void> {
-  if (res.status === 401) throw new UnauthorizedError(await readDetail(res, "Acces non autorise"));
+  if (res.status === 401) throw new UnauthorizedError(await readDetail(res, "Accès non autorisé"));
   if (!res.ok) throw new Error(await readDetail(res, res.statusText));
 }
 
@@ -392,7 +392,7 @@ export async function streamChat(
     signal,
   });
   if (res.status === 401) throw new UnauthorizedError();
-  if (res.status === 429) throw new RateLimitedError(await readDetail(res, "Trop de messages envoyes"));
+  if (res.status === 429) throw new RateLimitedError(await readDetail(res, "Trop de messages envoyés"));
   await readEventStream(res, onEvent);
 }
 

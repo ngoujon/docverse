@@ -50,7 +50,7 @@ def build_pdf(conversation: models.Conversation, space_name: str) -> bytes:
 
     pdf.set_font("DejaVu", "", 9)
     pdf.set_text_color(110, 110, 110)
-    meta = f"Espace : {space_name}  -  Exporte le {datetime.utcnow().strftime('%d/%m/%Y a %H:%M')} UTC"
+    meta = f"Espace : {space_name}  -  Exporté le {datetime.utcnow().strftime('%d/%m/%Y à %H:%M')} UTC"
     _line(pdf, 6, meta)
     pdf.set_text_color(0, 0, 0)
     pdf.ln(4)
@@ -58,7 +58,7 @@ def build_pdf(conversation: models.Conversation, space_name: str) -> bytes:
     for message in conversation.messages:
         if message.role not in ("user", "assistant"):
             continue
-        label = "Question" if message.role == "user" else "Reponse"
+        label = "Question" if message.role == "user" else "Réponse"
         pdf.set_font("DejaVu", "B", 11)
         if message.role == "user":
             pdf.set_text_color(139, 47, 214)
@@ -89,7 +89,7 @@ def build_docx(conversation: models.Conversation, space_name: str) -> bytes:
 
     meta = doc.add_paragraph()
     meta_run = meta.add_run(
-        f"Espace : {space_name} — Exporte le {datetime.utcnow().strftime('%d/%m/%Y a %H:%M')} UTC"
+        f"Espace : {space_name} — Exporté le {datetime.utcnow().strftime('%d/%m/%Y à %H:%M')} UTC"
     )
     meta_run.italic = True
     meta_run.font.size = Pt(9)
@@ -97,7 +97,7 @@ def build_docx(conversation: models.Conversation, space_name: str) -> bytes:
     for message in conversation.messages:
         if message.role not in ("user", "assistant"):
             continue
-        label = "Question" if message.role == "user" else "Reponse"
+        label = "Question" if message.role == "user" else "Réponse"
         heading = doc.add_paragraph()
         run = heading.add_run(label)
         run.bold = True

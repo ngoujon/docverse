@@ -20,6 +20,6 @@ def get_challenge(request: Request):
     rate_limiter.enforce(
         rate_limiter.captcha_challenge_limiter,
         client_ip(request),
-        "Trop de demandes de verification anti-robot, reessayez plus tard",
+        "Trop de demandes de vérification anti-robot, réessayez plus tard",
     )
     return captcha.create_challenge()

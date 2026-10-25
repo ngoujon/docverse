@@ -66,7 +66,7 @@ def export_conversation(
     access: SpaceAccess = Depends(require_conversation_access),
 ):
     if format not in _EXPORT_CONTENT_TYPES:
-        raise HTTPException(400, "Format d'export non supporte (pdf ou docx)")
+        raise HTTPException(400, "Format d'export non supporté (pdf ou docx)")
 
     conv = access.conversation
     build = export_service.build_pdf if format == "pdf" else export_service.build_docx
