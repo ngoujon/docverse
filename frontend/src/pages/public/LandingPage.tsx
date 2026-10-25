@@ -78,6 +78,8 @@ const cardText = "mt-2 text-pretty text-sm leading-relaxed text-fluent-text";
 const iconChip = "flex h-9 w-9 items-center justify-center rounded-lg bg-fluent-indigo-soft text-fluent-indigo";
 const btnPrimary =
   "inline-flex items-center justify-center gap-1.5 rounded-full bg-fluent-indigo px-5 py-2.5 text-[15px] font-semibold text-white transition hover:bg-fluent-navy";
+const btnOutline =
+  "inline-flex items-center justify-center gap-1.5 rounded-full border border-fluent-line bg-white px-5 py-2.5 text-[15px] font-semibold text-fluent-navy shadow-card transition hover:border-slate-300";
 
 /** Marketing homepage (prerendered at build time for crawlers). */
 export default function LandingPage() {
@@ -97,12 +99,13 @@ export default function LandingPage() {
     { label: t("nav.demo"), to: "/demo/" },
     { label: t("nav.contact"), to: "#contact" },
     { label: "FAQ", to: "/faq/" },
-    ...(user ? [] : [{ label: t("nav.register"), to: "/register" }]),
   ];
   // Highlighted call to action closing the nav: the app once signed in.
   const navCta = user
     ? { label: t("nav.launchApp"), to: "/dashboard" }
     : { label: t("auth.login.title"), to: "/login" };
+  // Sign-up sits right next to the login button (signed-out visitors only).
+  const registerCta = user ? null : { label: t("nav.register"), to: "/register" };
   const footerLinks: NavItem[] = [
     { label: "FAQ", to: "/faq/" },
     { label: t("footer.privacy"), to: "/confidentialite/" },
@@ -132,8 +135,13 @@ export default function LandingPage() {
             ))}
           </nav>
 
-          <div className="hidden items-center gap-3 lg:flex">
+          <div className="hidden items-center gap-2.5 lg:flex">
             <LanguageSwitcher variant="dark" />
+            {registerCta && (
+              <Link to={registerCta.to} className={`${btnOutline} !px-4 !py-2 !text-sm`}>
+                {registerCta.label}
+              </Link>
+            )}
             <Link to={navCta.to} className={`${btnPrimary} !px-4 !py-2 !text-sm`}>
               {navCta.label} <ArrowRight size={14} />
             </Link>
@@ -158,9 +166,16 @@ export default function LandingPage() {
               {navLinks.map((l) => (
                 <NavLink key={l.to} item={l} onClick={closeMenu} className={navTextLink} />
               ))}
-              <Link to={navCta.to} onClick={closeMenu} className={btnPrimary}>
-                {navCta.label} <ArrowRight size={14} />
-              </Link>
+              <div className={`grid gap-3 ${registerCta ? "grid-cols-2" : "grid-cols-1"}`}>
+                {registerCta && (
+                  <Link to={registerCta.to} onClick={closeMenu} className={btnOutline}>
+                    {registerCta.label}
+                  </Link>
+                )}
+                <Link to={navCta.to} onClick={closeMenu} className={btnPrimary}>
+                  {navCta.label} <ArrowRight size={14} />
+                </Link>
+              </div>
             </div>
           </div>
         )}
