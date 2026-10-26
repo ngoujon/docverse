@@ -295,6 +295,23 @@ class AdminStatsOut(BaseModel):
     newsletter_subscribers: int
     new_users_7d: int
     new_spaces_7d: int
+    verified_users: int = 0
+    totp_users: int = 0
+    active_users_7d: int = 0
+    questions_7d: int = 0
+    new_documents_7d: int = 0
+    documents_in_error: int = 0
+    contact_messages_7d: int = 0
+    daily: list["AdminDailyPoint"] = []
+
+
+class AdminDailyPoint(BaseModel):
+    """One day of the admin activity chart (UTC)."""
+
+    date: str
+    users: int = 0
+    questions: int = 0
+    documents: int = 0
 
 
 class ConversationCreate(BaseModel):

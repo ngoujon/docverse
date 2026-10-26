@@ -176,6 +176,10 @@ def test_admin_stats_sum_storage(client):
     stats = client.get("/api/admin/stats", headers=auth_headers(admin["access_token"])).json()
     assert stats["storage_bytes"] == 7
     assert stats["users"] == 1 and stats["spaces"] == 1 and stats["documents"] == 1
+    assert stats["new_documents_7d"] == 1
+    # 30-day activity chart, oldest day first, today last.
+    assert len(stats["daily"]) == 30
+    assert stats["daily"][-1]["users"] == 1 and stats["daily"][-1]["documents"] == 1
 
 
 def test_vector_graph_of_an_empty_space(client):

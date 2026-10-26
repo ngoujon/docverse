@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Files, Folders, HardDrive, Mail, MessagesSquare, Plus, Send, TrendingUp, Users } from "lucide-react";
+import { Plus, Send } from "lucide-react";
 import clsx from "clsx";
 import { api } from "../../api/client";
 import { useAuth } from "../../hooks/useAuth";
 import { usePageMeta } from "../../hooks/usePageMeta";
 import { usePaginatedList } from "../../hooks/usePaginatedList";
-import { formatBytes } from "../../utils/format";
 import DashboardNav from "../../components/layout/DashboardNav";
-import StatCard from "../../components/ui/StatCard";
+import AdminOverview from "../../components/admin/AdminOverview";
 import ConfirmDialog from "../../components/ui/ConfirmDialog";
 import DataTable, { LoadMoreButton } from "../../components/admin/DataTable";
 import {
@@ -240,31 +239,23 @@ export default function AdminDashboardPage() {
     <div className="min-h-[100dvh] bg-surface-0">
       <DashboardNav active="admin" />
 
-      <main className="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-6 sm:pb-12 sm:pt-10">
-        <h1 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">{t("admin.title")}</h1>
-
-        {stats && (
-          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <StatCard icon={<Users size={14} />} label={t("admin.kpi.users")} value={stats.users} />
-            <StatCard icon={<Folders size={14} />} label={t("admin.kpi.spaces")} value={stats.spaces} />
-            <StatCard icon={<Files size={14} />} label={t("admin.kpi.documents")} value={stats.documents} />
-            <StatCard icon={<MessagesSquare size={14} />} label={t("admin.kpi.messages")} value={stats.messages} />
-            <StatCard
-              icon={<HardDrive size={14} />}
-              label={t("admin.kpi.storage")}
-              value={formatBytes(stats.storage_bytes)}
-            />
-            <StatCard
-              icon={<Mail size={14} />}
-              label={t("admin.kpi.newsletter")}
-              value={stats.newsletter_subscribers}
-            />
-            <StatCard icon={<TrendingUp size={14} />} label={t("admin.kpi.newUsers7d")} value={stats.new_users_7d} />
-            <StatCard icon={<TrendingUp size={14} />} label={t("admin.kpi.newSpaces7d")} value={stats.new_spaces_7d} />
+      <main className="mx-auto max-w-6xl px-4 pb-24 pt-8 sm:px-6 sm:pb-12 sm:pt-10">
+        <div className="flex flex-wrap items-end justify-between gap-2">
+          <div>
+            <p className="text-sm font-semibold text-fluent-indigo">{t("admin.eyebrow")}</p>
+            <h1 className="mt-1 text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+              {t("admin.title")}
+            </h1>
           </div>
-        )}
+          <p className="text-sm text-slate-500 dark:text-slate-400">{t("admin.subtitle")}</p>
+        </div>
 
-        <div className="mt-10 flex flex-wrap gap-2">
+        {stats && <AdminOverview stats={stats} />}
+
+        <h2 className="mt-12 text-lg font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+          {t("admin.manageTitle")}
+        </h2>
+        <div className="mt-3 flex flex-wrap gap-2">
           {TABS.map((key) => (
             <button
               key={key}

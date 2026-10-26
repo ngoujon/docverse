@@ -10,10 +10,13 @@ export default function StatCard({
   value,
   limit,
   used,
+  hint,
 }: {
   icon: ReactNode;
   label: string;
   value: string | number;
+  /** Small trend line under the label, e.g. "+3 in 7 days". */
+  hint?: ReactNode;
   /** When set alongside `used`, renders a small progress bar against this plan quota. */
   limit?: number | null;
   used?: number;
@@ -30,6 +33,7 @@ export default function StatCard({
         {hasQuota && <span className="text-sm font-medium text-slate-400 dark:text-slate-500"> / {limit}</span>}
       </p>
       <p className="mt-1.5 text-sm leading-snug text-slate-500 dark:text-slate-400">{label}</p>
+      {hint && <p className="mt-2 text-xs font-medium text-fluent-green dark:text-emerald-400">{hint}</p>}
       {hasQuota && <ProgressBar ratio={used / limit} className="mt-auto h-1 pt-0 [margin-top:0.75rem]" />}
     </div>
   );

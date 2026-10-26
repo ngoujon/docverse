@@ -274,14 +274,7 @@
         "qa": [
           {
             "q": "Wie lange läuft der Vertrag und welche Kündigungsfrist gilt?",
-            "keywords": [
-              "laufzeit",
-              "lange",
-              "kundigung",
-              "kundigungsfrist",
-              "frist",
-              "verlangerung"
-            ],
+            "keywords": ["laufzeit", "lange", "kundigung", "kundigungsfrist", "frist", "verlangerung"],
             "answer": "Der Vertrag läuft **12 Monate** ab dem 1. Januar 2025 und **verlängert sich automatisch** [1]. Zur Kündigung ist ein Einschreiben spätestens **30 Tage vor Ablauf** nötig [1]. Nachtrag Nr. 2 ändert die Laufzeit nicht, er ergänzt nur eine Preisanpassungsklausel [2].",
             "sources": [
               {
@@ -300,14 +293,7 @@
           },
           {
             "q": "Welche Vertragsstrafen gelten bei Lieferverzug?",
-            "keywords": [
-              "vertragsstrafe",
-              "strafe",
-              "verzug",
-              "verspatung",
-              "lieferung",
-              "entschadigung"
-            ],
+            "keywords": ["vertragsstrafe", "strafe", "verzug", "verspatung", "lieferung", "entschadigung"],
             "answer": "Bei Verzug schuldet der Lieferant **1 % des Auftragswerts pro Woche Verspätung** [1], begrenzt auf **10 %** des Gesamtbetrags [1]. Nach vier Wochen können Sie den Auftrag kostenfrei stornieren [1].",
             "sources": [
               {
@@ -320,15 +306,7 @@
           },
           {
             "q": "Entspricht die Märzrechnung dem Vertragspreis?",
-            "keywords": [
-              "rechnung",
-              "marz",
-              "betrag",
-              "entspricht",
-              "preis",
-              "tarif",
-              "prufen"
-            ],
+            "keywords": ["rechnung", "marz", "betrag", "entspricht", "preis", "tarif", "prufen"],
             "answer": "Fast. Die Märzrechnung setzt einen Stückpreis von **52,50 €** an [1], der Vertrag sieht **50,00 €** vor [2]. Nachtrag Nr. 2 erlaubt höchstens **3 %** Anpassung pro Jahr [3], also maximal 51,50 €: Die Differenz von **1,00 € pro Stück** sollten Sie beim Lieferanten ansprechen.",
             "sources": [
               {
@@ -361,13 +339,7 @@
           },
           "qa": {
             "q": "Was wurde beim letzten Lieferantentreffen beschlossen?",
-            "keywords": [
-              "treffen",
-              "beschlossen",
-              "beschluss",
-              "protokoll",
-              "lieferant"
-            ],
+            "keywords": ["treffen", "beschlossen", "beschluss", "protokoll", "lieferant"],
             "answer": "Beim Treffen am 14. März wurden drei Beschlüsse gefasst [1]: Der Lieferant **stellt eine Gutschrift** für die Preisdifferenz im März aus, geliefert wird künftig **alle zwei Wochen**, und ein Folgetermin ist für den **30. April** angesetzt [1].",
             "sources": [
               {
@@ -414,14 +386,7 @@
         "qa": [
           {
             "q": "Wie viele Homeoffice-Tage sind erlaubt?",
-            "keywords": [
-              "homeoffice",
-              "home office",
-              "remote",
-              "zuhause",
-              "tage",
-              "mobil"
-            ],
+            "keywords": ["homeoffice", "home office", "remote", "zuhause", "tage", "mobil"],
             "answer": "Alle Mitarbeitenden dürfen bis zu **2 Tage pro Woche** im Homeoffice arbeiten [1], nach Ende der Probezeit [1]. Die Tage werden mit der Führungskraft abgestimmt, und **dienstags ist für alle Präsenztag** [1].",
             "sources": [
               {
@@ -434,14 +399,7 @@
           },
           {
             "q": "Wie beantrage ich Urlaub und mit welchem Vorlauf?",
-            "keywords": [
-              "urlaub",
-              "ferien",
-              "beantragen",
-              "antrag",
-              "abwesenheit",
-              "vorlauf"
-            ],
+            "keywords": ["urlaub", "ferien", "beantragen", "antrag", "abwesenheit", "vorlauf"],
             "answer": "Urlaub wird im HR-Tool beantragt, **mindestens 4 Wochen vorher** bei mehr als 5 Tagen, sonst **eine Woche** vorher [1]. Die Führungskraft antwortet innerhalb von **5 Arbeitstagen** [1]. Im Sommer sind mindestens **2 zusammenhängende Wochen** zwischen Mai und Oktober zu nehmen [1].",
             "sources": [
               {
@@ -454,14 +412,7 @@
           },
           {
             "q": "Was wurde in der letzten Betriebsratssitzung zu Essensgutscheinen gesagt?",
-            "keywords": [
-              "essen",
-              "gutschein",
-              "gutscheine",
-              "betriebsrat",
-              "mittag",
-              "kantine"
-            ],
+            "keywords": ["essen", "gutschein", "gutscheine", "betriebsrat", "mittag", "kantine"],
             "answer": "Laut der Aufzeichnung der Betriebsratssitzung kündigte die Geschäftsführung eine **Erhöhung des Nennwerts auf 11 €** ab Juni an, mit **60 % Arbeitgeberanteil** [1]. Eine digitale Karte ersetzt die Papiergutscheine bis Jahresende [1].",
             "sources": [
               {
@@ -482,14 +433,7 @@
           },
           "qa": {
             "q": "Wie erstattet die Zusatzversicherung Brillen?",
-            "keywords": [
-              "versicherung",
-              "zusatzversicherung",
-              "brille",
-              "brillen",
-              "optik",
-              "erstattung"
-            ],
+            "keywords": ["versicherung", "zusatzversicherung", "brille", "brillen", "optik", "erstattung"],
             "answer": "Die Zusatzversicherung übernimmt Brillen bis **350 € alle zwei Jahre** (Fassung + Gläser), davon **höchstens 100 € für die Fassung** [1]. Kontaktlinsen werden bis **150 € pro Jahr** erstattet [1].",
             "sources": [
               {
@@ -536,15 +480,7 @@
         "qa": [
           {
             "q": "Wann ist der geplante Go-live?",
-            "keywords": [
-              "datum",
-              "go-live",
-              "golive",
-              "start",
-              "produktiv",
-              "zeitplan",
-              "wann"
-            ],
+            "keywords": ["datum", "go-live", "golive", "start", "produktiv", "zeitplan", "wann"],
             "answer": "Der Go-live ist für den **15. September 2025** geplant [1]. Er wurde im Lenkungsausschuss im Februar **um zwei Wochen verschoben**, um die Lasttests abzuschließen [2].",
             "sources": [
               {
@@ -563,14 +499,7 @@
           },
           {
             "q": "Welche Sicherheitsanforderungen gibt es?",
-            "keywords": [
-              "sicherheit",
-              "anforderung",
-              "anforderungen",
-              "authentifizierung",
-              "verschlusselung",
-              "dsgvo"
-            ],
+            "keywords": ["sicherheit", "anforderung", "anforderungen", "authentifizierung", "verschlusselung", "dsgvo"],
             "answer": "Das Lastenheft nennt drei Hauptanforderungen [1]: **Zwei-Faktor-Authentifizierung** für alle Admin-Konten, **Verschlüsselung ruhender Daten** (AES-256) und **Hosting in Frankreich** [1]. Vor dem Go-live ist ein externes Sicherheitsaudit Pflicht [1].",
             "sources": [
               {
@@ -583,14 +512,7 @@
           },
           {
             "q": "Was zeigt der Entwurf der Startseite?",
-            "keywords": [
-              "entwurf",
-              "startseite",
-              "bildschirm",
-              "design",
-              "oberflache",
-              "bild"
-            ],
+            "keywords": ["entwurf", "startseite", "bildschirm", "design", "oberflache", "bild"],
             "answer": "Der Entwurf zeigt eine Startseite mit drei Zonen [1]: eine zentrale **Suchleiste**, eine Reihe von **Verknüpfungen zu den 4 Hauptmodulen** und rechts einen **Aktivitätsfeed** [1]. Der Hauptbutton „Neuer Ordner“ sitzt oben rechts [1].",
             "sources": [
               {
@@ -611,14 +533,7 @@
           },
           "qa": {
             "q": "Wie viel Budget bleibt für Paket 2?",
-            "keywords": [
-              "budget",
-              "bleibt",
-              "rest",
-              "paket 2",
-              "kosten",
-              "ausgegeben"
-            ],
+            "keywords": ["budget", "bleibt", "rest", "paket 2", "kosten", "ausgegeben"],
             "answer": "Für Paket 2 wurden **38.000 €** von **52.000 €** Budget ausgegeben [1]: Es bleiben **14.000 €**, rund 27 % des Paketbudgets [1].",
             "sources": [
               {
@@ -1025,7 +940,11 @@
     "nav": {
       "workspace": "Meine Bereiche",
       "admin": "Verwaltung",
-      "logout": "Abmelden"
+      "logout": "Abmelden",
+      "userMode": "Benutzermodus",
+      "adminMode": "Adminmodus",
+      "adminBadge": "Admin",
+      "switchLabel": "Modus wechseln"
     },
     "kpi": {
       "owned": "Eigene Bereiche",
@@ -1051,6 +970,33 @@
   },
   "admin": {
     "title": "Verwaltung",
+    "eyebrow": "Projekt {{brand}}",
+    "subtitle": "Live-Kennzahlen · UTC-Zeit",
+    "manageTitle": "Projekt verwalten",
+    "overview": {
+      "last7d": "+{{count}} in 7 Tagen",
+      "activeUsers": "Aktive Nutzer (7 T.)",
+      "questions7d": "Gestellte Fragen (7 T.)",
+      "contact7d": "Kontaktnachrichten (7 T.)",
+      "activityTitle": "Aktivität über 30 Tage",
+      "series": {
+        "users": "Registrierungen",
+        "questions": "Fragen",
+        "documents": "Dokumente"
+      },
+      "total30d": "{{count}} insgesamt",
+      "max": "max. {{count}} / Tag",
+      "healthTitle": "Dienststatus",
+      "ai": "KI-Engine",
+      "up": "In Betrieb",
+      "down": "Nicht erreichbar",
+      "model": "Modell",
+      "hosting": "Hosting",
+      "docErrors": "Fehlerhafte Dokumente",
+      "accountsTitle": "Kontosicherheit",
+      "verified": "E-Mail bestätigt",
+      "twoFactor": "2FA aktiviert"
+    },
     "kpi": {
       "users": "Nutzer",
       "spaces": "Bereiche",

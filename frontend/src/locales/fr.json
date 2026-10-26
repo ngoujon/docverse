@@ -17,12 +17,7 @@
     "launchApp": "Lancer l'app"
   },
   "hero": {
-    "badges": [
-      "Hébergé en France",
-      "IA française Mistral",
-      "Réponses sourcées",
-      "Espaces cloisonnés"
-    ],
+    "badges": ["Hébergé en France", "IA française Mistral", "Réponses sourcées", "Espaces cloisonnés"],
     "title1": "Votre solution cloud RAG souveraine,",
     "title2": "hébergée en France.",
     "subtitle": "Déposez vos documents, interrogez-les en langage naturel, obtenez des réponses sourcées. Toute la chaîne est européenne : hébergement {{hostingProvider}} en {{hostingCountry}}, moteur d'IA {{aiProvider}}, éditeur français. Vos données ne quittent jamais l'Union européenne.",
@@ -274,14 +269,7 @@
         "qa": [
           {
             "q": "Quelle est la durée du contrat et le préavis de résiliation ?",
-            "keywords": [
-              "duree",
-              "preavis",
-              "resiliation",
-              "resilier",
-              "engagement",
-              "reconduction"
-            ],
+            "keywords": ["duree", "preavis", "resiliation", "resilier", "engagement", "reconduction"],
             "answer": "Le contrat est conclu pour **12 mois** à compter du 1er janvier 2025, avec **reconduction tacite** [1]. Pour y mettre fin, il faut envoyer une lettre recommandée au moins **30 jours avant l'échéance** [1]. L'avenant n°2 ne modifie pas cette durée, il ajoute seulement une clause de révision tarifaire [2].",
             "sources": [
               {
@@ -300,14 +288,7 @@
           },
           {
             "q": "Quelles pénalités en cas de retard de livraison ?",
-            "keywords": [
-              "penalite",
-              "penalites",
-              "retard",
-              "livraison",
-              "delai",
-              "indemnite"
-            ],
+            "keywords": ["penalite", "penalites", "retard", "livraison", "delai", "indemnite"],
             "answer": "En cas de retard, le fournisseur doit **1 % du montant de la commande par semaine de retard** [1], plafonné à **10 %** du montant total [1]. Au-delà de quatre semaines, vous pouvez résilier la commande sans frais [1].",
             "sources": [
               {
@@ -320,15 +301,7 @@
           },
           {
             "q": "Le montant de la facture de mars est-il conforme au contrat ?",
-            "keywords": [
-              "facture",
-              "mars",
-              "montant",
-              "conforme",
-              "prix",
-              "tarif",
-              "verifier"
-            ],
+            "keywords": ["facture", "mars", "montant", "conforme", "prix", "tarif", "verifier"],
             "answer": "Presque. La facture de mars applique un prix unitaire de **52,50 €** [1], alors que le contrat prévoit **50,00 €** [2]. L'avenant n°2 autorise une révision d'au plus **3 %** par an [3], soit 51,50 € maximum : l'écart de **1,00 € par unité** mérite d'être signalé au fournisseur.",
             "sources": [
               {
@@ -361,13 +334,7 @@
           },
           "qa": {
             "q": "Qu'a-t-on décidé lors de la dernière réunion fournisseur ?",
-            "keywords": [
-              "reunion",
-              "decide",
-              "decision",
-              "compte rendu",
-              "fournisseur"
-            ],
+            "keywords": ["reunion", "decide", "decision", "compte rendu", "fournisseur"],
             "answer": "Lors de la réunion du 14 mars, trois décisions ont été prises [1] : le fournisseur **émettra un avoir** pour l'écart de prix de mars, les livraisons passeront à **un rythme bimensuel**, et un point de suivi est fixé au **30 avril** [1].",
             "sources": [
               {
@@ -414,13 +381,7 @@
         "qa": [
           {
             "q": "Combien de jours de télétravail sont autorisés ?",
-            "keywords": [
-              "teletravail",
-              "distance",
-              "maison",
-              "remote",
-              "jours"
-            ],
+            "keywords": ["teletravail", "distance", "maison", "remote", "jours"],
             "answer": "Chaque salarié peut télétravailler jusqu'à **2 jours par semaine** [1], hors période d'essai [1]. Les jours sont fixés avec le manager et le **mardi reste un jour de présence commun** à toute l'équipe [1].",
             "sources": [
               {
@@ -433,14 +394,7 @@
           },
           {
             "q": "Comment poser des congés et avec quel délai ?",
-            "keywords": [
-              "conge",
-              "conges",
-              "vacances",
-              "poser",
-              "absence",
-              "delai"
-            ],
+            "keywords": ["conge", "conges", "vacances", "poser", "absence", "delai"],
             "answer": "Les congés se demandent dans l'outil RH, **au moins 4 semaines à l'avance** pour une absence de plus de 5 jours, et **une semaine** sinon [1]. Le manager répond sous **5 jours ouvrés** [1]. L'été, au moins **2 semaines consécutives** doivent être prises entre mai et octobre [1].",
             "sources": [
               {
@@ -453,14 +407,7 @@
           },
           {
             "q": "Que s'est-il dit sur les tickets restaurant au dernier CSE ?",
-            "keywords": [
-              "ticket",
-              "tickets",
-              "restaurant",
-              "cse",
-              "repas",
-              "titre"
-            ],
+            "keywords": ["ticket", "tickets", "restaurant", "cse", "repas", "titre"],
             "answer": "D'après l'enregistrement de la réunion CSE, la direction a annoncé une **hausse de la valeur faciale à 11 €** à partir de juin, avec une **prise en charge employeur de 60 %** [1]. La carte dématérialisée remplacera le papier d'ici la fin de l'année [1].",
             "sources": [
               {
@@ -481,14 +428,7 @@
           },
           "qa": {
             "q": "Comment la mutuelle rembourse-t-elle les lunettes ?",
-            "keywords": [
-              "mutuelle",
-              "optique",
-              "lunettes",
-              "rembourse",
-              "remboursement",
-              "sante"
-            ],
+            "keywords": ["mutuelle", "optique", "lunettes", "rembourse", "remboursement", "sante"],
             "answer": "La mutuelle prend en charge les lunettes jusqu'à **350 € tous les deux ans** (monture + verres), dont **100 € maximum pour la monture** [1]. Les lentilles sont remboursées à hauteur de **150 € par an** [1].",
             "sources": [
               {
@@ -535,15 +475,7 @@
         "qa": [
           {
             "q": "Quelle est la date de mise en production prévue ?",
-            "keywords": [
-              "date",
-              "production",
-              "mise en production",
-              "lancement",
-              "livraison",
-              "planning",
-              "quand"
-            ],
+            "keywords": ["date", "production", "mise en production", "lancement", "livraison", "planning", "quand"],
             "answer": "La mise en production est prévue le **15 septembre 2025** [1]. Elle a été **décalée de deux semaines** lors du comité de pilotage de février, pour laisser le temps de finaliser les tests de charge [2].",
             "sources": [
               {
@@ -562,14 +494,7 @@
           },
           {
             "q": "Quelles sont les exigences de sécurité ?",
-            "keywords": [
-              "securite",
-              "exigence",
-              "exigences",
-              "authentification",
-              "chiffrement",
-              "rgpd"
-            ],
+            "keywords": ["securite", "exigence", "exigences", "authentification", "chiffrement", "rgpd"],
             "answer": "Le cahier des charges impose trois exigences principales [1] : une **authentification à deux facteurs** pour tous les comptes administrateurs, le **chiffrement des données au repos** (AES-256) et un **hébergement en France** [1]. Un audit de sécurité externe est requis avant la mise en production [1].",
             "sources": [
               {
@@ -582,14 +507,7 @@
           },
           {
             "q": "Que montre la maquette de l'écran d'accueil ?",
-            "keywords": [
-              "maquette",
-              "ecran",
-              "accueil",
-              "design",
-              "interface",
-              "image"
-            ],
+            "keywords": ["maquette", "ecran", "accueil", "design", "interface", "image"],
             "answer": "La maquette montre un écran d'accueil en trois zones [1] : une **barre de recherche** centrale, une rangée de **raccourcis vers les 4 modules** principaux, et un **fil d'activité** récent à droite [1]. Le bouton principal « Nouveau dossier » est en haut à droite [1].",
             "sources": [
               {
@@ -610,14 +528,7 @@
           },
           "qa": {
             "q": "Quel budget reste-t-il sur le lot 2 ?",
-            "keywords": [
-              "budget",
-              "reste",
-              "restant",
-              "lot 2",
-              "cout",
-              "depense"
-            ],
+            "keywords": ["budget", "reste", "restant", "lot 2", "cout", "depense"],
             "answer": "Sur le lot 2, **38 000 €** ont été dépensés sur un budget de **52 000 €** [1] : il reste donc **14 000 €**, soit environ 27 % du budget du lot [1].",
             "sources": [
               {
@@ -1024,7 +935,11 @@
     "nav": {
       "workspace": "Mes espaces",
       "admin": "Administration",
-      "logout": "Se déconnecter"
+      "logout": "Se déconnecter",
+      "userMode": "Mode utilisateur",
+      "adminMode": "Mode admin",
+      "adminBadge": "Admin",
+      "switchLabel": "Changer de mode"
     },
     "kpi": {
       "owned": "Espaces possédés",
@@ -1050,6 +965,33 @@
   },
   "admin": {
     "title": "Administration",
+    "eyebrow": "Projet {{brand}}",
+    "subtitle": "Indicateurs en temps réel · heures UTC",
+    "manageTitle": "Administrer le projet",
+    "overview": {
+      "last7d": "+{{count}} en 7 jours",
+      "activeUsers": "Utilisateurs actifs (7j)",
+      "questions7d": "Questions posées (7j)",
+      "contact7d": "Messages de contact (7j)",
+      "activityTitle": "Activité sur 30 jours",
+      "series": {
+        "users": "Inscriptions",
+        "questions": "Questions",
+        "documents": "Documents"
+      },
+      "total30d": "{{count}} au total",
+      "max": "max {{count}} / jour",
+      "healthTitle": "État du service",
+      "ai": "Moteur IA",
+      "up": "Opérationnel",
+      "down": "Injoignable",
+      "model": "Modèle",
+      "hosting": "Hébergement",
+      "docErrors": "Documents en erreur",
+      "accountsTitle": "Sécurité des comptes",
+      "verified": "E-mail vérifié",
+      "twoFactor": "2FA activée"
+    },
     "kpi": {
       "users": "Utilisateurs",
       "spaces": "Espaces",

@@ -17,12 +17,7 @@
     "launchApp": "Abrir la app"
   },
   "hero": {
-    "badges": [
-      "Alojado en Francia",
-      "IA francesa - Mistral",
-      "Respuestas con fuentes",
-      "Espacios aislados"
-    ],
+    "badges": ["Alojado en Francia", "IA francesa - Mistral", "Respuestas con fuentes", "Espacios aislados"],
     "title1": "Tu solución cloud RAG soberana,",
     "title2": "alojada en Francia.",
     "subtitle": "Sube tus documentos, consúltalos en lenguaje natural y obtén respuestas con fuentes. Toda la cadena es europea: alojamiento {{hostingProvider}} en {{hostingCountry}}, motor de IA {{aiProvider}}, editor francés. Tus datos nunca salen de la Unión Europea.",
@@ -274,14 +269,7 @@
         "qa": [
           {
             "q": "¿Cuál es la duración del contrato y el preaviso de rescisión?",
-            "keywords": [
-              "duracion",
-              "preaviso",
-              "rescision",
-              "rescindir",
-              "plazo",
-              "renovacion"
-            ],
+            "keywords": ["duracion", "preaviso", "rescision", "rescindir", "plazo", "renovacion"],
             "answer": "El contrato se celebra por **12 meses** a partir del 1 de enero de 2025, con **renovación tácita** [1]. Para terminarlo hay que enviar una carta certificada al menos **30 días antes del vencimiento** [1]. El anexo n.º 2 no cambia esta duración: solo añade una cláusula de revisión de precios [2].",
             "sources": [
               {
@@ -300,14 +288,7 @@
           },
           {
             "q": "¿Qué penalizaciones hay por retraso en la entrega?",
-            "keywords": [
-              "penalizacion",
-              "penalizaciones",
-              "retraso",
-              "entrega",
-              "demora",
-              "indemnizacion"
-            ],
+            "keywords": ["penalizacion", "penalizaciones", "retraso", "entrega", "demora", "indemnizacion"],
             "answer": "En caso de retraso, el proveedor debe **el 1 % del importe del pedido por semana de retraso** [1], con un tope del **10 %** del total [1]. Pasadas cuatro semanas, puede cancelar el pedido sin coste [1].",
             "sources": [
               {
@@ -320,15 +301,7 @@
           },
           {
             "q": "¿El importe de la factura de marzo se ajusta al contrato?",
-            "keywords": [
-              "factura",
-              "marzo",
-              "importe",
-              "ajusta",
-              "precio",
-              "tarifa",
-              "comprobar"
-            ],
+            "keywords": ["factura", "marzo", "importe", "ajusta", "precio", "tarifa", "comprobar"],
             "answer": "Casi. La factura de marzo aplica un precio unitario de **52,50 €** [1], mientras que el contrato fija **50,00 €** [2]. El anexo n.º 2 permite una revisión máxima del **3 %** anual [3], es decir 51,50 € como máximo: conviene señalar al proveedor la diferencia de **1,00 € por unidad**.",
             "sources": [
               {
@@ -361,13 +334,7 @@
           },
           "qa": {
             "q": "¿Qué se decidió en la última reunión con el proveedor?",
-            "keywords": [
-              "reunion",
-              "decidio",
-              "decision",
-              "acta",
-              "proveedor"
-            ],
+            "keywords": ["reunion", "decidio", "decision", "acta", "proveedor"],
             "answer": "En la reunión del 14 de marzo se tomaron tres decisiones [1]: el proveedor **emitirá un abono** por la diferencia de precio de marzo, las entregas pasarán a ser **quincenales** y se fija un seguimiento el **30 de abril** [1].",
             "sources": [
               {
@@ -414,13 +381,7 @@
         "qa": [
           {
             "q": "¿Cuántos días de teletrabajo se permiten?",
-            "keywords": [
-              "teletrabajo",
-              "remoto",
-              "casa",
-              "distancia",
-              "dias"
-            ],
+            "keywords": ["teletrabajo", "remoto", "casa", "distancia", "dias"],
             "answer": "Cada empleado puede teletrabajar hasta **2 días por semana** [1], una vez superado el periodo de prueba [1]. Los días se fijan con el responsable y **el martes es día presencial común** para todo el equipo [1].",
             "sources": [
               {
@@ -433,14 +394,7 @@
           },
           {
             "q": "¿Cómo pido vacaciones y con qué antelación?",
-            "keywords": [
-              "vacaciones",
-              "permiso",
-              "pedir",
-              "solicitar",
-              "ausencia",
-              "antelacion"
-            ],
+            "keywords": ["vacaciones", "permiso", "pedir", "solicitar", "ausencia", "antelacion"],
             "answer": "Las vacaciones se solicitan en la herramienta de RR. HH., **con al menos 4 semanas de antelación** para más de 5 días, y **una semana** en los demás casos [1]. El responsable contesta en **5 días laborables** [1]. En verano hay que tomar al menos **2 semanas seguidas** entre mayo y octubre [1].",
             "sources": [
               {
@@ -453,14 +407,7 @@
           },
           {
             "q": "¿Qué se dijo sobre los tickets restaurante en el último comité?",
-            "keywords": [
-              "ticket",
-              "tickets",
-              "restaurante",
-              "comite",
-              "comida",
-              "cheque"
-            ],
+            "keywords": ["ticket", "tickets", "restaurante", "comite", "comida", "cheque"],
             "answer": "Según la grabación del comité de empresa, la dirección anunció **un aumento del valor facial a 11 €** desde junio, con **el 60 % a cargo de la empresa** [1]. Una tarjeta digital sustituirá al papel antes de fin de año [1].",
             "sources": [
               {
@@ -481,14 +428,7 @@
           },
           "qa": {
             "q": "¿Cómo cubre el seguro médico las gafas?",
-            "keywords": [
-              "seguro",
-              "medico",
-              "gafas",
-              "optica",
-              "cubre",
-              "reembolso"
-            ],
+            "keywords": ["seguro", "medico", "gafas", "optica", "cubre", "reembolso"],
             "answer": "El seguro médico cubre las gafas hasta **350 € cada dos años** (montura + cristales), de los cuales **100 € como máximo para la montura** [1]. Las lentillas se reembolsan hasta **150 € al año** [1].",
             "sources": [
               {
@@ -535,14 +475,7 @@
         "qa": [
           {
             "q": "¿Cuál es la fecha prevista de puesta en producción?",
-            "keywords": [
-              "fecha",
-              "produccion",
-              "lanzamiento",
-              "entrega",
-              "planificacion",
-              "cuando"
-            ],
+            "keywords": ["fecha", "produccion", "lanzamiento", "entrega", "planificacion", "cuando"],
             "answer": "La puesta en producción está prevista para el **15 de septiembre de 2025** [1]. Se **retrasó dos semanas** en el comité de dirección de febrero para terminar las pruebas de carga [2].",
             "sources": [
               {
@@ -561,14 +494,7 @@
           },
           {
             "q": "¿Cuáles son los requisitos de seguridad?",
-            "keywords": [
-              "seguridad",
-              "requisito",
-              "requisitos",
-              "autenticacion",
-              "cifrado",
-              "rgpd"
-            ],
+            "keywords": ["seguridad", "requisito", "requisitos", "autenticacion", "cifrado", "rgpd"],
             "answer": "El pliego impone tres requisitos principales [1]: **autenticación de doble factor** para todas las cuentas de administración, **cifrado de los datos en reposo** (AES-256) y **alojamiento en Francia** [1]. Se exige una auditoría de seguridad externa antes de la puesta en producción [1].",
             "sources": [
               {
@@ -581,14 +507,7 @@
           },
           {
             "q": "¿Qué muestra la maqueta de la pantalla de inicio?",
-            "keywords": [
-              "maqueta",
-              "pantalla",
-              "inicio",
-              "diseno",
-              "interfaz",
-              "imagen"
-            ],
+            "keywords": ["maqueta", "pantalla", "inicio", "diseno", "interfaz", "imagen"],
             "answer": "La maqueta muestra una pantalla de inicio en tres zonas [1]: una **barra de búsqueda** central, una fila de **accesos a los 4 módulos** principales y un **flujo de actividad** reciente a la derecha [1]. El botón principal «Nueva carpeta» está arriba a la derecha [1].",
             "sources": [
               {
@@ -609,14 +528,7 @@
           },
           "qa": {
             "q": "¿Cuánto presupuesto queda en el lote 2?",
-            "keywords": [
-              "presupuesto",
-              "queda",
-              "restante",
-              "lote 2",
-              "coste",
-              "gasto"
-            ],
+            "keywords": ["presupuesto", "queda", "restante", "lote 2", "coste", "gasto"],
             "answer": "En el lote 2 se han gastado **38.000 €** de un presupuesto de **52.000 €** [1]: quedan **14.000 €**, alrededor del 27 % del presupuesto del lote [1].",
             "sources": [
               {
@@ -1023,7 +935,11 @@
     "nav": {
       "workspace": "Mis espacios",
       "admin": "Administración",
-      "logout": "Cerrar sesión"
+      "logout": "Cerrar sesión",
+      "userMode": "Modo usuario",
+      "adminMode": "Modo admin",
+      "adminBadge": "Admin",
+      "switchLabel": "Cambiar de modo"
     },
     "kpi": {
       "owned": "Espacios propios",
@@ -1049,6 +965,33 @@
   },
   "admin": {
     "title": "Administración",
+    "eyebrow": "Proyecto {{brand}}",
+    "subtitle": "Indicadores en tiempo real · hora UTC",
+    "manageTitle": "Administrar el proyecto",
+    "overview": {
+      "last7d": "+{{count}} en 7 días",
+      "activeUsers": "Usuarios activos (7 d)",
+      "questions7d": "Preguntas realizadas (7 d)",
+      "contact7d": "Mensajes de contacto (7 d)",
+      "activityTitle": "Actividad en 30 días",
+      "series": {
+        "users": "Registros",
+        "questions": "Preguntas",
+        "documents": "Documentos"
+      },
+      "total30d": "{{count}} en total",
+      "max": "máx. {{count}} / día",
+      "healthTitle": "Estado del servicio",
+      "ai": "Motor de IA",
+      "up": "Operativo",
+      "down": "Inaccesible",
+      "model": "Modelo",
+      "hosting": "Alojamiento",
+      "docErrors": "Documentos con error",
+      "accountsTitle": "Seguridad de las cuentas",
+      "verified": "Correo verificado",
+      "twoFactor": "2FA activada"
+    },
     "kpi": {
       "users": "Usuarios",
       "spaces": "Espacios",

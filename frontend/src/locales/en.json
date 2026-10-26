@@ -17,12 +17,7 @@
     "launchApp": "Launch app"
   },
   "hero": {
-    "badges": [
-      "Hosted in France",
-      "French AI - Mistral",
-      "Sourced answers",
-      "Walled-off spaces"
-    ],
+    "badges": ["Hosted in France", "French AI - Mistral", "Sourced answers", "Walled-off spaces"],
     "title1": "Your sovereign cloud RAG,",
     "title2": "hosted in France.",
     "subtitle": "Drop your documents, query them in plain language, get sourced answers. The whole chain is European: {{hostingProvider}} hosting in {{hostingCountry}}, {{aiProvider}} as the AI engine, a French publisher. Your data never leaves the European Union.",
@@ -274,15 +269,7 @@
         "qa": [
           {
             "q": "How long is the contract and what is the notice period?",
-            "keywords": [
-              "long",
-              "duration",
-              "term",
-              "notice",
-              "terminate",
-              "termination",
-              "renewal"
-            ],
+            "keywords": ["long", "duration", "term", "notice", "terminate", "termination", "renewal"],
             "answer": "The contract runs for **12 months** from 1 January 2025, with **automatic renewal** [1]. To end it, a registered letter must be sent at least **30 days before expiry** [1]. Amendment no. 2 does not change this term, it only adds a price review clause [2].",
             "sources": [
               {
@@ -301,14 +288,7 @@
           },
           {
             "q": "What are the penalties for late delivery?",
-            "keywords": [
-              "penalty",
-              "penalties",
-              "late",
-              "delay",
-              "delivery",
-              "compensation"
-            ],
+            "keywords": ["penalty", "penalties", "late", "delay", "delivery", "compensation"],
             "answer": "For late delivery, the supplier owes **1% of the order amount per week of delay** [1], capped at **10%** of the total [1]. Beyond four weeks, you may cancel the order at no cost [1].",
             "sources": [
               {
@@ -321,15 +301,7 @@
           },
           {
             "q": "Does the March invoice match the contract price?",
-            "keywords": [
-              "invoice",
-              "march",
-              "amount",
-              "match",
-              "price",
-              "rate",
-              "check"
-            ],
+            "keywords": ["invoice", "march", "amount", "match", "price", "rate", "check"],
             "answer": "Almost. The March invoice uses a unit price of **€52.50** [1], whereas the contract sets **€50.00** [2]. Amendment no. 2 allows a review of at most **3%** per year [3], i.e. €51.50 maximum: the **€1.00 per unit** gap is worth raising with the supplier.",
             "sources": [
               {
@@ -362,13 +334,7 @@
           },
           "qa": {
             "q": "What was decided at the last supplier meeting?",
-            "keywords": [
-              "meeting",
-              "decided",
-              "decision",
-              "minutes",
-              "supplier"
-            ],
+            "keywords": ["meeting", "decided", "decision", "minutes", "supplier"],
             "answer": "At the 14 March meeting, three decisions were made [1]: the supplier **will issue a credit note** for the March price gap, deliveries will move to **every two weeks**, and a follow-up is set for **30 April** [1].",
             "sources": [
               {
@@ -415,13 +381,7 @@
         "qa": [
           {
             "q": "How many remote work days are allowed?",
-            "keywords": [
-              "remote",
-              "home",
-              "telework",
-              "wfh",
-              "days"
-            ],
+            "keywords": ["remote", "home", "telework", "wfh", "days"],
             "answer": "Each employee may work remotely up to **2 days a week** [1], once the probation period is over [1]. Days are agreed with the manager and **Tuesday remains a shared office day** for the whole team [1].",
             "sources": [
               {
@@ -434,14 +394,7 @@
           },
           {
             "q": "How do I request leave, and how far in advance?",
-            "keywords": [
-              "leave",
-              "holiday",
-              "vacation",
-              "request",
-              "absence",
-              "advance"
-            ],
+            "keywords": ["leave", "holiday", "vacation", "request", "absence", "advance"],
             "answer": "Leave is requested in the HR tool, **at least 4 weeks ahead** for more than 5 days off, and **one week** otherwise [1]. The manager replies within **5 working days** [1]. In summer, at least **2 consecutive weeks** must be taken between May and October [1].",
             "sources": [
               {
@@ -454,14 +407,7 @@
           },
           {
             "q": "What was said about meal vouchers at the last works council?",
-            "keywords": [
-              "meal",
-              "voucher",
-              "vouchers",
-              "council",
-              "lunch",
-              "food"
-            ],
+            "keywords": ["meal", "voucher", "vouchers", "council", "lunch", "food"],
             "answer": "According to the works council recording, management announced a **face value increase to €11** from June, with **60% paid by the employer** [1]. A digital card will replace paper vouchers by the end of the year [1].",
             "sources": [
               {
@@ -482,14 +428,7 @@
           },
           "qa": {
             "q": "How does the health plan cover glasses?",
-            "keywords": [
-              "health",
-              "plan",
-              "glasses",
-              "optical",
-              "cover",
-              "reimburse"
-            ],
+            "keywords": ["health", "plan", "glasses", "optical", "cover", "reimburse"],
             "answer": "The health plan covers glasses up to **€350 every two years** (frames + lenses), including **€100 maximum for frames** [1]. Contact lenses are covered up to **€150 per year** [1].",
             "sources": [
               {
@@ -536,15 +475,7 @@
         "qa": [
           {
             "q": "When is the go-live date?",
-            "keywords": [
-              "date",
-              "go-live",
-              "live",
-              "launch",
-              "release",
-              "schedule",
-              "when"
-            ],
+            "keywords": ["date", "go-live", "live", "launch", "release", "schedule", "when"],
             "answer": "Go-live is planned for **15 September 2025** [1]. It was **pushed back two weeks** at the February steering committee, to leave time to finish load testing [2].",
             "sources": [
               {
@@ -563,14 +494,7 @@
           },
           {
             "q": "What are the security requirements?",
-            "keywords": [
-              "security",
-              "requirement",
-              "requirements",
-              "authentication",
-              "encryption",
-              "gdpr"
-            ],
+            "keywords": ["security", "requirement", "requirements", "authentication", "encryption", "gdpr"],
             "answer": "The specifications set three main requirements [1]: **two-factor authentication** for all admin accounts, **encryption of data at rest** (AES-256) and **hosting in France** [1]. An external security audit is required before go-live [1].",
             "sources": [
               {
@@ -583,14 +507,7 @@
           },
           {
             "q": "What does the home screen mockup show?",
-            "keywords": [
-              "mockup",
-              "screen",
-              "home",
-              "design",
-              "interface",
-              "image"
-            ],
+            "keywords": ["mockup", "screen", "home", "design", "interface", "image"],
             "answer": "The mockup shows a home screen in three areas [1]: a central **search bar**, a row of **shortcuts to the 4 main modules**, and a recent **activity feed** on the right [1]. The main \"New folder\" button sits top right [1].",
             "sources": [
               {
@@ -611,14 +528,7 @@
           },
           "qa": {
             "q": "How much budget is left on workstream 2?",
-            "keywords": [
-              "budget",
-              "left",
-              "remaining",
-              "workstream 2",
-              "cost",
-              "spent"
-            ],
+            "keywords": ["budget", "left", "remaining", "workstream 2", "cost", "spent"],
             "answer": "On workstream 2, **€38,000** has been spent out of a **€52,000** budget [1]: **€14,000** is left, about 27% of the workstream budget [1].",
             "sources": [
               {
@@ -1025,7 +935,11 @@
     "nav": {
       "workspace": "My spaces",
       "admin": "Admin",
-      "logout": "Log out"
+      "logout": "Log out",
+      "userMode": "User mode",
+      "adminMode": "Admin mode",
+      "adminBadge": "Admin",
+      "switchLabel": "Switch mode"
     },
     "kpi": {
       "owned": "Owned spaces",
@@ -1051,6 +965,33 @@
   },
   "admin": {
     "title": "Admin",
+    "eyebrow": "{{brand}} project",
+    "subtitle": "Live metrics · UTC time",
+    "manageTitle": "Manage the project",
+    "overview": {
+      "last7d": "+{{count}} in 7 days",
+      "activeUsers": "Active users (7d)",
+      "questions7d": "Questions asked (7d)",
+      "contact7d": "Contact messages (7d)",
+      "activityTitle": "Activity over 30 days",
+      "series": {
+        "users": "Sign-ups",
+        "questions": "Questions",
+        "documents": "Documents"
+      },
+      "total30d": "{{count}} in total",
+      "max": "max {{count}} / day",
+      "healthTitle": "Service status",
+      "ai": "AI engine",
+      "up": "Operational",
+      "down": "Unreachable",
+      "model": "Model",
+      "hosting": "Hosting",
+      "docErrors": "Documents in error",
+      "accountsTitle": "Account security",
+      "verified": "Email verified",
+      "twoFactor": "2FA enabled"
+    },
     "kpi": {
       "users": "Users",
       "spaces": "Spaces",

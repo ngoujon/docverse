@@ -17,12 +17,7 @@
     "launchApp": "Avvia l'app"
   },
   "hero": {
-    "badges": [
-      "Ospitato in Francia",
-      "IA francese - Mistral",
-      "Risposte con fonti",
-      "Spazi isolati"
-    ],
+    "badges": ["Ospitato in Francia", "IA francese - Mistral", "Risposte con fonti", "Spazi isolati"],
     "title1": "La tua soluzione cloud RAG sovrana,",
     "title2": "ospitata in Francia.",
     "subtitle": "Carica i tuoi documenti, interrogali in linguaggio naturale e ottieni risposte con le fonti. Tutta la catena è europea: hosting {{hostingProvider}} in {{hostingCountry}}, motore di IA {{aiProvider}}, editore francese. I tuoi dati non lasciano mai l'Unione europea.",
@@ -274,14 +269,7 @@
         "qa": [
           {
             "q": "Qual è la durata del contratto e il preavviso di recesso?",
-            "keywords": [
-              "durata",
-              "preavviso",
-              "recesso",
-              "disdetta",
-              "scadenza",
-              "rinnovo"
-            ],
+            "keywords": ["durata", "preavviso", "recesso", "disdetta", "scadenza", "rinnovo"],
             "answer": "Il contratto dura **12 mesi** dal 1° gennaio 2025, con **rinnovo tacito** [1]. Per recedere occorre inviare una raccomandata almeno **30 giorni prima della scadenza** [1]. L'addendum n. 2 non modifica la durata: aggiunge solo una clausola di revisione dei prezzi [2].",
             "sources": [
               {
@@ -300,14 +288,7 @@
           },
           {
             "q": "Quali penali sono previste per ritardo nella consegna?",
-            "keywords": [
-              "penale",
-              "penali",
-              "ritardo",
-              "consegna",
-              "termine",
-              "indennizzo"
-            ],
+            "keywords": ["penale", "penali", "ritardo", "consegna", "termine", "indennizzo"],
             "answer": "In caso di ritardo il fornitore deve **l'1% dell'importo dell'ordine per settimana di ritardo** [1], con un massimo del **10%** del totale [1]. Oltre quattro settimane potete annullare l'ordine senza costi [1].",
             "sources": [
               {
@@ -320,15 +301,7 @@
           },
           {
             "q": "L'importo della fattura di marzo è conforme al contratto?",
-            "keywords": [
-              "fattura",
-              "marzo",
-              "importo",
-              "conforme",
-              "prezzo",
-              "tariffa",
-              "verificare"
-            ],
+            "keywords": ["fattura", "marzo", "importo", "conforme", "prezzo", "tariffa", "verificare"],
             "answer": "Quasi. La fattura di marzo applica un prezzo unitario di **52,50 €** [1], mentre il contratto prevede **50,00 €** [2]. L'addendum n. 2 consente una revisione massima del **3%** l'anno [3], cioè al massimo 51,50 €: la differenza di **1,00 € per unità** va segnalata al fornitore.",
             "sources": [
               {
@@ -361,13 +334,7 @@
           },
           "qa": {
             "q": "Cosa si è deciso all'ultima riunione con il fornitore?",
-            "keywords": [
-              "riunione",
-              "deciso",
-              "decisione",
-              "verbale",
-              "fornitore"
-            ],
+            "keywords": ["riunione", "deciso", "decisione", "verbale", "fornitore"],
             "answer": "Alla riunione del 14 marzo sono state prese tre decisioni [1]: il fornitore **emetterà una nota di credito** per la differenza di prezzo di marzo, le consegne diventeranno **quindicinali** e un punto di verifica è fissato al **30 aprile** [1].",
             "sources": [
               {
@@ -414,14 +381,7 @@
         "qa": [
           {
             "q": "Quanti giorni di smart working sono consentiti?",
-            "keywords": [
-              "smart",
-              "working",
-              "remoto",
-              "casa",
-              "distanza",
-              "giorni"
-            ],
+            "keywords": ["smart", "working", "remoto", "casa", "distanza", "giorni"],
             "answer": "Ogni dipendente può lavorare da remoto fino a **2 giorni a settimana** [1], terminato il periodo di prova [1]. I giorni si concordano con il responsabile e **il martedì resta giorno di presenza comune** per tutto il team [1].",
             "sources": [
               {
@@ -434,14 +394,7 @@
           },
           {
             "q": "Come si chiedono le ferie e con quale anticipo?",
-            "keywords": [
-              "ferie",
-              "vacanze",
-              "chiedere",
-              "richiesta",
-              "assenza",
-              "anticipo"
-            ],
+            "keywords": ["ferie", "vacanze", "chiedere", "richiesta", "assenza", "anticipo"],
             "answer": "Le ferie si chiedono nello strumento HR, **con almeno 4 settimane di anticipo** per assenze oltre i 5 giorni, e **una settimana** negli altri casi [1]. Il responsabile risponde entro **5 giorni lavorativi** [1]. In estate vanno godute almeno **2 settimane consecutive** tra maggio e ottobre [1].",
             "sources": [
               {
@@ -454,14 +407,7 @@
           },
           {
             "q": "Cosa si è detto sui buoni pasto all'ultima riunione RSU?",
-            "keywords": [
-              "buoni",
-              "buono",
-              "pasto",
-              "rsu",
-              "pranzo",
-              "mensa"
-            ],
+            "keywords": ["buoni", "buono", "pasto", "rsu", "pranzo", "mensa"],
             "answer": "Secondo la registrazione della riunione RSU, la direzione ha annunciato **un aumento del valore nominale a 11 €** da giugno, con **il 60% a carico dell'azienda** [1]. Una carta digitale sostituirà i buoni cartacei entro fine anno [1].",
             "sources": [
               {
@@ -482,14 +428,7 @@
           },
           "qa": {
             "q": "Come rimborsa gli occhiali l'assicurazione sanitaria?",
-            "keywords": [
-              "assicurazione",
-              "sanitaria",
-              "occhiali",
-              "ottica",
-              "rimborso",
-              "rimborsa"
-            ],
+            "keywords": ["assicurazione", "sanitaria", "occhiali", "ottica", "rimborso", "rimborsa"],
             "answer": "L'assicurazione copre gli occhiali fino a **350 € ogni due anni** (montatura + lenti), di cui **massimo 100 € per la montatura** [1]. Le lenti a contatto sono rimborsate fino a **150 € l'anno** [1].",
             "sources": [
               {
@@ -536,14 +475,7 @@
         "qa": [
           {
             "q": "Qual è la data prevista di messa in produzione?",
-            "keywords": [
-              "data",
-              "produzione",
-              "lancio",
-              "rilascio",
-              "pianificazione",
-              "quando"
-            ],
+            "keywords": ["data", "produzione", "lancio", "rilascio", "pianificazione", "quando"],
             "answer": "La messa in produzione è prevista per il **15 settembre 2025** [1]. È stata **posticipata di due settimane** al comitato di febbraio, per completare i test di carico [2].",
             "sources": [
               {
@@ -562,14 +494,7 @@
           },
           {
             "q": "Quali sono i requisiti di sicurezza?",
-            "keywords": [
-              "sicurezza",
-              "requisito",
-              "requisiti",
-              "autenticazione",
-              "cifratura",
-              "gdpr"
-            ],
+            "keywords": ["sicurezza", "requisito", "requisiti", "autenticazione", "cifratura", "gdpr"],
             "answer": "Il capitolato impone tre requisiti principali [1]: **autenticazione a due fattori** per tutti gli account amministratore, **cifratura dei dati a riposo** (AES-256) e **hosting in Francia** [1]. È richiesto un audit di sicurezza esterno prima della messa in produzione [1].",
             "sources": [
               {
@@ -582,15 +507,7 @@
           },
           {
             "q": "Cosa mostra il mockup della schermata iniziale?",
-            "keywords": [
-              "mockup",
-              "schermata",
-              "iniziale",
-              "home",
-              "design",
-              "interfaccia",
-              "immagine"
-            ],
+            "keywords": ["mockup", "schermata", "iniziale", "home", "design", "interfaccia", "immagine"],
             "answer": "Il mockup mostra una schermata iniziale in tre zone [1]: una **barra di ricerca** centrale, una fila di **scorciatoie verso i 4 moduli** principali e un **feed di attività** recente a destra [1]. Il pulsante principale «Nuova cartella» è in alto a destra [1].",
             "sources": [
               {
@@ -611,14 +528,7 @@
           },
           "qa": {
             "q": "Quanto budget resta sul lotto 2?",
-            "keywords": [
-              "budget",
-              "resta",
-              "residuo",
-              "lotto 2",
-              "costo",
-              "speso"
-            ],
+            "keywords": ["budget", "resta", "residuo", "lotto 2", "costo", "speso"],
             "answer": "Sul lotto 2 sono stati spesi **38.000 €** su un budget di **52.000 €** [1]: restano **14.000 €**, circa il 27% del budget del lotto [1].",
             "sources": [
               {
@@ -1025,7 +935,11 @@
     "nav": {
       "workspace": "I miei spazi",
       "admin": "Amministrazione",
-      "logout": "Esci"
+      "logout": "Esci",
+      "userMode": "Modalità utente",
+      "adminMode": "Modalità admin",
+      "adminBadge": "Admin",
+      "switchLabel": "Cambia modalità"
     },
     "kpi": {
       "owned": "Spazi posseduti",
@@ -1051,6 +965,33 @@
   },
   "admin": {
     "title": "Amministrazione",
+    "eyebrow": "Progetto {{brand}}",
+    "subtitle": "Indicatori in tempo reale · ora UTC",
+    "manageTitle": "Amministra il progetto",
+    "overview": {
+      "last7d": "+{{count}} in 7 giorni",
+      "activeUsers": "Utenti attivi (7 gg)",
+      "questions7d": "Domande poste (7 gg)",
+      "contact7d": "Messaggi di contatto (7 gg)",
+      "activityTitle": "Attività su 30 giorni",
+      "series": {
+        "users": "Iscrizioni",
+        "questions": "Domande",
+        "documents": "Documenti"
+      },
+      "total30d": "{{count}} in totale",
+      "max": "max {{count}} / giorno",
+      "healthTitle": "Stato del servizio",
+      "ai": "Motore IA",
+      "up": "Operativo",
+      "down": "Non raggiungibile",
+      "model": "Modello",
+      "hosting": "Hosting",
+      "docErrors": "Documenti in errore",
+      "accountsTitle": "Sicurezza degli account",
+      "verified": "Email verificata",
+      "twoFactor": "2FA attiva"
+    },
     "kpi": {
       "users": "Utenti",
       "spaces": "Spazi",

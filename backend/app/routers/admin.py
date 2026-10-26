@@ -4,6 +4,7 @@ statistics, newsletter and service health. Every route requires an admin."""
 from datetime import datetime, timedelta
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from .. import models, schemas
@@ -155,10 +156,51 @@ def restore_space_snapshot(space_id: str, snapshot_id: str):
 # --- Statistics ---------------------------------------------------------------------
 
 
+DAILY_DAYS = 30
+
+
+def _daily_counts(db: Session, column, start: datetime, *filters) -> dict[str, int]:
+    """Rows per UTC day ("YYYY-MM-DD") since `start`."""
+    day = func.date(column)
+    rows = db.query(day, func.count()).filter(column >= start, *filters).group_by(day).all()
+    return {str(d): n for d, n in rows}
+
+
 @router.get("/stats", response_model=schemas.AdminStatsOut)
 def stats(db: Session = Depends(get_db)):
-    since = datetime.utcnow() - timedelta(days=7)
+    now = datetime.utcnow()
+    since = now - timedelta(days=7)
+    # messages_day is the UTC date of the account's last question.
+    active_since = (now.date() - timedelta(days=6)).isoformat()
+
+    start_day = now.date() - timedelta(days=DAILY_DAYS - 1)
+    start = datetime.combine(start_day, datetime.min.time())
+    users_by_day = _daily_counts(db, models.User.created_at, start)
+    questions_by_day = _daily_counts(db, models.Message.created_at, start, models.Message.role == "user")
+    documents_by_day = _daily_counts(db, models.Document.created_at, start)
+    daily = []
+    for i in range(DAILY_DAYS):
+        key = (start_day + timedelta(days=i)).isoformat()
+        daily.append(
+            schemas.AdminDailyPoint(
+                date=key,
+                users=users_by_day.get(key, 0),
+                questions=questions_by_day.get(key, 0),
+                documents=documents_by_day.get(key, 0),
+            )
+        )
+
     return schemas.AdminStatsOut(
+        verified_users=db.query(models.User).filter(models.User.email_verified.is_(True)).count(),
+        totp_users=db.query(models.User).filter(models.User.totp_enabled.is_(True)).count(),
+        active_users_7d=db.query(models.User).filter(models.User.messages_day >= active_since).count(),
+        questions_7d=db.query(models.Message)
+        .filter(models.Message.role == "user", models.Message.created_at >= since)
+        .count(),
+        new_documents_7d=db.query(models.Document).filter(models.Document.created_at >= since).count(),
+        documents_in_error=db.query(models.Document).filter_by(status="error").count(),
+        contact_messages_7d=db.query(models.ContactMessage).filter(models.ContactMessage.created_at >= since).count(),
+        daily=daily,
         users=db.query(models.User).count(),
         spaces=db.query(models.Space).count(),
         documents=db.query(models.Document).count(),

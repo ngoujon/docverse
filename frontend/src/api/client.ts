@@ -1,4 +1,5 @@
 import type {
+  AdminHealth,
   AdminStats,
   AuthResponse,
   CaptchaChallenge,
@@ -188,6 +189,7 @@ export const api = {
   adminUsers: (limit = 50, offset = 0) => request<Paginated<User>>(`/admin/users?limit=${limit}&offset=${offset}`),
   adminSpaces: (limit = 50, offset = 0) => request<Paginated<Space>>(`/admin/spaces?limit=${limit}&offset=${offset}`),
   adminStats: () => request<AdminStats>("/admin/stats"),
+  adminHealth: () => request<AdminHealth>("/admin/health"),
   adminCreateUser: (payload: { email: string; password: string; display_name?: string; role?: "admin" | "user" }) =>
     request<User>("/admin/users", { method: "POST", body: JSON.stringify(payload) }),
   adminUpdateUser: (userId: string, patch: { role?: "admin" | "user"; is_active?: boolean }) =>

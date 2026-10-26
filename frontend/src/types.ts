@@ -157,6 +157,27 @@ export interface AdminStats {
   newsletter_subscribers: number;
   new_users_7d: number;
   new_spaces_7d: number;
+  verified_users: number;
+  totp_users: number;
+  active_users_7d: number;
+  questions_7d: number;
+  new_documents_7d: number;
+  documents_in_error: number;
+  contact_messages_7d: number;
+  /** Last 30 UTC days, oldest first. */
+  daily: { date: string; users: number; questions: number; documents: number }[];
+}
+
+export interface AdminHealth {
+  status: string;
+  llm_provider: string;
+  llm_reachable: boolean;
+  llm_error?: string | null;
+  models_available: string[];
+  chat_model: string;
+  vision_model: string;
+  embed_model: string;
+  hosting: string;
 }
 
 export interface NewsletterSubscriber {

@@ -17,12 +17,7 @@
     "launchApp": "Abrir a app"
   },
   "hero": {
-    "badges": [
-      "Alojado em França",
-      "IA francesa - Mistral",
-      "Respostas com fontes",
-      "Espaços isolados"
-    ],
+    "badges": ["Alojado em França", "IA francesa - Mistral", "Respostas com fontes", "Espaços isolados"],
     "title1": "A sua solução cloud RAG soberana,",
     "title2": "alojada em França.",
     "subtitle": "Carregue os seus documentos, interrogue-os em linguagem natural e obtenha respostas com fontes. Toda a cadeia é europeia: alojamento {{hostingProvider}} em {{hostingCountry}}, motor de IA {{aiProvider}}, editor francês. Os seus dados nunca saem da União Europeia.",
@@ -274,14 +269,7 @@
         "qa": [
           {
             "q": "Qual é a duração do contrato e o pré-aviso de rescisão?",
-            "keywords": [
-              "duracao",
-              "pre-aviso",
-              "aviso",
-              "rescisao",
-              "rescindir",
-              "renovacao"
-            ],
+            "keywords": ["duracao", "pre-aviso", "aviso", "rescisao", "rescindir", "renovacao"],
             "answer": "O contrato é celebrado por **12 meses** a partir de 1 de janeiro de 2025, com **renovação automática** [1]. Para o terminar, é preciso enviar carta registada pelo menos **30 dias antes do termo** [1]. O aditamento n.º 2 não altera esta duração: apenas acrescenta uma cláusula de revisão de preços [2].",
             "sources": [
               {
@@ -300,14 +288,7 @@
           },
           {
             "q": "Que penalidades existem por atraso na entrega?",
-            "keywords": [
-              "penalidade",
-              "penalidades",
-              "atraso",
-              "entrega",
-              "prazo",
-              "indemnizacao"
-            ],
+            "keywords": ["penalidade", "penalidades", "atraso", "entrega", "prazo", "indemnizacao"],
             "answer": "Em caso de atraso, o fornecedor deve **1 % do valor da encomenda por semana de atraso** [1], até ao máximo de **10 %** do total [1]. Após quatro semanas, pode cancelar a encomenda sem custos [1].",
             "sources": [
               {
@@ -320,15 +301,7 @@
           },
           {
             "q": "O valor da fatura de março está conforme o contrato?",
-            "keywords": [
-              "fatura",
-              "marco",
-              "valor",
-              "conforme",
-              "preco",
-              "tarifa",
-              "verificar"
-            ],
+            "keywords": ["fatura", "marco", "valor", "conforme", "preco", "tarifa", "verificar"],
             "answer": "Quase. A fatura de março aplica um preço unitário de **52,50 €** [1], quando o contrato prevê **50,00 €** [2]. O aditamento n.º 2 permite uma revisão máxima de **3 %** por ano [3], ou seja 51,50 € no máximo: a diferença de **1,00 € por unidade** deve ser assinalada ao fornecedor.",
             "sources": [
               {
@@ -361,13 +334,7 @@
           },
           "qa": {
             "q": "O que se decidiu na última reunião com o fornecedor?",
-            "keywords": [
-              "reuniao",
-              "decidiu",
-              "decisao",
-              "ata",
-              "fornecedor"
-            ],
+            "keywords": ["reuniao", "decidiu", "decisao", "ata", "fornecedor"],
             "answer": "Na reunião de 14 de março foram tomadas três decisões [1]: o fornecedor **emitirá uma nota de crédito** pela diferença de preço de março, as entregas passam a ser **quinzenais** e fica marcado um ponto de situação para **30 de abril** [1].",
             "sources": [
               {
@@ -414,13 +381,7 @@
         "qa": [
           {
             "q": "Quantos dias de teletrabalho são permitidos?",
-            "keywords": [
-              "teletrabalho",
-              "remoto",
-              "casa",
-              "distancia",
-              "dias"
-            ],
+            "keywords": ["teletrabalho", "remoto", "casa", "distancia", "dias"],
             "answer": "Cada colaborador pode trabalhar à distância até **2 dias por semana** [1], após o período experimental [1]. Os dias são combinados com a chefia e **a terça-feira continua a ser dia presencial comum** a toda a equipa [1].",
             "sources": [
               {
@@ -433,14 +394,7 @@
           },
           {
             "q": "Como peço férias e com que antecedência?",
-            "keywords": [
-              "ferias",
-              "folga",
-              "pedir",
-              "pedido",
-              "ausencia",
-              "antecedencia"
-            ],
+            "keywords": ["ferias", "folga", "pedir", "pedido", "ausencia", "antecedencia"],
             "answer": "As férias pedem-se na ferramenta de RH, **com pelo menos 4 semanas de antecedência** para mais de 5 dias, e **uma semana** nos restantes casos [1]. A chefia responde em **5 dias úteis** [1]. No verão, devem ser gozadas pelo menos **2 semanas seguidas** entre maio e outubro [1].",
             "sources": [
               {
@@ -453,14 +407,7 @@
           },
           {
             "q": "O que se disse sobre o subsídio de refeição na última comissão?",
-            "keywords": [
-              "refeicao",
-              "subsidio",
-              "cartao",
-              "comissao",
-              "almoco",
-              "senha"
-            ],
+            "keywords": ["refeicao", "subsidio", "cartao", "comissao", "almoco", "senha"],
             "answer": "Segundo a gravação da reunião da comissão de trabalhadores, a direção anunciou **um aumento do valor para 11 €** a partir de junho, com **60 % suportados pela empresa** [1]. Um cartão digital vai substituir as senhas em papel até ao fim do ano [1].",
             "sources": [
               {
@@ -481,14 +428,7 @@
           },
           "qa": {
             "q": "Como o seguro de saúde comparticipa os óculos?",
-            "keywords": [
-              "seguro",
-              "saude",
-              "oculos",
-              "optica",
-              "comparticipa",
-              "reembolso"
-            ],
+            "keywords": ["seguro", "saude", "oculos", "optica", "comparticipa", "reembolso"],
             "answer": "O seguro de saúde comparticipa os óculos até **350 € de dois em dois anos** (armação + lentes), dos quais **no máximo 100 € para a armação** [1]. As lentes de contacto são reembolsadas até **150 € por ano** [1].",
             "sources": [
               {
@@ -535,14 +475,7 @@
         "qa": [
           {
             "q": "Qual é a data prevista de entrada em produção?",
-            "keywords": [
-              "data",
-              "producao",
-              "lancamento",
-              "entrega",
-              "planeamento",
-              "quando"
-            ],
+            "keywords": ["data", "producao", "lancamento", "entrega", "planeamento", "quando"],
             "answer": "A entrada em produção está prevista para **15 de setembro de 2025** [1]. Foi **adiada duas semanas** no comité de direção de fevereiro, para concluir os testes de carga [2].",
             "sources": [
               {
@@ -561,14 +494,7 @@
           },
           {
             "q": "Quais são os requisitos de segurança?",
-            "keywords": [
-              "seguranca",
-              "requisito",
-              "requisitos",
-              "autenticacao",
-              "cifra",
-              "rgpd"
-            ],
+            "keywords": ["seguranca", "requisito", "requisitos", "autenticacao", "cifra", "rgpd"],
             "answer": "O caderno de encargos impõe três requisitos principais [1]: **autenticação de dois fatores** para todas as contas de administração, **cifra dos dados em repouso** (AES-256) e **alojamento em França** [1]. É exigida uma auditoria de segurança externa antes da entrada em produção [1].",
             "sources": [
               {
@@ -581,15 +507,7 @@
           },
           {
             "q": "O que mostra a maquete do ecrã inicial?",
-            "keywords": [
-              "maquete",
-              "ecra",
-              "inicial",
-              "inicio",
-              "design",
-              "interface",
-              "imagem"
-            ],
+            "keywords": ["maquete", "ecra", "inicial", "inicio", "design", "interface", "imagem"],
             "answer": "A maquete mostra um ecrã inicial em três zonas [1]: uma **barra de pesquisa** central, uma fila de **atalhos para os 4 módulos** principais e um **feed de atividade** recente à direita [1]. O botão principal «Nova pasta» está no canto superior direito [1].",
             "sources": [
               {
@@ -610,14 +528,7 @@
           },
           "qa": {
             "q": "Quanto orçamento resta no lote 2?",
-            "keywords": [
-              "orcamento",
-              "resta",
-              "restante",
-              "lote 2",
-              "custo",
-              "gasto"
-            ],
+            "keywords": ["orcamento", "resta", "restante", "lote 2", "custo", "gasto"],
             "answer": "No lote 2 foram gastos **38 000 €** de um orçamento de **52 000 €** [1]: restam **14 000 €**, cerca de 27 % do orçamento do lote [1].",
             "sources": [
               {
@@ -1024,7 +935,11 @@
     "nav": {
       "workspace": "Os meus espaços",
       "admin": "Administração",
-      "logout": "Terminar sessão"
+      "logout": "Terminar sessão",
+      "userMode": "Modo utilizador",
+      "adminMode": "Modo admin",
+      "adminBadge": "Admin",
+      "switchLabel": "Mudar de modo"
     },
     "kpi": {
       "owned": "Espaços próprios",
@@ -1050,6 +965,33 @@
   },
   "admin": {
     "title": "Administração",
+    "eyebrow": "Projeto {{brand}}",
+    "subtitle": "Indicadores em tempo real · hora UTC",
+    "manageTitle": "Administrar o projeto",
+    "overview": {
+      "last7d": "+{{count}} em 7 dias",
+      "activeUsers": "Utilizadores ativos (7 d)",
+      "questions7d": "Perguntas feitas (7 d)",
+      "contact7d": "Mensagens de contacto (7 d)",
+      "activityTitle": "Atividade em 30 dias",
+      "series": {
+        "users": "Registos",
+        "questions": "Perguntas",
+        "documents": "Documentos"
+      },
+      "total30d": "{{count}} no total",
+      "max": "máx. {{count}} / dia",
+      "healthTitle": "Estado do serviço",
+      "ai": "Motor de IA",
+      "up": "Operacional",
+      "down": "Inacessível",
+      "model": "Modelo",
+      "hosting": "Alojamento",
+      "docErrors": "Documentos com erro",
+      "accountsTitle": "Segurança das contas",
+      "verified": "E-mail verificado",
+      "twoFactor": "2FA ativada"
+    },
     "kpi": {
       "users": "Utilizadores",
       "spaces": "Espaços",
