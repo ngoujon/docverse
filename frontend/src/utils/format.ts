@@ -9,6 +9,25 @@ export function formatBytes(bytes: number): string {
   return `${value >= 10 || i === 0 ? Math.round(value) : value.toFixed(1)} ${units[i]}`;
 }
 
+/** Estimated AI cost in US dollars. Single answers cost fractions of a
+ * cent, so small amounts keep enough significant digits to mean something
+ * ("0.0016 $") instead of collapsing to "0.00 $". */
+export function formatUsd(value: number, locale?: string): string {
+  if (value > 0 && value < 0.0001) return `< ${formatUsd(0.0001, locale)}`;
+  const digits = value === 0 ? 2 : value < 0.01 ? 4 : value < 1 ? 3 : 2;
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
+  }).format(value);
+}
+
+/** Token counts: 1234 -> "1 234" (locale grouping). */
+export function formatCount(value: number, locale?: string): string {
+  return new Intl.NumberFormat(locale).format(value);
+}
+
 /** Public pages are prerendered to dist/<route>/index.html (see
  * scripts/prerender.mjs), so nginx serves them as directories and
  * 301-redirects /faq to /faq/. The trailing-slash form is therefore the

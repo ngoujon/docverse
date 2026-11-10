@@ -11,7 +11,7 @@ from .. import models, schemas
 from ..config import settings
 from ..database import get_db
 from ..deps import Pagination, pagination, require_admin
-from ..services import accounts, auth, backup, llm_provider, mailer
+from ..services import accounts, auth, backup, llm_provider, mailer, usage
 from .newsletter import unsubscribe_url
 
 router = APIRouter(prefix="/api/admin", tags=["admin"], dependencies=[Depends(require_admin)])
@@ -40,10 +40,22 @@ async def admin_health():
         "llm_error": status.get("reason"),
         "models_available": status.get("models_available", []),
         "chat_model": settings.mistral_chat_model,
+        "fast_model": settings.mistral_fast_model,
+        "support_model": settings.mistral_support_model,
+        "fallback_model": settings.mistral_fallback_model,
         "vision_model": settings.mistral_vision_model,
+        "scan_model": settings.mistral_ocr_model if settings.scan_engine == "ocr" else settings.mistral_scan_model,
         "embed_model": settings.mistral_embed_model,
         "hosting": f"{settings.hosting_provider} ({settings.hosting_country})",
     }
+
+
+@router.get("/ai-costs")
+def admin_ai_costs(days: int = Query(30, ge=1, le=90), db: Session = Depends(get_db)):
+    """What the platform's Mistral key actually costs (estimated from the
+    token / page counts Mistral reports), plus the volume carried by users'
+    own keys - the KPI behind keeping Docverse free."""
+    return usage.platform_report(db, days=days)
 
 
 # --- Users ------------------------------------------------------------------------

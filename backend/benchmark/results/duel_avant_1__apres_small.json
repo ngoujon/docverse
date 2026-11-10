@@ -1,0 +1,227 @@
+{
+ "a": "avant_1",
+ "b": "apres_small",
+ "tally": {
+  "avant_1": 25,
+  "apres_small": 8,
+  "egal": 3
+ },
+ "rows": [
+  {
+   "id": "F01",
+   "cat": "factuel",
+   "gagnant": "avant_1",
+   "raison": "La réponse A est plus complète et précise avec des détails supplémentaires sur la période d'acquisition et la contrainte de pose des congés."
+  },
+  {
+   "id": "F02",
+   "cat": "factuel",
+   "gagnant": "avant_1",
+   "raison": "La réponse B est plus complète et précise en mentionnant les conditions d'éligibilité et la source exacte."
+  },
+  {
+   "id": "F03",
+   "cat": "factuel",
+   "gagnant": "avant_1",
+   "raison": "La réponse B est plus complète et claire avec un résumé structuré et des dates précises."
+  },
+  {
+   "id": "F04",
+   "cat": "factuel",
+   "gagnant": "avant_1",
+   "raison": "La réponse B est plus précise en citant les articles du contrat et en structurant clairement les deux types de pénalités."
+  },
+  {
+   "id": "F05",
+   "cat": "factuel",
+   "gagnant": "avant_1",
+   "raison": "La réponse A est plus complète et claire en citant explicitement l'article du contrat."
+  },
+  {
+   "id": "F06",
+   "cat": "factuel",
+   "gagnant": "avant_1",
+   "raison": "La réponse A est plus complète avec une source détaillée et une référence explicite à la section du rapport."
+  },
+  {
+   "id": "F07",
+   "cat": "factuel",
+   "gagnant": "avant_1",
+   "raison": "La réponse A est plus complète avec des sources détaillées tout en restant exacte et claire."
+  },
+  {
+   "id": "F08",
+   "cat": "factuel",
+   "gagnant": "avant_1",
+   "raison": "La réponse B est plus complète et précise, citant la source exacte et reproduisant l'extrait officiel."
+  },
+  {
+   "id": "F09",
+   "cat": "factuel",
+   "gagnant": "egal",
+   "raison": "Les deux réponses sont exactes, complètes et claires, avec des formulations équivalentes."
+  },
+  {
+   "id": "D01",
+   "cat": "distracteur",
+   "gagnant": "avant_1",
+   "raison": "La réponse B est plus complète et précise, incluant la hausse de 8 % et la comparaison avec 2024, tout en citant la source."
+  },
+  {
+   "id": "D02",
+   "cat": "distracteur",
+   "gagnant": "avant_1",
+   "raison": "La réponse B est plus complète et précise avec une source explicite confirmant le résultat net 2024."
+  },
+  {
+   "id": "D03",
+   "cat": "distracteur",
+   "gagnant": "avant_1",
+   "raison": "La réponse A est plus complète et précise avec des détails supplémentaires (période d'essai, jour obligatoire) tout en restant exacte."
+  },
+  {
+   "id": "D04",
+   "cat": "distracteur",
+   "gagnant": "avant_1",
+   "raison": "La réponse B est plus complète avec la source explicite et la référence au document."
+  },
+  {
+   "id": "M01",
+   "cat": "multi",
+   "gagnant": "egal",
+   "raison": "Les deux réponses sont exactes, complètes et claires, avec des différences mineures de formulation."
+  },
+  {
+   "id": "M02",
+   "cat": "multi",
+   "gagnant": "avant_1",
+   "raison": "La réponse A est plus exacte et concise, sans informations superflues non demandées."
+  },
+  {
+   "id": "S01",
+   "cat": "scanne",
+   "gagnant": "egal",
+   "raison": "Les deux réponses sont exactes, complètes et claires, avec la même information essentielle."
+  },
+  {
+   "id": "S02",
+   "cat": "scanne",
+   "gagnant": "avant_1",
+   "raison": "Plus complète avec détails supplémentaires (numéro de facture, date d'émission, modalités de paiement) tout en restant exacte."
+  },
+  {
+   "id": "S03",
+   "cat": "scanne",
+   "gagnant": "apres_small",
+   "raison": "Réponse B est plus concise tout en restant exacte et complète."
+  },
+  {
+   "id": "S04",
+   "cat": "scanne",
+   "gagnant": "avant_1",
+   "raison": "La réponse A est plus complète avec une citation exacte et une référence explicite au document source."
+  },
+  {
+   "id": "S05",
+   "cat": "scanne",
+   "gagnant": "avant_1",
+   "raison": "La réponse B cite une source précise et vérifiable (compte rendu du comité produit), ce qui renforce son exactitude."
+  },
+  {
+   "id": "S06",
+   "cat": "scanne",
+   "gagnant": "avant_1",
+   "raison": "La réponse A est plus complète et précise, incluant la pénalité associée et un extrait de la facture."
+  },
+  {
+   "id": "A01",
+   "cat": "absent",
+   "gagnant": "apres_small",
+   "raison": "La réponse B est plus exacte et claire en se limitant strictement aux documents fournis sans ajouter d'informations externes non sollicitées."
+  },
+  {
+   "id": "A02",
+   "cat": "absent",
+   "gagnant": "avant_1",
+   "raison": "La réponse B est plus exacte et claire en précisant explicitement que l'information est absente des documents sans proposer une recherche externe non sollicitée."
+  },
+  {
+   "id": "W01",
+   "cat": "web",
+   "gagnant": "avant_1",
+   "raison": "La réponse B mentionne explicitement une recherche web automatique, ce qui correspond à la référence demandée."
+  },
+  {
+   "id": "W02",
+   "cat": "web",
+   "gagnant": "avant_1",
+   "raison": "La réponse A mentionne explicitement l'utilisation de la recherche web et cite des sources en ligne, conformément à la référence."
+  },
+  {
+   "id": "W03",
+   "cat": "web",
+   "gagnant": "apres_small",
+   "raison": "La réponse A utilise explicitement la recherche web et fournit des informations actualisées (dates 2026) tout en indiquant clairement la source, contrairement à B qui se base sur des documents internes incomplets."
+  },
+  {
+   "id": "W04",
+   "cat": "web",
+   "gagnant": "apres_small",
+   "raison": "La réponse A est exacte, polie et concise, sans ajout d'informations non sollicitées ou hors contexte."
+  },
+  {
+   "id": "H01",
+   "cat": "historique",
+   "gagnant": "avant_1",
+   "raison": "La réponse B est plus complète car elle inclut l'exception pour manquement grave, tout en restant exacte et claire."
+  },
+  {
+   "id": "H02",
+   "cat": "historique",
+   "gagnant": "avant_1",
+   "raison": "La réponse A est plus complète et précise, incluant le détail du financement à 60 % et une source explicite."
+  },
+  {
+   "id": "H03",
+   "cat": "historique",
+   "gagnant": "apres_small",
+   "raison": "La réponse B est plus exacte et concise, sans ajout d'informations non demandées."
+  },
+  {
+   "id": "SP1",
+   "cat": "support",
+   "gagnant": "apres_small",
+   "raison": "Plus complète (mentionne la création de compte si absent) et précise (détails sur les types de documents et le partage)."
+  },
+  {
+   "id": "SP2",
+   "cat": "support",
+   "gagnant": "apres_small",
+   "raison": "La réponse B est plus exacte et concise, en alignement avec la référence, sans ajouter d'informations non sollicitées ou hors sujet."
+  },
+  {
+   "id": "SP3",
+   "cat": "support",
+   "gagnant": "avant_1",
+   "raison": "La réponse A est plus exacte car elle inclut implicitement l'audio (via la référence) et évite une suggestion hors-sujet (formulaire de contact)."
+  },
+  {
+   "id": "SP4",
+   "cat": "support",
+   "gagnant": "apres_small",
+   "raison": "La réponse B respecte strictement le périmètre en refusant la demande hors sujet tout en restant utile et claire."
+  },
+  {
+   "id": "SP5",
+   "cat": "support",
+   "gagnant": "avant_1",
+   "raison": "La réponse B est plus complète en redirigeant explicitement vers un canal approprié pour les demandes hors scope."
+  },
+  {
+   "id": "SP6",
+   "cat": "support",
+   "gagnant": "avant_1",
+   "raison": "La réponse A est plus complète en précisant la confidentialité et en offrant un lien vers des détails supplémentaires."
+  }
+ ]
+}

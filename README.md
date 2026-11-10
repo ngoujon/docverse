@@ -224,7 +224,25 @@ sont heberges par Mistral, il n'y a plus rien a telecharger.
 | `MISTRAL_CHAT_MODEL`    | Conversation / raisonnement    | `mistral-large-latest`, `mistral-small-latest` (~8x moins cher) |
 | `MISTRAL_VISION_MODEL`  | Lecture d'images / PDF scannes | `mistral-medium-latest`, `mistral-small-latest`                    |
 | `MISTRAL_EMBED_MODEL`   | Indexation vectorielle         | `mistral-embed`                                          |
+| `MISTRAL_FAST_MODEL`    | Tri des extraits + décision de recherche web (un seul appel par question) | `mistral-small-latest` (par défaut) |
+| `MISTRAL_SUPPORT_MODEL` | Chatbot d'aide public          | `mistral-small-latest` (par défaut)                      |
+| `MISTRAL_FALLBACK_MODEL`| Secours si le modèle principal renvoie « trop de requêtes » (429) | `mistral-small-latest` (par défaut), vide = désactivé |
+| `SCAN_ENGINE`           | Lecture des scans et images : `vision` (modèle de vision) ou `ocr` (API OCR Mistral, 4 $ / 1 000 pages) | `vision` (par défaut) |
+| `MISTRAL_SCAN_MODEL`    | Modèle qui lit les scans quand `SCAN_ENGINE=vision` (repli sur `MISTRAL_VISION_MODEL` en cas d'échec) | `ministral-8b-latest` (par défaut) |
+| `CHAT_HISTORY_LIMIT`    | Messages précédents renvoyés à chaque question | `8` (par défaut, 20 avec une clé perso) |
+| `FREE_SCANNED_PAGES_PER_DAY` | Pages scannées lues par l'IA par compte et par jour | `100` (par défaut) |
 | `WHISPER_MODEL_SIZE`    | Transcription audio (locale, jamais envoyee a Mistral) | `small` (par defaut), `base` (plus rapide/moins precis), `medium` |
+
+Chaque utilisateur peut aussi enregistrer **sa propre clé API Mistral** (Mon
+compte → Intelligence artificielle) : l'IA de son compte est alors facturée sur
+son compte Mistral, les quotas IA de la plateforme sont levés et il fixe ses
+propres limites (questions par jour, budget mensuel). La clé est vérifiée
+auprès de Mistral puis chiffrée en base avec une clé dérivée de `SECRET_KEY`.
+Chaque réponse affiche ses tokens et son coût estimé, et le tableau de bord
+admin montre ce que coûte la clé de la plateforme.
+
+Pour mesurer l'effet d'un changement de modèle ou de réglage sur la qualité,
+le coût et la charge avant de le déployer : voir `backend/benchmark/README.md`.
 
 > **Attention au modele d'embeddings** : en changer modifie la dimension
 > des vecteurs et rend l'index existant inexploitable. Il faut alors vider

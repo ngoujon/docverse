@@ -149,3 +149,7 @@ newsletter_limiter = RateLimiter(max_requests=3, window_seconds=3600)
 # bounds the LLM bill a single visitor can run up over a long session.
 support_chat_limiter = RateLimiter(max_requests=15, window_seconds=300)
 support_chat_daily_limiter = RateLimiter(max_requests=100, window_seconds=86400)
+
+# Saving a personal Mistral key validates it against Mistral: bounded per
+# account so the endpoint can't be turned into a bulk key-checking oracle.
+ai_key_limiter = RateLimiter(max_requests=10, window_seconds=3600)

@@ -784,7 +784,9 @@
         "documents": "Documents",
         "conversations": "Conversations",
         "freeNote": "Your account's usage limits",
-        "questionsToday": "Questions today"
+        "questionsToday": "Questions today",
+        "scannedToday": "Scanned pages today",
+        "ownKeyNote": "Your Mistral key is in use: platform AI limits lifted"
       },
       "gdpr": {
         "title": "Your data and your rights (GDPR)",
@@ -807,7 +809,38 @@
         "ssoHint": "Signed up with Google? Use \"forgot password\" to set a password."
       },
       "twofaPasswordLabel": "Password",
-      "deletePasswordLabel": "Confirmation password"
+      "deletePasswordLabel": "Confirmation password",
+      "ai": {
+        "title": "Artificial intelligence",
+        "keyTitle": "Personal Mistral API key (optional)",
+        "active": "Active ({{hint}})",
+        "intro": "Docverse is free, with {{messages}} questions and {{pages}} scanned pages per day. With your own Mistral key, your account's AI is billed to your Mistral account: these limits are lifted and you set your own.",
+        "getKey": "Create a key on console.mistral.ai",
+        "unreadable": "Your saved key can no longer be read: please enter it again.",
+        "keyLabel": "Mistral API key",
+        "placeholder": "Paste your Mistral API key",
+        "replacePlaceholder": "Replace with a new key",
+        "save": "Save",
+        "checking": "Checking…",
+        "security": "The key is checked with Mistral, encrypted on our servers and never shown again.",
+        "saved": "Key saved: your next AI requests will use your Mistral account.",
+        "removed": "Key removed: you are back on the free limits.",
+        "limitsTitle": "Your limits with this key",
+        "dailyMessages": "Questions per day",
+        "monthlyBudget": "Monthly budget (USD)",
+        "noLimit": "No limit",
+        "monthCost": "Spent this month on your key (estimate): {{cost}}",
+        "saveLimits": "Save limits",
+        "limitsSaved": "Limits saved.",
+        "remove": "Remove key",
+        "usageTitle": "My AI usage",
+        "todayTokens": "Tokens today",
+        "monthTokens": "Tokens this month",
+        "monthCostLabel": "Estimated cost this month",
+        "offered": "Covered by Docverse",
+        "chart": "Tokens used per day over 30 days",
+        "estimateNote": "Costs estimated from the tokens counted by Mistral and its public prices."
+      }
     },
     "verify": {
       "title": "Email verification",
@@ -1091,6 +1124,22 @@
       "confirmRestoreMessage": "The space's current content (conversations, documents) will be replaced with this backup's.",
       "empty": "No backups yet. An automatic backup is created at most once a day, whenever there's activity.",
       "retention": "Kept for a rolling 7 days"
+    },
+    "aiCosts": {
+      "title": "AI costs (platform key)",
+      "subtitle": "Estimated from the tokens and pages counted by Mistral. Personal keys cost you nothing.",
+      "today": "Today",
+      "month": "This month",
+      "last30d": "Last 30 days",
+      "perQuestion": "Average cost per question",
+      "ownKeyUsers": "Accounts with their own key",
+      "ownKeyVolume": "Carried by their keys (30 d)",
+      "chart": "AI cost per day over 30 days",
+      "byKind": "By step and model (30 d)",
+      "topUsers": "Top consumers (30 d)",
+      "empty": "No data yet.",
+      "error": "Could not load AI costs.",
+      "note": "Also set a spending cap in the Mistral console (Admin → Billing)."
     }
   },
   "app": {
@@ -1210,6 +1259,30 @@
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out",
       "resetView": "Reset view"
+    },
+    "usage": {
+      "button": "See the AI usage of this answer",
+      "tokens_one": "{{value}} token",
+      "tokens_other": "{{value}} tokens",
+      "title": "Usage of this answer",
+      "sent": "Tokens sent to the AI",
+      "received": "Tokens received",
+      "cost": "Estimated cost",
+      "pages_one": "{{count}} page",
+      "pages_other": "{{count}} pages",
+      "per1000": "For 1,000 answers like this one: ≈ {{value}}",
+      "ownKey": "Billed to your Mistral API key",
+      "platform": "Covered by Docverse",
+      "estimated": "Estimated count (the AI did not return the exact figure).",
+      "kinds": {
+        "chat": "Answer",
+        "rerank": "Passage ranking",
+        "classify": "Web search decision",
+        "embed": "Document search",
+        "vision": "Image reading",
+        "ocr": "Scan reading (OCR)",
+        "support": "Help chatbot"
+      }
     }
   }
 }

@@ -240,6 +240,32 @@ class MeStatsOut(BaseModel):
     storage_limit_bytes: Optional[int] = None
     messages_today: int = 0
     messages_per_day_limit: Optional[int] = None
+    scanned_pages_today: int = 0
+    scanned_pages_per_day_limit: Optional[int] = None
+    # True when the account uses its own Mistral key (AI billed to it).
+    own_key: bool = False
+
+
+class AIKeyRequest(BaseModel):
+    api_key: str = Field(min_length=16, max_length=200)
+
+
+class AILimitsRequest(BaseModel):
+    # None or 0 = no limit.
+    daily_messages: Optional[int] = Field(default=None, ge=0, le=100000)
+    monthly_budget_usd: Optional[float] = Field(default=None, ge=0, le=100000)
+
+
+class AISettingsOut(BaseModel):
+    has_own_key: bool
+    key_unreadable: bool = False
+    key_hint: Optional[str] = None
+    daily_messages: Optional[int] = None
+    monthly_budget_usd: Optional[float] = None
+    month_cost_own_key_usd: float = 0.0
+    messages_today: int = 0
+    free_messages_per_day: int
+    free_scanned_pages_per_day: int
 
 
 class VectorGraphNode(BaseModel):
@@ -336,6 +362,8 @@ class MessageOut(ORMModel):
     role: str
     content: str
     sources: list[Any] = []
+    # AI consumption behind an assistant answer (services/usage.py summary).
+    usage: Optional[dict] = None
     created_at: datetime
 
     @classmethod
@@ -347,6 +375,7 @@ class MessageOut(ORMModel):
             role=message.role,
             content=message.content,
             sources=json.loads(message.sources_json or "[]"),
+            usage=json.loads(message.usage_json) if getattr(message, "usage_json", None) else None,
             created_at=message.created_at,
         )
 
@@ -371,6 +400,8 @@ class DocumentOut(ORMModel):
     chunk_count: int
     preview: str
     size_bytes: int
+    # AI consumption of its indexing (models.Document.usage property).
+    usage: Optional[dict] = None
     created_at: datetime
 
 

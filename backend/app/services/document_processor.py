@@ -48,6 +48,51 @@ def _b64_from_bytes(data: bytes) -> str:
     return base64.b64encode(data).decode("utf-8")
 
 
+def count_scanned_pages(doc_type: str, path: Path | None) -> int:
+    """Nombre de pages que l'IA devra lire (OCR/vision) pour ce document :
+    pages de PDF sans couche texte, ou 1 pour une image. Lecture locale,
+    rapide et gratuite - sert à vérifier le quota avant tout appel payant."""
+    if path is None:
+        return 0
+    if doc_type == "image":
+        return 1
+    if doc_type != "pdf":
+        return 0
+    doc = fitz.open(path)
+    try:
+        return sum(1 for page in doc if len(page.get_text().strip()) < _MIN_TEXT_CHARS_PER_PAGE)
+    finally:
+        doc.close()
+
+
+async def _read_scanned_image(image_b64: str, mime_type: str, vision_prompt: str) -> str:
+    """SCAN_ENGINE=vision (défaut) : le modèle de lecture léger
+    (MISTRAL_SCAN_MODEL) transcrit la page, avec repli sur le modèle de
+    vision principal s'il échoue ou ne renvoie rien.
+    SCAN_ENGINE=ocr : API OCR dédiée, avec repli sur la vision si elle ne
+    trouve quasiment pas de texte (photo, schéma)."""
+    if settings.scan_engine == "ocr":
+        try:
+            text = await llm_provider.ocr_image(image_b64, mime_type=mime_type)
+        except Exception:  # noqa: BLE001
+            logger.warning("OCR Mistral en échec, repli sur le modèle de vision", exc_info=True)
+            text = ""
+        if len(text.strip()) >= _MIN_TEXT_CHARS_PER_PAGE:
+            return text.strip()
+    elif settings.mistral_scan_model and settings.mistral_scan_model != settings.mistral_vision_model:
+        try:
+            text = await llm_provider.describe_image(
+                image_b64, vision_prompt, model=settings.mistral_scan_model, mime_type=mime_type
+            )
+        except Exception:  # noqa: BLE001
+            logger.warning("Lecture par %s en échec, repli sur %s", settings.mistral_scan_model,
+                           settings.mistral_vision_model, exc_info=True)
+            text = ""
+        if text.strip():
+            return text.strip()
+    return (await llm_provider.describe_image(image_b64, vision_prompt, mime_type=mime_type)).strip()
+
+
 async def extract_text_from_pdf(path: Path) -> str:
     doc = fitz.open(path)
     parts: list[str] = []
@@ -58,12 +103,9 @@ async def extract_text_from_pdf(path: Path) -> str:
             if len(text) < _MIN_TEXT_CHARS_PER_PAGE:
                 pix = page.get_pixmap(dpi=200)
                 img_bytes = pix.tobytes("png")
-                described = await llm_provider.describe_image(
-                    _b64_from_bytes(img_bytes),
-                    _SCANNED_PAGE_PROMPT,
-                    mime_type="image/png",
+                text = await _read_scanned_image(
+                    _b64_from_bytes(img_bytes), "image/png", _SCANNED_PAGE_PROMPT
                 )
-                text = described.strip()
             parts.append(f"[Page {page_index + 1}]\n{text}")
     finally:
         doc.close()
@@ -85,9 +127,7 @@ _IMAGE_MIME_TYPES = {
 async def extract_text_from_image(path: Path) -> str:
     data = path.read_bytes()
     mime_type = _IMAGE_MIME_TYPES.get(path.suffix.lower(), "image/jpeg")
-    return await llm_provider.describe_image(
-        _b64_from_bytes(data), _IMAGE_PROMPT, mime_type=mime_type
-    )
+    return await _read_scanned_image(_b64_from_bytes(data), mime_type, _IMAGE_PROMPT)
 
 
 @lru_cache(maxsize=1)

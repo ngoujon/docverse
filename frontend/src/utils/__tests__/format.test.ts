@@ -1,5 +1,20 @@
 import { describe, expect, it } from "vitest";
-import { formatBytes } from "../format";
+import { formatBytes, formatUsd } from "../format";
+
+describe("formatUsd", () => {
+  it("keeps significant digits for fractions of a cent", () => {
+    expect(formatUsd(0.0016, "en-US")).toBe("$0.0016");
+  });
+
+  it("uses 3 decimals under one dollar and 2 above", () => {
+    expect(formatUsd(0.125, "en-US")).toBe("$0.125");
+    expect(formatUsd(12.5, "en-US")).toBe("$12.50");
+  });
+
+  it("shows zero as a plain amount", () => {
+    expect(formatUsd(0, "en-US")).toBe("$0.00");
+  });
+});
 
 describe("formatBytes", () => {
   it("returns 0 KB for zero or negative values", () => {

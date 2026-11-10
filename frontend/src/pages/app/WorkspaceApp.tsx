@@ -264,7 +264,11 @@ export default function WorkspaceApp() {
             patchMessage(tempAssistantId, (m) => ({ content: m.content + event.content }));
           } else if (event.type === "done") {
             setQueuedPosition(null);
-            patchMessage(tempAssistantId, (m) => ({ id: event.message_id || m.id, sources: event.sources || [] }));
+            patchMessage(tempAssistantId, (m) => ({
+              id: event.message_id || m.id,
+              sources: event.sources || [],
+              usage: event.usage ?? null,
+            }));
             // The first question renames the conversation server-side.
             refreshConversations(activeSpaceId);
           }

@@ -12,7 +12,7 @@ from .. import models, schemas
 from ..config import quota, settings
 from ..database import get_db
 from ..deps import client_ip, get_current_user
-from ..services import accounts, auth, captcha, mailer, rate_limiter
+from ..services import accounts, auth, captcha, mailer, rate_limiter, usage
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
@@ -248,17 +248,27 @@ def me_stats(user: models.User = Depends(get_current_user), db: Session = Depend
     messages_query = db.query(func.count(models.Message.id)).join(
         models.Conversation, models.Message.conversation_id == models.Conversation.id
     )
+    own_key = accounts.has_own_key(user)
+    if own_key:
+        message_limit = user.own_key_daily_messages or None
+        scan_limit = None
+    else:
+        message_limit = quota("messages_per_day")
+        scan_limit = quota("scanned_pages_per_day")
     return schemas.MeStatsOut(
+        own_key=own_key,
+        scanned_pages_today=accounts.scan_pages_today(user),
+        scanned_pages_per_day_limit=scan_limit,
         owned_spaces=len(owned_ids),
-        space_limit=quota("spaces"),
+        space_limit=quota("spaces", own_key=own_key),
         member_spaces=len(member_ids),
         document_count=count(db.query(func.count(models.Document.id)), models.Document.space_id),
         conversation_count=count(db.query(func.count(models.Conversation.id)), models.Conversation.space_id),
         message_count=count(messages_query, models.Conversation.space_id),
         storage_bytes=accounts.storage_bytes(db, space_ids),
-        storage_limit_bytes=quota("storage_bytes"),
+        storage_limit_bytes=quota("storage_bytes", own_key=own_key),
         messages_today=accounts.messages_today(user),
-        messages_per_day_limit=quota("messages_per_day"),
+        messages_per_day_limit=message_limit,
     )
 
 
@@ -375,6 +385,13 @@ def export_account_data(user: models.User = Depends(get_current_user), db: Sessi
             "display_name": user.display_name,
             "role": user.role,
             "created_at": _isoformat(user.created_at),
+        },
+        # The key itself is never exported, only the fact that one is set.
+        "ai": {
+            "own_mistral_key": accounts.has_own_key(user),
+            "own_key_daily_messages": user.own_key_daily_messages,
+            "own_key_monthly_budget_usd": user.own_key_monthly_budget_usd,
+            "usage_last_90_days": usage.user_report(db, user.id, days=90),
         },
         "owned_spaces": [space_export(s, "owner") for s in owned],
         "member_spaces": [space_export(s, role) for s, role in member_spaces if s],

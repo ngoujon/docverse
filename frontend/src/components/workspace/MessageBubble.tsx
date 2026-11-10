@@ -5,6 +5,7 @@ import clsx from "clsx";
 import type { Message } from "../../types";
 import AnimatedText from "../ui/AnimatedText";
 import { BrandMark } from "../ui/BrandLogo";
+import UsageButton from "./UsageButton";
 
 // A no-break space before and a word joiner (U+2060) after glue a citation
 // to its word and punctuation, so "recommandée [1]." never leaves the
@@ -81,6 +82,10 @@ export default function MessageBubble({ message, isStreaming }: { message: Messa
             </ReactMarkdown>
           )}
         </div>
+
+        {!isUser && !isStreaming && message.usage && message.usage.calls > 0 && (
+          <UsageButton usage={message.usage} />
+        )}
 
         {visibleSources.length > 0 && (
           <div className="flex flex-wrap gap-1.5">

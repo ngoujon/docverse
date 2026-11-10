@@ -1,0 +1,158 @@
+{
+ "label": "scan_vision_ministral8b",
+ "date": "2026-11-10T15:56:23",
+ "git": "5378f93",
+ "settings": {
+  "LLM_MAX_CONCURRENCY": "2",
+  "MISTRAL_BASE_URL": "https://api.mistral.ai",
+  "MISTRAL_CHAT_MODEL": "mistral-large-latest",
+  "MISTRAL_EMBED_MODEL": "mistral-embed",
+  "MISTRAL_VISION_MODEL": "ministral-8b-latest"
+ },
+ "ingest": [
+  {
+   "file": "politique_rh.md",
+   "kind": "texte",
+   "status": "ready",
+   "error": null,
+   "wall_s": 0.32,
+   "cpu_s": 0.07,
+   "chunks": 3,
+   "usage": {
+    "calls": 1,
+    "prompt_tokens": 1277,
+    "completion_tokens": 0,
+    "cached_tokens": 0,
+    "pages": 0,
+    "cost": 0.00012770000000000001,
+    "by_model": {
+     "embed:mistral-embed": {
+      "calls": 1,
+      "cost": 0.00012770000000000001,
+      "tokens": 1277
+     }
+    }
+   }
+  },
+  {
+   "file": "contrat_prestation.docx",
+   "kind": "word",
+   "status": "ready",
+   "error": null,
+   "wall_s": 0.32,
+   "cpu_s": 0.04,
+   "chunks": 3,
+   "usage": {
+    "calls": 1,
+    "prompt_tokens": 922,
+    "completion_tokens": 0,
+    "cached_tokens": 0,
+    "pages": 0,
+    "cost": 9.22e-05,
+    "by_model": {
+     "embed:mistral-embed": {
+      "calls": 1,
+      "cost": 9.22e-05,
+      "tokens": 922
+     }
+    }
+   }
+  },
+  {
+   "file": "rapport_annuel_2025.pdf",
+   "kind": "pdf_texte",
+   "status": "ready",
+   "error": null,
+   "wall_s": 0.4,
+   "cpu_s": 0.05,
+   "chunks": 3,
+   "usage": {
+    "calls": 1,
+    "prompt_tokens": 1068,
+    "completion_tokens": 0,
+    "cached_tokens": 0,
+    "pages": 0,
+    "cost": 0.00010680000000000001,
+    "by_model": {
+     "embed:mistral-embed": {
+      "calls": 1,
+      "cost": 0.00010680000000000001,
+      "tokens": 1068
+     }
+    }
+   }
+  },
+  {
+   "file": "facture_scannee.pdf",
+   "kind": "pdf_scanne",
+   "status": "ready",
+   "error": null,
+   "wall_s": 7.25,
+   "cpu_s": 0.26,
+   "chunks": 1,
+   "usage": {
+    "calls": 3,
+    "prompt_tokens": 4962,
+    "completion_tokens": 386,
+    "cached_tokens": 0,
+    "pages": 0,
+    "cost": 0.0007797,
+    "by_model": {
+     "chat:ministral-8b-latest": {
+      "calls": 2,
+      "cost": 0.0007347,
+      "tokens": 4898
+     },
+     "embed:mistral-embed": {
+      "calls": 1,
+      "cost": 4.5e-05,
+      "tokens": 450
+     }
+    }
+   },
+   "pages": 2,
+   "ocr": {
+    "word_recall": 1.0,
+    "number_recall": 1.0,
+    "extracted_chars": 958
+   },
+   "extracted_text": "[Page 1]\nFACTURE N° F-2025-0412\nDate d'émission : 15/09/2025\nÉchéance : 30/10/2025\n\nÉmetteur : Nordique Conseil SARL\n8 rue de la Liberté, 59000 Lille\n\nClient : Atelier Lumen SAS\n42 quai Perrache, 69002 Lyon\n\nDésignation                     Qté   Prix unitaire HT   Total HT\nAudit du système logistique      1     4 800,00            4 800,00\nAteliers de conception           6     650,00              3 900,00\nDéveloppement module stock       12    540,00              6 480,00\n\nTotal HT : 15 180,00 euros\nTVA 20 % : 3 036,00 euros\nTotal TTC : 18 216,00 euros\n\n[Page 2]\nCONDITIONS DE RÈGLEMENT\n\nPaiement par virement bancaire à 45 jours fin de mois.\nIBAN : FR76 3000 4000 0500 0012 3456 789\nBIC : BNPAFRPPXXX\n\nEn cas de retard de paiement, une pénalité égale à trois fois le taux d'intérêt légal sera appliquée, ainsi qu'une indemnité forfaitaire pour frais de recouvrement de 40 euros.\n\nPas d'escompte pour paiement anticipé.\nRéférence contrat : CP-2025-018"
+  },
+  {
+   "file": "compte_rendu_comite.png",
+   "kind": "image",
+   "status": "ready",
+   "error": null,
+   "wall_s": 2.46,
+   "cpu_s": 0.08,
+   "chunks": 1,
+   "usage": {
+    "calls": 2,
+    "prompt_tokens": 1384,
+    "completion_tokens": 154,
+    "cached_tokens": 0,
+    "pages": 0,
+    "cost": 0.00022114999999999998,
+    "by_model": {
+     "chat:ministral-8b-latest": {
+      "calls": 1,
+      "cost": 0.00020204999999999998,
+      "tokens": 1347
+     },
+     "embed:mistral-embed": {
+      "calls": 1,
+      "cost": 1.91e-05,
+      "tokens": 191
+     }
+    }
+   },
+   "pages": 1,
+   "ocr": {
+    "word_recall": 1.0,
+    "number_recall": 1.0,
+    "extracted_chars": 431
+   },
+   "extracted_text": "Compte rendu – Comité produit du 14 mars 2026\n\nPrésents : H. Brossard, J. Marchetti, C. Vasseur, L. Morel\n\n1. Gamme Atlas : lancement confirmé le 2 juin 2026.\n   Prix public de la borne Atlas 900 : 1 290 euros HT.\n\n2. Budget marketing du lancement : 25 000 euros.\n\n3. Salon Light + Building de Francfort : stand de 36 m².\n\n4. Fournisseur des LED retenu : Lumitek (délai 6 semaines).\n\nProchaine réunion : 11 avril 2026, salle Saône."
+  }
+ ]
+}

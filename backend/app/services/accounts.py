@@ -11,7 +11,7 @@ from sqlalchemy.orm import Session
 
 from .. import models
 from ..config import UPLOAD_DIR, settings
-from . import auth, backup, mailer, vectorstore
+from . import auth, backup, mailer, secrets_box, vectorstore
 
 # Email verification links stay valid for two days.
 _VERIFY_EMAIL_TTL_MINUTES = 60 * 48
@@ -25,6 +25,23 @@ def utc_today() -> str:
 def messages_today(user: models.User) -> int:
     """Questions asked today; the counter silently resets on a new day."""
     return user.messages_today if user.messages_day == utc_today() else 0
+
+
+def scan_pages_today(user: models.User) -> int:
+    """Scanned pages / images read by the AI today (same reset rule)."""
+    return user.scan_pages_today if user.scan_day == utc_today() else 0
+
+
+def own_api_key(user: models.User | None) -> str | None:
+    """The account's personal Mistral key in clear, or None (no key, or a
+    key that can no longer be decrypted after a SECRET_KEY change)."""
+    if user is None or not user.mistral_api_key_enc:
+        return None
+    return secrets_box.decrypt(user.mistral_api_key_enc)
+
+
+def has_own_key(user: models.User | None) -> bool:
+    return own_api_key(user) is not None
 
 
 def storage_bytes(db: Session, space_ids: list[str] | None = None) -> int:
@@ -70,6 +87,7 @@ def purge_user(db: Session, user: models.User) -> None:
     for space in db.query(models.Space).filter_by(owner_id=user.id).all():
         purge_space(db, space)
     db.query(models.SpaceMember).filter_by(user_id=user.id).delete()
+    db.query(models.AIUsage).filter_by(user_id=user.id).delete()
     db.delete(user)
     db.commit()
 

@@ -14,6 +14,7 @@ from .config import settings
 from .database import Base, engine, ensure_schema
 from .routers import (
     admin,
+    ai_settings,
     auth,
     captcha,
     chat,
@@ -83,6 +84,7 @@ async def validation_error_handler(request: Request, exc: RequestValidationError
 
 
 for module in (
+    ai_settings,
     auth,
     oauth,
     admin,

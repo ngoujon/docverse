@@ -6,39 +6,57 @@ import json
 import logging
 from datetime import datetime
 
+import httpx
 from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 
 from .. import models, schemas
-from ..config import quota
+from ..config import quota, settings
 from ..database import SessionLocal, get_db
 from ..deps import SpaceAccess, client_ip, require_conversation_access
-from ..services import accounts, backup, llm_provider, rag, rate_limiter
+from ..services import accounts, backup, llm_provider, rag, rate_limiter, usage
 
 logger = logging.getLogger("docverse.chat")
 router = APIRouter(prefix="/api", tags=["chat"])
 
-_HISTORY_LIMIT = 20
-
-
-def _consume_daily_message(user: models.User, db: Session) -> None:
+def _consume_daily_message(user: models.User, db: Session, own_key: bool) -> None:
     """Counts one AI question against the account's daily quota
     (config.FREE_QUOTAS["messages_per_day"]), or refuses it with a 429
     once the quota is used up. The service is free, so this - not a
     bill - is what keeps one account from running up the LLM cost for
     everyone; unlike the per-IP chat_limiter it survives IP rotation and
-    restarts because it lives in the database."""
+    restarts because it lives in the database.
+
+    With their own Mistral key, the platform quota no longer applies: only
+    the limits the user set for themselves (questions per day, monthly
+    budget) do, since the bill is theirs."""
     today = accounts.utc_today()
     if user.messages_day != today:
         user.messages_day = today
         user.messages_today = 0
-    limit = quota("messages_per_day")
-    if user.messages_today >= limit:
-        raise HTTPException(
-            429,
-            f"Limite de {limit} questions par jour atteinte pour votre compte, réessayez demain",
-        )
+    if own_key:
+        limit = user.own_key_daily_messages or 0
+        if usage.own_key_budget_reached(db, user):
+            raise HTTPException(
+                429,
+                "Le budget mensuel que vous avez fixé pour votre clé API Mistral est atteint "
+                "(modifiable dans vos paramètres)",
+            )
+        if limit and user.messages_today >= limit:
+            raise HTTPException(
+                429,
+                f"Vous avez atteint la limite de {limit} questions par jour que vous avez fixée "
+                "pour votre clé API (modifiable dans vos paramètres)",
+            )
+    else:
+        limit = quota("messages_per_day")
+        if user.messages_today >= limit:
+            raise HTTPException(
+                429,
+                f"Limite de {limit} questions par jour atteinte pour votre compte, réessayez demain "
+                "(ou ajoutez votre propre clé API Mistral dans vos paramètres)",
+            )
     user.messages_today += 1
 
 
@@ -63,8 +81,10 @@ async def chat(
     # Charged to whoever asks; a share-link visitor always has an account
     # (see deps._resolve_role), but fall back to the space owner anyway.
     quota_user = access.user or db.get(models.User, space.owner_id)
+    own_key = accounts.own_api_key(quota_user)
     if quota_user:
-        _consume_daily_message(quota_user, db)
+        _consume_daily_message(quota_user, db, own_key is not None)
+    quota_user_id = quota_user.id if quota_user else None
 
     # Trust nothing from the client about which documents it's allowed to
     # scope retrieval to - drop any id that isn't actually in this space,
@@ -81,9 +101,11 @@ async def chat(
         }
         doc_ids = [d for d in doc_ids if d in valid_ids]
 
-    history = [
-        {"role": m.role, "content": m.content} for m in conv.messages[-_HISTORY_LIMIT:]
-    ]
+    history = rag.trim_history(
+        [{"role": m.role, "content": m.content} for m in conv.messages],
+        settings.own_key_history_limit if own_key else settings.chat_history_limit,
+        settings.chat_history_max_chars,
+    )
     is_first_message = len(conv.messages) == 0
 
     user_msg = models.Message(
@@ -104,6 +126,9 @@ async def chat(
     space_name = space.name
 
     async def event_stream():
+        # Opened inside the generator: it's what runs the AI calls, in the
+        # streaming task's own context.
+        meter = usage.start(own_key)
         yield llm_provider.sse_event({"type": "user_message_id", "id": user_msg_id})
         if llm_provider.is_busy():
             waiting = await llm_provider.waiting_count()
@@ -129,8 +154,14 @@ async def chat(
                     role="assistant",
                     content=full_text,
                     sources_json=json.dumps(sources, ensure_ascii=False),
+                    usage_json=usage.summary_json(meter),
                 )
                 save_db.add(assistant_msg)
+                save_db.flush()
+                usage.persist(
+                    save_db, meter, user_id=quota_user_id, space_id=space_id,
+                    conversation_id=conversation_id, message_id=assistant_msg.id,
+                )
                 conv_row = save_db.get(models.Conversation, conversation_id)
                 if conv_row:
                     conv_row.updated_at = datetime.utcnow()
@@ -159,16 +190,22 @@ async def chat(
                     yield llm_provider.sse_event({"type": "token", "content": token})
             except Exception as exc:  # noqa: BLE001
                 logger.exception("Erreur pendant la generation de la reponse")
+                if own_key and isinstance(exc, httpx.HTTPStatusError) and exc.response.status_code == 401:
+                    detail = "votre clé API Mistral a été refusée, vérifiez-la dans vos paramètres"
+                else:
+                    detail = str(exc)
                 error_text = (
                     "\n\n*Une erreur est survenue pendant la génération "
-                    f"({exc}). Le service d'IA est momentanément "
+                    f"({detail}). Le service d'IA est momentanément "
                     "indisponible, réessayez dans quelques instants.*"
                 )
                 full_text += error_text
                 yield llm_provider.sse_event({"type": "token", "content": error_text})
 
             message_id = persist()
-            yield llm_provider.sse_event({"type": "done", "message_id": message_id, "sources": sources})
+            yield llm_provider.sse_event({
+                "type": "done", "message_id": message_id, "sources": sources, "usage": meter.summary(),
+            })
         finally:
             # No-op if `persist()` above already ran; saves whatever was
             # generated so far if we get here via cancellation instead.

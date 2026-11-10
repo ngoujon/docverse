@@ -784,7 +784,9 @@
         "documents": "Documentos",
         "conversations": "Conversaciones",
         "freeNote": "Límites de uso de tu cuenta",
-        "questionsToday": "Preguntas hoy"
+        "questionsToday": "Preguntas hoy",
+        "scannedToday": "Páginas escaneadas hoy",
+        "ownKeyNote": "Se usa su clave de Mistral: límites de IA de la plataforma eliminados"
       },
       "gdpr": {
         "title": "Sus datos y sus derechos (RGPD)",
@@ -807,7 +809,38 @@
         "ssoHint": "¿Te registraste con Google? Usa \"olvidé mi contraseña\" para definir una."
       },
       "twofaPasswordLabel": "Contraseña",
-      "deletePasswordLabel": "Contraseña de confirmación"
+      "deletePasswordLabel": "Contraseña de confirmación",
+      "ai": {
+        "title": "Inteligencia artificial",
+        "keyTitle": "Clave API personal de Mistral (opcional)",
+        "active": "Activa ({{hint}})",
+        "intro": "Docverse es gratuito, con {{messages}} preguntas y {{pages}} páginas escaneadas al día. Con su propia clave de Mistral, la IA de su cuenta se factura en su cuenta de Mistral: estos límites se eliminan y usted fija los suyos.",
+        "getKey": "Crear una clave en console.mistral.ai",
+        "unreadable": "Su clave guardada ya no se puede leer: introdúzcala de nuevo.",
+        "keyLabel": "Clave API de Mistral",
+        "placeholder": "Pegue su clave API de Mistral",
+        "replacePlaceholder": "Sustituir por una nueva clave",
+        "save": "Guardar",
+        "checking": "Comprobando…",
+        "security": "La clave se verifica con Mistral, se cifra en nuestros servidores y nunca se vuelve a mostrar.",
+        "saved": "Clave guardada: sus próximas solicitudes de IA usarán su cuenta de Mistral.",
+        "removed": "Clave eliminada: vuelve a los límites gratuitos.",
+        "limitsTitle": "Sus límites con esta clave",
+        "dailyMessages": "Preguntas al día",
+        "monthlyBudget": "Presupuesto mensual (USD)",
+        "noLimit": "Sin límite",
+        "monthCost": "Gastado este mes con su clave (estimación): {{cost}}",
+        "saveLimits": "Guardar límites",
+        "limitsSaved": "Límites guardados.",
+        "remove": "Eliminar la clave",
+        "usageTitle": "Mi consumo de IA",
+        "todayTokens": "Tokens hoy",
+        "monthTokens": "Tokens este mes",
+        "monthCostLabel": "Coste estimado del mes",
+        "offered": "Ofrecido por Docverse",
+        "chart": "Tokens consumidos por día en 30 días",
+        "estimateNote": "Costes estimados a partir de los tokens contados por Mistral y de sus precios públicos."
+      }
     },
     "verify": {
       "title": "Verificación de correo",
@@ -1091,6 +1124,22 @@
       "confirmRestoreMessage": "El contenido actual del espacio (conversaciones, documentos) se sustituirá por el de esta copia de seguridad.",
       "empty": "Aún no hay copias de seguridad. Se crea una automáticamente como máximo una vez al día, en cuanto hay actividad.",
       "retention": "Se conservan durante 7 días móviles"
+    },
+    "aiCosts": {
+      "title": "Costes de IA (clave de la plataforma)",
+      "subtitle": "Estimados a partir de los tokens y páginas contados por Mistral. Las claves personales no le cuestan nada.",
+      "today": "Hoy",
+      "month": "Este mes",
+      "last30d": "Últimos 30 días",
+      "perQuestion": "Coste medio por pregunta",
+      "ownKeyUsers": "Cuentas con su propia clave",
+      "ownKeyVolume": "Cubierto por sus claves (30 d)",
+      "chart": "Coste de IA por día en 30 días",
+      "byKind": "Por etapa y modelo (30 d)",
+      "topUsers": "Mayores consumidores (30 d)",
+      "empty": "Aún no hay datos.",
+      "error": "No se pudieron cargar los costes de IA.",
+      "note": "Fije también un límite de gasto en la consola de Mistral (Admin → Billing)."
     }
   },
   "app": {
@@ -1210,6 +1259,30 @@
       "zoomIn": "Acercar",
       "zoomOut": "Alejar",
       "resetView": "Restablecer vista"
+    },
+    "usage": {
+      "button": "Ver el consumo de IA de esta respuesta",
+      "tokens_one": "{{value}} token",
+      "tokens_other": "{{value}} tokens",
+      "title": "Consumo de esta respuesta",
+      "sent": "Tokens enviados a la IA",
+      "received": "Tokens recibidos",
+      "cost": "Coste estimado",
+      "pages_one": "{{count}} página",
+      "pages_other": "{{count}} páginas",
+      "per1000": "Para 1000 respuestas como esta: ≈ {{value}}",
+      "ownKey": "Facturado en su clave API de Mistral",
+      "platform": "Ofrecido por Docverse",
+      "estimated": "Recuento estimado (la IA no devolvió la cifra exacta).",
+      "kinds": {
+        "chat": "Respuesta",
+        "rerank": "Clasificación de extractos",
+        "classify": "Decisión de búsqueda web",
+        "embed": "Búsqueda en los documentos",
+        "vision": "Lectura de imagen",
+        "ocr": "Lectura de escaneo (OCR)",
+        "support": "Chatbot de ayuda"
+      }
     }
   }
 }

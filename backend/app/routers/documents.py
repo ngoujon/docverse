@@ -10,7 +10,7 @@ from .. import models, schemas
 from ..config import UPLOAD_DIR, quota, settings
 from ..database import SessionLocal, get_db
 from ..deps import SpaceAccess, require_document_access, require_space_access
-from ..services import accounts, backup, document_processor, llm_provider, vectorstore
+from ..services import accounts, backup, document_processor, llm_provider, usage, vectorstore
 
 logger = logging.getLogger("docverse.documents")
 router = APIRouter(prefix="/api", tags=["documents"])
@@ -39,8 +39,17 @@ async def _ingest(document_id: str) -> None:
         doc.status = "processing"
         db.commit()
 
+        # The uploader pays: their own Mistral key if they saved one,
+        # otherwise the platform key within the free scanned-pages quota.
+        uploader = db.get(models.User, doc.uploaded_by) if doc.uploaded_by else None
+        own_key = accounts.own_api_key(uploader)
+        meter = usage.start(own_key)
+
         try:
             file_path = UPLOAD_DIR / doc.file_path if doc.file_path else None
+            scanned_pages = document_processor.count_scanned_pages(doc.doc_type, file_path)
+            if scanned_pages and uploader is not None:
+                _reserve_scanned_pages(uploader, scanned_pages, own_key is not None, db)
             title, text = await document_processor.process_document(
                 doc.doc_type,
                 file_path=file_path,
@@ -53,6 +62,7 @@ async def _ingest(document_id: str) -> None:
             if not chunks:
                 doc.status = "error"
                 doc.error_message = "Aucun contenu exploitable n'a été extrait de ce document."
+                usage.persist(db, meter, user_id=doc.uploaded_by, space_id=doc.space_id, document_id=doc.id)
                 db.commit()
                 return
 
@@ -67,17 +77,58 @@ async def _ingest(document_id: str) -> None:
             doc.chunk_count = len(chunks)
             doc.preview = text[:400]
             doc.error_message = None
+            doc.usage_json = usage.summary_json(meter)
+            usage.persist(db, meter, user_id=doc.uploaded_by, space_id=doc.space_id, document_id=doc.id)
             db.commit()
             # Already running in a background task, so a blocking snapshot
             # call here doesn't stall any request/response.
             backup.maybe_snapshot(doc.space_id)
+        except ScanQuotaExceeded as exc:
+            doc.status = "error"
+            doc.error_message = str(exc)
+            db.commit()
         except Exception as exc:  # noqa: BLE001
             logger.exception("Echec de l'ingestion du document %s", document_id)
+            db.rollback()
+            doc = db.get(models.Document, document_id)
+            if doc is None:
+                return
             doc.status = "error"
             doc.error_message = str(exc)[:500]
+            # Calls made before the failure were still billed.
+            usage.persist(db, meter, user_id=doc.uploaded_by, space_id=doc.space_id, document_id=doc.id)
             db.commit()
     finally:
         db.close()
+
+
+class ScanQuotaExceeded(Exception):
+    pass
+
+
+def _reserve_scanned_pages(user: models.User, pages: int, own_key: bool, db: Session) -> None:
+    """Counts the pages the AI is about to read against the uploader's daily
+    quota, before any paid call. With their own key there is no platform
+    limit (quota 0), only the monthly budget they set themselves."""
+    if own_key and usage.own_key_budget_reached(db, user):
+        raise ScanQuotaExceeded(
+            "Le budget mensuel que vous avez fixé pour votre clé API Mistral est atteint. "
+            "Modifiez-le dans vos paramètres pour indexer ce document."
+        )
+    today = accounts.utc_today()
+    if user.scan_day != today:
+        user.scan_day = today
+        user.scan_pages_today = 0
+    limit = quota("scanned_pages_per_day", own_key=own_key)
+    if limit and user.scan_pages_today + pages > limit:
+        remaining = max(limit - user.scan_pages_today, 0)
+        raise ScanQuotaExceeded(
+            f"Limite de {limit} pages scannées par jour atteinte (ce document en compte {pages}, "
+            f"il en reste {remaining} aujourd'hui). Réessayez demain, ou ajoutez votre propre "
+            "clé API Mistral dans vos paramètres pour lever cette limite."
+        )
+    user.scan_pages_today += pages
+    db.commit()
 
 
 @router.post("/spaces/{space_id}/documents/upload", response_model=schemas.DocumentOut)
@@ -114,7 +165,7 @@ async def upload_document(
             400, "Le contenu du fichier ne correspond pas à son extension"
         )
 
-    storage_limit = quota("storage_bytes")
+    storage_limit = quota("storage_bytes", own_key=accounts.has_own_key(space.owner))
     if accounts.storage_bytes(db, [space.id]) + len(content) > storage_limit:
         limit_mb = storage_limit // (1024 * 1024)
         raise HTTPException(
@@ -128,6 +179,7 @@ async def upload_document(
         doc_type=doc_type,
         status="pending",
         size_bytes=len(content),
+        uploaded_by=access.user.id if access.user else None,
     )
     db.add(doc)
     db.commit()
@@ -158,6 +210,7 @@ def ingest_url(
         doc_type="url",
         source_url=payload.url,
         status="pending",
+        uploaded_by=access.user.id if access.user else None,
     )
     db.add(doc)
     db.commit()

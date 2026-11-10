@@ -1,5 +1,7 @@
 import type {
+  AdminAICosts,
   AdminHealth,
+  AISettings,
   AdminStats,
   AuthResponse,
   CaptchaChallenge,
@@ -20,6 +22,8 @@ import type {
   Testimonial,
   TestimonialInput,
   TwoFactorSetup,
+  UsageReport,
+  UsageSummary,
   User,
   VectorGraph,
 } from "../types";
@@ -149,6 +153,13 @@ export const api = {
     }),
   resendVerification: () => request<{ ok: boolean }>("/auth/resend-verification", { method: "POST" }),
   meStats: () => request<MeStats>("/auth/me/stats"),
+  aiSettings: () => request<AISettings>("/auth/me/ai"),
+  saveAIKey: (apiKey: string) =>
+    request<AISettings>("/auth/me/ai/key", { method: "PUT", body: JSON.stringify({ api_key: apiKey }) }),
+  deleteAIKey: () => request<AISettings>("/auth/me/ai/key", { method: "DELETE" }),
+  updateAILimits: (limits: { daily_messages: number | null; monthly_budget_usd: number | null }) =>
+    request<AISettings>("/auth/me/ai/limits", { method: "PATCH", body: JSON.stringify(limits) }),
+  myAIUsage: (days = 30) => request<UsageReport>(`/auth/me/ai/usage?days=${days}`),
   deleteAccount: (password: string) =>
     request<{ ok: boolean }>("/auth/me", {
       method: "DELETE",
@@ -190,6 +201,7 @@ export const api = {
   adminSpaces: (limit = 50, offset = 0) => request<Paginated<Space>>(`/admin/spaces?limit=${limit}&offset=${offset}`),
   adminStats: () => request<AdminStats>("/admin/stats"),
   adminHealth: () => request<AdminHealth>("/admin/health"),
+  adminAICosts: (days = 30) => request<AdminAICosts>(`/admin/ai-costs?days=${days}`),
   adminCreateUser: (payload: { email: string; password: string; display_name?: string; role?: "admin" | "user" }) =>
     request<User>("/admin/users", { method: "POST", body: JSON.stringify(payload) }),
   adminUpdateUser: (userId: string, patch: { role?: "admin" | "user"; is_active?: boolean }) =>
@@ -341,6 +353,7 @@ interface StreamEvent {
   message_id?: string;
   position?: number;
   sources?: Message["sources"];
+  usage?: UsageSummary;
 }
 
 /** Reads a `data: {...}` event stream until it closes, handing each parsed

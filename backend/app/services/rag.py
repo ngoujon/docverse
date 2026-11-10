@@ -40,11 +40,18 @@ async def _should_auto_search_web(query: str) -> bool:
     try:
         answer = await llm_provider.chat(
             [{"role": "user", "content": _WEB_SEARCH_CLASSIFIER_PROMPT.format(query=query)}],
+            model=settings.mistral_fast_model,
             temperature=0,
+            purpose="classify",
         )
     except Exception:
         return False
     return answer.strip().upper().startswith("OUI")
+
+
+def _obviously_no_search(query: str) -> bool:
+    stripped = query.strip()
+    return len(stripped) < 3 or bool(_OBVIOUSLY_NO_SEARCH_RE.match(stripped))
 
 
 # --- Reranking ---------------------------------------------------------------
@@ -108,15 +115,19 @@ async def rerank(query: str, candidates: list[dict], top_k: int) -> list[dict]:
                     ),
                 }
             ],
+            model=settings.mistral_fast_model,
             temperature=0,
+            purpose="rerank",
         )
     except Exception:
         return fallback
 
-    order = _parse_order(response, len(candidates))
-    if not order:
-        return fallback
+    return _apply_order(candidates, _parse_order(response, len(candidates)), top_k)
 
+
+def _apply_order(candidates: list[dict], order: list[int], top_k: int) -> list[dict]:
+    if not order:
+        return candidates[:top_k]
     reranked = [candidates[i] for i in order[:top_k]]
     if len(reranked) < top_k:
         # Model returned fewer valid indices than requested - pad with the
@@ -128,6 +139,92 @@ async def rerank(query: str, candidates: list[dict], top_k: int) -> list[dict]:
             if id(c) not in picked:
                 reranked.append(c)
     return reranked
+
+
+# --- Tri + décision web en un seul appel ----------------------------------------
+# Avant : un appel au gros modèle pour trier les extraits, puis un second
+# pour décider de la recherche web. Les deux tâches lisent la même question
+# et répondent en quelques caractères : un seul appel au modèle léger suffit.
+
+_ROUTE_AND_RERANK_PROMPT = (
+    "Question de l'utilisateur : {query}\n\n"
+    "Tâche 1 - Recherche web : cette question porte-t-elle sur une information "
+    "changeante ou actuelle (météo, actualité, prix ou cours, sport, événement "
+    "récent, horaires...) qu'il faut vérifier sur internet plutôt que dans des "
+    "documents personnels ?\n"
+    "Tâche 2 - Tri : voici {count} extraits de documents numérotés, retrouvés par "
+    "recherche vectorielle (l'ordre n'indique pas leur pertinence réelle). Choisis "
+    "les {top_k} extraits les PLUS PERTINENTS pour répondre, du plus au moins "
+    "pertinent.\n\n"
+    "{candidates_block}\n\n"
+    "Réponds exactement sur deux lignes, sans autre texte :\n"
+    "WEB: OUI ou NON\n"
+    "ORDRE: les numéros séparés par des virgules (ex: 4,1,7)"
+)
+
+_WEB_LINE_RE = re.compile(r"WEB\s*:\s*\**\s*(OUI|NON)", re.IGNORECASE)
+_ORDER_LINE_RE = re.compile(r"ORDRE\s*:\s*(.*)", re.IGNORECASE)
+
+
+def _parse_route_and_order(response: str, count: int) -> tuple[bool, list[int]]:
+    web_match = _WEB_LINE_RE.search(response)
+    needs_web = bool(web_match and web_match.group(1).upper() == "OUI")
+    order_match = _ORDER_LINE_RE.search(response)
+    order_text = order_match.group(1) if order_match else _WEB_LINE_RE.sub("", response)
+    return needs_web, _parse_order(order_text, count)
+
+
+async def rerank_and_route(query: str, candidates: list[dict], top_k: int) -> tuple[list[dict], bool]:
+    """Renvoie (extraits retenus, faut-il chercher sur le web ?).
+
+    - salutation / remerciement évident : aucun appel de décision ;
+    - peu d'extraits (rien à trier) : seulement la décision web ;
+    - sinon : tri + décision en un seul appel au modèle léger.
+    Toute erreur retombe sur l'ordre vectoriel et « pas de recherche web »,
+    comme avant : ce n'est jamais une dépendance qui peut casser la réponse."""
+    no_search = _obviously_no_search(query)
+    if len(candidates) <= top_k:
+        return candidates, (False if no_search else await _should_auto_search_web(query))
+    if no_search:
+        return await rerank(query, candidates, top_k), False
+    try:
+        response = await llm_provider.chat(
+            [{
+                "role": "user",
+                "content": _ROUTE_AND_RERANK_PROMPT.format(
+                    query=query, count=len(candidates), top_k=top_k,
+                    candidates_block=_format_candidates(candidates),
+                ),
+            }],
+            model=settings.mistral_fast_model,
+            temperature=0,
+            purpose="rerank",
+        )
+    except Exception:
+        return candidates[:top_k], False
+    needs_web, order = _parse_route_and_order(response, len(candidates))
+    return _apply_order(candidates, order, top_k), needs_web
+
+
+def trim_history(history: list[dict], limit: int, max_chars: int) -> list[dict]:
+    """Garde les `limit` derniers messages et tronque les plus longs : chaque
+    message conservé est refacturé à chaque nouvelle question.
+
+    La toute première question de la conversation reste épinglée même quand
+    elle sort de la fenêtre : c'est souvent elle qui pose le sujet (« je
+    prépare le contrat X... »), pour le prix d'un seul message."""
+    kept = history[-limit:] if limit > 0 else []
+    if limit > 0 and len(history) > limit:
+        first_user = next((m for m in history if m["role"] == "user"), None)
+        if first_user is not None and first_user not in kept:
+            kept = [first_user, *kept]
+    out = []
+    for m in kept:
+        content = m["content"]
+        if max_chars and len(content) > max_chars:
+            content = content[:max_chars] + " […]"
+        out.append({"role": m["role"], "content": content})
+    return out
 
 
 # --- Context assembly ----------------------------------------------------------
@@ -158,7 +255,8 @@ _SYSTEM_PROMPT_TEMPLATE = (
 
 async def retrieve_document_context(
     space_id: str, query: str, doc_ids: list[str] | None = None
-) -> list[dict]:
+) -> tuple[list[dict], bool]:
+    """Renvoie (extraits retenus, recherche web nécessaire ?)."""
     embedding = await llm_provider.embed(query)
     pool = settings.rerank_candidate_pool
     top_k = settings.retrieval_top_k
@@ -169,7 +267,7 @@ async def retrieve_document_context(
         pool = max(pool, 40)
         top_k = max(top_k, 12)
     candidates = vectorstore.query(space_id, embedding, top_k=pool, doc_ids=doc_ids)
-    return await rerank(query, candidates, top_k)
+    return await rerank_and_route(query, candidates, top_k)
 
 
 async def gather_context(
@@ -177,9 +275,7 @@ async def gather_context(
 ) -> tuple[str, list[dict]]:
     """Builds a numbered context block and a parallel list of source
     descriptors used for citations in the UI."""
-    doc_results = await retrieve_document_context(space_id, query, doc_ids)
-
-    do_web_search = await _should_auto_search_web(query)
+    doc_results, do_web_search = await retrieve_document_context(space_id, query, doc_ids)
     web_results = await websearch.search_web(query) if do_web_search else []
 
     # Documents first, then web results; the [n] markers are numbered across

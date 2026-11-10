@@ -112,12 +112,19 @@ export function UsageCard({ stats }: { stats: MeStats }) {
       limit: stats.messages_per_day_limit,
       label: t("auth.account.usage.questionsToday"),
     },
+    {
+      value: stats.scanned_pages_today ?? 0,
+      limit: stats.scanned_pages_per_day_limit,
+      label: t("auth.account.usage.scannedToday"),
+    },
   ];
   return (
     <div className={`mt-3 ${cardClass}`}>
       <div className="flex items-center gap-2">
         <HardDrive size={15} className={iconMuted} />
-        <p className="text-sm text-slate-800 dark:text-slate-200">{t("auth.account.usage.freeNote")}</p>
+        <p className="text-sm text-slate-800 dark:text-slate-200">
+          {stats.own_key ? t("auth.account.usage.ownKeyNote") : t("auth.account.usage.freeNote")}
+        </p>
       </div>
       <div className="mt-3 space-y-1">
         <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
@@ -131,7 +138,7 @@ export function UsageCard({ stats }: { stats: MeStats }) {
           <ProgressBar ratio={stats.storage_bytes / stats.storage_limit_bytes} warn={false} className="h-1.5" />
         )}
       </div>
-      <div className="mt-3 grid grid-cols-2 gap-2 text-center sm:grid-cols-4">
+      <div className="mt-3 grid grid-cols-2 gap-2 text-center sm:grid-cols-5">
         {counters.map((c) => (
           <div key={c.label}>
             <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">

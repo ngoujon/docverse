@@ -789,7 +789,9 @@
         "documents": "Dokumente",
         "conversations": "Unterhaltungen",
         "freeNote": "Nutzungslimits Ihres Kontos",
-        "questionsToday": "Fragen heute"
+        "questionsToday": "Fragen heute",
+        "scannedToday": "Heute gescannte Seiten",
+        "ownKeyNote": "Ihr Mistral-Schlüssel wird genutzt: KI-Grenzen der Plattform aufgehoben"
       },
       "gdpr": {
         "title": "Ihre Daten und Ihre Rechte (DSGVO)",
@@ -812,7 +814,38 @@
         "ssoHint": "Mit Google registriert? Nutzen Sie \"Passwort vergessen\", um ein Passwort festzulegen."
       },
       "twofaPasswordLabel": "Passwort",
-      "deletePasswordLabel": "Passwort zur Bestätigung"
+      "deletePasswordLabel": "Passwort zur Bestätigung",
+      "ai": {
+        "title": "Künstliche Intelligenz",
+        "keyTitle": "Persönlicher Mistral-API-Schlüssel (optional)",
+        "active": "Aktiv ({{hint}})",
+        "intro": "Docverse ist kostenlos, mit {{messages}} Fragen und {{pages}} gescannten Seiten pro Tag. Mit Ihrem eigenen Mistral-Schlüssel wird die KI Ihres Kontos über Ihr Mistral-Konto abgerechnet: diese Grenzen entfallen und Sie legen Ihre eigenen fest.",
+        "getKey": "Schlüssel auf console.mistral.ai erstellen",
+        "unreadable": "Ihr gespeicherter Schlüssel kann nicht mehr gelesen werden: bitte erneut eingeben.",
+        "keyLabel": "Mistral-API-Schlüssel",
+        "placeholder": "Mistral-API-Schlüssel einfügen",
+        "replacePlaceholder": "Durch einen neuen Schlüssel ersetzen",
+        "save": "Speichern",
+        "checking": "Wird geprüft…",
+        "security": "Der Schlüssel wird bei Mistral geprüft, auf unseren Servern verschlüsselt und nie wieder angezeigt.",
+        "saved": "Schlüssel gespeichert: Ihre nächsten KI-Anfragen nutzen Ihr Mistral-Konto.",
+        "removed": "Schlüssel entfernt: es gelten wieder die kostenlosen Grenzen.",
+        "limitsTitle": "Ihre Grenzen mit diesem Schlüssel",
+        "dailyMessages": "Fragen pro Tag",
+        "monthlyBudget": "Monatsbudget (USD)",
+        "noLimit": "Keine Grenze",
+        "monthCost": "Diesen Monat über Ihren Schlüssel ausgegeben (Schätzung): {{cost}}",
+        "saveLimits": "Grenzen speichern",
+        "limitsSaved": "Grenzen gespeichert.",
+        "remove": "Schlüssel entfernen",
+        "usageTitle": "Mein KI-Verbrauch",
+        "todayTokens": "Tokens heute",
+        "monthTokens": "Tokens diesen Monat",
+        "monthCostLabel": "Geschätzte Kosten des Monats",
+        "offered": "Von Docverse übernommen",
+        "chart": "Verbrauchte Tokens pro Tag über 30 Tage",
+        "estimateNote": "Kosten geschätzt anhand der von Mistral gezählten Tokens und seiner öffentlichen Preise."
+      }
     },
     "verify": {
       "title": "E-Mail-Bestätigung",
@@ -1096,6 +1129,22 @@
       "confirmRestoreMessage": "Der aktuelle Inhalt des Bereichs (Unterhaltungen, Dokumente) wird durch den dieses Backups ersetzt.",
       "empty": "Noch keine Backups. Ein automatisches Backup wird höchstens einmal pro Tag erstellt, sobald Aktivität stattfindet.",
       "retention": "7 Tage rollierend aufbewahrt"
+    },
+    "aiCosts": {
+      "title": "KI-Kosten (Plattform-Schlüssel)",
+      "subtitle": "Geschätzt anhand der von Mistral gezählten Tokens und Seiten. Persönliche Schlüssel kosten Sie nichts.",
+      "today": "Heute",
+      "month": "Diesen Monat",
+      "last30d": "Letzte 30 Tage",
+      "perQuestion": "Durchschnittskosten pro Frage",
+      "ownKeyUsers": "Konten mit eigenem Schlüssel",
+      "ownKeyVolume": "Von deren Schlüsseln getragen (30 T)",
+      "chart": "KI-Kosten pro Tag über 30 Tage",
+      "byKind": "Nach Schritt und Modell (30 T)",
+      "topUsers": "Größte Verbraucher (30 T)",
+      "empty": "Noch keine Daten.",
+      "error": "KI-Kosten konnten nicht geladen werden.",
+      "note": "Legen Sie auch ein Ausgabenlimit in der Mistral-Konsole fest (Admin → Billing)."
     }
   },
   "app": {
@@ -1215,6 +1264,30 @@
       "zoomIn": "Vergrößern",
       "zoomOut": "Verkleinern",
       "resetView": "Ansicht zurücksetzen"
+    },
+    "usage": {
+      "button": "KI-Verbrauch dieser Antwort anzeigen",
+      "tokens_one": "{{value}} Token",
+      "tokens_other": "{{value}} Tokens",
+      "title": "Verbrauch dieser Antwort",
+      "sent": "An die KI gesendete Tokens",
+      "received": "Empfangene Tokens",
+      "cost": "Geschätzte Kosten",
+      "pages_one": "{{count}} Seite",
+      "pages_other": "{{count}} Seiten",
+      "per1000": "Für 1.000 solche Antworten: ≈ {{value}}",
+      "ownKey": "Über Ihren Mistral-API-Schlüssel abgerechnet",
+      "platform": "Von Docverse übernommen",
+      "estimated": "Geschätzte Zählung (die KI hat keinen genauen Wert geliefert).",
+      "kinds": {
+        "chat": "Antwort",
+        "rerank": "Sortierung der Auszüge",
+        "classify": "Entscheidung Websuche",
+        "embed": "Suche in den Dokumenten",
+        "vision": "Bilderkennung",
+        "ocr": "Scan-Erkennung (OCR)",
+        "support": "Hilfe-Chatbot"
+      }
     }
   }
 }

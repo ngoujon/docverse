@@ -7,6 +7,7 @@ import DashboardNav from "../../components/layout/DashboardNav";
 import { SectionTitle } from "../../components/account/AccountCard";
 import { DeleteAccountCard, GdprCard, ProfileCard, UsageCard } from "../../components/account/ProfileSections";
 import { LogoutEverywhereCard, PasswordCard, TwoFactorCard } from "../../components/account/SecuritySections";
+import { AIKeyCard, AIUsageCard } from "../../components/account/AISections";
 import type { MeStats } from "../../types";
 import { pageTitle } from "../../brand";
 
@@ -18,12 +19,13 @@ export default function AccountSettingsPage() {
   usePageMeta({ title: pageTitle(t("auth.account.title")), noindex: true });
 
   const [stats, setStats] = useState<MeStats | null>(null);
+  const [aiVersion, setAiVersion] = useState(0);
   useEffect(() => {
     api
       .meStats()
       .then(setStats)
       .catch(() => setStats(null));
-  }, []);
+  }, [aiVersion]);
 
   if (!user) return null;
 
@@ -39,6 +41,10 @@ export default function AccountSettingsPage() {
 
         <SectionTitle>{t("auth.account.usage.title")}</SectionTitle>
         {stats && <UsageCard stats={stats} />}
+
+        <SectionTitle>{t("auth.account.ai.title")}</SectionTitle>
+        <AIKeyCard onChange={() => setAiVersion((v) => v + 1)} />
+        <AIUsageCard refreshKey={aiVersion} />
 
         <SectionTitle>{t("auth.account.security")}</SectionTitle>
         <LogoutEverywhereCard />

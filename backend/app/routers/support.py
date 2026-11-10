@@ -7,8 +7,10 @@ from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import StreamingResponse
 
 from .. import schemas
+from ..config import settings
+from ..database import SessionLocal
 from ..deps import client_ip
-from ..services import llm_provider, rate_limiter
+from ..services import llm_provider, rate_limiter, usage
 
 logger = logging.getLogger("docverse.support")
 router = APIRouter(prefix="/api/support", tags=["support"])
@@ -93,15 +95,28 @@ async def support_chat(payload: schemas.SupportChatRequest, request: Request):
     ]
 
     async def event_stream():
+        meter = usage.start(None)
         full_text = ""
         try:
-            async for token in llm_provider.chat_stream(messages, temperature=0.3):
+            async for token in llm_provider.chat_stream(
+                messages, model=settings.mistral_support_model, temperature=0.3, purpose="support"
+            ):
                 full_text += token
                 yield llm_provider.sse_event({"type": "token", "content": token})
         except Exception:
             logger.exception("Erreur pendant la generation de la reponse du chatbot d'aide")
             error_text = "Désolé, une erreur est survenue. Réessayez dans un instant."
             yield llm_provider.sse_event({"type": "token", "content": error_text})
+        finally:
+            # Anonymous, but still paid by the platform: recorded so the
+            # admin dashboard shows the whole bill.
+            if meter.entries:
+                db = SessionLocal()
+                try:
+                    usage.persist(db, meter, user_id=None)
+                    db.commit()
+                finally:
+                    db.close()
         yield llm_provider.sse_event({"type": "done"})
 
     return StreamingResponse(event_stream(), media_type="text/event-stream")

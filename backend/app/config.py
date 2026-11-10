@@ -83,6 +83,38 @@ class Settings:
     mistral_chat_model: str = os.environ.get("MISTRAL_CHAT_MODEL", "mistral-large-latest")
     mistral_vision_model: str = os.environ.get("MISTRAL_VISION_MODEL", "mistral-medium-latest")
     mistral_embed_model: str = os.environ.get("MISTRAL_EMBED_MODEL", "mistral-embed")
+    # Modèle léger pour les tâches internes de chaque question (tri des
+    # extraits + décision de recherche web, en un seul appel) : ~4x moins
+    # cher que Large et soumis à un quota par minute bien plus large. Voir
+    # backend/benchmark pour la mesure de qualité avant/après.
+    mistral_fast_model: str = os.environ.get("MISTRAL_FAST_MODEL", "mistral-small-latest")
+    # Chatbot d'aide public (sans compte) : réponses courtes et cadrées, le
+    # modèle léger suffit et c'est la seule IA payée sans personne derrière.
+    mistral_support_model: str = os.environ.get("MISTRAL_SUPPORT_MODEL", "mistral-small-latest")
+    # Modèle de secours quand le modèle principal renvoie encore 429 après
+    # les réessais (quota par minute du compte Mistral atteint) : mieux vaut
+    # une réponse du modèle léger qu'un message d'erreur. Vide = désactivé.
+    mistral_fallback_model: str = os.environ.get("MISTRAL_FALLBACK_MODEL", "mistral-small-latest")
+    # Pages scannées et images : "vision" = un modèle de vision lit la page ;
+    # "ocr" = API OCR dédiée de Mistral, facturée 4 $ / 1 000 pages.
+    # Mesuré (backend/benchmark) : Ministral 8B en vision lit nos scans au
+    # moins aussi bien que Medium, pour ~0,0004 $/page contre ~0,002 $
+    # (Medium) et 0,004 $ (OCR). Si le modèle de lecture échoue, on retente
+    # avec MISTRAL_VISION_MODEL.
+    scan_engine: str = os.environ.get("SCAN_ENGINE", "vision")
+    mistral_scan_model: str = os.environ.get("MISTRAL_SCAN_MODEL", "ministral-8b-latest")
+    mistral_ocr_model: str = os.environ.get("MISTRAL_OCR_MODEL", "mistral-ocr-latest")
+
+    # Messages précédents renvoyés au modèle à chaque question. Chaque
+    # message en plus est refacturé à chaque nouvelle question de la
+    # conversation : c'était le premier poste de tokens envoyés.
+    chat_history_limit: int = int(os.environ.get("CHAT_HISTORY_LIMIT", "8"))
+    # Un long message de l'historique (souvent une réponse détaillée de
+    # l'assistant) est tronqué à cette taille avant d'être renvoyé.
+    chat_history_max_chars: int = int(os.environ.get("CHAT_HISTORY_MAX_CHARS", "2000"))
+    # Comptes avec leur propre clé Mistral : leur facture, donc plus de
+    # contexte conservé par défaut.
+    own_key_history_limit: int = int(os.environ.get("OWN_KEY_HISTORY_LIMIT", "20"))
 
     # --- Outbound email ---------------------------------------------------
     # Left empty until real SMTP credentials are provided; mailer
@@ -229,9 +261,43 @@ FREE_QUOTAS: dict[str, int] = {
     # Questions posed to the AI per account and per UTC day - the only
     # usage-based cost of the service, hence the tightest limit.
     "messages_per_day": int(os.environ.get("FREE_MESSAGES_PER_DAY", "50")),
+    # Pages scannées / images lues par l'IA par compte et par jour : c'est
+    # le poste d'indexation le plus cher (une page = un appel OCR facturé).
+    "scanned_pages_per_day": int(os.environ.get("FREE_SCANNED_PAGES_PER_DAY", "100")),
+}
+
+# Comptes qui ont enregistré leur propre clé API Mistral : l'IA est alors
+# facturée sur leur compte Mistral, pas sur celui de la plateforme. Les
+# limites liées à l'IA (questions, pages scannées) sont levées - chacun
+# fixe les siennes dans ses paramètres - et celles qui restent à notre
+# charge (stockage disque, espaces) sont simplement élargies.
+OWN_KEY_QUOTAS: dict[str, int] = {
+    "spaces": int(os.environ.get("OWN_KEY_MAX_SPACES", "20")),
+    "members_per_space": int(os.environ.get("OWN_KEY_MAX_MEMBERS_PER_SPACE", "20")),
+    "storage_bytes": int(os.environ.get("OWN_KEY_STORAGE_MB_PER_SPACE", "2000")) * 1024 * 1024,
+    "messages_per_day": 0,  # 0 = pas de limite plateforme
+    "scanned_pages_per_day": 0,
 }
 
 
-def quota(key: str) -> int:
-    """Looked up at call time (not cached) so tests can lower a limit."""
-    return FREE_QUOTAS[key]
+def quota(key: str, own_key: bool = False) -> int:
+    """Looked up at call time (not cached) so tests can lower a limit.
+    For OWN_KEY_QUOTAS, 0 means "no platform limit"."""
+    return (OWN_KEY_QUOTAS if own_key else FREE_QUOTAS)[key]
+
+
+# Tarifs publics Mistral en USD par million de tokens (entrée, sortie),
+# utilisés pour estimer le coût affiché aux utilisateurs et dans le
+# tableau de bord admin. Source : docs.mistral.ai/inference/pricing
+# (novembre 2026) ; Medium 3.5 vient d'un comparateur. Les tokens d'entrée
+# servis depuis le cache Mistral sont facturés 10 % du prix normal.
+MODEL_PRICES_USD_PER_M: dict[str, tuple[float, float]] = {
+    "ministral-14b": (0.2, 0.2),
+    "ministral-8b": (0.15, 0.15),
+    "ministral-3b": (0.1, 0.1),
+    "large": (0.5, 1.5),
+    "medium": (1.5, 7.5),
+    "small": (0.15, 0.6),
+    "embed": (0.1, 0.0),
+}
+OCR_PRICE_USD_PER_PAGE = 4.0 / 1000

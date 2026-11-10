@@ -44,7 +44,7 @@ def create_space(
     db: Session = Depends(get_db),
 ):
     owned_count = db.query(models.Space).filter_by(owner_id=user.id).count()
-    effective_limit = min(quota("spaces"), settings.max_spaces_per_user)
+    effective_limit = min(quota("spaces", own_key=accounts.has_own_key(user)), settings.max_spaces_per_user)
     if owned_count >= effective_limit:
         raise HTTPException(400, f"Limite de {effective_limit} espaces atteinte pour votre compte")
     space = models.Space(
@@ -102,14 +102,14 @@ def space_stats(access: SpaceAccess = Depends(require_space_access), db: Session
         .order_by(models.Conversation.updated_at.desc())
         .first()
     )
-    member_limit = quota("members_per_space")
+    member_limit = quota("members_per_space", own_key=accounts.has_own_key(space.owner))
     return schemas.SpaceStatsOut(
         space_id=space.id,
         document_count=len(space.documents),
         conversation_count=len(space.conversations),
         message_count=message_count or 0,
         storage_bytes=accounts.storage_bytes(db, [space.id]),
-        storage_limit_bytes=quota("storage_bytes"),
+        storage_limit_bytes=quota("storage_bytes", own_key=accounts.has_own_key(space.owner)),
         member_count=len(space.members) + 1,  # +1 for the owner, matches add_member's headcount
         member_limit=member_limit,
         active_share_links=sum(1 for link in space.share_links if not link.revoked),
@@ -193,7 +193,7 @@ def add_member(
         db.commit()
         member = existing
     else:
-        member_limit = quota("members_per_space")
+        member_limit = quota("members_per_space", own_key=accounts.has_own_key(access.space.owner))
         # +1 for the owner - the "members per space" figure is a total
         # headcount, not just invited members.
         current_count = (

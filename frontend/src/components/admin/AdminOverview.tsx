@@ -16,6 +16,7 @@ import clsx from "clsx";
 import { api } from "../../api/client";
 import { formatBytes } from "../../utils/format";
 import StatCard from "../ui/StatCard";
+import AICostsPanel from "./AICostsPanel";
 import { ProgressBar } from "../ui/controls";
 import type { AdminHealth, AdminStats } from "../../types";
 
@@ -214,6 +215,8 @@ export default function AdminOverview({ stats }: { stats: AdminStats }) {
           </section>
         </div>
       </div>
+
+      <AICostsPanel />
     </div>
   );
 }

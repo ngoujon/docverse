@@ -37,7 +37,74 @@ export interface Message {
   role: "user" | "assistant" | "system";
   content: string;
   sources: Source[];
+  /** AI consumption behind an assistant answer. */
+  usage?: UsageSummary | null;
   created_at: string;
+}
+
+/** One step of an answer (or of a document's indexing) and what it cost. */
+export interface UsageDetail {
+  kind: string;
+  label: string;
+  model: string;
+  calls: number;
+  prompt_tokens: number;
+  completion_tokens: number;
+  pages: number;
+  cost_usd: number;
+}
+
+export interface UsageSummary {
+  calls: number;
+  prompt_tokens: number;
+  completion_tokens: number;
+  pages: number;
+  cost_usd: number;
+  /** Billed to the user's own Mistral key rather than the platform's. */
+  own_key: boolean;
+  estimated?: boolean;
+  details: UsageDetail[];
+}
+
+export interface UsageTotals {
+  calls: number;
+  prompt_tokens: number;
+  completion_tokens: number;
+  pages: number;
+  cost_usd: number;
+}
+
+export interface UsageReport {
+  today: UsageTotals;
+  month: UsageTotals;
+  month_own_key: UsageTotals;
+  month_platform: UsageTotals;
+  by_kind: (UsageTotals & { kind: string; label: string })[];
+  series: { date: string; tokens: number; cost_usd: number }[];
+}
+
+export interface AISettings {
+  has_own_key: boolean;
+  key_unreadable: boolean;
+  key_hint?: string | null;
+  daily_messages?: number | null;
+  monthly_budget_usd?: number | null;
+  month_cost_own_key_usd: number;
+  messages_today: number;
+  free_messages_per_day: number;
+  free_scanned_pages_per_day: number;
+}
+
+export interface AdminAICosts {
+  today: UsageTotals;
+  last_30d: UsageTotals;
+  month: UsageTotals;
+  own_key_last_30d: UsageTotals;
+  own_key_users: number;
+  cost_per_question_usd: number;
+  by_kind: { kind: string; label: string; model: string; calls: number; tokens: number; pages: number; cost_usd: number }[];
+  top_users: { email: string; cost_usd: number; calls: number }[];
+  series: { date: string; cost_usd: number }[];
 }
 
 export type DocumentStatus = "pending" | "processing" | "ready" | "error";
@@ -53,6 +120,7 @@ export interface DocumentItem {
   chunk_count: number;
   preview: string;
   size_bytes: number;
+  usage?: UsageSummary | null;
   created_at: string;
 }
 
@@ -145,6 +213,10 @@ export interface MeStats {
   storage_limit_bytes?: number | null;
   messages_today?: number;
   messages_per_day_limit?: number | null;
+  scanned_pages_today?: number;
+  scanned_pages_per_day_limit?: number | null;
+  /** The account uses its own Mistral key: platform AI quotas lifted. */
+  own_key?: boolean;
 }
 
 export interface AdminStats {

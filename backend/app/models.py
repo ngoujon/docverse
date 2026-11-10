@@ -1,10 +1,11 @@
 """SQLAlchemy ORM models (one table per class). Ids are random hex UUIDs
 and timestamps are naive UTC datetimes."""
 
+import json
 import uuid
 from datetime import datetime
 
-from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String, Text
+from sqlalchemy import Boolean, Column, DateTime, Float, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import relationship
 
 from .database import Base
@@ -36,6 +37,19 @@ class User(Base):
     # first question of a new day.
     messages_day = Column(String, nullable=True)
     messages_today = Column(Integer, nullable=False, default=0)
+    # Same day-bucket mechanism for scanned pages / images read by the AI
+    # (config.FREE_QUOTAS["scanned_pages_per_day"]).
+    scan_day = Column(String, nullable=True)
+    scan_pages_today = Column(Integer, nullable=False, default=0)
+    # Optional personal Mistral API key (encrypted at rest, see
+    # services/secrets_box.py). When set, this account's AI usage is billed
+    # to its own Mistral account and the platform AI quotas are lifted; the
+    # two limits below are the ones the user sets for themselves (NULL = no
+    # limit).
+    mistral_api_key_enc = Column(Text, nullable=True)
+    mistral_api_key_hint = Column(String, nullable=True)
+    own_key_daily_messages = Column(Integer, nullable=True)
+    own_key_monthly_budget_usd = Column(Float, nullable=True)
     # When this account explicitly accepted the CGU + privacy policy (the
     # required checkbox on the signup form, or the notice shown next to the
     # SSO buttons). Kept as a timestamp rather than a boolean because what
@@ -153,6 +167,9 @@ class Message(Base):
     role = Column(String, nullable=False)  # user | assistant | system
     content = Column(Text, nullable=False)
     sources_json = Column(Text, default="[]")  # JSON encoded list of citations
+    # AI consumption behind an assistant answer (services/usage.py summary),
+    # shown to the user behind the small "tokens" button.
+    usage_json = Column(Text, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     conversation = relationship("Conversation", back_populates="messages")
@@ -172,9 +189,48 @@ class Document(Base):
     chunk_count = Column(Integer, default=0)
     preview = Column(Text, default="")
     size_bytes = Column(Integer, default=0)
+    # Whoever added the document: their key (if any) pays for its indexing,
+    # and the scanned-pages quota is counted against them.
+    uploaded_by = Column(String, ForeignKey("users.id"), nullable=True)
+    usage_json = Column(Text, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     space = relationship("Space", back_populates="documents")
+
+    @property
+    def usage(self) -> dict | None:
+        """Parsed usage_json, read by schemas.DocumentOut."""
+        if not self.usage_json:
+            return None
+        try:
+            return json.loads(self.usage_json)
+        except ValueError:
+            return None
+
+
+class AIUsage(Base):
+    """One call to the AI provider, with the token / page counts reported
+    by the provider itself and the resulting estimated cost. `own_key`
+    tells whether it was billed to the user's personal key or to the
+    platform's."""
+
+    __tablename__ = "ai_usage"
+
+    id = Column(String, primary_key=True, default=gen_id)
+    user_id = Column(String, ForeignKey("users.id"), nullable=True, index=True)
+    space_id = Column(String, nullable=True, index=True)
+    conversation_id = Column(String, nullable=True)
+    message_id = Column(String, nullable=True, index=True)
+    document_id = Column(String, nullable=True)
+    own_key = Column(Boolean, nullable=False, default=False)
+    kind = Column(String, nullable=False)  # chat|rerank|classify|embed|vision|ocr|support
+    model = Column(String, nullable=False, default="")
+    prompt_tokens = Column(Integer, nullable=False, default=0)
+    completion_tokens = Column(Integer, nullable=False, default=0)
+    cached_tokens = Column(Integer, nullable=False, default=0)
+    pages = Column(Integer, nullable=False, default=0)
+    cost_usd = Column(Float, nullable=False, default=0.0)
+    created_at = Column(DateTime, default=datetime.utcnow, index=True)
 
 
 class ContactMessage(Base):
