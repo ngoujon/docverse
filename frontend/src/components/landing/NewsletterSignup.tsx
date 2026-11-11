@@ -9,7 +9,7 @@ import { trackConversion } from "../../utils/seoMonitor";
 export default function NewsletterSignup() {
   const { t } = useTranslation();
   const [email, setEmail] = useState("");
-  const { solution: captcha, reset: resetCaptcha } = useCaptcha();
+  const { solution: captcha, reset: resetCaptcha, start: startCaptcha } = useCaptcha({ lazy: true });
   const [state, setState] = useState<"idle" | "submitting" | "done" | "error">("idle");
 
   const canSubmit = /\S+@\S+\.\S+/.test(email) && captcha && state !== "submitting";
@@ -44,6 +44,7 @@ export default function NewsletterSignup() {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          onFocus={startCaptcha}
           placeholder={t("newsletter.signup.placeholder")}
           className="w-full bg-transparent text-sm text-fluent-navy outline-none placeholder:text-slate-400"
         />

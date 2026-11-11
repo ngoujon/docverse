@@ -7,12 +7,18 @@ import LanguageDetector from "i18next-browser-languagedetector";
 
 import { BRAND } from "./brand";
 
+// Only French (the default and fallback) ships in the main bundle: each
+// language file weighs ~70 kB and the six of them made up most of the
+// JavaScript every visitor downloaded. The others load on demand.
 import fr from "./locales/fr.json";
-import en from "./locales/en.json";
-import de from "./locales/de.json";
-import es from "./locales/es.json";
-import pt from "./locales/pt.json";
-import it from "./locales/it.json";
+
+const LOADERS: Record<string, () => Promise<{ default: Record<string, unknown> }>> = {
+  en: () => import("./locales/en.json"),
+  de: () => import("./locales/de.json"),
+  es: () => import("./locales/es.json"),
+  pt: () => import("./locales/pt.json"),
+  it: () => import("./locales/it.json"),
+};
 
 export const SUPPORTED_LANGUAGES = [
   { code: "fr", label: "Francais" },
@@ -27,14 +33,7 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    resources: {
-      fr: { translation: fr },
-      en: { translation: en },
-      de: { translation: de },
-      es: { translation: es },
-      pt: { translation: pt },
-      it: { translation: it },
-    },
+    resources: { fr: { translation: fr } },
     fallbackLng: "fr",
     supportedLngs: SUPPORTED_LANGUAGES.map((l) => l.code),
     nonExplicitSupportedLngs: true,
@@ -60,5 +59,31 @@ i18n
       },
     },
   });
+
+/** Loads a language's translations if they aren't there yet. Resolves once
+ * the language can be displayed (unknown codes resolve immediately and
+ * fall back to French). */
+export async function loadLanguage(lng: string | undefined): Promise<void> {
+  const code = (lng || "fr").slice(0, 2);
+  if (!LOADERS[code] || i18n.hasResourceBundle(code, "translation")) return;
+  try {
+    const mod = await LOADERS[code]();
+    i18n.addResourceBundle(code, "translation", mod.default, true, true);
+  } catch {
+    // Network hiccup: the page stays in French rather than breaking.
+  }
+}
+
+// Switching language (LanguageSwitcher) or a detected browser language:
+// fetch the file, then re-apply the language so every component re-renders
+// with the real strings.
+i18n.on("languageChanged", (lng) => {
+  const code = (lng || "").slice(0, 2);
+  if (LOADERS[code] && !i18n.hasResourceBundle(code, "translation")) {
+    void loadLanguage(code).then(() => {
+      if (i18n.hasResourceBundle(code, "translation")) void i18n.changeLanguage(lng);
+    });
+  }
+});
 
 export default i18n;

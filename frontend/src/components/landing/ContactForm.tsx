@@ -39,7 +39,7 @@ export default function ContactForm() {
   const [message, setMessage] = useState("");
   const [consent, setConsent] = useState(false);
   const [website, setWebsite] = useState(""); // honeypot
-  const { solution: captcha, reset: resetCaptcha } = useCaptcha();
+  const { solution: captcha, reset: resetCaptcha, start: startCaptcha } = useCaptcha({ lazy: true });
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
 
@@ -91,7 +91,7 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} onFocus={startCaptcha} className="space-y-4">
       {/* Honeypot - hidden from real users, bots tend to fill every field */}
       <input
         type="text"

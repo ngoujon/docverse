@@ -1,28 +1,67 @@
 import { useCallback, useEffect, useState } from "react";
 import { api } from "../api/client";
-import { sha256Hex } from "../utils/sha256";
+import { solveChallenge } from "../utils/captchaSolver";
 import type { CaptchaSolution } from "../types";
 
-export type CaptchaStatus = "loading" | "solving" | "ready" | "error";
+export type CaptchaStatus = "idle" | "loading" | "solving" | "ready" | "error";
 
-/** Hashes tried per tick before yielding back to the browser. */
-const BATCH_SIZE = 20000;
+/** Hashes tried per tick when no Web Worker is available. */
+const BATCH_SIZE = 5000;
+
+/** Solves the challenge in a Web Worker when possible, otherwise on the
+ * main thread in small batches so the UI never freezes. */
+function solve(salt: string, difficulty: number, isCancelled: () => boolean): Promise<number> {
+  if (typeof Worker !== "undefined") {
+    return new Promise((resolve, reject) => {
+      const worker = new Worker(new URL("../workers/captcha.worker.ts", import.meta.url), { type: "module" });
+      worker.onmessage = (e: MessageEvent<number>) => {
+        worker.terminate();
+        resolve(e.data);
+      };
+      worker.onerror = (err) => {
+        worker.terminate();
+        reject(err);
+      };
+      worker.postMessage({ salt, difficulty });
+    });
+  }
+  return new Promise((resolve) => {
+    let from = 0;
+    const step = () => {
+      if (isCancelled()) return;
+      const nonce = solveChallenge(salt, difficulty, from, BATCH_SIZE);
+      if (nonce >= 0) return resolve(nonce);
+      from += BATCH_SIZE;
+      setTimeout(step, 0);
+    };
+    step();
+  });
+}
 
 /**
- * Solves the self-hosted proof-of-work challenge (see backend
- * services/captcha.py) entirely client-side: fetch a salt, then brute-force
- * a nonce so that sha256("salt:nonce") starts with `difficulty` zeros. The
- * search runs in small batches through setTimeout so the UI never freezes.
+ * Self-hosted proof-of-work captcha (see backend services/captcha.py):
+ * fetch a salt, then find a nonce so that sha256("salt:nonce") starts with
+ * `difficulty` zeros.
+ *
+ * With `lazy`, nothing happens until `start()` is called (e.g. when the
+ * visitor focuses the form): the landing page carries two forms, and
+ * solving both captchas at load cost seconds of CPU on every visit.
  *
  * A solution is single-use server-side: call `reset()` after a failed
  * submit to fetch and solve a fresh challenge.
  */
-export function useCaptcha(): { status: CaptchaStatus; solution: CaptchaSolution | null; reset: () => void } {
-  const [status, setStatus] = useState<CaptchaStatus>("loading");
+export function useCaptcha({ lazy = false }: { lazy?: boolean } = {}): {
+  status: CaptchaStatus;
+  solution: CaptchaSolution | null;
+  reset: () => void;
+  start: () => void;
+} {
+  const [status, setStatus] = useState<CaptchaStatus>(lazy ? "idle" : "loading");
   const [solution, setSolution] = useState<CaptchaSolution | null>(null);
-  const [attempt, setAttempt] = useState(0);
+  const [attempt, setAttempt] = useState(lazy ? 0 : 1);
 
   useEffect(() => {
+    if (attempt === 0) return;
     let cancelled = false;
     setStatus("loading");
     setSolution(null);
@@ -32,21 +71,11 @@ export function useCaptcha(): { status: CaptchaStatus; solution: CaptchaSolution
       .then(({ salt, difficulty }) => {
         if (cancelled) return;
         setStatus("solving");
-        const target = "0".repeat(difficulty);
-        let nonce = 0;
-
-        const step = () => {
+        return solve(salt, difficulty, () => cancelled).then((nonce) => {
           if (cancelled) return;
-          for (const end = nonce + BATCH_SIZE; nonce < end; nonce++) {
-            if (sha256Hex(`${salt}:${nonce}`).startsWith(target)) {
-              setSolution({ captcha_salt: salt, captcha_nonce: nonce });
-              setStatus("ready");
-              return;
-            }
-          }
-          setTimeout(step, 0);
-        };
-        step();
+          setSolution({ captcha_salt: salt, captcha_nonce: nonce });
+          setStatus("ready");
+        });
       })
       .catch(() => {
         if (!cancelled) setStatus("error");
@@ -58,5 +87,6 @@ export function useCaptcha(): { status: CaptchaStatus; solution: CaptchaSolution
   }, [attempt]);
 
   const reset = useCallback(() => setAttempt((a) => a + 1), []);
-  return { status, solution, reset };
+  const start = useCallback(() => setAttempt((a) => (a === 0 ? 1 : a)), []);
+  return { status, solution, reset, start };
 }

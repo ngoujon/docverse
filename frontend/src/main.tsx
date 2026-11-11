@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { AuthProvider } from "./hooks/useAuth";
-import "./i18n";
+import i18n, { loadLanguage } from "./i18n";
 import "@fontsource-variable/inter";
 import "./index.css";
 
@@ -20,12 +20,16 @@ import "./index.css";
 // prod pour rien. A revisiter si tout le JSX public passe a un `{" "}`
 // explicite plutot qu'un espace litteral avant une icone, ou si le
 // prerender est aligne sur le meme pipeline de build que le client.
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
+// A visitor whose language isn't French waits for that one small file
+// before the first render, instead of seeing the page flash in French.
+void loadLanguage(i18n.language).finally(() =>
+  ReactDOM.createRoot(document.getElementById("root")!).render(
+    <React.StrictMode>
+      <BrowserRouter>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </BrowserRouter>
+    </React.StrictMode>,
+  ),
 );

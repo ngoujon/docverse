@@ -1,8 +1,7 @@
-import { useEffect, type ReactNode } from "react";
+import { Suspense, lazy, useEffect, type ReactNode } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LandingPage from "./pages/public/LandingPage";
-import WorkspaceApp from "./pages/app/WorkspaceApp";
 import PrivacyPage from "./pages/public/PrivacyPage";
 import FaqPage from "./pages/public/FaqPage";
 import TermsPage from "./pages/public/TermsPage";
@@ -15,9 +14,12 @@ import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import NewsletterConfirmPage from "./pages/auth/NewsletterConfirmPage";
 import VerifyEmailPage from "./pages/auth/VerifyEmailPage";
 import OAuthCallbackPage from "./pages/auth/OAuthCallbackPage";
-import DashboardPage from "./pages/app/DashboardPage";
-import AdminDashboardPage from "./pages/app/AdminDashboardPage";
-import AccountSettingsPage from "./pages/app/AccountSettingsPage";
+// Signed-in pages are split out of the main bundle: a visitor landing on
+// the marketing site doesn't download (nor parse) the whole product.
+const WorkspaceApp = lazy(() => import("./pages/app/WorkspaceApp"));
+const DashboardPage = lazy(() => import("./pages/app/DashboardPage"));
+const AdminDashboardPage = lazy(() => import("./pages/app/AdminDashboardPage"));
+const AccountSettingsPage = lazy(() => import("./pages/app/AccountSettingsPage"));
 import ProtectedRoute from "./components/layout/ProtectedRoute";
 import SupportChatWidget from "./components/layout/SupportChatWidget";
 import AnalyticsTracker from "./components/layout/AnalyticsTracker";
@@ -48,29 +50,31 @@ export default function App() {
 
   return (
     <>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-        <Route path="/reset-password" element={<ResetPasswordPage />} />
-        <Route path="/newsletter/confirm" element={<NewsletterConfirmPage mode="confirm" />} />
-        <Route path="/newsletter/unsubscribe" element={<NewsletterConfirmPage mode="unsubscribe" />} />
-        <Route path="/verify-email" element={<VerifyEmailPage />} />
-        <Route path="/oauth-callback" element={<OAuthCallbackPage />} />
-        <Route path="/dashboard" element={protect(<DashboardPage />)} />
-        <Route path="/account" element={protect(<AccountSettingsPage />)} />
-        <Route path="/admin" element={protect(<AdminDashboardPage />, true)} />
-        <Route path="/app" element={protect(<WorkspaceApp />)} />
-        <Route path="/app/:spaceId" element={protect(<WorkspaceApp />)} />
-        <Route path="/share/:shareToken" element={protect(<WorkspaceApp />)} />
-        <Route path="/confidentialite" element={<PrivacyPage />} />
-        <Route path="/cgu" element={<TermsPage />} />
-        <Route path="/mentions-legales" element={<LegalNoticePage />} />
-        <Route path="/demo" element={<DemoPage />} />
-        <Route path="/faq" element={<FaqPage />} />
-        <Route path="*" element={<LandingPage />} />
-      </Routes>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
+          <Route path="/newsletter/confirm" element={<NewsletterConfirmPage mode="confirm" />} />
+          <Route path="/newsletter/unsubscribe" element={<NewsletterConfirmPage mode="unsubscribe" />} />
+          <Route path="/verify-email" element={<VerifyEmailPage />} />
+          <Route path="/oauth-callback" element={<OAuthCallbackPage />} />
+          <Route path="/dashboard" element={protect(<DashboardPage />)} />
+          <Route path="/account" element={protect(<AccountSettingsPage />)} />
+          <Route path="/admin" element={protect(<AdminDashboardPage />, true)} />
+          <Route path="/app" element={protect(<WorkspaceApp />)} />
+          <Route path="/app/:spaceId" element={protect(<WorkspaceApp />)} />
+          <Route path="/share/:shareToken" element={protect(<WorkspaceApp />)} />
+          <Route path="/confidentialite" element={<PrivacyPage />} />
+          <Route path="/cgu" element={<TermsPage />} />
+          <Route path="/mentions-legales" element={<LegalNoticePage />} />
+          <Route path="/demo" element={<DemoPage />} />
+          <Route path="/faq" element={<FaqPage />} />
+          <Route path="*" element={<LandingPage />} />
+        </Routes>
+      </Suspense>
       {showSupportWidget && <SupportChatWidget />}
       <AnalyticsTracker />
       {showConsentBanner && <CookieConsentBanner />}
