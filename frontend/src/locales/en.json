@@ -1188,7 +1188,8 @@
       "pages": "Pages",
       "share": "Share",
       "perPage": "{{price}} / page",
-      "note": "Cost recomputed from the tokens counted by Mistral and public per-model prices. Cached tokens count at 10%."
+      "note": "Cost recomputed from the tokens counted by Mistral and public per-model prices. Cached tokens count at 10%.",
+      "estimatedNote": "Including {{cost}} rebuilt from history (questions and documents from before token tracking): an estimate."
     }
   },
   "app": {

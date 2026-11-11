@@ -219,6 +219,12 @@ export default function AIUsageExplorer() {
             ))}
           </div>
 
+          {data.totals.estimated_cost_usd > 0 && (
+            <p className="mt-2 text-[11px] text-slate-500 dark:text-slate-400">
+              {t("admin.usageExplorer.estimatedNote", { cost: formatUsd(data.totals.estimated_cost_usd, lang) })}
+            </p>
+          )}
+
           {/* Main curve */}
           <div className="mt-6 flex flex-wrap items-center justify-between gap-2">
             <p className="text-xs font-semibold text-slate-700 dark:text-slate-300">

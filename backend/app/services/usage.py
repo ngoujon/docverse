@@ -370,6 +370,9 @@ def usage_explorer(db: Session, *, days: int = 30, granularity: str = "day", key
         func.coalesce(func.sum(models.AIUsage.cached_tokens), 0),
         func.coalesce(func.sum(models.AIUsage.pages), 0),
     ).group_by(hour, models.AIUsage.model, models.AIUsage.kind).all()
+    estimated_rows = q.filter(models.AIUsage.estimated.is_(True)).with_entities(
+        models.AIUsage.model, models.AIUsage.prompt_tokens, models.AIUsage.completion_tokens,
+        models.AIUsage.cached_tokens, models.AIUsage.pages).all()
 
     # Personnes et questions distinctes par heure (pour les courbes d'activité).
     people = q.filter(models.AIUsage.user_id.isnot(None)).with_entities(
@@ -443,6 +446,8 @@ def usage_explorer(db: Session, *, days: int = 30, granularity: str = "day", key
         "cost_usd": round(sum(p["cost_usd"] for p in series), 6),
         "questions": len({m for s in q_per_bucket.values() for m in s}),
         "users": len({u for s in users_per_bucket.values() for u in s}),
+        # Part reconstituée à partir de l'historique (avant le suivi réel).
+        "estimated_cost_usd": round(sum(cost_usd(*r) for r in estimated_rows), 6),
     }
     peaks = sorted((p for p in series if p["calls"]), key=lambda p: (-p["calls"], -p["cost_usd"]))[:5]
     grid = {g["family"]: g for g in price_grid()}

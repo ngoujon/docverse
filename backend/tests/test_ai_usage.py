@@ -409,3 +409,40 @@ def test_admin_usage_explorer_curves_filters_and_price_grid(client):
     assert client.get("/api/admin/ai-usage?days=30&granularity=hour", headers=h).status_code == 400
     weekly = client.get("/api/admin/ai-usage?days=30&granularity=week", headers=h).json()
     assert weekly["totals"]["cost_usd"] == pytest.approx(1.14)
+
+
+def test_backfill_rebuilds_past_usage_once(client):
+    from datetime import datetime, timedelta
+
+    from app import models
+    from app.database import SessionLocal
+    from app.scripts.backfill_ai_usage import backfill
+
+    token = register_user(client, "owner@example.com")["access_token"]
+    space = client.post("/api/spaces", json={"name": "S"}, headers=auth_headers(token)).json()
+    conv = client.post(f"/api/spaces/{space['id']}/conversations", json={"title": "C"},
+                       headers=auth_headers(token)).json()
+    db = SessionLocal()
+    try:
+        t = datetime.utcnow() - timedelta(days=3)
+        db.add_all([
+            models.Message(conversation_id=conv["id"], role="user", content="Question ?", created_at=t),
+            models.Message(conversation_id=conv["id"], role="assistant", content="x" * 400,
+                           created_at=t + timedelta(seconds=5)),
+            models.Document(space_id=space["id"], name="a.md", doc_type="md", status="ready", chunk_count=2,
+                            created_at=t),
+        ])
+        db.commit()
+        dry = backfill(db)
+        assert dry == {**dry, "questions": 1, "documents": 1, "rows": 5}
+        assert db.query(models.AIUsage).count() == 0  # simulation : rien d'écrit
+        backfill(db, apply=True)
+        assert backfill(db)["rows"] == 0  # idempotent
+        chat = db.query(models.AIUsage).filter_by(kind="chat").one()
+        assert chat.estimated and chat.completion_tokens == 100 and chat.user_id is not None
+    finally:
+        db.close()
+
+    data = client.get("/api/admin/ai-usage?days=7", headers=auth_headers(token)).json()
+    assert data["totals"]["questions"] == 1
+    assert data["totals"]["estimated_cost_usd"] == pytest.approx(data["totals"]["cost_usd"])

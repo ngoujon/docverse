@@ -1188,7 +1188,8 @@
       "pages": "Pages",
       "share": "Part",
       "perPage": "{{price}} / page",
-      "note": "Coût recalculé à partir des tokens comptés par Mistral et des prix publics par modèle. Les jetons en cache sont comptés à 10 %."
+      "note": "Coût recalculé à partir des tokens comptés par Mistral et des prix publics par modèle. Les jetons en cache sont comptés à 10 %.",
+      "estimatedNote": "Dont {{cost}} reconstitués à partir de l'historique (questions et documents d'avant le suivi des tokens) : estimation."
     }
   },
   "app": {

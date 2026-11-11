@@ -1188,7 +1188,8 @@
       "pages": "Páginas",
       "share": "Parte",
       "perPage": "{{price}} / página",
-      "note": "Coste recalculado a partir de los tokens contados por Mistral y los precios públicos por modelo. Los tokens en caché cuentan al 10 %."
+      "note": "Coste recalculado a partir de los tokens contados por Mistral y los precios públicos por modelo. Los tokens en caché cuentan al 10 %.",
+      "estimatedNote": "De ello, {{cost}} reconstruidos a partir del historial (preguntas y documentos anteriores al seguimiento de tokens): estimación."
     }
   },
   "app": {

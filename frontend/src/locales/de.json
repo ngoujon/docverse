@@ -1193,7 +1193,8 @@
       "pages": "Seiten",
       "share": "Anteil",
       "perPage": "{{price}} / Seite",
-      "note": "Kosten neu berechnet aus den von Mistral gezählten Tokens und den öffentlichen Preisen pro Modell. Gecachte Tokens zählen zu 10 %."
+      "note": "Kosten neu berechnet aus den von Mistral gezählten Tokens und den öffentlichen Preisen pro Modell. Gecachte Tokens zählen zu 10 %.",
+      "estimatedNote": "Davon {{cost}} aus dem Verlauf rekonstruiert (Fragen und Dokumente vor der Token-Erfassung): Schätzung."
     }
   },
   "app": {

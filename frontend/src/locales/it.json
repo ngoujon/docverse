@@ -1188,7 +1188,8 @@
       "pages": "Pagine",
       "share": "Quota",
       "perPage": "{{price}} / pagina",
-      "note": "Costo ricalcolato dai token contati da Mistral e dai prezzi pubblici per modello. I token in cache contano al 10%."
+      "note": "Costo ricalcolato dai token contati da Mistral e dai prezzi pubblici per modello. I token in cache contano al 10%.",
+      "estimatedNote": "Di cui {{cost}} ricostruiti dallo storico (domande e documenti precedenti al monitoraggio dei token): stima."
     }
   },
   "app": {

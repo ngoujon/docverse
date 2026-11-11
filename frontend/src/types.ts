@@ -145,6 +145,7 @@ export interface AdminUsageExplorer {
     cost_usd: number;
     questions: number;
     users: number;
+    estimated_cost_usd: number;
   };
   peaks: UsageExplorerPoint[];
   heatmap: { calls: number; cost_usd: number }[][];

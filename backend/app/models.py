@@ -230,6 +230,9 @@ class AIUsage(Base):
     cached_tokens = Column(Integer, nullable=False, default=0)
     pages = Column(Integer, nullable=False, default=0)
     cost_usd = Column(Float, nullable=False, default=0.0)
+    # True for rows rebuilt after the fact (app/scripts/backfill_ai_usage.py)
+    # from the history that predates usage tracking: tokens are estimates.
+    estimated = Column(Boolean, nullable=False, default=False)
     created_at = Column(DateTime, default=datetime.utcnow, index=True)
 
 
