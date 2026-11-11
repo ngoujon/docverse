@@ -102,9 +102,76 @@ export interface AdminAICosts {
   own_key_last_30d: UsageTotals;
   own_key_users: number;
   cost_per_question_usd: number;
-  by_kind: { kind: string; label: string; model: string; calls: number; tokens: number; pages: number; cost_usd: number }[];
+  by_kind: {
+    kind: string;
+    label: string;
+    model: string;
+    calls: number;
+    tokens: number;
+    pages: number;
+    cost_usd: number;
+  }[];
   top_users: { email: string; cost_usd: number; calls: number }[];
   series: { date: string; cost_usd: number }[];
+}
+
+export interface UsageExplorerPoint {
+  t: string;
+  calls: number;
+  prompt_tokens: number;
+  completion_tokens: number;
+  pages: number;
+  cost_usd: number;
+  questions: number;
+  users: number;
+  cost_by_model: Record<string, number>;
+}
+
+export interface ModelPrice {
+  family: string;
+  input_usd_per_m: number | null;
+  output_usd_per_m: number | null;
+  page_usd: number | null;
+}
+
+export interface AdminUsageExplorer {
+  granularity: "hour" | "day" | "week";
+  series: UsageExplorerPoint[];
+  totals: {
+    calls: number;
+    prompt_tokens: number;
+    completion_tokens: number;
+    pages: number;
+    cost_usd: number;
+    questions: number;
+    users: number;
+  };
+  peaks: UsageExplorerPoint[];
+  heatmap: { calls: number; cost_usd: number }[][];
+  by_model: {
+    family: string;
+    models: string[];
+    calls: number;
+    prompt_tokens: number;
+    completion_tokens: number;
+    cached_tokens: number;
+    pages: number;
+    cost_usd: number;
+    share_pct: number;
+    price: ModelPrice | null;
+  }[];
+  by_kind: { kind: string; label: string; calls: number; cost_usd: number }[];
+  prices: ModelPrice[];
+  options: { families: string[]; kinds: string[]; users: { id: string; email: string }[] };
+}
+
+export interface UsageExplorerFilters {
+  days: number;
+  granularity: "hour" | "day" | "week";
+  key: "platform" | "own" | "all";
+  kind: string;
+  family: string;
+  userId: string;
 }
 
 export type DocumentStatus = "pending" | "processing" | "ready" | "error";

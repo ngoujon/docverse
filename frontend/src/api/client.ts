@@ -1,6 +1,8 @@
 import type {
   AdminAICosts,
   AdminHealth,
+  AdminUsageExplorer,
+  UsageExplorerFilters,
   AISettings,
   AdminStats,
   AuthResponse,
@@ -202,6 +204,18 @@ export const api = {
   adminStats: () => request<AdminStats>("/admin/stats"),
   adminHealth: () => request<AdminHealth>("/admin/health"),
   adminAICosts: (days = 30) => request<AdminAICosts>(`/admin/ai-costs?days=${days}`),
+  adminAIUsage: (f: UsageExplorerFilters) => {
+    const q = new URLSearchParams({
+      days: String(f.days),
+      granularity: f.granularity,
+      key: f.key,
+      tz_offset_min: String(-new Date().getTimezoneOffset()),
+    });
+    if (f.kind) q.append("kinds", f.kind);
+    if (f.family) q.set("family", f.family);
+    if (f.userId) q.set("user_id", f.userId);
+    return request<AdminUsageExplorer>(`/admin/ai-usage?${q.toString()}`);
+  },
   adminCreateUser: (payload: { email: string; password: string; display_name?: string; role?: "admin" | "user" }) =>
     request<User>("/admin/users", { method: "POST", body: JSON.stringify(payload) }),
   adminUpdateUser: (userId: string, patch: { role?: "admin" | "user"; is_active?: boolean }) =>

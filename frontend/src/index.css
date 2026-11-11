@@ -12,6 +12,15 @@
   --surface-border: 230 235 241;
   --accent: 99 91 255;
   --accent-hover: 75 68 214;
+  /* Chart series (validated colorblind-safe order, see AIUsageExplorer). */
+  --viz-1: #2a78d6;
+  --viz-2: #eb6834;
+  --viz-3: #1baf7a;
+  --viz-4: #eda100;
+  --viz-5: #e87ba4;
+  --viz-6: #008300;
+  --viz-7: #6250d6;
+  --viz-8: #e34948;
 }
 
 .dark {
@@ -23,6 +32,14 @@
   --surface-border: 31 61 94;
   --accent: 128 121 255;
   --accent-hover: 150 144 255;
+  --viz-1: #3987e5;
+  --viz-2: #d95926;
+  --viz-3: #199e70;
+  --viz-4: #c98500;
+  --viz-5: #d55181;
+  --viz-6: #008300;
+  --viz-7: #9085e9;
+  --viz-8: #e66767;
 }
 
 * {

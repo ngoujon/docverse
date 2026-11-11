@@ -351,3 +351,61 @@ def test_count_scanned_pages_detects_pages_without_text(tmp_path):
     assert document_processor.count_scanned_pages("pdf", path) == 1
     assert document_processor.count_scanned_pages("image", path) == 1
     assert document_processor.count_scanned_pages("txt", path) == 0
+
+
+# --- Explorateur admin --------------------------------------------------------------
+
+
+def test_admin_usage_explorer_curves_filters_and_price_grid(client):
+    from datetime import datetime, timedelta
+
+    from app import models
+    from app.database import SessionLocal
+
+    token = register_user(client, "owner@example.com")["access_token"]
+    other = register_user(client, "other@example.com")["access_token"]
+    db = SessionLocal()
+    try:
+        owner = db.query(models.User).filter_by(email="owner@example.com").one()
+        now = datetime.utcnow()
+        rows = [
+            # 1 question = réponse Large + tri Small, plus un scan OCR et un appel clé perso
+            dict(kind="chat", model="mistral-large-latest", prompt_tokens=1_000_000, completion_tokens=0,
+                 message_id="m1", created_at=now),
+            dict(kind="rerank", model="mistral-small-latest", prompt_tokens=0, completion_tokens=1_000_000,
+                 message_id="m1", created_at=now),
+            dict(kind="ocr", model="mistral-ocr-latest", pages=10, created_at=now - timedelta(days=2)),
+            dict(kind="chat", model="mistral-large-latest", prompt_tokens=500, own_key=True, created_at=now),
+        ]
+        for r in rows:
+            db.add(models.AIUsage(user_id=owner.id, cost_usd=0, **{"own_key": False, **r}))
+        db.commit()
+    finally:
+        db.close()
+
+    h = auth_headers(token)
+    assert client.get("/api/admin/ai-usage", headers=auth_headers(other)).status_code == 403
+    data = client.get("/api/admin/ai-usage?days=7", headers=h).json()
+    assert len(data["series"]) == 7
+    # Coût recalculé avec la grille : 1 M tokens Large en entrée (0,5 $) +
+    # 1 M tokens Small en sortie (0,6 $) + 10 pages OCR (0,04 $).
+    assert data["totals"]["cost_usd"] == pytest.approx(1.14)
+    assert data["totals"]["questions"] == 1 and data["totals"]["users"] == 1
+    assert data["totals"]["calls"] == 3  # la clé perso n'est pas comptée
+    assert {m["family"] for m in data["by_model"]} == {"large", "small", "ocr"}
+    assert data["by_model"][0]["family"] == "small" and data["by_model"][0]["share_pct"] > 50
+    assert data["peaks"][0]["calls"] == 2
+    assert sum(c["calls"] for day in data["heatmap"] for c in day) == 3
+    assert any(p["family"] == "large" and p["input_usd_per_m"] == 0.5 for p in data["prices"])
+
+    only_large = client.get("/api/admin/ai-usage?days=7&family=large", headers=h).json()
+    assert only_large["totals"]["cost_usd"] == pytest.approx(0.5)
+    only_ocr = client.get("/api/admin/ai-usage?days=7&kinds=ocr", headers=h).json()
+    assert only_ocr["totals"]["pages"] == 10 and only_ocr["totals"]["questions"] == 0
+    own = client.get("/api/admin/ai-usage?days=7&key=own", headers=h).json()
+    assert own["totals"]["calls"] == 1
+    hourly = client.get("/api/admin/ai-usage?days=2&granularity=hour", headers=h).json()
+    assert 24 < len(hourly["series"]) <= 48
+    assert client.get("/api/admin/ai-usage?days=30&granularity=hour", headers=h).status_code == 400
+    weekly = client.get("/api/admin/ai-usage?days=30&granularity=week", headers=h).json()
+    assert weekly["totals"]["cost_usd"] == pytest.approx(1.14)

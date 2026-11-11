@@ -58,6 +58,26 @@ def admin_ai_costs(days: int = Query(30, ge=1, le=90), db: Session = Depends(get
     return usage.platform_report(db, days=days)
 
 
+@router.get("/ai-usage")
+def admin_ai_usage(
+    days: int = Query(30, ge=1, le=90),
+    granularity: str = Query("day", pattern="^(hour|day|week)$"),
+    key: str = Query("platform", pattern="^(platform|own|all)$"),
+    kinds: list[str] = Query(default=[]),
+    family: str | None = Query(None, max_length=40),
+    user_id: str | None = Query(None, max_length=64),
+    tz_offset_min: int = Query(0, ge=-840, le=840),
+    db: Session = Depends(get_db),
+):
+    """Usage curves with filters (period, granularity, key, step, model,
+    account) to spot activity peaks, with the cost re-estimated from
+    Mistral's per-model token price grid."""
+    if granularity == "hour" and days > 14:
+        raise HTTPException(400, "Le détail par heure est limité à 14 jours")
+    return usage.usage_explorer(db, days=days, granularity=granularity, key=key, kinds=kinds or None,
+                                family=family or None, user_id=user_id or None, tz_offset_min=tz_offset_min)
+
+
 # --- Users ------------------------------------------------------------------------
 
 

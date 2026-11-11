@@ -17,6 +17,7 @@ import { api } from "../../api/client";
 import { formatBytes } from "../../utils/format";
 import StatCard from "../ui/StatCard";
 import AICostsPanel from "./AICostsPanel";
+import AIUsageExplorer from "./AIUsageExplorer";
 import { ProgressBar } from "../ui/controls";
 import type { AdminHealth, AdminStats } from "../../types";
 
@@ -217,6 +218,7 @@ export default function AdminOverview({ stats }: { stats: AdminStats }) {
       </div>
 
       <AICostsPanel />
+      <AIUsageExplorer />
     </div>
   );
 }
