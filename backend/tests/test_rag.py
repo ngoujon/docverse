@@ -137,3 +137,111 @@ def test_trim_history_keeps_last_messages_and_truncates_long_ones():
     assert [m["content"][:2] for m in trimmed] == ["m0", "m7", "m8", "xx"]
     assert trimmed[-1]["content"] == "x" * 10 + " […]"
     assert rag.trim_history(history, limit=0, max_chars=10) == []
+
+
+# --- Questions portant sur tout l'espace (retour utilisateur : 11 PDF,
+# l'IA « ne voyait que 6 fichiers ») -------------------------------------------
+
+def _space_docs(n: int) -> list[dict]:
+    return [{"id": f"d{i}", "name": f"article{i}.pdf"} for i in range(n)]
+
+
+def _fake_store(monkeypatch, calls: list):
+    """Faux index : chaque document a 5 extraits ; sans filtre, la recherche
+    renvoie toujours les extraits des documents d0 et d1 (les plus proches)."""
+    def fake_query(space_id, embedding, top_k=6, doc_ids=None):
+        calls.append((top_k, doc_ids))
+        if doc_ids:
+            return [
+                {"text": f"{d} extrait {j}", "metadata": {"doc_id": d, "doc_name": f"{d}.pdf"}}
+                for d in doc_ids for j in range(min(top_k, 5))
+            ]
+        return [
+            {"text": f"extrait {j}", "metadata": {"doc_id": f"d{j % 2}", "doc_name": "x.pdf"}}
+            for j in range(top_k)
+        ]
+
+    async def fake_embed(text):
+        return [0.0]
+
+    async def no_web(query):
+        return False
+
+    monkeypatch.setattr(rag.vectorstore, "query", fake_query)
+    monkeypatch.setattr(rag.llm_provider, "embed", fake_embed)
+    monkeypatch.setattr(rag, "_should_auto_search_web", no_web)
+
+
+def test_is_broad_question_detects_space_wide_questions():
+    assert rag.is_broad_question("Quelle est la méthodologie de chaque article ?")
+    assert rag.is_broad_question("Fais un tableau des résultats de tous les articles")
+    assert rag.is_broad_question("Résume mes documents")
+    assert not rag.is_broad_question("Quelle est la taille de l'échantillon de l'étude Dupont ?")
+
+
+def test_broad_question_covers_every_document_of_the_space(monkeypatch):
+    calls = []
+    _fake_store(monkeypatch, calls)
+    docs = _space_docs(11)
+
+    results, needs_web = asyncio.run(
+        rag.retrieve_document_context("s", "Donne l'année de publication de chaque article", documents=docs)
+    )
+
+    covered = {r["metadata"]["doc_id"] for r in results}
+    assert covered == {d["id"] for d in docs}  # les 11, pas 6
+    assert len(results) == 22  # 2 extraits par document (budget 24)
+    assert needs_web is False
+
+
+def test_broad_question_with_many_documents_keeps_one_excerpt_per_document(monkeypatch):
+    def fake_query(space_id, embedding, top_k=6, doc_ids=None):
+        return [
+            {"text": f"extrait {j}", "metadata": {"doc_id": f"d{j % 40}", "doc_name": "x.pdf"}}
+            for j in range(top_k)
+        ]
+
+    async def fake_embed(text):
+        return [0.0]
+
+    async def no_web(query):
+        return False
+
+    monkeypatch.setattr(rag.vectorstore, "query", fake_query)
+    monkeypatch.setattr(rag.llm_provider, "embed", fake_embed)
+    monkeypatch.setattr(rag, "_should_auto_search_web", no_web)
+
+    results, _ = asyncio.run(
+        rag.retrieve_document_context("s", "Compare tous les articles", documents=_space_docs(40))
+    )
+    doc_ids = [r["metadata"]["doc_id"] for r in results]
+    assert len(doc_ids) == 24 and len(set(doc_ids)) == 24
+
+
+def test_precise_question_keeps_the_usual_retrieval(monkeypatch):
+    calls = []
+    _fake_store(monkeypatch, calls)
+
+    async def fake_chat(messages, model=None, temperature=0.3, **kwargs):
+        return "WEB: NON\nORDRE: 1,2,3,4,5,6"
+
+    monkeypatch.setattr(rag.llm_provider, "chat", fake_chat)
+    results, _ = asyncio.run(
+        rag.retrieve_document_context("s", "Quelle est la taille de l'échantillon ?", documents=_space_docs(11))
+    )
+    assert len(results) == 6
+    assert calls == [(20, None)]
+
+
+def test_system_prompt_lists_every_document_of_the_space():
+    docs = _space_docs(11)
+    messages = rag.build_llm_messages("Thèse", [], "(contexte)", "question", documents=docs)
+    system = messages[0]["content"]
+    assert "11 document(s)" in system
+    for d in docs:
+        assert d["name"] in system
+    assert "@" in system
+    # sans inventaire (appel historique), le prompt ne change pas
+    assert rag.build_llm_messages("Thèse", [], "(c)", "q")[0]["content"] == rag._SYSTEM_PROMPT_TEMPLATE.format(
+        space_name="Thèse"
+    )

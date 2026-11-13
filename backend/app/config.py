@@ -59,6 +59,10 @@ class Settings:
     # pure similarity score would rank too low, without changing the final
     # context size the chat model sees.
     rerank_candidate_pool: int = int(os.environ.get("RERANK_CANDIDATE_POOL", "20"))
+    # Question portant sur tout l'espace (« dans chaque article... ») : on
+    # va chercher les meilleurs extraits de CHAQUE document, dans la limite
+    # de ce nombre total d'extraits (au plus 2 par document).
+    broad_retrieval_budget: int = int(os.environ.get("BROAD_RETRIEVAL_BUDGET", "24"))
 
     cors_origins: list[str] = _parse_origins(os.environ.get("CORS_ORIGINS", "*"))
 

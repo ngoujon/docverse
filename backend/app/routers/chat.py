@@ -124,6 +124,12 @@ async def chat(
     user_msg_id = user_msg.id
     space_id = space.id
     space_name = space.name
+    space_documents = [
+        {"id": d_id, "name": d_name}
+        for d_id, d_name in db.query(models.Document.id, models.Document.name)
+        .filter(models.Document.space_id == space_id, models.Document.status == "ready")
+        .order_by(models.Document.created_at)
+    ]
 
     async def event_stream():
         # Opened inside the generator: it's what runs the AI calls, in the
@@ -181,9 +187,11 @@ async def chat(
 
         try:
             try:
-                context_block, sources = await rag.gather_context(space_id, user_message, doc_ids)
+                context_block, sources = await rag.gather_context(
+                    space_id, user_message, doc_ids, documents=space_documents
+                )
                 messages = rag.build_llm_messages(
-                    space_name, history, context_block, user_message
+                    space_name, history, context_block, user_message, documents=space_documents
                 )
                 async for token in llm_provider.chat_stream(messages):
                     full_text += token

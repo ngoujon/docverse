@@ -208,7 +208,7 @@ def _space_and_conv(client, token):
 def _fake_pipeline(monkeypatch, keys_seen):
     from app.services import rag
 
-    async def fake_gather(space_id, query, doc_ids=None):
+    async def fake_gather(space_id, query, doc_ids=None, documents=None):
         usage.current().add("rerank", "mistral-small-latest", prompt_tokens=800, completion_tokens=10)
         return "(aucun contexte)", []
 

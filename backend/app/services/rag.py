@@ -252,12 +252,92 @@ _SYSTEM_PROMPT_TEMPLATE = (
     "structurée (listes, markdown si utile)."
 )
 
+# Sans cet inventaire, le modèle ne connaît l'espace qu'à travers les
+# quelques extraits reçus et en déduit à tort qu'il ne contient que les
+# documents cités (« je ne vois que 6 fichiers » pour un espace de 11).
+_MAX_INVENTORY_NAMES = 200
+
+_INVENTORY_TEMPLATE = (
+    "\n\nINVENTAIRE DE L'ESPACE : il contient {count} document(s) indexé(s) :\n"
+    "{names}\n\n"
+    "Important : pour chaque question tu ne reçois pas les documents entiers, "
+    "seulement une sélection d'extraits jugés pertinents. Ne dis jamais que "
+    "l'espace ne contient que les documents présents dans les extraits : "
+    "appuie-toi sur cet inventaire. Si la question porte sur tous les "
+    "documents et que certains n'apparaissent pas dans le CONTEXTE, indique "
+    "lesquels et explique que l'utilisateur peut cibler un document précis "
+    "en tapant @ suivi de son nom dans sa question."
+)
+
+
+def _inventory_block(documents: list[dict] | None) -> str:
+    if not documents:
+        return ""
+    names = [f"- {d['name']}" for d in documents[:_MAX_INVENTORY_NAMES]]
+    if len(documents) > _MAX_INVENTORY_NAMES:
+        names.append(f"- … et {len(documents) - _MAX_INVENTORY_NAMES} autre(s)")
+    return _INVENTORY_TEMPLATE.format(count=len(documents), names="\n".join(names))
+
+
+# Questions qui portent sur l'ensemble des documents plutôt que sur un fait
+# précis : la recherche vectorielle classique ramènerait les 6 extraits les
+# plus proches, souvent tirés de 2 ou 3 documents seulement.
+_BROAD_QUESTION_RE = re.compile(
+    r"\b(tou(te)?s|chaque|chacun(e)?|l'ensemble|ensemble des|"
+    r"les (articles|documents|fichiers|pdfs?|publications|études|papiers|sources)|"
+    r"mes (articles|documents|fichiers|pdfs?|publications|études|papiers|sources)|"
+    r"compar\w*|synth[eè]\w*|r[ée]sum\w*|tableau|liste\w*|recens\w*|combien|"
+    r"all|each|every|compare\w*|summari[sz]e\w*)\b",
+    re.IGNORECASE,
+)
+
+
+def is_broad_question(query: str) -> bool:
+    return bool(_BROAD_QUESTION_RE.search(query))
+
+
+async def _retrieve_per_document(
+    space_id: str, embedding: list[float], documents: list[dict]
+) -> list[dict]:
+    """Meilleurs extraits de chaque document (au plus 2), pour que chaque
+    fichier de l'espace soit représenté dans le contexte."""
+    budget = max(1, settings.broad_retrieval_budget)
+    if len(documents) > budget:
+        # Trop de documents pour en interroger chacun : large recherche sur
+        # tout l'espace, puis un seul extrait par document, les plus proches
+        # d'abord, pour en représenter le plus possible.
+        pool = vectorstore.query(space_id, embedding, top_k=budget * 4)
+        seen: set[str] = set()
+        results = []
+        for c in pool:
+            doc_id = c.get("metadata", {}).get("doc_id")
+            if doc_id in seen:
+                continue
+            seen.add(doc_id)
+            results.append(c)
+            if len(results) >= budget:
+                break
+        return results
+    per_doc = max(1, min(2, budget // len(documents)))
+    results = []
+    for doc in documents:
+        results.extend(vectorstore.query(space_id, embedding, top_k=per_doc, doc_ids=[doc["id"]]))
+    return results
+
 
 async def retrieve_document_context(
-    space_id: str, query: str, doc_ids: list[str] | None = None
+    space_id: str,
+    query: str,
+    doc_ids: list[str] | None = None,
+    documents: list[dict] | None = None,
 ) -> tuple[list[dict], bool]:
     """Renvoie (extraits retenus, recherche web nécessaire ?)."""
     embedding = await llm_provider.embed(query)
+    if not doc_ids and documents and len(documents) > 1 and is_broad_question(query):
+        candidates = await _retrieve_per_document(space_id, embedding, documents)
+        # Tout est gardé (pas de tri qui écarterait des documents) : seule
+        # la décision web reste à prendre.
+        return await rerank_and_route(query, candidates, len(candidates))
     pool = settings.rerank_candidate_pool
     top_k = settings.retrieval_top_k
     if doc_ids:
@@ -271,11 +351,15 @@ async def retrieve_document_context(
 
 
 async def gather_context(
-    space_id: str, query: str, doc_ids: list[str] | None = None
+    space_id: str,
+    query: str,
+    doc_ids: list[str] | None = None,
+    documents: list[dict] | None = None,
 ) -> tuple[str, list[dict]]:
     """Builds a numbered context block and a parallel list of source
-    descriptors used for citations in the UI."""
-    doc_results, do_web_search = await retrieve_document_context(space_id, query, doc_ids)
+    descriptors used for citations in the UI. `documents` = documents prêts
+    de l'espace ({id, name}), pour couvrir chacun sur les questions larges."""
+    doc_results, do_web_search = await retrieve_document_context(space_id, query, doc_ids, documents)
     web_results = await websearch.search_web(query) if do_web_search else []
 
     # Documents first, then web results; the [n] markers are numbered across
@@ -301,10 +385,11 @@ def build_llm_messages(
     history: list[dict],
     context_block: str,
     user_message: str,
+    documents: list[dict] | None = None,
 ) -> list[dict]:
     system = {
         "role": "system",
-        "content": _SYSTEM_PROMPT_TEMPLATE.format(space_name=space_name),
+        "content": _SYSTEM_PROMPT_TEMPLATE.format(space_name=space_name) + _inventory_block(documents),
     }
     context_msg = {
         "role": "system",
