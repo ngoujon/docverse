@@ -3,6 +3,7 @@ per workspace holding every ingested chunk, plus a 2D projection of it for
 the "knowledge graph" visualization."""
 
 import logging
+import re
 
 import chromadb
 import numpy as np
@@ -80,6 +81,50 @@ def query(
     dists = results.get("distances", [[]])[0]
     for text, meta, dist in zip(docs, metas, dists, strict=False):
         out.append({"text": text, "metadata": meta, "distance": dist})
+    return out
+
+
+# Le DOI d'un article est en bas de la 1re page : souvent 2 à 6 extraits
+# après l'en-tête. On le cherche dans ces premiers extraits (lecture locale,
+# gratuite) plutôt que d'envoyer tous ces extraits au modèle.
+_HEADER_SCAN_CHUNKS = 8
+_DOI_RE = re.compile(r"(?:doi\.org/|\bdoi\s*:?\s*)(10\.\d{4,9}/[^\s,;\"'<>]+)", re.IGNORECASE)
+
+
+def _find_doi(texts: list[str]) -> str | None:
+    for text in texts:
+        match = _DOI_RE.search(text)
+        if match:
+            return match.group(1).rstrip(".)]")
+    return None
+
+
+def first_chunks(space_id: str, doc_ids: list[str]) -> dict[str, dict]:
+    """En-tête de chaque document ({doc_id: extrait}), en un seul appel :
+    le 1er extrait (titre, auteurs, revue, début du résumé) - ce que la
+    recherche par similarité ne ramène presque jamais - complété du DOI
+    s'il apparaît un peu plus loin sur la 1re page."""
+    if not doc_ids:
+        return {}
+    collection = get_collection(space_id)
+    if collection.count() == 0:
+        return {}
+    result = collection.get(
+        where={"$and": [{"doc_id": {"$in": doc_ids}}, {"chunk_index": {"$lt": _HEADER_SCAN_CHUNKS}}]},
+        include=["documents", "metadatas"],
+    )
+    by_doc: dict[str, dict[int, tuple[str, dict]]] = {}
+    for text, meta in zip(result.get("documents") or [], result.get("metadatas") or [], strict=False):
+        by_doc.setdefault(meta.get("doc_id"), {})[meta.get("chunk_index", 0)] = (text or "", meta)
+    out: dict[str, dict] = {}
+    for doc_id, chunks in by_doc.items():
+        if 0 not in chunks:
+            continue
+        text, meta = chunks[0]
+        doi = _find_doi([chunks[i][0] for i in sorted(chunks)])
+        if doi and doi not in text:
+            text = f"{text}\n(DOI de ce document : {doi})"
+        out[doc_id] = {"text": text, "metadata": meta, "distance": None}
     return out
 
 

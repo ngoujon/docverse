@@ -124,12 +124,14 @@ async def chat(
     user_msg_id = user_msg.id
     space_id = space.id
     space_name = space.name
-    space_documents = [
-        {"id": d_id, "name": d_name}
-        for d_id, d_name in db.query(models.Document.id, models.Document.name)
+    space_documents = rag.mark_duplicates([
+        {"id": d_id, "name": d_name, "preview": d_preview, "chunk_count": d_chunks}
+        for d_id, d_name, d_preview, d_chunks in db.query(
+            models.Document.id, models.Document.name, models.Document.preview, models.Document.chunk_count
+        )
         .filter(models.Document.space_id == space_id, models.Document.status == "ready")
         .order_by(models.Document.created_at)
-    ]
+    ])
 
     async def event_stream():
         # Opened inside the generator: it's what runs the AI calls, in the

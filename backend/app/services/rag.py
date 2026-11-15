@@ -266,14 +266,49 @@ _INVENTORY_TEMPLATE = (
     "appuie-toi sur cet inventaire. Si la question porte sur tous les "
     "documents et que certains n'apparaissent pas dans le CONTEXTE, indique "
     "lesquels et explique que l'utilisateur peut cibler un document précis "
-    "en tapant @ suivi de son nom dans sa question."
+    "en tapant @ suivi de son nom dans sa question. Quand la question vise "
+    "chaque document (tableau, liste, comparaison), traite TOUS les documents "
+    "de l'inventaire présents dans le CONTEXTE, une ligne ou une section par "
+    "document, sans en écarter aucun parce qu'il te semble hors sujet : dis "
+    "plutôt qu'il n'aborde pas le point demandé. Les fichiers marqués "
+    "doublon ont le même contenu qu'un autre fichier : traite-les comme un "
+    "seul document et signale-le une fois à l'utilisateur."
 )
+
+
+_MIN_PREVIEW_FOR_DUPLICATE = 200
+
+
+def mark_duplicates(documents: list[dict]) -> list[dict]:
+    """Repère les fichiers déposés deux fois (« article.pdf » et
+    « 1 article.pdf ») : même début de texte et même nombre d'extraits.
+    Le premier déposé reste la référence, les suivants reçoivent
+    `duplicate_of`. Les champs `preview` / `chunk_count` sont retirés."""
+    seen: dict[tuple, str] = {}
+    out = []
+    for d in documents:
+        preview = (d.get("preview") or "").strip()
+        doc = {k: v for k, v in d.items() if k not in ("preview", "chunk_count")}
+        if len(preview) >= _MIN_PREVIEW_FOR_DUPLICATE:
+            key = (preview, d.get("chunk_count"))
+            if key in seen:
+                doc["duplicate_of"] = seen[key]
+            else:
+                seen[key] = d["name"]
+        out.append(doc)
+    return out
+
+
+def _inventory_line(doc: dict) -> str:
+    if doc.get("duplicate_of"):
+        return f"- {doc['name']} (doublon de « {doc['duplicate_of']} » : même contenu, non relu)"
+    return f"- {doc['name']}"
 
 
 def _inventory_block(documents: list[dict] | None) -> str:
     if not documents:
         return ""
-    names = [f"- {d['name']}" for d in documents[:_MAX_INVENTORY_NAMES]]
+    names = [_inventory_line(d) for d in documents[:_MAX_INVENTORY_NAMES]]
     if len(documents) > _MAX_INVENTORY_NAMES:
         names.append(f"- … et {len(documents) - _MAX_INVENTORY_NAMES} autre(s)")
     return _INVENTORY_TEMPLATE.format(count=len(documents), names="\n".join(names))
@@ -282,25 +317,38 @@ def _inventory_block(documents: list[dict] | None) -> str:
 # Questions qui portent sur l'ensemble des documents plutôt que sur un fait
 # précis : la recherche vectorielle classique ramènerait les 6 extraits les
 # plus proches, souvent tirés de 2 ou 3 documents seulement.
+_DOC_NOUNS = r"(articles?|documents?|fichiers?|pdfs?|publications?|études?|etudes?|papiers?|sources?|textes?|rapports?)"
+
 _BROAD_QUESTION_RE = re.compile(
     r"\b(tou(te)?s|chaque|chacun(e)?|l'ensemble|ensemble des|"
-    r"les (articles|documents|fichiers|pdfs?|publications|études|papiers|sources)|"
-    r"mes (articles|documents|fichiers|pdfs?|publications|études|papiers|sources)|"
+    rf"(les|mes|ces|vos|nos|tes|leurs) {_DOC_NOUNS}|"
     r"compar\w*|synth[eè]\w*|r[ée]sum\w*|tableau|liste\w*|recens\w*|combien|"
     r"all|each|every|compare\w*|summari[sz]e\w*)\b",
     re.IGNORECASE,
 )
+
+# La question parle explicitement des documents de l'espace (« ces
+# articles », « mes fichiers ») : inutile de payer un appel pour décider
+# d'une recherche web.
+_ABOUT_SPACE_DOCS_RE = re.compile(rf"\b{_DOC_NOUNS}\b", re.IGNORECASE)
 
 
 def is_broad_question(query: str) -> bool:
     return bool(_BROAD_QUESTION_RE.search(query))
 
 
+def _chunk_index(chunk: dict) -> int | None:
+    return chunk.get("metadata", {}).get("chunk_index")
+
+
 async def _retrieve_per_document(
     space_id: str, embedding: list[float], documents: list[dict]
 ) -> list[dict]:
-    """Meilleurs extraits de chaque document (au plus 2), pour que chaque
-    fichier de l'espace soit représenté dans le contexte."""
+    """Extraits de chaque document (au plus 2), pour que chaque fichier de
+    l'espace soit représenté dans le contexte. Avec 2 extraits : l'en-tête
+    (titre, auteurs, DOI, début du résumé) + le passage le plus proche de la
+    question. Les doublons sont ignorés : même contenu, même coût pour rien."""
+    documents = [d for d in documents if not d.get("duplicate_of")]
     budget = max(1, settings.broad_retrieval_budget)
     if len(documents) > budget:
         # Trop de documents pour en interroger chacun : large recherche sur
@@ -319,9 +367,18 @@ async def _retrieve_per_document(
                 break
         return results
     per_doc = max(1, min(2, budget // len(documents)))
+    headers = vectorstore.first_chunks(space_id, [d["id"] for d in documents]) if per_doc >= 2 else {}
     results = []
     for doc in documents:
-        results.extend(vectorstore.query(space_id, embedding, top_k=per_doc, doc_ids=[doc["id"]]))
+        header = headers.get(doc["id"])
+        if header is None:
+            results.extend(vectorstore.query(space_id, embedding, top_k=per_doc, doc_ids=[doc["id"]]))
+            continue
+        # Un extrait de plus que nécessaire, au cas où le plus proche serait
+        # justement l'en-tête déjà retenu.
+        best = vectorstore.query(space_id, embedding, top_k=per_doc, doc_ids=[doc["id"]])
+        others = [c for c in best if _chunk_index(c) != 0]
+        results.extend([header, *others[: per_doc - 1]])
     return results
 
 
@@ -336,7 +393,10 @@ async def retrieve_document_context(
     if not doc_ids and documents and len(documents) > 1 and is_broad_question(query):
         candidates = await _retrieve_per_document(space_id, embedding, documents)
         # Tout est gardé (pas de tri qui écarterait des documents) : seule
-        # la décision web reste à prendre.
+        # la décision web reste à prendre, et encore - pas quand la question
+        # nomme les documents eux-mêmes.
+        if _ABOUT_SPACE_DOCS_RE.search(query):
+            return candidates, False
         return await rerank_and_route(query, candidates, len(candidates))
     pool = settings.rerank_candidate_pool
     top_k = settings.retrieval_top_k

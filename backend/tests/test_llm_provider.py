@@ -86,6 +86,40 @@ def test_chat_stream_parses_sse_and_stops_at_done(monkeypatch, api_key):
     assert "".join(asyncio.run(_run())) == "Bonjour !"
 
 
+def test_reasoning_model_output_hides_thinking_and_keeps_text(monkeypatch, api_key):
+    """Format réel de mistral-large-4 : des morceaux `thinking` puis `text`.
+    Avant, le flux plantait (« can only concatenate str (not list) »)."""
+    thinking = '[{"type":"thinking","thinking":[{"type":"text","text":"je réfléchis"}]}]'
+    text = '[{"type":"text","text":"Bonjour"}]'
+    sse = (
+        f'data: {{"choices":[{{"delta":{{"content":{thinking}}}}}]}}\n\n'
+        f'data: {{"choices":[{{"delta":{{"content":{text}}}}}]}}\n\n'
+        'data: {"choices":[{"delta":{"content":" !"}}]}\n\n'
+        'data: [DONE]\n\n'
+    )
+    monkeypatch.setattr(
+        llm_provider.httpx, "AsyncClient",
+        _client_factory(lambda r: httpx.Response(
+            200, content=sse.encode(), headers={"content-type": "text/event-stream"}
+        )),
+    )
+
+    async def _run():
+        return [token async for token in llm_provider.chat_stream([{"role": "user", "content": "x"}])]
+
+    assert "".join(asyncio.run(_run())) == "Bonjour !"
+
+
+def test_reasoning_model_non_stream_answer_keeps_only_text(monkeypatch, api_key):
+    monkeypatch.setattr(
+        llm_provider.httpx, "AsyncClient",
+        _client_factory(lambda r: httpx.Response(200, json={"choices": [{"message": {"content": json.loads(
+            '[{"type":"thinking","thinking":[{"type":"text","text":"hmm"}]},{"type":"text","text":"NON"}]'
+        )}}]})),
+    )
+    assert asyncio.run(llm_provider.chat([{"role": "user", "content": "x"}])) == "NON"
+
+
 def test_embed_batch_groups_requests_and_keeps_order(monkeypatch, api_key):
     """Un appel par lot de 32 (et non un par chunk), et les vecteurs sont
     reordonnes par l'index renvoye : un desalignement ici associerait

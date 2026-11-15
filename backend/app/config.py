@@ -84,7 +84,10 @@ class Settings:
     # France. Voir services/llm_provider.py.
     mistral_api_key: str = os.environ.get("MISTRAL_API_KEY", "")
     mistral_base_url: str = os.environ.get("MISTRAL_BASE_URL", "https://api.mistral.ai")
-    mistral_chat_model: str = os.environ.get("MISTRAL_CHAT_MODEL", "mistral-large-latest")
+    # Version figée : « mistral-large-latest » pointe désormais sur un modèle
+    # qui raisonne avant de répondre (~500 tokens facturés même pour un
+    # « bonjour », réponse 2 à 4 fois plus lente). 2512 ne raisonne pas.
+    mistral_chat_model: str = os.environ.get("MISTRAL_CHAT_MODEL", "mistral-large-2512")
     mistral_vision_model: str = os.environ.get("MISTRAL_VISION_MODEL", "mistral-medium-latest")
     mistral_embed_model: str = os.environ.get("MISTRAL_EMBED_MODEL", "mistral-embed")
     # Modèle léger pour les tâches internes de chaque question (tri des

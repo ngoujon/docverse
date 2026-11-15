@@ -162,6 +162,22 @@ def _messages_chars(messages: list[dict]) -> str:
     return "".join(parts)
 
 
+def _answer_text(content) -> str:
+    """Texte de la réponse, quel que soit le format renvoyé par Mistral.
+
+    Les modèles « raisonnants » (mistral-large-latest pointe depuis fin 2026
+    sur mistral-large-4) renvoient une liste de morceaux : `thinking`
+    (raisonnement interne, à ne jamais montrer) puis `text`. Sans ce tri,
+    la concaténation plantait et l'utilisateur voyait une erreur."""
+    if isinstance(content, str):
+        return content
+    if not isinstance(content, list):
+        return ""
+    return "".join(
+        p.get("text", "") for p in content if isinstance(p, dict) and p.get("type") == "text"
+    )
+
+
 def _record(purpose: str, model: str, usage_data: Optional[dict], messages: list[dict] | None = None,
             output: str = "", fallback: bool = False) -> None:
     meter = usage.current()
@@ -217,7 +233,7 @@ async def chat(
                     raise
                 data = r.json()
                 choices = data.get("choices") or []
-                text = (choices[0].get("message", {}).get("content", "") or "") if choices else ""
+                text = _answer_text(choices[0].get("message", {}).get("content")) if choices else ""
                 _record(purpose, current, data.get("usage"), messages, text, fallback=idx > 0)
                 return text
     return ""
@@ -281,7 +297,7 @@ async def chat_stream(
                             choices = chunk.get("choices") or []
                             if not choices:
                                 continue
-                            content = choices[0].get("delta", {}).get("content") or ""
+                            content = _answer_text(choices[0].get("delta", {}).get("content"))
                             if content:
                                 produced.append(content)
                                 yield content

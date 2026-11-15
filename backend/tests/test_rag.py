@@ -149,17 +149,22 @@ def _space_docs(n: int) -> list[dict]:
 def _fake_store(monkeypatch, calls: list):
     """Faux index : chaque document a 5 extraits ; sans filtre, la recherche
     renvoie toujours les extraits des documents d0 et d1 (les plus proches)."""
+    # Ordre de similarité d'un document : l'en-tête (extrait 0) arrive en
+    # 2e position, pour vérifier qu'il n'est jamais pris deux fois.
+    similarity_order = [3, 0, 1, 2, 4]
+
+    def chunk(d, j):
+        return {"text": f"{d} extrait {j}", "metadata": {"doc_id": d, "doc_name": f"{d}.pdf", "chunk_index": j}}
+
     def fake_query(space_id, embedding, top_k=6, doc_ids=None):
         calls.append((top_k, doc_ids))
         if doc_ids:
-            return [
-                {"text": f"{d} extrait {j}", "metadata": {"doc_id": d, "doc_name": f"{d}.pdf"}}
-                for d in doc_ids for j in range(min(top_k, 5))
-            ]
-        return [
-            {"text": f"extrait {j}", "metadata": {"doc_id": f"d{j % 2}", "doc_name": "x.pdf"}}
-            for j in range(top_k)
-        ]
+            return [chunk(d, j) for d in doc_ids for j in similarity_order[: min(top_k, 5)]]
+        return [chunk(f"d{j % 2}", j) for j in range(top_k)]
+
+    def fake_first_chunks(space_id, doc_ids):
+        calls.append(("headers", len(doc_ids)))
+        return {d: chunk(d, 0) for d in doc_ids}
 
     async def fake_embed(text):
         return [0.0]
@@ -168,6 +173,7 @@ def _fake_store(monkeypatch, calls: list):
         return False
 
     monkeypatch.setattr(rag.vectorstore, "query", fake_query)
+    monkeypatch.setattr(rag.vectorstore, "first_chunks", fake_first_chunks)
     monkeypatch.setattr(rag.llm_provider, "embed", fake_embed)
     monkeypatch.setattr(rag, "_should_auto_search_web", no_web)
 
@@ -192,6 +198,80 @@ def test_broad_question_covers_every_document_of_the_space(monkeypatch):
     assert covered == {d["id"] for d in docs}  # les 11, pas 6
     assert len(results) == 22  # 2 extraits par document (budget 24)
     assert needs_web is False
+    # par document : l'en-tête (titre, auteurs, DOI) + le passage le plus proche
+    for d in docs:
+        indices = [r["metadata"]["chunk_index"] for r in results if r["metadata"]["doc_id"] == d["id"]]
+        assert indices == [0, 3]
+
+
+def test_question_on_these_articles_is_broad_and_skips_the_web_decision(monkeypatch):
+    """1re question réelle de l'utilisatrice : « ces articles » n'était pas
+    reconnu, d'où 6 extraits seulement. Elle nomme les documents : aucun
+    appel payant pour décider d'une recherche web."""
+    calls = []
+    _fake_store(monkeypatch, calls)
+
+    async def must_not_be_called(*args, **kwargs):
+        raise AssertionError("appel LLM inutile")
+
+    monkeypatch.setattr(rag, "_should_auto_search_web", must_not_be_called)
+    monkeypatch.setattr(rag.llm_provider, "chat", must_not_be_called)
+    query = (
+        "quelles sont les méthodes analytiques décrites dans ces articles pour "
+        "analyser les PFAS dans des eaux usées ? réponds en 10 lignes maxi"
+    )
+    assert rag.is_broad_question(query)
+    results, needs_web = asyncio.run(rag.retrieve_document_context("s", query, documents=_space_docs(11)))
+    assert len({r["metadata"]["doc_id"] for r in results}) == 11
+    assert needs_web is False
+
+
+def test_document_header_gets_the_doi_from_further_down_the_first_page():
+    """Vrai index Chroma : le DOI d'un article Elsevier est en bas de page 1,
+    3 extraits après l'en-tête. Il est recopié dans l'en-tête (quelques
+    tokens) au lieu d'envoyer les extraits intermédiaires."""
+    from app.services import vectorstore
+
+    space = "test-doi-space"
+    chunks = [
+        "Water Research 190 (2021) 116745\nCharacterization of polymers\nTeresa Mairinger",
+        "Abstract ...", "Introduction ...",
+        "E-mail address: x@eawag.ch\nhttps://doi.org/10.1016/j.watres.2020.116745\nReceived 2 June",
+        "References: doi:10.9999/autre.article",
+    ]
+    vectorstore.add_chunks(space, "a", "a.pdf", chunks, [[float(i), 1.0] for i in range(len(chunks))])
+    vectorstore.add_chunks(space, "b", "b.pdf", ["Sans DOI"], [[0.0, 1.0]])
+
+    headers = vectorstore.first_chunks(space, ["a", "b"])
+    assert headers["a"]["metadata"]["chunk_index"] == 0
+    assert headers["a"]["text"].startswith("Water Research 190")
+    assert "(DOI de ce document : 10.1016/j.watres.2020.116745)" in headers["a"]["text"]
+    assert headers["b"]["text"] == "Sans DOI"
+    assert vectorstore.first_chunks(space, []) == {}
+
+
+def test_duplicates_are_detected_listed_and_not_sent_twice(monkeypatch):
+    """Cas réel : 11 fichiers dont 2 doublons (« 1 article.pdf »)."""
+    header = "Water Research 190 (2021) 116745 Characterization of water-soluble " * 5
+    raw = [
+        {"id": "a", "name": "1 1-s2.0-S0043-main.pdf", "preview": header, "chunk_count": 58},
+        {"id": "b", "name": "1-s2.0-S0043-main.pdf", "preview": header, "chunk_count": 58},
+        {"id": "c", "name": "autre.pdf", "preview": "x" * 300, "chunk_count": 10},
+        {"id": "d", "name": "court.pdf", "preview": "court", "chunk_count": 1},
+        {"id": "e", "name": "court2.pdf", "preview": "court", "chunk_count": 1},
+    ]
+    docs = rag.mark_duplicates(raw)
+    assert [d.get("duplicate_of") for d in docs] == [None, "1 1-s2.0-S0043-main.pdf", None, None, None]
+    assert all("preview" not in d for d in docs)
+
+    calls = []
+    _fake_store(monkeypatch, calls)
+    results, _ = asyncio.run(rag.retrieve_document_context("s", "Résume chaque article", documents=docs))
+    assert "b" not in {r["metadata"]["doc_id"] for r in results}
+
+    system = rag.build_llm_messages("PFAS", [], "(c)", "q", documents=docs)[0]["content"]
+    assert "5 document(s)" in system
+    assert "1-s2.0-S0043-main.pdf (doublon de « 1 1-s2.0-S0043-main.pdf »" in system
 
 
 def test_broad_question_with_many_documents_keeps_one_excerpt_per_document(monkeypatch):
