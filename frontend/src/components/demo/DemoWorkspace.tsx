@@ -24,6 +24,7 @@ import { BRAND } from "../../brand";
 import DemoAnswer from "./DemoAnswer";
 import DemoDocIcon from "./DemoDocIcon";
 import DemoSharePanel from "./DemoSharePanel";
+import JoinedText from "../ui/JoinedText";
 import {
   STEP,
   type DemoMessage,
@@ -373,7 +374,9 @@ export default function DemoWorkspace({
                         >
                           <span className="cite-badge !m-0">{i + 1}</span>
                           <span className="truncate font-medium">{doc?.name}</span>
-                          <span className="shrink-0 text-fluent-muted">· {s.where}</span>
+                          <span className="shrink-0 text-fluent-muted">
+                            <JoinedText parts={["· ", s.where]} />
+                          </span>
                         </button>
                       );
                     })}
@@ -563,9 +566,21 @@ export default function DemoWorkspace({
                       <span className="inline-flex items-center gap-1 text-fluent-green">
                         <Check size={11} /> {t("demoApp.ui.ready", { count: d.chunks })}
                       </span>
-                      {d.size && <span>· {d.size}</span>}
-                      {d.type === "audio" && <span>· {t("demoApp.ui.audioNote")}</span>}
-                      {d.type === "image" && <span>· {t("demoApp.ui.visionNote")}</span>}
+                      {d.size && (
+                        <span>
+                          <JoinedText parts={["· ", d.size]} />
+                        </span>
+                      )}
+                      {d.type === "audio" && (
+                        <span>
+                          <JoinedText parts={["· ", t("demoApp.ui.audioNote")]} />
+                        </span>
+                      )}
+                      {d.type === "image" && (
+                        <span>
+                          <JoinedText parts={["· ", t("demoApp.ui.visionNote")]} />
+                        </span>
+                      )}
                     </p>
                   </div>
                   {isNew && (
@@ -599,7 +614,9 @@ export default function DemoWorkspace({
         </div>
         <div className="mx-auto flex min-w-0 max-w-sm flex-1 items-center justify-center gap-2 rounded-md bg-white px-3 py-1 text-xs text-fluent-muted ring-1 ring-fluent-line">
           <BrandMark className="h-3.5 w-3.5" />
-          <span className="truncate">{BRAND.domain}/app</span>
+          <span className="truncate">
+            <JoinedText parts={[BRAND.domain, "/app"]} />
+          </span>
         </div>
         <div className="flex justify-end sm:w-28">
           <button

@@ -27,6 +27,7 @@ import Testimonials from "../../components/landing/Testimonials";
 import NewsletterSignup from "../../components/landing/NewsletterSignup";
 import LanguageSwitcher from "../../components/ui/LanguageSwitcher";
 import BrandLogo from "../../components/ui/BrandLogo";
+import JoinedText from "../../components/ui/JoinedText";
 import { usePageMeta } from "../../hooks/usePageMeta";
 import { useAuth } from "../../hooks/useAuth";
 import { BRAND } from "../../brand";
@@ -242,7 +243,7 @@ export default function LandingPage() {
               <div>
                 <p className="text-xs text-fluent-muted">{t("sovereignty.eyebrow")}</p>
                 <p className="text-sm font-semibold text-fluent-navy">
-                  {BRAND.hostingProvider} · {BRAND.aiProvider}
+                  <JoinedText parts={[BRAND.hostingProvider, " · ", BRAND.aiProvider]} />
                 </p>
               </div>
             </div>

@@ -29,6 +29,19 @@ export const SUPPORTED_LANGUAGES = [
   { code: "it", label: "Italiano" },
 ] as const;
 
+/** Search engine and link-preview crawlers. Their rendering browser
+ * reports an English `navigator.language`, so the language detection used
+ * to switch the page to English for them: Google could index English text
+ * on French URLs declared `lang="fr"`. They now always get the page as
+ * published, in French - the same text as its static HTML. Visitors are
+ * not affected. */
+export function isCrawler(): boolean {
+  if (typeof navigator === "undefined") return false;
+  return /googlebot|google-inspectiontool|storebot-google|adsbot-google|mediapartners-google|bingbot|bingpreview|applebot|yandex|duckduckbot|baiduspider|qwantbot|qwantify|petalbot|seznambot|slurp|twitterbot|linkedinbot|facebookexternalhit|facebot|ahrefsbot|semrushbot|gptbot|oai-searchbot|chatgpt-user|claudebot|claude-searchbot|perplexitybot|ccbot|chrome-lighthouse/i.test(
+    navigator.userAgent,
+  );
+}
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
@@ -39,8 +52,9 @@ i18n
     initAsync: false,
     // The static HTML is always rendered in French: the build machine's
     // own language (Node exposes `navigator.language`) must not leak in.
-    // Browsers keep detecting the visitor's language as before.
-    ...(typeof window === "undefined" ? { lng: "fr" } : {}),
+    // Browsers keep detecting the visitor's language as before - except
+    // search engine and link-preview crawlers (see isCrawler).
+    ...(typeof window === "undefined" || isCrawler() ? { lng: "fr" } : {}),
     resources: { fr: { translation: fr } },
     fallbackLng: "fr",
     supportedLngs: SUPPORTED_LANGUAGES.map((l) => l.code),

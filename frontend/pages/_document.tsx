@@ -39,6 +39,45 @@ const SOFTWARE_APPLICATION = {
   ],
 };
 
+/** Short names of the public pages, for their BreadcrumbList (search
+ * results show "docverse.fr › FAQ" instead of a bare URL). */
+const BREADCRUMB_NAMES: Record<string, string> = {
+  "/demo/": "Démo",
+  "/faq/": "FAQ",
+  "/confidentialite/": "Confidentialité",
+  "/cgu/": "Conditions générales d'utilisation",
+  "/mentions-legales/": "Mentions légales",
+};
+
+/** Site-level structured data that depends on the page: WebSite on the
+ * homepage (site name in search results), BreadcrumbList elsewhere. */
+function pageStructuredData(origin: string, canonicalPath: string | undefined): object[] {
+  if (canonicalPath === "/") {
+    return [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: "Docverse",
+        url: `${origin}/`,
+        inLanguage: "fr-FR",
+        publisher: { "@type": "Organization", name: "Docverse", url: origin },
+      },
+    ];
+  }
+  const name = canonicalPath ? BREADCRUMB_NAMES[canonicalPath] : undefined;
+  if (!name) return [];
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Accueil", item: `${origin}/` },
+        { "@type": "ListItem", position: 2, name, item: `${origin}${canonicalPath}` },
+      ],
+    },
+  ];
+}
+
 /** JSON for an inline <script type="application/ld+json">: a "</script>"
  * substring (e.g. an FAQ answer mentioning a <script> tag) must not close
  * the tag early. */
@@ -125,6 +164,10 @@ export default class DocverseDocument extends Document<Props> {
               }),
             }}
           />
+          {!noindex &&
+            pageStructuredData(origin, canonicalPath ?? "/").map((data, i) => (
+              <script key={`site-${i}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(data) }} />
+            ))}
           {/* Mesure d'audience SEO Monitor (exemptee de consentement, voir /confidentialite/). */}
           {/* eslint-disable-next-line @next/next/no-sync-scripts */}
           <script

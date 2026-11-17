@@ -4,7 +4,7 @@
 // checks those, then writes what depends on the deployment rather than on
 // the code: sitemap.xml, robots.txt's Sitemap line and nginx's CSP.
 import nextEnv from "@next/env";
-import { readFile, writeFile, rm, access } from "node:fs/promises";
+import { readFile, writeFile, readdir, rm, access } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -75,9 +75,41 @@ async function main() {
   }
   console.log(`checked ${ROUTES.length} public pages, 404 and ${PRIVATE_FILES.length} private shells`);
 
+  await preloadMainFont();
   await writeSitemap();
   await writeRobots();
   await writeNginxConf();
+}
+
+// The page text uses Inter (latin subset for French). The browser only
+// discovers that font file after downloading and parsing the stylesheet;
+// a preload in <head> starts it alongside the stylesheet, so the text gets
+// its final font sooner (faster LCP, less font swap). Same file, same
+// rendering - it just arrives earlier.
+async function preloadMainFont() {
+  const mediaDir = path.join(outDir, "_next", "static", "media");
+  const font = (await readdir(mediaDir)).find((f) => /^inter-latin-wght-normal\.[\w-]+\.woff2$/.test(f));
+  if (!font) throw new Error("Inter latin font file not found in out/_next/static/media");
+  const tag = `<link rel="preload" href="/_next/static/media/${font}" as="font" type="font/woff2" crossorigin="anonymous"/>`;
+  let count = 0;
+  for (const file of await htmlFiles(outDir)) {
+    const html = await readFile(file, "utf-8");
+    const at = html.indexOf('<link rel="preload" href="/_next/static/css/');
+    if (at < 0 || html.includes(tag)) continue;
+    await writeFile(file, html.slice(0, at) + tag + html.slice(at), "utf-8");
+    count++;
+  }
+  console.log(`font preload added to ${count} pages`);
+}
+
+async function htmlFiles(dir) {
+  const files = [];
+  for (const entry of await readdir(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory() && entry.name !== "_next") files.push(...(await htmlFiles(full)));
+    else if (entry.isFile() && entry.name.endsWith(".html")) files.push(full);
+  }
+  return files;
 }
 
 // Priorites par route pour le sitemap. Une route absente prend 0.7.

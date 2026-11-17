@@ -90,7 +90,11 @@ export default {
       },
       keyframes: {
         "fade-in": {
-          "0%": { opacity: 0, transform: "translateY(4px)" },
+          // 0.01 rather than 0: identical to the eye, but Chrome counts an
+          // element that starts fully transparent as painted only once the
+          // animation ends - which delayed the FAQ's Largest Contentful
+          // Paint (a Core Web Vitals / SEO metric) for nothing.
+          "0%": { opacity: 0.01, transform: "translateY(4px)" },
           "100%": { opacity: 1, transform: "translateY(0)" },
         },
         pulse2: {
