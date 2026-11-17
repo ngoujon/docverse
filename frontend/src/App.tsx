@@ -7,6 +7,7 @@ import FaqPage from "./pages/public/FaqPage";
 import TermsPage from "./pages/public/TermsPage";
 import LegalNoticePage from "./pages/public/LegalNoticePage";
 import DemoPage from "./pages/public/DemoPage";
+import NotFoundPage from "./pages/public/NotFoundPage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
@@ -72,7 +73,7 @@ export default function App() {
           <Route path="/mentions-legales" element={<LegalNoticePage />} />
           <Route path="/demo" element={<DemoPage />} />
           <Route path="/faq" element={<FaqPage />} />
-          <Route path="*" element={<LandingPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>
       {showSupportWidget && <SupportChatWidget />}

@@ -71,6 +71,27 @@ async function main() {
       console.log(`prerendered ${route}`);
     }
 
+    // "Page not found", served by nginx with a real 404 status for every
+    // path the app doesn't know (instead of a 200 homepage clone, which
+    // Google reports as a soft 404 with a canonical pointing at /).
+    const notFound = render("/__page-introuvable__");
+    if (!notFound.noindex || notFound.canonicalPath) {
+      throw new Error("404 page must be noindex and have no canonical");
+    }
+    await writeFile(path.join(distDir, "404.html"), injectPage(template, notFound), "utf-8");
+    console.log("prerendered 404.html");
+
+    // Shell for the private and account routes (/login, /app, /share/...):
+    // they need the browser (session, tokens in the URL), so no static
+    // render - just the bare template, marked noindex and stripped of the
+    // homepage canonical. nginx serves it only for routes the app knows.
+    await writeFile(
+      path.join(distDir, "_app.html"),
+      injectPage(template, { appHtml: "", title: "", noindex: true }),
+      "utf-8",
+    );
+    console.log("wrote _app.html (noindex shell)");
+
     await writeSitemap();
     await writeRobots();
     await writeNginxConf();
@@ -116,8 +137,16 @@ async function writeRobots() {
   await writeFile(file, robots.replaceAll("__SITE_ORIGIN__", siteOrigin), "utf-8");
 }
 
-function injectPage(template, { appHtml, title, description, canonicalPath, jsonLd }) {
+function injectPage(template, { appHtml, title, description, canonicalPath, noindex, jsonLd }) {
   let html = template.replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`);
+
+  // A page kept out of the index must not claim the homepage as its
+  // canonical (the template's default): drop canonical and og:url.
+  if (noindex) {
+    html = html.replace(/(<meta\s+name="robots"\s+content=").*?(")/s, "$1noindex, nofollow$2");
+    html = html.replace(/\s*<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/s, "");
+    html = html.replace(/\s*<meta\s+property="og:url"\s+content="[^"]*"\s*\/?>/s, "");
+  }
 
   if (title) {
     html = html.replace(/<title>.*?<\/title>/s, `<title>${escapeHtml(title)}</title>`);

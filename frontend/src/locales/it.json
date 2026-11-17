@@ -1,4 +1,10 @@
 {
+  "notFound": {
+    "eyebrow": "Errore 404",
+    "title": "Pagina non trovata",
+    "subtitle": "Questo indirizzo non corrisponde a nessuna pagina di Docverse. Il link potrebbe essere errato o la pagina potrebbe essere stata spostata.",
+    "back": "Torna alla home"
+  },
   "common": {
     "cancel": "Annulla",
     "save": "Salva",

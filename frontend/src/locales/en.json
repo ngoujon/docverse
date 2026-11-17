@@ -1,4 +1,10 @@
 {
+  "notFound": {
+    "eyebrow": "Error 404",
+    "title": "Page not found",
+    "subtitle": "This address doesn't match any Docverse page. The link may be wrong or the page may have moved.",
+    "back": "Back to home"
+  },
   "common": {
     "cancel": "Cancel",
     "save": "Save",
