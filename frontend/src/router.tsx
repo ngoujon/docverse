@@ -31,8 +31,49 @@ function navigateTo(to: string | number, options: NavigateOptions = {}): void {
     window.history.go(to);
     return;
   }
-  const routerOptions = { scroll: true, [STATE_KEY]: options.state ?? null };
-  void (options.replace ? Router.replace(to, undefined, routerOptions) : Router.push(to, undefined, routerOptions));
+  // scroll: false keeps the page where it is on navigation, exactly like
+  // the react-router setup this replaced (no automatic scroll to top).
+  const routerOptions = { scroll: false, [STATE_KEY]: options.state ?? null };
+  // Next.js scrolls to a #fragment on its own even with scroll: false;
+  // react-router never did. So navigate to the page without its fragment,
+  // then put the fragment back in the address bar (and in Next's history
+  // entry, which back/forward rely on).
+  const hashIndex = to.indexOf("#");
+  const target = hashIndex >= 0 ? to.slice(0, hashIndex) || "/" : to;
+  const go = options.replace ? Router.replace : Router.push;
+  void go.call(Router, target, undefined, routerOptions).then((done) => {
+    if (!done || hashIndex < 0) return;
+    const entry = (window.history.state ?? {}) as Record<string, unknown>;
+    window.history.replaceState({ ...entry, as: to }, "", to);
+  });
+}
+
+/** Back/forward onto another page's #fragment entry: Next.js would scroll
+ * to the fragment once that page renders, where the browser (and
+ * react-router before) keeps the remembered position. Render the page
+ * without the fragment in the URL, then restore it. Called once, from App,
+ * when the Next.js router exists. */
+export function installHistoryHandling(): void {
+  Router.beforePopState(({ as, options }) => {
+    const hashIndex = as.indexOf("#");
+    if (hashIndex < 0) return true;
+    const path = as.slice(0, hashIndex) || "/";
+    if (path === Router.asPath.split("#")[0]) return true;
+    window.history.replaceState(window.history.state, "", path);
+    void Router.replace(path, undefined, { ...options, scroll: false }).then((done) => {
+      if (!done) return;
+      window.history.replaceState({ ...((window.history.state ?? {}) as Record<string, unknown>), as }, "", as);
+    });
+    return false;
+  });
+}
+
+/** True when the URL points at another page and carries a #fragment: those
+ * links go through navigateTo so they don't jump to the fragment. */
+function isCrossPageHashLink(to: string): boolean {
+  const hashIndex = to.indexOf("#");
+  if (hashIndex < 0 || typeof window === "undefined") return false;
+  return to.slice(0, hashIndex) !== window.location.pathname;
 }
 
 /** Programmatic navigation: `navigate("/path", { replace, state })`, or
@@ -107,7 +148,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
     // Only a plain left click carrying navigation state needs handling here;
     // everything else (new tab, modifier keys...) is left to NextLink/browser.
     if (
-      state === undefined ||
+      (state === undefined && !isCrossPageHashLink(to)) ||
       event.defaultPrevented ||
       event.button !== 0 ||
       event.metaKey ||
@@ -121,7 +162,8 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
     event.preventDefault();
     navigateTo(to, { replace, state });
   };
-  return <NextLink ref={ref} href={to} replace={replace} onClick={handleClick} {...rest} />;
+  // scroll={false}: same scroll behaviour as before the move to Next.js.
+  return <NextLink ref={ref} href={to} replace={replace} scroll={false} onClick={handleClick} {...rest} />;
 });
 
 /** Redirects as soon as it renders (used for access guards). */

@@ -7,7 +7,7 @@ import CookieConsentBanner from "./components/layout/CookieConsentBanner";
 import { analyticsEnabled, isTrackablePath } from "./utils/analytics";
 import { useHeadSink } from "./headSink";
 import { loadLanguage } from "./i18n";
-import { useLocation } from "./router";
+import { installHistoryHandling, useLocation } from "./router";
 
 // The support widget helps visitors use the site/app - shown on the public
 // marketing pages, not inside the real product (workspace app) where it
@@ -38,6 +38,8 @@ export default function App({ children, clientOnly = false }: Props) {
   useEffect(() => {
     document.documentElement.lang = i18n.language?.slice(0, 2) || "fr";
   }, [i18n.language]);
+
+  useEffect(() => installHistoryHandling(), []);
 
   // The static HTML and the hydration render are French. A visitor whose
   // language is another one gets that one small file, then the page
