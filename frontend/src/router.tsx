@@ -55,6 +55,12 @@ function navigateTo(to: string | number, options: NavigateOptions = {}): void {
  * when the Next.js router exists. */
 export function installHistoryHandling(): void {
   Router.beforePopState(({ as, options }) => {
+    // Never let Next.js scroll on back/forward: the browser restores the
+    // remembered position, as it always has. (The entry of the first page
+    // loaded carries no `scroll: false` and Next would otherwise jump to
+    // the top - racing the browser's own restoration.) Next reads this
+    // same options object right after this callback.
+    (options as { scroll?: boolean }).scroll = false;
     const hashIndex = as.indexOf("#");
     if (hashIndex < 0) return true;
     const path = as.slice(0, hashIndex) || "/";
