@@ -4,11 +4,11 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build && node scripts/prerender.mjs",
-    "preview": "vite preview",
+    "dev": "next dev --webpack --port 3000",
+    "build": "next build --webpack && node scripts/postbuild.mjs",
+    "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"scripts/**/*.mjs\""
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"pages/**/*.tsx\" \"scripts/**/*.mjs\""
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.3.0",
@@ -16,15 +16,16 @@
     "i18next": "^26.3.6",
     "i18next-browser-languagedetector": "^8.2.1",
     "lucide-react": "^0.446.0",
+    "next": "^16.4.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-dropzone": "^14.2.3",
     "react-i18next": "^17.0.11",
     "react-markdown": "^9.0.1",
-    "react-router-dom": "^7.18.2",
     "remark-gfm": "^4.0.0"
   },
   "devDependencies": {
+    "@next/env": "^16.4.6",
     "@testing-library/react": "^16.3.2",
     "@types/node": "^22.7.4",
     "@types/react": "^18.3.9",

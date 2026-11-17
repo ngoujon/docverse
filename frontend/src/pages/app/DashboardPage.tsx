@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "../../router";
 import { useTranslation } from "react-i18next";
 import {
   Check,

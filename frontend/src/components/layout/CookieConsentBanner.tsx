@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "../../router";
 import { useTranslation } from "react-i18next";
 import { BarChart3 } from "lucide-react";
 import { readConsent, setConsent } from "../../utils/analytics";

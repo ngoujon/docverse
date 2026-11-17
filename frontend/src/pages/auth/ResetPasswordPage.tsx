@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "../../router";
 import { useTranslation } from "react-i18next";
 import { CheckCircle2 } from "lucide-react";
 import { api } from "../../api/client";

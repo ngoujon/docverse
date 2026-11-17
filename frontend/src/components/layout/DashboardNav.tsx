@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "../../router";
 import { useTranslation } from "react-i18next";
 import { LayoutDashboard, LogOut, Settings, Shield } from "lucide-react";
 import clsx from "clsx";

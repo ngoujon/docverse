@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Languages, Check } from "lucide-react";
 import clsx from "clsx";
 import { SUPPORTED_LANGUAGES } from "../../i18n";
+import { useHydrated } from "../../hooks/useHydrated";
 
 interface Props {
   /** "dark" is the retro marketing palette, "light" the app surfaces. */
@@ -13,7 +14,10 @@ interface Props {
 export default function LanguageSwitcher({ variant = "light" }: Props) {
   const { i18n } = useTranslation();
   const [open, setOpen] = useState(false);
-  const current = i18n.language?.slice(0, 2) || "fr";
+  // The static HTML is French: show "fr" until hydration is done, then the
+  // visitor's actual language.
+  const hydrated = useHydrated();
+  const current = (hydrated && i18n.language?.slice(0, 2)) || "fr";
 
   const dark = variant === "dark";
 

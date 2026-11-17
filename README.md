@@ -110,7 +110,7 @@ illimitees sur tous les paliers.
 ## Architecture
 
 ```
-frontend (React + Vite)
+frontend (React + Next.js, export statique servi par nginx)
    │  /api  → proxy
    ▼
 backend (FastAPI)
@@ -155,7 +155,7 @@ frontend/src/
 ```
 
 La stack de developpement est decrite dans **`docker-compose.yml`**, avec
-rechargement a chaud. Le frontend tourne avec le serveur de dev Vite
+rechargement a chaud. Le frontend tourne avec le serveur de dev Next.js
 (port **3000**) et le backend avec `uvicorn --reload` : le code source
 est monte en volume, donc modifier un fichier dans `frontend/src` ou
 `backend/app` se repercute immediatement dans le navigateur, **sans
@@ -381,10 +381,13 @@ une panne disque.
 
 ## SEO
 
-Les pages publiques sont prerendues a la construction
-(`frontend/scripts/prerender.mjs`) avec leurs balises meta, Open Graph et
-JSON-LD ; le `sitemap.xml` est genere au meme moment. L'origine utilisee
-pour les URL canoniques vient de `SITE_ORIGIN` ou `VITE_BRAND_DOMAIN`.
+Le frontend est un export statique Next.js (Pages Router, `next build`
+puis `frontend/scripts/postbuild.mjs`) : chaque page publique est ecrite
+en HTML a la construction avec ses balises meta, Open Graph et JSON-LD
+(`frontend/pages/_document.tsx`) ; le `sitemap.xml` est genere au meme
+moment. Les pages de compte et l'espace connecte ont une coquille HTML
+`noindex` et s'affichent dans le navigateur. L'origine utilisee pour les
+URL canoniques vient de `SITE_ORIGIN` ou `VITE_BRAND_DOMAIN`.
 
 ## Developpement sans Docker (optionnel)
 
@@ -413,7 +416,7 @@ Tests et formatage :
 ```bash
 cd backend && python -m pytest          # tests de l'API
 cd frontend && npm run test             # tests unitaires (Vitest)
-cd frontend && npm run build            # typecheck + build + pre-rendu
+cd frontend && npm run build            # typecheck + export statique Next.js (out/)
 cd frontend && npm run format           # formatage Prettier
 ```
 
@@ -439,7 +442,7 @@ cd frontend && npm run format           # formatage Prettier
 - **Mes changements de code n'apparaissent pas** : en mode developpement
   (`docker compose.yml`), aucun rebuild n'est necessaire — verifiez que
   vous etes bien sur http://localhost:3000 et que le conteneur `frontend`
-  tourne (`docker compose logs -f frontend` doit montrer Vite pret). Une
+  tourne (`docker compose logs -f frontend` doit montrer Next.js pret). Une
   image de production, elle, doit etre reconstruite a chaque changement
   puisque le frontend y est compile en dur.
 

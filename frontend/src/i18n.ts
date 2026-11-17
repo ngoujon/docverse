@@ -33,6 +33,14 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
+    // Synchronous init (French ships inline), so the very first render -
+    // the build-time static render as well as the browser's hydration -
+    // already has its strings.
+    initAsync: false,
+    // The static HTML is always rendered in French: the build machine's
+    // own language (Node exposes `navigator.language`) must not leak in.
+    // Browsers keep detecting the visitor's language as before.
+    ...(typeof window === "undefined" ? { lng: "fr" } : {}),
     resources: { fr: { translation: fr } },
     fallbackLng: "fr",
     supportedLngs: SUPPORTED_LANGUAGES.map((l) => l.code),

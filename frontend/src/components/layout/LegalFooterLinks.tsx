@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "../../router";
 import { useTranslation } from "react-i18next";
 
 /** Privacy / terms / legal notice links for pages without the landing

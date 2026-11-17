@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "../../router";
 import { useTranslation } from "react-i18next";
 import {
   Menu,
@@ -9,7 +9,9 @@ import {
   FolderLock,
   FileStack,
   UserCog,
-  Infinity as InfinityIcon,
+  // Not `Infinity as ...`: that export shares the global Infinity's name,
+  // which Next's dev-mode icon import rewriting resolves to undefined.
+  InfinityIcon,
   Globe2,
   ServerCog,
   MapPin,

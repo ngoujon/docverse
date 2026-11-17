@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "../../router";
 import { useTranslation } from "react-i18next";
 import { Ban, CheckCircle2, Eye, EyeOff, History, Pencil, ShieldMinus, ShieldPlus, Star, Trash2 } from "lucide-react";
 import { Badge, IconButton } from "../ui/controls";

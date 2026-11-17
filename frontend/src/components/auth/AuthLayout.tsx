@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "../../router";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, CheckCircle2, XCircle } from "lucide-react";
 import { useTheme } from "../../hooks/useTheme";

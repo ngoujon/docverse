@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "../../router";
 import {
   onConsentChange,
   readConsent,
@@ -12,7 +12,7 @@ import {
  * page when the visitor leaves it. Renders nothing. */
 export default function AnalyticsTracker() {
   const { pathname } = useLocation();
-  // Read on mount rather than at first render: the prerender (entry-server)
+  // Read on mount rather than at first render: the build-time static render
   // has no localStorage, and this keeps the server markup consent-free.
   const [consent, setConsent] = useState<ConsentChoice | null>(null);
 

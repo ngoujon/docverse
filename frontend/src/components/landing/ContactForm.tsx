@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link } from "../../router";
 import { Send, CheckCircle2, AlertCircle } from "lucide-react";
 import { api, errorMessage } from "../../api/client";
 import { useCaptcha } from "../../hooks/useCaptcha";

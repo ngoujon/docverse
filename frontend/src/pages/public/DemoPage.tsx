@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "../../router";
 import { useTranslation } from "react-i18next";
 import { ArrowRight, Info } from "lucide-react";
 import { usePageMeta } from "../../hooks/usePageMeta";

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "../../router";
 import { Loader2 } from "lucide-react";
 import { setUserToken } from "../../api/storage";
 import { useAuth } from "../../hooks/useAuth";

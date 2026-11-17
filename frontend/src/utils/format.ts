@@ -28,8 +28,8 @@ export function formatCount(value: number, locale?: string): string {
   return new Intl.NumberFormat(locale).format(value);
 }
 
-/** Public pages are prerendered to dist/<route>/index.html (see
- * scripts/prerender.mjs), so nginx serves them as directories and
+/** Public pages are exported to out/<route>/index.html (Next.js static
+ * export, trailingSlash), so nginx serves them as directories and
  * 301-redirects /faq to /faq/. The trailing-slash form is therefore the
  * only URL that answers 200: every canonical tag, sitemap entry and
  * internal link has to use it, or crawlers get a canonical pointing at a

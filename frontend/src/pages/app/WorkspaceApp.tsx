@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "../../router";
 import { useTranslation } from "react-i18next";
 import { usePageMeta } from "../../hooks/usePageMeta";
 import { useTheme } from "../../hooks/useTheme";

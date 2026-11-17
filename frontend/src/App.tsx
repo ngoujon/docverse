@@ -1,49 +1,59 @@
-import { Suspense, lazy, useEffect, type ReactNode } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { useEffect, useState, type ReactNode } from "react";
+import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
-import LandingPage from "./pages/public/LandingPage";
-import PrivacyPage from "./pages/public/PrivacyPage";
-import FaqPage from "./pages/public/FaqPage";
-import TermsPage from "./pages/public/TermsPage";
-import LegalNoticePage from "./pages/public/LegalNoticePage";
-import DemoPage from "./pages/public/DemoPage";
-import NotFoundPage from "./pages/public/NotFoundPage";
-import LoginPage from "./pages/auth/LoginPage";
-import RegisterPage from "./pages/auth/RegisterPage";
-import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
-import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
-import NewsletterConfirmPage from "./pages/auth/NewsletterConfirmPage";
-import VerifyEmailPage from "./pages/auth/VerifyEmailPage";
-import OAuthCallbackPage from "./pages/auth/OAuthCallbackPage";
-// Signed-in pages are split out of the main bundle: a visitor landing on
-// the marketing site doesn't download (nor parse) the whole product.
-const WorkspaceApp = lazy(() => import("./pages/app/WorkspaceApp"));
-const DashboardPage = lazy(() => import("./pages/app/DashboardPage"));
-const AdminDashboardPage = lazy(() => import("./pages/app/AdminDashboardPage"));
-const AccountSettingsPage = lazy(() => import("./pages/app/AccountSettingsPage"));
-import ProtectedRoute from "./components/layout/ProtectedRoute";
 import SupportChatWidget from "./components/layout/SupportChatWidget";
 import AnalyticsTracker from "./components/layout/AnalyticsTracker";
 import CookieConsentBanner from "./components/layout/CookieConsentBanner";
 import { analyticsEnabled, isTrackablePath } from "./utils/analytics";
+import { useHeadSink } from "./headSink";
+import { loadLanguage } from "./i18n";
+import { useLocation } from "./router";
 
 // The support widget helps visitors use the site/app - shown on the public
 // marketing pages, not inside the real product (workspace app) where it
 // would just be visual noise on top of the actual tool.
 const SUPPORT_WIDGET_EXCLUDED_PREFIXES = ["/app", "/share"];
 
-/** Signed-in only route (admin only with `adminOnly`). */
-const protect = (page: ReactNode, adminOnly = false) => <ProtectedRoute adminOnly={adminOnly}>{page}</ProtectedRoute>;
+interface Props {
+  children: ReactNode;
+  /** Account and signed-in pages: they need the browser (session, tokens
+   * in the URL), so their static HTML is an empty, noindex shell and they
+   * only render once the visitor's language is loaded - never a flash of
+   * French for a visitor reading another language. */
+  clientOnly?: boolean;
+}
 
-/** Root component: route table plus the global widgets (support chat,
- * audience measurement and its consent banner). */
-export default function App() {
+/** Shell around every page (pages/_app.tsx): the global widgets (support
+ * chat, audience measurement and its consent banner), the <html lang>, and
+ * the visitor's language. */
+export default function App({ children, clientOnly = false }: Props) {
   const { i18n } = useTranslation();
   const location = useLocation();
+  const router = useRouter();
+  const [languageReady, setLanguageReady] = useState(false);
+
+  const headSink = useHeadSink();
+  if (headSink && clientOnly) headSink.noindex = true;
 
   useEffect(() => {
     document.documentElement.lang = i18n.language?.slice(0, 2) || "fr";
   }, [i18n.language]);
+
+  // The static HTML and the hydration render are French. A visitor whose
+  // language is another one gets that one small file, then the page
+  // re-renders in their language.
+  useEffect(() => {
+    const lng = i18n.language;
+    void loadLanguage(lng)
+      .then(async () => {
+        const code = (lng || "fr").slice(0, 2);
+        if (code !== "fr" && i18n.hasResourceBundle(code, "translation")) await i18n.changeLanguage(lng);
+      })
+      .finally(() => setLanguageReady(true));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (clientOnly && !(languageReady && router.isReady)) return null;
 
   const showSupportWidget = !SUPPORT_WIDGET_EXCLUDED_PREFIXES.some((p) => location.pathname.startsWith(p));
   // Only the pages the audience measurement actually covers ask for consent.
@@ -51,31 +61,7 @@ export default function App() {
 
   return (
     <>
-      <Suspense fallback={null}>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/reset-password" element={<ResetPasswordPage />} />
-          <Route path="/newsletter/confirm" element={<NewsletterConfirmPage mode="confirm" />} />
-          <Route path="/newsletter/unsubscribe" element={<NewsletterConfirmPage mode="unsubscribe" />} />
-          <Route path="/verify-email" element={<VerifyEmailPage />} />
-          <Route path="/oauth-callback" element={<OAuthCallbackPage />} />
-          <Route path="/dashboard" element={protect(<DashboardPage />)} />
-          <Route path="/account" element={protect(<AccountSettingsPage />)} />
-          <Route path="/admin" element={protect(<AdminDashboardPage />, true)} />
-          <Route path="/app" element={protect(<WorkspaceApp />)} />
-          <Route path="/app/:spaceId" element={protect(<WorkspaceApp />)} />
-          <Route path="/share/:shareToken" element={protect(<WorkspaceApp />)} />
-          <Route path="/confidentialite" element={<PrivacyPage />} />
-          <Route path="/cgu" element={<TermsPage />} />
-          <Route path="/mentions-legales" element={<LegalNoticePage />} />
-          <Route path="/demo" element={<DemoPage />} />
-          <Route path="/faq" element={<FaqPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </Suspense>
+      {children}
       {showSupportWidget && <SupportChatWidget />}
       <AnalyticsTracker />
       {showConsentBanner && <CookieConsentBanner />}

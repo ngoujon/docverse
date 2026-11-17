@@ -12,26 +12,27 @@
  * leurs preferences - c'est un identifiant technique, pas de la marque.
  */
 
-const env = import.meta.env;
-
+// Each variable is read as a literal `process.env.VITE_...` so Next.js
+// inlines its build-time value (see the `env` list in next.config.mjs);
+// the VITE_ prefix is kept so existing deployment env files still apply.
 export const BRAND = {
   /** Nom commercial affiche partout dans l'interface et les titres de page. */
-  name: env.VITE_BRAND_NAME || "Docverse",
+  name: process.env.VITE_BRAND_NAME || "Docverse",
   /** Domaine public, utilise dans les meta, les liens canoniques et les emails. */
-  domain: env.VITE_BRAND_DOMAIN || "localhost",
+  domain: process.env.VITE_BRAND_DOMAIN || "localhost",
   /** Pays d'hebergement des donnees - argument commercial central. */
-  hostingCountry: env.VITE_HOSTING_COUNTRY || "France",
+  hostingCountry: process.env.VITE_HOSTING_COUNTRY || "France",
   /** Hebergeur, cite dans les mentions legales et la page confidentialite. */
-  hostingProvider: env.VITE_HOSTING_PROVIDER || "OVHcloud",
+  hostingProvider: process.env.VITE_HOSTING_PROVIDER || "OVHcloud",
   /** Fournisseur du modele d'IA, cite dans la page produit. */
-  aiProvider: env.VITE_AI_PROVIDER || "Mistral AI",
+  aiProvider: process.env.VITE_AI_PROVIDER || "Mistral AI",
   /** Optional "site made by" credit in the landing page footer. */
-  creditName: env.VITE_CREDIT_NAME || "",
-  creditUrl: env.VITE_CREDIT_URL || "",
+  creditName: process.env.VITE_CREDIT_NAME || "",
+  creditUrl: process.env.VITE_CREDIT_URL || "",
   /** Legal notice identity (publisher, publication director) - set per
    * deployment, never committed. */
-  legalPublisher: (env.VITE_LEGAL_PUBLISHER || "").replace(/\\n/g, "\n"),
-  legalDirector: (env.VITE_LEGAL_DIRECTOR || "").replace(/\\n/g, "\n"),
+  legalPublisher: (process.env.VITE_LEGAL_PUBLISHER || "").replace(/\\n/g, "\n"),
+  legalDirector: (process.env.VITE_LEGAL_DIRECTOR || "").replace(/\\n/g, "\n"),
 } as const;
 
 /** Titre de page normalise : "Section - Marque". */

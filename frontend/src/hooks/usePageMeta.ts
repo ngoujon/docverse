@@ -1,8 +1,9 @@
 /** Per-route <head> management: title, description, canonical, robots and
  * JSON-LD structured data - both in the browser and during the build-time
- * prerender (scripts/prerender.mjs), where effects never run. */
+ * static render (pages/_document.tsx), where effects never run. */
 
 import { useEffect } from "react";
+import { useHeadSink } from "../headSink";
 import { withTrailingSlash } from "../utils/format";
 
 interface PageMeta {
@@ -12,21 +13,11 @@ interface PageMeta {
   noindex?: boolean;
 }
 
-/** Set by the build-time prerender script (see scripts/prerender.mjs) right
- * before rendering a given route, so usePageMeta can report the page's real
- * title/description synchronously during that one-shot server render -
- * useEffect never runs there. Stays null in the browser bundle, so this is
- * a no-op for every normal client render. */
-let ssrMetaSink: PageMeta | null = null;
-export function __setSSRMetaSink(sink: PageMeta | null) {
-  ssrMetaSink = sink;
-}
-
 /** Beyond the document title, keeps <meta name="description"> and
  * <link rel="canonical"> accurate per route for the handful of pages that
- * are actually meant to be indexed (the SPA ships a single static
- * index.html, so without this every route would report the homepage's
- * canonical URL and description to crawlers that execute JS). Restores
+ * are actually meant to be indexed (in-app navigation swaps pages without
+ * reloading the HTML, so without this the <head> would keep reporting the
+ * first page's canonical URL and description). Restores
  * the previous values on unmount so navigating back to another page
  * doesn't leak this page's meta. */
 export function usePageMeta({ title, description, canonicalPath: rawCanonicalPath, noindex }: PageMeta) {
@@ -34,6 +25,9 @@ export function usePageMeta({ title, description, canonicalPath: rawCanonicalPat
   // declare a canonical URL that nginx would redirect.
   const canonicalPath =
     rawCanonicalPath && !rawCanonicalPath.startsWith("http") ? withTrailingSlash(rawCanonicalPath) : rawCanonicalPath;
+  // Build-time static render only (see headSink.ts): report this page's
+  // meta so pages/_document.tsx writes it into the HTML <head>.
+  const ssrMetaSink = useHeadSink();
   if (ssrMetaSink) {
     ssrMetaSink.title = title;
     ssrMetaSink.description = description;
@@ -95,33 +89,24 @@ export function usePageMeta({ title, description, canonicalPath: rawCanonicalPat
 
 // --- Structured data (JSON-LD) ----------------------------------------------
 
-/** Set by the build-time prerender script (see scripts/prerender.mjs)
- * right before rendering a given route, mirroring usePageMeta's
- * __setSSRMetaSink: useEffect never runs during that one-shot static
- * render, so without this a page's JSON-LD (e.g. FaqPage's FAQPage
- * schema) would only ever reach a browser that executes JS - never a
- * crawler reading the prerendered HTML directly. Stays null in the
- * browser bundle, so this is a no-op for every normal client render. */
-let ssrJsonLdSink: object[] | null = null;
-export function __setSSRJsonLdSink(sink: object[] | null) {
-  ssrJsonLdSink = sink;
-}
-
 /** Injects a <script type="application/ld+json"> tag for the lifetime of
  * the calling page and removes it on unmount - lets an individual route
  * carry its own structured data (e.g. FAQPage) without touching the
- * static SoftwareApplication schema in index.html. */
+ * static SoftwareApplication schema in pages/_document.tsx. */
 export function useJsonLd(data: object) {
   const json = JSON.stringify(data);
 
-  if (ssrJsonLdSink) {
-    ssrJsonLdSink.push(data);
+  // Build-time static render: the JSON-LD is baked into the HTML <head>
+  // (pages/_document.tsx), so a crawler that doesn't run JS sees it too.
+  const ssrSink = useHeadSink();
+  if (ssrSink) {
+    ssrSink.jsonLd.push(data);
   }
 
   useEffect(() => {
-    // scripts/prerender.mjs already bakes this exact tag into <head> for
-    // prerendered routes (data-prerendered marks those) - reuse it instead
-    // of appending a duplicate right after hydration.
+    // The static HTML already carries this exact tag for prerendered
+    // routes (data-prerendered marks those) - reuse it instead of
+    // appending a duplicate right after hydration.
     const alreadyPrerendered = Array.from(
       document.head.querySelectorAll('script[type="application/ld+json"][data-prerendered]'),
     ).some((el) => el.textContent === json);

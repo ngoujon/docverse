@@ -7,8 +7,8 @@
  * workspace app, whose paths carry space identifiers.
  */
 
-const ENDPOINT: string = import.meta.env.VITE_ANALYTICS_ENDPOINT || "";
-const SITE_KEY: string = import.meta.env.VITE_ANALYTICS_SITE_KEY || "";
+const ENDPOINT: string = process.env.VITE_ANALYTICS_ENDPOINT || "";
+const SITE_KEY: string = process.env.VITE_ANALYTICS_SITE_KEY || "";
 
 export const analyticsEnabled = Boolean(ENDPOINT && SITE_KEY);
 

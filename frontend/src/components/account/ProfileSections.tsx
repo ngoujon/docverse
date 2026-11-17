@@ -1,6 +1,6 @@
 /** Account settings: profile, usage, GDPR export and account deletion. */
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "../../router";
 import { useTranslation } from "react-i18next";
 import { BadgeCheck, BadgeX, Download, HardDrive, KeyRound, Mail, Scale, Trash2 } from "lucide-react";
 import { api, downloadBlob } from "../../api/client";

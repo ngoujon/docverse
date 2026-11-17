@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "../../router";
 import { Plus, ArrowLeft, LogOut } from "lucide-react";
 import clsx from "clsx";
 import type { Space } from "../../types";
