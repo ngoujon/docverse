@@ -119,4 +119,5 @@ async def support_chat(payload: schemas.SupportChatRequest, request: Request):
                     db.close()
         yield llm_provider.sse_event({"type": "done"})
 
-    return StreamingResponse(event_stream(), media_type="text/event-stream")
+    return StreamingResponse(event_stream(), media_type="text/event-stream",
+                             headers=llm_provider.SSE_HEADERS)

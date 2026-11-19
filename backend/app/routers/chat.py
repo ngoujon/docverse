@@ -221,4 +221,5 @@ async def chat(
             # generated so far if we get here via cancellation instead.
             persist()
 
-    return StreamingResponse(event_stream(), media_type="text/event-stream")
+    return StreamingResponse(event_stream(), media_type="text/event-stream",
+                             headers=llm_provider.SSE_HEADERS)

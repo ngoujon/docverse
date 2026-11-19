@@ -85,6 +85,13 @@ def sse_event(event: dict) -> str:
     return f"data: {json.dumps(event, ensure_ascii=False)}\n\n"
 
 
+# En-tetes des reponses en streaming. X-Accel-Buffering: no demande a tout
+# nginx place devant (le nginx systeme du VPS, qui bufferise par defaut)
+# de transmettre chaque token tout de suite au lieu d'attendre la fin de la
+# reponse. Le nginx du conteneur frontend le laisse passer (proxy_pass_header).
+SSE_HEADERS = {"X-Accel-Buffering": "no"}
+
+
 # --- HTTP plumbing ------------------------------------------------------------
 
 
