@@ -1,6 +1,7 @@
 """Documents of a space: listing, file upload / URL ingestion (processed in
 a background task: extract -> chunk -> embed -> index) and deletion."""
 
+import asyncio
 import logging
 
 from fastapi import APIRouter, BackgroundTasks, Depends, File, HTTPException, UploadFile
@@ -29,7 +30,41 @@ def list_documents(
     )
 
 
+# Each running ingestion keeps a database connection for its whole duration
+# (extraction + Mistral calls). Dropping 20 files at once used to start 20
+# ingestions together, exhaust the connection pool (5 + 10 overflow) and
+# make every other request of the app wait 30 s then fail with a 500.
+# Ingestions now queue up: only a few run at the same time, the others stay
+# "pending" until a slot is free.
+_INGEST_SLOTS = asyncio.Semaphore(3)
+
+
 async def _ingest(document_id: str) -> None:
+    async with _INGEST_SLOTS:
+        try:
+            await _ingest_one(document_id)
+        except Exception:  # noqa: BLE001
+            # A failure before the pipeline's own error handling (database
+            # unavailable...) must not leave the document "pending" forever.
+            logger.exception("Echec de l'ingestion du document %s", document_id)
+            _mark_failed(document_id, "L'indexation a échoué, réessayez plus tard.")
+
+
+def _mark_failed(document_id: str, message: str) -> None:
+    db = SessionLocal()
+    try:
+        doc = db.get(models.Document, document_id)
+        if doc is not None and doc.status in ("pending", "processing"):
+            doc.status = "error"
+            doc.error_message = message
+            db.commit()
+    except Exception:  # noqa: BLE001
+        logger.exception("Impossible de marquer le document %s en erreur", document_id)
+    finally:
+        db.close()
+
+
+async def _ingest_one(document_id: str) -> None:
     """Background pipeline for one document; any failure is stored on the
     row (status="error") so the UI can show it instead of spinning forever."""
     db = SessionLocal()
