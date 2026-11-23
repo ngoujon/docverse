@@ -1249,7 +1249,15 @@
       "statusReady_other": "{{count}} chunks",
       "statusPending": "Pending",
       "statusProcessing": "Analyzing...",
-      "statusError": "Error"
+      "statusError": "Error",
+      "view": "View {{name}}",
+      "viewTitle": "Open in a new tab",
+      "viewError": "This document could not be opened. Close this tab and try again from the workspace.",
+      "rename": "Rename {{name}}",
+      "renameTitle": "Rename",
+      "renameLabel": "New document name",
+      "renameSave": "Save name",
+      "renameCancel": "Cancel"
     },
     "spaceModal": {
       "editTitle": "Edit space",
@@ -1283,7 +1291,10 @@
       "membersHelp": "Add a user who already has an account: they can always chat, and upload files if you allow it.",
       "emailPlaceholder": "email@example.com",
       "addMember": "Add",
-      "noMembers": "No members yet."
+      "noMembers": "No members yet.",
+      "canRename": "Can rename",
+      "cannotRename": "Cannot rename",
+      "renameToggleHelp": "Allow or block this member from renaming the workspace's documents"
     },
     "confirmDeleteSpace": {
       "title": "Delete this space?",

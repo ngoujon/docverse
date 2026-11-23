@@ -309,6 +309,36 @@ export default function WorkspaceApp() {
     }
   };
 
+  // ---- Viewing / renaming documents ----
+  const handleViewDocument = async (doc: DocumentItem) => {
+    if (doc.doc_type === "url") {
+      // Only real web links: a stored "javascript:" URL must never run here.
+      if (doc.source_url && /^https?:\/\//i.test(doc.source_url)) {
+        window.open(doc.source_url, "_blank", "noopener,noreferrer");
+      }
+      return;
+    }
+    // Opened right away, inside the click, so the popup blocker lets it
+    // through; it is pointed at the file once the link is ready.
+    const tab = window.open("", "_blank");
+    if (!tab) return;
+    tab.opener = null;
+    try {
+      const { url } = await api.documentViewLink(doc.id, shareToken);
+      if (!url.startsWith("/api/documents/")) throw new Error("Lien inattendu");
+      tab.location.href = new URL(url, window.location.origin).href;
+    } catch (err) {
+      console.error("Echec de l'ouverture du document", err);
+      tab.document.title = doc.name;
+      tab.document.body.textContent = t("app.documents.viewError");
+    }
+  };
+
+  const handleRenameDocument = async (id: string, name: string) => {
+    const updated = await api.renameDocument(id, name, shareToken);
+    setDocuments((prev) => prev.map((d) => (d.id === id ? updated : d)));
+  };
+
   // ---- Deletion (behind the confirmation dialog) ----
   const handleConfirmDelete = async () => {
     if (!pendingDelete) return;
@@ -410,6 +440,9 @@ export default function WorkspaceApp() {
                   onUpload={handleUpload}
                   onIngestUrl={handleIngestUrl}
                   onDelete={(id) => setPendingDelete({ kind: "document", id })}
+                  onView={handleViewDocument}
+                  onRename={handleRenameDocument}
+                  canRename={activeSpace?.can_rename ?? false}
                   onClose={() => setDocPanelOpen(false)}
                   readOnly={!canUpload}
                 />

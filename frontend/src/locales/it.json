@@ -1249,7 +1249,15 @@
       "statusReady_other": "{{count}} estratti",
       "statusPending": "In attesa",
       "statusProcessing": "Analisi in corso...",
-      "statusError": "Errore"
+      "statusError": "Errore",
+      "view": "Visualizza {{name}}",
+      "viewTitle": "Apri in una nuova scheda",
+      "viewError": "Impossibile aprire questo documento. Chiudi questa scheda e riprova dallo spazio.",
+      "rename": "Rinomina {{name}}",
+      "renameTitle": "Rinomina",
+      "renameLabel": "Nuovo nome del documento",
+      "renameSave": "Salva il nome",
+      "renameCancel": "Annulla"
     },
     "spaceModal": {
       "editTitle": "Modifica spazio",
@@ -1283,7 +1291,10 @@
       "membersHelp": "Aggiungi un utente che ha già un account: potrà sempre chattare e caricare file se glielo consenti.",
       "emailPlaceholder": "email@esempio.com",
       "addMember": "Aggiungi",
-      "noMembers": "Ancora nessun membro."
+      "noMembers": "Ancora nessun membro.",
+      "canRename": "Può rinominare",
+      "cannotRename": "Non può rinominare",
+      "renameToggleHelp": "Consenti o meno a questo membro di rinominare i documenti dello spazio"
     },
     "confirmDeleteSpace": {
       "title": "Eliminare questo spazio?",

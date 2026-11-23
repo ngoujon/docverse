@@ -13,9 +13,13 @@ import {
   AlertCircle,
   Clock,
   X,
+  Eye,
+  Pencil,
+  Check,
   type LucideIcon,
 } from "lucide-react";
 import clsx from "clsx";
+import { errorMessage } from "../../api/client";
 import { formatBytes } from "../../utils/format";
 import type { DocumentItem } from "../../types";
 
@@ -24,8 +28,78 @@ interface Props {
   onUpload: (files: File[]) => void;
   onIngestUrl: (url: string) => void;
   onDelete: (id: string) => void;
+  onView: (doc: DocumentItem) => void;
+  onRename: (id: string, name: string) => Promise<void>;
+  canRename?: boolean;
   onClose?: () => void;
   readOnly?: boolean;
+}
+
+const iconButton =
+  "shrink-0 rounded p-1 text-slate-500 dark:text-slate-400 hover:bg-surface-3 hover:text-slate-800 dark:hover:text-slate-100";
+
+/** Inline name editor: Enter saves, Escape cancels. */
+function RenameField({
+  initial,
+  onSave,
+  onCancel,
+}: {
+  initial: string;
+  onSave: (name: string) => Promise<void>;
+  onCancel: () => void;
+}) {
+  const { t } = useTranslation();
+  const [value, setValue] = useState(initial);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const save = async () => {
+    const name = value.trim();
+    if (!name || name === initial) return onCancel();
+    setSaving(true);
+    setError(null);
+    try {
+      await onSave(name);
+    } catch (err) {
+      setError(errorMessage(err));
+      setSaving(false);
+    }
+  };
+
+  return (
+    <div className="min-w-0 flex-1">
+      <div className="flex items-center gap-1">
+        <input
+          autoFocus
+          value={value}
+          maxLength={200}
+          disabled={saving}
+          aria-label={t("app.documents.renameLabel")}
+          onChange={(e) => setValue(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") save();
+            if (e.key === "Escape") {
+              e.stopPropagation();
+              onCancel();
+            }
+          }}
+          className="min-w-0 flex-1 rounded border border-surface-border bg-surface-1 px-1.5 py-0.5 text-xs text-slate-900 dark:text-slate-100 outline-none focus:border-accent"
+        />
+        <button onClick={save} disabled={saving} aria-label={t("app.documents.renameSave")} className={iconButton}>
+          {saving ? <Loader2 size={13} className="animate-spin" /> : <Check size={13} />}
+        </button>
+        <button
+          onClick={onCancel}
+          disabled={saving}
+          aria-label={t("app.documents.renameCancel")}
+          className={iconButton}
+        >
+          <X size={13} />
+        </button>
+      </div>
+      {error && <p className="mt-0.5 text-[10px] text-red-500">{error}</p>}
+    </div>
+  );
 }
 
 const ICONS: Record<DocumentItem["doc_type"], LucideIcon> = {
@@ -63,9 +137,20 @@ const ACCEPTED_FILES = {
 
 /** Right-hand panel: drop zone / URL import and the space's documents with
  * their indexing status. */
-export default function DocumentPanel({ documents, onUpload, onIngestUrl, onDelete, onClose, readOnly }: Props) {
+export default function DocumentPanel({
+  documents,
+  onUpload,
+  onIngestUrl,
+  onDelete,
+  onView,
+  onRename,
+  canRename,
+  onClose,
+  readOnly,
+}: Props) {
   const { t } = useTranslation();
   const [urlInput, setUrlInput] = useState("");
+  const [renamingId, setRenamingId] = useState<string | null>(null);
 
   const onDrop = useCallback(
     (accepted: File[]) => {
@@ -150,6 +235,24 @@ export default function DocumentPanel({ documents, onUpload, onIngestUrl, onDele
         <div className="space-y-1.5">
           {documents.map((doc) => {
             const Icon = ICONS[doc.doc_type] || FileText;
+            const indexing = doc.status === "pending" || doc.status === "processing";
+            if (renamingId === doc.id) {
+              return (
+                <div key={doc.id} className="rounded-lg border border-accent bg-surface-2 px-2.5 py-2">
+                  <div className="flex items-start gap-2">
+                    <Icon size={14} className="mt-1 shrink-0 text-slate-500 dark:text-slate-400" />
+                    <RenameField
+                      initial={doc.name}
+                      onCancel={() => setRenamingId(null)}
+                      onSave={async (name) => {
+                        await onRename(doc.id, name);
+                        setRenamingId(null);
+                      }}
+                    />
+                  </div>
+                </div>
+              );
+            }
             return (
               <div
                 key={doc.id}
@@ -170,6 +273,24 @@ export default function DocumentPanel({ documents, onUpload, onIngestUrl, onDele
                       <p className="mt-0.5 line-clamp-2 text-[10px] text-red-500">{doc.error_message}</p>
                     )}
                   </div>
+                  <button
+                    onClick={() => onView(doc)}
+                    aria-label={t("app.documents.view", { name: doc.name })}
+                    title={t("app.documents.viewTitle")}
+                    className={iconButton}
+                  >
+                    <Eye size={13} />
+                  </button>
+                  {canRename && !indexing && (
+                    <button
+                      onClick={() => setRenamingId(doc.id)}
+                      aria-label={t("app.documents.rename", { name: doc.name })}
+                      title={t("app.documents.renameTitle")}
+                      className={iconButton}
+                    >
+                      <Pencil size={13} />
+                    </button>
+                  )}
                   {!readOnly && (
                     <button
                       onClick={() => onDelete(doc.id)}

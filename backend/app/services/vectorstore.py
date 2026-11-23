@@ -128,6 +128,22 @@ def first_chunks(space_id: str, doc_ids: list[str]) -> dict[str, dict]:
     return out
 
 
+def rename_document(space_id: str, doc_id: str, new_name: str) -> None:
+    """Rewrites `doc_name` on every chunk of one document, so citations
+    and the knowledge graph show the new name. Only that document's chunks
+    in that space's collection are touched; the full metadata dicts are
+    written back (no reliance on Chroma merging partial updates)."""
+    collection = get_collection(space_id)
+    if collection.count() == 0:
+        return
+    result = collection.get(where={"doc_id": doc_id}, include=["metadatas"])
+    ids = result.get("ids") or []
+    if not ids:
+        return
+    metadatas = [{**(meta or {}), "doc_name": new_name} for meta in result.get("metadatas") or []]
+    collection.update(ids=ids, metadatas=metadatas)
+
+
 def delete_document(space_id: str, doc_id: str) -> None:
     collection = get_collection(space_id)
     try:

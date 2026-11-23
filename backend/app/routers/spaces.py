@@ -25,14 +25,23 @@ def list_my_spaces(
     that's a deliberate privacy default; see /api/admin/spaces."""
     owned = db.query(models.Space).filter_by(owner_id=user.id).all()
     member_rows = db.query(models.SpaceMember).filter_by(user_id=user.id).all()
-    member_upload = {m.space_id: m.can_upload for m in member_rows}
+    member_by_space = {m.space_id: m for m in member_rows}
     members_spaces_objs = (
-        db.query(models.Space).filter(models.Space.id.in_(member_upload.keys())).all()
-        if member_upload
+        db.query(models.Space).filter(models.Space.id.in_(member_by_space.keys())).all()
+        if member_by_space
         else []
     )
-    out = [schemas.SpaceOut.from_space(s, "owner", can_upload=True) for s in owned]
-    out += [schemas.SpaceOut.from_space(s, "member", can_upload=member_upload[s.id]) for s in members_spaces_objs]
+    is_admin = user.role == "admin"
+    out = [schemas.SpaceOut.from_space(s, "owner", can_upload=True, can_rename=True) for s in owned]
+    out += [
+        schemas.SpaceOut.from_space(
+            s,
+            "member",
+            can_upload=member_by_space[s.id].can_upload,
+            can_rename=bool(member_by_space[s.id].can_rename) or is_admin,
+        )
+        for s in members_spaces_objs
+    ]
     out.sort(key=lambda s: s.created_at, reverse=True)
     return out
 
@@ -56,7 +65,7 @@ def create_space(
     db.add(space)
     db.commit()
     db.refresh(space)
-    return schemas.SpaceOut.from_space(space, "owner", can_upload=True)
+    return schemas.SpaceOut.from_space(space, "owner", can_upload=True, can_rename=True)
 
 
 @router.get("/by-share/{token}", response_model=schemas.SpaceOut)
@@ -79,7 +88,9 @@ def get_space_by_share_token(token: str, db: Session = Depends(get_db)):
 
 @router.get("/{space_id}", response_model=schemas.SpaceOut)
 def get_space(access: SpaceAccess = Depends(require_space_access)):
-    return schemas.SpaceOut.from_space(access.space, access.role, can_upload=access.can_upload)
+    return schemas.SpaceOut.from_space(
+        access.space, access.role, can_upload=access.can_upload, can_rename=access.can_rename
+    )
 
 
 @router.get("/{space_id}/vector-graph", response_model=schemas.VectorGraphOut)
@@ -132,7 +143,7 @@ def update_space(
         space.color = payload.color
     db.commit()
     db.refresh(space)
-    return schemas.SpaceOut.from_space(space, "owner", can_upload=True)
+    return schemas.SpaceOut.from_space(space, "owner", can_upload=True, can_rename=True)
 
 
 @router.delete("/{space_id}")
@@ -217,6 +228,27 @@ def add_member(
         mailer.send_later(
             background_tasks, target.email, mailer.space_member_added_email(inviter, access.space.name, app_url)
         )
+    return schemas.SpaceMemberOut.from_member(member)
+
+
+@router.patch("/{space_id}/members/{member_id}", response_model=schemas.SpaceMemberOut)
+def update_member(
+    member_id: str,
+    payload: schemas.SpaceMemberUpdate,
+    access: SpaceAccess = Depends(require_space_owner),
+    db: Session = Depends(get_db),
+):
+    member = db.get(models.SpaceMember, member_id)
+    # The member must belong to the space the owner controls - an id from
+    # another space is reported as missing, never touched.
+    if not member or member.space_id != access.space.id:
+        raise HTTPException(404, "Membre introuvable")
+    if payload.can_upload is not None:
+        member.can_upload = payload.can_upload
+    if payload.can_rename is not None:
+        member.can_rename = payload.can_rename
+    db.commit()
+    db.refresh(member)
     return schemas.SpaceMemberOut.from_member(member)
 
 

@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { Check, Copy, Plus, Trash2, Upload, UserPlus } from "lucide-react";
+import { Check, Copy, Pencil, Plus, Trash2, Upload, UserPlus } from "lucide-react";
 import clsx from "clsx";
 import { api, errorMessage } from "../../api/client";
 import { formatBytes } from "../../utils/format";
@@ -25,6 +25,28 @@ function UploadBadge({ canUpload }: { canUpload: boolean }) {
     <Badge tone={canUpload ? "accent" : "muted"} icon={canUpload ? <Upload size={10} /> : null}>
       {canUpload ? t("app.sharing.canUpload") : t("app.sharing.chatOnly")}
     </Badge>
+  );
+}
+
+/** Owner's switch for one member's right to rename documents (off by default). */
+function RenameToggle({ allowed, onToggle }: { allowed: boolean; onToggle: () => void }) {
+  const { t } = useTranslation();
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      aria-pressed={allowed}
+      title={t("app.sharing.renameToggleHelp")}
+      className={clsx(
+        "flex shrink-0 items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-medium transition-colors",
+        allowed
+          ? "border-accent/40 bg-accent/10 text-accent"
+          : "border-surface-border text-slate-500 dark:text-slate-400 hover:bg-surface-3",
+      )}
+    >
+      <Pencil size={10} />
+      {allowed ? t("app.sharing.canRename") : t("app.sharing.cannotRename")}
+    </button>
   );
 }
 
@@ -130,6 +152,16 @@ export default function SpaceSharingPanel({ open, space, onClose }: Props) {
     await api.removeMember(space.id, id);
     setMembers((prev) => prev.filter((m) => m.id !== id));
     refreshStats();
+  };
+
+  const handleToggleRename = async (member: SpaceMember) => {
+    setMemberError(null);
+    try {
+      const updated = await api.updateMember(space.id, member.id, { can_rename: !member.can_rename });
+      setMembers((prev) => prev.map((m) => (m.id === updated.id ? updated : m)));
+    } catch (err) {
+      setMemberError(errorMessage(err));
+    }
   };
 
   const handleCreateLink = async () => {
@@ -272,6 +304,7 @@ export default function SpaceSharingPanel({ open, space, onClose }: Props) {
                   <span className="min-w-0 flex-1 truncate text-xs text-slate-700 dark:text-slate-300">
                     {m.display_name || m.email}
                   </span>
+                  <RenameToggle allowed={m.can_rename} onToggle={() => handleToggleRename(m)} />
                   <DeleteButton onClick={() => handleRemoveMember(m.id)} />
                 </div>
               ))}

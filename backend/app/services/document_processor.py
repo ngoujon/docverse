@@ -9,6 +9,7 @@ import ipaddress
 import logging
 import re
 import socket
+import unicodedata
 from functools import lru_cache
 from pathlib import Path
 from urllib.parse import urlparse
@@ -283,6 +284,59 @@ async def process_document(
         raise ValueError(f"Type de document non supporté: {doc_type}")
     assert file_path is not None
     return file_path.name, await extractor(file_path)
+
+
+_MAX_DOCUMENT_NAME = 200
+
+
+def clean_document_name(name: str | None) -> str:
+    """Display name of a document, safe to show and to put in the AI
+    prompt (the space inventory lists every name): control characters and
+    line breaks are removed so a name can't fake extra prompt lines,
+    whitespace is collapsed and the length capped. Returns "" when nothing
+    usable is left - the caller decides the fallback."""
+    if not name:
+        return ""
+    kept = "".join(" " if unicodedata.category(ch).startswith("C") else ch for ch in name)
+    return " ".join(kept.split())[:_MAX_DOCUMENT_NAME].strip()
+
+
+# MIME types the viewer may hand to the browser, keyed by the stored file's
+# extension. Text formats are always served as plain text and HTML/SVG
+# never appear here, so an uploaded file can't run script in the browser.
+# Anything else (docx...) is offered as a download instead of displayed.
+_VIEWABLE_MIME_TYPES = {
+    ".pdf": "application/pdf",
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".webp": "image/webp",
+    ".gif": "image/gif",
+    ".bmp": "image/bmp",
+    ".txt": "text/plain; charset=utf-8",
+    ".md": "text/plain; charset=utf-8",
+    ".csv": "text/plain; charset=utf-8",
+    ".json": "text/plain; charset=utf-8",
+    ".log": "text/plain; charset=utf-8",
+    ".mp3": "audio/mpeg",
+    ".wav": "audio/wav",
+    ".m4a": "audio/mp4",
+    ".ogg": "audio/ogg",
+    ".flac": "audio/flac",
+    ".webm": "audio/webm",
+}
+
+_DOWNLOAD_MIME_TYPES = {
+    ".docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+}
+
+
+def viewer_media_type(filename: str) -> tuple[str, bool]:
+    """(media type, shown inline?) for serving a stored upload."""
+    ext = Path(filename).suffix.lower()
+    if ext in _VIEWABLE_MIME_TYPES:
+        return _VIEWABLE_MIME_TYPES[ext], True
+    return _DOWNLOAD_MIME_TYPES.get(ext, "application/octet-stream"), False
 
 
 def guess_doc_type(filename: str) -> str:

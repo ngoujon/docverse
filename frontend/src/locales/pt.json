@@ -1249,7 +1249,15 @@
       "statusReady_other": "{{count}} fragmentos",
       "statusPending": "Pendente",
       "statusProcessing": "A analisar...",
-      "statusError": "Erro"
+      "statusError": "Erro",
+      "view": "Ver {{name}}",
+      "viewTitle": "Abrir num novo separador",
+      "viewError": "Não foi possível abrir este documento. Feche este separador e tente novamente a partir do espaço.",
+      "rename": "Mudar o nome de {{name}}",
+      "renameTitle": "Mudar o nome",
+      "renameLabel": "Novo nome do documento",
+      "renameSave": "Guardar o nome",
+      "renameCancel": "Cancelar"
     },
     "spaceModal": {
       "editTitle": "Editar espaço",
@@ -1283,7 +1291,10 @@
       "membersHelp": "Adicione um utilizador que já tenha conta: poderá sempre conversar, e enviar ficheiros se lho permitir.",
       "emailPlaceholder": "email@exemplo.com",
       "addMember": "Adicionar",
-      "noMembers": "Ainda sem membros."
+      "noMembers": "Ainda sem membros.",
+      "canRename": "Pode mudar o nome",
+      "cannotRename": "Não pode mudar o nome",
+      "renameToggleHelp": "Permitir ou não que este membro mude o nome dos documentos do espaço"
     },
     "confirmDeleteSpace": {
       "title": "Eliminar este espaço?",

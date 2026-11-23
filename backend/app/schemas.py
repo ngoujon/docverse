@@ -151,14 +151,17 @@ class SpaceOut(ORMModel):
     owner_id: str
     my_role: str = "member"  # owner | member | admin_view, resolved per-request
     can_upload: bool = False
+    can_rename: bool = False
     created_at: datetime
     document_count: int = 0
     conversation_count: int = 0
 
     @classmethod
-    def from_space(cls, space: Any, role: str, can_upload: bool = False) -> "SpaceOut":
-        """`role`/`can_upload` depend on who is asking, so they're resolved
-        per request rather than stored on the row."""
+    def from_space(
+        cls, space: Any, role: str, can_upload: bool = False, can_rename: bool = False
+    ) -> "SpaceOut":
+        """`role`/`can_upload`/`can_rename` depend on who is asking, so
+        they're resolved per request rather than stored on the row."""
         return cls(
             id=space.id,
             name=space.name,
@@ -167,6 +170,7 @@ class SpaceOut(ORMModel):
             owner_id=space.owner_id,
             my_role=role,
             can_upload=can_upload,
+            can_rename=can_rename,
             created_at=space.created_at,
             document_count=len(space.documents),
             conversation_count=len(space.conversations),
@@ -186,6 +190,7 @@ class SpaceMemberOut(BaseModel):
     email: str
     display_name: str
     can_upload: bool
+    can_rename: bool = False
     created_at: datetime
 
     @classmethod
@@ -196,8 +201,17 @@ class SpaceMemberOut(BaseModel):
             email=member.user.email,
             display_name=member.user.display_name,
             can_upload=member.can_upload,
+            can_rename=bool(member.can_rename),
             created_at=member.created_at,
         )
+
+
+class SpaceMemberUpdate(BaseModel):
+    """Owner-only change of one member's permissions; omitted fields are
+    left as they are."""
+
+    can_upload: Optional[bool] = None
+    can_rename: Optional[bool] = None
 
 
 class ShareLinkCreate(BaseModel):
@@ -406,6 +420,14 @@ class DocumentOut(ORMModel):
 
 
 class UrlIngestRequest(BaseModel):
+    url: str
+
+
+class DocumentRename(BaseModel):
+    name: str = Field(min_length=1, max_length=500)
+
+
+class DocumentViewLinkOut(BaseModel):
     url: str
 
 

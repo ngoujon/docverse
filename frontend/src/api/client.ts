@@ -265,6 +265,11 @@ export const api = {
       method: "POST",
       body: JSON.stringify({ email, can_upload: canUpload }),
     }),
+  updateMember: (spaceId: string, memberId: string, patch: Partial<Pick<SpaceMember, "can_upload" | "can_rename">>) =>
+    request<SpaceMember>(`/spaces/${spaceId}/members/${memberId}`, {
+      method: "PATCH",
+      body: JSON.stringify(patch),
+    }),
   removeMember: (spaceId: string, memberId: string) =>
     request(`/spaces/${spaceId}/members/${memberId}`, { method: "DELETE" }),
 
@@ -326,6 +331,12 @@ export const api = {
       shareToken,
     ),
   deleteDocument: (id: string, shareToken?: string) => request(`/documents/${id}`, { method: "DELETE" }, shareToken),
+  renameDocument: (id: string, name: string, shareToken?: string) =>
+    request<DocumentItem>(`/documents/${id}`, { method: "PATCH", body: JSON.stringify({ name }) }, shareToken),
+  /** Short-lived same-origin link to the original file (a new tab can't
+   * send the Authorization header). */
+  documentViewLink: (id: string, shareToken?: string) =>
+    request<{ url: string }>(`/documents/${id}/view-link`, { method: "POST" }, shareToken),
 
   submitContact: (data: {
     name: string;

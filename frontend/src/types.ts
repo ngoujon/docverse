@@ -11,6 +11,8 @@ export interface Space {
   owner_id: string;
   my_role: SpaceRole;
   can_upload: boolean;
+  /** Owner and platform admin always; members only when granted. */
+  can_rename: boolean;
   created_at: string;
   document_count: number;
   conversation_count: number;
@@ -244,6 +246,7 @@ export interface SpaceMember {
   email: string;
   display_name: string;
   can_upload: boolean;
+  can_rename: boolean;
   created_at: string;
 }
 

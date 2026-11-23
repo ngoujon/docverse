@@ -80,6 +80,7 @@ class SpaceAccess:
     role: str  # "owner" | "member" | "admin_view"
     user: Optional[models.User]
     can_upload: bool = False
+    can_rename: bool = False
     conversation: Optional[models.Conversation] = None
     document: Optional[models.Document] = None
 
@@ -103,6 +104,10 @@ class SpaceAccess:
         if not self.can_upload:
             raise HTTPException(403, "Vous n'avez pas la permission de gérer les documents de cet espace")
 
+    def require_rename(self) -> None:
+        if not self.can_rename:
+            raise HTTPException(403, "Vous n'avez pas la permission de renommer les documents de cet espace")
+
 
 def _resolve_role(
     space: models.Space,
@@ -111,11 +116,16 @@ def _resolve_role(
     db: Session,
 ) -> SpaceAccess:
     if user:
+        # The platform admin may rename documents in any space, whatever
+        # their seat in it - but that grants no other write right.
+        is_admin = user.role == "admin"
         if space.owner_id == user.id:
-            return SpaceAccess(space, "owner", user, can_upload=True)
+            return SpaceAccess(space, "owner", user, can_upload=True, can_rename=True)
         member = db.query(models.SpaceMember).filter_by(space_id=space.id, user_id=user.id).first()
         if member:
-            return SpaceAccess(space, "member", user, can_upload=member.can_upload)
+            return SpaceAccess(
+                space, "member", user, can_upload=member.can_upload, can_rename=bool(member.can_rename) or is_admin
+            )
         # A share link grants access, but only to a signed-in visitor - an
         # anonymous seat doesn't count against the owner's member quota
         # (config.FREE_QUOTAS) and would make member limits meaningless.
@@ -129,12 +139,12 @@ def _resolve_role(
                 and not link.revoked
                 and (not link.expires_at or link.expires_at > datetime.utcnow())
             ):
-                return SpaceAccess(space, "member", user, can_upload=link.can_upload)
-        if user.role == "admin":
+                return SpaceAccess(space, "member", user, can_upload=link.can_upload, can_rename=is_admin)
+        if is_admin:
             # Admins can see any space from the admin dashboard, but that
             # doesn't imply chat/edit rights over content they don't own or
-            # aren't a member of.
-            return SpaceAccess(space, "admin_view", user, can_upload=False)
+            # aren't a member of - renaming documents is the one exception.
+            return SpaceAccess(space, "admin_view", user, can_upload=False, can_rename=True)
     raise HTTPException(401, "Accès non autorisé à cet espace - connectez-vous pour utiliser ce lien de partage")
 
 

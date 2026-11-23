@@ -1249,7 +1249,15 @@
       "statusReady_other": "{{count}} extraits",
       "statusPending": "En attente",
       "statusProcessing": "Analyse en cours...",
-      "statusError": "Erreur"
+      "statusError": "Erreur",
+      "view": "Voir {{name}}",
+      "viewTitle": "Ouvrir dans un nouvel onglet",
+      "viewError": "Impossible d'ouvrir ce document. Fermez cet onglet et réessayez depuis l'espace.",
+      "rename": "Renommer {{name}}",
+      "renameTitle": "Renommer",
+      "renameLabel": "Nouveau nom du document",
+      "renameSave": "Enregistrer le nom",
+      "renameCancel": "Annuler"
     },
     "spaceModal": {
       "editTitle": "Modifier l'espace",
@@ -1283,7 +1291,10 @@
       "membersHelp": "Ajoutez un utilisateur ayant déjà un compte : il pourra toujours discuter, et déposer des fichiers si vous le lui autorisez.",
       "emailPlaceholder": "email@exemple.com",
       "addMember": "Ajouter",
-      "noMembers": "Aucun membre pour l'instant."
+      "noMembers": "Aucun membre pour l'instant.",
+      "canRename": "Peut renommer",
+      "cannotRename": "Ne peut pas renommer",
+      "renameToggleHelp": "Autoriser ou non ce membre à renommer les documents de l'espace"
     },
     "confirmDeleteSpace": {
       "title": "Supprimer cet espace ?",

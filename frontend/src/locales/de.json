@@ -1254,7 +1254,15 @@
       "statusReady_other": "{{count}} Abschnitte",
       "statusPending": "Ausstehend",
       "statusProcessing": "Analyse läuft...",
-      "statusError": "Fehler"
+      "statusError": "Fehler",
+      "view": "{{name}} ansehen",
+      "viewTitle": "In neuem Tab öffnen",
+      "viewError": "Dieses Dokument konnte nicht geöffnet werden. Schließen Sie diesen Tab und versuchen Sie es im Arbeitsbereich erneut.",
+      "rename": "{{name}} umbenennen",
+      "renameTitle": "Umbenennen",
+      "renameLabel": "Neuer Dokumentname",
+      "renameSave": "Namen speichern",
+      "renameCancel": "Abbrechen"
     },
     "spaceModal": {
       "editTitle": "Bereich bearbeiten",
@@ -1288,7 +1296,10 @@
       "membersHelp": "Fügen Sie einen Nutzer mit vorhandenem Konto hinzu: er kann immer chatten und Dateien hochladen, wenn Sie es erlauben.",
       "emailPlaceholder": "email@beispiel.de",
       "addMember": "Hinzufügen",
-      "noMembers": "Noch keine Mitglieder."
+      "noMembers": "Noch keine Mitglieder.",
+      "canRename": "Darf umbenennen",
+      "cannotRename": "Darf nicht umbenennen",
+      "renameToggleHelp": "Diesem Mitglied das Umbenennen von Dokumenten erlauben oder verbieten"
     },
     "confirmDeleteSpace": {
       "title": "Diesen Bereich löschen?",

@@ -1249,7 +1249,15 @@
       "statusReady_other": "{{count}} fragmentos",
       "statusPending": "Pendiente",
       "statusProcessing": "Analizando...",
-      "statusError": "Error"
+      "statusError": "Error",
+      "view": "Ver {{name}}",
+      "viewTitle": "Abrir en una pestaña nueva",
+      "viewError": "No se pudo abrir este documento. Cierre esta pestaña y vuelva a intentarlo desde el espacio.",
+      "rename": "Renombrar {{name}}",
+      "renameTitle": "Renombrar",
+      "renameLabel": "Nuevo nombre del documento",
+      "renameSave": "Guardar el nombre",
+      "renameCancel": "Cancelar"
     },
     "spaceModal": {
       "editTitle": "Editar espacio",
@@ -1283,7 +1291,10 @@
       "membersHelp": "Añade a un usuario que ya tenga una cuenta: siempre podrá chatear, y subir archivos si se lo permites.",
       "emailPlaceholder": "correo@ejemplo.com",
       "addMember": "Añadir",
-      "noMembers": "Aún no hay miembros."
+      "noMembers": "Aún no hay miembros.",
+      "canRename": "Puede renombrar",
+      "cannotRename": "No puede renombrar",
+      "renameToggleHelp": "Permitir o no a este miembro renombrar los documentos del espacio"
     },
     "confirmDeleteSpace": {
       "title": "¿Eliminar este espacio?",

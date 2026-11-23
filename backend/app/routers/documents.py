@@ -4,13 +4,14 @@ a background task: extract -> chunk -> embed -> index) and deletion."""
 import logging
 
 from fastapi import APIRouter, BackgroundTasks, Depends, File, HTTPException, UploadFile
+from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
 from .. import models, schemas
 from ..config import UPLOAD_DIR, quota, settings
 from ..database import SessionLocal, get_db
 from ..deps import SpaceAccess, require_document_access, require_space_access
-from ..services import accounts, backup, document_processor, llm_provider, usage, vectorstore
+from ..services import accounts, auth, backup, document_processor, llm_provider, usage, vectorstore
 
 logger = logging.getLogger("docverse.documents")
 router = APIRouter(prefix="/api", tags=["documents"])
@@ -56,7 +57,7 @@ async def _ingest(document_id: str) -> None:
                 url=doc.source_url,
             )
             if doc.doc_type == "url":
-                doc.name = title or doc.name
+                doc.name = document_processor.clean_document_name(title) or doc.name
 
             chunks = document_processor.split_text(text, settings.chunk_size, settings.chunk_overlap)
             if not chunks:
@@ -175,7 +176,7 @@ async def upload_document(
 
     doc = models.Document(
         space_id=space.id,
-        name=file.filename,
+        name=document_processor.clean_document_name(file.filename) or "document",
         doc_type=doc_type,
         status="pending",
         size_bytes=len(content),
@@ -206,7 +207,7 @@ def ingest_url(
     access.require_upload()
     doc = models.Document(
         space_id=access.space.id,
-        name=payload.url,
+        name=document_processor.clean_document_name(payload.url) or "lien",
         doc_type="url",
         source_url=payload.url,
         status="pending",
@@ -218,6 +219,73 @@ def ingest_url(
 
     background_tasks.add_task(_ingest, doc.id)
     return doc
+
+
+@router.patch("/documents/{document_id}", response_model=schemas.DocumentOut)
+def rename_document(
+    payload: schemas.DocumentRename,
+    access: SpaceAccess = Depends(require_document_access),
+    db: Session = Depends(get_db),
+):
+    """Changes only the display name: the stored file, its path and the
+    indexed text are left as they are."""
+    access.require_rename()
+    doc = access.document
+    if doc.status in ("pending", "processing"):
+        # The ingestion task would write the old name into the index.
+        raise HTTPException(409, "Ce document est en cours d'indexation, réessayez dans un instant")
+    name = document_processor.clean_document_name(payload.name)
+    if not name:
+        raise HTTPException(400, "Le nom du document ne peut pas être vide")
+    if name != doc.name:
+        # Index first: if it fails, the name stays unchanged everywhere.
+        try:
+            vectorstore.rename_document(doc.space_id, doc.id, name)
+        except Exception as exc:  # noqa: BLE001
+            logger.exception("Echec du renommage du document %s dans l'index", doc.id)
+            raise HTTPException(500, "Le renommage a échoué, réessayez") from exc
+        doc.name = name
+        db.commit()
+        db.refresh(doc)
+    return doc
+
+
+_VIEW_TOKEN_PURPOSE = "document_view"
+_VIEW_TOKEN_TTL_MINUTES = 5
+
+
+@router.post("/documents/{document_id}/view-link", response_model=schemas.DocumentViewLinkOut)
+def document_view_link(access: SpaceAccess = Depends(require_document_access)):
+    """A browser tab can't send the Authorization header, so the viewer
+    opens a short-lived link instead. Access to the space is checked here;
+    the token only ever opens this one document."""
+    doc = access.document
+    if not doc.file_path:
+        raise HTTPException(404, "Aucun fichier à afficher pour ce document")
+    token = auth.issue_purpose_token(doc.id, _VIEW_TOKEN_PURPOSE, _VIEW_TOKEN_TTL_MINUTES)
+    return {"url": f"/api/documents/{doc.id}/file?token={token}"}
+
+
+@router.get("/documents/{document_id}/file")
+def document_file(document_id: str, token: str, db: Session = Depends(get_db)):
+    if auth.verify_purpose_token(token, _VIEW_TOKEN_PURPOSE) != document_id:
+        raise HTTPException(403, "Lien expiré ou invalide - rouvrez le document depuis l'espace")
+    doc = db.get(models.Document, document_id)
+    if not doc or not doc.file_path:
+        raise HTTPException(404, "Document introuvable")
+    # The file must sit in its own space's folder, whatever the stored path says.
+    space_dir = (UPLOAD_DIR / doc.space_id).resolve()
+    path = (UPLOAD_DIR / doc.file_path).resolve()
+    if not path.is_relative_to(space_dir) or not path.is_file():
+        raise HTTPException(404, "Fichier introuvable")
+    media_type, inline = document_processor.viewer_media_type(path.name)
+    filename = doc.name if doc.name.lower().endswith(path.suffix.lower()) else f"{doc.name}{path.suffix}"
+    return FileResponse(
+        path,
+        media_type=media_type,
+        filename=filename,
+        content_disposition_type="inline" if inline else "attachment",
+    )
 
 
 @router.delete("/documents/{document_id}")

@@ -100,6 +100,9 @@ class SpaceMember(Base):
     # Members can always chat; uploading/deleting documents is a separate,
     # opt-in permission the space owner grants per member (off by default).
     can_upload = Column(Boolean, nullable=False, default=False)
+    # Renaming documents: always allowed to the owner and the platform
+    # admin, opt-in per member (off by default), never via a share link.
+    can_rename = Column(Boolean, nullable=False, default=False)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     space = relationship("Space", back_populates="members")
