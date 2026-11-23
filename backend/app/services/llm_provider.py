@@ -20,7 +20,7 @@ import asyncio
 import contextlib
 import json
 import logging
-from typing import AsyncGenerator, Optional
+from typing import AsyncGenerator, Awaitable, Callable, Optional
 
 import httpx
 
@@ -322,7 +322,12 @@ async def chat_stream(
 # --- Embeddings ------------------------------------------------------------
 
 
-async def embed_batch(texts: list[str], model: Optional[str] = None, purpose: str = "embed") -> list[list[float]]:
+async def embed_batch(
+    texts: list[str],
+    model: Optional[str] = None,
+    purpose: str = "embed",
+    on_progress: Optional[Callable[[int, int], Awaitable[None]]] = None,
+) -> list[list[float]]:
     """Vectorise plusieurs textes en un minimum d'appels. `mistral-embed`
     accepte une liste en entree : a l'ingestion d'un document, cela
     remplace une requete par chunk par une requete tous les 32 chunks."""
@@ -355,6 +360,8 @@ async def embed_batch(texts: list[str], model: Optional[str] = None, purpose: st
             # vecteur de son chunk.
             for item in sorted(data, key=lambda d: d.get("index", 0)):
                 out.append(item["embedding"])
+            if on_progress is not None:
+                await on_progress(min(start + _EMBED_BATCH_SIZE, len(texts)), len(texts))
     return out
 
 

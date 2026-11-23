@@ -2,6 +2,7 @@
 handling and router registration."""
 
 import logging
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
 from fastapi.exception_handlers import request_validation_exception_handler
@@ -27,6 +28,7 @@ from .routers import (
     support,
     testimonials,
 )
+from .services import ingestion
 
 logging.basicConfig(level=logging.INFO)
 
@@ -34,7 +36,17 @@ logging.basicConfig(level=logging.INFO)
 Base.metadata.create_all(bind=engine)
 ensure_schema()
 
-app = FastAPI(title="Docverse", version="1.0.0")
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    # Indexing queue: one document at a time, interrupted ones resumed.
+    ingestion.start()
+    try:
+        yield
+    finally:
+        await ingestion.stop()
+
+
+app = FastAPI(title="Docverse", version="1.0.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,

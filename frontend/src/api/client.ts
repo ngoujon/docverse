@@ -331,6 +331,9 @@ export const api = {
       shareToken,
     ),
   deleteDocument: (id: string, shareToken?: string) => request(`/documents/${id}`, { method: "DELETE" }, shareToken),
+  /** Puts a document whose indexing failed back in the queue. */
+  retryDocument: (id: string, shareToken?: string) =>
+    request<DocumentItem>(`/documents/${id}/retry`, { method: "POST" }, shareToken),
   renameDocument: (id: string, name: string, shareToken?: string) =>
     request<DocumentItem>(`/documents/${id}`, { method: "PATCH", body: JSON.stringify({ name }) }, shareToken),
   /** Short-lived same-origin link to the original file (a new tab can't

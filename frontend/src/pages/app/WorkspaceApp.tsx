@@ -5,13 +5,13 @@ import { usePageMeta } from "../../hooks/usePageMeta";
 import { useTheme } from "../../hooks/useTheme";
 import { useAuth } from "../../hooks/useAuth";
 import { useEscapeToClose } from "../../hooks/useEscapeToClose";
-import { api, RateLimitedError, streamChat } from "../../api/client";
+import { api, errorMessage, RateLimitedError, streamChat } from "../../api/client";
 import { forgetSharedLink, rememberSharedLink } from "../../api/storage";
 import type { Conversation, DocumentItem, Message, Space } from "../../types";
 import SpaceRail from "../../components/workspace/SpaceRail";
 import ConversationSidebar from "../../components/workspace/ConversationSidebar";
 import ChatWindow from "../../components/workspace/ChatWindow";
-import DocumentPanel from "../../components/workspace/DocumentPanel";
+import DocumentPanel, { type UploadError } from "../../components/workspace/DocumentPanel";
 import SpaceModal, { type SpaceFormData } from "../../components/workspace/SpaceModal";
 import SpaceSharingPanel from "../../components/workspace/SpaceSharingPanel";
 import VectorGraphOverlay from "../../components/workspace/VectorGraphOverlay";
@@ -53,6 +53,7 @@ export default function WorkspaceApp() {
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [documents, setDocuments] = useState<DocumentItem[]>([]);
+  const [uploadErrors, setUploadErrors] = useState<UploadError[]>([]);
 
   const [streaming, setStreaming] = useState(false);
   const [queuedPosition, setQueuedPosition] = useState<number | null>(null);
@@ -137,6 +138,7 @@ export default function WorkspaceApp() {
 
   // Load conversations + documents when active space changes
   useEffect(() => {
+    setUploadErrors([]);
     if (!activeSpaceId) {
       setConversations([]);
       setDocuments([]);
@@ -287,26 +289,38 @@ export default function WorkspaceApp() {
   };
 
   // ---- Documents ----
+  // Files are sent one after the other; the server then indexes them one
+  // at a time. A refused file (size, format, quota) is listed with the
+  // reason instead of silently disappearing.
   const handleUpload = async (files: File[]) => {
     if (!activeSpaceId) return;
+    setUploadErrors([]);
     for (const file of files) {
       try {
         const doc = await api.uploadDocument(activeSpaceId, file, shareToken);
         setDocuments((prev) => [doc, ...prev]);
       } catch (err) {
         console.error("Echec de l'upload", err);
+        setUploadErrors((prev) => [...prev, { name: file.name, message: errorMessage(err) }]);
       }
     }
   };
 
   const handleIngestUrl = async (url: string) => {
     if (!activeSpaceId) return;
+    setUploadErrors([]);
     try {
       const doc = await api.ingestUrl(activeSpaceId, url, shareToken);
       setDocuments((prev) => [doc, ...prev]);
     } catch (err) {
       console.error("Echec de l'ingestion de l'URL", err);
+      setUploadErrors([{ name: url, message: errorMessage(err) }]);
     }
+  };
+
+  const handleRetryDocument = async (id: string) => {
+    const updated = await api.retryDocument(id, shareToken);
+    setDocuments((prev) => prev.map((d) => (d.id === id ? updated : d)));
   };
 
   // ---- Viewing / renaming documents ----
@@ -442,6 +456,9 @@ export default function WorkspaceApp() {
                   onDelete={(id) => setPendingDelete({ kind: "document", id })}
                   onView={handleViewDocument}
                   onRename={handleRenameDocument}
+                  onRetry={handleRetryDocument}
+                  uploadErrors={uploadErrors}
+                  onDismissUploadErrors={() => setUploadErrors([])}
                   canRename={activeSpace?.can_rename ?? false}
                   onClose={() => setDocPanelOpen(false)}
                   readOnly={!canUpload}

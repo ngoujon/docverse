@@ -196,7 +196,20 @@ class Document(Base):
     # and the scanned-pages quota is counted against them.
     uploaded_by = Column(String, ForeignKey("users.id"), nullable=True)
     usage_json = Column(Text, nullable=True)
+    # Indexing progress shown to the user (services/ingestion.py):
+    # stage = queued | reading | embedding | saving, progress = 0..100.
+    stage = Column(String, default="queued")
+    progress = Column(Integer, default=0)
+    # Times the ingestion started; a document that crashes the server
+    # twice is put in error instead of being retried forever.
+    ingest_attempts = Column(Integer, default=0)
+    # Scanned pages already counted against the uploader's daily quota, so a
+    # retry doesn't charge them a second time.
+    scan_pages_reserved = Column(Integer, default=0)
     created_at = Column(DateTime, default=datetime.utcnow)
+
+    # Not stored: place in the indexing queue, filled in by the API.
+    queue_position = None
 
     space = relationship("Space", back_populates="documents")
 

@@ -303,19 +303,19 @@ def test_platform_usage_is_reported_to_admin(client, monkeypatch):
 def test_scanned_pages_quota(client, monkeypatch):
     from app import models
     from app.database import SessionLocal
-    from app.routers import documents
+    from app.services import ingestion
 
     register_user(client, "owner@example.com")
     set_quota(monkeypatch, "scanned_pages_per_day", 3)
     db = SessionLocal()
     try:
         user = db.query(models.User).filter_by(email="owner@example.com").one()
-        documents._reserve_scanned_pages(user, 2, own_key=False, db=db)
-        with pytest.raises(documents.ScanQuotaExceeded) as exc:
-            documents._reserve_scanned_pages(user, 2, own_key=False, db=db)
+        ingestion.reserve_scanned_pages(user, 2, own_key=False, db=db)
+        with pytest.raises(ingestion.ScanQuotaExceeded) as exc:
+            ingestion.reserve_scanned_pages(user, 2, own_key=False, db=db)
         assert "il en reste 1" in str(exc.value)
         # Avec sa propre clé : pas de limite plateforme.
-        documents._reserve_scanned_pages(user, 50, own_key=True, db=db)
+        ingestion.reserve_scanned_pages(user, 50, own_key=True, db=db)
     finally:
         db.close()
 

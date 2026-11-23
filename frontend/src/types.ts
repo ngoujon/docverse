@@ -191,8 +191,15 @@ export interface DocumentItem {
   preview: string;
   size_bytes: number;
   usage?: UsageSummary | null;
+  /** Indexing progress: documents are indexed one at a time. */
+  stage?: DocumentStage | null;
+  progress?: number | null;
+  /** Documents that will be indexed before this one (pending only). */
+  queue_position?: number | null;
   created_at: string;
 }
+
+export type DocumentStage = "queued" | "reading" | "embedding" | "saving";
 
 export interface User {
   id: string;

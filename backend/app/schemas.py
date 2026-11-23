@@ -416,6 +416,10 @@ class DocumentOut(ORMModel):
     size_bytes: int
     # AI consumption of its indexing (models.Document.usage property).
     usage: Optional[dict] = None
+    # Indexing progress (see models.Document).
+    stage: Optional[str] = None
+    progress: Optional[int] = 0
+    queue_position: Optional[int] = None
     created_at: datetime
 
 

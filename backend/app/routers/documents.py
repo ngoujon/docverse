@@ -1,18 +1,18 @@
-"""Documents of a space: listing, file upload / URL ingestion (processed in
-a background task: extract -> chunk -> embed -> index) and deletion."""
+"""Documents of a space: listing, file upload / URL ingestion (queued, then
+indexed one at a time by services/ingestion.py: extract -> chunk -> embed ->
+index), retry after a failure, renaming, viewing and deletion."""
 
-import asyncio
 import logging
 
-from fastapi import APIRouter, BackgroundTasks, Depends, File, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
 from .. import models, schemas
 from ..config import UPLOAD_DIR, quota, settings
-from ..database import SessionLocal, get_db
+from ..database import get_db
 from ..deps import SpaceAccess, require_document_access, require_space_access
-from ..services import accounts, auth, backup, document_processor, llm_provider, usage, vectorstore
+from ..services import accounts, auth, document_processor, ingestion, vectorstore
 
 logger = logging.getLogger("docverse.documents")
 router = APIRouter(prefix="/api", tags=["documents"])
@@ -22,154 +22,17 @@ router = APIRouter(prefix="/api", tags=["documents"])
 def list_documents(
     access: SpaceAccess = Depends(require_space_access), db: Session = Depends(get_db)
 ):
-    return (
+    documents = (
         db.query(models.Document)
         .filter(models.Document.space_id == access.space.id)
         .order_by(models.Document.created_at.desc())
         .all()
     )
-
-
-# Each running ingestion keeps a database connection for its whole duration
-# (extraction + Mistral calls). Dropping 20 files at once used to start 20
-# ingestions together, exhaust the connection pool (5 + 10 overflow) and
-# make every other request of the app wait 30 s then fail with a 500.
-# Ingestions now queue up: only a few run at the same time, the others stay
-# "pending" until a slot is free.
-_INGEST_SLOTS = asyncio.Semaphore(3)
-
-
-async def _ingest(document_id: str) -> None:
-    async with _INGEST_SLOTS:
-        try:
-            await _ingest_one(document_id)
-        except Exception:  # noqa: BLE001
-            # A failure before the pipeline's own error handling (database
-            # unavailable...) must not leave the document "pending" forever.
-            logger.exception("Echec de l'ingestion du document %s", document_id)
-            _mark_failed(document_id, "L'indexation a échoué, réessayez plus tard.")
-
-
-def _mark_failed(document_id: str, message: str) -> None:
-    db = SessionLocal()
-    try:
-        doc = db.get(models.Document, document_id)
-        if doc is not None and doc.status in ("pending", "processing"):
-            doc.status = "error"
-            doc.error_message = message
-            db.commit()
-    except Exception:  # noqa: BLE001
-        logger.exception("Impossible de marquer le document %s en erreur", document_id)
-    finally:
-        db.close()
-
-
-async def _ingest_one(document_id: str) -> None:
-    """Background pipeline for one document; any failure is stored on the
-    row (status="error") so the UI can show it instead of spinning forever."""
-    db = SessionLocal()
-    try:
-        doc = db.get(models.Document, document_id)
-        if not doc:
-            return
-        doc.status = "processing"
-        db.commit()
-
-        # The uploader pays: their own Mistral key if they saved one,
-        # otherwise the platform key within the free scanned-pages quota.
-        uploader = db.get(models.User, doc.uploaded_by) if doc.uploaded_by else None
-        own_key = accounts.own_api_key(uploader)
-        meter = usage.start(own_key)
-
-        try:
-            file_path = UPLOAD_DIR / doc.file_path if doc.file_path else None
-            scanned_pages = document_processor.count_scanned_pages(doc.doc_type, file_path)
-            if scanned_pages and uploader is not None:
-                _reserve_scanned_pages(uploader, scanned_pages, own_key is not None, db)
-            title, text = await document_processor.process_document(
-                doc.doc_type,
-                file_path=file_path,
-                url=doc.source_url,
-            )
-            if doc.doc_type == "url":
-                doc.name = document_processor.clean_document_name(title) or doc.name
-
-            chunks = document_processor.split_text(text, settings.chunk_size, settings.chunk_overlap)
-            if not chunks:
-                doc.status = "error"
-                doc.error_message = "Aucun contenu exploitable n'a été extrait de ce document."
-                usage.persist(db, meter, user_id=doc.uploaded_by, space_id=doc.space_id, document_id=doc.id)
-                db.commit()
-                return
-
-            # Un seul appel par lot de chunks : l'API Mistral vectorise
-            # plusieurs textes a la fois, la ou l'ancien Ollama local
-            # imposait une requete par chunk.
-            embeddings = await llm_provider.embed_batch(chunks)
-
-            vectorstore.add_chunks(doc.space_id, doc.id, doc.name, chunks, embeddings)
-
-            doc.status = "ready"
-            doc.chunk_count = len(chunks)
-            doc.preview = text[:400]
-            doc.error_message = None
-            doc.usage_json = usage.summary_json(meter)
-            usage.persist(db, meter, user_id=doc.uploaded_by, space_id=doc.space_id, document_id=doc.id)
-            db.commit()
-            # Already running in a background task, so a blocking snapshot
-            # call here doesn't stall any request/response.
-            backup.maybe_snapshot(doc.space_id)
-        except ScanQuotaExceeded as exc:
-            doc.status = "error"
-            doc.error_message = str(exc)
-            db.commit()
-        except Exception as exc:  # noqa: BLE001
-            logger.exception("Echec de l'ingestion du document %s", document_id)
-            db.rollback()
-            doc = db.get(models.Document, document_id)
-            if doc is None:
-                return
-            doc.status = "error"
-            doc.error_message = str(exc)[:500]
-            # Calls made before the failure were still billed.
-            usage.persist(db, meter, user_id=doc.uploaded_by, space_id=doc.space_id, document_id=doc.id)
-            db.commit()
-    finally:
-        db.close()
-
-
-class ScanQuotaExceeded(Exception):
-    pass
-
-
-def _reserve_scanned_pages(user: models.User, pages: int, own_key: bool, db: Session) -> None:
-    """Counts the pages the AI is about to read against the uploader's daily
-    quota, before any paid call. With their own key there is no platform
-    limit (quota 0), only the monthly budget they set themselves."""
-    if own_key and usage.own_key_budget_reached(db, user):
-        raise ScanQuotaExceeded(
-            "Le budget mensuel que vous avez fixé pour votre clé API Mistral est atteint. "
-            "Modifiez-le dans vos paramètres pour indexer ce document."
-        )
-    today = accounts.utc_today()
-    if user.scan_day != today:
-        user.scan_day = today
-        user.scan_pages_today = 0
-    limit = quota("scanned_pages_per_day", own_key=own_key)
-    if limit and user.scan_pages_today + pages > limit:
-        remaining = max(limit - user.scan_pages_today, 0)
-        raise ScanQuotaExceeded(
-            f"Limite de {limit} pages scannées par jour atteinte (ce document en compte {pages}, "
-            f"il en reste {remaining} aujourd'hui). Réessayez demain, ou ajoutez votre propre "
-            "clé API Mistral dans vos paramètres pour lever cette limite."
-        )
-    user.scan_pages_today += pages
-    db.commit()
+    return ingestion.annotate_queue(db, documents)
 
 
 @router.post("/spaces/{space_id}/documents/upload", response_model=schemas.DocumentOut)
 async def upload_document(
-    background_tasks: BackgroundTasks,
     file: UploadFile = File(...),
     access: SpaceAccess = Depends(require_space_access),
     db: Session = Depends(get_db),
@@ -209,33 +72,41 @@ async def upload_document(
             f"Limite de stockage de {limit_mb} Mo atteinte pour cet espace",
         )
 
+    # The file is written before the row exists: the indexing worker may
+    # pick a "pending" document up the instant it is committed.
+    doc_id = models.gen_id()
+    (UPLOAD_DIR / space.id).mkdir(parents=True, exist_ok=True)
+    relative_path = f"{space.id}/{doc_id}_{file.filename}"
+    (UPLOAD_DIR / relative_path).write_bytes(content)
+
     doc = models.Document(
+        id=doc_id,
         space_id=space.id,
         name=document_processor.clean_document_name(file.filename) or "document",
         doc_type=doc_type,
         status="pending",
+        stage="queued",
+        progress=0,
         size_bytes=len(content),
+        file_path=relative_path,
         uploaded_by=access.user.id if access.user else None,
     )
     db.add(doc)
-    db.commit()
+    try:
+        db.commit()
+    except Exception:
+        (UPLOAD_DIR / relative_path).unlink(missing_ok=True)
+        raise
     db.refresh(doc)
 
-    (UPLOAD_DIR / space.id).mkdir(parents=True, exist_ok=True)
-    relative_path = f"{space.id}/{doc.id}_{file.filename}"
-    (UPLOAD_DIR / relative_path).write_bytes(content)
-    doc.file_path = relative_path
-    db.commit()
-    db.refresh(doc)
-
-    background_tasks.add_task(_ingest, doc.id)
+    ingestion.notify()
+    ingestion.annotate_queue(db, [doc])
     return doc
 
 
 @router.post("/spaces/{space_id}/documents/url", response_model=schemas.DocumentOut)
 def ingest_url(
     payload: schemas.UrlIngestRequest,
-    background_tasks: BackgroundTasks,
     access: SpaceAccess = Depends(require_space_access),
     db: Session = Depends(get_db),
 ):
@@ -246,13 +117,32 @@ def ingest_url(
         doc_type="url",
         source_url=payload.url,
         status="pending",
+        stage="queued",
+        progress=0,
         uploaded_by=access.user.id if access.user else None,
     )
     db.add(doc)
     db.commit()
     db.refresh(doc)
 
-    background_tasks.add_task(_ingest, doc.id)
+    ingestion.notify()
+    ingestion.annotate_queue(db, [doc])
+    return doc
+
+
+@router.post("/documents/{document_id}/retry", response_model=schemas.DocumentOut)
+def retry_document(
+    access: SpaceAccess = Depends(require_document_access),
+    db: Session = Depends(get_db),
+):
+    """Puts a document that failed back in the indexing queue."""
+    access.require_upload()
+    doc = access.document
+    if not ingestion.reset_for_retry(db, doc):
+        raise HTTPException(409, "Ce document n'est pas en erreur : il est déjà indexé ou en cours d'indexation")
+    db.refresh(doc)
+    ingestion.notify()
+    ingestion.annotate_queue(db, [doc])
     return doc
 
 

@@ -16,12 +16,19 @@ import {
   Eye,
   Pencil,
   Check,
+  RotateCcw,
   type LucideIcon,
 } from "lucide-react";
 import clsx from "clsx";
 import { errorMessage } from "../../api/client";
 import { formatBytes } from "../../utils/format";
-import type { DocumentItem } from "../../types";
+import type { DocumentItem, DocumentStage } from "../../types";
+
+/** A file the server refused at upload (size, format, quota...). */
+export interface UploadError {
+  name: string;
+  message: string;
+}
 
 interface Props {
   documents: DocumentItem[];
@@ -30,9 +37,98 @@ interface Props {
   onDelete: (id: string) => void;
   onView: (doc: DocumentItem) => void;
   onRename: (id: string, name: string) => Promise<void>;
+  onRetry?: (id: string) => Promise<void>;
+  uploadErrors?: UploadError[];
+  onDismissUploadErrors?: () => void;
   canRename?: boolean;
   onClose?: () => void;
   readOnly?: boolean;
+}
+
+const STAGE_LABELS: Record<Exclude<DocumentStage, "queued">, string> = {
+  reading: "app.documents.stageReading",
+  embedding: "app.documents.stageEmbedding",
+  saving: "app.documents.stageSaving",
+};
+
+/** Progress of a document waiting for, or going through, indexing.
+ * Documents are indexed one at a time: a waiting one shows its place in
+ * the queue, the one being indexed a filling bar. */
+function IndexingProgress({ doc }: { doc: DocumentItem }) {
+  const { t } = useTranslation();
+  const waiting = doc.status === "pending";
+  const percent = waiting ? 0 : Math.max(2, Math.min(100, doc.progress ?? 0));
+  const stage = doc.stage && doc.stage !== "queued" ? doc.stage : "reading";
+  const label = waiting
+    ? doc.queue_position
+      ? t("app.documents.queueAhead", { count: doc.queue_position })
+      : t("app.documents.queueNext")
+    : t(STAGE_LABELS[stage]);
+
+  return (
+    <div className="mt-1">
+      <div className="flex items-center justify-between gap-2 text-[10px] text-slate-500 dark:text-slate-400">
+        <span className="flex min-w-0 items-center gap-1">
+          {waiting ? (
+            <Clock size={12} className="shrink-0" />
+          ) : (
+            <Loader2 size={12} className="shrink-0 animate-spin text-accent" />
+          )}
+          <span className="truncate">
+            {waiting && <span>{t("app.documents.stageQueued")} · </span>}
+            {label}
+          </span>
+        </span>
+        {!waiting && <span className="shrink-0 tabular-nums">{percent} %</span>}
+      </div>
+      <div
+        role="progressbar"
+        aria-label={t("app.documents.progressLabel", { name: doc.name })}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={percent}
+        className="mt-1 h-1.5 overflow-hidden rounded-full bg-surface-3"
+      >
+        <div
+          className={clsx(
+            "h-full rounded-full transition-[width] duration-700 ease-out",
+            waiting ? "bg-transparent" : "bg-accent",
+          )}
+          style={{ width: `${percent}%` }}
+        />
+      </div>
+    </div>
+  );
+}
+
+/** "Réessayer" on a document whose indexing failed. */
+function RetryButton({ onRetry }: { onRetry: () => Promise<void> }) {
+  const { t } = useTranslation();
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  return (
+    <div className="mt-1">
+      <button
+        onClick={async () => {
+          setBusy(true);
+          setError(null);
+          try {
+            await onRetry();
+          } catch (err) {
+            setError(errorMessage(err));
+          } finally {
+            setBusy(false);
+          }
+        }}
+        disabled={busy}
+        className="inline-flex items-center gap-1 rounded-md border border-surface-border bg-surface-1 px-2 py-0.5 text-[10px] font-medium text-slate-700 dark:text-slate-200 hover:bg-surface-3 disabled:opacity-50"
+      >
+        {busy ? <Loader2 size={11} className="animate-spin" /> : <RotateCcw size={11} />}
+        {t("app.documents.retry")}
+      </button>
+      {error && <p className="mt-0.5 text-[10px] text-red-500">{error}</p>}
+    </div>
+  );
 }
 
 const iconButton =
@@ -144,6 +240,9 @@ export default function DocumentPanel({
   onDelete,
   onView,
   onRename,
+  onRetry,
+  uploadErrors = [],
+  onDismissUploadErrors,
   canRename,
   onClose,
   readOnly,
@@ -151,6 +250,7 @@ export default function DocumentPanel({
   const { t } = useTranslation();
   const [urlInput, setUrlInput] = useState("");
   const [renamingId, setRenamingId] = useState<string | null>(null);
+  const remaining = documents.filter((d) => d.status === "pending" || d.status === "processing").length;
 
   const onDrop = useCallback(
     (accepted: File[]) => {
@@ -229,6 +329,32 @@ export default function DocumentPanel({
       )}
 
       <div className="flex-1 overflow-y-auto px-3 pb-3">
+        {uploadErrors.length > 0 && (
+          <div role="alert" className="mb-2 rounded-lg border border-red-500/40 bg-red-500/10 px-2.5 py-2">
+            <div className="flex items-start justify-between gap-2">
+              <p className="text-[11px] font-medium text-red-600 dark:text-red-400">
+                {t("app.documents.uploadRejected", { count: uploadErrors.length })}
+              </p>
+              {onDismissUploadErrors && (
+                <button onClick={onDismissUploadErrors} aria-label={t("common.close")} className={iconButton}>
+                  <X size={12} />
+                </button>
+              )}
+            </div>
+            <ul className="mt-1 space-y-0.5">
+              {uploadErrors.map((e, i) => (
+                <li key={`${e.name}-${i}`} className="text-[10px] text-red-600 dark:text-red-400">
+                  <span className="font-medium">{e.name}</span> : {e.message}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {remaining > 0 && (
+          <p aria-live="polite" className="mb-2 text-[10px] text-slate-500 dark:text-slate-400">
+            {t("app.documents.indexingSummary", { count: remaining })}
+          </p>
+        )}
         {documents.length === 0 && (
           <p className="mt-6 text-center text-xs text-slate-600 dark:text-slate-400">{t("app.documents.empty")}</p>
         )}
@@ -263,14 +389,21 @@ export default function DocumentPanel({
                   <Icon size={14} className="mt-0.5 shrink-0 text-slate-500 dark:text-slate-400" />
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-xs text-slate-800 dark:text-slate-200">{doc.name}</p>
-                    <div className="mt-0.5 flex items-center gap-1.5 text-[10px] text-slate-500 dark:text-slate-400">
-                      <StatusIcon status={doc.status} />
-                      <span>{t(STATUS_LABELS[doc.status], { count: doc.chunk_count })}</span>
-                      {doc.size_bytes > 0 && <span>· {formatBytes(doc.size_bytes)}</span>}
-                    </div>
+                    {indexing ? (
+                      <IndexingProgress doc={doc} />
+                    ) : (
+                      <div className="mt-0.5 flex items-center gap-1.5 text-[10px] text-slate-500 dark:text-slate-400">
+                        <StatusIcon status={doc.status} />
+                        <span>{t(STATUS_LABELS[doc.status], { count: doc.chunk_count })}</span>
+                        {doc.size_bytes > 0 && <span>· {formatBytes(doc.size_bytes)}</span>}
+                      </div>
+                    )}
                     {/* The reason was only in the hover tooltip - unreachable on touch screens. */}
                     {doc.status === "error" && doc.error_message && (
-                      <p className="mt-0.5 line-clamp-2 text-[10px] text-red-500">{doc.error_message}</p>
+                      <p className="mt-0.5 line-clamp-3 text-[10px] text-red-500">{doc.error_message}</p>
+                    )}
+                    {doc.status === "error" && !readOnly && onRetry && (
+                      <RetryButton onRetry={() => onRetry(doc.id)} />
                     )}
                   </div>
                   <button

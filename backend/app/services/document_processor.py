@@ -10,6 +10,7 @@ import logging
 import re
 import socket
 import unicodedata
+from collections.abc import Awaitable, Callable
 from functools import lru_cache
 from pathlib import Path
 from urllib.parse import urlparse
@@ -43,6 +44,9 @@ _SCANNED_PAGE_PROMPT = (
 )
 
 _MIN_TEXT_CHARS_PER_PAGE = 40
+
+# on_progress(done, total) - awaited after each unit of work (PDF page...).
+ProgressCallback = Callable[[int, int], Awaitable[None]]
 
 
 def _b64_from_bytes(data: bytes) -> str:
@@ -94,20 +98,31 @@ async def _read_scanned_image(image_b64: str, mime_type: str, vision_prompt: str
     return (await llm_provider.describe_image(image_b64, vision_prompt, mime_type=mime_type)).strip()
 
 
-async def extract_text_from_pdf(path: Path) -> str:
-    doc = fitz.open(path)
+def _read_pdf_page(doc, page_index: int) -> tuple[str, bytes | None]:
+    """(text layer, PNG render when the page has no usable text)."""
+    page = doc[page_index]
+    text = page.get_text().strip()
+    if len(text) >= _MIN_TEXT_CHARS_PER_PAGE:
+        return text, None
+    return text, page.get_pixmap(dpi=200).tobytes("png")
+
+
+async def extract_text_from_pdf(path: Path, on_progress: ProgressCallback | None = None) -> str:
+    # PyMuPDF is synchronous: each page is read in a worker thread so a
+    # 300-page thesis doesn't freeze the event loop.
+    doc = await asyncio.to_thread(fitz.open, path)
     parts: list[str] = []
     try:
-        for page_index in range(len(doc)):
-            page = doc[page_index]
-            text = page.get_text().strip()
-            if len(text) < _MIN_TEXT_CHARS_PER_PAGE:
-                pix = page.get_pixmap(dpi=200)
-                img_bytes = pix.tobytes("png")
+        total = len(doc)
+        for page_index in range(total):
+            text, img_bytes = await asyncio.to_thread(_read_pdf_page, doc, page_index)
+            if img_bytes is not None:
                 text = await _read_scanned_image(
                     _b64_from_bytes(img_bytes), "image/png", _SCANNED_PAGE_PROMPT
                 )
             parts.append(f"[Page {page_index + 1}]\n{text}")
+            if on_progress is not None:
+                await on_progress(page_index + 1, total)
     finally:
         doc.close()
     return "\n\n".join(parts)
@@ -243,12 +258,14 @@ async def extract_text_from_url(url: str) -> tuple[str, str]:
     return title, (extracted or "").strip()
 
 
+# Synchronous parsers run in a worker thread so a big file never freezes
+# the event loop - and with it every other request of the app.
 async def _extract_text_file(path: Path) -> str:
-    return extract_text_from_txt(path)
+    return await asyncio.to_thread(extract_text_from_txt, path)
 
 
 async def _extract_docx(path: Path) -> str:
-    return extract_text_from_docx(path)
+    return await asyncio.to_thread(extract_text_from_docx, path)
 
 
 # doc_type -> extractor for every file-based type ("url" is handled apart).
@@ -273,9 +290,13 @@ _EXTENSION_TYPES = {
 
 
 async def process_document(
-    doc_type: str, file_path: Path | None = None, url: str | None = None
+    doc_type: str,
+    file_path: Path | None = None,
+    url: str | None = None,
+    on_progress: ProgressCallback | None = None,
 ) -> tuple[str, str]:
-    """Returns (title, extracted_text)."""
+    """Returns (title, extracted_text). `on_progress` is only called for
+    PDFs (page by page); other types are read in one go."""
     if doc_type == "url":
         assert url is not None
         return await extract_text_from_url(url)
@@ -283,6 +304,8 @@ async def process_document(
     if extractor is None:
         raise ValueError(f"Type de document non supporté: {doc_type}")
     assert file_path is not None
+    if doc_type == "pdf":
+        return file_path.name, await extract_text_from_pdf(file_path, on_progress)
     return file_path.name, await extractor(file_path)
 
 
